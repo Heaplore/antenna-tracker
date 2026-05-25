@@ -1,4 +1,4 @@
-import standardsData from '../data/standards.json'
+import standardsData from '../../data/standards.json'
 
 export default function StandardsPage() {
   return (

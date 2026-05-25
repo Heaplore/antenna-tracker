@@ -1,4 +1,4 @@
-import marketData from '../data/market.json'
+import marketData from '../../data/market.json'
 
 export default function MarketPage() {
   return (

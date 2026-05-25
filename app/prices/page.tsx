@@ -1,4 +1,4 @@
-import pricesData from '../data/prices.json'
+import pricesData from '../../data/prices.json'
 
 export default function PricesPage() {
   return (

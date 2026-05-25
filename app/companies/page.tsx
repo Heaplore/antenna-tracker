@@ -1,4 +1,4 @@
-import companiesData from '../data/companies.json'
+import companiesData from '../../data/companies.json'
 
 export default function CompaniesPage() {
   return (

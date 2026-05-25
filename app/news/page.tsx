@@ -1,4 +1,4 @@
-import newsData from '../data/news.json'
+import newsData from '../../data/news.json'
 
 export default function NewsPage() {
   return (
