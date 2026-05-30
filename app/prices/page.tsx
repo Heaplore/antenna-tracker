@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import pricesData from '../../data/prices.json'
 
@@ -9,10 +9,14 @@ export default function PricesPage() {
 
   const currentCategory = pricesData.categories[activeCategory]
   const currentMat = currentCategory.materials[activeMaterial]
-  const chartData = currentMat.historical.map(h => ({
-    month: h.month,
-    价格: h.price
-  }))
+
+  const chartData = useMemo(() =>
+    currentMat.historical.map(h => ({
+      month: h.month,
+      price: h.price
+    })),
+    [currentMat]
+  )
 
   return (
     <div>
@@ -119,7 +123,7 @@ export default function PricesPage() {
             📈 {currentMat.name} 近24个月价格走势
           </h3>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+            <LineChart key={`chart-${activeMaterial}-${activeCategory}`} data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
               <XAxis
                 dataKey="month"
@@ -137,16 +141,20 @@ export default function PricesPage() {
               />
               <Tooltip
                 formatter={(value: number) => [`${value.toLocaleString()} ${currentMat.unit}`, '价格']}
+                labelFormatter={(label) => `月份: ${label}`}
                 contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
               />
               <Legend wrapperStyle={{ fontSize: '0.85rem' }} />
               <Line
                 type="monotone"
-                dataKey="价格"
+                dataKey="price"
                 stroke="#667eea"
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 4, fill: '#667eea' }}
+                isAnimationActive={true}
+                animationDuration={800}
+                animationEasing="ease-out"
               />
             </LineChart>
           </ResponsiveContainer>

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine, ScatterChart, Scatter, ZAxis } from 'recharts'
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, ZAxis, LineChart, Line } from 'recharts'
 import techData from '../../data/technology.json'
 
 const PHASE_COLORS: Record<string, string> = {
@@ -35,30 +35,35 @@ const HYPE_CURVE = [
   { year: 2032, maturity: 9 },
 ]
 
+// 气泡图统一数据（模块级别）x=年份 y=成熟度 z=大小 name/nameCn/phase/color
+const scatterData = techData.hypeCycle.technologies.map((t) => {
+  const maturityMap: Record<string, number> = {
+    trigger: 2, peak: 8, trough: 3, slope: 5, plateau: 9
+  }
+  return {
+    x: t.yearEmerging,
+    y: maturityMap[t.phase],
+    z: t.confidence === '高' ? 80 : t.confidence === '中' ? 55 : 35,
+    name: t.name,
+    nameCn: t.nameCn,
+    phase: t.phase,
+    color: PHASE_COLORS[t.phase],
+  }
+})
+
 export default function TechnologyPage() {
   const [selectedTech, setSelectedTech] = useState(0)
   const [showHypeCycle, setShowHypeCycle] = useState(true)
 
-  // 构建气泡图数据：X=涌现年份, Y=成熟度, Z=圆点大小
-  const scatterData = techData.hypeCycle.technologies.map((t) => {
-    const maturityMap: Record<string, number> = {
-      trigger: 2, peak: 8, trough: 3, slope: 5, plateau: 9
-    }
-    return {
-      name: t.name,
-      nameCn: t.nameCn,
-      phase: t.phase,
-      year: t.yearEmerging,
-      yearPeak: t.yearPeak,
-      yearPlateau: t.yearPlateau,
-      maturity: maturityMap[t.phase],
-      confidence: t.confidence,
-      currentStatus: t.currentStatus,
-      color: PHASE_COLORS[t.phase]
-    }
-  })
-
   const currentTech = techData.technologyDetail[selectedTech]
+
+  const handleBubbleClick = (data: any) => {
+    if (!data || !data.name) return
+    const idx = techData.technologyDetail.findIndex(t => t.name === data.name || t.nameCn === data.nameCn)
+    if (idx >= 0) {
+      setSelectedTech(idx)
+    }
+  }
 
   return (
     <div>
@@ -111,13 +116,13 @@ export default function TechnologyPage() {
               <ScatterChart margin={{ top: 10, right: 20, left: 0, bottom: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
                 <XAxis
-                  type="number" dataKey="year" name="年份"
+                  type="number" dataKey="x" name="年份"
                   domain={[2013, 2036]} tick={{ fontSize: 11, fill: '#999' }}
                   tickLine={false} axisLine={{ stroke: '#e0e0e0' }}
                   label={{ value: '年份', position: 'insideBottom', offset: -20, fontSize: 11, fill: '#999' }}
                 />
                 <YAxis
-                  type="number" dataKey="maturity" name="成熟度" domain={[0, 10]}
+                  type="number" dataKey="y" name="成熟度" domain={[0, 10]}
                   tick={{ fontSize: 11, fill: '#999' }} tickLine={false}
                   axisLine={{ stroke: '#e0e0e0' }}
                   tickFormatter={(v) => v === 1 ? '触发' : v === 5 ? '低谷' : v === 9 ? '成熟' : ''}
@@ -125,32 +130,62 @@ export default function TechnologyPage() {
                   label={{ value: '成熟度', angle: -90, position: 'insideLeft', offset: 15, fontSize: 11, fill: '#999' }}
                 />
                 <ZAxis range={[40, 80]} />
-                <Tooltip
-                  formatter={(value: any, name: string) => {
-                    if (name === 'maturity') return [`成熟度: ${value}/10`, '']
-                    if (name === 'year') return [`涌现年份: ${value}`, '']
-                    return [value, name]
-                  }}
-                  contentStyle={{ borderRadius: '8px', border: '1px solid #e0e0e0', fontSize: '0.85rem' }}
-                />
-                {/* Gartner参考曲线 */}
-                <Line data={HYPE_CURVE} type="monotone" dataKey="maturity"
-                  stroke="#ccc" strokeWidth={2} dot={false} strokeDasharray="5 5"
-                  legendType="none" />
-                {/* 技术气泡 - 每项技术一个独立Scatter点，按phase着色 */}
-                {scatterData.map((d, i) => (
-                  <Scatter
-                    key={i}
-                    name={d.name}
-                    data={[{ x: d.year, y: d.maturity, name: d.name, nameCn: d.nameCn, phase: d.phase }]}
-                    fill={PHASE_COLORS[d.phase]}
-                    onClick={() => {
-                      const idx = techData.technologyDetail.findIndex(t => t.name === d.name || t.nameCn === d.nameCn)
-                      if (idx >= 0) { setSelectedTech(idx); setShowHypeCycle(false) }
-                    }}
-                    shape={(props: any) => <circle {...props} r={8} opacity={0.85} />}
+
+                {/* Gartner参考曲线（用 ReferenceLine + LineChart 实现） */}
+                <LineChart data={HYPE_CURVE} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                  <Line
+                    type="monotone" dataKey="maturity"
+                    stroke="#ccc" strokeWidth={2} dot={false}
+                    strokeDasharray="5 5" legendType="none"
+                    isAnimationActive={false}
                   />
-                ))}
+                </LineChart>
+
+                <Tooltip
+                  cursor={{ strokeDasharray: '3 3' }}
+                  content={({ active, payload }) => {
+                    if (!active || !payload || !payload.length) return null
+                    const d = payload[0]?.payload
+                    if (!d || !d.name) return null
+                    return (
+                      <div style={{
+                        background: 'white', border: '1px solid #e0e0e0',
+                        borderRadius: '8px', padding: '10px 14px', fontSize: '0.85rem',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                      }}>
+                        <div style={{ fontWeight: 700, color: '#333', marginBottom: '4px' }}>{d.nameCn}</div>
+                        <div style={{ color: '#666' }}>年份：{d.x}</div>
+                        <div style={{ color: '#666' }}>成熟度：{d.y}/10</div>
+                        <div style={{ color: d.color, fontSize: '0.8rem' }}>● {d.phase}</div>
+                      </div>
+                    )
+                  }}
+                />
+
+                {/* 技术气泡 - 单一 Scatter，所有14个点 */}
+                <Scatter
+                  data={scatterData}
+                  fill={PHASE_COLORS['trigger']}
+                  onClick={(data) => handleBubbleClick(data)}
+                  shape={(props: any) => {
+                    const { cx = 0, cy = 0, payload } = props
+                    if (!payload || !payload.name) return <g />
+                    const r = payload.z ? Math.sqrt(payload.z) * 0.8 : 8
+                    return (
+                      <g>
+                        <circle
+                          cx={cx} cy={cy} r={r}
+                          fill={payload.color}
+                          opacity={0.82}
+                          stroke={payload.color}
+                          strokeWidth={1.5}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        <title>{payload.nameCn}</title>
+                      </g>
+                    )
+                  }}
+                />
               </ScatterChart>
             </ResponsiveContainer>
 
@@ -159,7 +194,7 @@ export default function TechnologyPage() {
               {techData.hypeCycle.technologies.map((tech, i) => (
                 <div
                   key={i}
-                  onClick={() => { setSelectedTech(i); setShowHypeCycle(false) }}
+                  onClick={() => setSelectedTech(i)}
                   style={{
                     padding: '6px 12px',
                     borderRadius: '16px',
@@ -258,7 +293,7 @@ export default function TechnologyPage() {
                     borderTop: '2px solid #667eea'
                   }}>
                     <div style={{ fontWeight: 700, color: '#333', marginBottom: '6px' }}>{vendor}</div>
-                    <div style={{ fontSize: '0.85rem', color: '#666', lineHeight: 1.6 }}>{analysis}</div>
+                    <div style={{ fontSize: '0.85rem', color: '#666', lineHeight: 1.6 }}>{analysis as string}</div>
                   </div>
                 ))}
               </div>
