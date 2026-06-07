@@ -15,11 +15,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body>
         <nav className="navbar">
           <div className="navbar-container">
             <Link href="/" className="navbar-brand">📡 天线情报</Link>
-            <div className="navbar-nav">
+            {/* Desktop Navigation */}
+            <div className="navbar-nav desktop-nav">
               <Link href="/" className="nav-link">首页</Link>
               <Link href="/market" className="nav-link">市场</Link>
               <Link href="/news" className="nav-link">行业动态</Link>
@@ -28,6 +32,25 @@ export default function RootLayout({
               <Link href="/standards" className="nav-link">标准</Link>
               <Link href="/technology" className="nav-link">技术</Link>
             </div>
+            {/* Mobile Navigation - Hamburger Menu */}
+            <details className="mobile-nav-wrapper">
+              <summary className="mobile-nav-trigger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hamburger-icon">
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </summary>
+              <div className="mobile-nav-menu">
+                <Link href="/" className="mobile-nav-link">首页</Link>
+                <Link href="/market" className="mobile-nav-link">市场</Link>
+                <Link href="/news" className="mobile-nav-link">行业动态</Link>
+                <Link href="/companies" className="mobile-nav-link">企业</Link>
+                <Link href="/prices" className="mobile-nav-link">价格</Link>
+                <Link href="/standards" className="mobile-nav-link">标准</Link>
+                <Link href="/technology" className="mobile-nav-link">技术</Link>
+              </div>
+            </details>
             <div className="navbar-search">
               <button
                 className="search-trigger"
