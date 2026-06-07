@@ -87,8 +87,9 @@ function extractSearchableText(data: unknown, module: string): string[] {
 function parseModuleData(data: unknown, moduleKey: string, moduleName: string, modulePath: string): SearchItem[] {
   const items: SearchItem[] = []
 
-  if (moduleKey === 'news' && Array.isArray(data)) {
-    data.forEach((item: { id?: number; title?: string; summary?: string; tags?: string[] }) => {
+  // news: JSON 是 object { "10001": {...}, "10002": {...} }
+  if (moduleKey === 'news' && typeof data === 'object' && data !== null && !Array.isArray(data)) {
+    Object.values(data as Record<string, { id?: number; title?: string; summary?: string; tags?: string[] }>).forEach((item) => {
       if (item.title) {
         items.push({
           id: `${moduleKey}-${item.id}`,
@@ -131,20 +132,33 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
       })
     }
   } else if (moduleKey === 'companies' && typeof data === 'object') {
-    const companiesData = data as { supplyChain?: { upstream?: { companies?: Array<{ name?: string; position?: string; highlights?: string[] }> }; midstream?: { companies?: Array<{ name?: string; position?: string; highlights?: string[] }> }; downstream?: { companies?: Array<{ name?: string; position?: string; highlights?: string[] }> } } }
-    const sections = [
-      companiesData.supplyChain?.upstream?.companies,
-      companiesData.supplyChain?.midstream?.companies,
-      companiesData.supplyChain?.downstream?.companies
+    const companiesData = data as {
+      supplyChain?: Record<string, {
+        name?: string;
+        description?: string;
+        companies?: Array<{
+          id?: string;
+          name?: string;
+          nameEn?: string;
+          position?: string;
+          highlights?: string[];
+          role?: string;
+        }>;
+      }>;
+    }
+    const tierOrder = [
+      'tier1_operators', 'tier2_equipment_vendors', 'tier3_antenna_oems',
+      'tier4_antenna_parts', 'tier5_rf_parts', 'tier6_key_materials', 'tier7_raw_materials'
     ]
-    sections.forEach(companies => {
-      if (Array.isArray(companies)) {
-        companies.forEach((company, idx) => {
+    tierOrder.forEach(tierKey => {
+      const tier = companiesData.supplyChain?.[tierKey]
+      if (tier?.companies) {
+        tier.companies.forEach((company, idx) => {
           if (company.name) {
             items.push({
-              id: `${moduleKey}-${idx}`,
+              id: `${moduleKey}-${tierKey}-${idx}`,
               title: company.name,
-              summary: company.position,
+              summary: company.position || company.role,
               content: company.highlights?.join(', '),
               module: moduleKey,
               moduleName,
@@ -193,14 +207,23 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
       })
     }
   } else if (moduleKey === 'technology' && typeof data === 'object') {
-    const techData = data as { technologies?: Array<{ name?: string; nameCn?: string; currentStatus?: string; phase?: string }> }
-    if (techData.technologies) {
-      techData.technologies.forEach((tech, idx) => {
+    // technology.json: { ..., technologyDetail: [...] }
+    const techData = data as {
+      technologyDetail?: Array<{
+        name?: string;
+        nameCn?: string;
+        currentStatus?: string;
+        phase?: string;
+        trl?: number;
+      }>;
+    }
+    if (techData.technologyDetail) {
+      techData.technologyDetail.forEach((tech, idx) => {
         items.push({
           id: `${moduleKey}-${idx}`,
           title: tech.nameCn || tech.name || '',
           summary: tech.currentStatus,
-          extra: tech.phase,
+          extra: tech.phase ? `TRL ${tech.trl}` : undefined,
           module: moduleKey,
           moduleName,
           path: modulePath

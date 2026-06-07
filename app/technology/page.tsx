@@ -59,9 +59,11 @@ function ChartContent({ techPlotData, hypeCurveData, phaseColors, phaseNames, on
   phaseNames: typeof PHASE_NAMES
   onTechSelect: (detailIdx: number) => void
 }) {
-  const handleBubbleClick = (techName: string) => {
-    const detailIdx = TECH_NAME_MAP[techName] ?? 0
-    onTechSelect(detailIdx)
+  const handleScatterClick = (data: any) => {
+    if (data && data.name) {
+      const detailIdx = TECH_NAME_MAP[data.name] ?? 0
+      onTechSelect(detailIdx)
+    }
   }
 
   return (
@@ -121,6 +123,7 @@ function ChartContent({ techPlotData, hypeCurveData, phaseColors, phaseNames, on
         <Line type="monotone" data={hypeCurveData} dataKey="y" stroke="#4A90D9" strokeWidth={3} strokeDasharray="8 4" dot={false} legendType="none" isAnimationActive={false} />
         <Scatter
           data={techPlotData}
+          onClick={handleScatterClick}
           shape={(props: any) => {
             const { cx = 0, cy = 0, payload } = props
             if (!payload || !payload.name) return <g />
@@ -129,7 +132,7 @@ function ChartContent({ techPlotData, hypeCurveData, phaseColors, phaseNames, on
             const tx = cx + r + 6
             const ty = cy - r * 0.3
             return (
-              <g onClick={() => handleBubbleClick(payload.name)}>
+              <g>
                 <circle cx={cx} cy={cy} r={r + 4} fill={phaseColors[payload.phase]} opacity={0.12} />
                 <circle cx={cx} cy={cy} r={r} fill={phaseColors[payload.phase]} opacity={0.82} stroke="white" strokeWidth={2} style={{ cursor: 'pointer' }} />
                 <text x={tx} y={ty} fontSize={labelFontSize} fill="#444" textAnchor="start" dominantBaseline="auto" style={{ pointerEvents: 'none', fontWeight: 500 }}>
