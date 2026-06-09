@@ -20,7 +20,7 @@ export default function NewsPage() {
     (n) => n && typeof n === 'object' && 'title' in n
   )
 const [activeFilter, setActiveFilter] = useState('全部')
-const [showTimeline, setShowTimeline] = useState(false)
+const [showTimeline, setShowTimeline] = useState(true)
 
 // 从新闻数据提取所有来源
 const sources = ['全部', ...Array.from(new Set(newsArray.map(n => n.source)))]
