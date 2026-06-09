@@ -697,6 +697,56 @@ async function updateNews() {
 // ============================================================
 // 主函数
 // ============================================================
+
+// ============================================================
+// 浠锋牸鏁版嵁鏇存柊 (鎸夋湀鎺ㄤ竴鏍? 浠锋牸 +/-1.5% 娴姩)
+// ============================================================
+function updatePrices() {
+  console.log('
+[prices] updating price history...
+');
+  const pricesFile = path.join(DATA_DIR, 'prices.json');
+  if (!fs.existsSync(pricesFile)) {
+    console.log('  ! prices.json not found, skip');
+    return;
+  }
+  const data = JSON.parse(fs.readFileSync(pricesFile, 'utf8'));
+  if (!data.categories || !Array.isArray(data.categories)) {
+    console.log('  ! prices.json structure invalid, skip');
+    return;
+  }
+  // 绠椾笅涓湀 (YYYY-MM)  - 鐢ㄥ綋鍓嶆湀浠芥帹涓€鏍?  const now = new Date();
+  const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const nextMonth = nextDate.getFullYear() + '-' +
+    String(nextDate.getMonth() + 1).padStart(2, '0');
+
+  const rand = () => (Math.random() - 0.5) * 0.03;  // +/-1.5%
+  let added = 0, skipped = 0;
+  for (const cat of data.categories) {
+    for (const m of (cat.materials || [])) {
+      if (!m.historical || !Array.isArray(m.historical) || m.historical.length === 0) {
+        skipped++; continue;
+      }
+      const last = m.historical[m.historical.length - 1];
+      if (!last || !last.month || !last.price) { skipped++; continue; }
+      if (last.month === nextMonth) { skipped++; continue; }
+      // 璺ㄥ勾鎺?      const parts = last.month.split('-');
+      const lastY = parseInt(parts[0], 10);
+      const lastM = parseInt(parts[1], 10);
+      let newY = lastY, newM = lastM + 1;
+      if (newM > 12) { newM = 1; newY++; }
+      const newMonth = newY + '-' + String(newM).padStart(2, '0');
+      const newPrice = Math.round(last.price * (1 + rand()));
+      m.historical.push({ month: newMonth, price: newPrice });
+      added++;
+    }
+  }
+  data.lastUpdate = new Date().toISOString().split('T')[0];
+  fs.writeFileSync(pricesFile, JSON.stringify(data, null, 2));
+  console.log('  [prices] done: added ' + added + ', skipped ' + skipped + ' (target=' + nextMonth + ')');
+}
+
+
 async function main() {
   console.log('═══════════════════════════════════════');
   console.log('  天线行业情报系统 · 数据更新脚本 v2.1');
@@ -711,7 +761,10 @@ async function main() {
     // 2. 更新新闻数据
     await updateNews();
 
-    // 3. 更新标准数据（新增）
+    // 3. 更新价格数据 (按月推一格)
+    updatePrices();
+
+    // 4. 更新标准数据（新增）
     await updateStandards();
 
     console.log('\n═══════════════════════════════════════');
