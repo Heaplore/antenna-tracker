@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-08",
+  "lastUpdate": "2026-06-10",
   "categories": [
     {
       "name": "3GPP国际标准",
@@ -2346,6 +2346,448 @@
   "1780917908498.459": {
     "id": 1780917908498.459,
     "date": "2026-06-08",
+    "title": "Specifications &amp; Technologies",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/specifications-technologies"
+  },
+  "1781075939215.4302": {
+    "id": 1781075939215.4302,
+    "date": "2026-06-10",
+    "title": "习近平结束对朝鲜国事访问回到北京",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_364b731e83de434c93d9466737c3b3d1.html"
+  },
+  "1781075939215.8252": {
+    "id": 1781075939215.8252,
+    "date": "2026-06-10",
+    "title": "习近平出席金正恩举行的欢送仪式",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_78ecbdbc2d084f10957d577c1a2f96f1.html"
+  },
+  "1781075939215.2676": {
+    "id": 1781075939215.2676,
+    "date": "2026-06-10",
+    "title": "习近平夫妇出席金正恩夫妇举行的小范围午宴",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_14254426adea4cfabff377c11fb20032.html"
+  },
+  "1781075939215.9617": {
+    "id": 1781075939215.9617,
+    "date": "2026-06-10",
+    "title": "习近平同格鲁吉亚总统卡韦拉什维利就中格建交34周年互致贺电并共同宣布将双边关系提升为全面战略伙伴关系",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_fb1de3c7b8894942901859153634fa9a.html"
+  },
+  "1781075939215.4072": {
+    "id": 1781075939215.4072,
+    "date": "2026-06-10",
+    "title": "习近平参访朝鲜劳动党中央干部学校",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_60bec04972d74a1c844b1c66e483995f.html"
+  },
+  "1781075939215.5254": {
+    "id": 1781075939215.5254,
+    "date": "2026-06-10",
+    "title": "习近平和彭丽媛参谒中朝友谊塔",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_4245443cd53243dfaff61589fb157b09.html"
+  },
+  "1781075939216.4375": {
+    "id": 1781075939216.4375,
+    "date": "2026-06-10",
+    "title": "习近平向加拿大新任总督路易丝·阿伯致贺电",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/szyw/art/2026/art_d7cab300d9434b9792ef73d9717d3124.html"
+  },
+  "1781075939216.3005": {
+    "id": 1781075939216.3005,
+    "date": "2026-06-10",
+    "title": "关于公开征求《电动摩托车和电动轻便摩托车用锂离子电池安全要求》等4项强制性国家标准（报批稿）、《儿童手表安全技术要求》等3项强制性国家标准外文版（报批稿）意见的公示",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/zwgk/wjgs/art/2026/art_5ab7a689abbd483ea496702e32574982.html"
+  },
+  "1781075939216.805": {
+    "id": 1781075939216.805,
+    "date": "2026-06-10",
+    "title": "工业和信息化部：推动医药工业高质量发展 让每一位患者用上更好、更优、更便宜的药",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/xwfbh/gwyzclxcfh/art/2026/art_59a624d9ede14e4aa59b790469cbfd2e.html"
+  },
+  "1781075939216.2278": {
+    "id": 1781075939216.2278,
+    "date": "2026-06-10",
+    "title": "工业和信息化部举行“推动国家高新区高质量发展”新闻发布会",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/xwfbh/bxwfbh/art/2026/art_1645f32c491a452489025bdb9430f490.html"
+  },
+  "1781075939216.2146": {
+    "id": 1781075939216.2146,
+    "date": "2026-06-10",
+    "title": "工业和信息化部举行“加力推进石化化工行业老旧装置更新改造 促进行业提质升级”新闻发布会",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/xwfbh/bxwfbh/art/2026/art_61e5dc2e3edf49ef9da430173b2c4221.html"
+  },
+  "1781075939216.5356": {
+    "id": 1781075939216.5356,
+    "date": "2026-06-10",
+    "title": "工业和信息化部就推进工业数据筑基行动、加速工业园区数字化转型等答记者问",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/xwfbh/gxbxwfbh/art/2026/art_e79644b71a3e4f1a9f716babb6d2359b.html"
+  },
+  "1781075939216.841": {
+    "id": 1781075939216.841,
+    "date": "2026-06-10",
+    "title": "如何推进重点产业知识产权强链增效？如何建立常态化专利转化运用长效机制？工业和信息化部这样部署",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/xwfbh/gxbxwfbh/art/2026/art_609a668f10594ec9a9b1d5abbf515464.html"
+  },
+  "1781075939216.036": {
+    "id": 1781075939216.036,
+    "date": "2026-06-10",
+    "title": "李乐成：树立和践行正确政绩观要把握好五个关键",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_ae348b1487bc4a95b6bc7046b92d60ff.html"
+  },
+  "1781075939216.8953": {
+    "id": 1781075939216.8953,
+    "date": "2026-06-10",
+    "title": "工业和信息化领域基础研究工作研讨会在西北工业大学召开",
+    "source": "工信部",
+    "summary": "工信部政策公告",
+    "tags": [
+      "政策",
+      "公告",
+      "行业数据"
+    ],
+    "url": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_509f58f26c39458aa6d349c18d5ca6bb.html"
+  },
+  "1781075940543.4268": {
+    "id": 1781075940543.4268,
+    "date": "2026-06-10",
+    "title": "About 3GPP Home",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us"
+  },
+  "1781075940543.4553": {
+    "id": 1781075940543.4553,
+    "date": "2026-06-10",
+    "title": "Introducing 3GPP",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/introducing-3gpp"
+  },
+  "1781075940543.783": {
+    "id": 1781075940543.783,
+    "date": "2026-06-10",
+    "title": "Project Coordination Group (PCG)",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/project-coordination-group"
+  },
+  "1781075940543.3965": {
+    "id": 1781075940543.3965,
+    "date": "2026-06-10",
+    "title": "Achievement Awards",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/achievement-awards"
+  },
+  "1781075940543.481": {
+    "id": 1781075940543.481,
+    "date": "2026-06-10",
+    "title": "Mobile Competence Centre",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/mobile-competence-centre"
+  },
+  "1781075940543.9546": {
+    "id": 1781075940543.9546,
+    "date": "2026-06-10",
+    "title": "MCC Task Forces",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/mobile-competence-centre/mcc-task-forces"
+  },
+  "1781075940543.3098": {
+    "id": 1781075940543.3098,
+    "date": "2026-06-10",
+    "title": "Funding &amp; Finances",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/funding-finances"
+  },
+  "1781075940543.3062": {
+    "id": 1781075940543.3062,
+    "date": "2026-06-10",
+    "title": "Liaisons Statements",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/liaisons-statements"
+  },
+  "1781075940543.2703": {
+    "id": 1781075940543.2703,
+    "date": "2026-06-10",
+    "title": "Legal Matters",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/legal-matters"
+  },
+  "1781075940543.3699": {
+    "id": 1781075940543.3699,
+    "date": "2026-06-10",
+    "title": "3GPP privacy policy",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/legal-matters/3gpp-privacy-policy"
+  },
+  "1781075940543.0718": {
+    "id": 1781075940543.0718,
+    "date": "2026-06-10",
+    "title": "Call for IPR",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/legal-matters/call-for-ipr"
+  },
+  "1781075940543.5186": {
+    "id": 1781075940543.5186,
+    "date": "2026-06-10",
+    "title": "Statement Regarding Competition Law",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/about-us/legal-matters/statement-regarding-competition-law"
+  },
+  "1781075940543.1592": {
+    "id": 1781075940543.1592,
+    "date": "2026-06-10",
+    "title": "3GPP Groups",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups"
+  },
+  "1781075940543.6067": {
+    "id": 1781075940543.6067,
+    "date": "2026-06-10",
+    "title": "3GPP Groups Home",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups"
+  },
+  "1781075940543.1016": {
+    "id": 1781075940543.1016,
+    "date": "2026-06-10",
+    "title": "Core Network &amp; Terminals (CT)",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups/core-network-terminals-ct"
+  },
+  "1781075940543.408": {
+    "id": 1781075940543.408,
+    "date": "2026-06-10",
+    "title": "Radio Access Networks (RAN)",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups/radio-access-networks-ran"
+  },
+  "1781075940543.2039": {
+    "id": 1781075940543.2039,
+    "date": "2026-06-10",
+    "title": "Service &amp; System Aspects (SA)",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups/service-system-aspects-sa"
+  },
+  "1781075940543.7527": {
+    "id": 1781075940543.7527,
+    "date": "2026-06-10",
+    "title": "Closed Groups",
+    "source": "3GPP",
+    "summary": "3GPP标准更新",
+    "tags": [
+      "标准",
+      "Release",
+      "技术规范"
+    ],
+    "url": "https://www.3gpp.org/3gpp-groups/closed-groups"
+  },
+  "1781075940543.7393": {
+    "id": 1781075940543.7393,
+    "date": "2026-06-10",
     "title": "Specifications &amp; Technologies",
     "source": "3GPP",
     "summary": "3GPP标准更新",
