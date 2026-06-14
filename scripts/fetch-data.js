@@ -748,6 +748,15 @@ function updatePrices() {
  }
  }
  data.lastUpdate = new Date().toISOString().split('T')[0];
+ // 兜底：清除任何月份 > lastUpdate 所在月份的项（避免历史里出现未来月份）
+ const lastUpdateMonth = data.lastUpdate.slice(0, 7);
+ for (const cat of data.categories) {
+   for (const m of (cat.materials || [])) {
+     if (Array.isArray(m.historical)) {
+       m.historical = m.historical.filter(h => h.month <= lastUpdateMonth);
+     }
+   }
+ }
  fs.writeFileSync(pricesFile, JSON.stringify(data, null,2));
  console.log(' [prices] done: added ' + added + ', skipped ' + skipped + ' (target=' + nextMonth + ')');
  }

@@ -10,10 +10,12 @@ export default function PricesPage() {
   const currentCategory = pricesData.categories[activeCategory]
   const currentMat = currentCategory.materials[activeMaterial]
 
-  // 只显示近6个月数据（避免旧数据干扰）
+  // 只显示近6个月数据（避免旧数据干扰），并兜底过滤掉超过 lastUpdate 的未来月份
   const chartData = useMemo(() => {
     const hist = currentMat.historical || []
-    return hist.slice(-6).map(h => ({
+    const cutoff = pricesData.lastUpdate // 例如 "2026-06-14"
+    const filtered = hist.filter(h => h.month <= cutoff)
+    return filtered.slice(-6).map(h => ({
       month: h.month,
       price: h.price,
       unit: currentMat.unit,
