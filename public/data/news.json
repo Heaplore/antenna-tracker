@@ -246,7 +246,6 @@
     ],
     "url": "https://www.cww.net.cn/"
   },
-  "lastUpdate": "2026-06-10",
   "10020": {
     "id": 10020,
     "date": "2026-06-10",
@@ -686,5 +685,6 @@
       "技术规范"
     ],
     "url": "https://www.3gpp.org/3gpp-groups/service-system-aspects-sa"
-  }
+  },
+  "lastUpdate": "2026-06-14"
 }
