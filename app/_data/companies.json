@@ -329,10 +329,10 @@
           "isKey": false,
           "stockPrices": [
             14.84,
-            12.28
+            12.21
           ],
-          "stockCurrent": 12.28,
-          "stock52Low": 12.28,
+          "stockCurrent": 12.21,
+          "stock52Low": 12.21,
           "stock52High": 14.84,
           "rank": 4
         },
@@ -358,11 +358,11 @@
           "isKey": false,
           "stockPrices": [
             6.64,
-            14.8
+            14.62
           ],
-          "stockCurrent": 14.8,
+          "stockCurrent": 14.62,
           "stock52Low": 6.64,
-          "stock52High": 14.8,
+          "stock52High": 14.62,
           "rank": 3
         }
       ]
@@ -1310,11 +1310,11 @@
           "isKey": true,
           "stockPrices": [
             53.16,
-            153.8
+            157.23
           ],
-          "stockCurrent": 153.8,
+          "stockCurrent": 157.23,
           "stock52Low": 53.16,
-          "stock52High": 153.8,
+          "stock52High": 157.23,
           "rank": 4
         },
         {
