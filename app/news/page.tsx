@@ -12,12 +12,38 @@ type NewsItem = {
   url: string
 }
 
+// 天线相关性白名单：与 scripts/fetch-data.js 的 ANTENNA_KEYWORDS 保持同步
+// 老大拍板：news 页面只显示天线行业直接相关的内容（剔除工信部非天线条目等）
+const ANTENNA_KEYWORDS = [
+  '天线', 'AAU', 'aau', 'RIS', 'ris', 'MIMO', 'mimo', '相控阵', '毫米波', 'AiP', 'aip', 'LCP', 'lcp',
+  '智能超表面', '波束赋形', '波束管理', '波束扫描', '可重构电磁表面', '可重构智能表面',
+  'massive', 'Massive',
+  '微波', '射频', 'RRU', 'rru', 'BBU', 'bbu', '塔顶放大器', '塔放', '滤波器', '双工器', '合路器',
+  'PTFE', 'ptfe', '高频PCB', '高频覆铜板', '介电常数',
+  '5G', '5g', '6G', '6g', '5G-A', '5G Advanced', '5.5G', 'n258', 'n260', 'n257', 'n261', 'n262',
+  'E-band', 'V-band', 'sub-6',
+  'Starlink', 'starlink', 'SpaceX', 'spacex', 'FWA', 'fwa', 'CPE', 'cpe', 'Mesh', 'mesh',
+  '集采', '运营商集采', '运营商招标',
+  '基站',
+  '华为', '中兴', '盛路', '通宇', '亨鑫', '京信', '世嘉', '信维', '硕贝德', '摩比', '三维通信',
+  '中国电信', '中国移动', '中国联通', '中国广电',
+  '村田', 'Rogers', 'Taconic', '苹果供应链', 'iPhone', 'LCP软板',
+]
+
+function isAntennaRelated(item: NewsItem): boolean {
+  if (!item || typeof item !== 'object') return false
+  const tags = Array.isArray(item.tags) ? item.tags.join(' ') : ''
+  const text = `${item.title || ''} ${item.summary || ''} ${tags}`.toLowerCase()
+  return ANTENNA_KEYWORDS.some(kw => text.includes(kw.toLowerCase()))
+}
+
 export default function NewsPage() {
   // 将 news.json (object) 转换为数组
   // 注意：newsData 里可能含非 object 值（比如 lastUpdate 字符串），
   // 必须过滤掉，否则下面 n.source / n.title 访问会被 TS 拒掉，build 会失败。
+  // 同时按天线相关性白名单二次过滤（双保险：即使数据层漏了脏数据，前端也会兜住）
   const newsArray = (Object.values(newsData) as NewsItem[]).filter(
-    (n) => n && typeof n === 'object' && 'title' in n
+    (n) => n && typeof n === 'object' && 'title' in n && isAntennaRelated(n)
   )
 const [activeFilter, setActiveFilter] = useState('全部')
 const [showTimeline, setShowTimeline] = useState(true)

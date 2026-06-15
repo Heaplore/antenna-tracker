@@ -322,6 +322,39 @@ async function crawlCCSA() {
 }
 
 // ============================================================
+// ============================================================
+// 天线相关性过滤：news 页面只显示与天线行业直接相关的内容
+// 用于剔除工信部非天线条目（国家高新区、石化化工等无关动态）
+// ============================================================
+const ANTENNA_KEYWORDS = [
+  // 强相关：核心天线技术
+  '天线', 'AAU', 'aau', 'RIS', 'ris', 'MIMO', 'mimo', '相控阵', '毫米波', 'AiP', 'aip', 'LCP', 'lcp',
+  '智能超表面', '波束赋形', '波束管理', '波束扫描', '可重构电磁表面', '可重构智能表面',
+  'massive', 'Massive',
+  '微波', '射频', 'RRU', 'rru', 'BBU', 'bbu', '塔顶放大器', '塔放', '滤波器', '双工器', '合路器',
+  'PTFE', 'ptfe', '高频PCB', '高频覆铜板', '介电常数',
+  // 频段/制式
+  '5G', '5g', '6G', '6g', '5G-A', '5G Advanced', '5.5G', 'n258', 'n260', 'n257', 'n261', 'n262',
+  'E-band', 'V-band', '毫米波', 'sub-6',
+  // 终端/卫星
+  'Starlink', 'starlink', 'SpaceX', 'spacex', 'FWA', 'fwa', 'CPE', 'cpe', 'Mesh', 'mesh',
+  // 业务/采购
+  '集采', '运营商集采', '运营商招标',
+  // 设备商 + 运营商（多与天线业务同框出现）
+  '基站',
+  '华为', '中兴', '盛路', '通宇', '亨鑫', '京信', '世嘉', '信维', '硕贝德', '摩比', '三维通信',
+  '中国电信', '中国移动', '中国联通', '中国广电',
+  '村田', 'Rogers', 'Taconic', '苹果供应链', 'iPhone', 'LCP软板',
+];
+
+function isAntennaRelated(item) {
+  if (!item || typeof item !== 'object') return false;
+  const tags = Array.isArray(item.tags) ? item.tags.join(' ') : '';
+  const text = `${item.title || ''} ${item.summary || ''} ${tags}`.toLowerCase();
+  return ANTENNA_KEYWORDS.some(kw => text.includes(kw.toLowerCase()));
+}
+
+// ============================================================
 // 工具：把 json 读成 array（兼容 array 和 object 两种结构）
 // ============================================================
 function loadAsArray(filePath) {
@@ -678,6 +711,7 @@ async function updateNews() {
   // 去重（按标题）
   const seen = new Set();
   const uniqueNews = allNews.filter(n => {
+    if (!isAntennaRelated(n)) return false; // 老大拍板：news 页面只显示天线相关内容
     const key = n.title.substring(0, 50);
     if (seen.has(key)) return false;
     seen.add(key);
