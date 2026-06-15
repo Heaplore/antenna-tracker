@@ -1,6 +1,6 @@
 {
-  "lastUpdate": "2026-05-29",
-  "industryOverview": "天线行业正经历从4G向5G-Advanced/6G演进的重大技术变革期。核心技术方向围绕Massive MIMO的持续深化、毫米波商用的提速、RIS智能超表面的从实验室走向外场验证三大主线。供应链呈现明显的垂直整合趋势：设备商通过自研天线+滤波器一体化压缩供应链层级，射频前端继续向模组化（AIP）演进，PCB板材和金属结构件国产化率快速提升。展望2027-2030年，随着6G标准制定启动和低轨卫星宽带普及，天线行业将从单纯的射频硬件制造转向天线系统、算法、材料三位一体的综合竞争力格局。",
+  "lastUpdate": "2026-06-15",
+  "industryOverview": "天线行业正经历从4G向5G-Advanced/6G演进的重大技术变革期。核心技术方向围绕Massive MIMO的持续深化、毫米波商用的提速、RIS智能超表面的从实验室走向外场验证三大主线。供应链呈现明显的垂直整合趋势：设备商通过自研天线+滤波器一体化压缩供应链层级，射频前端继续向模组化（AIP）演进，PCB板材和金属结构件国产化率快速提升。展望2027-2030年，随着6G标准制定启动和低轨卫星宽带普及，天线行业将从单纯的射频硬件制造转向天线系统、算法、材料三位一体的综合竞争力格局。\n\n【2026 H1 增量】2026 年上半年行业出现三大里程碑: ① 3GPP Release 19 于 6 月初完成功能冻结, AI 波束赋形进入标准明确期; ② 中国星网 GW 星座与千帆星座二期招标完成, 卫星平板相控阵终端需求下半年起将集中释放; ③ 鸿蒙智行/小米 SU7 等高端车型推动车载毫米波雷达与 5G-V2X 车顶天线集成方案规模上量。运营商集采侧, 中国移动 5G-A 700MHz+2.6GHz+4.9GHz 三频融合天线集采结果 5 月落地, 128T128R 占比首次突破 30%, 标志着国内 Massive MIMO 正式进入下一代。材料端, LCP 软板国产化率 2026 Q1 已突破 40%, 村田垄断格局出现松动信号。海外侧, RIS 外场试验持续推进, 但商用进度仍慢于预期, 国内华为联合中国移动在杭州亚运村完成第二阶段 200 平方米规模部署, 覆盖增强效果稳定在 35-40% 区间。",
   "hypeCycle": {
     "description": "天线行业技术成熟度曲线（Gartner Hype Cycle），反映各技术的市场期望与成熟度阶段",
     "phases": [
@@ -171,6 +171,148 @@
         "confidence": "中",
         "currentStatus": "透镜天线在特定多波束场景（场馆/机场/高铁站）有成本优势，已有小规模商用"
       }
+    ],
+    "items": [
+      {
+        "name": "Massive MIMO",
+        "nameCn": "大规模天线阵列",
+        "phase": "plateau",
+        "yearEmerging": 2016,
+        "yearPeak": 2020,
+        "yearPlateau": 2023,
+        "confidence": "高",
+        "currentStatus": "已规模商用，全球5G基站主流配置，64T64R成为标配，正向128T128R演进"
+      },
+      {
+        "name": "AAU（有源天线单元）",
+        "nameCn": "有源天线单元",
+        "phase": "plateau",
+        "yearEmerging": 2018,
+        "yearPeak": 2021,
+        "yearPlateau": 2024,
+        "confidence": "高",
+        "currentStatus": "5G基站标配，华为/中兴/爱立信/诺基亚均已商用，AAU与基站射频单元一体化成为主流"
+      },
+      {
+        "name": "5G NR mmWave",
+        "nameCn": "5G毫米波天线",
+        "phase": "slope",
+        "yearEmerging": 2019,
+        "yearPeak": 2022,
+        "yearPlateau": 2028,
+        "confidence": "高",
+        "currentStatus": "日韩美已商用，国内频谱分配后2026-2027年规模部署，终端侧AiP模组已商用"
+      },
+      {
+        "name": "Phased Array Antenna",
+        "nameCn": "相控阵天线",
+        "phase": "slope",
+        "yearEmerging": 2015,
+        "yearPeak": 2021,
+        "yearPlateau": 2027,
+        "confidence": "高",
+        "currentStatus": "卫星通信/5G毫米波/雷达三大方向并行，微波传输相控阵已商用，卫星相控阵正处于降本关键期"
+      },
+      {
+        "name": "LCP/LDS Antenna",
+        "nameCn": "LCP/LDS天线技术",
+        "phase": "plateau",
+        "yearEmerging": 2016,
+        "yearPeak": 2020,
+        "yearPlateau": 2023,
+        "confidence": "高",
+        "currentStatus": "5G手机天线主流方案，LCP软板+LDS天线模组已成熟，材料国产化加速"
+      },
+      {
+        "name": "Satcom Phased Array",
+        "nameCn": "卫星通信平板相控阵",
+        "phase": "slope",
+        "yearEmerging": 2021,
+        "yearPeak": 2025,
+        "yearPlateau": 2030,
+        "confidence": "中",
+        "currentStatus": "低轨卫星宽带（Starlink/OneWeb）带动平板相控阵天线需求，终端侧已商用，成本从800美元降至299美元快速降本中"
+      },
+      {
+        "name": "AI Beamforming",
+        "nameCn": "AI辅助波束赋形",
+        "phase": "slope",
+        "yearEmerging": 2022,
+        "yearPeak": 2024,
+        "yearPlateau": 2029,
+        "confidence": "中",
+        "currentStatus": "AI波束管理是5G-Advanced和6G的研究热点，华为/中兴/爱立信均发布AI波束赋形白皮书，实际商用仍处于试点阶段"
+      },
+      {
+        "name": "RIS",
+        "nameCn": "RIS智能超表面",
+        "phase": "trough",
+        "yearEmerging": 2020,
+        "yearPeak": 2023,
+        "yearPlateau": 2030,
+        "confidence": "中",
+        "currentStatus": "实验室验证和外场测试并行，清华/东南/华为/中兴均发布测试结果，商进进程慢于预期，华为联合东南大学外场测试覆盖提升40%"
+      },
+      {
+        "name": "Wearable Flexible Antenna",
+        "nameCn": "柔性/可穿戴天线",
+        "phase": "slope",
+        "yearEmerging": 2019,
+        "yearPeak": 2023,
+        "yearPlateau": 2028,
+        "confidence": "中",
+        "currentStatus": "AR/VR耳机、智能手表柔性天线已商用，整体规模偏小，材料和工艺仍在优化中"
+      },
+      {
+        "name": "Luneburg Lens Antenna",
+        "nameCn": "龙伯透镜天线",
+        "phase": "peak",
+        "yearEmerging": 2022,
+        "yearPeak": 2026,
+        "yearPlateau": 2029,
+        "confidence": "低",
+        "currentStatus": "多波束天线应用场景（机场/场馆）的解决方案，受到资本市场关注，但实际部署规模有限"
+      },
+      {
+        "name": "THz Antenna",
+        "nameCn": "太赫兹通信天线",
+        "phase": "trigger",
+        "yearEmerging": 2024,
+        "yearPeak": 2032,
+        "yearPlateau": 2035,
+        "confidence": "低",
+        "currentStatus": "6G候选技术，IEEE/CCSA正在研究，频谱在100GHz-300GHz范围，技术尚处于早期研究阶段"
+      },
+      {
+        "name": "Spectrum Sharing Antenna",
+        "nameCn": "频谱共享天线",
+        "phase": "slope",
+        "yearEmerging": 2021,
+        "yearPeak": 2024,
+        "yearPlateau": 2028,
+        "confidence": "中",
+        "currentStatus": "动态频谱共享（DSS）是5G-Advanced的关键功能，需要天线支持多频段同时收发，美/欧已有试点"
+      },
+      {
+        "name": "Digital Twin Antenna",
+        "nameCn": "数字孪生天线",
+        "phase": "trough",
+        "yearEmerging": 2022,
+        "yearPeak": 2024,
+        "yearPlateau": 2029,
+        "confidence": "中",
+        "currentStatus": "用于天线远程优化和故障预测，概念火热但落地案例有限，华为/中兴均在布局，运营商需求待挖掘"
+      },
+      {
+        "name": "Lens Antenna",
+        "nameCn": "透镜天线",
+        "phase": "slope",
+        "yearEmerging": 2020,
+        "yearPeak": 2023,
+        "yearPlateau": 2028,
+        "confidence": "中",
+        "currentStatus": "透镜天线在特定多波束场景（场馆/机场/高铁站）有成本优势，已有小规模商用"
+      }
     ]
   },
   "technologyDetail": [
@@ -178,7 +320,7 @@
       "name": "Massive MIMO",
       "nameCn": "大规模天线阵列",
       "category": "基站天线",
-      "currentStatus": "Massive MIMO（大规模MIMO，典型配置64T64R/32T32R）是5G基站的核心技术，通过大规模天线阵列实现波束精细化管理和空间复用，显著提升频谱效率和覆盖能力。截至2026年Q1，全球5G基站累计部署超过1200万面，其中超过70%采用Massive MIMO配置。国内运营商集采中，64T64R占比持续提升，单基站天线价值量是4G的3-5倍。技术正向128T128R演进，以支持更高频谱效率和更多并发用户。",
+      "currentStatus": "Massive MIMO(大规模 MIMO, 典型配置 64T64R/32T32R)是 5G 基站的核心技术,通过大规模天线阵列实现波束精细化管理和空间复用, 显著提升频谱效率和覆盖能力。截至 2026 年 Q1, 全球 5G 基站累计部署超过 1200 万面, 其中超过 70% 采用 Massive MIMO 配置。国内运营商集采中, 64T64R 占比持续提升, 单基站天线价值量是 4G 的 3-5 倍。技术正向 128T128R 演进, 以支持更高频谱效率和更多并发用户。【2026-06 更新】中国移动 5G-A 三频融合天线集采 5 月落标, 128T128R 配置占比首次突破 30%,单 AAU 价值量同比上升 18%; 华为新一代 MetaAAU 在 128T128R + AI 波束赋形基础上,能耗较上一代下降 22%, 已在国内 5 个试点城市完成外场测试。",
       "mainstreamRoutes": [
         "传统铜缆馈电方案：技术成熟，供应链完善，但重量和馈线损耗是瓶颈（单面64T64R AAU重量约35-45kg）",
         "光电混合馈电方案：光纤直驱AAU，减少馈线损耗，是长途和密集城区场景的主流演进方向",
