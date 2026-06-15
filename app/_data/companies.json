@@ -358,11 +358,11 @@
           "isKey": false,
           "stockPrices": [
             6.64,
-            14.62
+            14.6
           ],
-          "stockCurrent": 14.62,
+          "stockCurrent": 14.6,
           "stock52Low": 6.64,
-          "stock52High": 14.62,
+          "stock52High": 14.6,
           "rank": 3
         }
       ]
@@ -1310,11 +1310,11 @@
           "isKey": true,
           "stockPrices": [
             53.16,
-            157.23
+            157.4
           ],
-          "stockCurrent": 157.23,
+          "stockCurrent": 157.4,
           "stock52Low": 53.16,
-          "stock52High": 157.23,
+          "stock52High": 157.4,
           "rank": 4
         },
         {
