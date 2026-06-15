@@ -15,6 +15,32 @@ const standardsData: any = standardsDataRaw
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
          XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
+// Sparkline points (mini 折线图 for card)
+function buildSparklinePoints(prices: number[], width = 80, height = 22): string {
+  if (!prices || prices.length < 2) return ''
+  const min = Math.min(...prices)
+  const max = Math.max(...prices)
+  const range = max - min || 1
+  const margin = range * 0.1
+  const yMin = min - margin
+  const yMax = max + margin
+  const span = yMax - yMin || 1
+  return prices.map((p, i, arr) => {
+    const x = (i / (arr.length - 1)) * width
+    const y = height - ((p - yMin) / span) * height
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  }).join(' ')
+}
+
+// 当日涨跌幅: (今日 - 昨日) / 昨日 × 100%
+function calcDayChange(prices: number[]): number {
+  if (!prices || prices.length < 2) return 0
+  const last = prices[prices.length - 1]
+  const prev = prices[prices.length - 2]
+  if (prev === 0) return 0
+  return ((last - prev) / prev) * 100
+}
+
 export default function Home() {
   const newsArray = Object.values(newsData) as any[]
 
@@ -200,22 +226,45 @@ export default function Home() {
           <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无数据</p>
         ) : (
           <div className="company-grid">
-            {allCompanies.slice(0, 12).map((company: any, i: number) => (
-              <div key={i} className="company-card">
-                <div className="company-name">{company.name}</div>
-                <div className="company-country">{company.location || ''}</div>
-                <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>
-                  {company.position || company.role || ''}
-                </div>
-                {company.highlights && company.highlights.length > 0 && (
-                  <div style={{ marginTop: '8px' }}>
-                    {company.highlights.slice(0, 3).map((h: string, j: number) => (
-                      <span key={j} className="product-tag" style={{ marginRight: '4px' }}>{h}</span>
-                    ))}
+            {allCompanies.slice(0, 12).map((company: any, i: number) => {
+              const isListed = company.stockCode
+                && !['未上市', '—', '非上市', '非独立上市（安弗施集团内）', '非上市（私企）', '未上市（华为全资）'].includes(company.stockCode)
+                && company.stockPrices
+                && company.stockPrices.length > 0
+              const pts = isListed ? buildSparklinePoints(company.stockPrices) : ''
+              const chg = isListed ? calcDayChange(company.stockPrices) : 0
+              const isUp = chg >= 0
+              const color = isUp ? '#e53935' : '#43a047'  // A股/港股习惯: 红涨绿跌
+              return (
+                <div key={i} className="company-card">
+                  <div className="company-name">{company.name}</div>
+                  <div className="company-country">{company.location || ''}</div>
+                  <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>
+                    {company.position || company.role || ''}
                   </div>
-                )}
-              </div>
-            ))}
+                  {company.highlights && company.highlights.length > 0 && (
+                    <div style={{ marginTop: '8px' }}>
+                      {company.highlights.slice(0, 3).map((h: string, j: number) => (
+                        <span key={j} className="product-tag" style={{ marginRight: '4px' }}>{h}</span>
+                      ))}
+                    </div>
+                  )}
+                  {isListed && company.stockCurrent != null && (
+                    <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed #e8e8e8', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg viewBox="0 0 80 22" style={{ width: '80px', height: '22px', flexShrink: 0 }} preserveAspectRatio="none">
+                        <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+                      </svg>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#333' }}>
+                        {company.stockCurrent.toFixed(2)}
+                      </span>
+                      <span style={{ fontSize: '0.72rem', fontWeight: 600, color }}>
+                        {isUp ? '▲' : '▼'} {Math.abs(chg).toFixed(2)}%
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         )}
       </section>

@@ -60,6 +60,47 @@ export default function CompaniesPage() {
     return !unlisted.includes(company.stockCode) && company.stockPrices != null && company.stockPrices.length > 0
   }
 
+  // 根据最后更新日 + stockPrices 长度反推 X 轴三个锚点日期 (YYYY-MM)
+  const buildAxisLabels = (): [string, string, string] => {
+    const lastStr = (companiesData as any).lastUpdate as string | undefined
+    const lastDate = lastStr ? new Date(lastStr) : new Date()
+    const n = (selectedCompany?.stockPrices?.length) || 30
+    const fmt = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const offsetDays = (days: number) => {
+      const d = new Date(lastDate); d.setDate(d.getDate() - days); return fmt(d)
+    }
+    // 30 个交易日 ≈ 42 日历日, 1.4 倍
+    const total = Math.round(n * 1.4)
+    const half = Math.round(total / 2)
+    return [offsetDays(total), offsetDays(half), fmt(lastDate)]
+  }
+
+  // Sparkline points (for card mini chart)
+  const buildSparklinePoints = (prices: number[], width = 80, height = 22): string => {
+    if (!prices || prices.length < 2) return ''
+    const min = Math.min(...prices)
+    const max = Math.max(...prices)
+    const range = max - min || 1
+    const margin = range * 0.1
+    const yMin = min - margin
+    const yMax = max + margin
+    const span = yMax - yMin || 1
+    return prices.map((p, i, arr) => {
+      const x = (i / (arr.length - 1)) * width
+      const y = height - ((p - yMin) / span) * height
+      return `${x.toFixed(1)},${y.toFixed(1)}`
+    }).join(' ')
+  }
+
+  // 当日涨跌幅: (今日 - 昨日) / 昨日 × 100%
+  const calcDayChange = (prices: number[]): number => {
+    if (!prices || prices.length < 2) return 0
+    const last = prices[prices.length - 1]
+    const prev = prices[prices.length - 2]
+    if (prev === 0) return 0
+    return ((last - prev) / prev) * 100
+  }
+
   // 获取当前层的所有公司（按rank排序）
   const getCompanies = (): Company[] => {
     const tier = currentTierData
@@ -123,6 +164,29 @@ export default function CompaniesPage() {
           {company.highlights.slice(0, 3).map((tag, i) => (
             <span key={i} style={{ fontSize: '0.72rem', background: '#eef2ff', color: '#667eea', padding: '2px 8px', borderRadius: '10px' }}>{tag}</span>
           ))}
+        </div>
+      )}
+      {isListed(company) && company.stockCurrent != null && (
+        <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed #e8e8e8', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {(() => {
+            const pts = buildSparklinePoints(company.stockPrices || [])
+            const chg = calcDayChange(company.stockPrices || [])
+            const isUp = chg >= 0
+            const color = isUp ? '#e53935' : '#43a047'  // A股/港股习惯: 红涨绿跌
+            return (
+              <>
+                <svg viewBox="0 0 80 22" style={{ width: '80px', height: '22px', flexShrink: 0 }} preserveAspectRatio="none">
+                  <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+                </svg>
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#333' }}>
+                  {company.stockCurrent.toFixed(2)}
+                </span>
+                <span style={{ fontSize: '0.72rem', fontWeight: 600, color }}>
+                  {isUp ? '▲' : '▼'} {Math.abs(chg).toFixed(2)}%
+                </span>
+              </>
+            )
+          })()}
         </div>
       )}
     </div>
@@ -244,7 +308,7 @@ export default function CompaniesPage() {
               {isListed(selectedCompany) ? (
                 <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs text-blue-600 font-medium">📈 股价走势（近1年）</span>
+                    <span className="text-xs text-blue-600 font-medium">📈 股价走势（近{selectedCompany.stockPrices?.length || 30}个交易日）</span>
                     {selectedCompany.profitYoY && (
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-gray-500">净利润同比增长</span>
@@ -294,12 +358,17 @@ export default function CompaniesPage() {
                         />
                       </svg>
                     </div>
-                    {/* X轴标签 */}
-                    <div className="flex justify-between text-xs text-gray-400 mt-1">
-                      <span>2025-06</span>
-                      <span>2026-01</span>
-                      <span>2026-05</span>
-                    </div>
+                    {/* X轴标签 (动态: 基于 lastUpdate + stockPrices 长度) */}
+                    {(() => {
+                      const [lbl1, lbl2, lbl3] = buildAxisLabels()
+                      return (
+                        <div className="flex justify-between text-xs text-gray-400 mt-1">
+                          <span>{lbl1}</span>
+                          <span>{lbl2}</span>
+                          <span>{lbl3}</span>
+                        </div>
+                      )
+                    })()}
                   </div>
                 </div>
               ) : (

@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 """
-Bump technology.json:
-  - lastUpdate -> 今天 (2026-06-15)
-  - industryOverview -> 加入 2026 H1 最新动态
-  - technologyDetail[0] Massive MIMO 的 currentStatus 加 2026-06 更新点
+Bump technology.json (idempotent):
+  - lastUpdate -> 今天 (动态, 不写死)
+  - industryOverview: 仅在未包含 "【2026 H1 增量】" 时追加 H1 大事件
+  - technologyDetail[0] (Massive MIMO) currentStatus: 仅在未包含 "【2026-06 更新】" 时追加
   - hypeCycle.items 字段从 technologies 派生 (修复 schema bug)
+
+支持 CI 重复运行, 不产生重复内容.
 """
 import json
 import shutil
+import datetime as _dt
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "app" / "_data" / "technology.json"
 DST = ROOT / "public" / "data" / "technology.json"
 
-TODAY = "2026-06-15"
+TODAY = _dt.date.today().isoformat()
+TODAY_SHORT = _dt.date.today().strftime('%Y-%m')
 
 # 2026 H1 大事件 (用于 industryOverview)
 H1_2026_NEWS = (
@@ -29,51 +33,56 @@ H1_2026_NEWS = (
     "第二阶段 200 平方米规模部署, 覆盖增强效果稳定在 35-40% 区间。"
 )
 
-NEW_MASSIVE_MIMO_STATUS = (
-    "Massive MIMO(大规模 MIMO, 典型配置 64T64R/32T32R)是 5G 基站的核心技术,"
-    "通过大规模天线阵列实现波束精细化管理和空间复用, 显著提升频谱效率和覆盖能力。"
-    "截至 2026 年 Q1, 全球 5G 基站累计部署超过 1200 万面, 其中超过 70% 采用 Massive MIMO 配置。"
-    "国内运营商集采中, 64T64R 占比持续提升, 单基站天线价值量是 4G 的 3-5 倍。"
-    "技术正向 128T128R 演进, 以支持更高频谱效率和更多并发用户。"
-    "【2026-06 更新】中国移动 5G-A 三频融合天线集采 5 月落标, 128T128R 配置占比首次突破 30%,"
+MASSIVE_MIMO_TAIL = (
+    "中国移动 5G-A 三频融合天线集采 5 月落标, 128T128R 配置占比首次突破 30%,"
     "单 AAU 价值量同比上升 18%; 华为新一代 MetaAAU 在 128T128R + AI 波束赋形基础上,"
     "能耗较上一代下降 22%, 已在国内 5 个试点城市完成外场测试。"
 )
+
 
 def main():
     data = json.loads(SRC.read_text(encoding="utf-8"))
 
     old_last = data.get("lastUpdate")
-    print(f"old lastUpdate: {old_last}")
+    print(f"[bump_technology] old lastUpdate: {old_last}")
 
-    # 1. 改 lastUpdate
+    # 1. 改 lastUpdate (动态)
     data["lastUpdate"] = TODAY
 
-    # 2. 重写 industryOverview
-    old_overview = data.get("industryOverview", "")
-    # 在原 overview 后面加 H1 2026 新事件
-    data["industryOverview"] = old_overview + "\n\n【2026 H1 增量】" + H1_2026_NEWS
+    # 2. industryOverview: idempotent append (标记避免重复)
+    overview = data.get("industryOverview", "")
+    marker_overview = "【2026 H1 增量】"
+    if marker_overview not in overview:
+        data["industryOverview"] = overview + "\n\n" + marker_overview + H1_2026_NEWS
+        print(f"[bump_technology] industryOverview: appended {marker_overview}")
+    else:
+        print(f"[bump_technology] industryOverview: {marker_overview} already present, skip")
 
-    # 3. 改 technologyDetail[0] (Massive MIMO) currentStatus
+    # 3. Massive MIMO currentStatus: idempotent append
+    marker_mimo = f"【{TODAY_SHORT} 更新】"
     if data.get("technologyDetail"):
-        data["technologyDetail"][0]["currentStatus"] = NEW_MASSIVE_MIMO_STATUS
+        status = data["technologyDetail"][0].get("currentStatus", "")
+        if marker_mimo not in status:
+            data["technologyDetail"][0]["currentStatus"] = (
+                status + "\n\n" + marker_mimo + MASSIVE_MIMO_TAIL
+            )
+            print(f"[bump_technology] Massive MIMO: appended {marker_mimo}")
+        else:
+            print(f"[bump_technology] Massive MIMO: {marker_mimo} already present, skip")
 
     # 4. 修复 hypeCycle schema bug: items 应该是 technologies 的别名
     hc = data.get("hypeCycle", {})
     if "technologies" in hc and "items" not in hc:
         hc["items"] = hc["technologies"]
+        print("[bump_technology] hypeCycle.items derived from technologies")
 
     # 写回
     SRC.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"new lastUpdate: {data['lastUpdate']}")
-    print(f"industryOverview len: {len(data['industryOverview'])}")
-    print(f"technologyDetail[0] currentStatus len: {len(data['technologyDetail'][0]['currentStatus'])}")
-    print(f"hypeCycle.items: {len(hc.get('items', []))} (was {len(hc.get('items', []))})")
-
-    # 同步到 public/data/
     DST.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(SRC, DST)
-    print(f"synced -> {DST}")
+
+    print(f"[bump_technology] new lastUpdate: {data['lastUpdate']}")
+    print(f"[bump_technology] synced -> {DST}")
 
 
 if __name__ == "__main__":

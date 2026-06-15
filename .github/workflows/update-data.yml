@@ -8,8 +8,9 @@ on:
     # 支持手动触发
 
 env:
-  NODE_VERSION: '18'
-  FETCH_TIMEOUT: '300'
+  NODE_VERSION: '20'
+  PYTHON_VERSION: '3.11'
+  FETCH_TIMEOUT: '600'
 
 permissions:
   contents: write
@@ -29,16 +30,28 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
       - name: Configure git
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # fetch-real-data.py 仅用标准库, 但保留以备将来扩展
+          pip install requests || echo "requests not installed, continue with stdlib only"
 
-      - name: Run fetch-data script with timeout
-        run: timeout ${{ env.FETCH_TIMEOUT }} node scripts/fetch-data.js || exit 0
+      - name: Run fetch-real-data.py (全量: 股价 + 新闻 + 价格 + 市场)
+        run: timeout ${{ env.FETCH_TIMEOUT }} python scripts/fetch-real-data.py || echo "fetch-real-data failed, continue"
+        shell: bash
+
+      - name: Run bump_technology.py (technology.json lastUpdate + 行业概览)
+        run: python scripts/bump_technology.py || echo "bump_technology failed, continue"
         shell: bash
 
       - name: Check for changes
