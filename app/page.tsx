@@ -5,12 +5,14 @@ import newsDataRaw from '@/app/_data/news.json'
 import companiesDataRaw from '@/app/_data/companies.json'
 import pricesDataRaw from '@/app/_data/prices.json'
 import standardsDataRaw from '@/app/_data/standards.json'
+import kgDataRaw from '@/app/_data/knowledge-graph.json'
 
 const marketData: any = marketDataRaw
 const newsData: any = newsDataRaw
 const companiesData: any = companiesDataRaw
 const pricesData: any = pricesDataRaw
 const standardsData: any = standardsDataRaw
+const kgData: any = kgDataRaw
 
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
          XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
@@ -69,7 +71,7 @@ export default function Home() {
       {/* Header */}
       <header className="header">
         <h1>📡 天线行业情报追踪</h1>
-        <p>市场研究 · 行业动态 · 企业追踪 · 价格监测 · 标准更新 · 技术前沿</p>
+        <p>市场研究 · 行业动态 · 企业追踪 · 价格监测 · 标准更新 · 技术前沿 · 知识图谱</p>
         <p className="update-info">数据更新：{marketData.lastUpdate}</p>
       </header>
 
@@ -317,6 +319,39 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* === 知识图谱 === */}
+      <section className="card">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">🕸️ 知识图谱 <span style={{ fontSize: '0.9rem', color: '#999' }}>({kgData.entities?.length || 0} 个实体 · {(kgData.relations || []).length} 条关系)</span></h2>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '16px' }}>
+          {['technology', 'company', 'standard', 'material', 'event'].map((type) => {
+            const count = (kgData.entities || []).filter((e: any) => e.type === type).length
+            const icons: Record<string, string> = { technology: '🔬', company: '🏢', standard: '📜', material: '🧪', event: '⚡' }
+            const colors: Record<string, string> = { technology: '#667eea', company: '#f093fb', standard: '#4facfe', material: '#43e97b', event: '#fa709a' }
+            return (
+              <div key={type} style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '6px 14px', borderRadius: '20px',
+                background: `${colors[type]}15`, border: `1px solid ${colors[type]}30`
+              }}>
+                <span>{icons[type]}</span>
+                <span style={{ fontSize: '0.85rem', color: '#333' }}>{type}</span>
+                <span style={{
+                  fontSize: '0.75rem', padding: '2px 8px', borderRadius: '10px',
+                  background: colors[type], color: 'white'
+                }}>{count}</span>
+              </div>
+            )
+          })}
+        </div>
+        <a href="/knowledge-graph" style={{
+          display: 'inline-block', padding: '10px 24px',
+          background: '#667eea', color: 'white', borderRadius: '8px',
+          textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600
+        }}>
+          查看完整知识图谱 →
+        </a>
       </section>
 
       {/* Footer */}

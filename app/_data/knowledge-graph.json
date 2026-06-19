@@ -1,0 +1,326 @@
+{
+  "lastUpdate": "2026-06-19",
+  "version": "1.0",
+  "description": "天线行业知识图谱 - 实体与关系网络",
+  "entities": [
+    {
+      "id": "tech_ai_antenna_beamforming",
+      "type": "technology",
+      "name": "AI波束赋形",
+      "description": "基于AI技术的自适应波束赋形方案",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 6.5,
+        "tech_level": "prototype"
+      }
+    },
+    {
+      "id": "tech_mmwave_antenna",
+      "type": "technology",
+      "name": "毫米波天线",
+      "description": "毫米波频段天线设计与制造技术",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 7.5,
+        "tech_level": "commercial"
+      }
+    },
+    {
+      "id": "tech_massive_mimo",
+      "type": "technology",
+      "name": "Massive MIMO",
+      "description": "大规模多输入多输出天线技术",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 8.5,
+        "tech_level": "commercial"
+      }
+    },
+    {
+      "id": "tech_lcp_lds",
+      "type": "technology",
+      "name": "LDS天线工艺",
+      "description": "激光直接成型技术，用于LCP材料天线振子制造",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 7.0,
+        "tech_level": "commercial"
+      }
+    },
+    {
+      "id": "tech_lens_antenna",
+      "type": "technology",
+      "name": "透镜天线",
+      "description": "基于介质透镜的高增益毫米波天线",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 5.5,
+        "tech_level": "prototype"
+      }
+    },
+    {
+      "id": "tech_satellite_terminal",
+      "type": "technology",
+      "name": "卫星互联网终端天线",
+      "description": "低轨卫星通信终端用相控阵天线",
+      "source_sectors": ["technology"],
+      "metadata": {
+        "maturity_score": 6.0,
+        "tech_level": "prototype"
+      }
+    },
+    {
+      "id": "material_copper",
+      "type": "material",
+      "name": "电解铜",
+      "description": "天线导体主要材料",
+      "source_sectors": ["market"],
+      "metadata": {
+        "current_price": 108771,
+        "unit": "元/吨"
+      }
+    },
+    {
+      "id": "material_ptfe",
+      "type": "material",
+      "name": "PTFE树脂",
+      "description": "高频覆铜板填充材料，5G材料降本关键",
+      "source_sectors": ["market"],
+      "metadata": {
+        "current_price": 49739,
+        "unit": "元/吨"
+      }
+    },
+    {
+      "id": "material_lcp_film",
+      "type": "material",
+      "name": "LCP薄膜",
+      "description": "5G毫米波天线LDS工艺基材，被日美厂商垄断",
+      "source_sectors": ["market"],
+      "metadata": {
+        "current_price": 2814,
+        "unit": "元/平方米"
+      }
+    },
+    {
+      "id": "material_carbon_hydrogen_cb",
+      "type": "material",
+      "name": "碳氢树脂覆铜板",
+      "description": "5G基站天线AAU射频PCB主材",
+      "source_sectors": ["market"],
+      "metadata": {
+        "current_price": 865,
+        "unit": "元/平方米"
+      }
+    },
+    {
+      "id": "company_huawei",
+      "type": "company",
+      "name": "华为",
+      "description": "全球通信设备龙头，天线技术领先",
+      "source_sectors": ["enterprise"],
+      "metadata": {
+        "tier": 2,
+        "stock_code": "未上市（华为全资）"
+      }
+    },
+    {
+      "id": "company_zte",
+      "type": "company",
+      "name": "中兴通讯",
+      "description": "国内通信设备第二梯队，天线自研自产",
+      "source_sectors": ["enterprise"],
+      "metadata": {
+        "tier": 2,
+        "stock_code": "000063.SZ"
+      }
+    },
+    {
+      "id": "company_shengyi_tech",
+      "type": "company",
+      "name": "生益科技",
+      "description": "国内覆铜板龙头，PTFE高频材料主力供应商",
+      "source_sectors": ["enterprise"],
+      "metadata": {
+        "tier": 6,
+        "stock_code": "600183.SH"
+      }
+    },
+    {
+      "id": "company_shenzhou_tianlian",
+      "type": "company",
+      "name": "盟升电子",
+      "description": "卫星导航和卫星通信终端设备制造商",
+      "source_sectors": ["enterprise"],
+      "metadata": {
+        "tier": 3,
+        "stock_code": "688311.SH"
+      }
+    },
+    {
+      "id": "standard_3gpp_rel18",
+      "type": "standard",
+      "name": "3GPP Release 18",
+      "description": "5G-Advanced标准，定义增强型Massive MIMO和AI波束赋形",
+      "source_sectors": ["standards"],
+      "metadata": {
+        "level": "international",
+        "status": "active"
+      }
+    },
+    {
+      "id": "standard_gb_antenna_general",
+      "type": "standard",
+      "name": "GB/T 天线通用技术规范",
+      "description": "通信天线通用技术规范国家标准",
+      "source_sectors": ["standards"],
+      "metadata": {
+        "level": "national",
+        "status": "active"
+      }
+    },
+    {
+      "id": "event_5g_phase2",
+      "type": "event",
+      "name": "5G第二阶段建设",
+      "description": "中国5G基站建设进入深化覆盖阶段，毫米波试点加速",
+      "source_sectors": ["dynamics"],
+      "metadata": {
+        "importance": "high",
+        "date": "2026"
+      }
+    },
+    {
+      "id": "event_satellite_internet_policy",
+      "type": "event",
+      "name": "卫星互联网产业政策",
+      "description": "工信部出台卫星互联网产业扶持政策",
+      "source_sectors": ["dynamics"],
+      "metadata": {
+        "importance": "high",
+        "date": "2026"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "source": "tech_ai_antenna_beamforming",
+      "target": "standard_3gpp_rel18",
+      "relation": "supported_by",
+      "confidence": 0.9,
+      "evidence": "3GPP Rel-18标准定义了AI波束赋形技术规范"
+    },
+    {
+      "source": "tech_ai_antenna_beamforming",
+      "target": "company_huawei",
+      "relation": "applied_by",
+      "confidence": 0.85,
+      "evidence": "华为在2026年MWC展示了基于AI波束赋形的基站产品"
+    },
+    {
+      "source": "tech_mmwave_antenna",
+      "target": "material_lcp_film",
+      "relation": "depends_on",
+      "confidence": 0.95,
+      "evidence": "毫米波天线使用LCP薄膜作为LDS工艺基材"
+    },
+    {
+      "source": "tech_mmwave_antenna",
+      "target": "event_5g_phase2",
+      "relation": "driven_by",
+      "confidence": 0.8,
+      "evidence": "5G第二阶段建设推动毫米波天线试点"
+    },
+    {
+      "source": "tech_massive_mimo",
+      "target": "company_huawei",
+      "relation": "applied_by",
+      "confidence": 0.95,
+      "evidence": "华为Massive MIMO基站产品全球市场份额领先"
+    },
+    {
+      "source": "tech_massive_mimo",
+      "target": "company_zte",
+      "relation": "applied_by",
+      "confidence": 0.9,
+      "evidence": "中兴通讯自研Massive MIMO天线技术"
+    },
+    {
+      "source": "tech_massive_mimo",
+      "target": "material_carbon_hydrogen_cb",
+      "relation": "depends_on",
+      "confidence": 0.9,
+      "evidence": "Massive MIMO AAU射频PCB使用碳氢树脂覆铜板"
+    },
+    {
+      "source": "tech_lcp_lds",
+      "target": "material_lcp_film",
+      "relation": "depends_on",
+      "confidence": 0.95,
+      "evidence": "LDS工艺使用LCP薄膜作为基材"
+    },
+    {
+      "source": "tech_lcp_lds",
+      "target": "company_shengyi_tech",
+      "relation": "supplied_by",
+      "confidence": 0.7,
+      "evidence": "生益科技生产LCP相关材料"
+    },
+    {
+      "source": "tech_satellite_terminal",
+      "target": "event_satellite_internet_policy",
+      "relation": "driven_by",
+      "confidence": 0.85,
+      "evidence": "卫星互联网产业政策推动终端天线发展"
+    },
+    {
+      "source": "tech_satellite_terminal",
+      "target": "company_shenzhou_tianlian",
+      "relation": "applied_by",
+      "confidence": 0.8,
+      "evidence": "盟升电子生产卫星通信终端天线设备"
+    },
+    {
+      "source": "company_huawei",
+      "target": "company_zte",
+      "relation": "competes_with",
+      "confidence": 0.95,
+      "evidence": "华为和中兴在通信设备市场直接竞争"
+    },
+    {
+      "source": "company_shengyi_tech",
+      "target": "company_huawei",
+      "relation": "supplies_to",
+      "confidence": 0.8,
+      "evidence": "生益科技向华为供应高频覆铜板材料"
+    },
+    {
+      "source": "material_copper",
+      "target": "tech_massive_mimo",
+      "relation": "used_in",
+      "confidence": 0.9,
+      "evidence": "Massive MIMO天线导体使用电解铜"
+    },
+    {
+      "source": "material_ptfe",
+      "target": "tech_mmwave_antenna",
+      "relation": "used_in",
+      "confidence": 0.85,
+      "evidence": "PTFE树脂用于毫米波天线高频覆铜板"
+    },
+    {
+      "source": "standard_gb_antenna_general",
+      "target": "company_huawei",
+      "relation": "complies_with",
+      "confidence": 0.9,
+      "evidence": "华为产品符合国家标准GB/T天线通用技术规范"
+    },
+    {
+      "source": "standard_gb_antenna_general",
+      "target": "company_zte",
+      "relation": "complies_with",
+      "confidence": 0.9,
+      "evidence": "中兴产品符合国家标准GB/T天线通用技术规范"
+    }
+  ]
+}

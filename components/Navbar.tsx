@@ -19,6 +19,7 @@ export default function Navbar() {
             <Link href="/prices" className={`nav-link${pathname === '/prices' ? ' active' : ''}`}>价格</Link>
             <Link href="/standards" className={`nav-link${pathname === '/standards' ? ' active' : ''}`}>标准</Link>
             <Link href="/technology" className={`nav-link${pathname === '/technology' ? ' active' : ''}`}>技术</Link>
+            <Link href="/knowledge-graph" className={`nav-link${pathname === '/knowledge-graph' ? ' active' : ''}`}>知识图谱</Link>
           </div>
           <div className="navbar-search">
             <SearchTrigger />
