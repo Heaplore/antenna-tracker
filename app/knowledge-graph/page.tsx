@@ -1,9 +1,11 @@
 'use client'
 import { useState, useMemo, useRef, useEffect } from 'react'
 import kgData from '@/app/_data/knowledge-graph.json'
+import relationsData from '@/app/_data/relations.json'
 
 type Entity = typeof kgData.entities[0]
 type Relation = typeof kgData.relations[0]
+type TechRelation = typeof relationsData[0]
 
 const ENTITY_COLORS: Record<string, string> = {
   technology: '#667eea',
@@ -121,7 +123,13 @@ export default function KnowledgeGraphPage() {
   const entities = kgData.entities
   const relations = kgData.relations
 
-  const layout = useMemo(() => simulateLayout(entities, relations), [entities, relations])
+  // Merge both relation sources for layout simulation
+  const allRelations = useMemo(() => [
+    ...relations,
+    ...relationsData.map(r => ({ source: r.source, target: r.target, relation: r.predicate, confidence: 0.9, evidence: '' }))
+  ], [relations, relationsData])
+
+  const layout = useMemo(() => simulateLayout(entities, allRelations), [entities, allRelations])
 
   // Search filter
   const searchFilteredEntities = useMemo(() => {
@@ -142,38 +150,38 @@ export default function KnowledgeGraphPage() {
 
   const filteredEntityIds = new Set(filteredEntities.map(e => e.id))
   const filteredRelations = useMemo(() => {
-    return relations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target))
-  }, [relations, filteredEntityIds])
+    return allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target))
+  }, [allRelations, filteredEntityIds])
 
   // Connected entities for selected entity
   const connectedEntityIds = useMemo(() => {
     if (!selectedEntity) return new Set<string>()
     const ids = new Set<string>()
     ids.add(selectedEntity.id)
-    relations.forEach(r => {
+    allRelations.forEach(r => {
       if (r.source === selectedEntity.id) ids.add(r.target)
       if (r.target === selectedEntity.id) ids.add(r.source)
     })
     return ids
-  }, [selectedEntity, relations])
+  }, [selectedEntity, allRelations])
 
   // Expanded subgraph nodes
   const expandedNodeIds = useMemo(() => {
     if (!expandedNodeId) return new Set<string>()
     const ids = new Set<string>()
     ids.add(expandedNodeId)
-    relations.forEach(r => {
+    allRelations.forEach(r => {
       if (r.source === expandedNodeId) ids.add(r.target)
       if (r.target === expandedNodeId) ids.add(r.source)
     })
     return ids
-  }, [expandedNodeId, relations])
+  }, [expandedNodeId, allRelations])
 
   // Recommended entities based on selected entity's relationships
   const recommendedEntities = useMemo(() => {
     if (!selectedEntity) return []
     const recs: Entity[] = []
-    relations.forEach(r => {
+    allRelations.forEach(r => {
       if (r.source === selectedEntity.id) {
         const target = entities.find(e => e.id === r.target)
         if (target && !recs.find(r => r.id === target!.id)) recs.push(target)
@@ -184,9 +192,19 @@ export default function KnowledgeGraphPage() {
       }
     })
     return recs.slice(0, 6)
-  }, [selectedEntity, relations, entities])
+  }, [selectedEntity, allRelations, entities])
 
   const layoutNode = (id: string) => layout.find(n => n.id === id) || { x: 0, y: 0 }
+
+  // Node size: entities with summary are key entities (larger)
+  const getNodeRadius = (entity: Entity, isExpanded: boolean, isSelected: boolean, isHovered: boolean) => {
+    const hasSummary = entity.summary || entity.summary_vernacular
+    const baseSize = hasSummary ? 24 : 18
+    if (isExpanded) return baseSize + 8
+    if (isSelected) return baseSize + 4
+    if (isHovered) return baseSize + 2
+    return baseSize
+  }
 
   const typeCounts = useMemo(() => {
     const counts: Record<string, number> = { all: entities.length }
@@ -208,7 +226,7 @@ export default function KnowledgeGraphPage() {
       <header className="header">
         <h1>🕸️ 知识图谱</h1>
         <p>天线行业知识网络 — 实体关系可视化 · 数据来源：各板块结构化数据 + 小月技术解读笔记</p>
-        <p className="update-info">数据更新：{kgData.lastUpdate} · {entities.length} 个实体 · {relations.length} 条关系</p>
+        <p className="update-info">数据更新：{kgData.lastUpdate} · {kgData.entities.length} 个实体 · {relations.length + relationsData.length} 条关系</p>
       </header>
 
       {/* 搜索框 */}
@@ -376,7 +394,7 @@ export default function KnowledgeGraphPage() {
                 const isExpanded = expandedNodeId === entity.id
                 const isConnected = expandedNodeId ? expandedNodeIds.has(entity.id) : selectedEntity ? connectedEntityIds.has(entity.id) : true
                 const color = ENTITY_COLORS[entity.type] || '#999'
-                const radius = isExpanded ? 32 : isSelected ? 28 : (isHovered ? 26 : 22)
+                const radius = getNodeRadius(entity, isExpanded, isSelected, isHovered)
                 return (
                   <g
                     key={entity.id}
@@ -441,7 +459,7 @@ export default function KnowledgeGraphPage() {
         </div>
 
         {/* 详情面板 */}
-        <div style={{ flex: '0 0 340px', minWidth: '280px' }}>
+        <div style={{ flex: '0 0 320px', minWidth: '280px' }}>
           {selectedEntity ? (
             <div className="card">
               <h3 style={{ marginBottom: '16px' }}>📋 实体详情</h3>
@@ -457,9 +475,26 @@ export default function KnowledgeGraphPage() {
                   </span>
                 </div>
               </div>
-              <p style={{ color: '#666', lineHeight: 1.6, marginBottom: '16px' }}>
-                {selectedEntity.description}
-              </p>
+              {/* 专业介绍 */}
+              <div style={{ marginBottom: '16px' }}>
+                <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  专业介绍
+                </h4>
+                <p style={{ color: '#444', lineHeight: 1.7, fontSize: '0.85rem', margin: 0 }}>
+                  {selectedEntity.summary || selectedEntity.description}
+                </p>
+              </div>
+              {/* 通俗解释 */}
+              {selectedEntity.summary_vernacular && (
+                <div style={{ marginBottom: '16px' }}>
+                  <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    通俗解释
+                  </h4>
+                  <p style={{ color: '#555', lineHeight: 1.7, fontSize: '0.85rem', margin: 0, fontStyle: 'italic' }}>
+                    {selectedEntity.summary_vernacular}
+                  </p>
+                </div>
+              )}
               {selectedEntity.metadata && (
                 <div style={{ marginBottom: '16px' }}>
                   <h4 style={{ fontSize: '0.85rem', color: '#999', marginBottom: '8px' }}>属性</h4>
@@ -527,7 +562,7 @@ export default function KnowledgeGraphPage() {
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🔍</div>
               <p>点击图谱中的节点查看实体详情</p>
               <p style={{ fontSize: '0.85rem', marginTop: '8px' }}>
-                共 {entities.length} 个实体，{relations.length} 条关系
+                共 {kgData.entities.length} 个实体，{relations.length + relationsData.length} 条关系
               </p>
             </div>
           )}

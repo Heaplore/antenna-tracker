@@ -1,0 +1,194 @@
+[
+  {
+    "entity": "MIMO",
+    "type": "technology",
+    "category": "天线技术",
+    "summary": "多输入多输出技术，多根天线同时收发，把空间变成新的高速公路。传统 SISO 是单车道，MIMO 是多车道并行传输。",
+    "summary_vernacular": "就像一条马路从单车道改成多车道，原来一辆车一辆车走，现在多辆车并行跑，速度翻 N 倍。",
+    "related_entities": ["Massive MIMO", "波束赋形", "空间复用", "空间分集", "天线隔离度"]
+  },
+  {
+    "entity": "Massive MIMO",
+    "type": "technology",
+    "category": "天线技术",
+    "summary": "大规模 MIMO，5G 基站天线的核心技术。64T64R、128T128R 甚至 192T192R 配置，在有限空间内集成数十至上百个天线单元。",
+    "summary_vernacular": "普通 MIMO 是几根天线并行，Massive MIMO 是把几十上百根天线塞进一块基站面板里，让网速和容量翻倍。",
+    "related_entities": ["MIMO", "波束赋形", "天线隔离度", "XL-MIMO", "CSI反馈"]
+  },
+  {
+    "entity": "波束赋形",
+    "type": "technology",
+    "category": "天线技术",
+    "summary": "通过控制多根天线的信号相位和幅度，让电磁波能量集中指向特定方向，从全向灯泡升级为手电筒。5G 基站、卫星通信、Wi-Fi 7 的核心技术。",
+    "summary_vernacular": "以前基站信号像灯泡，360度乱照浪费能量；波束赋形就像手电筒，对准谁就往谁那打，省电又更快。",
+    "related_entities": ["MIMO", "相控阵", "Massive MIMO", "XL-MIMO", "RIS", "AIP"]
+  },
+  {
+    "entity": "相控阵",
+    "type": "technology",
+    "category": "天线技术",
+    "summary": "通过电子控制波束指向的阵列天线，无需机械转动即可改变辐射方向。广泛应用于 5G 基站、卫星通信（Starlink）、雷达系统。",
+    "summary_vernacular": "以前转天线要整个设备跟着转，相控阵是里面几百根小天线各自微调，电子方式就能改变方向，像大脑指挥手臂一样快。",
+    "related_entities": ["波束赋形", "MIMO", "AIP", "卫星通信", "Ka波段"]
+  },
+  {
+    "entity": "天线隔离度",
+    "type": "technology",
+    "category": "射频参数",
+    "summary": "衡量两个天线之间互相干扰程度的参数，用 S21 量化。隔离度越高，干扰越小。5G Massive MIMO 基站中数十至上百个天线单元的隔离设计是关键挑战。",
+    "summary_vernacular": "就像办公室里每个人的隔音玻璃——玻璃越好，你的电话会议不会打扰别人，别人也不会干扰你。天线之间隔得越好，基站就能塞进越多天线。",
+    "related_entities": ["MIMO", "Massive MIMO", "DGS", "EBG", "去耦接地"]
+  },
+  {
+    "entity": "菲涅尔区",
+    "type": "technology",
+    "category": "微波通信",
+    "summary": "无线链路中包裹在直线视距周围的一个橄榄球形空间区域。第一菲涅尔区贡献约70%的接收功率，工程设计要求60%净空准则。",
+    "summary_vernacular": "两条天线之间不只有一条直线通道，而是一个橄榄球形状的空间。即使中间直线没挡住，只要这个橄榄球空间被树叶或建筑占了30%，信号就会变差。",
+    "related_entities": ["微波通信", "E-band", "链路预算", "视距传播", "多径衰落"]
+  },
+  {
+    "entity": "空间复用",
+    "type": "technology",
+    "category": "MIMO技术",
+    "summary": "MIMO 的三大关键技术之一。把一份高速数据拆成多份低速数据通过不同天线同时发送，接收端再重组。4x4 MIMO 理论上速率是 SISO 的 4 倍。",
+    "summary_vernacular": "就像一个快递把一个大包裹拆成几个小箱子同时寄出，到目的地再重新组装，速度直接翻 N 倍。",
+    "related_entities": ["MIMO", "Massive MIMO", "空间分集", "波束赋形"]
+  },
+  {
+    "entity": "空间分集",
+    "type": "technology",
+    "category": "MIMO技术",
+    "summary": "MIMO 的三大关键技术之一。同一份数据通过多根天线发送或利用多径传播的不同路径，确保至少有一条路径信号质量好，降低误码率。",
+    "summary_vernacular": "就像多条路送同一封信，只要有一条路没堵车，信就到了。提高的是稳定性而不是速度。",
+    "related_entities": ["MIMO", "空间复用", "多径传播", "Massive MIMO"]
+  },
+  {
+    "entity": "多径传播",
+    "type": "technology",
+    "category": "无线通信",
+    "summary": "信号通过反射、折射产生多条传播路径的现象。在传统通信中是干扰源，但在 MIMO 中被转化为资源——不同路径=不同空间信道=可并行传输。",
+    "summary_vernacular": "以前信号碰到墙壁反弹回来叫多径，被认为是噪音。MIMO 反其道而行：多一条路径就多一个传送数据的通道。",
+    "related_entities": ["MIMO", "空间分集", "菲涅尔区", "多径衰落"]
+  },
+  {
+    "entity": "XL-MIMO",
+    "type": "technology",
+    "category": "6G技术",
+    "summary": "超大规模 MIMO，6G 候选关键技术。阵列规模从 64 演进到 256 再到 1024，波束越来越窄，频谱效率向香农极限逼近。",
+    "summary_vernacular": "Massive MIMO 的升级版，天线数量从几十个到上千个，波束像激光一样精准，网速和容量继续大幅提升。",
+    "related_entities": ["Massive MIMO", "波束赋形", "MIMO", "6G"]
+  },
+  {
+    "entity": "RIS",
+    "type": "technology",
+    "category": "6G技术",
+    "summary": "可重构智能表面，把墙面或玻璃变成反射波束的镜子。无源器件，成本低，用于解决覆盖盲区如电梯、地下车库。",
+    "summary_vernacular": "以前信号进不了电梯或地下室只能靠加基站，RIS 就是在墙上贴一层智能反射膜，把信号反射进去，省钱又省事。",
+    "related_entities": ["波束赋形", "6G", "Massive MIMO", "覆盖优化"]
+  },
+  {
+    "entity": "AIP",
+    "type": "technology",
+    "category": "天线技术",
+    "summary": "一体化有源阵列，芯片和天线集成在一起。毫米波手机和 AirDrop 设备的核心技术，成本和体积大幅下降。",
+    "summary_vernacular": "以前天线是外接的一根棍子或贴片，AIP 直接把天线做进芯片里，手机越来越薄还能用毫米波。",
+    "related_entities": ["相控阵", "波束赋形", "毫米波", "Massive MIMO"]
+  },
+  {
+    "entity": "CSI反馈",
+    "type": "technology",
+    "category": "5G技术",
+    "summary": "信道状态信息反馈，Massive MIMO 波束赋形的关键前提。基站需要知道用户的信道状态才能精准赋形，反馈开销大是核心难点之一。",
+    "summary_vernacular": "基站要精准对准用户发信号，得先知道信号传过来的路是什么样的。CSI 反馈就是用户告诉基站'路怎么样'的过程。",
+    "related_entities": ["Massive MIMO", "波束赋形", "XL-MIMO", "6G"]
+  },
+  {
+    "entity": "DGS",
+    "type": "technology",
+    "category": "射频技术",
+    "summary": "缺陷地结构，在天线接地板上蚀刻特定缺口图案，阻断表面电流传播路径，提升天线单元之间的隔离度，典型效果 10-20dB。",
+    "summary_vernacular": "就像在电路板上挖沟渠，让电流过不去，防止一个天线的信号通过电路板传到另一个天线里。",
+    "related_entities": ["天线隔离度", "EBG", "去耦接地", "MIMO"]
+  },
+  {
+    "entity": "EBG",
+    "type": "technology",
+    "category": "射频技术",
+    "summary": "电磁带隙结构，人工设计的周期性金属结构，作为频率陷阱抑制表面波传播，提升天线隔离度，典型效果 20-30dB 宽频。",
+    "summary_vernacular": "像给电路板装了一个只放行特定频率的'安检门'，其他频率的信号过不去，从而减少天线之间的干扰。",
+    "related_entities": ["天线隔离度", "DGS", "去耦接地", "MIMO"]
+  },
+  {
+    "entity": "Ka波段",
+    "type": "technology",
+    "category": "卫星通信",
+    "summary": "卫星通信常用频段之一，频率范围 26-40GHz。Starlink 等低轨卫星系统使用 Ka 波段实现高通量数据传输。",
+    "summary_vernacular": "卫星上网用的一个高频段，就像高速公路的快车道，带宽大但怕下雨（雨衰严重）。",
+    "related_entities": ["卫星通信", "Ku波段", "相控阵", "波束赋形"]
+  },
+  {
+    "entity": "Ku波段",
+    "type": "technology",
+    "category": "卫星通信",
+    "summary": "卫星通信常用频段，频率范围 12-18GHz。比 Ka 波段频率低，穿透力更强，受雨衰影响较小。",
+    "summary_vernacular": "卫星上网用的另一个频段，就像高速公路的慢车道，带宽不如 Ka 波段但更稳定，不容易被天气影响。",
+    "related_entities": ["Ka波段", "卫星通信", "相控阵"]
+  },
+  {
+    "entity": "E-band",
+    "type": "technology",
+    "category": "微波通信",
+    "summary": "5G 基站回传主力频段，频率 70/80GHz，波长毫米级。提供超大带宽但雨衰严重，波束极窄，对视距要求严格。",
+    "summary_vernacular": "基站之间传数据用的超高频段，带宽巨大但像激光一样细，稍微有点遮挡或下雨就断了。",
+    "related_entities": ["微波通信", "菲涅尔区", "视距传播", "5G回传"]
+  },
+  {
+    "entity": "Wi-Fi 7",
+    "type": "technology",
+    "category": "无线通信",
+    "summary": "IEEE 802.11be 标准，支持 320MHz 信道带宽、4096-QAM、16x16 MU-MIMO 和多链路操作（MLO）。家用路由器 4-8 根天线。",
+    "summary_vernacular": "最新一代 WiFi，速度比 WiFi 6 快好几倍，能同时服务更多设备不掉线，家里设备再多也不卡。",
+    "related_entities": ["MIMO", "波束赋形", "MU-MIMO", "Massive MIMO"]
+  },
+  {
+    "entity": "Starlink",
+    "type": "company",
+    "category": "卫星通信",
+    "summary": "SpaceX 的低轨卫星互联网项目，单颗卫星可生成上千个独立波束，地面用户终端使用相控阵天线，Ku/Ka 频段，单星吞吐量约 20 Gbps。",
+    "summary_vernacular": "马斯克用卫星在天上铺了一张网，你家屋顶装个小天线就能上网，不用拉光纤。",
+    "related_entities": ["相控阵", "波束赋形", "Ka波段", "Ku波段", "卫星通信"]
+  },
+  {
+    "entity": "6G",
+    "type": "technology",
+    "category": "通信技术",
+    "summary": "第六代移动通信技术，候选关键技术包括 XL-MIMO、RIS、AI驱动波束管理、近场通信等。波束越来越窄，频谱效率逼近香农极限。",
+    "summary_vernacular": "5G 之后的下一代通信，网速会比 5G 快 10-100 倍，信号能精准到像激光一样对准你的设备。",
+    "related_entities": ["XL-MIMO", "RIS", "波束赋形", "Massive MIMO", "近场通信"]
+  },
+  {
+    "entity": "近场通信",
+    "type": "technology",
+    "category": "6G技术",
+    "summary": "6G 关注的通信新特性，波束不再只跟角度走，还带距离维度。球面波模型替代平面波，适用于超大规模天线阵列场景。",
+    "summary_vernacular": "以前信号发射只考虑方向，不考虑距离。近场通信把距离也算进去，就像手电筒不仅对准谁，还知道谁离得多远。",
+    "related_entities": ["6G", "XL-MIMO", "波束赋形"]
+  },
+  {
+    "entity": "视距传播",
+    "type": "technology",
+    "category": "无线通信",
+    "summary": "无线信号在发射端和接收端之间直线无障碍的传播方式。是微波通信和 5G 毫米波通信的基础，但菲涅尔区净空比 LOS 更重要。",
+    "summary_vernacular": "两根天线之间拉一根直线，线上没东西挡就叫视距。但光有视距还不够，还得保证视距周围的橄榄球空间也清空。",
+    "related_entities": ["菲涅尔区", "微波通信", "E-band", "多径传播"]
+  },
+  {
+    "entity": "多径衰落",
+    "type": "technology",
+    "category": "无线通信",
+    "summary": "信号通过不同路径到达接收端，各路径信号叠加导致信号强度随机波动。是无线通信中的经典问题，MIMO 将其转化为资源。",
+    "summary_vernacular": "信号走多条路到达手机，有的路快有的路慢，到了手机那里有的叠加增强、有的抵消减弱，信号忽强忽弱。",
+    "related_entities": ["MIMO", "多径传播", "菲涅尔区", "空间分集"]
+  }
+]

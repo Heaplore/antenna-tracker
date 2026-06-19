@@ -1,0 +1,442 @@
+[
+  {
+    "source": "tech_1001",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1001",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1001",
+    "predicate": "related_to",
+    "target": "tech_1007"
+  },
+  {
+    "source": "tech_1001",
+    "predicate": "related_to",
+    "target": "tech_1008"
+  },
+  {
+    "source": "tech_1001",
+    "predicate": "related_to",
+    "target": "tech_1005"
+  },
+  {
+    "source": "tech_1002",
+    "predicate": "depends_on",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1002",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1002",
+    "predicate": "related_to",
+    "target": "tech_1005"
+  },
+  {
+    "source": "tech_1002",
+    "predicate": "depends_on",
+    "target": "tech_1010"
+  },
+  {
+    "source": "tech_1002",
+    "predicate": "depends_on",
+    "target": "tech_1013"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1004"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1010"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1011"
+  },
+  {
+    "source": "tech_1003",
+    "predicate": "depends_on",
+    "target": "tech_1012"
+  },
+  {
+    "source": "tech_1004",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1004",
+    "predicate": "depends_on",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1004",
+    "predicate": "depends_on",
+    "target": "tech_1012"
+  },
+  {
+    "source": "tech_1004",
+    "predicate": "related_to",
+    "target": "tech_1016"
+  },
+  {
+    "source": "tech_1005",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1005",
+    "predicate": "related_to",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1005",
+    "predicate": "related_to",
+    "target": "tech_1014"
+  },
+  {
+    "source": "tech_1005",
+    "predicate": "related_to",
+    "target": "tech_1015"
+  },
+  {
+    "source": "tech_1006",
+    "predicate": "related_to",
+    "target": "tech_1018"
+  },
+  {
+    "source": "tech_1006",
+    "predicate": "related_to",
+    "target": "tech_1023"
+  },
+  {
+    "source": "tech_1006",
+    "predicate": "related_to",
+    "target": "tech_1024"
+  },
+  {
+    "source": "tech_1007",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1007",
+    "predicate": "related_to",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1007",
+    "predicate": "related_to",
+    "target": "tech_1008"
+  },
+  {
+    "source": "tech_1007",
+    "predicate": "related_to",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1008",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1008",
+    "predicate": "related_to",
+    "target": "tech_1007"
+  },
+  {
+    "source": "tech_1008",
+    "predicate": "related_to",
+    "target": "tech_1009"
+  },
+  {
+    "source": "tech_1008",
+    "predicate": "related_to",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1009",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1009",
+    "predicate": "related_to",
+    "target": "tech_1008"
+  },
+  {
+    "source": "tech_1009",
+    "predicate": "related_to",
+    "target": "tech_1006"
+  },
+  {
+    "source": "tech_1009",
+    "predicate": "related_to",
+    "target": "tech_1024"
+  },
+  {
+    "source": "tech_1010",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1010",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1010",
+    "predicate": "depends_on",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1010",
+    "predicate": "depends_on",
+    "target": "tech_1021"
+  },
+  {
+    "source": "tech_1011",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1011",
+    "predicate": "depends_on",
+    "target": "tech_1021"
+  },
+  {
+    "source": "tech_1011",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1012",
+    "predicate": "depends_on",
+    "target": "tech_1004"
+  },
+  {
+    "source": "tech_1012",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1012",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1013",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1013",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1013",
+    "predicate": "depends_on",
+    "target": "tech_1010"
+  },
+  {
+    "source": "tech_1013",
+    "predicate": "depends_on",
+    "target": "tech_1021"
+  },
+  {
+    "source": "tech_1014",
+    "predicate": "related_to",
+    "target": "tech_1005"
+  },
+  {
+    "source": "tech_1014",
+    "predicate": "related_to",
+    "target": "tech_1015"
+  },
+  {
+    "source": "tech_1014",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1015",
+    "predicate": "related_to",
+    "target": "tech_1005"
+  },
+  {
+    "source": "tech_1015",
+    "predicate": "related_to",
+    "target": "tech_1014"
+  },
+  {
+    "source": "tech_1015",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1016",
+    "predicate": "related_to",
+    "target": "tech_1017"
+  },
+  {
+    "source": "tech_1016",
+    "predicate": "related_to",
+    "target": "tech_1004"
+  },
+  {
+    "source": "tech_1016",
+    "predicate": "related_to",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1017",
+    "predicate": "related_to",
+    "target": "tech_1016"
+  },
+  {
+    "source": "tech_1017",
+    "predicate": "related_to",
+    "target": "tech_1004"
+  },
+  {
+    "source": "tech_1018",
+    "predicate": "related_to",
+    "target": "tech_1006"
+  },
+  {
+    "source": "tech_1018",
+    "predicate": "related_to",
+    "target": "tech_1023"
+  },
+  {
+    "source": "tech_1019",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1019",
+    "predicate": "related_to",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1019",
+    "predicate": "related_to",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1020",
+    "predicate": "related_to",
+    "target": "tech_1004"
+  },
+  {
+    "source": "tech_1020",
+    "predicate": "related_to",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1020",
+    "predicate": "related_to",
+    "target": "tech_1016"
+  },
+  {
+    "source": "tech_1020",
+    "predicate": "related_to",
+    "target": "tech_1017"
+  },
+  {
+    "source": "tech_1021",
+    "predicate": "depends_on",
+    "target": "tech_1010"
+  },
+  {
+    "source": "tech_1021",
+    "predicate": "depends_on",
+    "target": "tech_1011"
+  },
+  {
+    "source": "tech_1021",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1021",
+    "predicate": "depends_on",
+    "target": "tech_1002"
+  },
+  {
+    "source": "tech_1021",
+    "predicate": "depends_on",
+    "target": "tech_1022"
+  },
+  {
+    "source": "tech_1022",
+    "predicate": "depends_on",
+    "target": "tech_1021"
+  },
+  {
+    "source": "tech_1022",
+    "predicate": "depends_on",
+    "target": "tech_1010"
+  },
+  {
+    "source": "tech_1022",
+    "predicate": "depends_on",
+    "target": "tech_1003"
+  },
+  {
+    "source": "tech_1023",
+    "predicate": "related_to",
+    "target": "tech_1006"
+  },
+  {
+    "source": "tech_1023",
+    "predicate": "related_to",
+    "target": "tech_1018"
+  },
+  {
+    "source": "tech_1023",
+    "predicate": "related_to",
+    "target": "tech_1009"
+  },
+  {
+    "source": "tech_1024",
+    "predicate": "related_to",
+    "target": "tech_1001"
+  },
+  {
+    "source": "tech_1024",
+    "predicate": "related_to",
+    "target": "tech_1009"
+  },
+  {
+    "source": "tech_1024",
+    "predicate": "related_to",
+    "target": "tech_1006"
+  },
+  {
+    "source": "tech_1024",
+    "predicate": "related_to",
+    "target": "tech_1008"
+  }
+]
