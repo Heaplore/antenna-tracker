@@ -112,6 +112,69 @@ function simulateLayout(
   return nodeArr.map(n => ({ id: n.id, x: n.x, y: n.y }))
 }
 
+// SVG Donut Chart for entity type distribution
+function DonutChart({ typeCounts }: { typeCounts: Record<string, number> }) {
+  const total = typeCounts.all || 1
+  const entries = Object.entries(ENTITY_LABELS).map(([key, label]) => ({
+    key,
+    label,
+    count: typeCounts[key] || 0,
+    color: ENTITY_COLORS[key],
+    icon: ENTITY_ICONS[key],
+  })).filter(e => e.count > 0)
+
+  // Build SVG arc paths
+  let startAngle = -Math.PI / 2
+  const radius = 60
+  const innerRadius = 38
+  const arcs = entries.map(entry => {
+    const fraction = entry.count / total
+    const angle = fraction * Math.PI * 2
+    const endAngle = startAngle + angle
+    const largeArc = angle > Math.PI ? 1 : 0
+
+    const x1Outer = Math.cos(startAngle) * radius
+    const y1Outer = Math.sin(startAngle) * radius
+    const x2Outer = Math.cos(endAngle) * radius
+    const y2Outer = Math.sin(endAngle) * radius
+    const x1Inner = Math.cos(endAngle) * innerRadius
+    const y1Inner = Math.sin(endAngle) * innerRadius
+    const x2Inner = Math.cos(startAngle) * innerRadius
+    const y2Inner = Math.sin(startAngle) * innerRadius
+
+    const d = [
+      `M ${x1Outer} ${y1Outer}`,
+      `A ${radius} ${radius} 0 ${largeArc} 1 ${x2Outer} ${y2Outer}`,
+      `L ${x1Inner} ${y1Inner}`,
+      `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x2Inner} ${y2Inner}`,
+      'Z',
+    ].join(' ')
+
+    const midAngle = startAngle + angle / 2
+    const labelR = (radius + innerRadius) / 2
+    const lx = Math.cos(midAngle) * labelR
+    const ly = Math.sin(midAngle) * labelR
+
+    startAngle = endAngle
+    return { ...entry, d, lx, ly }
+  })
+
+  return (
+    <svg width="160" height="160" viewBox="-80 -80 160 160">
+      {arcs.map((arc, i) => (
+        <path key={i} d={arc.d} fill={arc.color} opacity="0.85" />
+      ))}
+      <text x="0" y="-6" textAnchor="middle" fontSize="14" fontWeight="700" fill="#333">{total}</text>
+      <text x="0" y="10" textAnchor="middle" fontSize="8" fill="#999">总计</text>
+      {arcs.map((arc, i) => (
+        <text key={i} x={arc.lx} y={arc.ly} textAnchor="middle" dominantBaseline="middle" fontSize="7" fill="white" fontWeight="600" pointerEvents="none">
+          {arc.icon} {arc.count}
+        </text>
+      ))}
+    </svg>
+  )
+}
+
 export default function KnowledgeGraphPage() {
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null)
   const [hoveredEntity, setHoveredEntity] = useState<string | null>(null)
@@ -305,64 +368,15 @@ export default function KnowledgeGraphPage() {
         </div>
       </section>
 
-      {/* 实体总览卡片网格 */}
-      <section className="card" style={{ marginBottom: '24px' }}>
-        <h3 style={{ marginBottom: '16px' }}>📋 实体总览</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-          {Object.entries(groupedEntities).map(([type, ents]) => (
-            <div key={type} style={{ gridColumn: '1 / -1', marginBottom: '8px' }}>
-              <h4 style={{ 
-                fontSize: '0.95rem', 
-                color: ENTITY_COLORS[type], 
-                marginBottom: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
-                {ENTITY_ICONS[type]} {ENTITY_LABELS[type]} ({ents.length})
-              </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '12px' }}>
-                {ents.map(entity => (
-                  <div
-                    key={entity.id}
-                    onClick={() => setSelectedEntity(entity)}
-                    onMouseEnter={() => setHoveredEntity(entity.id)}
-                    onMouseLeave={() => setHoveredEntity(null)}
-                    style={{
-                      padding: '12px',
-                      borderRadius: '8px',
-                      border: `1px solid ${ENTITY_COLORS[type]}30`,
-                      background: `${ENTITY_COLORS[type]}08`,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '1.1rem' }}>{ENTITY_ICONS[entity.type]}</span>
-                      <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{entity.name}</span>
-                    </div>
-                    <p style={{ 
-                      fontSize: '0.8rem', 
-                      color: '#666', 
-                      margin: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {entity.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* 图谱可视化 */}
         <div className="card" style={{ flex: '1 1 600px', minWidth: '0' }}>
           <h3 style={{ marginBottom: '16px' }}>📊 知识图谱关系图</h3>
+
+          {/* 环形图 - 实体类型分布 */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+            <DonutChart typeCounts={typeCounts} />
+          </div>
           <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
             <svg
               viewBox="0 0 1060 740"
