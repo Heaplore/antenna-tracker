@@ -54,11 +54,7 @@ jobs:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
 
       - name: Build static site
-        run: |
-          bash -x -c 'npm run export' > build.log 2>&1
-          echo "Exit code: $?"
-          cat build.log
-          exit 0
+        run: npx next build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
