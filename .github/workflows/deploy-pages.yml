@@ -55,17 +55,14 @@ jobs:
 
       - name: Build static site
         run: npx next build
-        continue-on-error: true
-      - name: Upload build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: |
-            out/
-            *.log
-            package.json
-            next.config.js
+      - name: Debug out directory
+        run: |
+          echo "=== Out directory contents ==="
+          find out/ -type f 2>/dev/null | head -30
+          echo "=== File count ==="
+          find out/ -type f 2>/dev/null | wc -l
+          echo "=== Total size ==="
+          du -sh out/ 2>/dev/null || echo "out/ not found"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
