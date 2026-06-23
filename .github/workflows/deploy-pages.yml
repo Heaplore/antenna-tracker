@@ -43,7 +43,10 @@ jobs:
         run: pip install openai
 
       - name: Generate analysis
-        run: python scripts/generate-analysis.py
+        run: |
+          echo "AGNES_API_KEY set: $([ -n "$AGNES_API_KEY" ] && echo YES || echo NO)"
+          echo "AGNES_API_KEY length: ${#AGNES_API_KEY}"
+          python scripts/generate-analysis.py
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
 
