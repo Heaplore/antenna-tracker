@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
   schedule:
-    # Every Sunday at 02:00 UTC (10:00 Beijing time)
     - cron: '0 2 * * 0'
   workflow_dispatch:
 
@@ -42,16 +41,17 @@ jobs:
       - name: Install Python dependencies
         run: pip install openai
 
-      - name: Generate analysis
+      - name: Build
         run: |
+          set -e
+          echo "Running generate-analysis.py..."
           python scripts/generate-analysis.py
+          echo "Running next build..."
+          npm run build
+          echo "Build complete!"
+          ls -la out/
         env:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-      - name: Verify analysis output
-        run: test -f app/_data/analysis-output.json && echo "analysis-output.json exists" || (echo "MISSING!" && ls -la app/_data/ && exit 1)
-
-      - name: Build static site
-        run: npx next build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
