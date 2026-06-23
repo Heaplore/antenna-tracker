@@ -626,7 +626,7 @@ export default function KnowledgeGraphPage() {
                 <h4 style={{ fontSize: '0.85rem', color: '#999', marginBottom: '8px' }}>
                   🔗 关联关系 ({connectedEntityIds.size - 1} 条)
                 </h4>
-                {relations
+                {allRelations
                   .filter(r => r.source === selectedEntity.id || r.target === selectedEntity.id)
                   .map((rel, i) => {
                     const isSource = rel.source === selectedEntity.id
@@ -667,6 +667,17 @@ export default function KnowledgeGraphPage() {
                   })
                 }
               </div>
+              {/* 技术解读 */}
+              {selectedEntity.type === 'technology' && selectedEntity.summary_vernacular && (
+                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                  <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    📝 小月解读
+                  </h4>
+                  <p style={{ color: '#555', lineHeight: 1.7, fontSize: '0.85rem', margin: 0, fontStyle: 'italic' }}>
+                    {selectedEntity.summary_vernacular}
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="card" style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
