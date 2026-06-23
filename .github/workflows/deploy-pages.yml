@@ -55,25 +55,16 @@ jobs:
 
       - name: Build static site
         run: |
-          echo "Step 1: Check Node version"
-          node --version
-          echo "Step 2: Check npm version"
-          npm --version
-          echo "Step 3: Check if analysis-output.json exists"
-          test -f app/_data/analysis-output.json && echo "YES" || echo "NO"
-          echo "Step 4: Run next build"
-          npx next build 2>&1
-          echo "Step 5: Check if out directory exists"
-          ls -la out/ 2>/dev/null || echo "out/ not found"
-          echo "Step 6: Check public directory"
-          ls -la public/data/ 2>/dev/null || echo "public/data/ not found"
-
-      - name: Upload artifact
-        run: |
-          echo "Checking out/ directory..."
+          echo "=== Build Start ==="
+          npx next build > build-output.log 2>&1
+          BUILD_EXIT=$?
+          echo "Build exit code: $BUILD_EXIT"
+          echo "=== Build Output ==="
+          cat build-output.log
+          echo "=== Out directory ==="
           ls -la out/ 2>/dev/null || echo "out/ NOT FOUND"
-          find out/ -type f | head -20
-        id: check-out
+          exit $BUILD_EXIT
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
