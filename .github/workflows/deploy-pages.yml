@@ -55,15 +55,9 @@ jobs:
 
       - name: Build static site
         run: |
-          echo "=== Build Start ==="
-          npx next build > build-output.log 2>&1
-          BUILD_EXIT=$?
-          echo "Build exit code: $BUILD_EXIT"
-          echo "=== Build Output ==="
-          cat build-output.log
-          echo "=== Out directory ==="
-          ls -la out/ 2>/dev/null || echo "out/ NOT FOUND"
-          exit $BUILD_EXIT
+          npx next build
+          echo "Build succeeded"
+          ls -la out/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
