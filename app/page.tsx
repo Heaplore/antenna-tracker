@@ -1,357 +1,97 @@
 'use client'
-import { useMemo } from 'react'
-import marketDataRaw from '@/app/_data/market.json'
-import newsDataRaw from '@/app/_data/news.json'
-import companiesDataRaw from '@/app/_data/companies.json'
-import pricesDataRaw from '@/app/_data/prices.json'
-import standardsDataRaw from '@/app/_data/standards.json'
-import kgDataRaw from '@/app/_data/knowledge-graph.json'
+import analysisOutputRaw from '@/app/_data/analysis-output.json'
 
-const marketData: any = marketDataRaw
-const newsData: any = newsDataRaw
-const companiesData: any = companiesDataRaw
-const pricesData: any = pricesDataRaw
-const standardsData: any = standardsDataRaw
-const kgData: any = kgDataRaw
-
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-         XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-
-// Sparkline points (mini 折线图 for card)
-function buildSparklinePoints(prices: number[], width = 80, height = 22): string {
-  if (!prices || prices.length < 2) return ''
-  const min = Math.min(...prices)
-  const max = Math.max(...prices)
-  const range = max - min || 1
-  const margin = range * 0.1
-  const yMin = min - margin
-  const yMax = max + margin
-  const span = yMax - yMin || 1
-  return prices.map((p, i, arr) => {
-    const x = (i / (arr.length - 1)) * width
-    const y = height - ((p - yMin) / span) * height
-    return `${x.toFixed(1)},${y.toFixed(1)}`
-  }).join(' ')
-}
-
-// 当日涨跌幅: (今日 - 昨日) / 昨日 × 100%
-function calcDayChange(prices: number[]): number {
-  if (!prices || prices.length < 2) return 0
-  const last = prices[prices.length - 1]
-  const prev = prices[prices.length - 2]
-  if (prev === 0) return 0
-  return ((last - prev) / prev) * 100
-}
+const analysisOutput: any = analysisOutputRaw
 
 export default function Home() {
-  const newsArray = Object.values(newsData) as any[]
-
-  // companiesData tier 结构
-  const tierOrder = [
-    'tier1_operators', 'tier2_equipment_vendors', 'tier3_antenna_oems',
-    'tier4_antenna_parts', 'tier5_rf_parts', 'tier6_key_materials', 'tier7_raw_materials'
-  ]
-  const allCompanies = useMemo(() => {
-    const chain = (companiesData as any).supplyChain || {}
-    return tierOrder.flatMap(tier => (chain[tier]?.companies || []) as any[])
-  }, [])
-
-  // pricesData
-  const allMaterials = useMemo(() => {
-    return (pricesData as any).categories?.flatMap((cat: any) => cat.materials || []) || []
-  }, [])
-
-  // standardsData
-  const allStandards = useMemo(() => {
-    return (standardsData as any).categories?.flatMap((cat: any) => cat.standards || []) || []
-  }, [])
+  if (!analysisOutput || !analysisOutput.dimensions) {
+    return (
+      <div className="container">
+        <header className="header">
+          <h1>📡 天线行业情报追踪</h1>
+          <p>四维交叉分析加载中...</p>
+        </header>
+        <div style={{ textAlign: 'center', padding: '60px', color: '#999' }}>
+          暂无分析数据，请稍后再试。
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container">
       {/* Header */}
       <header className="header">
         <h1>📡 天线行业情报追踪</h1>
-        <p>市场研究 · 行业动态 · 企业追踪 · 价格监测 · 标准更新 · 技术前沿 · 知识图谱</p>
-        <p className="update-info">数据更新：{marketData.lastUpdate}</p>
+        <p>四维交叉分析 · 技术 · 质量 · 成本 · 交付</p>
+        <p className="update-info">分析生成时间：{analysisOutput.generatedAt}</p>
       </header>
 
-      {/* === 市场概览 === */}
+      {/* === 四维交叉分析 === */}
       <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📊 市场概览</h2>
-        <div className="stats-grid">
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.globalMarketSize2024}</div>
-            <div className="stat-label">2024全球天线市场规模</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.chinaMarketSize2024}</div>
-            <div className="stat-label">2024中国市场规模</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.forecast2030}</div>
-            <div className="stat-label">2030年预测规模</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-value">{marketData.summary.cagr}</div>
-            <div className="stat-label">年复合增长率</div>
-          </div>
-        </div>
-        <h3 style={{ marginTop: '24px' }} className="text-base sm:text-lg font-semibold">🚀 增长驱动因素</h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {(marketData.keyDrivers as any[]).map((driver: any, i: any) => (
-            <span key={i} className="tag">{driver}</span>
-          ))}
-        </div>
-      </section>
+        <h2 className="text-lg sm:text-xl font-semibold mb-2">⭐ 四维交叉分析</h2>
+        <p style={{ fontSize: '12px', color: '#999', marginBottom: '16px' }}>生成时间：{analysisOutput.generatedAt}</p>
 
-      {/* === 市场规模趋势 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📈 市场规模趋势 (2020-2030)</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={marketData.trendData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" tick={{ fontSize: 11 }} />
-            <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip formatter={(value: any) => `${value}亿元`} />
-            <Legend />
-            <Line type="monotone" dataKey="global" name="全球市场" stroke="#0088FE" strokeWidth={2} />
-            <Line type="monotone" dataKey="china" name="中国市场" stroke="#00C49F" strokeWidth={2} />
-          </LineChart>
-        </ResponsiveContainer>
-      </section>
-
-      {/* === 细分市场占比 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">🥧 细分市场占比</h2>
-        <ResponsiveContainer width="100%" height={280}>
-          <PieChart>
-            <Pie
-              data={marketData.segmentData}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              dataKey="value"
-              label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}%`}
-            >
-              {marketData.segmentData.map((entry: any, index: any) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value: any) => `${value}亿元`} />
-          </PieChart>
-        </ResponsiveContainer>
-      </section>
-
-      {/* === 细分市场详情 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📋 细分市场详情</h2>
-        <div className="segment-grid">
-          {(marketData.segments as any[]).map((seg: any, i: any) => (
-            <div key={i} className="segment-card">
-              <div className="segment-name">{seg.name}</div>
-              {seg.globalSize && (
-                <div className="segment-stat">
-                  <span>全球规模</span>
-                  <span>{seg.globalSize}</span>
-                </div>
-              )}
-              {seg.chinaSize && (
-                <div className="segment-stat">
-                  <span>中国规模</span>
-                  <span>{seg.chinaSize}</span>
-                </div>
-              )}
-              {seg.cagr && (
-                <div className="segment-stat">
-                  <span>年复合增长率</span>
-                  <span style={{ color: '#667eea', fontWeight: 600 }}>{seg.cagr}</span>
-                </div>
-              )}
-              {seg.drivers && seg.drivers.length > 0 && (
-                <div style={{ marginTop: '12px' }}>
-                  <span style={{ fontSize: '12px', color: '#999' }}>驱动因素：</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
-                    {seg.drivers.map((d: any, j: any) => (
-                      <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{d}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {seg.types && seg.types.length > 0 && (
-                <div style={{ marginTop: '12px' }}>
-                  <span style={{ fontSize: '12px', color: '#999' }}>主要类型：</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
-                    {seg.types.map((t: any, j: any) => (
-                      <span key={j} className="tag" style={{ fontSize: '0.75rem' }}>{t}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
+        {/* 综合分析 */}
+        {analysisOutput.crossDimensionSummary && (
+          <div style={{
+            padding: '16px', borderRadius: '8px', marginBottom: '20px',
+            background: 'linear-gradient(135deg, #f8f0ff 0%, #f0f7ff 100%)',
+            border: '1px solid #e0d4f5'
+          }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px', color: '#667eea' }}>综合分析</div>
+            <div style={{ fontSize: '13px', lineHeight: '1.6', color: '#444', whiteSpace: 'pre-wrap' }}>
+              {typeof analysisOutput.crossDimensionSummary === 'string' ? analysisOutput.crossDimensionSummary : JSON.stringify(analysisOutput.crossDimensionSummary)}
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* === 行业动态 === */}
-      <section className="card">
-        <h2>📰 行业动态 <span style={{ fontSize: '0.9rem', color: '#999' }}>({newsArray.length}条)</span></h2>
-        {newsArray.length === 0 ? (
-          <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无数据</p>
-        ) : (
-          <ul className="news-list">
-            {newsArray.slice(0, 10).map((news: any) => (
-              <li key={news.id} className="news-item">
-                <div className="news-date">{news.date} · {news.source}</div>
-                <div className="news-title">
-                  {news.url ? (
-                    <a href={news.url} target="_blank" rel="noopener noreferrer">{news.title}</a>
-                  ) : news.title}
-                </div>
-                <div className="news-summary">{news.summary}</div>
-                {news.tags && news.tags.length > 0 && (
-                  <div className="news-tags">
-                    {news.tags.map((tag: string, j: number) => (
-                      <span key={j} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      {/* === 重点企业 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">🏭 重点企业 <span style={{ fontSize: '0.9rem', color: '#999' }}>({allCompanies.length}家)</span></h2>
-        {allCompanies.length === 0 ? (
-          <p style={{ color: '#999', textAlign: 'center', padding: '40px' }}>暂无数据</p>
-        ) : (
-          <div className="company-grid">
-            {allCompanies.slice(0, 12).map((company: any, i: number) => {
-              const isListed = company.stockCode
-                && !['未上市', '—', '非上市', '非独立上市（安弗施集团内）', '非上市（私企）', '未上市（华为全资）'].includes(company.stockCode)
-                && company.stockPrices
-                && company.stockPrices.length > 0
-              const pts = isListed ? buildSparklinePoints(company.stockPrices) : ''
-              const chg = isListed ? calcDayChange(company.stockPrices) : 0
-              const isUp = chg >= 0
-              const color = isUp ? '#e53935' : '#43a047'  // A股/港股习惯: 红涨绿跌
-              return (
-                <div key={i} className="company-card">
-                  <div className="company-name">{company.name}</div>
-                  <div className="company-country">{company.location || ''}</div>
-                  <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>
-                    {company.position || company.role || ''}
-                  </div>
-                  {company.highlights && company.highlights.length > 0 && (
-                    <div style={{ marginTop: '8px' }}>
-                      {company.highlights.slice(0, 3).map((h: string, j: number) => (
-                        <span key={j} className="product-tag" style={{ marginRight: '4px' }}>{h}</span>
-                      ))}
-                    </div>
-                  )}
-                  {isListed && company.stockCurrent != null && (
-                    <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px dashed #e8e8e8', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <svg viewBox="0 0 80 22" style={{ width: '80px', height: '22px', flexShrink: 0 }} preserveAspectRatio="none">
-                        <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
-                      </svg>
-                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#333' }}>
-                        {company.stockCurrent.toFixed(2)}
-                      </span>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 600, color }}>
-                        {isUp ? '▲' : '▼'} {Math.abs(chg).toFixed(2)}%
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )
-            })}
           </div>
         )}
-      </section>
 
-      {/* === 原材料价格 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">💰 原材料价格 <span style={{ fontSize: '0.9rem', color: '#999' }}>({allMaterials.length}种)</span></h2>
-        <div className="overflow-x-auto">
-          <table className="price-table">
-            <thead>
-              <tr>
-                <th>材料</th>
-                <th>当前价格</th>
-                <th>涨跌</th>
-                <th>趋势</th>
-                <th>对天线的影响</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allMaterials.slice(0, 20).map((price: any, i: number) => (
-                <tr key={i}>
-                  <td style={{ fontWeight: 600 }}>{price.name}</td>
-                  <td>{price.currentPrice.toLocaleString()} {price.unit}</td>
-                  <td className={price.trend === '上涨' ? 'price-up' : price.trend === '下跌' ? 'price-down' : 'price-stable'}>
-                    {price.change}
-                  </td>
-                  <td className={price.trend === '上涨' ? 'price-up' : price.trend === '下跌' ? 'price-down' : 'price-stable'}>
-                    {price.trend}
-                  </td>
-                  <td style={{ fontSize: '12px', color: '#999' }}>{price.impact}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* === 行业标准 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">📋 行业标准 <span style={{ fontSize: '0.9rem', color: '#999' }}>({allStandards.length}条)</span></h2>
-        <ul className="standards-list">
-          {allStandards.slice(0, 15).map((std: any, i: number) => (
-            <li key={i} className="standard-item">
-              <div className="standard-name">{std.name}</div>
-              <div className="standard-title">{std.title}</div>
-              <div className="standard-meta">
-                {std.organization} · {std.publishDate} · 状态：{std.status}
-              </div>
-              <div style={{ fontSize: '13px', color: '#666', marginTop: '8px' }}>{std.description}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* === 知识图谱 === */}
-      <section className="card">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">🕸️ 知识图谱 <span style={{ fontSize: '0.9rem', color: '#999' }}>({kgData.entities?.length || 0} 个实体 · {(kgData.relations || []).length} 条关系)</span></h2>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '16px' }}>
-          {['technology', 'company', 'standard', 'material', 'event'].map((type) => {
-            const count = (kgData.entities || []).filter((e: any) => e.type === type).length
-            const icons: Record<string, string> = { technology: '🔬', company: '🏢', standard: '📜', material: '🧪', event: '⚡' }
-            const colors: Record<string, string> = { technology: '#667eea', company: '#f093fb', standard: '#4facfe', material: '#43e97b', event: '#fa709a' }
+        {/* 四维卡片 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+          {(['technology', 'quality', 'cost', 'delivery'] as string[]).map(dim => {
+            const cards = analysisOutput.dimensions[dim]?.cards || []
+            const icons: Record<string, string> = { technology: '🔧', quality: '📋', cost: '💰', delivery: '🚚' }
+            const labels: Record<string, string> = { technology: '技术', quality: '质量', cost: '成本', delivery: '交付' }
+            const bgColors: Record<string, string> = { technology: '#f8f0ff', quality: '#f0f7ff', cost: '#fff8f0', delivery: '#f0fff4' }
             return (
-              <div key={type} style={{
-                display: 'flex', alignItems: 'center', gap: '6px',
-                padding: '6px 14px', borderRadius: '20px',
-                background: `${colors[type]}15`, border: `1px solid ${colors[type]}30`
+              <div key={dim} style={{
+                padding: '14px', borderRadius: '8px',
+                background: bgColors[dim] || '#fafafa',
+                border: '1px solid #eee',
               }}>
-                <span>{icons[type]}</span>
-                <span style={{ fontSize: '0.85rem', color: '#333' }}>{type}</span>
-                <span style={{
-                  fontSize: '0.75rem', padding: '2px 8px', borderRadius: '10px',
-                  background: colors[type], color: 'white'
-                }}>{count}</span>
+                <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  {icons[dim]} {labels[dim]} <span style={{ fontSize: '12px', color: '#999', fontWeight: 400 }}>({cards.length}条)</span>
+                </div>
+                {cards.map((card: any, idx: number) => {
+                  const sevColors: Record<string, string> = { high: '#e53935', medium: '#ff9800', low: '#43a047' }
+                  const sevLabels: Record<string, string> = { high: '高', medium: '中', low: '低' }
+                  return (
+                    <div key={idx} style={{
+                      padding: '8px 10px', marginBottom: '6px',
+                      borderRadius: '6px', background: 'rgba(255,255,255,0.7)',
+                      borderLeft: `3px solid ${sevColors[card.severity] || '#999'}`,
+                    }}>
+                      <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '3px', display: 'flex', justifyContent: 'space-between' }}>
+                        <span>{card.title}</span>
+                        <span style={{ fontSize: '11px', color: sevColors[card.severity], fontWeight: 500 }}>
+                          {sevLabels[card.severity] || card.severity}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '12px', lineHeight: '1.5', color: '#555' }}>
+                        {card.summary}
+                      </div>
+                      {card.recommendation && (
+                        <div style={{ fontSize: '11px', lineHeight: '1.4', color: '#888', marginTop: '4px' }}>
+                          💡 {card.recommendation}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             )
           })}
         </div>
-        <a href="/knowledge-graph" style={{
-          display: 'inline-block', padding: '10px 24px',
-          background: '#667eea', color: 'white', borderRadius: '8px',
-          textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600
-        }}>
-          查看完整知识图谱 →
-        </a>
       </section>
 
       {/* Footer */}
