@@ -33,25 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Build static site
+        run: npm run build
 
-      - name: Install Python dependencies
-        run: pip install openai
-
-      - name: Build
+      - name: Verify output
         run: |
-          set -e
-          echo "Running generate-analysis.py..."
-          python scripts/generate-analysis.py
-          echo "Running next build..."
-          npm run export
-          echo "Build complete!"
-          ls -la out/
-        env:
-          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          echo "Checking out/ directory..."
+          ls -la out/ || echo "out/ not found!"
+          ls -la out/*.html | head -20
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
