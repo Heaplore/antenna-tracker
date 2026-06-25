@@ -115,7 +115,6 @@ function DonutChart({ typeCounts }: { typeCounts: Record<string, number> }) {
 
 export default function KnowledgeGraphPage() {
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null)
-  const [hoveredEntity, setHoveredEntity] = useState<string | null>(null)
   const [filterType, setFilterType] = useState<string>('all')
   const [expandedNodeId, setExpandedNodeId] = useState<string | null>(null)
   const [focusMode, setFocusMode] = useState<string | null>(null)
@@ -399,8 +398,6 @@ export default function KnowledgeGraphPage() {
         setExpandedNodeId(d.id)
       }
     })
-    .on('mouseenter', (event, d) => setHoveredEntity(d.id))
-    .on('mouseleave', () => setHoveredEntity(null))
 
     // Tick
     simulation.on('tick', () => {
@@ -433,7 +430,7 @@ export default function KnowledgeGraphPage() {
     }
   }, [filteredEntities, filteredRelations])
 
-  // Update node visual state when selection/hover changes
+  // Update node visual state when selection/expand changes (no hover updates)
   useEffect(() => {
     if (!svgRef.current) return
     try {
@@ -446,12 +443,11 @@ export default function KnowledgeGraphPage() {
         if (!d) return
         const g = d3.select(this)
         const isSelected = selectedEntity?.id === d.id
-        const isHovered = hoveredEntity === d.id
         const isExpanded = expandedNodeId === d.id
         const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
         const color = ENTITY_COLORS[d.type] || '#999'
         const baseR = d.radius
-        const haloR = isExpanded ? baseR + 8 : isSelected ? baseR + 4 : isHovered ? baseR + 2 : 0
+        const haloR = isExpanded ? baseR + 8 : isSelected ? baseR + 4 : 0
 
         g.select('.node-base')
           .attr('fill', color)
@@ -476,7 +472,7 @@ export default function KnowledgeGraphPage() {
       console.error('Knowledge graph update error:', err)
       setGraphError(err.message || '图谱更新出错')
     }
-  }, [selectedEntity, hoveredEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
+  }, [selectedEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
 
   const layoutNode = (id: string) => {
     const node = filteredEntities.find(e => e.id === id)
@@ -674,11 +670,9 @@ export default function KnowledgeGraphPage() {
                           background: '#f8f9fa',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          border: `1px solid ${hoveredEntity === otherEntity.id ? ENTITY_COLORS[otherEntity.type] + '40' : '#eee'}`,
+                          border: `1px solid #eee`,
                         }}
                         onClick={() => setSelectedEntity(otherEntity)}
-                        onMouseEnter={() => setHoveredEntity(otherEntity.id)}
-                        onMouseLeave={() => setHoveredEntity(null)}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                           <span>{ENTITY_ICONS[otherEntity.type]}</span>
@@ -730,8 +724,6 @@ export default function KnowledgeGraphPage() {
                   <div
                     key={entity.id}
                     onClick={() => setSelectedEntity(entity)}
-                    onMouseEnter={() => setHoveredEntity(entity.id)}
-                    onMouseLeave={() => setHoveredEntity(null)}
                     style={{
                       padding: '10px',
                       borderRadius: '8px',
