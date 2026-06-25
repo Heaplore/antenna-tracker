@@ -312,10 +312,11 @@ export default function KnowledgeGraphPage() {
       .text(d => d.predicate || d.relation || '')
 
     // Nodes group
-    const node = svgGroup.append('g')
+    const node = svgGroup.append('g').attr('class', 'nodes-group')
       .selectAll('g')
       .data(d3Nodes)
       .join('g')
+      .attr('class', 'node-item')
       .attr('cursor', 'grab')
       .call(d3.drag<SVGGElement, D3Node>()
         .on('start', (event: any, d: D3Node) => {
@@ -430,34 +431,42 @@ export default function KnowledgeGraphPage() {
   // Update node visual state when selection/hover changes
   useEffect(() => {
     if (!svgRef.current) return
-    const svg = d3.select(svgRef.current)
-    const nodes = svg.selectAll('.graph-group g')
+    try {
+      const svg = d3.select(svgRef.current)
+      const nodes = svg.selectAll('.node-item')
 
-    nodes.each(function(d: any) {
-      const g = d3.select(this)
-      const circles = g.selectAll('circle')
-      const isSelected = selectedEntity?.id === d.id
-      const isHovered = hoveredEntity === d.id
-      const isExpanded = expandedNodeId === d.id
-      const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
-      const color = ENTITY_COLORS[d.type] || '#999'
-      const r = d.radius + (isExpanded ? 8 : isSelected ? 4 : isHovered ? 2 : 0)
+      if (nodes.empty()) return
 
-      circles
-        .attr('r', r)
-        .attr('fill', color)
-        .attr('fill-opacity', isConnected ? 0.85 : 0.15)
-        .attr('stroke', isExpanded || isSelected ? '#333' : 'white')
-        .attr('stroke-width', isExpanded || isSelected ? 3 : 2)
+      nodes.each(function(d: any) {
+        if (!d) return
+        const g = d3.select(this)
+        const circles = g.selectAll('circle')
+        const isSelected = selectedEntity?.id === d.id
+        const isHovered = hoveredEntity === d.id
+        const isExpanded = expandedNodeId === d.id
+        const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
+        const color = ENTITY_COLORS[d.type] || '#999'
+        const r = d.radius + (isExpanded ? 8 : isSelected ? 4 : isHovered ? 2 : 0)
 
-      const labels = g.selectAll('text').filter((_: any, __: number, node: any) => {
-        const textEl = node[0]?.textContent
-        return textEl && textEl.length <= 10 && !['🔬','🏢','📜','🧪','⚡'].includes(textEl)
+        circles
+          .attr('r', r)
+          .attr('fill', color)
+          .attr('fill-opacity', isConnected ? 0.85 : 0.15)
+          .attr('stroke', isExpanded || isSelected ? '#333' : 'white')
+          .attr('stroke-width', isExpanded || isSelected ? 3 : 2)
+
+        const labels = g.selectAll('text').filter((_: any, __: number, node: any) => {
+          const textEl = node[0]?.textContent
+          return textEl && textEl.length <= 10 && !['🔬','🏢','📜','🧪','⚡'].includes(textEl)
+        })
+        labels
+          .attr('fill', isConnected ? '#333' : '#ccc')
+          .attr('font-weight', isExpanded || isSelected ? 700 : 400)
       })
-      labels
-        .attr('fill', isConnected ? '#333' : '#ccc')
-        .attr('font-weight', isExpanded || isSelected ? 700 : 400)
-    })
+    } catch (err: any) {
+      console.error('Knowledge graph update error:', err)
+      setGraphError(err.message || '图谱更新出错')
+    }
   }, [selectedEntity, hoveredEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
 
   const layoutNode = (id: string) => {
