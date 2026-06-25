@@ -337,19 +337,15 @@ export default function KnowledgeGraphPage() {
     // Node circles
     node.each(function(d) {
       const g = d3.select(this)
-      const isSelected = selectedEntity?.id === d.id
-      const isHovered = hoveredEntity === d.id
-      const isExpanded = expandedNodeId === d.id
-      const isConnected = expandedNodeId ? expandedNodeIds.has(d.id) : focusMode ? connectedEntityIds.has(d.id) : selectedEntity ? connectedEntityIds.has(d.id) : true
       const color = ENTITY_COLORS[d.type] || '#999'
-      const r = d.radius + (isExpanded ? 8 : isSelected ? 4 : isHovered ? 2 : 0)
+      const r = d.radius
 
       g.append('circle')
         .attr('r', r)
         .attr('fill', color)
-        .attr('fill-opacity', isConnected ? 0.85 : 0.15)
-        .attr('stroke', isExpanded || isSelected ? '#333' : 'white')
-        .attr('stroke-width', isExpanded || isSelected ? 3 : 2)
+        .attr('fill-opacity', 0.85)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 2)
 
       g.append('text')
         .attr('text-anchor', 'middle')
@@ -362,8 +358,8 @@ export default function KnowledgeGraphPage() {
         .attr('y', r + 14)
         .attr('text-anchor', 'middle')
         .attr('font-size', '10px')
-        .attr('fill', isConnected ? '#333' : '#ccc')
-        .attr('font-weight', isExpanded || isSelected ? 700 : 400)
+        .attr('fill', '#333')
+        .attr('font-weight', 400)
         .attr('pointer-events', 'none')
         .text(d.name.length > 8 ? d.name.slice(0, 8) + '…' : d.name)
     })
@@ -426,7 +422,7 @@ export default function KnowledgeGraphPage() {
       console.error('Knowledge graph error:', err)
       setGraphError(err.message || '图谱渲染出错')
     }
-  }, [filteredEntities, filteredRelations, selectedEntity, hoveredEntity, expandedNodeId, focusMode, connectedEntityIds, expandedNodeIds])
+  }, [filteredEntities, filteredRelations])
 
   // Update node visual state when selection/hover changes
   useEffect(() => {
