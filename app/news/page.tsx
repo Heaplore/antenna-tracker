@@ -34,7 +34,16 @@ function isAntennaRelated(item: NewsItem): boolean {
   if (!item || typeof item !== 'object') return false
   const tags = Array.isArray(item.tags) ? item.tags.join(' ') : ''
   const text = `${item.title || ''} ${item.summary || ''} ${tags}`.toLowerCase()
-  return ANTENNA_KEYWORDS.some(kw => text.includes(kw.toLowerCase()))
+  return ANTENNA_KEYWORDS.some(kw => {
+    const lowerKw = kw.toLowerCase()
+    // 中文/长英文关键词用子串匹配；短英文词用边界匹配，避免 RIS 匹配 RISC-V
+    const hasChinese = /[\u4e00-\u9fff]/.test(lowerKw)
+    if (hasChinese || lowerKw.length >= 5) {
+      return text.includes(lowerKw)
+    }
+    const boundary = new RegExp(`(?<![a-z0-9])${lowerKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![a-z0-9])`, 'i')
+    return boundary.test(text)
+  })
 }
 
 // ============================================================
@@ -54,6 +63,11 @@ const SOURCE_SEARCH_URL: Record<string, string> = {
   '中国联通官网': 'https://www.chinaunicom.com.cn/news/list.html?keyword={kw}',
   '中兴官网': 'https://www.zte.com.cn/china/about/news?keyword={kw}',
   '盛路通信公告': 'https://www.shenglu.com/news?keyword={kw}',
+  '微波射频网': 'https://www.mwrf.net/search/?keyword={kw}',
+  '与非网RF社区': 'https://rf.eefocus.com/search/?keyword={kw}',
+  '电子发烧友': 'https://www.elecfans.com/search/?keyword={kw}',
+  'RFASK射频问问': 'https://www.rfask.net/search/?keyword={kw}',
+  '3GPP': 'https://www.3gpp.org/search/?keyword={kw}',
   // "行业研究" 是聚合源，泛指行业研究类资讯——兜底走百度站内搜索限定 C114
   '行业研究': 'https://www.baidu.com/s?wd=site%3Ac114.com.cn+{kw}',
 }
@@ -118,6 +132,12 @@ const filtered = activeFilter === '全部'
     'C114通信网': '#1565c0',
     '通信世界网': '#00897b',
     '飞象网': '#ad1457',
+    '工信部': '#5e35b1',
+    '3GPP': '#f57c00',
+    '微波射频网': '#00695c',
+    '与非网RF社区': '#c62828',
+    '电子发烧友': '#6a1b9a',
+    'RFASK射频问问': '#0277bd',
   }
 
   return (

@@ -218,6 +218,24 @@ TGPP_RE = re.compile(
     re.IGNORECASE,
 )
 
+# 新增天线行业垂直源: 微波射频网 / 与非网 RF / 电子发烧友 / RFASK 等
+MWRF_RE = re.compile(
+    r'<a[^>]+href="(https?://[^"]*mwrf\.net[^"]+)"[^>]*>\s*([^<]{10,150})\s*</a>',
+    re.IGNORECASE,
+)
+EEFOCUS_RF_RE = re.compile(
+    r'<a[^>]+href="(https?://[^"]*rf\.eefocus\.com/(?:article/id-\d+|module/forum/thread-\d+-\d+-\d+\.html))"[^>]*>\s*([^<]{10,150})\s*</a>',
+    re.IGNORECASE,
+)
+ELECFANS_RE = re.compile(
+    r'<a[^>]+href="(https?://[^"]*elecfans\.com[^"]+)"[^>]*>\s*([^<]{10,150})\s*</a>',
+    re.IGNORECASE,
+)
+RFASK_RE = re.compile(
+    r'<a[^>]+href="(https?://[^"]*rfask\.net[^"]+)"[^>]*>\s*([^<]{10,150})\s*</a>',
+    re.IGNORECASE,
+)
+
 
 def crawl_c114() -> list[dict]:
     """抓 C114 首页 + 各频道页. 首页响应是 GBK, 必须强制解码.
@@ -265,19 +283,33 @@ def crawl_c114() -> list[dict]:
 
 def crawl_cww() -> list[dict]:
     log("info", "抓取 通信世界 (CWW) ...")
-    html = fetch_url("https://www.cww.net.cn/")
+    # 官网首页会返回 meta refresh 到 /index.jsp, 直接请求正文页
+    html = fetch_url("https://www.cww.net.cn/index.jsp")
     if not html:
         return []
     items: list[dict] = []
-    for m in CWW_RE.finditer(html):
+    seen: set[str] = set()
+    # 通信世界网同时存在绝对 URL 和相对 URL
+    cww_re = re.compile(
+        r'<a[^>]+href="((?:https?://(?:www\.)?(?:cww\.net\.cn|cww\.com\.cn))?[^"]+)"[^>]*>\s*([^<\n]{10,100})\s*</a>',
+        re.IGNORECASE,
+    )
+    for m in cww_re.finditer(html):
+        href = m.group(1)
         title = strip_html(m.group(2))
-        if not title:
+        if not title or href in seen or href.startswith("#") or "javascript" in href.lower():
             continue
+        seen.add(href)
+        if href.startswith("http"):
+            full_url = href
+        else:
+            # 相对路径补全
+            full_url = "https://www.cww.net.cn" + (href if href.startswith("/") else "/" + href)
         items.append(make_news_item(
             title=title,
             source="通信世界网",
             summary="通信世界网行业资讯",
-            url=m.group(1),
+            url=full_url,
             tags=["行业动态"],
         ))
     return items[:20]
@@ -345,12 +377,131 @@ def crawl_3gpp() -> list[dict]:
     return items[:20]
 
 
+def crawl_mwrf() -> list[dict]:
+    """抓 微波射频网 (mwrf.net) 首页及天线/射频技术栏目."""
+    log("info", "抓取 微波射频网 ...")
+    pages = [
+        ("https://www.mwrf.net/", "首页"),
+        ("https://www.mwrf.net/tech/antenna/", "天线技术"),
+    ]
+    items: list[dict] = []
+    seen: set[str] = set()
+    for url, label in pages:
+        html = fetch_url(url, timeout=20)
+        if not html:
+            continue
+        for m in MWRF_RE.finditer(html):
+            href = m.group(1).split("?")[0]  # 去 query
+            title = strip_html(m.group(2))
+            if not title or href in seen or "/tag/" in href or "/search" in href:
+                continue
+            seen.add(href)
+            items.append(make_news_item(
+                title=title,
+                source="微波射频网",
+                summary=f"微波射频网 {label}",
+                url=href,
+                tags=["行业动态", "射频/微波"],
+            ))
+    return items[:20]
+
+
+def crawl_eefocus_rf() -> list[dict]:
+    """抓 与非网 RF 技术社区 (rf.eefocus.com) 文章与论坛帖."""
+    log("info", "抓取 与非网 RF 技术社区 ...")
+    pages = [
+        ("https://rf.eefocus.com/", "首页"),
+        ("https://rf.eefocus.com/module/forum/", "论坛"),
+    ]
+    items: list[dict] = []
+    seen: set[str] = set()
+    for url, label in pages:
+        html = fetch_url(url, timeout=20)
+        if not html:
+            continue
+        for m in EEFOCUS_RF_RE.finditer(html):
+            href = m.group(1)
+            title = strip_html(m.group(2))
+            if not title or href in seen:
+                continue
+            seen.add(href)
+            items.append(make_news_item(
+                title=title,
+                source="与非网RF社区",
+                summary=f"与非网 RF 技术社区 {label}",
+                url=href,
+                tags=["行业动态", "射频/微波"],
+            ))
+    return items[:20]
+
+
+def crawl_elecfans() -> list[dict]:
+    """抓 电子发烧友 (elecfans.com) 首页天线/射频/5G 相关文章."""
+    log("info", "抓取 电子发烧友 ...")
+    pages = [
+        ("https://www.elecfans.com/", "首页"),
+    ]
+    items: list[dict] = []
+    seen: set[str] = set()
+    for url, label in pages:
+        html = fetch_url(url, timeout=20)
+        if not html:
+            continue
+        for m in ELECFANS_RE.finditer(html):
+            href = m.group(1).split("?")[0]
+            title = strip_html(m.group(2))
+            if not title or href in seen or "/tag/" in href or "/search" in href:
+                continue
+            seen.add(href)
+            items.append(make_news_item(
+                title=title,
+                source="电子发烧友",
+                summary=f"电子发烧友 {label}",
+                url=href,
+                tags=["行业动态", "电子/硬件"],
+            ))
+    return items[:20]
+
+
+def crawl_rfask() -> list[dict]:
+    """抓 RFASK 射频问问 (rfask.net) 技术问答与资讯."""
+    log("info", "抓取 RFASK 射频问问 ...")
+    pages = [
+        ("https://www.rfask.net/", "首页"),
+        ("https://www.rfask.net/ask/", "问答"),
+    ]
+    items: list[dict] = []
+    seen: set[str] = set()
+    for url, label in pages:
+        html = fetch_url(url, timeout=20)
+        if not html:
+            continue
+        for m in RFASK_RE.finditer(html):
+            href = m.group(1).split("?")[0]
+            title = strip_html(m.group(2))
+            if not title or href in seen or "/search" in href:
+                continue
+            seen.add(href)
+            items.append(make_news_item(
+                title=title,
+                source="RFASK射频问问",
+                summary=f"RFASK 射频问问 {label}",
+                url=href,
+                tags=["行业动态", "射频/微波"],
+            ))
+    return items[:20]
+
+
 NEWS_SOURCES: dict[str, Callable[[], list[dict]]] = {
     "c114": crawl_c114,
     "cww": crawl_cww,
     "feixiang": crawl_feixiang,
     "miit": crawl_miit,
     "3gpp": crawl_3gpp,
+    "mwrf": crawl_mwrf,
+    "eefocus_rf": crawl_eefocus_rf,
+    "elecfans": crawl_elecfans,
+    "rfask": crawl_rfask,
 }
 
 
@@ -379,13 +530,26 @@ ANTENNA_KEYWORDS = [
 ]
 
 
+_CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
+
+
+def _keyword_matches(text: str, kw: str) -> bool:
+    """关键词匹配：中文/长英文关键词用子串；短英文词用边界，避免 RIS 匹配 RISC-V."""
+    lower_kw = kw.lower()
+    lower_text = text.lower()
+    if _CHINESE_RE.search(lower_kw) or len(lower_kw) >= 5:
+        return lower_kw in lower_text
+    pattern = r"(?<![a-z0-9])" + re.escape(lower_kw) + r"(?![a-z0-9])"
+    return bool(re.search(pattern, lower_text, re.IGNORECASE))
+
+
 def is_antenna_related(item: dict) -> bool:
     """老大拍板: news 页面只显示天线相关内容. 与 fetch-data.js isAntennaRelated 等价."""
     if not isinstance(item, dict):
         return False
     tags = " ".join(item.get("tags") or []) if isinstance(item.get("tags"), list) else ""
-    text = f"{item.get('title','')} {item.get('summary','')} {tags}".lower()
-    return any(kw.lower() in text for kw in ANTENNA_KEYWORDS)
+    text = f"{item.get('title','')} {item.get('summary','')} {tags}"
+    return any(_keyword_matches(text, kw) for kw in ANTENNA_KEYWORDS)
 
 
 def update_news(verbose: bool = False) -> int:
@@ -449,8 +613,13 @@ def update_news(verbose: bool = False) -> int:
         if not is_antenna_related(it):
             skipped_irrelevant += 1
             continue
-        # 铁律: 新条目 URL 必须 c114 真文章 a{id}.html 格式, 否则跳过 (防御性)
-        if not c114_article_re.match(it.get("url", "")):
+        # 铁律: C114 源的新条目 URL 必须是 c114 真文章 a{id}.html 格式;
+        # 其他源使用各自真实 URL，仅做基础校验 (必须有 http/https)
+        url = it.get("url", "")
+        if it["source"] == "C114通信网" and not c114_article_re.match(url):
+            skipped_bad_url += 1
+            continue
+        if not url.startswith(("http://", "https://")):
             skipped_bad_url += 1
             continue
         it["id"] = next_id
@@ -461,7 +630,7 @@ def update_news(verbose: bool = False) -> int:
     if skipped_irrelevant:
         log("ok", f"过滤掉非天线相关新闻 {skipped_irrelevant} 条 (白名单 is_antenna_related)")
     if skipped_bad_url:
-        log("ok", f"过滤掉非 c114 URL 的抓取结果 {skipped_bad_url} 条 (铁律)")
+        log("ok", f"过滤掉无效 URL 的抓取结果 {skipped_bad_url} 条")
 
     write_json(news_path, news)
     log("ok", f"news.json 新增 {added} 条 (总计 {len(news)} 条)")

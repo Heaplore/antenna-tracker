@@ -347,11 +347,22 @@ const ANTENNA_KEYWORDS = [
   '村田', 'Rogers', 'Taconic', '苹果供应链', 'iPhone', 'LCP软板',
 ];
 
+function keywordMatches(text, kw) {
+  const lowerKw = kw.toLowerCase();
+  const lowerText = text.toLowerCase();
+  const hasChinese = /[\u4e00-\u9fff]/.test(lowerKw);
+  if (hasChinese || lowerKw.length >= 5) {
+    return lowerText.includes(lowerKw);
+  }
+  const boundary = new RegExp(`(?<![a-z0-9])${lowerKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![a-z0-9])`, 'i');
+  return boundary.test(lowerText);
+}
+
 function isAntennaRelated(item) {
   if (!item || typeof item !== 'object') return false;
   const tags = Array.isArray(item.tags) ? item.tags.join(' ') : '';
-  const text = `${item.title || ''} ${item.summary || ''} ${tags}`.toLowerCase();
-  return ANTENNA_KEYWORDS.some(kw => text.includes(kw.toLowerCase()));
+  const text = `${item.title || ''} ${item.summary || ''} ${tags}`;
+  return ANTENNA_KEYWORDS.some(kw => keywordMatches(text, kw));
 }
 
 // ============================================================
