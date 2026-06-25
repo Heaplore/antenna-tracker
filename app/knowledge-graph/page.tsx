@@ -30,25 +30,19 @@ interface D3Link extends d3.SimulationLinkDatum<D3Node> {
 const ENTITY_COLORS: Record<string, string> = {
   technology: '#667eea',
   company: '#f093fb',
-  standard: '#4facfe',
   material: '#43e97b',
-  event: '#fa709a',
 }
 
 const ENTITY_LABELS: Record<string, string> = {
   technology: '技术',
   company: '企业',
-  standard: '标准',
   material: '材料',
-  event: '事件',
 }
 
 const ENTITY_ICONS: Record<string, string> = {
   technology: '🔬',
   company: '🏢',
-  standard: '📜',
   material: '🧪',
-  event: '⚡',
 }
 
 // SVG Donut Chart for entity type distribution
@@ -122,8 +116,9 @@ export default function KnowledgeGraphPage() {
   const [graphError, setGraphError] = useState<string | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const simulationRef = useRef<d3.Simulation<D3Node, D3Link> | null>(null)
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null)
 
-  const entities = kgData.entities
+  const entities = useMemo(() => kgData.entities.filter(e => e.type !== 'event' && e.type !== 'standard'), [])
   const relations = kgData.relations
 
   // Merge both relation sources
@@ -272,6 +267,7 @@ export default function KnowledgeGraphPage() {
         svgGroup.attr('transform', event.transform)
       })
 
+    zoomRef.current = zoom
     svg.call(zoom)
 
     const svgGroup = svg.append('g').attr('class', 'graph-group')
@@ -295,6 +291,7 @@ export default function KnowledgeGraphPage() {
       .selectAll('line')
       .data(d3Links)
       .join('line')
+      .attr('class', 'link-line')
       .attr('stroke', '#ccc')
       .attr('stroke-opacity', 0.3)
       .attr('stroke-width', 1)
@@ -304,6 +301,7 @@ export default function KnowledgeGraphPage() {
       .selectAll('text')
       .data(d3Links.filter(d => d.predicate || d.relation))
       .join('text')
+      .attr('class', 'link-label')
       .attr('font-size', '7px')
       .attr('fill', '#bbb')
       .attr('text-anchor', 'middle')
@@ -414,6 +412,28 @@ export default function KnowledgeGraphPage() {
       node.attr('transform', d => `translate(${d.x!},${d.y!})`)
     })
 
+    // Auto-fit all nodes into view once simulation cools (only on initial load)
+    let initialFitDone = false
+    simulation.on('end', () => {
+      if (initialFitDone || !svgRef.current) return
+      const bounds = svgGroup.node()?.getBBox()
+      if (!bounds || bounds.width === 0 || bounds.height === 0) return
+      initialFitDone = true
+      const fullWidth = svgRef.current.clientWidth || 1000
+      const fullHeight = 600
+      const padding = 40
+      const scale = Math.min(
+        fullWidth / (bounds.width + padding),
+        fullHeight / (bounds.height + padding),
+        1
+      )
+      const midX = bounds.x + bounds.width / 2
+      const midY = bounds.y + bounds.height / 2
+      const tx = fullWidth / 2 - scale * midX
+      const ty = fullHeight / 2 - scale * midY
+      svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
+    })
+
     // Click on background to deselect
     svg.on('click', () => {
       setSelectedEntity(null)
@@ -430,7 +450,7 @@ export default function KnowledgeGraphPage() {
     }
   }, [filteredEntities, filteredRelations])
 
-  // Update node visual state when selection/expand changes (no hover updates)
+  // Update node + link visual state when selection/expand changes (no hover updates)
   useEffect(() => {
     if (!svgRef.current) return
     try {
@@ -438,6 +458,50 @@ export default function KnowledgeGraphPage() {
       const nodes = svg.selectAll('.node-item')
 
       if (nodes.empty()) return
+
+      const focusId = expandedNodeId || selectedEntity?.id || focusMode
+      const connectedIds = expandedNodeId
+        ? expandedNodeIds
+        : (focusMode || selectedEntity ? connectedEntityIds : new Set<string>())
+      const hasFocus = !!focusId
+
+      // Update links
+      svg.selectAll('.link-line')
+        .transition().duration(250)
+        .attr('stroke', (d: any) => {
+          if (!hasFocus) return '#ccc'
+          const s = typeof d.source === 'string' ? d.source : d.source.id
+          const t = typeof d.target === 'string' ? d.target : d.target.id
+          return connectedIds.has(s) && connectedIds.has(t) ? '#667eea' : '#ccc'
+        })
+        .attr('stroke-opacity', (d: any) => {
+          if (!hasFocus) return 0.3
+          const s = typeof d.source === 'string' ? d.source : d.source.id
+          const t = typeof d.target === 'string' ? d.target : d.target.id
+          return connectedIds.has(s) && connectedIds.has(t) ? 0.8 : 0.15
+        })
+        .attr('stroke-width', (d: any) => {
+          if (!hasFocus) return 1
+          const s = typeof d.source === 'string' ? d.source : d.source.id
+          const t = typeof d.target === 'string' ? d.target : d.target.id
+          return connectedIds.has(s) && connectedIds.has(t) ? 2 : 1
+        })
+
+      // Update link labels
+      svg.selectAll('.link-label')
+        .transition().duration(250)
+        .attr('fill', (d: any) => {
+          if (!hasFocus) return '#bbb'
+          const s = typeof d.source === 'string' ? d.source : d.source.id
+          const t = typeof d.target === 'string' ? d.target : d.target.id
+          return connectedIds.has(s) && connectedIds.has(t) ? '#667eea' : '#ddd'
+        })
+        .attr('opacity', (d: any) => {
+          if (!hasFocus) return 1
+          const s = typeof d.source === 'string' ? d.source : d.source.id
+          const t = typeof d.target === 'string' ? d.target : d.target.id
+          return connectedIds.has(s) && connectedIds.has(t) ? 1 : 0.35
+        })
 
       nodes.each(function(d: any) {
         if (!d) return
@@ -548,31 +612,8 @@ export default function KnowledgeGraphPage() {
       <header className="header">
         <h1>🕸️ 知识图谱</h1>
         <p>天线行业知识网络 — 实体关系可视化 · 数据来源：各板块结构化数据 + 小月技术解读笔记</p>
-        <p className="update-info">数据更新：{kgData.lastUpdate} · {kgData.entities.length} 个实体 · {relations.length + relationsData.length} 条关系</p>
+        <p className="update-info">数据更新：{kgData.lastUpdate} · {entities.length} 个实体 · {allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target)).length} 条关系</p>
       </header>
-
-      {/* 搜索框 */}
-      <section className="card" style={{ marginBottom: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <input
-            type="text"
-            placeholder="搜索实体名称、描述或类型..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            style={{
-              flex: 1,
-              padding: '10px 16px',
-              borderRadius: '8px',
-              border: '1px solid #e0e0e0',
-              fontSize: '0.95rem',
-              outline: 'none',
-            }}
-          />
-          <span style={{ fontSize: '0.85rem', color: '#999' }}>
-            找到 {searchFilteredEntities.length} 个实体
-          </span>
-        </div>
-      </section>
 
       {/* 类型筛选 */}
       <section className="card" style={{ marginBottom: '24px' }}>
@@ -618,9 +659,19 @@ export default function KnowledgeGraphPage() {
         <div className="card" style={{ flex: '1 1 600px', minWidth: '0' }}>
           <h3 style={{ marginBottom: '16px' }}>📊 知识图谱关系图</h3>
 
-          {/* 环形图 - 实体类型分布 */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+          {/* 环形图 + 图例 */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', marginBottom: '16px', flexWrap: 'wrap' }}>
             <DonutChart typeCounts={typeCounts} />
+            <div style={{ minWidth: '140px' }}>
+              <h4 style={{ marginBottom: '10px', fontSize: '0.85rem' }}>📌 图例</h4>
+              {Object.entries(ENTITY_LABELS).map(([key, label]) => (
+                <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                  <span style={{ width: '16px', height: '16px', borderRadius: '50%', background: ENTITY_COLORS[key], display: 'inline-block' }} />
+                  <span style={{ fontSize: '0.85rem' }}>{ENTITY_ICONS[key]} {label}</span>
+                  <span style={{ fontSize: '0.75rem', color: '#999', marginLeft: 'auto' }}>{typeCounts[key] || 0}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div style={{ position: 'relative', width: '100%', overflow: 'hidden', borderRadius: '8px', border: '1px solid #eee' }}>
             {graphError ? (
@@ -653,7 +704,30 @@ export default function KnowledgeGraphPage() {
         </div>
 
         {/* 详情面板 */}
-        <div style={{ flex: '0 0 320px', minWidth: '280px', maxHeight: 'calc(100vh - 180px)', overflowY: 'auto', position: 'sticky', top: '20px', paddingRight: '4px', scrollbarWidth: 'thin', scrollbarColor: '#c0c0c0 transparent' } as any}>
+        <div style={{ flex: '0 0 320px', minWidth: '280px' }}>
+          {/* 搜索框 */}
+          <div className="card" style={{ marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <input
+                type="text"
+                placeholder="搜索实体名称、描述或类型..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{
+                  flex: 1,
+                  padding: '10px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #e0e0e0',
+                  fontSize: '0.95rem',
+                  outline: 'none',
+                }}
+              />
+              <span style={{ fontSize: '0.85rem', color: '#999' }}>
+                {searchFilteredEntities.length}
+              </span>
+            </div>
+          </div>
+
           {selectedEntity ? (
             <div className="card">
               <h3 style={{ marginBottom: '16px' }}>📋 实体详情</h3>
@@ -692,6 +766,17 @@ export default function KnowledgeGraphPage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              )}
+              {/* 通俗解读 */}
+              {selectedEntity.summary_vernacular && (
+                <div style={{ marginBottom: '16px' }}>
+                  <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    📝 通俗解读
+                  </h4>
+                  <p style={{ color: '#555', lineHeight: 1.7, fontSize: '0.85rem', margin: 0, fontStyle: 'italic' }}>
+                    {selectedEntity.summary_vernacular}
+                  </p>
                 </div>
               )}
               {/* 关联关系 */}
@@ -746,24 +831,13 @@ export default function KnowledgeGraphPage() {
                   }
                 </div>
               </div>
-              {/* 通俗解读 */}
-              {selectedEntity.summary_vernacular && (
-                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
-                  <h4 style={{ fontSize: '0.75rem', color: '#999', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    📝 通俗解读
-                  </h4>
-                  <p style={{ color: '#555', lineHeight: 1.7, fontSize: '0.85rem', margin: 0, fontStyle: 'italic' }}>
-                    {selectedEntity.summary_vernacular}
-                  </p>
-                </div>
-              )}
             </div>
           ) : (
             <div className="card" style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🔍</div>
               <p>点击图谱中的节点查看实体详情</p>
               <p style={{ fontSize: '0.85rem', marginTop: '8px' }}>
-                共 {kgData.entities.length} 个实体，{relations.length + relationsData.length} 条关系
+                共 {entities.length} 个实体，{allRelations.filter(r => filteredEntityIds.has(r.source) && filteredEntityIds.has(r.target)).length} 条关系
               </p>
             </div>
           )}
@@ -784,20 +858,23 @@ export default function KnowledgeGraphPage() {
                       background: `${ENTITY_COLORS[entity.type]}08`,
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
+                      overflow: 'hidden',
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
                       <span style={{ fontSize: '1rem' }}>{ENTITY_ICONS[entity.type]}</span>
-                      <span style={{ fontWeight: 600, fontSize: '0.85rem' }}>{entity.name}</span>
+                      <span style={{ fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{entity.name}</span>
                     </div>
                     <p style={{
                       fontSize: '0.75rem',
                       color: '#666',
                       margin: 0,
+                      lineHeight: 1.4,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap'
-                    }}>
+                    } as any}>
                       {entity.description}
                     </p>
                   </div>
@@ -805,21 +882,6 @@ export default function KnowledgeGraphPage() {
               </div>
             </div>
           )}
-
-          {/* 实体类型图例 */}
-          <div className="card" style={{ marginTop: '24px' }}>
-            <h4 style={{ marginBottom: '12px' }}>📌 图例</h4>
-            {Object.entries(ENTITY_LABELS).map(([key, label]) => (
-              <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <span style={{
-                  width: '16px', height: '16px', borderRadius: '50%',
-                  background: ENTITY_COLORS[key], display: 'inline-block'
-                }} />
-                <span style={{ fontSize: '0.85rem' }}>{ENTITY_ICONS[key]} {label}</span>
-                <span style={{ fontSize: '0.75rem', color: '#999', marginLeft: 'auto' }}>{typeCounts[key] || 0}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
