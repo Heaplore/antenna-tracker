@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-26",
+  "lastUpdate": "2026-06-27",
   "summary": "中国天线产业已形成完整7层供应链体系。上游运营商集采主导需求侧；主设备商整合天线+射频一体化；天线整机厂商竞争激烈，京信/摩比承压，通宇/亨鑫亏损，但粤海信/博纬等新锐正在崛起；部件层信维通信独大，环形器/天线罩环节有鹏宇达/太阳鸟/中材科技等；材料层生益科技覆铜板全国第一，巨石集团/泰山玻纤/重庆国际复材三大玻纤企业主导原材料；原材料价格随期货波动，对中下游利润形成压力。2026年行业整体呈现需求强劲、竞争加剧、利润承压的态势。",
   "supplyChain": {
     "tier1_operators": {
@@ -329,10 +329,10 @@
           "isKey": false,
           "stockPrices": [
             14.84,
-            11.06
+            10.96
           ],
-          "stockCurrent": 11.06,
-          "stock52Low": 11.06,
+          "stockCurrent": 10.96,
+          "stock52Low": 10.96,
           "stock52High": 14.84,
           "rank": 4
         },
@@ -358,11 +358,11 @@
           "isKey": false,
           "stockPrices": [
             6.64,
-            13.98
+            13.01
           ],
-          "stockCurrent": 13.98,
+          "stockCurrent": 13.01,
           "stock52Low": 6.64,
-          "stock52High": 13.98,
+          "stock52High": 13.01,
           "rank": 3
         }
       ]
@@ -1310,11 +1310,11 @@
           "isKey": true,
           "stockPrices": [
             53.16,
-            165.15
+            163.72
           ],
-          "stockCurrent": 165.15,
+          "stockCurrent": 163.72,
           "stock52Low": 53.16,
-          "stock52High": 165.15,
+          "stock52High": 163.72,
           "rank": 4
         },
         {

@@ -146,10 +146,10 @@
         {
           "name": "金",
           "unit": "元/克",
-          "currentPrice": 874.8,
+          "currentPrice": 1002,
           "change": "0.0%",
           "trend": "上涨",
-          "date": "2026-06-27",
+          "date": "2026-06-15",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
           "dataSource": "金投黄金网 gold.cngold.org",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
@@ -184,7 +184,7 @@
             },
             {
               "month": "2026-07",
-              "price": 874.8
+              "price": 1002
             }
           ]
         },
