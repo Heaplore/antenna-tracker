@@ -151,8 +151,12 @@ export default function NewsPage() {
         </div>
       </section>
 
-      {/* 原子卡片列表 */}
-      <section>
+      {/* 原子卡片网格（两列） */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(480px, 1fr))',
+        gap: '16px',
+      }}>
         {filtered.map((news) => {
           const srcColor = SOURCE_COLORS[news.source] || '#999'
           return (
@@ -160,23 +164,25 @@ export default function NewsPage() {
               key={news.id}
               className="card news-card"
               style={{
-                marginBottom: '16px',
                 padding: '20px',
                 borderLeft: `4px solid ${srcColor}`,
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '0',
               }}
             >
               {/* 顶部：日期 + 来源 */}
-              <div className="news-card-header">
-                <span className="news-date">{news.date}</span>
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '10px', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.8rem', color: '#999' }}>{news.date}</span>
                 <span
-                  className="news-source-badge"
                   style={{
-                    fontSize: '0.75rem',
-                    padding: '3px 10px',
-                    borderRadius: '12px',
+                    fontSize: '0.7rem',
+                    padding: '2px 8px',
+                    borderRadius: '10px',
                     background: srcColor + '18',
                     color: srcColor,
                     fontWeight: 600,
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {news.source}
@@ -184,11 +190,12 @@ export default function NewsPage() {
               </div>
 
               {/* 标题 */}
-              <h3 className="news-card-title">
+              <h3 style={{ margin: '0 0 8px 0', fontSize: '0.95rem', lineHeight: 1.5 }}>
                 <a
                   href={resolveNewsUrl(news)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: '#333', textDecoration: 'none' }}
                 >
                   {news.title}
                 </a>
@@ -196,22 +203,21 @@ export default function NewsPage() {
 
               {/* 摘要 */}
               {news.summary && news.summary !== news.title && (
-                <p className="news-card-summary">{news.summary}</p>
+                <p style={{ margin: '0 0 12px 0', color: '#555', fontSize: '0.82rem', lineHeight: 1.6, flex: '1 0 auto' }}>
+                  {news.summary}
+                </p>
               )}
 
               {/* 底部：Tags + 链接文字 */}
-              <div className="news-card-footer">
-                <div className="news-card-tags">
-                  {news.tags?.map((tag, j) => (
-                    <span key={j} className="news-tag">{tag}</span>
-                  ))}
-                </div>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                {news.tags?.map((tag, j) => (
+                  <span key={j} style={{ fontSize: '0.7rem', color: '#888' }}>{tag}</span>
+                ))}
                 <a
                   href={resolveNewsUrl(news)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="news-read-more"
-                  style={{ color: srcColor }}
+                  style={{ color: srcColor, fontSize: '0.75rem', marginLeft: 'auto', textDecoration: 'none' }}
                 >
                   阅读原文 →
                 </a>
@@ -219,7 +225,7 @@ export default function NewsPage() {
             </div>
           )
         })}
-      </section>
+      </div>
     </div>
   )
 }
