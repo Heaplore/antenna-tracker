@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-26",
+  "lastUpdate": "2026-06-27",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -146,10 +146,10 @@
         {
           "name": "金",
           "unit": "元/克",
-          "currentPrice": 1002,
+          "currentPrice": 874.8,
           "change": "0.0%",
           "trend": "上涨",
-          "date": "2026-06-15",
+          "date": "2026-06-27",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
           "dataSource": "金投黄金网 gold.cngold.org",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
@@ -184,7 +184,7 @@
             },
             {
               "month": "2026-07",
-              "price": 1002
+              "price": 874.8
             }
           ]
         },
