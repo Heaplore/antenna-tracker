@@ -54,6 +54,10 @@ jobs:
         run: python scripts/fill_summaries.py || echo "fill_summaries failed, continue"
         shell: bash
 
+      - name: Run update_prices_metals.py (金属价格自动更新)
+        run: python scripts/update_prices_metals.py || echo "update_prices_metals failed, continue"
+        shell: bash
+
       - name: Run bump_technology.py
         run: python scripts/bump_technology.py || echo "bump_technology failed, continue"
         shell: bash
