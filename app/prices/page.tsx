@@ -10,16 +10,23 @@ export default function PricesPage() {
   const currentCategory = pricesData.categories[activeCategory]
   const currentMat = currentCategory.materials[activeMaterial]
 
-  // 只显示近6个月数据（避免旧数据干扰），并兜底过滤掉超过 lastUpdate 的未来月份
+  // 取最近 6 个月数据作为折线图，并补上当前价格作为第 7 个点
+  // （保证图表最右侧的数据点和上方"当前价格"卡片一致）
   const chartData = useMemo(() => {
-    const hist = currentMat.historical || []
-    const cutoff = pricesData.lastUpdate // 例如 "2026-06-14"
-    const filtered = hist.filter(h => h.month <= cutoff)
-    return filtered.slice(-6).map(h => ({
+    const hist = (currentMat.historical || []).slice(-6).map(h => ({
       month: h.month,
       price: h.price,
       unit: currentMat.unit,
     }))
+    // 把当前价格追加为最新点（label 用当前月份，避免图表最右是历史月份）
+    if (typeof currentMat.currentPrice === 'number' && hist.length > 0) {
+      hist.push({
+        month: '当前',
+        price: currentMat.currentPrice,
+        unit: currentMat.unit,
+      })
+    }
+    return hist
   }, [currentMat])
 
   const fmtYAxis = (v: number) => {
