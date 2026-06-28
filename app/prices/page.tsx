@@ -10,22 +10,15 @@ export default function PricesPage() {
   const currentCategory = pricesData.categories[activeCategory]
   const currentMat = currentCategory.materials[activeMaterial]
 
-  // 取最近 6 个月数据作为折线图，并补上当前价格作为第 7 个点
-  // （保证图表最右侧的数据点和上方"当前价格"卡片一致）
+  // 取最近 6 个月数据作为折线图
+  // currentPrice 已在 historical 当前月里（被 prices-data-cleanser 同步过），
+  // 这里不要再追加"当前"点，否则会出 02→03→04→05→06→07→当前 的穿越感。
   const chartData = useMemo(() => {
     const hist = (currentMat.historical || []).slice(-6).map(h => ({
       month: h.month,
       price: h.price,
       unit: currentMat.unit,
     }))
-    // 把当前价格追加为最新点（label 用当前月份，避免图表最右是历史月份）
-    if (typeof currentMat.currentPrice === 'number' && hist.length > 0) {
-      hist.push({
-        month: '当前',
-        price: currentMat.currentPrice,
-        unit: currentMat.unit,
-      })
-    }
     return hist
   }, [currentMat])
 
