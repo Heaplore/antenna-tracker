@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-07-01",
+  "categoryImpacts": {
+    "金属原材料": {
+      "label": "🔩 金属原材料",
+      "impact": "金属类直接影响天线振子、馈电网络、滤波器等射频结构件成本。铜、铝价格波动直接传导至AAU散热器、PCB铜箔等关键部件。",
+      "template": "{up_count}/{total_count}种金属材料上涨,平均变动{avg_change}。{biggest_mover}波动最大({biggest_change})。"
+    },
+    "工程塑料": {
+      "label": "🧪 工程塑料",
+      "impact": "工程塑料用于天线外壳、滤波器介质、绝缘骨架等结构件。LCP、PPS等特种工程塑料涨价对5G毫米波天线成本压力较大。",
+      "template": "{up_count}/{total_count}种塑料材料上涨,平均变动{avg_change}。{biggest_mover}波动最大({biggest_change})。"
+    },
+    "PCB/覆铜板": {
+      "label": "🔲 PCB/覆铜板",
+      "impact": "PCB及覆铜板是天线射频电路核心基材。FR-4、PTFE高频覆铜板占天线PCB成本30%以上,AI算力需求驱动高端CCL持续紧缺涨价。",
+      "template": "{up_count}/{total_count}种覆铜板材料上涨,平均变动{avg_change}。{biggest_mover}波动最大({biggest_change})。"
+    },
+    "化工类原材料": {
+      "label": "⚗️ 化工类原材料",
+      "impact": "化工原料影响天线镀膜(LDS工艺银浆)、防护涂层、表面处理等工艺。银浆价格随银价波动,PVDF氟膜用于天线外罩防护。",
+      "template": "{up_count}/{total_count}种化工材料上涨,平均变动{avg_change}。{biggest_mover}波动最大({biggest_change})。"
+    }
+  },
+  "outlookSources": [
+    {
+      "title": "📡 覆铜板产业链",
+      "template": "AI算力需求持续旺盛,头部CCL厂商年内多轮提价(累计涨幅{ccl_increase}%+),电子布7628价格较年初涨{e_glass_increase}%。高端高速覆铜板产能锁单,Q3{ccl_trend}。",
+      "fallback": "AI算力需求持续,覆铜板整体维持高位运行,Q3高端CCL紧缺格局延续。"
+    },
+    {
+      "title": "🔩 金属原材料",
+      "template": "铜(铜{cu_change})、铝(铝{al_change})。锡({sn_trend}),{sn_logic}。镍锌铅整体偏弱震荡。",
+      "fallback": "金属整体震荡运行,关注美元走势对基本金属的影响。"
+    },
+    {
+      "title": "🧪 工程塑料",
+      "template": "工程塑料{epoxy_trend}。{special_plastics_logic}。",
+      "fallback": "工程塑料整体平稳偏弱,特种塑料受5G/AI支撑价格坚挺。"
+    },
+    {
+      "title": "⚗️ 化工原料",
+      "template": "导电银浆({silver_paste_trend})。电子级环氧树脂({epoxy_resin_trend})。",
+      "fallback": "化工原料整体平稳,5G基站散热需求带动用量增长。"
+    }
+  ],
+  "procurementTips": [
+    {
+      "tag": "覆铜板/电子布",
+      "template": "AI驱动高端CCL紧缺延续,建议Q3提前锁单备货({ccl_change_advice})。",
+      "fallback": "AI驱动高端CCL紧缺延续,建议Q3提前锁单备货,关注国产替代标的。"
+    },
+    {
+      "tag": "金属",
+      "template": "铜、铝短期承压({cu_al_change}),中长期受能源转型支撑,建议按需采购避免追高。",
+      "fallback": "金属建议按需采购避免追高,中长期受能源转型支撑。"
+    },
+    {
+      "tag": "特种工程塑料",
+      "template": "LCP/PTFE/PPS供应{plastic_supply},建议建立安全库存(≥2个月用量)。",
+      "fallback": "特种工程塑料建议建立安全库存(≥2个月用量)。"
+    },
+    {
+      "tag": "银浆",
+      "template": "银价{silver_trend},关注美联储利率政策对银价的边际影响。",
+      "fallback": "银浆价格随银价波动,关注美联储利率政策。"
+    }
+  ]
+}
