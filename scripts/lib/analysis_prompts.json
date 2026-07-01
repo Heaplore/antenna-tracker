@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-07-01",
+  "description": "四维分析 Prompt 配置（解耦自 generate-analysis.py 硬编码）",
+  "dimensions": ["technology", "quality", "cost", "delivery"],
+  "cardCount": {
+    "min": 3,
+    "max": 5
+  },
+  "systemPrompts": {
+    "technology": "你是天线行业技术分析师。聚焦基站/卫星/毫米波/相控阵等天线相关技术趋势。只输出JSON数组，不要输出任何其他文字、markdown、解释。直接以[开头。",
+    "quality": "你是通信行业质量标准专家。聚焦3GPP/天线GB标准/YD标准/EMC测试。只输出JSON数组，不要输出任何其他文字、markdown、解释。直接以[开头。",
+    "cost": "你是通信行业成本分析专家。聚焦BOM原材料价格(铜铝塑料CCL)、加工费、规模经济影响。只输出JSON数组，不要输出任何其他文字、markdown、解释。直接以[开头。",
+    "delivery": "你是通信行业供应链管理专家。聚焦运营商集采节奏、上下游账期、产能扩张/收缩。只输出JSON数组，不要输出任何其他文字、markdown、解释。直接以[开头。"
+  },
+  "userPrompts": {
+    "technology": "基于以下数据，生成技术维度分析卡片(JSON数组)。每张卡片聚焦一个独立的技术主题，避免重复。\n\n【行业概述】\n{overview}\n\n【技术成熟度】\n{hype_cycle}\n\n【知识图谱摘要】\n{kg_summary}\n\n【近期新闻（按时间顺序取最近5条）】\n{recent_news}\n\n注意：不要捏造数字（如'增速X%'、'占比Y%'只能使用原文出现过的数据）。如果数据不足请只生成2张。\n\n输出格式：JSON数组，每项包含：type(技术演进/市场机会/应用场景/前沿探索)、severity(high/medium/low)、title(15字以内)、summary(50字以内)、recommendation(50字以内)、data_sources(数组)。至少{min}张，最多{max}张。",
+    "quality": "基于以下数据，生成质量维度分析卡片(JSON数组)。\n\n【现行标准】\n{standards}\n\n【近期新闻（按时间顺序取最近5条）】\n{recent_news}\n\n注意：不要捏造数字。标准应聚焦天线/射频/EMC相关。\n\n输出格式：JSON数组，每项包含：type(standard_evolution/tech_trend/policy_regulation)、severity(high/medium/low)、title(15字以内)、summary(50字以内)、recommendation(50字以内)、data_sources(数组)。至少{min}张，最多{max}张。",
+    "cost": "基于以下数据，生成成本维度分析卡片(JSON数组)。\n\n【原材料价格（最近6个月走势）】\n{prices}\n\n【市场规模】\n{market_summary}\n\n【企业利润】\n{company_finances}\n\n特别要求：必须基于实际价格数据分析趋势（如'铜价7月1日101530元/吨，较6月初下跌5.9%'）。不要虚构。\n\n输出格式：JSON数组，每项包含：type(cost_analysis/market_trend/competitor_profit)、severity(high/medium/low)、title(15字以内)、summary(50字以内,引用具体价格)、recommendation(50字以内)、data_sources(数组)。至少{min}张，最多{max}张。",
+    "delivery": "基于以下数据，生成交付维度分析卡片(JSON数组)。\n\n【供应链概况】\n{supply_chain_summary}\n\n【重点企业财务】\n{key_company_finances}\n\n【近期新闻（按时间顺序取最近5条）】\n{recent_news}\n\n输出格式：JSON数组，每项包含：type(delivery_risk/market_trend/tech_innovation)、severity(high/medium/low)、title(15字以内)、summary(50字以内)、recommendation(50字以内)、data_sources(数组)。至少{min}张，最多{max}张。"
+  },
+  "crossDimensionSummaryPrompt": "基于以下四维分析结果，生成一段综合分析摘要（100字以内），给出最高优先级的 3 条建议。\n重点关注：severity为high的卡片优先、'cost'和'delivery'维度优先。\n\n{summary_data}\n\n直接输出摘要文本，不要JSON或markdown。"
+}

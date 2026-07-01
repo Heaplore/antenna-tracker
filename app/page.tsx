@@ -85,6 +85,7 @@ export default function Home() {
                       padding: '8px 10px', marginBottom: '6px',
                       borderRadius: '6px', background: 'rgba(255,255,255,0.7)',
                       borderLeft: `3px solid ${sevColors[card.severity] || '#999'}`,
+                      position: 'relative',
                     }}>
                       <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '3px', display: 'flex', justifyContent: 'space-between' }}>
                         <span>{card.title}</span>
@@ -98,6 +99,22 @@ export default function Home() {
                       {card.recommendation && (
                         <div style={{ fontSize: '11px', lineHeight: '1.4', color: '#888', marginTop: '4px' }}>
                           💡 {card.recommendation}
+                        </div>
+                      )}
+                      {/* 数据来源 - 新增显示 */}
+                      {card.data_sources && card.data_sources.length > 0 && (
+                        <div style={{ fontSize: '10px', color: '#aaa', marginTop: '4px', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                          📊 {card.data_sources.map((src: string, i: number) => (
+                            <span key={i} style={{ padding: '1px 5px', background: 'rgba(0,0,0,0.05)', borderRadius: '3px' }}>
+                              {src}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {/* 优先级指示 - 仅 high 显示 */}
+                      {card.severity === 'high' && (
+                        <div style={{ position: 'absolute', top: '6px', right: '6px', fontSize: '10px', color: '#e53935', fontWeight: 600 }}>
+                          ⚡
                         </div>
                       )}
                     </div>

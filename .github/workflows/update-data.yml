@@ -62,6 +62,18 @@ jobs:
         run: python scripts/bump_technology.py || echo "bump_technology failed, continue"
         shell: bash
 
+      - name: Run generate-analysis.py (四维交叉分析)
+        run: |
+          if [ -n "$AGNES_API_KEY" ]; then
+            echo "AGNES_API_KEY 已配置,运行四维分析..."
+            timeout 600 python scripts/generate-analysis.py || echo "generate-analysis failed, continue"
+          else
+            echo "AGNES_API_KEY 未配置,跳过四维分析"
+          fi
+        shell: bash
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+
       - name: Check for changes
         id: git-status
         run: |
