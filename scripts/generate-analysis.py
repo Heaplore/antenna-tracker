@@ -429,9 +429,8 @@ def gen_cross_summary_data(output, config):
     summary_parts = []
     for score, dim, card in top3:
         dim_label = {"technology": "技术", "quality": "质量", "cost": "成本", "delivery": "交付"}.get(dim, dim)
-        # 输出：维度·建议摘要
-        rec = card.get("recommendation", "")
-        summary_parts.append(f"{dim_label}：{rec[:30]}")
+        rec = card.get("recommendation", "").rstrip("。").rstrip(".")
+        summary_parts.append(f"{dim_label}：{rec[:50]}")
 
     summary = "⚠️ 重点：" + "；".join(summary_parts) + "。"
     return summary
