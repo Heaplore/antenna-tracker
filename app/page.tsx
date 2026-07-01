@@ -1,9 +1,20 @@
 'use client'
+import { useState, useEffect } from 'react'
 import analysisOutputRaw from '@/app/_data/analysis-output.json'
 
 const analysisOutput: any = analysisOutputRaw
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 600px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   if (!analysisOutput || !analysisOutput.dimensions) {
     return (
       <div className="container">
@@ -46,8 +57,12 @@ export default function Home() {
           </div>
         )}
 
-        {/* 四维卡片 */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+        {/* 四维卡片 - 桌面端 2x2 强制两列布局，手机端 1 列 */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+          gap: '16px',
+        }}>
           {(['technology', 'quality', 'cost', 'delivery'] as string[]).map(dim => {
             const cards = analysisOutput.dimensions[dim]?.cards || []
             const icons: Record<string, string> = { technology: '🔧', quality: '📋', cost: '💰', delivery: '🚚' }
