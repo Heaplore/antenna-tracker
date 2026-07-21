@@ -11,6 +11,7 @@ const MODULES = [
   { key: 'prices', name: '价格', path: '/prices', color: '#FF8042' },
   { key: 'standards', name: '标准', path: '/standards', color: '#9966FF' },
   { key: 'technology', name: '技术', path: '/technology', color: '#FF6699' },
+  { key: 'knowledge-graph', name: '知识图谱', path: '/knowledge-graph', color: '#A855F7' },
 ]
 
 // 数据项接口
@@ -159,26 +160,28 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
           role?: string;
         }>;
       }>;
+    };
+    if (companiesData.supplyChain) {
+      const tierOrder = Object.keys(companiesData.supplyChain)
+      tierOrder.forEach(tierKey => {
+        const tier = companiesData.supplyChain[tierKey]
+        if (tier?.companies) {
+          tier.companies.forEach((company, idx) => {
+            if (company.name) {
+              items.push({
+                id: `${moduleKey}-${tierKey}-${idx}`,
+                title: company.name,
+                summary: company.position || company.role,
+                content: company.highlights?.join(', '),
+                module: moduleKey,
+                moduleName,
+                path: modulePath
+              })
+            }
+          })
+        }
+      })
     }
-    const tierOrder = Object.keys(companiesData.supplyChain || {})
-    tierOrder.forEach(tierKey => {
-      const tier = companiesData.supplyChain?.[tierKey]
-      if (tier?.companies) {
-        tier.companies.forEach((company, idx) => {
-          if (company.name) {
-            items.push({
-              id: `${moduleKey}-${tierKey}-${idx}`,
-              title: company.name,
-              summary: company.position || company.role,
-              content: company.highlights?.join(', '),
-              module: moduleKey,
-              moduleName,
-              path: modulePath
-            })
-          }
-        })
-      }
-    })
   } else if (moduleKey === 'prices' && typeof data === 'object') {
     const pricesData = data as { categories?: Array<{ name?: string; materials?: Array<{ name?: string; impact?: string; trend?: string }> }> }
     if (pricesData.categories) {
@@ -241,6 +244,33 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
         })
       })
     }
+  } else if (moduleKey === 'knowledge-graph' && typeof data === 'object') {
+    // knowledge-graph.json: { nodes: [{id, name, type, oneLiner, tags}] }
+    const kgData = data as { nodes?: Array<{
+      id?: string;
+      name?: string;
+      nameEn?: string;
+      type?: string;
+      oneLiner?: string;
+      tags?: string[];
+      category?: string;
+    }> };
+    if (kgData.nodes) {
+      kgData.nodes.forEach((node, idx) => {
+        if (node.name) {
+          items.push({
+            id: `${moduleKey}-${node.id}`,
+            title: node.name,
+            summary: node.oneLiner || '',
+            content: node.tags?.join(', ') || '',
+            module: moduleKey,
+            moduleName,
+            path: `${modulePath}#${encodeURIComponent(node.id)}`,
+            extra: node.type || node.category
+          })
+        }
+      })
+    }
   }
 
   return items
@@ -262,7 +292,7 @@ export default function GlobalSearch() {
     const items: SearchItem[] = []
 
     try {
-      const dataFiles = ['market', 'news', 'companies', 'prices', 'standards', 'technology']
+      const dataFiles = ['market', 'news', 'companies', 'prices', 'standards', 'technology', 'knowledge-graph']
 
       await Promise.all(
         dataFiles.map(async (moduleKey) => {
@@ -398,386 +428,272 @@ export default function GlobalSearch() {
 
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setSelectedIndex(prev => Math.min(prev + 1, totalItems - 1))
+      setSelectedIndex(prev => (prev + 1) % totalItems)
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      setSelectedIndex(prev => Math.max(prev - 1, -1))
-    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+      setSelectedIndex(prev => (prev - 1 + totalItems) % totalItems)
+    } else if (e.key === 'Enter') {
       e.preventDefault()
-      let current = 0
-      for (const group of results) {
-        for (const item of group.items) {
-          if (current === selectedIndex) {
-            window.location.href = item.path
-            setIsOpen(false)
-            setQuery('')
-            return
-          }
-          current++
-        }
+      const flatItems = results.flatMap(g => g.items)
+      if (flatItems[selectedIndex]) {
+        window.location.href = flatItems[selectedIndex].path
       }
     }
   }
 
-  // 高亮匹配文本
-  const highlightMatch = (text: string, query: string) => {
-    if (!query.trim()) return text
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
-    const parts = text.split(regex)
-    return parts.map((part, i) =>
-      regex.test(part) ? <mark key={i} className="search-highlight">{part}</mark> : part
-    )
-  }
-
-  // 计算总结果数
-  const totalResults = results.reduce((sum, g) => sum + g.items.length, 0)
-
-  // 计算某个索引在哪个组
-  const getItemAtIndex = (index: number): { group: GroupedResults; item: SearchItem; localIndex: number } | null => {
-    let current = 0
-    for (const group of results) {
-      for (const item of group.items) {
-        if (current === index) {
-          return { group, item, localIndex: group.items.indexOf(item) }
-        }
-        current++
-      }
-    }
-    return null
-  }
-
-  if (!isOpen) return null
-
-  return (
-    <>
-      {/* 遮罩层 */}
-      <div
-        className="search-overlay"
-        onClick={() => {
-          setIsOpen(false)
-          setQuery('')
-        }}
-      />
-
-      {/* 搜索弹窗 */}
-      <div className="search-modal" ref={resultsRef}>
-        {/* 搜索输入框 */}
-        <div className="search-input-wrapper">
-          <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
-          <input
-            ref={inputRef}
-            type="text"
-            className="search-input"
-            placeholder="搜索行业动态、市场、企业、价格、标准、技术..."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            onKeyDown={handleKeyNavigation}
-          />
-          <span className="search-shortcut">按 ESC 关闭</span>
-        </div>
-
-        {/* 搜索结果 */}
-        {isLoading && (
-          <div className="search-loading">加载数据中...</div>
-        )}
-
-        {!isLoading && query && results.length === 0 && (
-          <div className="search-empty">
-            未找到与 "{query}" 相关的结果
-          </div>
-        )}
-
-        {!isLoading && results.length > 0 && (
-          <div className="search-results">
-            <div className="search-results-header">
-              找到 {totalResults} 个结果
+  // 渲染搜索结果
+  const renderResults = () => {
+    const flatItems = results.flatMap(g => g.items)
+    
+    return (
+      <div className="global-search-results" ref={resultsRef}>
+        {results.map(group => (
+          <div key={group.module} className="search-group">
+            <div className="search-group-header" style={{ borderColor: group.moduleColor }}>
+              <span>{group.moduleName}</span>
+              <span className="search-count">{group.items.length}</span>
             </div>
-
-            {results.map(group => (
-              <div key={group.module} className="search-group">
-                <div
-                  className="search-group-header"
-                  style={{ borderLeftColor: group.moduleColor }}
+            <ul className="search-items">
+              {group.items.map((item, idx) => (
+                <li
+                  key={item.id}
+                  className={`search-item ${selectedIndex === idx ? 'active' : ''}`}
+                  onClick={() => window.location.href = item.path}
+                  onMouseEnter={() => setSelectedIndex(idx)}
                 >
-                  <span
-                    className="search-group-badge"
-                    style={{ backgroundColor: group.moduleColor }}
-                  >
-                    {group.moduleName}
-                  </span>
-                  <span className="search-group-count">{group.items.length} 项</span>
-                  <Link
-                    href={group.path}
-                    className="search-group-more"
-                    onClick={() => {
-                      setIsOpen(false)
-                      setQuery('')
-                    }}
-                  >
-                    查看全部 &rarr;
-                  </Link>
-                </div>
-
-                <div className="search-group-items">
-                  {group.items.slice(0, 5).map((item, idx) => {
-                    const globalIndex = results
-                      .slice(0, results.indexOf(group))
-                      .reduce((sum, g) => sum + g.items.length, 0) + idx
-
-                    return (
-                      <Link
-                        key={item.id}
-                        href={item.path}
-                        className={`search-item ${globalIndex === selectedIndex ? 'search-item-selected' : ''}`}
-                        onClick={() => {
-                          setIsOpen(false)
-                          setQuery('')
-                        }}
-                        onMouseEnter={() => setSelectedIndex(globalIndex)}
-                      >
-                        <div className="search-item-title">
-                          {highlightMatch(item.title, query)}
-                        </div>
-                        {item.summary && (
-                          <div className="search-item-summary">
-                            {highlightMatch(item.summary, query)}
-                          </div>
-                        )}
-                        {item.extra && (
-                          <div className="search-item-extra">
-                            {highlightMatch(item.extra, query)}
-                          </div>
-                        )}
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
+                  <div className="search-item-title">{item.title}</div>
+                  {item.summary && (
+                    <div className="search-item-summary">{item.summary}</div>
+                  )}
+                  {item.content && (
+                    <div className="search-item-content">{item.content}</div>
+                  )}
+                  {item.extra && (
+                    <div className="search-item-extra">{item.extra}</div>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-        )}
-
-        {/* 底部提示 */}
-        {!query && (
-          <div className="search-hints">
-            <span className="search-hint-title">快捷操作</span>
-            <div className="search-hint-items">
-              <span className="search-hint-item">
-                <kbd>/</kbd> 唤起搜索
-              </span>
-              <span className="search-hint-item">
-                <kbd>↑</kbd><kbd>↓</kbd> 导航
-              </span>
-              <span className="search-hint-item">
-                <kbd>Enter</kbd> 跳转
-              </span>
-              <span className="search-hint-item">
-                <kbd>ESC</kbd> 关闭
-              </span>
-            </div>
+        ))}
+        
+        {results.length === 0 && (
+          <div className="search-empty">
+            未找到相关结果
           </div>
         )}
       </div>
+    )
+  }
+
+  return (
+    <>
+      {/* 搜索框 */}
+      <div
+        className="global-search-trigger"
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setQuery('')
+          setTimeout(() => inputRef.current?.focus(), 100)
+        }}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <span>搜索...</span>
+        <kbd>/</kbd>
+      </div>
+
+      {/* 搜索面板 */}
+      {isOpen && (
+        <div className="global-search-panel">
+          <div className="search-input-wrapper">
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyNavigation}
+              placeholder="搜索新闻、企业、技术..."
+              autoFocus
+            />
+            <button
+              className="search-close"
+              onClick={() => {
+                setIsOpen(false)
+                setQuery('')
+              }}
+            >
+              ×
+            </button>
+          </div>
+
+          {isLoading ? (
+            <div className="search-loading">加载中...</div>
+          ) : (
+            renderResults()
+          )}
+        </div>
+      )}
 
       <style jsx>{`
-        .search-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 999;
+        .global-search-trigger {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 12px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          background: white;
+          cursor: pointer;
+          font-size: 14px;
+          color: #64748b;
+          transition: all 0.2s;
         }
 
-        .search-modal {
+        .global-search-trigger:hover {
+          border-color: #cbd5e1;
+          background: #f8fafc;
+        }
+
+        .global-search-trigger kbd {
+          margin-left: auto;
+          padding: 2px 6px;
+          font-size: 11px;
+          background: #f1f5f9;
+          border-radius: 4px;
+          color: #94a3b8;
+        }
+
+        .global-search-panel {
           position: fixed;
-          top: 80px;
+          top: 60px;
           left: 50%;
           transform: translateX(-50%);
           width: 600px;
-          max-width: 90vw;
-          max-height: 70vh;
+          max-height: 500px;
           background: white;
           border-radius: 12px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
           z-index: 1000;
-          display: flex;
-          flex-direction: column;
           overflow: hidden;
         }
 
         .search-input-wrapper {
           display: flex;
           align-items: center;
-          padding: 16px 20px;
-          border-bottom: 1px solid #eee;
-          gap: 12px;
+          padding: 16px;
+          border-bottom: 1px solid #e2e8f0;
         }
 
-        .search-icon {
-          width: 20px;
-          height: 20px;
-          color: #999;
-          flex-shrink: 0;
-        }
-
-        .search-input {
+        .search-input-wrapper input {
           flex: 1;
           border: none;
           outline: none;
           font-size: 16px;
-          padding: 8px 0;
-          background: transparent;
+          color: #1e293b;
         }
 
-        .search-input::placeholder {
-          color: #aaa;
+        .search-input-wrapper input::placeholder {
+          color: #94a3b8;
         }
 
-        .search-shortcut {
-          font-size: 12px;
-          color: #999;
-          background: #f5f5f5;
-          padding: 4px 8px;
-          border-radius: 4px;
-        }
-
-        .search-loading,
-        .search-empty {
-          padding: 40px;
-          text-align: center;
-          color: #999;
-        }
-
-        .search-results {
-          flex: 1;
-          overflow-y: auto;
-          padding: 8px 0;
-        }
-
-        .search-results-header {
-          padding: 8px 20px;
-          font-size: 12px;
-          color: #999;
+        .search-close {
+          background: none;
+          border: none;
+          font-size: 24px;
+          color: #94a3b8;
+          cursor: pointer;
+          padding: 0 4px;
         }
 
         .search-group {
-          margin-bottom: 8px;
+          border-bottom: 1px solid #f1f5f9;
         }
 
         .search-group-header {
           display: flex;
           align-items: center;
-          padding: 12px 20px;
-          border-left: 3px solid;
-          background: #fafafa;
+          justify-content: space-between;
+          padding: 12px 16px 4px;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #64748b;
+          border-bottom: 2px solid;
         }
 
-        .search-group-badge {
-          color: white;
-          font-size: 12px;
+        .search-count {
+          background: #f1f5f9;
           padding: 2px 8px;
-          border-radius: 4px;
-          margin-right: 12px;
+          border-radius: 10px;
+          font-size: 11px;
+          font-weight: 500;
         }
 
-        .search-group-count {
-          font-size: 12px;
-          color: #999;
-          margin-right: auto;
-        }
-
-        .search-group-more {
-          font-size: 12px;
-          color: #667eea;
-          text-decoration: none;
-        }
-
-        .search-group-more:hover {
-          text-decoration: underline;
-        }
-
-        .search-group-items {
-          padding: 0 12px;
+        .search-items {
+          list-style: none;
+          margin: 0;
+          padding: 0;
         }
 
         .search-item {
-          display: block;
           padding: 12px 16px;
-          text-decoration: none;
-          color: inherit;
-          border-radius: 8px;
+          cursor: pointer;
           transition: background 0.15s;
+          border-bottom: 1px solid #f8fafc;
+        }
+
+        .search-item:last-child {
+          border-bottom: none;
         }
 
         .search-item:hover,
-        .search-item-selected {
-          background: #f0f4ff;
+        .search-item.active {
+          background: #f8fafc;
         }
 
         .search-item-title {
           font-size: 14px;
-          font-weight: 500;
-          color: #333;
+          font-weight: 600;
+          color: #1e293b;
           margin-bottom: 4px;
         }
 
         .search-item-summary {
           font-size: 13px;
-          color: #666;
+          color: #64748b;
+          line-height: 1.5;
+          margin-bottom: 4px;
+        }
+
+        .search-item-content {
+          font-size: 12px;
+          color: #94a3b8;
           line-height: 1.4;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          margin-bottom: 4px;
         }
 
         .search-item-extra {
-          font-size: 12px;
-          color: #999;
-          margin-top: 4px;
-        }
-
-        :global(.search-highlight) {
-          background: #fff3cd;
-          padding: 0 2px;
-          border-radius: 2px;
-        }
-
-        .search-hints {
-          padding: 16px 20px;
-          border-top: 1px solid #eee;
-          background: #fafafa;
-        }
-
-        .search-hint-title {
-          font-size: 12px;
-          color: #999;
-          margin-bottom: 8px;
-          display: block;
-        }
-
-        .search-hint-items {
-          display: flex;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-
-        .search-hint-item {
-          font-size: 12px;
-          color: #666;
-        }
-
-        .search-hint-item kbd {
-          background: white;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          padding: 2px 6px;
           font-size: 11px;
-          margin-right: 4px;
+          color: #a855f7;
+          font-weight: 500;
+        }
+
+        .search-empty {
+          padding: 40px;
+          text-align: center;
+          color: #94a3b8;
+          font-size: 14px;
+        }
+
+        .search-loading {
+          padding: 40px;
+          text-align: center;
+          color: #94a3b8;
+          font-size: 14px;
         }
       `}</style>
     </>
