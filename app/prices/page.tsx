@@ -345,7 +345,7 @@ export default function PricesPage() {
           }}>🔮 后续展望</h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: '1fr 1fr',
             gap: 12,
           }}>
             {outlookData.map((o, i) => (
