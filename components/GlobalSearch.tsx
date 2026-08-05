@@ -164,7 +164,7 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
     if (companiesData.supplyChain) {
       const tierOrder = Object.keys(companiesData.supplyChain)
       tierOrder.forEach(tierKey => {
-        const tier = companiesData.supplyChain[tierKey]
+        const tier = companiesData.supplyChain?.[tierKey]
         if (tier?.companies) {
           tier.companies.forEach((company, idx) => {
             if (company.name) {
