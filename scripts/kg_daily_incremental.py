@@ -36,7 +36,7 @@ except ImportError:
     winreg = None  # 非 Windows 环境下无此模块，代理检测自动降级为直连
 
 # ===================== 路径配置 =====================
-REPO = Path(r"E:\.easyclaw\workspace\antenna-repo")
+REPO = Path(r"E:/hermes/antenna-tracker")
 VAULT = Path(r"E:\我的知识库\我的知识库\资料库\天线技术")
 KG_FILE = REPO / "app" / "_data" / "knowledge-graph.json"
 TEMPLATES_DIR = REPO / "public" / "kg-cards" / "templates"
@@ -51,6 +51,7 @@ TYPE_PREFIX_MAP = [
     ("指标术语-", "metric"),
     ("零部件-", "component"),
     ("材料-", "material"),
+    ("报告-", "report"),
 ]
 SKIP_FILES = {"README.md"}
 
@@ -297,7 +298,7 @@ def find_pending(readme_text: str):
     current_prefix = None
     pending = []
     for line in lines:
-        hm = re.match(r"^###\s+(技术概念|指标术语|零部件|材料)", line)
+        hm = re.match(r"^###\s+(技术概念|指标术语|零部件|材料|报告)", line)
         if hm:
             current_prefix = hm.group(1) + "-"
             continue
@@ -587,6 +588,16 @@ def main():
     ap.add_argument("--apply", action="store_true", help="真正执行；默认 dry-run")
     ap.add_argument("--only", help="只处理指定 basename（调试用）", default=None)
     args = ap.parse_args()
+
+    # Windows 控制台默认 GBK，打印 emoji 会抛 UnicodeEncodeError 直接崩主流程；
+    # 强制 stdout/stderr 为 UTF-8，让脚本在中文 Windows 下能正常跑完。
+    try:
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+        if hasattr(sys.stderr, "reconfigure"):
+            sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
     ensure_deps()
 
