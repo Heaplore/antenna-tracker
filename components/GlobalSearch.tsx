@@ -257,7 +257,7 @@ function parseModuleData(data: unknown, moduleKey: string, moduleName: string, m
     }> };
     if (kgData.nodes) {
       kgData.nodes.forEach((node, idx) => {
-        if (node.name) {
+        if (node.name && node.id) {
           items.push({
             id: `${moduleKey}-${node.id}`,
             title: node.name,
