@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-07-21",
+  "lastUpdate": "2026-08-05 09:00",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -191,10 +191,10 @@
         {
           "name": "银",
           "unit": "元/克",
-          "currentPrice": 15.68,
-          "change": "-17.5%",
+          "currentPrice": 14.3,
+          "change": "-24.7%",
           "trend": "下跌",
-          "date": "2026-07-11",
+          "date": "2026-08-04",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
           "dataSource": "金投网 / 网易财经",
           "dataUrl": "https://www.163.com/dy/article/KTRL83HL055655OW.html",
@@ -229,7 +229,7 @@
             },
             {
               "month": "2026-07",
-              "price": 15.68
+              "price": 14.3
             }
           ]
         },
@@ -1069,10 +1069,10 @@
         {
           "name": "电子布7628",
           "unit": "元/米",
-          "currentPrice": 7.0,
-          "change": "+7.7%",
+          "currentPrice": 8.5,
+          "change": "+30.8%",
           "trend": "上涨",
-          "date": "2026-07-11",
+          "date": "2026-08-04",
           "impact": "覆铜板增强基材，AI服务器需求拉动价格持续上涨",
           "dataSource": "SMM / 生意社",
           "dataUrl": "",
@@ -1123,7 +1123,7 @@
             },
             {
               "month": "2026-07",
-              "price": 7.0
+              "price": 8.5
             }
           ]
         }
@@ -1137,10 +1137,10 @@
         {
           "name": "导电银浆",
           "unit": "元/公斤",
-          "currentPrice": 5350,
-          "change": "+2.5%",
+          "currentPrice": 4880,
+          "change": "-8.7%",
           "trend": "上涨",
-          "date": "2026-07-11",
+          "date": "2026-08-04",
           "impact": "天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本",
           "dataSource": "长江有色金属网 / 行业研究机构",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -1175,7 +1175,7 @@
             },
             {
               "month": "2026-07",
-              "price": 5350
+              "price": 4880
             }
           ]
         },
