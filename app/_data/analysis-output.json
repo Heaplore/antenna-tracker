@@ -1,93 +1,16 @@
 {
-  "generatedAt": "2026-07-21T17:09:36+08:00",
+  "generatedAt": "2026-08-06T17:21:32+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
     "cost": {
       "cards": [
         {
-          "type": "成本上行信号",
-          "severity": "high",
-          "title": "本月涨幅 TOP 5",
-          "summary": "PPS树脂 +16.0%；FR4覆铜板 +15.4%；电子布7628 +7.7%；电子级环氧树脂 +4.2%；环氧树脂 +3.0%",
-          "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
-          "type": "成本下行信号",
-          "severity": "high",
-          "title": "本月跌幅 TOP 5",
-          "summary": "银 -17.5%；金 -9.2%；螺纹钢 -7.7%；铝锭 -6.2%；不锈钢304/2B -5.9%",
-          "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
           "type": "BOM 全景",
           "severity": "low",
           "title": "成本方向分布",
-          "summary": "27种主要原材料中，17种上涨、9种下跌、1种持平。",
-          "recommendation": "整体 BOM 成本方向：走高。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 2
-        },
-        {
-          "type": "关键波动",
-          "severity": "high",
-          "title": "大幅波动信号 (≥10%)",
-          "summary": "银 -17.5%；PPS树脂 +16.0%；FR4覆铜板 +15.4%",
-          "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
-          "type": "分类聚合",
-          "severity": "low",
-          "title": "金属原材料分类（10种）平均变化",
-          "summary": "本分类材料均价 -4.6%",
-          "recommendation": "金属原材料板块整体呈现下行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 2
-        },
-        {
-          "type": "分类聚合",
-          "severity": "low",
-          "title": "工程塑料分类（6种）平均变化",
-          "summary": "本分类材料均价 +2.9%",
-          "recommendation": "工程塑料板块整体呈现上行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 2
-        },
-        {
-          "type": "分类聚合",
-          "severity": "medium",
-          "title": "PCB/覆铜板分类（5种）平均变化",
-          "summary": "本分类材料均价 +5.5%",
-          "recommendation": "PCB/覆铜板板块整体呈现上行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 5
-        },
-        {
-          "type": "分类聚合",
-          "severity": "low",
-          "title": "化工类原材料分类（6种）平均变化",
-          "summary": "本分类材料均价 +1.0%",
-          "recommendation": "化工类原材料板块整体呈现上行趋势。",
+          "summary": "27种主要原材料中，0种上涨、0种下跌、27种持平。",
+          "recommendation": "整体 BOM 成本方向：横盘。",
           "data_sources": [
             "prices.json"
           ],
@@ -102,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 34 条新闻入库（2026-07-14 ~ 2026-07-21）。",
+          "summary": "过去 7 天共 15 条新闻入库（2026-07-30 ~ 2026-08-06）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×212；射频/微波×66；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×227；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "智联未来，中国电信全面推进AI原生云网运营能力 | WAIC 观察：关于AI，中国联通清晰传递三大产业信号 | 奕境X9登陆华为乾崑媒体日，全栈智能诠释旗舰新高度",
+          "summary": "华为余承东：内存高昂涨价，手机之后可能都要大规模涨价 | 中国联通智算规模达45EFLOPS，今年算力相关投资将超175亿元 | 中国移动李男：面向运营的低空经济电磁环境构建与网络赋能探索",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×73；通信世界网×72；与非网RF社区×26；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×82；通信世界网×77；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
@@ -359,5 +282,5 @@
       "source": "derived-from-market"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点信号：成本：本月涨幅 TOP 5；成本：本月跌幅 TOP 5；成本：大幅波动信号 (≥10%)；成本：PCB/覆铜板分类（5种）平均变化；交付：本周行业动态。"
+  "crossDimensionSummary": "⚠️ 重点信号：交付：本周行业动态；技术：行业技术概览；技术：技术详情覆盖 14 项；市场：行业核心驱动；成本：成本方向分布。"
 }
