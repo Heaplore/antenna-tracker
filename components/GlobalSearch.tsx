@@ -488,24 +488,7 @@ export default function GlobalSearch() {
 
   return (
     <>
-      {/* 搜索框 */}
-      <div
-        className="global-search-trigger"
-        onClick={() => {
-          setIsOpen(!isOpen)
-          setQuery('')
-          setTimeout(() => inputRef.current?.focus(), 100)
-        }}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
-        </svg>
-        <span>搜索...</span>
-        <kbd>/</kbd>
-      </div>
-
-      {/* 搜索面板 */}
+      {/* 搜索面板 - 触发按钮由 Navbar 中的 SearchTrigger 组件提供 */}
       {isOpen && (
         <div className="global-search-panel">
           <div className="search-input-wrapper">
