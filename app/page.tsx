@@ -52,7 +52,7 @@ export default function HomePage() {
           { type: 'value', name: '亿美元', nameTextStyle: { color: muted, fontSize: 10 }, axisLabel: { color: muted, fontSize: 10 }, splitLine: { show: false } }
         ],
         series: [
-          { name: '中国通信天线(亿元RMB)', type: 'line', smooth: true, data: [627,641.3,658,675,695,718,745,770,800], lineStyle: { color: accent, width: 2.5 }, itemStyle: { color: accent }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: accent+'33' }, { offset: 1, color: accent+'05' }] } }, symbol: 'circle', symbolSize: 6 },
+          { name: '中国通信天线(亿元RMB)', type: 'line', smooth: true, data: [256.8,274.5,290.2,305.7,320.53,342.8,368.2,395.6,425.8], lineStyle: { color: accent, width: 2.5 }, itemStyle: { color: accent }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: accent+'33' }, { offset: 1, color: accent+'05' }] } }, symbol: 'circle', symbolSize: 6 },
           { name: '全球Massive MIMO AAU(亿美元)', type: 'line', smooth: true, yAxisIndex: 1, data: [null,16.25,21,27,34,41,47,51,53.12], lineStyle: { color: accent2, width: 2.5 }, itemStyle: { color: accent2 }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: accent2+'33' }, { offset: 1, color: accent2+'05' }] } }, symbol: 'circle', symbolSize: 6 },
           { name: '全球5G相控阵天线(亿美元)', type: 'line', smooth: true, yAxisIndex: 1, data: [null,null,null,null,null,null,null,5.95,null], lineStyle: { color: muted, width: 2, type: 'dashed' }, itemStyle: { color: muted }, symbol: 'diamond', symbolSize: 8 }
         ]
@@ -296,7 +296,7 @@ export default function HomePage() {
         <PageHeader
           title="全球天线行业市场格局及技术发展现状趋势"
           subtitle="从5G建设高峰期到5G-A/6G过渡期的系统性分析：市场规模、竞争格局、技术演进与未来展望"
-          updateInfo="2026年7月 · L3 深度建模"
+          updateInfo="2026年8月 · L3 深度建模"
         />
       </div>
 
@@ -333,8 +333,8 @@ export default function HomePage() {
             <div className="kpi-strip" ref={kpiRef}>
               <div className="kpi-card">
                 <span className="kpi-icon">&#9670;</span>
-                <div className="kpi-number blue" data-target="641" data-suffix="亿">0</div>
-                <div className="kpi-label">中国通信天线<br/>2024年市场规模(元)</div>
+                <div className="kpi-number blue" data-target="320.53" data-suffix="亿" data-decimal="2">0</div>
+                <div className="kpi-label">全球天线市场<br/>2024年市场规模(元)</div>
               </div>
               <div className="kpi-card">
                 <span className="kpi-icon">&#9650;</span>
@@ -390,7 +390,7 @@ export default function HomePage() {
                 <table>
                   <thead><tr><th>细分市场</th><th>基期规模</th><th>预测期规模</th><th>CAGR</th></tr></thead>
                   <tbody>
-                    <tr><td>中国通信天线行业</td><td>641亿元RMB (2024)</td><td>&mdash;</td><td>2.3% (YoY)<sup><a href="#cite-1">[1]</a></sup></td></tr>
+                    <tr><td>全球天线市场</td><td>320.53亿元 (2024)</td><td>484.26亿元 (2030)</td><td>7.12% (CAGR)<sup><a href="#cite-1">[1]</a></sup></td></tr>
                     <tr><td>全球5G天线</td><td>144亿元RMB (2023)</td><td>142.9亿元RMB (2030)</td><td>-1.3%<sup><a href="#cite-2">[2]</a></sup></td></tr>
                     <tr><td>全球Massive MIMO AAU</td><td>16.25亿美元 (2024)</td><td>53.12亿美元 (2031)</td><td>21.0%<sup><a href="#cite-3">[3]</a></sup></td></tr>
                     <tr><td>全球5G相控阵天线</td><td>基数较小</td><td>5.95亿美元 (2030)</td><td>44.2%<sup><a href="#cite-4">[4]</a></sup></td></tr>
@@ -766,7 +766,7 @@ export default function HomePage() {
           <div className="sources">
             <h2>参考资料</h2>
             <ol>
-              <li id="cite-1"><span className="src-title">[二级资料] 中国通信天线行业市场规模分析：2023年627亿元&rarr;2024年641.3亿元</span><span className="src-url">豆丁网行业报告</span></li>
+              <li id="cite-1"><span className="src-title">[二级资料] 全球天线行业市场规模：2024年320.53亿元，2030年预测484.26亿元，CAGR 7.12%</span><span className="src-url">市场研究报告</span></li>
               <li id="cite-2"><span className="src-title">[二级资料] 全球5G天线行业规模及市场占有率分析报告</span><span className="src-url">格隆汇 / QY Research</span></li>
               <li id="cite-3"><span className="src-title">[二级资料] 全球Massive MIMO 5G AAU有源天线单元市场规模报告</span><span className="src-url">格隆汇</span></li>
               <li id="cite-4"><span className="src-title">[二级资料] 全球与中国5G相控阵天线市场调查报告2024-2030</span><span className="src-url">QYR恒州博智</span></li>
