@@ -340,20 +340,32 @@ export default function KnowledgeGraphPage() {
       })
 
       // Store refs for subsequent updates
-      ;(rootG as any)._linkSel = linkSel
-      ;(rootG as any)._nodeSel = nodeSel
-      ;(rootG as any)._getNodeRadius = getNodeRadius
-      ;(rootG as any)._simulation = simulation
-      ;(rootG as any)._centerX = centerX
-      ;(rootG as any)._centerY = centerY
-      ;(rootG as any)._updateVisibility = updateVisibility
+      // 注意：必须存到 DOM 节点 (rootG.node()) 而非 d3 selection 对象——
+      // 每次 useEffect 运行时 d3.select(svg).select('g') 会创建新 selection，
+      // 旧 selection 上的属性读不到，导致 else 分支提前 return、节点永不更新。
+      const rootNode = rootG.node() as any
+      rootNode._linkSel = linkSel
+      rootNode._nodeSel = nodeSel
+      rootNode._getNodeRadius = getNodeRadius
+      rootNode._simulation = simulation
+      rootNode._centerX = centerX
+      rootNode._centerY = centerY
+      rootNode._updateVisibility = updateVisibility
     } else {
       // ===== 后续更新：重新跑力导向布局（非重建） =====
       const existingG = g
-      const linkSel = existingG.select('.links').selectAll('line')
-      const nodeSel = existingG.select('.nodes').selectAll('g.node')
-      const sim = (existingG as any)._simulation as d3.Simulation<any, any> | undefined
-      const getNodeRadius = (existingG as any)._getNodeRadius as ((node: any) => number) | undefined
+      // 确保 .links / .nodes 容器存在（StrictMode 双调用或异常后可能缺失，
+      // 缺失时 selectAll 的 parentNode 为 null，join 会报 insertBefore null）
+      let linksG = existingG.select('.links') as any
+      let nodesG = existingG.select('.nodes') as any
+      if (linksG.empty()) linksG = existingG.append('g').attr('class', 'links')
+      if (nodesG.empty()) nodesG = existingG.append('g').attr('class', 'nodes')
+      const linkSel = linksG.selectAll('line')
+      let nodeSel = nodesG.selectAll('g.node')
+      // 从 DOM 节点读取（首次渲染时存到 rootG.node() 上）
+      const existingNode = existingG.node() as any
+      const sim = existingNode?._simulation as d3.Simulation<any, any> | undefined
+      const getNodeRadius = existingNode?._getNodeRadius as ((node: any) => number) | undefined
       
       if (!sim || !getNodeRadius) return
 
@@ -429,31 +441,56 @@ export default function KnowledgeGraphPage() {
         .attr('stroke-opacity', 0.2)
 
       // Update nodes with join (preserves existing elements, adds/removes as needed)
-      const joinedNodes = nodeSel
-        .data(nodes, (d: any) => d.id)
-        .join(
-          (enter) => {
-            const g = enter.append('g').attr('class', 'node').style('cursor', 'pointer')
-            g.append('circle')
-              .attr('stroke', '#fff')
-              .attr('stroke-width', 1)
-              .attr('opacity', 0.95)
-            g.append('text')
-              .attr('class', 'node-label')
-              .attr('text-anchor', 'middle')
-              .attr('font-size', 6.5)
-              .attr('fill', '#374151')
-              .attr('pointer-events', 'none')
-              .attr('font-weight', 400)
-              .attr('opacity', 0)
-            return g
-          },
-          (exit) => exit.remove(),
-          (update) => update,
-        ) as any as d3.Selection<SVGGElement, any, any, any>
+      let joinedNodes: any
+      try {
+        joinedNodes = nodeSel
+          .data(nodes, (d: any) => d.id)
+          .join(
+            (enter: any) => {
+              const g = enter.append('g').attr('class', 'node').style('cursor', 'pointer')
+              g.append('circle')
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 1)
+                .attr('opacity', 0.95)
+              g.append('text')
+                .attr('class', 'node-label')
+                .attr('text-anchor', 'middle')
+                .attr('font-size', 6.5)
+                .attr('fill', '#374151')
+                .attr('pointer-events', 'none')
+                .attr('font-weight', 400)
+                .attr('opacity', 0)
+              return g
+            },
+            (exit: any) => exit.remove(),
+            (update: any) => update,
+          ) as any as d3.Selection<SVGGElement, any, any, any>
+      } catch {
+        // StrictMode 双调用 / 异常后 .nodes 容器 DOM 失效，重建
+        nodesG.selectAll('*').remove()
+        joinedNodes = nodesG
+          .selectAll('g')
+          .data(nodes, (d: any) => d.id)
+          .join('g')
+          .attr('class', 'node')
+          .style('cursor', 'pointer')
+        joinedNodes.append('circle')
+          .attr('stroke', '#fff')
+          .attr('stroke-width', 1)
+          .attr('opacity', 0.95)
+        joinedNodes.append('text')
+          .attr('class', 'node-label')
+          .attr('text-anchor', 'middle')
+          .attr('font-size', 6.5)
+          .attr('fill', '#374151')
+          .attr('pointer-events', 'none')
+          .attr('font-weight', 400)
+          .attr('opacity', 0)
+        nodeSel = nodesG.selectAll('g.node')
+      }
       
       joinedNodes
-        .on('mouseover', (_, d) => setHoveredId(d.id))
+        .on('mouseover', (_: any, d: any) => setHoveredId(d.id))
         .on('mouseout', () => setHoveredId(null))
         .call(d3.drag<SVGGElement, any>()
           .clickDistance(4)
@@ -478,10 +515,10 @@ export default function KnowledgeGraphPage() {
             }
           })
         )
-        .on('click', (_, d) => setSelectedId(d.id))
+        .on('click', (_: any, d: any) => setSelectedId(d.id))
 
       // Update circle and label for each node
-      nodeSel.each(function (d: any) {
+      nodeSel.each(function (this: any, d: any) {
         const nodeG = d3.select(this)
         nodeG.select('circle')
           .transition().duration(300)
