@@ -411,9 +411,17 @@ export default function KnowledgeGraphPage() {
 
       // Update simulation with new nodes
       sim.nodes(nodes as any)
+      // forceLink 会原地把 source/target 改成节点对象引用（指向旧的 sim 节点）。
+      // 筛选后 sim 节点已换新，旧引用位置错乱 → 必须传入干净的字符串副本，
+      // 让 forceLink 基于当前 sim.nodes() 重新解析。
+      const freshLinks = filtered.links.map((l: any) => ({
+        ...l,
+        source: typeof l.source === 'string' ? l.source : (l.source as any).id,
+        target: typeof l.target === 'string' ? l.target : (l.target as any).id,
+      }))
       sim.force(
         'link',
-        d3.forceLink(filtered.links as any).id((d: any) => d.id).distance(50).strength(0.6),
+        d3.forceLink(freshLinks as any).id((d: any) => d.id).distance(50).strength(0.6),
       )
       sim.force(
         'collide',
@@ -437,7 +445,7 @@ export default function KnowledgeGraphPage() {
 
       // Update links with join
       linkSel
-        .data(filtered.links)
+        .data(freshLinks)
         .join('line')
         .attr('stroke', '#94a3b8')
         .attr('stroke-width', 0.6)
