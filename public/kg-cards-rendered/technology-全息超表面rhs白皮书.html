@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全息超表面RHS白皮书 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">全息超表面RHS白皮书</h1>
+  <p class="lede">中信科移动联合14家机构发布的全息超表面技术白皮书，系统阐述RHS如何突破传统相控阵瓶颈，以亚波长密集阵列+串行馈电架构实现超低功耗、超大规模XL-MIMO，成为6G沉浸式全息通信的核心使能技术。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">全息超表面</span><span class="chip brand">RHS</span><span class="chip brand">6G</span><span class="chip brand">RIS</span><span class="chip brand">中信科移动</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 白皮书发布背景</h2>
+    <p>《面向6G的全息超表面通信技术白皮书》（Holographic Metasurface Communication Technology for 6G）于 <strong>2026年7月</strong> 由 <strong>中信科移动通信技术股份有限公司</strong> 牵头发布，联合参与单位包括：</p>
+<ul>
+<li>北京大学</li>
+<li>中国移动通信有限公司研究院</li>
+<li>中国电信股份有限公司研究院</li>
+<li>中国信息通信研究院</li>
+<li>东南大学</li>
+<li>华中科技大学</li>
+<li>清华大学</li>
+<li>北京三星通信技术研究有限公司</li>
+<li>北京邮电大学</li>
+<li>北京交通大学</li>
+<li>武汉大学</li>
+<li>鹏城实验室</li>
+<li>香港城市大学</li>
+<li>吉林大学</li>
+</ul>
+<p>共 <strong>14家产学研机构</strong> 联合编著，代表国内RHS领域的顶尖研究力量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 全息超表面技术内涵</h2>
+    <p>全息超表面（Reconfigurable Holographic Surface, RHS）是一种将光学全息原理引入微波频段的新型天线架构：</p>
+<p><strong>核心原理</strong>：</p>
+<ul>
+<li>采用<strong>亚波长间距</strong>（&lt; λ/2）密集排布的超材料辐射单元</li>
+<li>通过<strong>串行馈电</strong>架构，电磁波在阵面上传播时自然形成干涉图样</li>
+<li>加载低功耗动态元件（如PIN二极管、变容二极管）控制电磁响应</li>
+<li>重构阵面全息图样，实现对空间波束的精细调控</li>
+</ul>
+<p><strong>与传统相控阵的本质区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统相控阵</th>
+<th>全息超表面RHS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元间距</td>
+<td>半波长（λ/2）</td>
+<td>亚波长（&lt; λ/2）</td>
+</tr>
+<tr>
+<td>馈电方式</td>
+<td>并行馈电（每单元独立RF链）</td>
+<td>串行馈电（电磁波在阵面传播）</td>
+</tr>
+<tr>
+<td>硬件复杂度</td>
+<td>高（每单元需移相器+功放）</td>
+<td>低（仅需调控元件）</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>随单元数线性增长</td>
+<td>极低（无源/低功耗有源）</td>
+</tr>
+<tr>
+<td>波束调控</td>
+<td>相位/幅度独立控制</td>
+<td>全息图样重构</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 技术演进脉络</h2>
+    <p>RHS 技术源于<strong>超材料</strong>和<strong>智能反射面RIS</strong>的融合演进：</p>
+<ol>
+<li><strong>超材料阶段</strong>（2000s-2010s）：人工电磁材料实现特殊电磁响应</li>
+<li><strong>RIS阶段</strong>（2015s-2020s）：可重构智能表面，被动调控电磁波</li>
+<li><strong>RHS阶段</strong>（2020s-至今）：引入全息原理，实现主动波前调控</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 全息波束赋形关键技术</h2>
+    <p>白皮书系统阐述了以下关键技术：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（1）可重构全息超表面串行传输方案设计</h2>
+    <ul>
+<li>基于串行馈电的波束赋形架构</li>
+<li>实现多用户、多流宽带通信</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（2）等效孔径全息波束赋形</h2>
+    <ul>
+<li>将超表面等效为连续孔径天线</li>
+<li>通过全息图样实现空间波束调控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（3）多波束全息图样线性叠加</h2>
+    <ul>
+<li>支持多用户并发传输</li>
+<li>不同用户的波束图样线性叠加</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（4）宽带码本设计与波束训练</h2>
+    <ul>
+<li>针对宽带场景的码本设计</li>
+<li>高效波束训练机制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（5）互耦效应下的波束优化</h2>
+    <ul>
+<li>考虑单元间互耦的波束优化</li>
+<li>提升实际阵列性能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 电磁信息论新特性</h2>
+    <p>白皮书揭示了<strong>亚波长密集阵列</strong>带来的电磁信息论新特性：</p>
+<ul>
+<li><strong>空间自由度扩展</strong>：亚波长间距突破传统半波长限制，增加空间调制自由度</li>
+<li><strong>近场波束聚焦</strong>：支持XL-MIMO近场球面波前精确聚焦</li>
+<li><strong>多维调控能力</strong>：同时调控幅度、相位、极化等多维电磁参数</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 全息超表面天线单元设计</h2>
+    <p><strong>典型单元结构</strong>：</p>
+<ul>
+<li>亚波长间距排列的超材料辐射单元</li>
+<li>集成低功耗动态调控元件（PIN二极管/变容二极管）</li>
+<li>多层结构：介电基板 + 电磁单元层 + 控制电路层</li>
+</ul>
+<p><strong>设计特点</strong>：</p>
+<ul>
+<li>超薄平板结构（厚度 &lt;&lt; 波长）</li>
+<li>低功耗（仅需调控元件偏置电压）</li>
+<li>易部署（可贴附于建筑表面）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 全息超表面天线阵列设计</h2>
+    <p><strong>阵列架构</strong>：</p>
+<ul>
+<li>大规模平面阵列（M×M单元）</li>
+<li>串行馈电网络</li>
+<li>分布式控制电路</li>
+</ul>
+<p><strong>关键参数</strong>：</p>
+<ul>
+<li>阵列规模：数十至数千单元</li>
+<li>工作频段：毫米波（24-100 GHz）</li>
+<li>波束扫描范围：±60°</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 系统样机设计</h2>
+    <p>白皮书介绍了基于可重构全息超表面的毫米波通信系统样机：</p>
+<p><strong>样机组成</strong>：</p>
+<ul>
+<li>RHS天线阵列</li>
+<li>基带处理单元</li>
+<li>控制电路</li>
+<li>射频前端</li>
+</ul>
+<p><strong>系统测试</strong>：</p>
+<ul>
+<li>完成了原理验证实验</li>
+<li>展示了波束成形和通信能力</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 基于大规模全息超表面的无线通信基站</h2>
+    <p><strong>典型部署</strong>：</p>
+<ul>
+<li>6G毫米波基站</li>
+<li>室内覆盖增强</li>
+<li>密集城市场景</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>低成本大规模部署</li>
+<li>超低功耗</li>
+<li>灵活形态（可贴附于建筑）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 全息通感一体化</h2>
+    <p><strong>应用场景</strong>：</p>
+<ul>
+<li>低空无人机感知</li>
+<li>车辆自动驾驶感知</li>
+<li>室内定位与成像</li>
+</ul>
+<p><strong>技术优势</strong>：</p>
+<ul>
+<li>通信与感知共享硬件</li>
+<li>高精度三维成像</li>
+<li>实时动态追踪</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 基于大规模全息超表面天线的低轨卫星地面终端</h2>
+    <p><strong>应用场景</strong>：</p>
+<ul>
+<li>低轨卫星互联网地面站</li>
+<li>星地通信终端</li>
+<li>机载/车载通信</li>
+</ul>
+<p><strong>技术优势</strong>：</p>
+<ul>
+<li>低成本终端</li>
+<li>波束敏捷追踪卫星</li>
+<li>轻量化设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 全息超表面天线赋能的无人机低空经济</h2>
+    <p><strong>应用场景</strong>：</p>
+<ul>
+<li>无人机通信中继</li>
+<li>低空覆盖增强</li>
+<li>应急通信</li>
+</ul>
+<p><strong>技术优势</strong>：</p>
+<ul>
+<li>轻量化载荷</li>
+<li>低功耗长航时</li>
+<li>灵活部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>传统相控阵</th>
+<th>全息超表面RHS</th>
+<th>提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元间距</td>
+<td>λ/2</td>
+<td>&lt; λ/2（亚波长）</td>
+<td>空间自由度提升</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>高（每单元独立RF链）</td>
+<td>极低（仅需调控元件）</td>
+<td>功耗降低90%+</td>
+</tr>
+<tr>
+<td>硬件成本</td>
+<td>高（移相器+功放）</td>
+<td>低（无源/低功耗）</td>
+<td>成本降低70%+</td>
+</tr>
+<tr>
+<td>阵列规模</td>
+<td>数十单元</td>
+<td>数百至数千单元</td>
+<td>规模可扩展10x</td>
+</tr>
+<tr>
+<td>波束调控</td>
+<td>相位/幅度独立</td>
+<td>全息图样重构</td>
+<td>更精细调控</td>
+</tr>
+<tr>
+<td>形态</td>
+<td>厚重（需散热）</td>
+<td>超薄平板</td>
+<td>更易部署</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 大规模应用面临的技术挑战</h2>
+    <p>白皮书明确列出以下挑战：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（1）互耦效应</h2>
+    <ul>
+<li>亚波长间距导致单元间强互耦</li>
+<li>需精确建模和优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（2）泄漏功率约束</h2>
+    <ul>
+<li>串行馈电架构的能量损耗</li>
+<li>需优化馈电网络设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（3）1-bit量化效应</h2>
+    <ul>
+<li>低成本实现需量化调控</li>
+<li>需研究量化对性能影响</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（4）近远场混合</h2>
+    <ul>
+<li>不同距离用户的波束调控差异</li>
+<li>需混合域算法设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（5）宽带化</h2>
+    <ul>
+<li>宽带场景下的波束聚焦</li>
+<li>需研究色散效应补偿</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 标准化挑战</h2>
+    <ul>
+<li>RHS技术尚处早期，缺乏统一标准</li>
+<li>需推动3GPP/ITU标准化进程</li>
+<li>需建立测试验证方法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 发展阶段</h2>
+    <ul>
+<li><strong>2010s初期</strong>：超材料基础研究，亚波长结构验证</li>
+<li><strong>2015-2020</strong>：RIS概念提出，被动智能表面研究</li>
+<li><strong>2020-2023</strong>：RHS理论框架建立，原型验证</li>
+<li><strong>2023-2025</strong>：系统样机研制，外场试验</li>
+<li><strong>2025-2026</strong>：白皮书发布，产业化推进启动</li>
+<li><strong>2026-2030</strong>：6G标准化，规模商用部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 关键里程碑</h2>
+    <table>
+<thead>
+<tr>
+<th>时间</th>
+<th>事件</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022</td>
+<td>中兴发布Dynamic RIS 2.0</td>
+<td>RIS商用化探索</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>清华SC-RIS自控制智能超表面</td>
+<td>自主控制突破</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>中信科移动发布RHS样机</td>
+<td>系统级验证</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>中信科移动发布RHS白皮书</td>
+<td>技术体系化</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.1 短期（1-2年）</h2>
+    <ul>
+<li>RHS外场试验规模化</li>
+<li>3GPP Release 20/21 标准化启动</li>
+<li>与AI/ML结合的智能RHS研究</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.2 中期（3-5年）</h2>
+    <ul>
+<li>6G沉浸式全息通信原型系统</li>
+<li>通感一体化RHS商用部署</li>
+<li>低轨卫星RHS地面终端试点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.3 长期（5年以上）</h2>
+    <ul>
+<li>RHS成为6G基站主流天线架构</li>
+<li>与STAR-RIS、BD-RIS等技术融合</li>
+<li>支撑全息远程呈现、数字孪生等应用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.1 对老大工作的参考价值</h2>
+    <ol>
+<li><strong>技术储备</strong>：RHS是RIS技术的重大演进，与老大关注的RIS/超表面方向高度相关</li>
+<li><strong>产业动态</strong>：中信科移动作为国企龙头，其白皮书代表国内RHS技术最高水平</li>
+<li><strong>标准化方向</strong>：白皮书为6G天线技术标准化提供重要参考</li>
+<li><strong>竞品分析</strong>：可对比华为、爱立信、诺基亚等厂商的RHS布局</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.2 与已有笔记的关联</h2>
+    <ul>
+<li>[[技术概念-智能反射面RIS深度解读-20260701]]：RHS是RIS的演进形态</li>
+<li>[[技术概念-清华SC-RIS自控制智能超表面-20260705]]：自控制RIS与RHS技术路线对比</li>
+<li>[[技术概念-全息MIMO连续孔径CAPA-20260702]]：RHS与CAPA技术的异同</li>
+<li>[[技术概念-中信科移动6G全息超表面样机-20260707]]：本文是样机工作的理论深化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.3 行业洞察</h2>
+    <ul>
+<li>国内RHS研究力量集中：中信科移动牵头，产学研联合</li>
+<li>技术路线清晰：从RIS到RHS的演进路径明确</li>
+<li>应用场景明确：沉浸式通信、通感一体化、低空经济</li>
+<li>竞争格局：华为U6GHz方案 vs 中兴GigaMIMO vs 中信科RHS，多路线并行</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><a href="https://max.book118.com/html/2026/0714/8044033071010110.shtm">面向6G的全息超表面通信技术白皮书2026</a></li>
+<li><a href="https://finance.sina.com.cn/roll/2025-04-14/doc-inetaxma9016717.shtml">"6G 全息超表面宽带移动通信系统样机"发布，中信科移动等合作</a></li>
+<li><a href="https://arxiv.org/html/2501.05173v1">Holographic Metasurfaces Enabling Wave Computing for 6G</a></li>
+<li><a href="https://m.c114.com.cn/w654-1230502.html">C114通信网 - RIS与6G关键技术</a></li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>300GHz CMOS二维双向相控阵收发器-VLSI2026 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">300GHz CMOS二维双向相控阵收发器-VLSI2026</h1>
+  <p class="lede">东京科学大学 Okada 团队在 VLSI 2026 会议上发布了世界首个 200 GHz 以上全集成二维相控阵收发器——65nm CMOS 单芯片集成 4×4 半波长间距天线阵列与双方向收发电路，每单元仅 26 mW 功耗和 0.30 mm² 面积，支持 ±32° 二维波束扫描，为 6G 太赫兹终端芯片化铺平道路。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">CMOS</span><span class="chip brand">相控阵</span><span class="chip brand">300GHz</span><span class="chip brand">VLSI</span><span class="chip brand">6G终端</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>一、基本定义与背景</h2>
+    <p><strong>核心问题：</strong> 300 GHz 频段（太赫兹低段）拥有巨大带宽潜力，可支撑 100+ Gbps 的 6G 高速通信。但此频段波长仅约 1 mm，传统方案需要大型天线阵列和化合物半导体（如 GaAs/GaN）来补偿空间传播损耗，无法小型化和低成本量产。</p>
+<p><strong>解决方案：65 nm CMOS 全集成二维相控阵。</strong></p>
+<ul>
+<li><strong>工艺节点：</strong> 65 nm CMOS（标准硅基工艺，可大规模量产、成本极低）</li>
+<li><strong>阵列规模：</strong> 4×4 = 16 个双方向收发通道</li>
+<li><strong>天线类型：</strong> 片上偶极子天线（on-chip dipole antenna），无需外部天线模组</li>
+<li><strong>单元间距：</strong> E 面 0.49λ、H 面 0.50λ（严格半波长以下，抑制栅瓣）</li>
+<li><strong>工作频段：</strong> 240–270 GHz（覆盖 300 GHz 带低段）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>二、核心技术参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工艺</td>
+<td>65 nm CMOS</td>
+<td>标准硅基量产工艺</td>
+</tr>
+<tr>
+<td>频率范围</td>
+<td>240–270 GHz</td>
+<td>300 GHz 带低段</td>
+</tr>
+<tr>
+<td>阵列规模</td>
+<td>4×4（16通道）</td>
+<td>二维相控阵</td>
+</tr>
+<tr>
+<td>峰值 EIRP</td>
+<td>−17.1 dBm @ 256 GHz</td>
+<td>单芯片总辐射功率</td>
+</tr>
+<tr>
+<td>波束扫描</td>
+<td>±32°（二维）</td>
+<td>纵/横双向扫描</td>
+</tr>
+<tr>
+<td>发射符号率</td>
+<td>16 Gbaud QPSK</td>
+<td>OTA 通信测试</td>
+</tr>
+<tr>
+<td>接收符号率</td>
+<td>26 Gbaud QPSK</td>
+<td>OTA 通信测试</td>
+</tr>
+<tr>
+<td>单单元功耗</td>
+<td>26 mW（TX + RX 合计）</td>
+<td>含移相器/倍频器/混频器/天线</td>
+</tr>
+<tr>
+<td>单单元面积</td>
+<td>0.30 mm²（核心面积）</td>
+<td>含天线在内</td>
+</tr>
+<tr>
+<td>芯片总面积</td>
+<td>未公开完整尺寸</td>
+<td>16 系统双方向电路</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 全 CMOS 集成（含天线）</h2>
+    <p>传统 300 GHz 方案通常将射频前端和天线分开设计（AiP 封装），需要多芯片组装。本工作首次在同一 CMOS 芯片上集成了：</p>
+<ul>
+<li>移相器（Phase Shifter）— 控制每个单元的相位实现波束扫描</li>
+<li>倍频器（Frequency Doubler）— 本振倍频</li>
+<li>注入锁定三倍频器（Injection-Locked Tripler）— 高效频率上变频</li>
+<li>次谐波混频器（Sub-Harmonic Mixer）— 接收下变频</li>
+<li>片上偶极子天线 — 直接辐射/接收</li>
+</ul>
+<p>全部用 65 nm CMOS 工艺制造，无需特殊材料或封装。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 双方向架构（Mixer-Last / Mixer-First）</h2>
+    <p>发射端采用 mixer-last 架构（先放大后混频），接收端采用 mixer-first 架构（低噪声前置混频），共用同一套天线端口，实现单芯片双向通信。这是缩小面积的关键——不需要为 TX/RX 分别设计天线。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 超紧凑单元设计</h2>
+    <p>在 300 GHz 频段（波长 ~1 mm），半波长仅 ~0.5 mm。要在如此小的间距内集成天线+移相器+倍频器+混频器，需要全新的电路拓扑和布局优化。本工作的单单元核心面积仅 0.30 mm²，是同类频率下世界最小。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 超低功耗</h2>
+    <p>每单元 26 mW 的功耗意味着 16 单元阵列总功耗约 416 mW，远低于化合物半导体方案（通常数瓦级别）。这对 6G 终端设备（手机、XR 头显等）的电池续航至关重要。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、行业应用</h2>
+    <p><strong>主要场景：6G 太赫兹终端（UE）芯片化。</strong></p>
+<ul>
+<li>当前太赫兹研究集中在基站回传（如德岛大学 560 GHz 光子方案），但终端侧的太赫兹收发器长期缺乏可行方案</li>
+<li>这颗 CMOS 芯片证明了太赫兹终端可以用低成本硅芯片实现，不再依赖昂贵的 GaN/GaAs</li>
+<li>可直接应用于：6G XR 头显（8K+ 无线串流）、远距医疗（无线内窥镜）、数据中心内部互联、工业 AR/VR</li>
+</ul>
+<p><strong>与老大的关联：</strong> 中兴在 6G 太赫兹方向有深厚积累。此成果表明终端侧太赫兹芯片化路线已初步可行，老大在评估 6G 终端方案时可参考此 CMOS 路线与化合物半导体路线的权衡。同时，240–270 GHz 频段与 3GPP 讨论的 U6G 频谱（275–470 GHz）有重叠，可作为早期部署候选。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、未来趋势</h2>
+    <ul>
+<li><strong>短期（1–2 年）：</strong> 扩展阵列规模至 8×8 或更大，提升 EIRP 和传输距离；引入高阶调制（16QAM/64QAM）提升频谱效率</li>
+<li><strong>中期（3–5 年）：</strong> 与 5G/6G 协议栈对接，支持 MIMO 扩展和多流传输；与 RIS/全息表面结合实现智能波束管理</li>
+<li><strong>长期（5 年以上）：</strong> 成为 6G 标准终端芯片之一，与 D 波段（150 GHz）和 560 GHz 光子回传方案形成完整的太赫兹通信生态</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、同实验室系列成果对比</h2>
+    <p>Okada 实验室在 VLSI 2026 上共发表了 <strong>6 篇</strong>论文，覆盖了从 2 GHz 到 300 GHz 的全频段：</p>
+<table>
+<thead>
+<tr>
+<th>论文</th>
+<th>频率</th>
+<th>关键指标</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4×4 双向相控阵（本文）</td>
+<td>240–270 GHz</td>
+<td>26 mW/单元，±32° 扫描</td>
+<td>6G 太赫兹终端</td>
+</tr>
+<tr>
+<td>D 波段双极化 MIMO（Yamazaki）</td>
+<td>140–164 GHz</td>
+<td>144 Gbps，50 m 传输</td>
+<td>6G 终端高速链路</td>
+</tr>
+<tr>
+<td>Ka 波段时空陷波发射机</td>
+<td>~30 GHz</td>
+<td>内置空间陷波</td>
+<td>6G MIMO 干扰抑制</td>
+</tr>
+<tr>
+<td>57–71 GHz 孔径调谐收发器</td>
+<td>57–71 GHz</td>
+<td>EIRP 效率提升 47.9–62.2%</td>
+<td>5G-A/6G 前传</td>
+</tr>
+<tr>
+<td>24–28 GHz 时分全双工</td>
+<td>24–28 GHz</td>
+<td>59 dB 自干扰抑制</td>
+<td>5G NR 全双工</td>
+</tr>
+<tr>
+<td>开关电感电容 PA</td>
+<td>未公开</td>
+<td>100 MHz 256-QAM 支持</td>
+<td>宽带功率放大器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读：</strong> 该团队已形成从 Sub-6G 到太赫兹的完整产品谱系，覆盖了 5G/5G-A/6G 的所有关键频段。其 CMOS 路线的一致性表明，硅基太赫兹芯片化是一条被持续投入验证的技术路线。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、与已有笔记的关系</h2>
+    <ul>
+<li>与 <strong>300 GHz CMOS 相控阵收发器</strong>（20260707 笔记）互补：此前笔记主要介绍概念框架，本文补充了 VLSI 2026 的完整实测数据（EIRP、功耗、扫描角度、符号率等）</li>
+<li>与 <strong>D 波段 150 GHz AiP 相控阵</strong>（20260711 笔记）对比：D 波段速率更高（144 Gbps vs OTA 仅 QPSK），但采用 AiP 封装（非纯 CMOS 单芯片）；本文的 300 GHz 方案更强调集成度和低功耗</li>
+<li>与 <strong>560 GHz 光微梳太赫兹无线传输</strong>（20260724 笔记）呼应：光子方案用于回传侧（基站间），CMOS 方案用于终端侧（UE），两者在 6G 太赫兹生态中各司其职</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、关键参考文献</h2>
+    <ul>
+<li>Chun Wang et al., "A 240–270 GHz 4×4 Bi-Directional Phased-Array Transceiver with On-Chip Half-Wavelength-Spaced Array and Ultra-Low Power Consumption in 65-nm CMOS," IEEE/JSAP Symposium on VLSI Technology and Circuits, Honolulu, June 2026. DOI: 10.1109/VLSITechnologyandCir65830.2026.11577644</li>
+<li>Yudai Yamazaki et al., "A 144Gbps D-Band Dual-Polarized MIMO High-Density Phased-Array Transceiver in 65nm CMOS for 6G UE," IEEE/JSAP Symposium on VLSI Technology and Circuits, Honolulu, June 2026. DOI: 10.1109/VLSITechnologyandCir65830.2026.11577332</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

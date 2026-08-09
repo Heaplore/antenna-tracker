@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-RAN智能无线接入网 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">AI-RAN智能无线接入网</h1>
+  <p class="lede">AI-RAN 是将 AI 算力原生下沉到基站射频单元的新型架构，让基站不仅是通信节点，更是分布式边缘算力节点，实现通信、感知、计算三融合。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">AI-RAN</span><span class="chip brand">6G</span><span class="chip brand">智能超表面</span><span class="chip brand">波束赋形</span><span class="chip brand">通感一体化</span><span class="chip brand">RIS</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是 AI-RAN</h2>
+    <p>AI-RAN（AI-Ready Radio Access Network）是一种将 AI 算力原生集成到无线接入网（RAN）架构中的技术范式。其核心思想是：</p>
+<ul>
+<li><strong>算力下沉</strong>：AI 推理能力从传统集中式基带处理单元（BBU）下沉到射频单元（AAU/RRU）</li>
+<li><strong>原生设计</strong>：AI 不是外挂工具，而是深度嵌入物理层、数据链路层核心协议栈</li>
+<li><strong>通算智融合</strong>：通信连接、边缘计算、AI 智能在同一基站设备中统一实现</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 技术演进脉络</h2>
+    <p>传统 RAN 的 AI 应用经历了两个阶段：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>特征</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>外挂 AI</td>
+<td>AI 作为辅助工具，不触碰核心逻辑</td>
+<td>流量预测、基站节能、故障预警</td>
+</tr>
+<tr>
+<td>原生 AI</td>
+<td>AI 嵌入协议栈，参与核心流程</td>
+<td>实时波束成形、信道预测、动态调度</td>
+</tr>
+</tbody>
+</table>
+<p>AI-RAN 的目标是实现<strong>原生 AI</strong>，让基站具备"感知-预测-决策"的实时能力。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 核心架构差异</h2>
+    <pre><code>传统 RAN 架构：
+终端 ←→ AAU（射频转换）←→ 前传网络 ←→ BBU（基带处理）←→ 核心网
+          ↑
+        无AI能力
+
+AI-RAN 架构：
+终端 ←→ AAU（射频转换+AI推理）←→ 前传网络 ←→ BBU（AI编排+集中推理）←→ 核心网
+          ↑                    ↑
+       本地AI处理           AI算力池
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 AI 算力下沉机制</h2>
+    <p>传统架构中，海量信道数据需从前传到 BBU 做 AI 处理，再回传决策结果，产生额外时延。AI-RAN 通过以下方式解决：</p>
+<ul>
+<li><strong>专用芯片集成</strong>：在 AAU 中集成专用神经网络加速器（NNA）</li>
+<li><strong>内存调度优化</strong>：数据本地处理，避免往返传输</li>
+<li><strong>微秒级响应</strong>：物理层 AI 处理时延压缩至微秒级，匹配信道快衰落</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>波束赋形 AI 化</h2>
+    <p>传统波束成形依赖预设码本，AI 波束成形通过深度学习：</p>
+<ul>
+<li>实时分析用户空间特征和历史信道数据</li>
+<li>直接生成最优自定义波束权重</li>
+<li>突破固定码本限制，提升复杂场景信号稳定性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>信道预测与链路自适应</h2>
+    <p>传统方式是"事后补救"——信道变差后再调整编码调制策略。AI 方式：</p>
+<ul>
+<li>时序预测模型提前数毫秒预测信道深衰落</li>
+<li>主动调整传输策略，从根源避免传输失败</li>
+<li>提升频谱效率和用户体验</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>AI 智能调度与移动性管理</h2>
+    <ul>
+<li>精准识别低时延高可靠业务流（如 AI/AR）</li>
+<li>提前预留目标小区资源，降低切换中断时间</li>
+<li>实现基于业务优先级的动态资源分配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 与 RIS/超表面的关系</h2>
+    <p>AI-RAN 与智能超表面（RIS）形成技术协同：</p>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>角色</th>
+<th>协同方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI-RAN</td>
+<td>有源智能节点</td>
+<td>提供 AI 算力和控制能力</td>
+</tr>
+<tr>
+<td>RIS</td>
+<td>无源/半无源反射面</td>
+<td>扩展覆盖、降低部署成本</td>
+</tr>
+<tr>
+<td>融合架构</td>
+<td>通算智一体化</td>
+<td>AI-RAN 控制 RIS 实现智能反射</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 华为方案</h2>
+    <p>华为在 MWC 2026 展示了其 AI-RAN 架构：</p>
+<ul>
+<li><strong>GigaMIMO</strong>：2048 天线振子，400MHz 带宽，AI 动态波束赋形</li>
+<li><strong>算力下沉</strong>：在 AAU 中集成 AI 推理能力</li>
+<li><strong>通感一体化</strong>：同一硬件同时实现通信和感知功能</li>
+<li><strong>6G 试验网</strong>：国内 6G 试验网主设备市占率超 60%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 爱立信方案</h2>
+    <p>爱立信发布 AI-ready RAN 方案，核心是 Ericsson Silicon 芯片：</p>
+<ul>
+<li><strong>专用硬件</strong>：深度定制的 ASIC 芯片，集成 NNA</li>
+<li><strong>算力下沉</strong>：AI 推理能力直接嵌入 AAU/RRU 射频端</li>
+<li><strong>微秒级处理</strong>：L1 物理层 AI 负载本地处理</li>
+<li><strong>兼容现网</strong>：支持 4G/5G 平滑升级</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>产品型号</th>
+<th>核心定位</th>
+<th>技术亮点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AIR 3286</td>
+<td>高功率 FDD Massive MIMO</td>
+<td>突破 FDD 上行覆盖与容量瓶颈</td>
+</tr>
+<tr>
+<td>AIR 3211</td>
+<td>TDD/FDD 融合 Massive MIMO</td>
+<td>单硬件实现双制式融合</td>
+</tr>
+<tr>
+<td>Radio 4891/4458</td>
+<td>8 接收通道射频单元</td>
+<td>专为 AI/AR 上行大流量优化</td>
+</tr>
+<tr>
+<td>AIR 6492</td>
+<td>旗舰级 TDD Massive MIMO</td>
+<td>256 天线振子 + 480W 高输出功率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 技术路线分歧</h2>
+    <p>当前行业形成两条泾渭分明的技术路线：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>专用硬件原生集成（爱立信）</th>
+<th>通用算力云化开放（诺基亚/英伟达）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代表</td>
+<td>爱立信 Ericsson Silicon</td>
+<td>诺基亚 + 英伟达 ARC Pro</td>
+</tr>
+<tr>
+<td>底层逻辑</td>
+<td>ASIC 专用芯片，算力下沉射频边缘</td>
+<td>GPU 通用算力，集中/分布式基带单元</td>
+</tr>
+<tr>
+<td>核心取舍</td>
+<td>牺牲通用性和开放性，换取实时性和能效比</td>
+<td>牺牲实时性和能效比，换取灵活性和开放性</td>
+</tr>
+<tr>
+<td>AI 时延</td>
+<td>微秒级（本地处理）</td>
+<td>毫秒级（需前传）</td>
+</tr>
+<tr>
+<td>部署门槛</td>
+<td>高（需替换硬件）</td>
+<td>低（软件升级）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 3GPP 时间线</h2>
+    <table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rel-18/19</td>
+<td>2024-2025</td>
+<td>5G-Advanced AI 增强预研</td>
+</tr>
+<tr>
+<td>Rel-20</td>
+<td>2025H2 启动</td>
+<td>6G 标准化研究项目启动</td>
+</tr>
+<tr>
+<td>Rel-21</td>
+<td>预计 2028 年底冻结</td>
+<td>第一套 3GPP 6G 技术规范</td>
+</tr>
+<tr>
+<td>ITU-R 评估</td>
+<td>2027-2029</td>
+<td>IMT-2030 技术提案评估</td>
+</tr>
+<tr>
+<td>6G 商用</td>
+<td>2030 年前后</td>
+<td>首批 6G 商业系统投入市场</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 IMT-2030（6G）推进组</h2>
+    <p>中国 IMT-2030（6G）推进组 RIS 任务组已召开 12 次会议，核心议题包括：</p>
+<ul>
+<li>RIS 工程化应用场景及城市干扰环境分析</li>
+<li>RIS 标准化必要性与路径（对接 ETSI ISG RIS）</li>
+<li>RIS 传输机制与硬件设计（控制、码本、波束赋形、信道估计）</li>
+<li>RIS 信道测量与建模</li>
+<li>近场传播场景的空间频率特性分析</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 华为 6G 白皮书核心观点</h2>
+    <p>华为在《6G：无线通信新征程》中提出：</p>
+<ul>
+<li><strong>AI 与通信融合</strong>是 6G 关键应用场景</li>
+<li>网络服务形态从"连接管道"向"一体化智能服务"跃迁</li>
+<li>两条并行主线：AI 赋能网络 + 网络赋能 AI</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 低空经济覆盖</h2>
+    <p>RIS 辅助低空 5G-A 网络覆盖是重要应用场景：</p>
+<ul>
+<li>解决复杂空域覆盖空洞问题</li>
+<li>低成本、低功耗、易部署方案</li>
+<li>支持无人机、低空载人飞行器等新形态应用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 乡村/偏远地区覆盖</h2>
+    <p>中国电信完成 3.5GHz RIS 乡村现网验证：</p>
+<ul>
+<li>弱覆盖区域信号强度提升 3 倍（5dB）</li>
+<li>仅需充电宝供电，低功耗易部署</li>
+<li>特别适合山区、林区等特殊地形</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 Mobile AI 时代上行增强</h2>
+    <p>随着 AI 手机、AR 眼镜普及，上行流量占比飙升至 30%-40%：</p>
+<ul>
+<li>AI-RAN 实时分析流量特征，动态调度资源</li>
+<li>突破传统"下行主导"架构瓶颈</li>
+<li>满足空间视频、实时传感数据上传需求</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 边缘算力组网</h2>
+    <p>英伟达 AI-RAN 布局核心逻辑：</p>
+<ul>
+<li>AI 算力从中心机房走向全网分布式边缘部署</li>
+<li>AI-RAN 基站既是通信接入节点，也是小型算力单元</li>
+<li>打造分布式边缘算力组网，服务海量 AI 终端</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>传统 RAN</th>
+<th>AI-RAN</th>
+<th>提升幅度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理层 AI 时延</td>
+<td>毫秒级（需前传）</td>
+<td>微秒级（本地处理）</td>
+<td>1000x+</td>
+</tr>
+<tr>
+<td>上行容量</td>
+<td>基础 5G-A 水平</td>
+<td>GigaUplink 大上行</td>
+<td>10x+</td>
+</tr>
+<tr>
+<td>波束成形精度</td>
+<td>预设码本</td>
+<td>动态自定义</td>
+<td>显著提升</td>
+</tr>
+<tr>
+<td>能耗效率</td>
+<td>固定功耗</td>
+<td>AI 动态优化</td>
+<td>30-50%</td>
+</tr>
+<tr>
+<td>覆盖灵活性</td>
+<td>固定波束</td>
+<td>智能反射/自适应</td>
+<td>质变</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 硬件异构性</h2>
+    <p>分布式基站与终端侧无线算力存在：</p>
+<ul>
+<li>硬件异构性强</li>
+<li>资源分布泛在</li>
+<li>负载动态波动性强</li>
+</ul>
+<p>统一纳管、资源池化和高效调度成为首要难题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 标准兼容</h2>
+    <ul>
+<li>现有 4G/5G 网络平滑升级需求</li>
+<li>多厂商设备互操作性</li>
+<li>前传网络带宽约束</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 成本控制</h2>
+    <ul>
+<li>专用 AI 芯片研发投入</li>
+<li>现网设备替换成本</li>
+<li>运维复杂度提升</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、技术演进</h2>
+    <ul>
+<li><strong>2020-2022</strong>：外挂 AI 阶段，AI 作为辅助工具应用于网络优化</li>
+<li><strong>2023-2024</strong>：原生 AI 探索，爱立信、华为等开始布局 AI-ready RAN</li>
+<li><strong>2025-2026</strong>：MWC 2026 集中发布，多厂商方案亮相，标准化启动</li>
+<li><strong>2027-2028</strong>：6G 试验网建设，AI-RAN 原型验证</li>
+<li><strong>2030+</strong>：6G 商用，AI-RAN 成为主流架构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.1 短期（1-2 年）</h2>
+    <ul>
+<li>5G-A 阶段 AI 增强功能逐步商用</li>
+<li>爱立信 AI-ready radios 开始部署</li>
+<li>华为 GigaUplink 方案推广</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.2 中期（3-5 年）</h2>
+    <ul>
+<li>6G 标准化推进，AI-RAN 成为核心架构</li>
+<li>RIS 与 AI-RAN 深度融合</li>
+<li>边缘算力组网初步成型</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>10.3 长期（5 年以上）</h2>
+    <ul>
+<li>6G 全面商用，AI-RAN 成为标准配置</li>
+<li>通信、感知、计算三融合成熟</li>
+<li>低空经济、工业互联网等新场景爆发</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.1 对工作的直接影响</h2>
+    <ul>
+<li><strong>RIS 技术协同</strong>：老大深耕的 RIS/智能超表面方向与 AI-RAN 高度契合，RIS 可作为 AI-RAN 的扩展覆盖手段</li>
+<li><strong>6G 标准布局</strong>：IMT-2030 RIS 任务组进展跟踪，有助于把握 6G 标准化动向</li>
+<li><strong>竞品动态</strong>：华为、爱立信 AI-RAN 方案是重要参考，需持续关注</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.2 知识补充</h2>
+    <ul>
+<li>理解 AI-RAN 架构有助于把握 6G 技术演进方向</li>
+<li>边缘算力组网概念可迁移到天线设计中的算力协同思考</li>
+<li>波束赋形 AI 化是天线智能控制的重要趋势</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.3 行动建议</h2>
+    <ul>
+<li>关注 IMT-2030 RIS 任务组后续会议成果</li>
+<li>跟踪华为 GigaMIMO、爱立信 AI-ready radios 商用进展</li>
+<li>思考 RIS 与 AI-RAN 的融合应用场景</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

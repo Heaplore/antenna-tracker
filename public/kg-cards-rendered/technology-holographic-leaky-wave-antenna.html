@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holographic-Leaky-Wave-Antenna · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Holographic-Leaky-Wave-Antenna</h1>
+  <p class="lede">全息泄漏波天线是一种将泄漏波天线的连续辐射机制与超表面全息调制技术相结合的新型天线结构，通过在全息面上编码涡旋相位分布直接生成携带轨道角动量（OAM）的涡旋波束，具有结构简单、模式灵活、便于集成等优势，是6G通信中实现OAM复用和通感一体化的重要使能技术。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">OAM轨道角动量</span><span class="chip brand">泄漏波天线</span><span class="chip brand">全息超表面</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 泄漏波天线基础</h2>
+    <p>泄漏波天线（Leaky-Wave Antenna, LWA）是一种沿传输线连续辐射能量的天线形式。其基本原理是：当电磁波在慢速波结构（如槽纹波导、周期性调制的传输线）中传播时，如果波的相速度大于光速，能量就会通过周期性的"泄漏"机制连续地辐射到自由空间中。</p>
+<p>关键特征包括：</p>
+<ul>
+<li><strong>频率扫描特性</strong>：辐射方向随频率变化而连续扫描，无需移相器</li>
+<li><strong>单向/双向辐射</strong>：根据结构设计可实现前向或后向辐射</li>
+<li><strong>波束宽度窄</strong>：得益于长辐射 aperture，可以获得高增益</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 OAM涡旋波束</h2>
+    <p>轨道角动量（Orbital Angular Momentum, OAM）是电磁波的一种特殊属性，其波前呈螺旋状分布，数学上可表示为 exp(jlφ)，其中 l 为拓扑荷数（整数），φ 为方位角。不同 l 值的OAM模态之间理论上正交，可用作额外的复用以提升频谱效率。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 全息泄漏波天线的原理</h2>
+    <p>全息泄漏波天线的核心思想是将两个优势融合：</p>
+<ol>
+<li><strong>全息合成技术</strong>：利用两个参考波的干涉图样来编码目标场分布</li>
+<li><strong>泄漏波辐射机制</strong>：通过周期性结构使表面波泄漏为辐射波</li>
+</ol>
+<p>工作原理：在全息表面上设计特定的阻抗分布（通常是周期性调制的表面阻抗），使得入射的表面波被调制为携带特定OAM模式的辐射波。数学上，表面阻抗分布 Z(x,y) 可设计为：</p>
+<p>$$Z(x,y) = Z_0 \left[1 + m \cdot \text{Re}\left{E_{\text{ref}}^* \cdot E_{\text{target}}\right}\right]$$</p>
+<p>其中 E_ref 是参考波（通常为平面波或柱面波），E_target 是期望生成的OAM涡旋波，m 是调制指数。通过调节这个阻抗分布，就可以生成不同拓扑荷数 l 的OAM波束。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 表面波激发与泄漏条件</h2>
+    <p>表面波在周期性表面结构中的传播满足色散关系：</p>
+<p>$$k_x = k_0 \sin\theta - \frac{2\pi p}{\Lambda}$$</p>
+<p>其中 k_0 是自由空间波数，θ 是辐射角，p 是谐波阶数，Λ 是周期。当 |k_x| &lt; k_0 时，波发生辐射（泄漏），这就是泄漏波天线的核心条件。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 OAM模式纯度</h2>
+    <p>衡量生成的OAM波束质量的关键指标是模态纯度（Mode Purity），定义为：</p>
+<p>$$\eta_l = \frac{|\langle E_{\text{generated}}, E_{\text{OAM},l} \rangle|^2}{|E_{\text{generated}}|^2 \cdot |E_{\text{OAM},l}|^2}$$</p>
+<p>理想情况下 η_l = 1（纯正OAM模式），实际工程中受限于制造误差和非理想边界条件，通常在70%-90%之间。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 增益与辐射效率</h2>
+    <p>全息泄漏波天线的增益主要取决于辐射 aperture 的大小和照明效率：</p>
+<p>$$G = \frac{4\pi A_e}{\lambda^2} \cdot \eta_{ill}$$</p>
+<p>其中 A_e 是有效 aperture 面积，η_illum 是照明 taper 损耗系数（通常 0.7-0.9）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 按实现技术分类</h2>
+    <table>
+<thead>
+<tr>
+<th>实现方式</th>
+<th>描述</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>超表面型</strong></td>
+<td>基于亚波长单元排列的阻抗调制表面</td>
+<td>轻薄、易集成、可电调</td>
+<td>单元损耗较高，频带受限</td>
+</tr>
+<tr>
+<td><strong>SSPPs型</strong></td>
+<td>基于表面等离激元的周期结构</td>
+<td>强场约束，小型化明显</td>
+<td>高频损耗较大，工艺复杂</td>
+</tr>
+<tr>
+<td><strong>缝隙型</strong></td>
+<td>波导/传输线上的周期性缝隙</td>
+<td>高功率容量，低损耗</td>
+<td>体积大，不易二维扩展</td>
+</tr>
+<tr>
+<td><strong>印刷微带型</strong></td>
+<td>PCB工艺实现的周期性槽结构</td>
+<td>低成本，易于批量生产</td>
+<td>频带有限，Q值较低</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按调控方式分类</h2>
+    <ul>
+<li><strong>被动固定式</strong>：结构固定，只能通过频率切换模式</li>
+<li><strong>电子可调式</strong>：嵌入变容二极管、PIN开关等，实现动态模式切换</li>
+<li><strong>时空编码式</strong>：引入时间维度调制，实现更自由的波束操控（如Tang团队的2026年工作）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 典型架构（2026年最新进展）</h2>
+    <p><strong>Amini &amp; Nayyeri (2026, Scientific Reports)</strong> 提出的全息泄漏波天线支持多个独立控制的反向旋转涡旋波束：</p>
+<ul>
+<li>采用各向异性阻抗表面实现广义 aperture 场估计</li>
+<li>可同时辐射两束不同极化、不同OAM模式的波束</li>
+<li>双波束可分别指向不同的球形角度</li>
+<li>实验验证了 l=-3 和 l=+3 的反向旋转涡旋叠加（六瓣波束）</li>
+</ul>
+<p><strong>中信科移动/中国移动/北京大学 (2026-07-26)</strong> 发布的6G全息超表面样机集成了泄漏波辐射机制，展示了从理论研究到工程样机的转化路径。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>具体说明</th>
+<th>当前阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>6G OAM复用通信</strong></td>
+<td>利用OAM模态正交性在同一频段内实现多路并行传输，成倍提升频谱效率</td>
+<td>实验室演示</td>
+</tr>
+<tr>
+<td><strong>雷达感知一体化</strong></td>
+<td>OAM涡旋波对目标散射有特殊响应，可用于高分辨率成像和微小目标检测</td>
+<td>研究中</td>
+</tr>
+<tr>
+<td><strong>卫星通信抗干扰</strong></td>
+<td>OAM波束的空间正交特性可提供额外的抗干扰维度</td>
+<td>早期研究</td>
+</tr>
+<tr>
+<td><strong>室内高速回传</strong></td>
+<td>短距离OAM-MIMO可实现数十Gbps级速率（如28GHz下32Gbps演示）</td>
+<td>已验证</td>
+</tr>
+<tr>
+<td><strong>透明/柔性天线集成</strong></td>
+<td>结合SSPPs和透明导电材料，可集成于车载玻璃、VR设备表面</td>
+<td>原型阶段</td>
+</tr>
+<tr>
+<td><strong>量子通信接口</strong></td>
+<td>OAM可作为高维量子态载体，适用于量子密钥分发</td>
+<td>探索阶段</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OAM模式纯度</td>
+<td>70%-90%</td>
+<td>取决于超表面单元精度和制造工艺</td>
+</tr>
+<tr>
+<td>工作频带</td>
+<td>1-5 GHz（典型微波）/毫米波可扩展</td>
+<td>周期性结构的带宽限制</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>10-20 dBi</td>
+<td>取决于 aperture 尺寸</td>
+</tr>
+<tr>
+<td>辐射效率</td>
+<td>60%-85%</td>
+<td>包含导体损耗和介质损耗</td>
+</tr>
+<tr>
+<td>模式切换速度</td>
+<td>ns级（电子调谐） / μs级（MEMS）</td>
+<td>依赖调控元件类型</td>
+</tr>
+<tr>
+<td>天线厚度</td>
+<td>λ/10 - λ/4</td>
+<td>超表面轻薄优势</td>
+</tr>
+<tr>
+<td>最大拓扑荷数</td>
+<td>±5至±10</td>
+<td>受限于孔径大小和单元数</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 主要挑战</h2>
+    <ol>
+<li><strong>制造精度要求高</strong>：亚波长单元的定位和形状误差直接影响OAM模式纯度，需要纳米级加工精度（超表面工艺难点）</li>
+<li><strong>频带较窄</strong>：周期性结构的带宽有限，通常只有10%-20%，难以满足宽频需求</li>
+<li><strong>馈电复杂性</strong>：需要精确的表面波激励馈电网络，特别是多模OAM同时激励时</li>
+<li><strong>远场校准困难</strong>：OAM波束的检测需要特殊的解调装置，远场测试 setup 比传统天线复杂</li>
+<li><strong>非理想信道影响</strong>：实际大气湍流、多径效应会破坏OAM正交性，导致模态串扰</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 常见工程误区</h2>
+    <ul>
+<li><strong>误区1</strong>：认为OAM模态在自由空间中严格正交 → 实际上在远场近似下才成立，近场区正交性较差</li>
+<li><strong>误区2</strong>：忽略表面波的损耗 → SSPPs等在高频下的欧姆损耗显著影响整体效率</li>
+<li><strong>误区3</strong>：未考虑互耦问题 → 多通道OAM阵列中各单元间的耦合会影响模式纯度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2013年</strong>：Bozinovic et al. 首次利用光纤实现OAM模式复用演示（Science）</li>
+<li><strong>2015年</strong>：Monticone等提出基于超表面的OAM生成方法，开启了平面化实现路径</li>
+<li><strong>2017年</strong>：Nayyeri团队首次报道全息泄漏波天线概念，结合泄漏波辐射特性</li>
+<li><strong>2021年</strong>：Nayyeri等人进一步实现OAM涡旋波束的全息合成，发表于IEEE TAP</li>
+<li><strong>2023-2024年</strong>：多个团队探索SSPPs基OAM天线和时空编码超表面增强调控能力</li>
+<li><strong>2026年3月</strong>：Queen's Belfast大学iWAT会议发表高效调制全息超表面用于28GHz OAM合成工作（19.85 dBi增益）</li>
+<li><strong>2026年7月</strong>：Amini &amp; Nayyeri在Scientific Reports发表多反向旋转涡旋波束全息泄漏波天线</li>
+<li><strong>2026年7月26日</strong>：中信科移动等单位发布6G全息超表面宽带通信系统样机，工程化迈出重要一步</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li>更多高校和研究机构完成OAM泄漏波天线的毫米波频段演示</li>
+<li>产业界开展6G试验网中OAM技术的场景化验证</li>
+<li>透明OAM天线实现车载玻璃集成的初步原型</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li>5G-A/6G标准开始纳入OAM相关技术条款（可能作为可选增强）</li>
+<li>短距离回传链路率先实现OAM-MIMO商用部署</li>
+<li>超表面制造工艺成熟化，量产成本下降50%以上</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5年以上）</h2>
+    <ul>
+<li>OAM成为6G空口技术的标准维度之一，与MIMO、HARQ等融合</li>
+<li>太赫兹频段的全息泄漏波天线实现实用化</li>
+<li>AI驱动的实时OAM模式优化成为标配（根据信道自适应调整）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>十、一句话总结</h2>
+    <p>全息泄漏波天线是泄漏波天线的"全息升级版"，用超表面直接"画"出OAM涡旋波束，结构简单、模式灵活，是6G通信中增加频谱维度的明星候选技术，目前正处于从实验室走向工程应用的关键转折点。</p>
+<hr />
+<blockquote>
+<p><strong>参考文献</strong>
+1. Amini, A., &amp; Nayyeri, V. (2026). Holographic leaky-wave antennas with independently controlled multiple counter-rotating vortex beams. <em>Scientific Reports</em>, 16, 8382. https://doi.org/10.1038/s41598-026-60895-y
+2. Rao, M.V., et al. (2026). Multimode OAM antenna with reduced beam divergence for 6G networks. <em>Scientific Reports</em>, 16, 8382. https://doi.org/10.1038/s41598-025-34745-2
+3. IEEE International Workshop on Antenna Technology (iWAT) 2026. Efficient modulation of a holographic metasurface for OAM synthesis for future mm-Wave Networks.
+4. 中信科移动、中国移动、北京大学联合发布"6G全息超表面宽带移动通信系统样机". 2026-07-26.</p>
+</blockquote>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

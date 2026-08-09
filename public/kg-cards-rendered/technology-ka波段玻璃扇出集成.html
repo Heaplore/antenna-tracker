@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ka波段玻璃扇出集成 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Ka波段玻璃扇出集成</h1>
+  <p class="lede">基于嵌入式玻璃扇出（eGFO）封装工艺，通过低介电损耗玻璃中介层和超短互连实现Ka频段RF微系统与天线的高度集成，将传输损耗降低至0.25dB/mm以下，是实现5G-Advanced和6G毫米波AiP系统的关键技术方案。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">AiP</span><span class="chip brand">玻璃扇出</span><span class="chip brand">Ka波段</span><span class="chip brand">异构集成</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>一、基本定义与原理</h2>
+    <p><strong>Ka波段玻璃扇出集成</strong>是一种先进的异构集成（Heterogeneous Integration, HI）技术，旨在解决毫米波频段下传统单片微波集成电路（MMIC）在物理层面的性能瓶颈。其核心思想是利用<strong>玻璃中介层（Glass Interposer）</strong>的低介电损耗、高平面度和热膨胀系数可调的特性，作为高频RF系统的理想平台。</p>
+<p>关键原理包括：</p>
+<ol>
+<li>
+<p><strong>嵌入式Die（芯片嵌入）</strong>：采用激光诱导深蚀刻（LIED/LIDE）技术在玻璃上加工高精度空腔，将低噪放（LNA）、功率放大器（PA）等RF芯片直接嵌入玻璃基底内，而非传统的表面贴装。</p>
+</li>
+<li>
+<p><strong>扇出型再分布层（Fan-Out RDL）</strong>：在嵌入芯片的玻璃基底上形成重新分布层，通过Ti/Cu沉积、电镀和湿法蚀刻工艺，将微米级芯片焊盘扩展到毫米级天线馈线，实现chip-to-antenna的直接互连。</p>
+</li>
+<li>
+<p><strong>超低互连带宽</strong>：典型互连距离仅450μm（相比传统SMA馈电缩短近3个数量级），插入损耗显著降低，28GHz处实现26.08dB发射增益和2.73dB接收噪声系数。</p>
+</li>
+<li>
+<p><strong>全集成射频前端</strong>：可实现LNA+天线或PA+开关的一体化模块设计，整个Ka波段收发器微系统尺寸压缩至6×3mm²。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 关键工艺步骤</h2>
+    <pre><code>玻璃晶圆预处理 → LIDE激光深蚀刻空腔 → RF芯片嵌入 → CMP抛光(RDL表面粗糙度降低97%) 
+→ RDL金属化(Ti/Cu) → 天线结构形成 → 底部通孔(TGV)互联 → 最终BGA封装
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>目标值</th>
+<th>实测值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单位长度传输损耗</td>
+<td>&lt;0.3 dB/mm</td>
+<td><strong>0.25 dB/mm</strong> (优化后)</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>&lt;1 dB</td>
+<td><strong>0.5 dB</strong> (eGFO方案)</td>
+</tr>
+<tr>
+<td>天线上行增益(28GHz)</td>
+<td>&gt;25 dB</td>
+<td><strong>26.08 dB</strong></td>
+</tr>
+<tr>
+<td>接收噪声系数</td>
+<td>&lt;3 dB</td>
+<td><strong>2.73 dB</strong></td>
+</tr>
+<tr>
+<td>互连长度</td>
+<td>~mm级</td>
+<td><strong>450μm</strong></td>
+</tr>
+<tr>
+<td>带宽扩展(对比SMA)</td>
+<td>—</td>
+<td><strong>+57%</strong></td>
+</tr>
+<tr>
+<td>工作频率范围</td>
+<td>28-40 GHz(Ka波段)</td>
+<td>28 GHz实测</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 关键公式</h2>
+    <p><strong>传输损耗估算（单位长度）：</strong>
+$$\alpha_{total} = \alpha_{conductor} + \alpha_{dielectric} + \alpha_{radiation}$$</p>
+<p>在玻璃扇出结构中：</p>
+<ul>
+<li>$\alpha_{dielectric}$极低（玻璃Df≈0.0001 vs 有机材料Df≈0.02）</li>
+<li>$\alpha_{conductor}$因CMP抛光使表面粗糙度降低97%，显著减小</li>
+<li>$\alpha_{radiation}$因极短互连而最小化</li>
+</ul>
+<p><strong>阻抗匹配优化（Klopfenstein taper）：</strong>
+$$Z(z) = Z_0 \exp\left[\int_0^z \frac{\ln(Z_L/Z_0)}{L} \cdot \frac{1}{\sqrt{1-(2u/L-1)^2}} du\right]$$</p>
+<p>用于宽带天线与放大器间的阻抗渐变过渡，最大化带宽匹配。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 主要实现路径</h2>
+    <p><strong>路径A：嵌入式玻璃扇出（eGFO）</strong>
+- 芯片完全嵌入玻璃腔体，RDL位于玻璃顶部
+- 优势：最优电气性能、最短互连、最佳保护
+- 代表研究：Georgia Tech/Sandia（2023-2025系列论文）、Nature Microsystems &amp; Nanoengineering (2026)</p>
+<p><strong>路径B：玻璃中介层叠构（Glass Interposer Stacking）</strong>
+- 多层玻璃堆叠，通过TGV（玻璃通孔）互联
+- 优势：高密度三维集成，适合多芯片协同
+- 代表研究：Peking University Wang Qiang组、UESTC Fang Zhen组（TGV滤波天线）</p>
+<p><strong>路径C：双面玻璃RDL架构</strong>
+- 玻璃基板双面布线，天线在正面，底层布RDL和嵌入芯片
+- 优势：简化天线辐射面设计，减少寄生效应
+- 代表研究：台湾国防工研院Hon Hai Technology Group（2022 ECTC论文）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与相关技术的关系</h2>
+    <pre><code>Ka玻璃扇出集成 ──┬──&gt; 天线封装(AiP) ──&gt; 5G/6G射频前端
+                   ├──&gt; 异构集成(HI) ──&gt; Chiplet组合(GaN+Si)
+                   ├──&gt; 玻璃中介层 ──&gt; 先进封装(如Intel EMIB)
+                   └──&gt; RIS智能超表面 ──&gt; 6G波束聚焦(潜在融合)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 5G-Advanced基站射频前端</h2>
+    <ul>
+<li>28GHz/39GHz频段的AAU有源天线单元</li>
+<li>分布式波束赋形芯片组的天线直连模块</li>
+<li>GaN PA + Si开关的高效率收发器</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 6G太赫兹通信系统</h2>
+    <ul>
+<li>D波段(110-170GHz)和W-band(75-110GHz)的紧凑收发器</li>
+<li>近场XL-MIMO波束聚焦的紧凑型阵列模块</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 卫星通信终端</h2>
+    <ul>
+<li>Ka波段地面站的小型化相控阵天线</li>
+<li>低轨卫星终端的高集成度射频前端</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 雷达传感器</h2>
+    <ul>
+<li>车载77GHz雷达的小型化封装（技术可迁移）</li>
+<li>工业毫米波检测雷达</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 中兴通讯的实践</h2>
+    <p>根据<strong>中国电子科技集团第58所</strong>（与中芯存在合作关系）的研究《Integrated 3D Fan-out Package of RF Microsystem and Antenna for 5G Communications》（ZTE Communications, 2020）：</p>
+<ul>
+<li>已实现60GHz频段3D扇出封装验证</li>
+<li>RF传输线损耗实测仅0.26dB/mm（接近理论最优）</li>
+<li>采用玻璃晶圆双面布线+树脂注塑工艺</li>
+<li>为60GHz WiFi(802.11ad/ay)和5G mmWave应用提供可行方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>类别</th>
+<th>指标</th>
+<th>要求/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>电气性能</strong></td>
+<td>S11反射系数</td>
+<td>&lt;−10dB在工作频带内</td>
+</tr>
+<tr>
+<td></td>
+<td>插入损耗</td>
+<td>&lt;1dB（整个链路）</td>
+</tr>
+<tr>
+<td></td>
+<td>隔离度</td>
+<td>&gt;20dB（Tx/Rx隔离）</td>
+</tr>
+<tr>
+<td></td>
+<td>噪声系数(LNA)</td>
+<td>&lt;3dB @28GHz</td>
+</tr>
+<tr>
+<td></td>
+<td>增益(PA)</td>
+<td>&gt;25dBc</td>
+</tr>
+<tr>
+<td><strong>机械可靠性</strong></td>
+<td>热循环次数</td>
+<td>≥1000次（−40~125°C）</td>
+</tr>
+<tr>
+<td></td>
+<td>共面性</td>
+<td>&lt;5μm（保证天线辐射特性）</td>
+</tr>
+<tr>
+<td></td>
+<td>翘曲度</td>
+<td>&lt;0.1%（防止EM问题）</td>
+</tr>
+<tr>
+<td><strong>工艺良率</strong></td>
+<td>空腔蚀刻精度</td>
+<td>±1μm</td>
+</tr>
+<tr>
+<td></td>
+<td>RDL线宽/线距</td>
+<td>≤10μm/10μm</td>
+</tr>
+<tr>
+<td></td>
+<td>TGV孔径</td>
+<td>≤20μm</td>
+</tr>
+<tr>
+<td><strong>尺寸</strong></td>
+<td>模块面积</td>
+<td>&lt;20mm²（典型）</td>
+</tr>
+<tr>
+<td></td>
+<td>厚度</td>
+<td>&lt;1mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 激光蚀刻侧壁粗糙度</h2>
+    <p>LIDE工艺虽然精度高，但玻璃侧壁仍可能有微小粗糙度，影响芯片嵌入后的导电性和接触质量。<strong>对策</strong>：优化激光参数（波长、脉冲数、能量密度）+ 后续等离子清洗。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 RDL表面平坦化</h2>
+    <p>即使CMP抛光后，微小的粗糙度仍会增加导体损耗。<strong>对策</strong>：采用半加成制程（semi-additive process）优化表面，目标粗糙度Ra &lt; 0.1μm。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 玻璃与硅的热膨胀系数匹配</h2>
+    <p>虽然玻璃CTE可调，但与GaN/Si芯片长期热循环可能产生应力。<strong>对策</strong>：在界面引入柔性缓冲层或梯度CTE玻璃。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 天线方向图畸变</h2>
+    <p>金属RDL层可能干扰天线辐射特性，尤其在双面结构下。<strong>对策</strong>：使用HFSS进行3D电磁仿真优化，合理规划天线位置与RDL走线的间距。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 测试可及性</h2>
+    <p>嵌入式芯片无法直接接触测试探针。<strong>对策</strong>：预留测试pad或通过TGV引出测试节点，采用探针对准技术。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.6 成本考量</h2>
+    <p>玻璃晶圆和LIDE设备成本较高，中小批量应用需权衡。<strong>对策</strong>：对于高端基站/卫星应用优先推广，消费端可考虑逐步替代LCP方案。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2018年</strong>：IEEE ECTC首次提出玻璃扇出天线集成基础架构（Hon Hai/National Defense University）</li>
+<li><strong>2020年</strong>：中国电科58所实现60GHz 3D扇出封装验证（ZTE Communications发表），传输损耗0.26dB/mm</li>
+<li><strong>2022年</strong>：Georgia Tech发表《Antenna With Embedded Die in Glass Interposer for 6G》，验证D波段低损互连（0.2dB）</li>
+<li><strong>2023年</strong>：Peking University Wang Qiang团队系统研究玻璃介质层嵌入多芯片架构</li>
+<li><strong>2024年</strong>：进一步优化RDL传输线设计，提出90°转角去天线效应方案</li>
+<li><strong>2025年</strong>：eGFO超短互连实现57%带宽扩展和2.21dBi增益提升（EPTC会议）</li>
+<li><strong>2026年</strong>：Nature子刊发布完整Ka-band异质集成方案，结合GaN+Si开关、Chebyshev阵列和Klopfeden匹配，全面商用验证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、技术成熟度</h2>
+    <ul>
+<li><strong>成熟度等级：原型验证 → 小规模商用过渡期</strong></li>
+<li><strong>说明</strong>：基础研究和技术验证已基本完成（2022-2025年多篇论文和实验验证），部分领先厂商（如Hon Hai/TSMC相关的封装代工商）已具备工艺能力。2026年Nature论文的完整系统集成标志着该技术已从单一工艺验证走向系统级验证。在5G-Advanced商用前期和部分6G试验系统中开始小规模应用，尚未达到大规模普及阶段。预计2027-2028年随5G-Advanced/A7/A8基站部署进入更广泛商用。</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）：5G-Advanced规模化部署</h2>
+    <ul>
+<li>28GHz/39GHz基站AiP模块率先采用eGFO方案</li>
+<li>与现有的LCP/陶瓷基板方案形成竞争互补</li>
+<li>国产封装企业跟进工艺研发（预计华为供应链加速布局）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）：6G Pre-Standard技术验证</h2>
+    <ul>
+<li>W-Band（75-110GHz）的集成度进一步提升</li>
+<li>与RIS智能超表面的集成成为研究热点（玻璃作为RIS基底+扇出封装的复合结构）</li>
+<li>XL-MIMO近场波束聚焦的紧凑型收发器制造成为刚需</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5年以上）：6G商用全面落地</h2>
+    <ul>
+<li>玻璃扇出成为毫米波至太赫兹频段的主流封装方案</li>
+<li>与Chiplet异构深度绑定（GaAs/GaN RF芯片+ AI逻辑芯片在同一玻璃基板集成）</li>
+<li>可能衍生出"智能玻璃扇出"——玻璃中直接集成无源元件（电阻、电容、电感），进一步减少系统体积</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>十、一句话总结</h2>
+    <p>Ka波段玻璃扇出集成是毫米波AIp革命的关键一环，它用低损耗玻璃介质替代传统封装材料，通过嵌入式芯片和超短互连将射频性能推向极限，是5G-Advanced通往6G的必经之路。</p>
+<blockquote>
+<p><strong>参考资料</strong>：
+1. Xia Chenhui et al., "Embedded glass fan-out integration method for high-performance Ka-band RF microsystem", <em>Microsystems &amp; Nanoengineering</em>, 2026.
+2. Jin Shengxiang et al., "Ka-Band Ultra-Short Die-to-Antenna Interconnect Enabled by Embedded Glass Fan-Out Packaging", <em>EPTC 2025</em>.
+3. Xia Chenhui et al., "Integrated 3D Fan-out Package of RF Microsystem and Antenna for 5G Communications", <em>ZTE Communications</em>, 2020, 18(3): 33-41.
+4. Li Xingchen et al., "Antenna With Embedded Die in Glass Interposer for 6G Wireless Applications", <em>IEEE TCPMT</em>, 2023.
+5. Fang Zhen et al., "Ka-band broadband filtering packaging antenna based on through-glass vias (TGVs)", <em>Frontiers in Information Technology and Electronic Engineering</em>, 2023.</p>
+</blockquote>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

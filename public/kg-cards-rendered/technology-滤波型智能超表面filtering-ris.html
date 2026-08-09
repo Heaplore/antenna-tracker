@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滤波型智能超表面Filtering-RIS · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">滤波型智能超表面Filtering-RIS</h1>
+  <p class="lede">滤波型智能超表面将传统 RIS 的纯相位调控升级为&#34;频率选择+相位调控&#34;一体化功能，在反射/透射信号的同时实现带通滤波，从物理层原生抑制带外干扰，是 RIS 走向实际部署的关键使能技术。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">滤波型RIS</span><span class="chip brand">智能超表面</span><span class="chip brand">频率选择表面</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 为什么需要滤波型 RIS</h2>
+    <p>传统 RIS 的核心问题在于<strong>缺乏频率选择性</strong>。RIS 本质上是一个可编程的电磁超表面阵列，每个单元通过 PIN 二极管、变容管或 MEMS 开关改变电磁响应，实现对入射波的相位、幅度、极化调控。但传统 RIS 的单元结构通常只在目标频段内有效，对带外信号几乎不产生衰减——这意味着它会把周围的电磁干扰（EMI）一并反射到接收端，反而降低信干噪比（SINR）。</p>
+<p>在频谱日益拥挤的 5G-Advanced 和 6G 场景中，这个问题尤为突出。多个运营商共享频段、Wi-Fi 与蜂窝共存、雷达与通信频段相邻，带外干扰已成为 RIS 部署的实际瓶颈。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 滤波型 RIS 的工作原理</h2>
+    <p>滤波型 RIS 的核心思路是：<strong>将 FSS（频率选择表面）的带通特性与 RIS 的可调相位控制集成在同一单元结构中</strong>。每个单元不仅具备可调相位（如 1-bit、2-bit），还具备类似带通滤波器的幅频响应。</p>
+<p>具体实现路径有两条：</p>
+<ul>
+<li>
+<p><strong>反射型滤波 RIS（Reflective Filtering RIS）</strong>：单元同时实现反射相位调控和带通滤波，出射信号既被偏转又受到频率选择。东南大学崔铁军团队在 Nature Communications 2024 中首次展示了具有 2-bit 相位控制和尖锐频率选择的反射型原型。</p>
+</li>
+<li>
+<p><strong>透射型滤波 RIS（Transmissive Filtering RIS / TRIS）</strong>：单元实现透射相位调控和带通滤波，信号穿过超表面后被聚焦/偏转。2025 年南京航空航天大学提出了 6 GHz 的 1-bit 透射型单元，插入损耗仅 -1.05 dB。</p>
+</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 吸收型滤波 RIS（AF-RIS 的延伸）</h2>
+    <p>华南理工大学 2024 年在 IEEE TAP 上提出了<strong>吸收型滤波 RIS</strong>——在 RIS 工作频段内提供可调相位，同时在非工作频段提供宽频吸收（RCS 降低）。这种"通带内反射调控 + 阻带内吸收"的双模式设计，特别适合需要低可观测性的军事通信场景。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 单元结构设计</h2>
+    <p>滤波型 RIS 单元的复杂度显著高于传统 RIS。典型设计包含三层功能叠加：</p>
+<table>
+<thead>
+<tr>
+<th>功能层</th>
+<th>实现方式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率选择</td>
+<td>谐振环/缝隙、LC 谐振电路</td>
+<td>形成带通幅频响应，阻带抑制 20-34 dB</td>
+</tr>
+<tr>
+<td>相位调控</td>
+<td>PIN 二极管切换、变容管偏置</td>
+<td>实现 1-bit（180°）或 2-bit（360°）相移</td>
+</tr>
+<tr>
+<td>阻抗匹配</td>
+<td>渐变阻抗过渡、匹配网络</td>
+<td>降低带内插入损耗至 &lt;1.5 dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 关键性能指标</h2>
+    <ul>
+<li><strong>品质因数（Q 因子）</strong>：东南大学原型实现 Q ≈ 15-20，对应约 5-7%  fractional bandwidth</li>
+<li><strong>带外抑制</strong>：阻带抑制比 20-34 dB（取决于频率偏移量）</li>
+<li><strong>相位控制精度</strong>：1-bit 方案 180° ±10°，2-bit 方案 360° 全覆盖</li>
+<li><strong>插入损耗</strong>：透射型 -1.05 dB（NAU 2025），反射型约 3-5 dB</li>
+<li><strong>扫描角度</strong>：0-60°（吸收型），±45° 至 ±60°（反射/透射型）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 AF-RIS：放大+滤波一体化</h2>
+    <p>2026 年 Engineering 期刊上，东南大学吴立杰团队提出<strong>宽带放大滤波 RIS（AF-RIS）</strong>，在滤波基础上增加信号放大功能：</p>
+<ul>
+<li>4×8 阵列，集成功率分配/合成网络</li>
+<li>每个单元 2-bit 相位控制</li>
+<li>带内信号能量增强 + 带外信号滤除</li>
+<li>大幅减少放大器数量（通过共享网络而非每单元独立放大）</li>
+<li>硬件成本和功耗显著降低</li>
+</ul>
+<p>这是目前最完整的滤波型 RIS 系统级方案，兼顾了频率选择性、波束赋形能力和信号增益。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 按功能分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>频率选择</th>
+<th>相位调控</th>
+<th>信号放大</th>
+<th>代表文献</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础滤波 RIS</td>
+<td>✅</td>
+<td>1-2 bit</td>
+<td>❌</td>
+<td>Nat. Commun. 2024</td>
+</tr>
+<tr>
+<td>透射滤波 RIS</td>
+<td>✅</td>
+<td>1 bit</td>
+<td>❌</td>
+<td>IEEE CAMA 2025</td>
+</tr>
+<tr>
+<td>吸收型滤波 RIS</td>
+<td>✅</td>
+<td>1 bit</td>
+<td>❌</td>
+<td>IEEE TAP 2024</td>
+</tr>
+<tr>
+<td>放大+滤波 RIS</td>
+<td>✅</td>
+<td>2 bit</td>
+<td>✅</td>
+<td>Engineering 2026</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按工作频段分类</h2>
+    <ul>
+<li><strong>Sub-6 GHz</strong>：6 GHz TRIS（NAU）、5.8 GHz 吸收型（UESTC）</li>
+<li><strong>Upper Mid-band</strong>：7-24 GHz 双极化滤波 RIS（Fraunhofer HH 2026）</li>
+<li><strong>毫米波/D-band</strong>：110-170 GHz 滤波超表面天线（已有多篇报道）</li>
+<li><strong>太赫兹</strong>：与石墨烯超表面结合的方向正在探索</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 按调控元件分类</h2>
+    <ul>
+<li><strong>PIN 二极管</strong>：成本低、切换快（ns 级），但插入损耗较大</li>
+<li><strong>变容管</strong>：连续相位调控，适合模拟波束赋形</li>
+<li><strong>MEMS</strong>：超低损耗，但可靠性待验证</li>
+<li><strong>石墨烯/VO₂ 相变材料</strong>：太赫兹频段适用，纳秒级切换</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 6G 频谱共存</h2>
+    <p>6G 预期使用 upper mid-band（7.125-24.25 GHz），该频段与 5G、卫星通信、雷达频段紧密相邻。滤波 RIS 可在同一物理表面上对不同频段信号进行差异化处理——透射目标频段、反射/吸收干扰频段。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 物理层安全</h2>
+    <p>滤波 RIS 天然具备方向性信号增强能力。格拉斯哥大学 2026 年 7 月提出的 <strong>EMI-aware framework</strong> 进一步利用滤波 RIS 识别干扰的统计特征（"指纹"），动态配置 RIS 单元以抑制干扰并增强目标信号。这不仅提升了通信可靠性，还实现了物理层加密——信号只被导向受信接收端。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 无线中继</h2>
+    <p>AF-RIS 的放大+滤波特性使其特别适合无线中继场景：在增强信号能量的同时滤除累积噪声，比传统有源中继功耗更低。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 低可观测通信</h2>
+    <p>吸收型滤波 RIS 在非工作频段提供宽频吸收，可降低 RCS 截面，适用于军事基地、舰载平台的隐身通信需求。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>基础滤波 RIS</th>
+<th>AF-RIS</th>
+<th>吸收型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中心频率</td>
+<td>5.8-15.5 GHz</td>
+<td>5-15 GHz（宽带）</td>
+<td>5.77-6.12 GHz</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>5-7%</td>
+<td>宽带设计</td>
+<td>1dB 带宽 35 MHz</td>
+</tr>
+<tr>
+<td>带外抑制</td>
+<td>20-34 dB</td>
+<td>N/A（放大侧重）</td>
+<td>-10 dB 吸收</td>
+</tr>
+<tr>
+<td>相位控制</td>
+<td>1-2 bit</td>
+<td>2 bit</td>
+<td>1 bit</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>3-5 dB（反射）</td>
+<td>降低（放大补偿）</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>±45° 至 ±60°</td>
+<td>±45°</td>
+<td>0-60°</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 设计复杂度爆炸</h2>
+    <p>滤波 RIS 单元需要在三维空间同时优化谐振频率、相位响应和阻抗匹配三个自由度。全波仿真（CST/HFSS）的计算成本比传统 RIS 高一个数量级。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 带宽-抑制比的 trade-off</h2>
+    <p>Q 因子越高，带外抑制越好，但工作带宽越窄。实际部署中需要在两者之间权衡。东南大学的 2-bit 原型带宽仅约 5%，难以覆盖宽频 6G 信道。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 温度稳定性</h2>
+    <p>PIN 二极管和变容管的参数随温度漂移，导致滤波中心和相位响应偏移。户外部署的温度范围（-40°C 至 +60°C）下，性能退化可能达 10-15%。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 大规模阵列的互耦效应</h2>
+    <p>当单元数量超过 16×16 时，单元间互耦显著改变滤波响应。东南大学 Wu et al. (2026) 的 4×8 阵列已通过功率分配网络部分缓解，但更大规模仍需研究。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2018 年</strong>：空间时间编码数字超表面（东南大学 Zhang Lei, Nat. Commun.）——RIS 概念雏形，无频率选择</li>
+<li><strong>2021 年</strong>：可编程超表面实现波束赋形——主流 RIS 方案成熟，但仍无滤波功能</li>
+<li><strong>2024 年 5 月</strong>：东南大学崔铁军团队首次提出滤波型 RIS（Nature Communications），15.5 GHz 演示，2-bit 相位 + 尖锐频率选择</li>
+<li><strong>2024 年 7 月</strong>：华南理工大学提出吸收型滤波 RIS（IEEE TAP），5.8 GHz，1-bit 相位 + 宽频吸收</li>
+<li><strong>2025 年 11 月</strong>：南京航空航天大学提出透射型滤波 RIS（IEEE CAMA），6 GHz，1-bit，插入损耗 -1.05 dB</li>
+<li><strong>2026 年 1 月</strong>：Fraunhofer HH 提出 upper mid-band 双极化滤波 RIS（IJMWT），7.125-24.25 GHz</li>
+<li><strong>2026 年 3 月</strong>：东南大学吴立杰团队提出 AF-RIS（Engineering），4×8 阵列，放大+滤波+波束赋形三位一体</li>
+<li><strong>2026 年 7 月</strong>：格拉斯哥大学提出 EMI-aware RIS 控制框架，结合滤波 RIS 实现干扰感知与动态抑制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2 年）</strong>：滤波 RIS 与 5G-A 基站集成试点，重点在 upper mid-band（7-24 GHz）频段；AF-RIS 在无线中继场景的小规模验证</li>
+<li><strong>中期（3-5 年）</strong>：6G 标准中纳入滤波 RIS 规范；多频段可重构滤波 RIS 出现，支持动态频段切换；与 AI 信道估计深度融合</li>
+<li><strong>长期（5 年以上）</strong>：全息 RIS（Holographic RIS）——兼具频率、空间、极化多维调控能力的超表面，成为 6G 智能无线环境的基础构件</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

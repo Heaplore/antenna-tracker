@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度学习驱动RIS信道估计 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">深度学习驱动RIS信道估计</h1>
+  <p class="lede">利用 CNN、Transformer、GAN 等深度学习模型直接从观测数据中推断 RIS 级联信道，替代传统 LS/MMSE/压缩感知方法，将推理延迟从迭代求解的秒级压缩到毫秒级，是 RIS 实用化的关键使能技术。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">信道估计</span><span class="chip brand">深度学习</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是 RIS 信道估计</h2>
+    <p>RIS（Reconfigurable Intelligent Surface）由大量无源或准无源反射元件组成，每个元件可独立调节相位（有时还包括幅度）。通信链路变为 <strong>BS → RIS → UE</strong> 的级联信道（cascaded channel），而非传统直连链路。</p>
+<p>核心难点在于：</p>
+<ul>
+<li><strong>RIS 元件无基带信号处理能力</strong>，无法直接在本地估计入射信道</li>
+<li><strong>级联信道维度爆炸</strong>：若 BS 有 M 根天线、RIS 有 N 个元件、UE 有 K 个用户，级联信道矩阵维度为 O(M×N×K)，远超传统 MIMO</li>
+<li><strong>导频开销随 N 线性甚至超线性增长</strong>，传统方法在大规模 RIS（N=100~1000+）下不可扩展</li>
+<li><strong>硬件非理想性</strong>（量化相位、幅相耦合、互耦效应）使信道模型偏离理想假设</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么需要深度学习</h2>
+    <p>传统 RIS 信道估计方法包括：</p>
+<table>
+<thead>
+<tr>
+<th>方法类别</th>
+<th>代表算法</th>
+<th>核心问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小二乘（LS）</td>
+<td>直接逆推</td>
+<td>噪声敏感，导频开销大</td>
+</tr>
+<tr>
+<td>最小均方误差（MMSE）</td>
+<td>需精确协方差</td>
+<td>计算复杂度高，依赖统计先验</td>
+</tr>
+<tr>
+<td>压缩感知（CS）</td>
+<td>OMP/AMP/SP</td>
+<td>依赖稀疏先验，收敛慢</td>
+</tr>
+<tr>
+<td>交替优化（AO）</td>
+<td>SCA/SDR</td>
+<td>非凸问题，局部最优</td>
+</tr>
+<tr>
+<td>深度强化学习（DRL）</td>
+<td>DQN/PPO/TD3</td>
+<td>训练不稳定，泛化性有限</td>
+</tr>
+</tbody>
+</table>
+<p>深度学习方法的根本优势是 <strong>将信道估计建模为端到端映射</strong>：输入观测信号 y → 神经网络 → 输出信道估计 Ĥ。网络自动学习信道统计特性、硬件非理想性和噪声分布，无需手动设计特征或迭代求解器。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 级联信道模型</h2>
+    <p>RIS 辅助系统的典型级联信道为：</p>
+<p>$$H_{\text{cascade}} = \sum_{n=1}^{N} g_n \cdot \theta_n \cdot h_n$$</p>
+<p>其中：</p>
+<ul>
+<li>$h_n \in \mathbb{C}^{M \times 1}$ 为 BS→RIS 第 n 个元件的信道向量</li>
+<li>$g_n \in \mathbb{C}^{1 \times K}$ 为 RIS 第 n 个元件→UE 的信道向量</li>
+<li>$\theta_n = \alpha_n e^{j\phi_n}$ 为第 n 个元件的反射系数（α 为幅度，φ 为相位）</li>
+<li>N 为 RIS 元件数</li>
+</ul>
+<p>实际系统中还需考虑：</p>
+<ul>
+<li><strong>BS-UE 直连路径</strong> $H_d$（LOS 被遮挡时可忽略，但城市环境通常存在）</li>
+<li><strong>相位量化误差</strong>（1-bit/2-bit/3-bit 离散量化）</li>
+<li><strong>元件间互耦</strong>（mutual coupling）</li>
+<li><strong>近场球面波前效应</strong>（当 RIS 尺寸大或距离近时）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 深度学习架构分类</h2>
+    <p>当前文献中 RIS 信道估计的深度学习方案可分为三大类：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（1）判别式方法（监督学习）</h2>
+    <p>直接学习从观测到信道的映射：</p>
+<ul>
+<li><strong>CNN / CNN-Transformer 混合</strong>：CNN 提取空间特征（多径反射分布），Transformer 捕获频率/时间维度的长程依赖。2026 年 ICDCS 论文提出的 Hybrid CNN–Transformer 框架在 BER 上达到 1.5×10⁻⁴，优于 ANN（2.2×10⁻⁴）和 AMPF-NET（1.7×10⁻⁴）</li>
+<li><strong>RISNet-CE</strong>（2025）：Transformer + BiLSTM 混合架构，35 dB SNR 下 NMSE = 0.0845，显著优于 MMSE（0.2409）、RIS-SRNet（0.1012）、DeepCE（0.1609）</li>
+<li><strong>UNet / ResNet 变体</strong>：将信道矩阵视为图像，利用卷积的局部感受野提取多径结构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（2）生成式方法（无监督/半监督）</h2>
+    <p>利用生成模型学习信道分布，不依赖大量标注数据：</p>
+<ul>
+<li><strong>GAN-based</strong>：生成器构造信道，判别器验证真实性；联邦 GAN 方案支持多基站协同训练</li>
+<li><strong>扩散模型（Diffusion Models）</strong>：2026 年 arXiv 综述指出，扩散模型在低 SNR 和小样本场景下表现突出，但推理速度较慢</li>
+<li><strong>VAE / Flow-based models</strong>：学习信道流形，支持从少量导频恢复完整信道</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（3）混合方法</h2>
+    <ul>
+<li><strong>监督预训练 + RL 在线微调</strong>：离线用标注数据训练初始策略，在线用 PPO/DRL 根据实时反馈动态调整 RIS 相位</li>
+<li><strong>模型驱动 + 数据驱动</strong>：将传统压缩感知或 AO 算法"展开"（unfolding）为网络层，每层继承物理约束的同时学习可训练参数。这是目前工业界最看好的方向</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 分布式机器学习与联邦学习</h2>
+    <p>大规模 RIS 部署带来新的数据孤岛问题：</p>
+<ul>
+<li><strong>分布式 ML（DML）</strong>：多个 BS 和 UE 协作训练共享网络，提升跨场景泛化能力。2025 年 arXiv 论文提出 RIS 元件分组 + 分层 DML 架构，先分类传播条件再执行场景特定特征提取</li>
+<li><strong>联邦学习（FL）</strong>：保护用户隐私，各节点本地训练后上传模型梯度；东南大学崔铁军团队在此方向有重要贡献</li>
+<li><strong>GNN 方法</strong>：将 BS-RIS-UE 拓扑建模为图，利用图神经网络捕获空间相关性，推理时间与 RIS 规模 N 近似无关</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 基础模型（Foundation Models）</h2>
+    <p>2026 年 arXiv 综述《Optimization Algorithms for Joint OFDM Waveform Design and RIS Configuration》首次系统提出将 <strong>基础模型（FM）</strong> 引入 RIS 优化：</p>
+<ul>
+<li>预训练的大模型可跨频段、跨场景迁移，减少逐场景训练成本</li>
+<li>结合扩散生成 AI 和量子优化等新兴范式</li>
+<li>关键发现：<strong>GPU 推理的神经网络在 N=16 和 N=128 时推理时间相同</strong>，而传统迭代求解器（AO+SCA、PSO）呈多项式增长——这一 N 不变性对大规模 RIS 部署至关重要</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 按 RIS 类型分类</h2>
+    <table>
+<thead>
+<tr>
+<th>RIS 类型</th>
+<th>信道估计挑战</th>
+<th>DL 适配方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无源 RIS</td>
+<td>级联信道不可分，导频开销最大</td>
+<td>CNN-Transformer 联合估计，分组导频设计</td>
+</tr>
+<tr>
+<td>有源 RIS（ARIS/ORIS）</td>
+<td>放大噪声同时放大信号，信噪比可能恶化</td>
+<td>联合估计信道 + 噪声功率，DDPG/TD3 优化</td>
+</tr>
+<tr>
+<td>BD-RIS（双向透射/反射）</td>
+<td>透射与反射信道耦合，自由度增加</td>
+<td>多任务学习，共享编码器 + 专用解码器</td>
+</tr>
+<tr>
+<td>STAR-RIS</td>
+<td>透射和反射双路径信道</td>
+<td>双通道网络架构，幅度分割比联合估计</td>
+</tr>
+<tr>
+<td>全息 RIS / RHS</td>
+<td>连续孔径，信道维度极高</td>
+<td>GNN / 图方法处理连续变量</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按导频设计分类</h2>
+    <ul>
+<li><strong>训练型（Training-based）</strong>：预定义 RIS 相位配置序列，逐一切换采集导频。DL 用于从低质量观测中恢复信道</li>
+<li><strong>压缩感知 + DL</strong>：利用信道稀疏性减少导频数，再用 DL 做非线性重构</li>
+<li><strong>无导频 / 数据驱动</strong>：直接从业务数据中学习信道统计，导频开销趋近于零，但需要大量标注数据</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 按网络架构分类</h2>
+    <table>
+<thead>
+<tr>
+<th>架构</th>
+<th>优势</th>
+<th>劣势</th>
+<th>代表工作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CNN</td>
+<td>低延迟、适合嵌入式部署</td>
+<td>难以捕获长程依赖</td>
+<td>RISNet-CE (BiLSTM+Transformer)</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>精度高、适应性强</td>
+<td>计算量大、需大量数据</td>
+<td>Hybrid CNN-Transformer (ICDCS 2026)</td>
+</tr>
+<tr>
+<td>GAN/扩散模型</td>
+<td>无监督、小样本友好</td>
+<td>训练不稳定</td>
+<td>联邦 GAN (IEEE TWC 2024)</td>
+</tr>
+<tr>
+<td>展开式网络</td>
+<td>物理可解释、数据效率高</td>
+<td>层数受限</td>
+<td>Deep unfolding + CS</td>
+</tr>
+<tr>
+<td>DRL (PPO/DQN/TD3)</td>
+<td>在线自适应</td>
+<td>训练耗时长、收敛不稳</td>
+<td>SAC/TD3per (JWCN 2026)</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 5G-A / 6G 网络覆盖增强</h2>
+    <p>IMT-2030(6G) 推进组 2025 年 11 月发布的《6G 智能超表面技术研究报告》系统梳理了 RIS 的典型部署场景：</p>
+<ul>
+<li><strong>室内覆盖增强</strong>：写字楼、商场、地下空间等信号弱区</li>
+<li><strong>室外覆盖增强</strong>：建筑物背面、街道拐角等覆盖空洞</li>
+<li><strong>多层异构网络</strong>：宏站 + 微站 + RIS 构建三层架构</li>
+<li><strong>中高频连续覆盖</strong>：Sub-6GHz 到毫米波再到太赫兹的平滑过渡</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 去蜂窝大规模 MIMO（Cell-Free Massive MIMO）</h2>
+    <p>RIS 与 cell-free 架构联合优化是 2026 年热点。多个分布式 RIS 面板协同服务海量用户，信道估计的复杂度随 RIS 数量和用户数量双重增长，DL 方法的优势尤为明显。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 UAV-RIS 协同通信</h2>
+    <p>RIS 搭载无人机形成空中智能反射面，信道估计需同时处理 UAV 运动带来的时变特性。2026 年 Nature Scientific Reports 论文提出 RIS-equipped UAV + HAP 的三层计算架构，RIS 相位优化采用黎曼共轭梯度法，系统吞吐量提升 18%。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 通感一体化（ISAC）</h2>
+    <p>RIS 不仅用于通信，还可辅助雷达感知。信道估计精度直接影响感知性能，DL 方法可实现通信-感知信道联合估计。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+<th>典型目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NMSE（归一化均方误差）</td>
+<td>衡量信道估计精度</td>
+<td>&lt;0.1（35dB SNR）</td>
+</tr>
+<tr>
+<td>导频开销</td>
+<td>估计所需导频符号数</td>
+<td>O(√N) 或更低</td>
+</tr>
+<tr>
+<td>推理延迟</td>
+<td>DL 模型单次推断时间</td>
+<td>&lt;1ms（嵌入式部署）</td>
+</tr>
+<tr>
+<td>泛化能力</td>
+<td>跨场景/跨频段性能保持</td>
+<td>新场景 NMSE 退化 &lt;3dB</td>
+</tr>
+<tr>
+<td>能耗效率</td>
+<td>每比特估计能耗</td>
+<td>相比传统方法降低 10×+</td>
+</tr>
+<tr>
+<td>鲁棒性</td>
+<td>对 CSI 误差、量化噪声的容忍度</td>
+<td>1-bit 量化下性能退化 &lt;2dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 训练-测试分布失配</h2>
+    <p>DL 模型在仿真信道（如 3GPP TR 38.901）上训练，部署到真实环境时性能可能大幅下降。真实信道的多径结构、衰落特性和干扰环境与仿真模型存在系统性偏差。</p>
+<p><strong>应对思路</strong>：</p>
+<ul>
+<li>混合训练：仿真数据 + 少量实测数据微调</li>
+<li>域适应（domain adaptation）：让模型学会跨域迁移</li>
+<li>物理约束注入：将传播模型作为网络正则项</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 实时性 vs 精度的权衡</h2>
+    <p>Transformer 精度高但推理慢，CNN 快但精度有限。实际部署需要在芯片算力约束下找到平衡点。2026 年综述的关键发现——GPU 推理的 DRL/GNN 方法在 N=16 到 N=128 时推理时间不变——为解决规模化问题提供了希望。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 硬件非理想性的建模</h2>
+    <p>真实 RIS 元件存在：</p>
+<ul>
+<li>相位量化误差（通常为 1~3 bit）</li>
+<li>幅相耦合（调相位时幅度也变化）</li>
+<li>元件间互耦</li>
+<li>温度漂移</li>
+</ul>
+<p>这些效应在训练数据中若未充分建模，会导致"实验室效果好、现场拉胯"的问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 标准化缺失</h2>
+    <p>截至 2026 年中，3GPP 尚未将 RIS 信道估计纳入正式标准。IMT-2030(6G) 推进组 2025 年报告提出了标准化建议，包括级联信道模型、物理模型、近场信道等方面，但距离 3GPP Release 19/20 的正式采纳仍有距离。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2019-2020</strong>：RIS 概念提出初期，信道估计主要沿用传统 MIMO 方法（LS/MMSE），导频开销问题开始显现</li>
+<li><strong>2021-2022</strong>：压缩感知和交替优化成为主流，IEEE ComSoc Surveys &amp; Tutorials 发表奠基性综述（Zheng/You/Mei/Zhang）</li>
+<li><strong>2023</strong>：深度学习信道估计开始涌现，CNN 和 DRL 方法初步验证可行性</li>
+<li><strong>2024</strong>：联邦学习、GAN、展开式网络等多路线并行发展；中国联通与中兴完成业界首个 5G 外场静态 RIS 验证</li>
+<li><strong>2025</strong>：CNN-Transformer 混合架构、分布式 ML、基础模型概念引入；辽宁联通携手中兴完成首个动态 RIS 2.0 外场验证，RSRP 提升 &gt;15dB，速率提升 300%+</li>
+<li><strong>2026</strong>：IMT-2030(6G) 发布 RIS 技术研究报告；3GPP 正式启动 6G 标准化研究；Joint OFDM-RIS 优化综述收录 78 篇论文；N 不变性推理成为大规模 RIS 实用化的关键突破</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2 年）</strong>：CNN 轻量化模型 + 边缘部署成为主流方案；3GPP Release 19/20 将纳入 RIS 信道模型初版；多 AAU 多 RIS 组网外场验证密集开展</li>
+<li><strong>中期（3-5 年）</strong>：基础模型 / 大模型用于 RIS 信道估计和波束管理；联邦学习实现跨运营商协同训练；RIS 纳入 6G 标准体系，支持 Sub-6GHz 和 mmWave 双频段</li>
+<li><strong>长期（5 年以上）</strong>：AI-native RIS 网络——信道估计、波束成形、资源调度全部由 AI 模型端到端优化；全息 RIS / RHS 的连续孔径信道估计可能催生全新 DL 架构；RIS 与通感一体化深度融合，信道估计同时服务于通信和感知</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>[1] Deep learning-driven channel estimation for IRS aided networks: A comprehensive survey, Engineering Applications of AI, 2025</li>
+<li>[2] Hybrid CNN–Transformer Enabled Channel Estimation for RIS-MIMO Transmission, ICDCS 2026</li>
+<li>[3] RISNet-CE: AI-Driven Framework for Robust Channel Estimation in RIS-Aided Networks, ICECIT 2025</li>
+<li>[4] Optimization Algorithms for Joint OFDM Waveform Design and RIS Configuration, arXiv 2606.31334, 2026</li>
+<li>[5] IMT-2030(6G) 推进组，《6G 智能超表面技术研究报告 2025》，2025.11</li>
+<li>[6] Reconfigurable Intelligent Surfaces for 6G and Beyond: A Comprehensive Survey, arXiv 2506.19526, 2025</li>
+<li>[7] 中兴通讯官网，RIS 智能超表面方案页面</li>
+<li>[8] 辽宁联通携手中兴完成动态智能超表面 RIS 2.0 外场验证，C114, 2024.02</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

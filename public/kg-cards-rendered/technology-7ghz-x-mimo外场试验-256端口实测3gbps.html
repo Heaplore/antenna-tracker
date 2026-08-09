@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7GHz-X-MIMO外场试验-256端口实测3Gbps · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">7GHz-X-MIMO外场试验-256端口实测3Gbps</h1>
+  <p class="lede">7GHz作为6G&#34;黄金频段&#34;，256T256R X-MIMO在户外实测中实现8层DL SU-MIMO、256QAM、100MHz带宽下峰值3.05Gbps，验证了超大数字孔径在高阶空间复用中的工程可行性。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">X-MIMO</span><span class="chip brand">7GHz</span><span class="chip brand">6G频谱</span><span class="chip brand">外场试验</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 背景：C-band耗尽与6G频谱需求</h2>
+    <p>5G商用成功主要依赖C-band（3.5-4.8GHz），但面向2030年代6G面临两大挑战：</p>
+<ul>
+<li><strong>C-band频谱耗尽</strong>：现有3.5GHz频段已高度拥挤</li>
+<li><strong>超密集应用涌现</strong>：AI服务、数字孪生、沉浸式XR需要远超5G的容量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 7GHz：&#34;黄金频段&#34;的战略定位</h2>
+    <p>7GHz处于中频段和毫米波之间的独特平衡点：</p>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>覆盖能力</th>
+<th>可用带宽</th>
+<th>MIMO密度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sub-3GHz</td>
+<td>广覆盖</td>
+<td>窄（&lt;20MHz）</td>
+<td>低</td>
+<td>覆盖打底</td>
+</tr>
+<tr>
+<td>3.5GHz C-band</td>
+<td>良好</td>
+<td>100MHz</td>
+<td>64端口</td>
+<td>5G主力</td>
+</tr>
+<tr>
+<td><strong>7GHz</strong></td>
+<td><strong>中等偏广</strong></td>
+<td><strong>200-400MHz</strong></td>
+<td><strong>256端口</strong></td>
+<td><strong>6G早期部署</strong></td>
+</tr>
+<tr>
+<td>mmWave（24+GHz）</td>
+<td>短距离</td>
+<td>超宽</td>
+<td>极大阵列</td>
+<td>热点容量</td>
+</tr>
+</tbody>
+</table>
+<p>WRC-23已将6.425-7.125GHz部分频段识别为IMT频段，WRC-27将讨论7.125-8.4GHz。美国已出台备忘录推动7.125GHz频段重新分配给移动用途，欧洲和韩国也在积极推进上中频段6G频谱规划。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 为什么需要X-MIMO而非简单扩展Massive MIMO</h2>
+    <p>5G 64T64R在3.5GHz已有192个天线单元（64端口 × 3×1子阵）。7GHz波长约为3.5GHz的一半，在相同RU物理尺寸内可容纳<strong>4倍天线密度</strong>：</p>
+<ul>
+<li>256T256R架构：768个天线单元，EIRP和空间分辨率大幅提升</li>
+<li>128T128R架构：同等尺寸下功耗和基带复杂度更低，但空间复用能力打折</li>
+</ul>
+<p>X-MIMO不是5G Massive MIMO的简单升级，而是7GHz频谱本身带来的<strong>新架构机遇</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 X-MIMO架构定义</h2>
+    <p>X-MIMO核心思路：<strong>在7GHz频段利用较短波长，在现有基站外形因子内集成远超5G的天线端口数</strong>，实现：</p>
+<ol>
+<li><strong>更高EIRP</strong>：补偿7GHz相比3.5GHz约6dB的路径损耗增量</li>
+<li><strong>更精细波束赋形</strong>：窄波束、高精度指向</li>
+<li><strong>高阶空间复用</strong>：单用户8层DL SU-MIMO成为可能</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 关键系统参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>7.125 GHz</td>
+</tr>
+<tr>
+<td>信道带宽</td>
+<td>100 MHz</td>
+</tr>
+<tr>
+<td>BS天线端口</td>
+<td>256T256R</td>
+</tr>
+<tr>
+<td>UE接收端口</td>
+<td>8-Rx</td>
+</tr>
+<tr>
+<td>调制方式</td>
+<td>256QAM</td>
+</tr>
+<tr>
+<td>DL MIMO层数</td>
+<td>8层 SU-MIMO</td>
+</tr>
+<tr>
+<td>实测峰值速率</td>
+<td>3.05 Gbps（1分钟平均）</td>
+</tr>
+<tr>
+<td>中值速率</td>
+<td>2.79 Gbps</td>
+</tr>
+<tr>
+<td>测试环境</td>
+<td>首尔Samsung研发园区户外NLOS</td>
+</tr>
+<tr>
+<td>测试距离</td>
+<td>~100m</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 信道分析：7GHz X-MIMO的空间特性</h2>
+    <p>基于实测数据的信道分析揭示了几个关键发现：</p>
+<p><strong>主导簇数量</strong>：7GHz Urban Macro环境下平均17-20个主导路径簇，比3.5GHz更多，说明高频段散射更丰富。</p>
+<p><strong>奇异值分布</strong>：256端口阵列的奇异值分布显示，即使NLOS条件下也存在足够多的显著奇异值来支撑8层传输。大数字孔径提供了额外的空间自由度，弥补了角度簇数量有限的问题。</p>
+<p><strong>与3.5GHz对比</strong>：7GHz信道的角度扩展略大，多径分量更丰富，这对X-MIMO的空间复用是有利的。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 128-port vs 256-port设计权衡</h2>
+    <p>系统级仿真表明两种架构适用于不同场景：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>256T256R</th>
+<th>128T128R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线单元数</td>
+<td>768</td>
+<td>768（6×1子阵）</td>
+</tr>
+<tr>
+<td>SU-MIMO峰值</td>
+<td>更高</td>
+<td>略低</td>
+</tr>
+<tr>
+<td>MU-MIMO（ISD=200m）</td>
+<td>显著优势</td>
+<td>够用</td>
+</tr>
+<tr>
+<td>MU-MIMO（ISD=500m）</td>
+<td>差距缩小</td>
+<td>性价比高</td>
+</tr>
+<tr>
+<td>基带复杂度</td>
+<td>高</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>高</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>城市密集/热点</td>
+<td>宏覆盖/郊区</td>
+</tr>
+</tbody>
+</table>
+<p>关键结论：<strong>128-port和256-port不是二选一竞争关系，而是针对不同运营场景的不同工作点</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 UE侧8-Rx的意义</h2>
+    <p>5G C-band智能手机通常最多4-Rx（物理尺寸限制）。7GHz波长减半，使得在不增大设备尺寸的前提下容纳8个接收天线成为可能：</p>
+<ul>
+<li>平均UE吞吐提升35%</li>
+<li>5分位（小区边缘）UE吞吐提升54%</li>
+<li>平均调度层数从3.44提升到4.46</li>
+<li>超过30%的下行传输时隙使用4层以上调度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 6G早期商用路径</h2>
+    <p>7GHz X-MIMO被视为6G早期部署的核心候选方案：</p>
+<ol>
+<li><strong>FWA/CPE优先</strong>：固定无线接入终端尺寸宽松，最容易先实现8-Rx以上配置</li>
+<li><strong>Premium手机跟进</strong>：旗舰机型率先支持8-Rx</li>
+<li><strong>工业网关/专网</strong>：对尺寸不敏感的高价值场景</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与3GPP标准的衔接</h2>
+    <p>3GPP已启动6G规范讨论，聚焦支持最大400MHz信道带宽。该试验平台采用自定义6G预标准空中接口，支持：</p>
+<ul>
+<li>256端口CSI-RS传输</li>
+<li>8层DL SU-MIMO</li>
+<li>实时基带处理流水线</li>
+</ul>
+<p>这为后续3GPP Release 20+的6G规范制定提供了实测数据支撑。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 与近场XL-MIMO的关系</h2>
+    <p>本试验工作在7GHz、100m距离，仍处于远场区域。但256端口超大孔径意味着近场区域将显著扩展，与已入库的[[近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]和[[近场波束聚焦Near-Field-Beamfocusing-20260719]]形成自然衔接：</p>
+<ul>
+<li>当前X-MIMO试验验证的是<strong>远场高阶空间复用</strong></li>
+<li>随着端口数继续增加到512/1024，近场波束聚焦将成为必须处理的物理效应</li>
+<li>7GHz的X-MIMO大孔径阵列可能是最早遭遇近场效应的商用系统之一</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 Samsung + Microsoft 联合团队</h2>
+    <p>本论文作者是Samsung Research（首尔+美国Plano）与Yonsei University、Microsoft Research的联合团队。Samsung在6G研发上投入巨大，这是目前公开报道中最完整的7GHz X-MIMO外场实测结果。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 华为</h2>
+    <p>华为U6GHz全场景产品矩阵（已入库笔记）覆盖了Sub-6GHz到6GHz以上的产品布局，但在7GHz X-MIMO 256端口外场实测方面，未看到同等规模的公开报告。华为更侧重太赫兹和通感一体化方向。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 中兴</h2>
+    <p>中兴GigaMIMO空域资源深度重构（已入库笔记）展示了中兴在Massive MIMO空域维度的技术积累，但7GHz频段和256端口规模暂未见公开对标数据。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 Keysight</h2>
+    <p>作为终端测试平台提供方，Keysight在6G测试测量领域占据关键位置。Samsung-KT-Keysight三方合作模式代表了6G验证的典型产业生态。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 全球频谱政策动向</h2>
+    <ul>
+<li><strong>美国</strong>：7.125GHz频段重新分配备忘录</li>
+<li><strong>欧洲</strong>：6GHz上段6G频谱探索</li>
+<li><strong>韩国</strong>：7.125-8.4GHz 6G频谱规划</li>
+<li><strong>中国</strong>：需关注工信部对7GHz频段6G试验的规划</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 7GHz将成为6G早期部署的&#34;事实标准频段&#34;</h2>
+    <p>理由：</p>
+<ol>
+<li>全球频谱政策合力推动，WRC-27有望正式划定6G IMT频段</li>
+<li>在覆盖和容量之间取得最佳平衡，不像mmWave那样受限于穿透和覆盖</li>
+<li>256端口在7GHz的物理可实现性已被外场试验验证</li>
+<li>100MHz带宽下3Gbps的实测速率远超5G C-band水平</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 X-MIMO将催生新的AAU架构</h2>
+    <p>传统AAU的T/R模块和射频链数量与端口数一一对应。256端口意味着：</p>
+<ul>
+<li>射频前端密度需提升4倍</li>
+<li>散热设计面临更大挑战</li>
+<li>前传接口带宽需求激增</li>
+<li>实时基带处理复杂度呈非线性增长</li>
+</ul>
+<p>这些挑战将推动<strong>芯片级集成</strong>和<strong>光电混合前传</strong>等新技术路线。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 近场效应将在X-MIMO时代提前到来</h2>
+    <p>256端口大孔径阵列在7GHz的Rayleigh距离可能达到百米量级，与典型宏站覆盖距离重叠。这意味着6G早期商用就可能遇到近场波束聚焦问题，[[近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]中提到的Fresnel三分解耦预编码方法可能直接适用于此类系统。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 对天线设计的直接参考价值</h2>
+    <p>老大目前追踪的近场波束聚焦、XL-MIMO、HISAC/RHS方向，与7GHz X-MIMO是同一技术树上的不同分支：</p>
+<ul>
+<li><strong>X-MIMO</strong>解决的是"端口数够不够多"的问题</li>
+<li><strong>近场波束聚焦</strong>解决的是"端口多了之后波前曲率不能忽略"的问题</li>
+<li><strong>HISAC/RHS</strong>解决的是"用超大规模连续孔径替代离散阵列"的问题</li>
+</ul>
+<p>三者共同构成6G超大规模天线的技术演进路径。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 对中兴产品规划的参考</h2>
+    <p>如果7GHz X-MIMO成为6G早期部署方案，中兴在AAU设计、T-R模块集成、基带处理架构等方面需要提前布局256端口级别的工程能力。尤其是超高密度天线集成和散热设计，是直接从5G到6G跨越时的核心工程挑战。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 对质量管理的参考</h2>
+    <p>256端口系统的校准、一致性测试、互耦控制等质量指标将比64端口复杂数个数量级。近场XL-MIMO笔记中提到的信道估计和波束训练复杂度问题，直接关系到量产测试策略和自动化测试设备（ATS）的设计。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Lee S, Yoon J, Jung S, et al. "Extreme-MIMO Field Trials in 7 GHz Band: Unlocking the Potential of New Spectrum for 6G." arXiv:2603.21632, March 2026.</li>
+<li>Samsung Electronics press release, Feb 2026: Samsung, KT verify X-MIMO technology in 7 GHz band for 6G development.</li>
+<li>RCR Wireless: Samsung, KT validate 7 GHz 6G in field trial.</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>石墨烯超表面太赫兹相控阵 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">石墨烯超表面太赫兹相控阵</h1>
+  <p class="lede">利用石墨烯的费米能级电调控特性，在太赫兹频段实现亚波长尺度的超表面单元相位调制（&gt;350°），构建全固态、低功耗、超宽角扫描的相控阵天线，为 6G 太赫兹通信提供核心波束赋形方案。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">石墨烯超表面</span><span class="chip brand">太赫兹相控阵</span><span class="chip brand">波束赋形</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 太赫兹频段的波束赋形挑战</h2>
+    <p>太赫兹频段（0.1-10 THz）是 6G 通信的核心候选频谱。其优势在于超大带宽（单信道可达数十 GHz），但劣势同样明显：</p>
+<ul>
+<li><strong>路径损耗极大</strong>：自由空间损耗与频率平方成正比，1 THz 比 2.4 GHz 高出约 44 dB</li>
+<li><strong>波束极窄</strong>：太赫兹波长在 0.3-3 mm，相同增益下阵列尺寸可大幅缩小，但波束宽度仅几度</li>
+<li><strong>对准困难</strong>：窄波束意味着发射端和接收端的对准精度需达亚度级，移动场景下极易失锁</li>
+</ul>
+<p>传统解决方案是用 CMOS/SiGe 基底的有源相控阵（如已报道的 240-300 GHz CMOS 相控阵），但在太赫兹频段，有源器件的插入损耗和非线性失真急剧恶化，功耗和散热成为瓶颈。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 石墨烯超表面的核心优势</h2>
+    <p>石墨烯在太赫兹频段的等离子体共振效应使其电导率可通过栅压动态调控（Fermi level 调节），这一特性被用于构建超表面相控阵：</p>
+<ul>
+<li><strong>超宽相位调制范围</strong>：通过调节石墨烯 Fermi level，单个单元可实现 &gt;350° 的连续相位调制（哈工大 Wang et al. 2022）</li>
+<li><strong>亚波长单元尺寸</strong>：单元尺寸仅为波长的 1/13 至 1/5，适合高密度集成</li>
+<li><strong>全固态无活动部件</strong>：纯电子调控，切换速度纳秒级</li>
+<li><strong>低功耗</strong>：栅压仅需 0.2-4.3 V，静态功耗极低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 工作原理</h2>
+    <p>石墨烯超表面相控阵的基本结构：</p>
+<pre><code>石墨烯天线层（图案化）
+    ↓
+绝缘层（SiO₂-Si-SiO₂ 或 HfO₂）
+    ↓
+介质层（石英/PMMA）
+    ↓
+金属衬底（接地层）
+    ↓
+顶部栅极电极 + 离子凝胶
+</code></pre>
+<p>通过对不同列/行的石墨烯单元施加不同的栅压，改变其 Fermi level（化学势 μc），从而改变该单元的反射相位。整个超表面形成可编程的相位分布梯度，入射波经反射后按 Snell 定律的广义形式偏转到目标角度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 相位调制机制</h2>
+    <p>石墨烯的表面电导率 σ 由 Kubo 公式描述：</p>
+<p>σ(ω, μc, τ, T) = σ_intra + σ_inter</p>
+<p>其中 μc 为 Fermi level（通过栅压调节），τ 为弛豫时间，T 为温度。</p>
+<p>当 μc 从 0.2 eV 变化到 1.0 eV 时，石墨烯单元的反射相位变化可达 350°+，反射幅度变化从 -10 dB 到 -0.1 dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>方案 A：哈工大全固态太赫兹相控阵（Wang et al. 2022, IEEE JLT）</h2>
+    <ul>
+<li><strong>频率</strong>：未明确指定（典型 1-3 THz）</li>
+<li><strong>相位覆盖</strong>：&gt;350°</li>
+<li><strong>扫描范围</strong>：±79.11°（近乎全空间）</li>
+<li><strong>旁瓣</strong>：几乎无旁瓣干扰</li>
+<li><strong>入射角容限</strong>：&lt;20° 内保持功能</li>
+<li><strong>核心创新</strong>：首次实现全固态、电调控、超宽角太赫兹相控阵</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>方案 B：铜-石墨烯混合超表面（Elhenawy et al. 2026, Optical and Quantum Electronics）</h2>
+    <ul>
+<li><strong>频率</strong>：2.35 THz</li>
+<li><strong>单元结构</strong>：20×20 E 形铜谐振器 + 石墨烯臂，石英基底 + 多晶硅接地</li>
+<li><strong>相位覆盖</strong>：355°（μc 从 0.22 eV 到 1.0 eV）</li>
+<li><strong>扫描范围</strong>：仰角 ±68°，方位角 360° 全覆盖</li>
+<li><strong>峰值增益</strong>：17.4 dB</li>
+<li><strong>偏置电压</strong>：0.2-4.3 V（低电压操作）</li>
+<li><strong>多波束</strong>：同时生成双/三/四波束（叠加相位合成）</li>
+<li><strong>核心创新</strong>：首个支持多波束独立 steering 的太赫兹石墨烯超表面</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>方案 C：石墨烯反射阵列（3.6 THz, Journal of Optics 2024）</h2>
+    <ul>
+<li><strong>频率</strong>：3.6 THz</li>
+<li><strong>单元</strong>：石墨烯圆环 + 四个开槽臂</li>
+<li><strong>相位覆盖</strong>：&gt;310°（μc 从 0.02 到 0.2 eV）</li>
+<li><strong>阵列规模</strong>：21×21 单元</li>
+<li><strong>孔径尺寸</strong>：546×546 μm²</li>
+<li><strong>增益</strong>：20 dB</li>
+<li><strong>1-dB 增益带宽</strong>：1.1 THz（30.6%）</li>
+<li><strong>扫描范围</strong>：±45°</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 关键性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>方案 A (哈工大)</th>
+<th>方案 B (2026)</th>
+<th>方案 C (反射阵列)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频率</td>
+<td>~1-3 THz</td>
+<td>2.35 THz</td>
+<td>3.6 THz</td>
+</tr>
+<tr>
+<td>相位覆盖</td>
+<td>&gt;350°</td>
+<td>355°</td>
+<td>&gt;310°</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>±79.11°</td>
+<td>±68° / 360° azimuth</td>
+<td>±45°</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>N/A</td>
+<td>17.4 dB</td>
+<td>20 dB</td>
+</tr>
+<tr>
+<td>偏置电压</td>
+<td>未明确</td>
+<td>0.2-4.3 V</td>
+<td>未明确</td>
+</tr>
+<tr>
+<td>多波束</td>
+<td>❌</td>
+<td>✅ (最多4路)</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>旁瓣抑制</td>
+<td>几乎无</td>
+<td>可接受</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 按结构分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>反射式</td>
+<td>信号经超表面反射后偏转，结构简单</td>
+<td>哈工大方案、反射阵列</td>
+</tr>
+<tr>
+<td>透射式</td>
+<td>信号穿过超表面后被调控，需双层结构</td>
+<td>石墨烯-金属混合透射式</td>
+</tr>
+<tr>
+<td>混合式</td>
+<td>铜谐振器+石墨烯臂，兼顾 Q 因子和调谐范围</td>
+<td>Elhenawy 2026</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按调控方式分类</h2>
+    <ul>
+<li><strong>电调控（Gate voltage）</strong>：最主流，响应 ns 级，与 CMOS 兼容</li>
+<li><strong>光调控（激光照射）</strong>：超快（ps 级），但需要光学系统</li>
+<li><strong>热调控（VO₂ 协同）</strong>：石墨烯+VO₂ 双材料，多模态调控</li>
+<li><strong>机械调控（应变）</strong>：柔性基底上拉伸改变石墨烯晶格常数</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 按应用场景分类</h2>
+    <ul>
+<li><strong>太赫兹通信</strong>：点对点高速链路（100+ Gbps）</li>
+<li><strong>太赫兹成像</strong>：安全扫描、医学成像</li>
+<li><strong>太赫兹雷达</strong>：高分辨率感知、自动驾驶</li>
+<li><strong>6G 通感一体化</strong>：通信+感知共享太赫兹前端</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 6G 太赫兹回传链路</h2>
+    <p>石墨烯超表面相控阵可作为基站间的太赫兹回传天线，利用其超宽角扫描能力补偿基站间的高动态对准需求。配合 AF-RIS（滤波型智能超表面）部署在建筑物表面，可建立非视距（NLoS）太赫兹链路。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 卫星-地面太赫兹通信</h2>
+    <p>低轨卫星与地面站之间的太赫兹链路需要快速波束跟踪。石墨烯超表面的电调控切换速度（ns 级）远快于机械转向，适合卫星高速运动场景。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 太赫兹成像与传感</h2>
+    <p>超宽角扫描（±79°）配合低旁瓣特性，使石墨烯超表面相控阵成为理想的太赫兹成像扫描天线。在安全检查、无损检测领域有直接应用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 多波束终端</h2>
+    <p>2026 年方案 B 实现了同时生成 4 个独立波束，这在多用户 MIMO 场景下极具价值——一个超表面面板可同时服务 4 个不同方向的终端。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>范围/数值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>0.1-10 THz</td>
+<td>覆盖全部太赫兹通信窗口</td>
+</tr>
+<tr>
+<td>相位调制范围</td>
+<td>310°-355°</td>
+<td>接近理想 360°</td>
+</tr>
+<tr>
+<td>扫描角度</td>
+<td>±45° 至 ±79°</td>
+<td>取决于具体设计</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>17-20 dB</td>
+<td>20×20 阵列量级</td>
+</tr>
+<tr>
+<td>切换速度</td>
+<td>ns 级</td>
+<td>受限于栅极 RC 时间常数</td>
+</tr>
+<tr>
+<td>偏置电压</td>
+<td>0.2-4.3 V</td>
+<td>低功耗</td>
+</tr>
+<tr>
+<td>单元尺寸</td>
+<td>λ/13 - λ/5</td>
+<td>亚波长密集排列</td>
+</tr>
+<tr>
+<td>温度稳定性</td>
+<td>300K 基准</td>
+<td>高温下弛豫时间下降影响性能</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 石墨烯制备良率</h2>
+    <p>大面积（&gt;1 cm²）高质量单层石墨烯的化学气相沉积（CVD）转移工艺仍存在褶皱、裂纹和污染问题，直接影响太赫兹波前调控的均匀性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 栅极介电层厚度</h2>
+    <p>方案 B 采用 8 nm HfO₂ 作为栅极介电层以实现低压操作，但 8 nm 的均匀性控制极其困难——几个纳米的偏差就会导致电容值显著变化，进而影响相位调制的线性度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 温度敏感性</h2>
+    <p>石墨烯的弛豫时间 τ 随温度升高而下降（300K → 400K 时 τ 下降约 30%），导致相位调制深度缩减。户外部署需要主动温控或温度补偿算法。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 大规模阵列的布线复杂度</h2>
+    <p>20×20 阵列需要 400 个独立的栅极控制线。当阵列扩展到 100×100 时，布线密度成为物理限制。解决方案包括行/列解码架构（类似 DRAM）或多路复用控制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 封装与互连</h2>
+    <p>太赫兹频段的封装寄生参数不可忽略。石墨烯超表面与外部控制电路（FPGA/DAC）之间的互连需要在 chip-scale 集成，而非 PCB-level 布线。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2012 年</strong>：Perruisseau-Carrier 首次提出石墨烯可重构超表面概念（Physical Review B）</li>
+<li><strong>2015 年</strong>：Yatooshi et al. 实验验证石墨烯条带的太赫兹相位调控（Applied Physics Letters）</li>
+<li><strong>2022 年 3 月</strong>：哈工大 Wang et al. 发表全固态太赫兹相控阵（IEEE JLT），±79° 超宽角扫描，&gt;350° 相位覆盖——里程碑式成果</li>
+<li><strong>2024 年 10 月</strong>：反射阵列方案实现 3.6 THz、20 dB 增益、30.6% 带宽（Journal of Optics）</li>
+<li><strong>2025 年 4 月</strong>：石墨烯反射编码超表面实现可编程波前操控（Physica Scripta）</li>
+<li><strong>2025 年 6 月</strong>：石墨烯-金属混合超表面实现大动态范围太赫兹移相器（Applied Optics），180° 动态相移，110 GHz 可调带宽</li>
+<li><strong>2026 年 3 月</strong>：哈工大方案被引用超 800 次，成为石墨烯太赫兹领域的标杆</li>
+<li><strong>2026 年 5 月</strong>：铜-石墨烯混合超表面实现多波束独立 steering（Optical and Quantum Electronics）</li>
+<li><strong>2026 年 6 月</strong>：石墨烯+VO₂ 多功能太赫兹超表面实现透射/反射双模式切换（Applied Optics）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2 年）</strong>：石墨烯超表面与 CMOS RFIC 的 chip-scale 集成；多波束方案从论文走向原型演示</li>
+<li><strong>中期（3-5 年）</strong>：6G 太赫兹标准中纳入石墨烯超表面相控阵作为可选波束赋形方案；与 AI 波束训练结合实现自适应太赫兹链路</li>
+<li><strong>长期（5 年以上）</strong>：石墨烯太赫兹超表面与硅基太赫兹 IC（如东京科学大学 300 GHz CMOS 收发器）单片集成，形成"太赫兹 SoC + 超表面天线"的一体化芯片</li>
+</ul>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

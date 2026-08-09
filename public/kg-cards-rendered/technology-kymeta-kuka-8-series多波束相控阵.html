@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kymeta-KuKa-8-Series多波束相控阵 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Kymeta-KuKa-8-Series多波束相控阵</h1>
+  <p class="lede">Kymeta KuKa 8 Series 是全球首个Ku/Ka双频段同时工作的单孔径相控阵卫星通信终端，采用交错子阵列超表面架构实现四波束全双工，体积比传统双天线方案缩小44%，2026年中向美国海军交付原型，标志着多频段一体化相控阵从实验室走向战场的关键节点。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">相控阵</span><span class="chip brand">多频段</span><span class="chip brand">SATCOM</span><span class="chip brand">超表面</span><span class="chip brand">国防应用</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 多频段SATCOM的历史困境</h2>
+    <p>军用和商用卫星通信长期面临"频段孤岛"问题：</p>
+<ul>
+<li><strong>Ku波段</strong>（10.7-14.5 GHz）：成熟可靠，带宽适中，主要用于传统军事SATCOM</li>
+<li><strong>Ka波段</strong>（17.7-31.0 GHz）：高带宽，低延迟，用于新型LEO星座（Starlink、OneWeb等）</li>
+</ul>
+<p>传统方案需要：</p>
+<ol>
+<li>安装两套独立天线系统</li>
+<li>分别配备独立的调制解调器</li>
+<li>占用大量SWaP（尺寸、重量、功耗）空间</li>
+<li>维护复杂度呈指数上升</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 Kymeta的技术路径</h2>
+    <p>Kymeta选择了一条颠覆性路线：<strong>单孔径多频段共享</strong>。</p>
+<p>核心创新在于"交错子阵列架构"（Interleaved Sub-array Architecture）：</p>
+<ul>
+<li>超表面被划分为多个子区域</li>
+<li>Ku和Ka频段的天线单元以特定模式交错排列</li>
+<li>通过软件定义的波束赋形算法，在同一物理孔径上同时生成两个独立波束</li>
+<li>2025年6月实验室验证：单超表面同时产生四波束（双发双收）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 与TUSK IC的技术路线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Kymeta KuKa 8 Series</th>
+<th>TUSK IC ConnectKa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心架构</strong></td>
+<td>超表面单孔径多频段</td>
+<td>CMOS BFIC模块化拼接</td>
+</tr>
+<tr>
+<td><strong>频段覆盖</strong></td>
+<td>Ku+Ka双频段同时</td>
+<td>Ka波段单一</td>
+</tr>
+<tr>
+<td><strong>波束能力</strong></td>
+<td>四波束全双工</td>
+<td>单波束/多波束可选</td>
+</tr>
+<tr>
+<td><strong>工艺路线</strong></td>
+<td>超表面+传统射频</td>
+<td>300mm bulk CMOS</td>
+</tr>
+<tr>
+<td><strong>目标市场</strong></td>
+<td>国防/军事SATCOM</td>
+<td>欧洲IRIS²/商业LEO</td>
+</tr>
+<tr>
+<td><strong>量产时间</strong></td>
+<td>2027年商用</td>
+<td>2028年初</td>
+</tr>
+</tbody>
+</table>
+<p>两者代表相控阵商用化的两种不同哲学：</p>
+<ul>
+<li><strong>Kymeta</strong>：用系统级创新（多频段集成）解决SWaP痛点</li>
+<li><strong>TUSK IC</strong>：用工艺级创新（CMOS量产）解决成本痛点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 核心参数</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>参数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作频段</strong></td>
+<td>Ku: 10.7-14.5 GHz / Ka: 17.7-31.0 GHz</td>
+</tr>
+<tr>
+<td><strong>同时波束数</strong></td>
+<td>4波束（双发双收全双工）</td>
+</tr>
+<tr>
+<td><strong>孔径类型</strong></td>
+<td>单孔径 electronically steered ESA</td>
+</tr>
+<tr>
+<td><strong>尺寸</strong></td>
+<td>90 cm × 90 cm × 10 cm</td>
+</tr>
+<tr>
+<td><strong>重量</strong></td>
+<td>18.6 kg（41 lb）</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>低功率设计，具体数值未公开</td>
+</tr>
+<tr>
+<td><strong>扫描范围</strong></td>
+<td>方位360°，俯仰需查证</td>
+</tr>
+<tr>
+<td><strong>轨道兼容</strong></td>
+<td>GEO/MEO/LEO/HEO全兼容</td>
+</tr>
+<tr>
+<td><strong>防护等级</strong></td>
+<td>MIL-STD-810/MIL-STD-1275</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 与Hawk u8 LEO终端对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Hawk u8 LEO</th>
+<th>KuKa 8 Series</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>频段</strong></td>
+<td>仅Ku波段</td>
+<td>Ku+Ka双频段</td>
+</tr>
+<tr>
+<td><strong>孔径</strong></td>
+<td>单孔径单频段</td>
+<td>单孔径双频段</td>
+</tr>
+<tr>
+<td><strong>尺寸</strong></td>
+<td>89.5 × 89.5 × 14 cm</td>
+<td>90 × 90 × 10 cm（更薄）</td>
+</tr>
+<tr>
+<td><strong>重量</strong></td>
+<td>30.1 kg</td>
+<td>18.6 kg（减轻38%）</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>95-125 W</td>
+<td>未公开（预计更低）</td>
+</tr>
+<tr>
+<td><strong>目标</strong></td>
+<td>民用LEO宽带</td>
+<td>军用多频段抗干扰</td>
+</tr>
+<tr>
+<td><strong>部署时间</strong></td>
+<td>已商用</td>
+<td>2026年中原型</td>
+</tr>
+</tbody>
+</table>
+<p>KuKa 8 Series在保持相近尺寸的情况下，实现了频段翻倍和重量大幅减轻，体现了Kymeta在超表面设计上的深厚积累。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 超表面架构演进</h2>
+    <p>Kymeta的超表面技术经历了三代演进：</p>
+<p><strong>第一代</strong>（2015-2018）：</p>
+<ul>
+<li>液晶超表面（Liquid Crystal Metasurface）</li>
+<li>单频段Ku波段</li>
+<li>体积大、功耗高</li>
+</ul>
+<p><strong>第二代</strong>（2019-2024）：</p>
+<ul>
+<li>改进型超表面</li>
+<li>引入多波束概念</li>
+<li>体积重量显著优化</li>
+</ul>
+<p><strong>第三代</strong>（2025-至今）：</p>
+<ul>
+<li>交错子阵列架构</li>
+<li>Ku/Ka双频段同时工作</li>
+<li>四波束全双工</li>
+<li>放弃液晶调谐，采用更快切换机制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 技术突破点</h2>
+    <p><strong>关键创新1：频段 interleaving</strong>
+- 在超表面尺度上，Ku和Ka波长的比例约为1:2.2
+- 通过精确设计子阵列几何结构，实现频段隔离
+- 避免传统方案中的频段互扰问题</p>
+<p><strong>关键创新2：软件定义波束赋形</strong>
+- 不再依赖物理切换，而是通过算法实现频段动态分配
+- 支持"constellation-agnostic"策略
+- 可根据任务需求实时调整频段配比</p>
+<p><strong>关键创新3：抗干扰设计</strong>
+- 窄波束电子扫描降低截获概率
+- 快速波束切换应对电子战环境
+- 多频段冗余提供路径多样性</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 与STAR-RIS的技术差异</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Kymeta KuKa 8</th>
+<th>STAR-RIS（学术概念）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>应用场景</strong></td>
+<td>卫星通信终端</td>
+<td>6G地面通信增强</td>
+</tr>
+<tr>
+<td><strong>工作模式</strong></td>
+<td>主动发射/接收</td>
+<td>被动反射/透射</td>
+</tr>
+<tr>
+<td><strong>频段</strong></td>
+<td>Ku+Ka双频</td>
+<td>毫米波/太赫兹</td>
+</tr>
+<tr>
+<td><strong>功率需求</strong></td>
+<td>需要外部供电</td>
+<td>几乎无源</td>
+</tr>
+<tr>
+<td><strong>成熟度</strong></td>
+<td>TRL 6-7（原型验证）</td>
+<td>TRL 3-4（实验室）</td>
+</tr>
+</tbody>
+</table>
+<p>两者虽然都涉及超表面技术，但应用场景和技术成熟度完全不同。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 目标市场</h2>
+    <p><strong>核心市场：美国国防</strong>
+- ONR（海军研究办公室）三年合同（2026-2029）
+- Bascom Hunter采购原型机进行测试评估
+- 美国太空军"network of networks"愿景</p>
+<p><strong>次要市场：</strong>
+-  allied nations（盟国）国防采购
+-  商用海事通信（高价值利基市场）
+-  应急通信（灾害响应）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 与JADC2的契合</h2>
+    <p>Kymeta CEO Manny Mora（原General Dynamics Mission Systems高管）明确将KuKa 8 Series定位为JADC2（联合全域指挥控制）使能技术：</p>
+<ul>
+<li>单设备实现多域连接</li>
+<li>消除传统多天线系统的SWaP-C劣势</li>
+<li>支持传感器、射手、C2节点的持久连接</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 竞争对手分析</h2>
+    <table>
+<thead>
+<tr>
+<th>竞争对手</th>
+<th>技术方案</th>
+<th>优劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thales Alenia Space</strong></td>
+<td>机械扫描+相控阵混合</td>
+<td>传统军工巨头，但体积大</td>
+</tr>
+<tr>
+<td><strong>Northrop Grumman</strong></td>
+<td>传统相控阵</td>
+<td>技术成熟但成本高昂</td>
+</tr>
+<tr>
+<td><strong>Lockheed Martin</strong></td>
+<td>Falcon Edge系列</td>
+<td>军用经验丰富，但频段单一</td>
+</tr>
+<tr>
+<td><strong>TUSK IC</strong></td>
+<td>CMOS BFIC模块化</td>
+<td>成本优势，但频段单一</td>
+</tr>
+<tr>
+<td><strong>Starlink</strong></td>
+<td>自研相控阵终端</td>
+<td>消费级价格，但军用版本未公开</td>
+</tr>
+</tbody>
+</table>
+<p>Kymeta的独特优势在于"多频段单孔径"，这是其他竞争对手尚未实现的能力。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 技术风险</h2>
+    <ol>
+<li><strong>热管理</strong></li>
+<li>双频段同时工作产生大量热量</li>
+<li>18.6kg的轻量化设计限制了散热空间</li>
+<li>
+<p>极端环境下的热稳定性需验证</p>
+</li>
+<li>
+<p><strong>频段隔离</strong></p>
+</li>
+<li>Ku和Ka波段的互调产物可能影响性能</li>
+<li>
+<p>需要精确的电磁仿真和实测验证</p>
+</li>
+<li>
+<p><strong>波束形成算法</strong></p>
+</li>
+<li>四波束同时工作的算法复杂度极高</li>
+<li>
+<p>实时波束切换需要低延迟处理</p>
+</li>
+<li>
+<p><strong>环境适应性</strong></p>
+</li>
+<li>MIL-STD-810认证尚未完成</li>
+<li>海洋盐雾、振动、冲击等实测数据待验证</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 商业风险</h2>
+    <ol>
+<li><strong>量产节奏</strong></li>
+<li>2026年中原型机交付时间表紧张</li>
+<li>
+<p>2027年商用化可能受供应链影响</p>
+</li>
+<li>
+<p><strong>竞争压力</strong></p>
+</li>
+<li>SpaceX可能推出类似军用版本</li>
+<li>
+<p>传统军工巨头可能加速研发</p>
+</li>
+<li>
+<p><strong>地缘政治</strong></p>
+</li>
+<li>美国国防部采购受政策影响大</li>
+<li>技术出口管制可能限制国际销售</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 对MoonDeck的启示</h2>
+    <p>如果MoonDeck需要卫星通信功能，KuKa 8 Series可能是一个候选方案：</p>
+<ul>
+<li>多频段支持提高链路可靠性</li>
+<li>轻量化设计适合移动平台</li>
+<li>抗干扰能力适合复杂电磁环境</li>
+</ul>
+<p>但需权衡：</p>
+<ul>
+<li>成本可能较高（国防级定价）</li>
+<li>商用版本 availability 待确认</li>
+<li>与现有系统的集成复杂度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 对天线技术路线的思考</h2>
+    <p>Kymeta和TUSK IC代表两种不同的技术哲学：</p>
+<ul>
+<li><strong>Kymeta</strong>：系统级创新（多频段集成）</li>
+<li><strong>TUSK IC</strong>：工艺级创新（CMOS量产）</li>
+</ul>
+<p>对于老大关注的"硅基相控阵"方向，TUSK IC的CMOS路线可能更贴合。但Kymeta的多频段集成方案在系统性能上有独特优势。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 未来趋势判断</h2>
+    <ol>
+<li><strong>多频段相控阵将成为高端SATCOM终端的标准配置</strong></li>
+<li><strong>软件定义无线电（SDR）+ 相控阵的结合会越来越紧密</strong></li>
+<li><strong>LEO星座的军用的需求会推动多频段技术加速成熟</strong></li>
+<li><strong>中国在类似技术上可能有追赶需求，值得持续跟踪</strong></li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进时间线</h2>
+    <pre><code>2012年 → Kymeta成立，开始超表面天线研发
+2015年 → 第一代液晶超表面终端原型
+2018年 → Hawk系列商用化，单频段Ku波段
+2021年 → Osprey u8系列，体积重量优化
+2023年 → 开始多频段技术研究
+2025年6月 → 实验室验证四波束全双工
+2025年11月 → Manny Mora接任CEO，加速军用市场
+2026年3月 → 正式发布KuKa 8 Series规格
+2026年4月 → 获得ONR三年合同
+2026年中 → 首批原型机交付Bascom Hunter
+2027年 → 全面商用化
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

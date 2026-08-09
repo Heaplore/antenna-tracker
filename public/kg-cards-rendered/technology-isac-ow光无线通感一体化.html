@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISAC-OW光无线通感一体化 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">ISAC-OW光无线通感一体化</h1>
+  <p class="lede">华为6G研究团队在MWC 2026发布的原创技术路线，将光无线通信（可见光+红外光谱）与高精度感知深度融合，在实现超高速通信的同时，完成厘米级定位、三维环境重构和无接触生命体征监测，开辟了6G ISAC从射频向光频谱延伸的新路径。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">ISAC</span><span class="chip brand">通感一体化</span><span class="chip brand">光通信</span><span class="chip brand">太赫兹</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是ISAC-OW</h2>
+    <p>ISAC-OW是华为6G研究团队提出的光无线通感一体化技术路线。其核心思想是：</p>
+<ul>
+<li><strong>频谱扩展</strong>：从传统毫米波/太赫兹（100GHz-300GHz）扩展至光频段（可见光400-800THz + 近红外）</li>
+<li><strong>架构统一</strong>：通信波形与感知波形一体化设计，同一硬件同时承担数据传输和环境感知功能</li>
+<li><strong>多模态感知</strong>：不仅感知距离、速度、角度，还能感知物体材质、生命体征（心跳、呼吸）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 核心技术突破</h2>
+    <p>华为团队在ISAC-OW原型研制中突破了三项核心技术：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2.1 分布式光天线联合检测与传输</h2>
+    <p>传统光通信采用单一路径，ISAC-OW采用分布式光天线阵列：</p>
+<ul>
+<li>多个光发射/接收单元协同工作</li>
+<li>通过相位同步实现空间分集增益</li>
+<li>支持多基站非同步定位（终端采用增强反光面，独立反射各基站来光）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2.2 一体化通信感知架构设计</h2>
+    <p>架构层面实现通信与感知的深度融合：</p>
+<ul>
+<li><strong>波形设计</strong>：采用OFDM-like调制，载波间隔兼顾通信带宽和感知分辨率</li>
+<li><strong>信号处理</strong>：统一接收机同时完成通信解调和感知参数估计</li>
+<li><strong>资源分配</strong>：时频资源在通信与感知间动态共享</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2.3 高精度ToF建模分析</h2>
+    <p>Time of Flight（飞行时间）是实现厘米级定位的关键：</p>
+<ul>
+<li>光频域测量精度远高于射频（光波长~500nm vs 毫米波波长~3mm）</li>
+<li>采用相干检测提升信噪比</li>
+<li>算法层面：压缩感知+层析成像+稀疏孔径处理</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 光频段ISAC的物理优势</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>射频ISAC（毫米波/太赫兹）</th>
+<th>光无线ISAC（ISAC-OW）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>带宽</td>
+<td>数GHz</td>
+<td>数十THz</td>
+</tr>
+<tr>
+<td>定位精度</td>
+<td>厘米级</td>
+<td>毫米级</td>
+</tr>
+<tr>
+<td>抗干扰</td>
+<td>易受射频干扰</td>
+<td>无射频干扰、电磁兼容性好</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>信号可被截获</td>
+<td>视距传输、难被窃听</td>
+</tr>
+<tr>
+<td>覆盖范围</td>
+<td>百米级</td>
+<td>室内十米级</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>较高</td>
+<td>低（LED光源）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>通信性能</h2>
+    <ul>
+<li><strong>速率</strong>：Gbps级（受限于光探测器带宽）</li>
+<li><strong>带宽</strong>：THz量级可用</li>
+<li><strong>调制方式</strong>：OOK/PAM4/OFDM</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>感知性能</h2>
+    <ul>
+<li><strong>距离分辨率</strong>：亚毫米级（受带宽限制：ΔR = c/2B）</li>
+<li><strong>角度分辨率</strong>：取决于阵列孔径</li>
+<li><strong>速度分辨率</strong>：通过FMCW或相位变化检测</li>
+<li><strong>生命体征检测</strong>：通过微多普勒效应检测心跳/呼吸</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 系统架构</h2>
+    <pre><code>┌─────────────────────────────────────────────────────┐
+│                  ISAC-OW 系统架构                    │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ┌─────────┐    光链路    ┌─────────┐              │
+│  │ 基站端  │◄────────────►│ 终端端  │              │
+│  │         │              │         │              │
+│  │ 光发射  │──通信数据──►│ 光探测  │              │
+│  │ 阵列    │              │ 阵列    │              │
+│  │         │──感知回波──►│         │              │
+│  │ 光接收  │◄────────────│ 反光面  │              │
+│  │ 阵列    │              │         │              │
+│  └─────────┘              └─────────┘              │
+│       │                        │                   │
+│       ▼                        ▼                   │
+│  ┌─────────────────────────────────────┐          │
+│  │        联合信号处理引擎              │          │
+│  │  ├─ 通信解调模块                     │          │
+│  │  ├─ 感知参数估计模块                 │          │
+│  │  │   ├─ ToF测距                      │          │
+│  │  │   ├─ 角度估计                     │          │
+│  │  │   └─ 生命体征检测                 │          │
+│  │  └─ 资源调度模块                     │          │
+│  └─────────────────────────────────────┘          │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景一：智慧医疗</h2>
+    <ul>
+<li>无接触生命体征监测（心跳、呼吸）</li>
+<li>患者定位与跌倒检测</li>
+<li>医疗机器人远程操控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景二：工业自动化</h2>
+    <ul>
+<li>高精度定位与导航</li>
+<li>设备状态监测</li>
+<li>人员安全监控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景三：智能家居</h2>
+    <ul>
+<li>手势识别控制</li>
+<li>存在感知（人来灯亮）</li>
+<li>隐私保护（不依赖摄像头）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景四：增强现实/虚拟现实</h2>
+    <ul>
+<li>高精度空间定位</li>
+<li>多用户协同AR</li>
+<li>低延迟交互</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与射频ISAC的场景互补</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方案</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>广域覆盖</td>
+<td>射频ISAC</td>
+<td>穿透性强、覆盖远</td>
+</tr>
+<tr>
+<td>室内高精度</td>
+<td>ISAC-OW</td>
+<td>带宽大、精度更高</td>
+</tr>
+<tr>
+<td>电磁敏感区域</td>
+<td>ISAC-OW</td>
+<td>无射频干扰</td>
+</tr>
+<tr>
+<td>户外定位</td>
+<td>射频ISAC</td>
+<td>视距要求低</td>
+</tr>
+<tr>
+<td>隐私敏感区域</td>
+<td>ISAC-OW</td>
+<td>视距传输、难截获</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 华为</h2>
+    <p><strong>MWC 2026发布</strong>：</p>
+<ul>
+<li>ISAC-OW原型样机，实现通信+定位+感知一体化</li>
+<li>厘米级室内定位精度</li>
+<li>无接触心跳/呼吸监测（准确性与商用智能手表相当）</li>
+<li>关键技术突破：分布式光天线、一体化架构、高精度ToF</li>
+</ul>
+<p><strong>技术路线特点</strong>：</p>
+<ul>
+<li>原创性提出光频段ISAC</li>
+<li>强调"光谱"作为6G新频谱资源</li>
+<li>与太赫兹ISAC（ISAC-THz）形成互补</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 爱立信</h2>
+    <ul>
+<li>将ISAC视为6G重要研究方向</li>
+<li>已在低空经济、无人机领域探索应用</li>
+<li>潜在场景：关键基础设施监控、工业自动化、个人跌倒检测</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 中兴通讯</h2>
+    <ul>
+<li>在U6G频段2000+天线阵子原型中融入ISAC能力</li>
+<li>强调AI驱动的原生6G基站</li>
+<li>与华为形成差异化竞争</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 学术界</h2>
+    <ul>
+<li><strong>东南大学</strong>：崔铁军院士团队在RIS+ISAC融合方向布局深厚</li>
+<li><strong>北京大学</strong>：宋令阳团队在可重构全息超表面方向领先</li>
+<li><strong>电子科技大学</strong>：陈智团队在太赫兹多天线通感融合方向有突破</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 京信通信</h2>
+    <ul>
+<li>主要聚焦天线硬件，在ISAC系统方案方面公开信息较少</li>
+<li>在低空经济天线领域有布局（中标中国移动低空双翼天线试验网）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 短期趋势（1-2年）</h2>
+    <ol>
+<li><strong>光无线ISAC进入标准讨论阶段</strong></li>
+<li>3GPP Rel-19可能启动相关研究项目</li>
+<li>
+<p>国内6G推进组将ISAC-OW纳入技术储备</p>
+</li>
+<li>
+<p><strong>试点场景落地</strong></p>
+</li>
+<li>智慧医疗、工业控制等对定位精度要求高的场景率先应用</li>
+<li>
+<p>与可见光通信（VLC）技术协同发展</p>
+</li>
+<li>
+<p><strong>芯片与器件成熟</strong></p>
+</li>
+<li>高速光探测器、LED阵列成本下降</li>
+<li>光电集成芯片突破</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 中期趋势（3-5年）</h2>
+    <ol>
+<li><strong>与射频ISAC融合</strong></li>
+<li>异构网络中，射频负责广覆盖，光无线负责高精度局部感知</li>
+<li>
+<p>"射频+光"双模ISAC成为主流架构</p>
+</li>
+<li>
+<p><strong>标准化推进</strong></p>
+</li>
+<li>3GPP可能将光无线ISAC纳入6G空口标准</li>
+<li>
+<p>ITU-R可能启动相关研究</p>
+</li>
+<li>
+<p><strong>应用场景扩展</strong></p>
+</li>
+<li>从工业/医疗扩展至消费级应用</li>
+<li>与XR、自动驾驶深度融合</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 长期趋势（5年以上）</h2>
+    <ol>
+<li><strong>太赫兹-光频段融合</strong></li>
+<li>从毫米波→太赫兹→光频段，ISAC频谱持续上移</li>
+<li>
+<p>形成多频段融合感知能力</p>
+</li>
+<li>
+<p><strong>全息通信基础</strong></p>
+</li>
+<li>ISAC-OW的高精度感知能力是全息通信的关键使能技术</li>
+<li>
+<p>实现"所见即所得"的沉浸式通信</p>
+</li>
+<li>
+<p><strong>通感算智一体化</strong></p>
+</li>
+<li>ISAC-OW与边缘计算、AI深度融合</li>
+<li>实现网络自主感知、自主决策、自主优化</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 技术成熟度评估</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>当前状态</th>
+<th>成熟度评级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理论验证</td>
+<td>已完成</td>
+<td>原型验证</td>
+</tr>
+<tr>
+<td>器件成熟度</td>
+<td>光探测器成本高</td>
+<td>小规模商用</td>
+</tr>
+<tr>
+<td>系统集成</td>
+<td>实验室样机</td>
+<td>原型验证</td>
+</tr>
+<tr>
+<td>标准化</td>
+<td>未启动</td>
+<td>实验室</td>
+</tr>
+<tr>
+<td>产业化</td>
+<td>无</td>
+<td>实验室</td>
+</tr>
+</tbody>
+</table>
+<p><strong>综合成熟度</strong>：原型验证阶段，预计2028-2030年进入小规模商用</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 直接关联点</h2>
+    <ol>
+<li><strong>6G技术路线储备</strong></li>
+<li>ISAC-OW是华为在6G ISAC方向的原创技术路线</li>
+<li>
+<p>老大在中兴，了解竞品技术路线对技术预研有参考价值</p>
+</li>
+<li>
+<p><strong>通感一体化天线设计</strong></p>
+</li>
+<li>ISAC-OW的光天线阵列设计与传统相控阵有相似之处</li>
+<li>
+<p>分布式天线架构可为U6G频段天线设计提供新思路</p>
+</li>
+<li>
+<p><strong>频谱规划</strong></p>
+</li>
+<li>ISAC-OW将光频段纳入6G频谱资源</li>
+<li>对老大参与的U6GHz频段规划有启发（频谱持续上移趋势）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 间接关联点</h2>
+    <ol>
+<li><strong>行业趋势把握</strong></li>
+<li>ISAC是6G核心使能技术，华为、爱立信、中兴都在布局</li>
+<li>
+<p>了解竞品技术路线有助于制定差异化竞争策略</p>
+</li>
+<li>
+<p><strong>技术储备方向</strong></p>
+</li>
+<li>光无线ISAC与RIS、全息超表面等技术有交叉</li>
+<li>可关注相关技术的融合创新机会</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 行动建议</h2>
+    <ol>
+<li><strong>关注华为ISAC-OW后续进展</strong></li>
+<li>是否有更多技术细节发布</li>
+<li>
+<p>是否进入标准讨论阶段</p>
+</li>
+<li>
+<p><strong>评估技术可行性</strong></p>
+</li>
+<li>ISAC-OW在室内部署的可行性</li>
+<li>
+<p>与现有5G-A网络的兼容性</p>
+</li>
+<li>
+<p><strong>探索合作机会</strong></p>
+</li>
+<li>与光通信厂商合作的可能性</li>
+<li>在特定场景（如医疗、工业）的应用验证</li>
+</ol>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拓扑太赫兹泄漏波天线-On-Chip-Topological-LWA · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">拓扑太赫兹泄漏波天线-On-Chip-Topological-LWA</h1>
+  <p class="lede">利用拓扑谷光子晶体的受保护边缘态，将硅芯片上原本要&#34;损失&#34;的太赫兹辐射泄漏出来，形成全空间覆盖的高增益天线，无需机械转向部件即可实现75%三维空间覆盖和72 Gbps数据传输，为6G太赫兹通信提供片上集成方案。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">太赫兹</span><span class="chip brand">拓扑光子学</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>技术概念-拓扑太赫兹泄漏波天线-On-Chip-Topological-LWA-20260725</h2>
+    <h1>拓扑太赫兹泄漏波天线（On-Chip Topological Leaky-Wave Antenna）</h1>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心物理原理</h2>
+    <p>传统光子集成电路追求无损耗传输，电磁波被限制在波导中传播而不向外辐射。拓扑太赫兹LWA则利用<strong>锥形辐射（conical radiation）</strong>的泄漏谷光子晶体特性，将受保护的拓扑边缘态和泄漏态统一在单一硅芯片上。</p>
+<p>具体实现方式：</p>
+<ul>
+<li>在硅芯片上刻蚀三角形孔洞阵列，每个重复单元包含两种尺寸的三角形孔洞（99微米和264微米）</li>
+<li>通过不同排列方式改变谷陈列（valley dispersion），控制太赫兹波是在芯片内传播还是泄漏到自由空间</li>
+<li>泄漏的太赫兹波形成锥形波束，沿天线结构逐步辐射出去</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>拓扑保护机制</h2>
+    <p>拓扑谷边缘态依赖于<strong>谷陈列守恒（valley Chern number conservation）</strong>。当两种具有不同谷陈列数的光子晶体接触时，界面处必然出现受保护的单向边缘态。这种保护使得太赫兹波即使遇到尖锐拐角也不会背向散射，实现了鲁棒的波导传输。</p>
+<p>关键区别在于：传统谷光子晶体把辐射泄漏视为需要消除的"缺陷"；而拓扑LWA则通过能带工程将边缘态的色散曲线设计到快波区（fast-wave region），使边缘态天然处于光锥之上，从而可控地泄漏辐射。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>实验数据（Nature Photonics 2026）</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>单分支LWA</th>
+<th>三分支LWA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极角扫描范围</td>
+<td>120°</td>
+<td>75% 三维立体角</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>15 dBi</td>
+<td>—</td>
+</tr>
+<tr>
+<td>聚合数据速率</td>
+<td>72 Gbps（3链路FDD）</td>
+<td>—</td>
+</tr>
+<tr>
+<td>双向传输速率</td>
+<td>发送24 Gbps + HD视频流</td>
+<td>—</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>太赫兹波段</td>
+<td>太赫兹波段</td>
+</tr>
+<tr>
+<td>基底材料</td>
+<td>硅（Si）</td>
+<td>硅（Si）</td>
+</tr>
+<tr>
+<td>孔洞尺寸</td>
+<td>99μm / 264μm 三角形</td>
+<td>同左</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键技术指标</h2>
+    <ul>
+<li><strong>频率分复用（FDD）</strong>：3条太赫兹无线链路，每条间隔120°，共同实现全空间覆盖</li>
+<li><strong>时间反转对称性</strong>：同一芯片可同时接收高清视频流和发送片上信号（24 Gbps双向）</li>
+<li><strong>覆盖范围</strong>：相比传统太赫兹天线提升30倍以上</li>
+<li><strong>无移动部件</strong>：全部波束控制在芯片几何结构中实现</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术路线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>方案</th>
+<th>覆盖范围</th>
+<th>数据速率</th>
+<th>复杂度</th>
+<th>机械部件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拓扑LWA（本研究）</td>
+<td>75% 3D立体角</td>
+<td>72 Gbps</td>
+<td>低</td>
+<td>无</td>
+</tr>
+<tr>
+<td>传统相控阵</td>
+<td>依赖单元数</td>
+<td>高</td>
+<td>高</td>
+<td>无（但需复杂馈电网络）</td>
+</tr>
+<tr>
+<td>机械转向天线</td>
+<td>360°</td>
+<td>中等</td>
+<td>高</td>
+<td>有</td>
+</tr>
+<tr>
+<td>透镜天线</td>
+<td>窄波束</td>
+<td>高</td>
+<td>中</td>
+<td>无</td>
+</tr>
+<tr>
+<td>太赫兹光纤耦合</td>
+<td>窄波束</td>
+<td>极高</td>
+<td>极高</td>
+<td>部分有</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>拓扑光子学基础</h2>
+    <p>拓扑谷光子晶体的实现依赖于<strong>破缺反转对称性（broken inversion symmetry）</strong>。通过在二维周期性介电结构中引入两种不同尺寸的孔洞，形成类似石墨烯的蜂窝状能带结构。当两种不同"谷取向"的光子晶体拼接时，界面处的谷陈列数差异导致拓扑保护的边缘态出现。</p>
+<p>这一物理图像直接借用量子霍尔效应中的陈数（Chern number）概念，但谷陈列系统不需要外加磁场，因此可在室温下实现，适合太赫兹频段的实际应用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>研究团队与机构</h2>
+    <ul>
+<li><strong>第一作者</strong>：王文艺（Wenhao Wang），西湖大学助理教授，论文期间为南加大博士后/研究员</li>
+<li><strong>通讯作者</strong>：Ranjan Singh，美国圣母大学（Notre Dame）电气工程系教授</li>
+<li><strong>合作机构</strong>：南洋理工大学（NTU Singapore）、法国里尔大学（University of Lille）</li>
+<li><strong>发表期刊</strong>：Nature Photonics，2026年1月12日在线发表（DOI: 10.1038/s41566-025-01825-8）</li>
+<li><strong>资助方</strong>：新加坡国家研究基金会（NRF）、法国国家研究署（ANR）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>学术影响</h2>
+    <p>Nature Photonics 同期发表了题为"Topological antennas empower communications"的评论文章（Shi, Wang &amp; Lan, Xi'an Jiaotong University / UCL，2026年3月），将这项工作置于更广阔的拓扑天线发展脉络中，指出谷陈列工程实现了引导态和泄漏态之间的无缝过渡。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业关联</h2>
+    <ul>
+<li><strong>6G NTN（非地面网络）</strong>：卫星-to-chip太赫兹链路需要宽覆盖、低功耗天线</li>
+<li><strong>太赫兹WiFi（TeraFi）</strong>：芯片级全空间覆盖可简化室内接入点部署</li>
+<li><strong>TeDAR（太赫兹探测与测距）</strong>：高分辨率成像需要宽角扫描能力</li>
+<li><strong>芯片间通信（Chip-to-Chip）</strong>：多链路并行传输满足数据中心内部互联需求</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li>拓扑LWA将从实验室走向原型验证，重点解决与现有太赫兹收发器的集成问题</li>
+<li>预计会出现更多基于不同拓扑保护机制（如量子自旋霍尔等效、高阶拓扑绝缘体）的太赫兹天线变体</li>
+<li>国内高校（清华、西交、复旦等）可能跟进谷光子学太赫兹方向</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li>如果Singh团队的目标实现——将整个太赫兹通信系统（发射、接收、信号处理）集成到单一芯片上——将颠覆太赫兹器件的形态</li>
+<li>与之前学的300GHz CMOS相控阵（东京科学大学）和RTD太赫兹收发器（大阪大学）形成互补：CMOS擅长电子部分，InP/RTD擅长高频产生，拓扑LWA擅长高效辐射</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5年以上）</h2>
+    <ul>
+<li>拓扑光子学可能在太赫兹领域复制其在近红外通信中的成功——低损耗、抗缺陷、紧凑集成</li>
+<li>与RIS（智能超表面）结合：拓扑保护的边缘态可用于构建更高效的RIS单元间耦合通道</li>
+<li>对老大的参考价值：拓扑天线提供了一种全新的天线设计范式——从几何结构本身编码电磁功能，这与Cadence AlphaGo逆拓扑优化框架（已入库笔记#15）形成有趣的呼应：一个用AI找最优几何，一个用拓扑物理保证几何的鲁棒性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、与老大的关联</h2>
+    <p>这项技术对老大工作的几个潜在价值点：</p>
+<ol>
+<li><strong>6G太赫兹频段方案储备</strong>：老大关注6G架构，拓扑LWA是太赫兹通信从"实验室演示"走向"芯片集成"的关键一步，代表了不同于传统相控阵的另一条技术路线</li>
+<li><strong>与已有笔记的知识关联</strong>：</li>
+<li>560GHz光微梳太赫兹（笔记#124）→ 光子-无线融合回传</li>
+<li>300GHz CMOS相控阵（笔记#125）→ 电子集成方案</li>
+<li>拓扑LWA → 光子集成方案</li>
+<li>三条太赫兹路线并列，构成完整的太赫兹技术全景</li>
+<li><strong>RIS方向的新视角</strong>：拓扑保护的边缘态可用于RIS单元间的低损耗信号路由，可能与STAR-RIS、Active BD-RIS等方向交叉</li>
+<li><strong>产业信号</strong>：Notre Dame + NTU + 里尔大学的跨国合作模式，以及新加坡NRF的资助力度，说明这个方向正在获得系统性投入</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>W. Wang et al., "On-chip topological leaky-wave antenna for full-space terahertz wireless connectivity," Nature Photonics, 2026. DOI: 10.1038/s41566-025-01825-8</li>
+<li>H. Shi, H. Wang &amp; Z. Lan, "Topological antennas empower communications," Nature Photonics 20, 245–246 (2026)</li>
+<li>IEEE Spectrum, "Leaky 6G Chip Tech Beats Narrow Terahertz Beam Constraints," Feb 2026</li>
+<li>Phys.org, "Topological antenna could pave the way for 6G networks," Feb 2026</li>
+<li>Notre Dame EE, "Using geometry, researchers coax light into 6G terahertz super-antenna," Jan 2026</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

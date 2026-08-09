@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机直连卫星星载全数字相控阵天线 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">手机直连卫星星载全数字相控阵天线</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">相控阵</span><span class="chip brand">手机直连卫星</span><span class="chip brand">星载天线</span><span class="chip brand">6G</span><span class="chip brand">NTN</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>手机直连卫星（Direct-to-Phone/NTN）是6G空天地一体化网络的核心使能技术。2026年，工信部等七部门联合发布《首台(套)重大技术装备推广应用指导目录(2024年版)》，明确要求手机直连通信卫星采用全数字相控阵天线技术，且波束数量不少于16个。这一政策标志着中国卫星互联网终端天线技术路线正式锁定，直接推动星载相控阵天线从"可选"变为"必选"。</p>
+<p>星载相控阵天线是手机直连卫星系统的核心载荷，直接决定卫星覆盖能力、链路质量和系统总容量。普通手机终端发射功率有限（典型23-26dBm），信号传送数百至上千公里到达卫星时已极其微弱，必须依靠大型相控阵天线对信号进行增强。从技术路线看，5G NTN被业界视为最先进技术路线，国内中国信科、银河航天、程星通信等厂商加速布局。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心技术/原理</h2>
+    <p><strong>全数字相控阵（Fully Digital Phased Array）</strong></p>
+<p>全数字相控阵与传统有源相控阵（AESA）的核心区别在于数字波束赋形（DBF）的位置和粒度。传统AESA通常在射频前端进行模拟波束控制，移相器和衰减器构成模拟波束形成网络。全数字相控阵将ADC/DAC下放到每个天线单元或子阵级，实现全数字域波束形成：</p>
+<ul>
+<li><strong>单元级DBF</strong>：每个天线单元配备独立的收发芯片和AD/DA，数字域直接控制每个单元的幅相，波束赋形精度最高，可生成同时独立的多波束</li>
+<li><strong>子阵级DBF</strong>：若干单元组成子阵，每个子阵配备一套收发芯片，子阵间进行数字波束形成，是精度与成本的折中方案</li>
+<li><strong>后级DBF+子阵级DBF两级架构</strong>：银河航天第二代产品采用此架构，兼顾性能和功耗</li>
+</ul>
+<p><strong>关键技术指标</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>银河航天二代产品</th>
+<th>行业领先水平</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束数量</td>
+<td>128波束</td>
+<td>≥16（工信部强制要求）</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>L+S双频段</td>
+<td>S/C/Ku/Ka多频段</td>
+</tr>
+<tr>
+<td>整阵功耗</td>
+<td>较一代降低20%</td>
+<td>持续优化中</td>
+</tr>
+<tr>
+<td>射频前端</td>
+<td>低压GaN</td>
+<td>GaN/CMOS混合</td>
+</tr>
+<tr>
+<td>芯片化程度</td>
+<td>ASIC化</td>
+<td>持续推进</td>
+</tr>
+</tbody>
+</table>
+<p><strong>玻璃基全息数字相控阵（南京信息工程大学/中网卫星）</strong></p>
+<p>2026年5月发布的突破性技术，将天线"印"在玻璃基板上，利用国内成熟的面板工艺实现低成本量产：</p>
+<ul>
+<li><strong>技术原理</strong>：全息数字控制技术实现波束自动对准卫星，无需机械转动，毫秒级波束切换</li>
+<li><strong>成本优势</strong>：成本只有传统相控阵的1/10，有望降至千元级终端</li>
+<li><strong>形态优势</strong>：薄如贴膜、可弯曲，可贴在汽车玻璃、飞机舷窗、无人机机身</li>
+<li><strong>产能优势</strong>：利用全球70%面板产能在中国的产线，非显示类产品</li>
+</ul>
+<p><strong>"3D微波"技术（程星通信）</strong></p>
+<p>程星通信首创的三维功率合成架构，将功率合成从"平面电路"升维至"三维空间场"：</p>
+<ul>
+<li>在波导的三维空间内构建并行分布的天线与芯片阵列</li>
+<li>解决传统二维平面合成损耗随路数增加而显著上升的瓶颈</li>
+<li>已推出SS频大型星载数字相控阵、Ka 8波束载荷相控阵</li>
+<li>具备从芯片、天线、模块到整机的完整研发链和供应链</li>
+</ul>
+<p><strong>5G NTN体制下的关键技术</strong></p>
+<p>3GPP R17形成第一个透明转发NTN标准，R18持续增强，R19支持再生处理模式（full gNB上星）。手机直连卫星需突破：</p>
+<ol>
+<li><strong>跳波束技术</strong>：卫星使用更小的波位划分提升单位面积信号功率，单星支持成千上万个波位，按时分跳变服务</li>
+<li><strong>覆盖增强</strong>：控制波束（宽波束同步接入）+业务波束（窄波束按需服务）分离；冗余传输获3dB链路增益/重传</li>
+<li><strong>容量增强</strong>：正交覆盖码（OCC）实现时隙级/符号间扩容</li>
+<li><strong>星上处理模式</strong>：R19优先完成full gNB上星，后续推进CU-DU分离、UPF上星</li>
+<li><strong>IoT TDD</strong>：R19引入时分双工，上下行共享频谱</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>行业应用</h2>
+    <p><strong>低轨卫星互联网星座</strong></p>
+<ul>
+<li>SpaceX星链已发射9000+颗卫星，900万用户（"星猫"宽带接入）</li>
+<li>中国2025年底向ITU提交新增20.3万颗卫星申请，规模超星链</li>
+<li>银河航天、格科微电子、天银光电等加速组网</li>
+</ul>
+<p><strong>手机直连卫星公众通信</strong></p>
+<ul>
+<li>美国AST SpaceMobile BlueWalker 3卫星：2368阵元、64㎡展开面积、支持10Mbps+峰值速率</li>
+<li>中国电信2023年9月率先推出手机直连卫星业务，华为/荣耀/小米/OPPO均已量产支持手机</li>
+<li>美国SpaceX联合T-Mobile于2025年10月正式商用，支持文本/语音/数据</li>
+</ul>
+<p><strong>动中通场景</strong></p>
+<ul>
+<li>车载：汽车玻璃贴附玻璃基相控阵，毫秒级多星跟踪</li>
+<li>船载：远洋渔业、海事通信，全固态免维护</li>
+<li>机载：无人机全域联网，低空经济基础设施</li>
+<li>单兵：应急救援、偏远地区通信</li>
+</ul>
+<p><strong>标准与政策驱动</strong></p>
+<ul>
+<li>工信部七部门：手机直连通信卫星必须采用全数字相控阵，波束≥16</li>
+<li>T/CS 334-2026《全数字相控阵天线阵面系统规范》：2026年7月10日实施</li>
+<li>3GPP R19：NR NTN再生处理模式标准化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>竞品/同行动态</h2>
+    <p><strong>银河航天（中国）</strong>
+- MWC 2026上海（2026.6）首次公开展示第二代手机直连相控阵天线
+- 国内首款128波束ASIC化星载相控阵，L+S双频段
+- 整阵功耗较一代降低20%，已完成两代全数字相控阵迭代
+- 同步布局星间激光通信、载荷一体化</p>
+<p><strong>程星通信（中国）</strong>
+- 首创"3D微波"三维功率合成技术，技术指标国际领先
+- SS频大型星载数字相控阵、Ka 8波束载荷相控阵量产
+- 广州开发区2.7万㎡生产基地投产，巨型紧缩场微波暗室
+- 已实现全数字化卫星直连手机相控阵功能突破</p>
+<p><strong>南京信息工程大学+中网卫星（中国）</strong>
+- 玻璃基全息数字相控阵，成本为传统相控阵1/10
+- 可弯曲、耐高温、抗振动，贴附式部署
+- 2025年11月原理验证成功，已进入工程化与小批量试产
+- 拥有完全自主知识产权，打破国外特种材料垄断</p>
+<p><strong>AST SpaceMobile/SpaceX（美国）</strong>
+- ASTS BlueWalker 3：2368阵元、64㎡翼阵一体相控阵
+- SpaceX星链已联合T-Mobile商用，600+颗卫星在轨
+- 技术路线：基于现有地面移动通信体制（"旧手机、新卫星"）</p>
+<p><strong>华为（中国）</strong>
+- 手机直连卫星业务合作商，荣耀/ Mate系列已量产
+- GigaMIMO方案延续至6G星地融合
+- 6G独立双极化RIS单元设计专利布局</p>
+<p><strong>京信通信（中国）</strong>
+- MWC 2026展示Helifeed绿色天线3.0，辐射效率/波束效率突破
+- 2026年6月再夺中国移动绿色多频段基站天线补充采购榜首
+- 毫米波和6G天线领域战略部署</p>
+<p><strong>通宇通讯（中国）</strong>
+- 卫星地面终端波束自适应通信天线技术研究项目
+- 5G时代率先推出AFU（天线滤波器一体化）
+- 已在毫米波和6G天线领域进行战略预研</p>
+<p><strong>中国信科陈山枝团队</strong>
+- 2026年1月发表《手机直连卫星系统及其星载相控阵天线分析与建议》
+- 提出"5G体制兼容、6G系统融合"技术发展路线
+- 系统级多目标优化分析星载相控阵天线发展策略</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势判断</h2>
+    <ol>
+<li>
+<p><strong>政策驱动加速产业化</strong>：工信部强制要求全数字相控阵+≥16波束，T/CS 334-2026标准实施，将直接拉动星载相控阵天线市场需求。估计2027年后手机直连卫星终端大规模普及，相控阵天线从"卫星载荷"变为"产业链核心部件"。</p>
+</li>
+<li>
+<p><strong>成本下降是规模化关键</strong>：玻璃基全息技术（1/10成本）、ASIC化（银河航天）、3D微波三维合成（程星通信）三条技术路线并行，目标都是将终端成本从数万元降至千元级。成本拐点预计2027-2028年出现。</p>
+</li>
+<li>
+<p><strong>多波束+低功耗是性能竞争焦点</strong>：128波束（银河航天）vs 16波束（工信部底线），波束数量直接决定卫星覆盖容量。低功耗（GaN射频前端、低功耗收发芯片）决定卫星寿命和成本。</p>
+</li>
+<li>
+<p><strong>5G NTN是主流路线</strong>：中国信科陈山枝团队分析认为，5G NTN体制（"新手机、新卫星"）相比"旧手机、新卫星"（ASTS路线）在链路预算、卫星复杂度、系统容量方面均有优势。预计2027年后手机大比例支持5G NTN。</p>
+</li>
+<li>
+<p><strong>玻璃基可弯曲天线是形态革命</strong>：贴附式部署（汽车玻璃、飞机舷窗、无人机机身）将打开全新应用场景，从"专用终端"变为"无处不在的通信能力"。</p>
+</li>
+<li>
+<p><strong>AI驱动优化</strong>：星地链路传输效率与终端能耗的动态平衡需要AI算法优化（如银河航天专利中的粒子群优化功率+载波频率联合优化），AI+相控阵融合是未来方向。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与老大工作的关联</h2>
+    <ol>
+<li>
+<p><strong>相控阵技术纵深</strong>：老大深耕相控阵、Massive MIMO、XL-MIMO方向，手机直连卫星星载相控阵是相控阵技术在卫星载荷场景的最新应用，技术原理相通（数字波束赋形、多波束形成、阵列信号处理），可直接复用已有知识体系。</p>
+</li>
+<li>
+<p><strong>6G星地融合</strong>：6G空天地一体化是老大关注的核心方向之一。手机直连卫星是6G NTN的关键使能技术，与RIS/超表面、全息超表面RHS等技术形成技术谱系，建议纳入6G技术全景图。</p>
+</li>
+<li>
+<p><strong>产业链机会</strong>：星载相控阵天线产业链涉及芯片（GaN/CMOS）、阵列设计、测试校准、封装集成等多个环节，与老大在基站天线、AAU、Massive MIMO领域的经验高度相关，存在技术迁移和产业链合作机会。</p>
+</li>
+<li>
+<p><strong>政策风向标</strong>：工信部强制要求是全数字相控阵+≥16波束，这一政策信号值得持续跟踪，后续可能影响地面基站天线技术路线选择。</p>
+</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

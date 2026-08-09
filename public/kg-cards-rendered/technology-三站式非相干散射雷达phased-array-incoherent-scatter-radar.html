@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三站式非相干散射雷达Phased-Array-Incoherent-Scatter-Radar · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">三站式非相干散射雷达Phased-Array-Incoherent-Scatter-Radar</h1>
+  <p class="lede">三站式非相干散射雷达是世界首套相控阵体制的多站式电离层探测系统，通过三亚发射站与儋州、文昌两接收站协同工作，实现对低纬电离层三维成像与等离子体漂移速度矢量观测，2026年7月首次在电离层中证实近70年理论预言的电子伯恩斯坦波。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">相控阵</span><span class="chip brand">非相干散射雷达</span><span class="chip brand">电离层探测</span><span class="chip brand">子午工程</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 非相干散射原理</h2>
+    <p>非相干散射雷达（Incoherent Scatter Radar, ISR）是探测电离层的最强地基工具。其原理是：向电离层发射大功率电磁波，接收自由电子对电磁波的汤姆逊散射回波。</p>
+<ul>
+<li><strong>散射机制</strong>：入射电磁波使电离层电子产生受迫振荡，电子热运动会引起散射波的多普勒频移，频谱展宽与电子温度相关，回波功率与电子密度成正比</li>
+<li><strong>关键优势</strong>：可直接反演电子密度、电子温度、离子温度、离子成分、漂移速度矢量等全参量，无需预设大气模型</li>
+<li><strong>技术门槛</strong>：散射信号极其微弱（灵敏度相当于"在万人呐喊的体育场里听到身边蚊子的声音"）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 三站式体制</h2>
+    <p>传统单站ISR只能测量沿波束方向的径向速度；三站式体制通过一发三收实现矢量测量：</p>
+<ul>
+<li><strong>三亚主站</strong>：8320个天线单元，发射+接收（峰值功率&gt;4MW，噪声温度&lt;120K）</li>
+<li><strong>儋州辅站</strong>：4096个天线单元，接收</li>
+<li><strong>文昌辅站</strong>：4096个天线单元，接收</li>
+<li><strong>工作方式</strong>：三亚发射，三亚/儋州/文昌同时接收，通过三路回波的相位差计算等离子体漂移速度矢量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 最新科学突破</h2>
+    <p>2026年7月24日，首席科学家乐新安及团队发表成果：</p>
+<ul>
+<li>首次在地球电离层中探测到<strong>电子伯恩斯坦波</strong>（Electron Bernstein Wave）</li>
+<li>证实了1958年物理学家伯恩斯坦的理论预言</li>
+<li>观测到100-1000公里范围内高达7阶的等离子体线分裂结构</li>
+<li>这些谱线可作为"标尺"，反演电子密度和垂直于地磁场的电子温度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 关键参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>430MHz~450MHz</td>
+</tr>
+<tr>
+<td>三亚站天线单元数</td>
+<td>8320个</td>
+</tr>
+<tr>
+<td>儋州/文昌站天线单元数</td>
+<td>各4096个</td>
+</tr>
+<tr>
+<td>峰值发射功率</td>
+<td>&gt;4MW</td>
+</tr>
+<tr>
+<td>噪声温度</td>
+<td>&lt;120K</td>
+</tr>
+<tr>
+<td>探测高度范围</td>
+<td>100-2000km</td>
+</tr>
+<tr>
+<td>波束扫描能力</td>
+<td>快速扫描，三维成像</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 核心技术特点</h2>
+    <ul>
+<li><strong>模块化有源相控阵体制</strong>：每个子阵独立控制，可快速切换波束方向</li>
+<li><strong>分布式全固态发射</strong>：取代传统大功率真空管，可靠性高、维护成本低</li>
+<li><strong>数字接收和波束合成</strong>：多站回波在数字域进行相位对齐和波束形成</li>
+<li><strong>宽带接收机</strong>：可记录完整的等离子体线分裂结构（多普勒谱分辨率要求极高）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 电子伯恩斯坦波探测条件</h2>
+    <p>要探测电子伯恩斯坦波，必须同时满足三个条件：</p>
+<ol>
+<li><strong>高灵敏度</strong>：等离子体线回波极其微弱</li>
+<li><strong>接近垂直地磁场观测</strong>：海南低纬区位优势，可实现近乎垂直地磁场的波束指向</li>
+<li><strong>足够带宽</strong>：接收机需记录完整谱线结构</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 技术体制演进</h2>
+    <table>
+<thead>
+<tr>
+<th>代际</th>
+<th>代表设备</th>
+<th>技术特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一代</td>
+<td>传统碟形天线ISR（如美国Arecibo）</td>
+<td>大功率集中功放，口径大但笨重</td>
+</tr>
+<tr>
+<td>第二代</td>
+<td>分布式相控阵ISR（如EISCAT_3D在建）</td>
+<td>模块化相控阵，灵活波束控制</td>
+</tr>
+<tr>
+<td><strong>中国方案</strong></td>
+<td><strong>三站式非相干散射雷达</strong></td>
+<td><strong>世界首套相控阵体制多站式ISR</strong></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与EISCAT_3D对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>EISCAT_3D（欧洲在建）</th>
+<th>中国三站式雷达</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站点数量</td>
+<td>5站（挪威、瑞典、芬兰、英国、格陵兰）</td>
+<td>3站（三亚、儋州、文昌）</td>
+</tr>
+<tr>
+<td>相控阵体制</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>多站式矢量测量</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>首发时间</td>
+<td>建设中</td>
+<td>2023年建成</td>
+</tr>
+<tr>
+<td>低纬覆盖</td>
+<td>有限（高纬为主）</td>
+<td>优秀（海南低纬独特区位）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 科学探测</h2>
+    <ul>
+<li><strong>电离层三维成像</strong>：100-2000km高度电子密度、温度、漂移速度</li>
+<li><strong>空间天气预警</strong>：监测电离层暴、等离子体泡、赤道异常等</li>
+<li><strong>基础物理研究</strong>：等离子体线谱分析、电子伯恩斯坦波等</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 应用价值</h2>
+    <ul>
+<li><strong>卫星通信</strong>：电离层扰动影响卫星信号，需实时监测</li>
+<li><strong>导航定位</strong>：GPS/BDS信号穿越电离层产生延迟，需校正</li>
+<li><strong>空间碎片监测</strong>：可间接探测火箭尾迹、空间碎片电离层效应</li>
+<li><strong>月球探测</strong>：雷达回波可分析月球表面电离层效应</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 国家战略意义</h2>
+    <ul>
+<li>填补我国在低纬电离层多参量探测的空白</li>
+<li>为国际子午圈大科学计划提供关键支撑</li>
+<li>是"子午工程"二期31个台站中最南端、性能最强的骨干设备</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 雷达性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值/描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线增益</td>
+<td>高增益（三亚站）</td>
+</tr>
+<tr>
+<td>波束指向精度</td>
+<td>高（快速扫描能力）</td>
+</tr>
+<tr>
+<td>时间分辨率</td>
+<td>分钟级（适合监测动态过程）</td>
+</tr>
+<tr>
+<td>高度分辨率</td>
+<td>10-20km（适合分层结构分析）</td>
+</tr>
+<tr>
+<td>探测灵敏度</td>
+<td>可探测电子密度&lt;10^10 m^-3</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 科学产出指标</h2>
+    <ul>
+<li>2021-2024年发表论文40余篇</li>
+<li>相关专利和软著10项</li>
+<li>获中国地球物理学会科技进步一等奖（2022）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 技术挑战</h2>
+    <ul>
+<li><strong>信号极弱</strong>：散射回波功率比发射功率低十几个数量级，需要极高灵敏度的接收系统</li>
+<li><strong>多站同步</strong>：三亚发射与儋州/文昌接收需严格时间同步（纳秒级）</li>
+<li><strong>波束对准</strong>：三站波束需精确对准同一电离层体积，几何约束严格</li>
+<li><strong>低纬特殊性</strong>：海南低纬地区地磁场近乎垂直，观测几何独特但也带来校准难题</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 运行挑战</h2>
+    <ul>
+<li><strong>环境恶劣</strong>：三亚高温高湿，电子设备可靠性要求高</li>
+<li><strong>日常巡检</strong>：7位台站职工轮班值守，每4小时巡检一次</li>
+<li><strong>维护成本</strong>：80%以上开机率需大量维护人力</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>1958年</strong>：美国物理学家戈登提出非相干散射理论，鲍尔斯实验观测成功</li>
+<li><strong>1960-1971年</strong>：美国建成Jicamarca、Arecibo、Millstone Hill、Sondrestrom四大ISR</li>
+<li><strong>1970年代</strong>：欧洲建成EISCAT（传统体制多站式）</li>
+<li><strong>2012年</strong>：中国云南曲靖建成首台非相干散射雷达（500MHz碟形天线，第一代）</li>
+<li><strong>2015-2020年</strong>：中科院地质与地球物理研究所建设三亚相控阵ISR一期</li>
+<li><strong>2019年</strong>：子午工程二期启动，三亚站规模扩大1倍，新建儋州、文昌接收站</li>
+<li><strong>2023年</strong>：三站式系统建成并通过总体验收，中国成为第三个拥有相控阵ISR的国家</li>
+<li><strong>2026年7月24日</strong>：首次证实电离层电子伯恩斯坦波，成果发表</li>
+</ul>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

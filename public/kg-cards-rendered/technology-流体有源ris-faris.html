@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流体有源RIS-FARIS · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">流体有源RIS-FARIS</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">智能超表面</span><span class="chip brand">6G</span><span class="chip brand">FARIS</span><span class="chip brand">流体天线</span><span class="chip brand">Active RIS</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p><strong>FARIS（Fluid-Active RIS）</strong> 是 RIS 研究的最新前沿概念，首次由韩国外国语大学洪柏贤于2025年12月在arXiv上提出。该架构创新性地将<strong>流体天线系统（FAS）的空间自由度</strong>与<strong>有源RIS的信号放大能力</strong>深度融合，通过"流体端口重定位+每端口主动放大"的双重自由度设计，突破了传统固定结构RIS在空间自适应和路径损耗补偿上的根本性瓶颈。</p>
+<p>FARIS的核心思想是：每个选中的流体活性单元不仅能通过放大器补偿乘性衰落，还能在可用孔径内自由移动至空间最优位置，实现"在哪里放大"和"放大多少"的联合优化。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 双重自由度设计</h2>
+    <p>FARIS同时具备两种核心自由度：</p>
+<p><strong>（1）空间流动性（Fluid Port Repositioning）</strong></p>
+<ul>
+<li>每个流体单元可在其子区域内自由移动</li>
+<li>通过扫描多个候选端口位置，选择信道条件最优的空间位置</li>
+<li>无需增加阵列规模即可获取额外的空间自由度</li>
+</ul>
+<p><strong>（2）主动放大（Per-Element Active Amplification）</strong></p>
+<ul>
+<li>每个选中单元集成微型放大器，提供可控增益</li>
+<li>有效补偿BS→RIS和RIS→UE两段信道的乘性路径损耗</li>
+<li>通过直流偏置功率为放大器供电</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 信号模型与功率约束</h2>
+    <p>FARIS的接收信号模型为：</p>
+<p>$$y = \sqrt{P_t} \mathbf{h}_{r}^H \mathbf{\Phi}(\mathbf{p}) \mathbf{G}(\mathbf{p}) \mathbf{x} + n$$</p>
+<p>其中：</p>
+<ul>
+<li>$\mathbf{p}$ 是流体单元的位置向量</li>
+<li>$\mathbf{\Phi}(\mathbf{p})$ 是包含增益和相位的反射矩阵</li>
+<li>$\mathbf{G}(\mathbf{p})$ 是考虑空间位置变化的BS-RIS信道</li>
+</ul>
+<p><strong>功率消耗模型</strong>包含两部分：</p>
+<ul>
+<li>逻辑控制/切换功率：端口选择与移动消耗的功率</li>
+<li>直流偏置功率：放大器运行所需的直流功耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 交替优化框架（AO）</h2>
+    <p>求解FARIS的遍历速率最大化问题采用交替优化框架：</p>
+<p><strong>步骤1</strong>：固定位置，优化放大-反射向量
+- 使用水填充算法优化功率分配
+- 闭式解更新相位和增益参数</p>
+<p><strong>步骤2</strong>：固定放大-反射参数，优化端口位置
+- 在候选端口集合中搜索最优空间位置
+- 利用信道状态信息选择最佳端口</p>
+<p><strong>迭代收敛</strong>：交替优化保证遍历速率单调递增，最终收敛至局部最优解。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 与传统RIS的对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>被动RIS</th>
+<th>有源ORIS</th>
+<th>FARIS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空间自由度</td>
+<td>固定位置</td>
+<td>固定位置</td>
+<td>可移动</td>
+</tr>
+<tr>
+<td>放大能力</td>
+<td>无</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>乘性衰落补偿</td>
+<td>无</td>
+<td>部分</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>硬件复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>&lt;10W</td>
+<td>50-200W</td>
+<td>更高</td>
+</tr>
+<tr>
+<td>空间多样性</td>
+<td>无</td>
+<td>有限</td>
+<td>丰富</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G高频段覆盖增强</h2>
+    <p>FARIS在毫米波和太赫兹频段价值显著：</p>
+<ul>
+<li>高频段传播损耗极高（自由空间损耗与频率平方成正比）</li>
+<li>流体单元可移动至信道最优位置，最大化路径增益</li>
+<li>主动放大补偿乘性衰落，显著提升链路预算</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 室内深度覆盖</h2>
+    <ul>
+<li>流体天线可部署于天花板的柔性载体上</li>
+<li>根据用户位置动态调整，实现个性化覆盖</li>
+<li>放大器补偿信号穿透损耗，提升室内信噪比</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 卫星互联网增强</h2>
+    <ul>
+<li>低轨卫星高速移动导致传统波束跟踪困难</li>
+<li>FARIS可动态调整端口位置，跟踪卫星信号</li>
+<li>放大能力弥补长距离传输损耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 车联网V2X</h2>
+    <ul>
+<li>道路边缘部署柔性FARIS面板</li>
+<li>根据车辆位置动态调整覆盖</li>
+<li>放大能力应对快速变化的信道条件</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>学术研究（2025-2026）</h2>
+    <table>
+<thead>
+<tr>
+<th>论文</th>
+<th>作者/机构</th>
+<th>核心贡献</th>
+<th>时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arXiv:2512.22479</td>
+<td>Hong-Bae Jeon（韩国外国语大学）</td>
+<td>FARIS概念首次提出，交替优化框架</td>
+<td>2025-12</td>
+</tr>
+<tr>
+<td>arXiv:2603.13861</td>
+<td>Liverpool+HKUST+Imperial</td>
+<td>Active BD-RIS建模</td>
+<td>2026-03</td>
+</tr>
+<tr>
+<td>arXiv:2601.22724</td>
+<td>Koutsonas+Rui Zhang等</td>
+<td>SORIS自组织架构</td>
+<td>2026-01</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键研究团队</strong>：</p>
+<ul>
+<li><strong>韩国外国语大学Hong-Bae Jeon团队</strong>：FARIS概念提出者</li>
+<li><strong>Imperial College Bruno Clerckx团队</strong>：RIS理论奠基，BD-RIS先驱</li>
+<li><strong>HKUST广州香港科技大学</strong>：Active RIS系统级优化</li>
+<li><strong>新加坡国立大学Rui Zhang</strong>：通信理论与优化专家</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业界动态</h2>
+    <ul>
+<li><strong>中兴通讯</strong>：RIS 2.0动态智能超表面已外场验证，未提及FARIS或流体天线</li>
+<li><strong>华为</strong>：RIS专利布局激进（如US20250096852A1），但未见流体天线相关专利</li>
+<li><strong>清华大学</strong>：戴玲龙团队专注Active RIS和SC-RIS，无流体方向</li>
+<li><strong>3GPP Rel-21</strong>：已启动6G RIS标准化研究，但未涉及流体天线</li>
+</ul>
+<p><strong>判断</strong>：FARIS处于纯学术研究阶段，产业界尚无明确布局。从理论到产品预计需要3-5年。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 技术演进三阶段</h2>
+    <pre><code>RIS 1.0（被动反射）→ RIS 2.0（有源放大）→ RIS 3.0（流体智能）
+       ↓                  ↓                  ↓
+  乘性衰落严重        放大补偿损耗         空间+放大双重优化
+  固定结构           固定位置             可移动部署
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 三大挑战</h2>
+    <p><strong>硬件复杂度</strong>：</p>
+<ul>
+<li>流体机制需要微机电系统（MEMS）或柔性电子技术</li>
+<li>大量移动部件增加故障率和维护成本</li>
+</ul>
+<p><strong>信道估计复杂度</strong>：</p>
+<ul>
+<li>空间位置是连续变量，信道估计自由度大幅增加</li>
+<li>需要联合估计位置、增益、相位，训练开销显著</li>
+</ul>
+<p><strong>标准化空白</strong>：</p>
+<ul>
+<li>3GPP尚未将流体天线纳入6G标准讨论</li>
+<li>缺乏统一的性能评估基准和接口规范</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 商业化路径预判</h2>
+    <ul>
+<li><strong>短期（1-2年）</strong>：学术研究爆发期，可能出现多个团队竞争性提出改进方案</li>
+<li><strong>中期（3-5年）</strong>：原型验证，可能在卫星通信、工业物联网等特定场景试点</li>
+<li><strong>长期（5年以上）</strong>：如果硬件成本下降、标准化推进，可能成为6G核心使能技术</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与老大的关联</h2>
+    <p>FARIS代表了RIS研究的最高自由度形态，对老大工作有如下参考价值：</p>
+<p><strong>技术前瞻性</strong>：</p>
+<ul>
+<li>关注流体天线系统的专利布局动态，特别是韩国、中国团队</li>
+<li>了解FARIS的硬件实现路径（MEMS vs 柔性电子）</li>
+</ul>
+<p><strong>研究趋势判断</strong>：</p>
+<ul>
+<li>学术界正在从"静态放大"走向"动态空间+放大联合优化"</li>
+<li>这可能是6G RIS技术的重要分支，值得长期跟踪</li>
+</ul>
+<p><strong>产业机会点</strong>：</p>
+<ul>
+<li>如果FARIS走向工程化，流体机构件（MEMS开关、柔性基板）可能是关键供应商</li>
+<li>通信设备商（中兴、华为）的RIS产品线可能需要评估此技术路线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>[arXiv:2512.22479] FARIS: Fluid-Active-RIS: A New Smart-Radio Paradigm with Joint Port Selection and Active Reflection Design</li>
+<li>[arXiv:2603.13861] Active Beyond-Diagonal Reconfigurable Intelligent Surfaces: Modeling, Architecture Design, and Optimization</li>
+<li>[arXiv:2601.22724] SORIS: A Self-Organized Reconfigurable Intelligent Surface Architecture for Wireless Communications</li>
+<li>IEEE Transactions on Green Communications and Networking, vol. 10, pp. 1749-1764, 2026</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

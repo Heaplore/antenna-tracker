@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAUST-100GHz-CMOS-RIS-on-Chip-VO2相变 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">KAUST-100GHz-CMOS-RIS-on-Chip-VO2相变</h1>
+  <p class="lede">KAUST（阿卜杜拉国王科技大学）Shamim团队在arXiv 2025.12提出了首个工作在W波段（~100 GHz）的CMOS兼容RIS-on-Chip，用VO₂相变材料实现180°二进制相位控制，60×60阵列验证了波束转向能力，插入损耗低至-1.2 dB，为6G太赫兹通信提供了低功耗半导体级RIS新路线。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">RIS</span><span class="chip brand">CMOS</span><span class="chip brand">VO2相变材料</span><span class="chip brand">晶圆级集成</span><span class="chip brand">KAUST</span><span class="chip brand">太赫兹</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>一、主题概述</h2>
+    <p>Reconfigurable Intelligent Surface（RIS）在Sub-6G和毫米波频段已经有较多原型验证，但到了太赫兹频段（~100 GHz及以上），传统PCB方案的局限变得不可接受：</p>
+<ol>
+<li><strong>加工精度不足</strong>：100 GHz波长约3mm，单元尺寸需要做到亚毫米级，PCB蚀刻公差无法满足</li>
+<li><strong>插入损耗过高</strong>：PCB走线、焊点、分立元件在太赫兹频段的寄生效应呈指数级增长</li>
+<li><strong>集成度太低</strong>：成千上万个分立开关无法在太赫兹频段保持性能一致性</li>
+</ol>
+<p>KAUST团队的解决方案是：<strong>用标准CMOS后端工艺（BEOL）制造RIS-on-Chip</strong>，将天线单元、相位控制材料和互连线路全部集成在一块硅芯片上。核心创新在于使用了<strong>二氧化钒（VO₂）相变材料</strong>作为开关元件，而非传统的PIN二极管或变容管。</p>
+<p>这篇论文发表于arXiv 2025年12月（预印本），作者包括Atif Shamim教授（h-index 4, 112 citations），是KAUST电气工程系在太赫兹RIS方向的重要突破。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. VO₂相变材料：不是二极管，是&#34;智能开关&#34;</h2>
+    <p>VO₂（二氧化钒）是一种典型的<strong>Mott相变材料</strong>，具有独特的物理特性：</p>
+<ul>
+<li><strong>绝缘态（OFF）</strong>：低温下VO₂是高电阻绝缘体，电流必须绕行更长的路径</li>
+<li><strong>金属态（ON）</strong>：高温（或通过外部刺激触发）下VO₂转变为金属导体，电流可以直接通过</li>
+</ul>
+<p>在这个RIS设计中，VO₂薄膜厚度约100 nm，通过lift-off光刻工艺精确图案化到微带线中间。两种状态下：</p>
+<ul>
+<li><strong>ON态</strong>：VO₂导通 → 微带线有效电长度缩短 → 反射相位φ_ON</li>
+<li><strong>OFF态</strong>：VO₂绝缘 → 电流走更长路径 → 有效电长度增加 → 反射相位φ_OFF = φ_ON + π</li>
+</ul>
+<p>两个状态之间产生<strong>精确的180°相位差</strong>（Δφ = ω₀·Δτ = π），实现了1-bit二进制相位控制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 单元结构设计：四层堆叠的微型结构</h2>
+    <p>每个RIS单元由以下四层组成（从上到下）：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>材料</th>
+<th>尺寸/参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>顶层</td>
+<td>Cu槽孔</td>
+<td>w_s × l_s, ~1μm厚</td>
+<td>频率选择孔径，耦合入射W波段场</td>
+</tr>
+<tr>
+<td>间隔层</td>
+<td>SiO₂</td>
+<td>h = 15 μm</td>
+<td>隔离硅基板，抑制寄生传导</td>
+</tr>
+<tr>
+<td>延迟线层</td>
+<td>Cu微带线 + VO₂</td>
+<td>w_d=30μm, l_d=400μm</td>
+<td>调制有效电长度，产生相位差</td>
+</tr>
+<tr>
+<td>底层</td>
+<td>高阻硅基板</td>
+<td>ρ &gt; 1 kΩ·cm, h=300μm</td>
+<td>支撑层，低损耗透波</td>
+</tr>
+</tbody>
+</table>
+<p>关键尺寸都在微米级别——槽孔宽度、微带线间距都远小于100 GHz波长（~3mm），属于<strong>亚波长超表面</strong>设计。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 相位延迟线架构：巧妙的电磁设计</h2>
+    <p>单元被建模为频率依赖的表面阻抗：</p>
+<p>Z_s(ω) = R + j(ωL - 1/ωC)</p>
+<p>反射系数为：</p>
+<p>Γ(f) = (Z_unit(f) - Z₀) / (Z_unit(f) + Z₀)</p>
+<p>其中Z₀ = 377 Ω（自由空间阻抗），Z_unit(f) ≈ jZ_l tan[β(f)·ℓ_eff]，ℓ_eff在ON/OFF两种状态下不同。</p>
+<p>仿真和实测结果确认在f₀ = 100.75 GHz中心频率处实现了180°相位跨度，且反射损耗≤-1.2 dB（99-102.5 GHz带宽内）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 60×60大规模阵列与波束转向</h2>
+    <p>原型验证使用了一个<strong>60×60 = 3600个单元</strong>的大规模阵列：</p>
+<ul>
+<li>ON/OFF状态对比度达到<strong>27.1 dB</strong></li>
+<li>通过控制不同单元的相位状态组合，实现波束在空间中的定向转向</li>
+<li>这是首次在一个芯片上实现如此大规模的太赫兹RIS波束转向验证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G太赫兹通信覆盖增强</h2>
+    <p>100 GHz处于W波段，是6G候选频谱之一。RIS-on-Chip可以：</p>
+<ul>
+<li>集成在基站天线模组中，替代传统相移器</li>
+<li>提供低功耗的波束赋形能力，无需大量RF链</li>
+<li>支持动态波束追踪，克服太赫兹信号严重的路径损耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 芯片级智能反射面</h2>
+    <p>与传统RIS面板不同，RIS-on-Chip的优势在于<strong>可集成性</strong>：</p>
+<ul>
+<li>可以直接封装在AAU/RRU芯片旁边，作为天线模组的一部分</li>
+<li>与CMOS收发芯片共享同一硅基板，减少互连损耗</li>
+<li>成本极低——一片晶圆上可以制造数百个RIS芯片</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 太赫兹成像与传感</h2>
+    <p>W波段（75-110 GHz）也是安防成像、车载雷达的重要频段：</p>
+<ul>
+<li>RIS-on-Chip可以提供可编程的波束形状，用于扫描成像</li>
+<li>低功耗特性适合便携式成像设备</li>
+<li>与CMOS工艺兼容意味着可以与读出电路单片集成</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STARE vs KAUST RIS-on-Chip：两条半导体RIS路线</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>STARE（首尔大学）</th>
+<th>KAUST RIS-on-Chip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频率</td>
+<td>15.5 GHz（上中频6G）</td>
+<td>100.75 GHz（W波段太赫兹）</td>
+</tr>
+<tr>
+<td>开关元件</td>
+<td>SOD选择性重叠二极管</td>
+<td>VO₂相变材料</td>
+</tr>
+<tr>
+<td>结构类型</td>
+<td>透射型（transmit-array）</td>
+<td>反射型（reflectarray）</td>
+</tr>
+<tr>
+<td>制造工艺</td>
+<td>标准半导体代工流程</td>
+<td>CMOS BEOL后端工艺</td>
+</tr>
+<tr>
+<td>晶圆尺寸</td>
+<td>4英寸</td>
+<td>未明确（芯片级）</td>
+</tr>
+<tr>
+<td>单元数量</td>
+<td>45个单元细胞（180 SOD）</td>
+<td>60×60 = 3600个单元</td>
+</tr>
+<tr>
+<td>相位控制</td>
+<td>1-bit（180°）</td>
+<td>1-bit（180°）</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>低（无TSV+磁耦合）</td>
+<td>≤-1.2 dB</td>
+</tr>
+<tr>
+<td>ON/OFF对比度</td>
+<td>未明确</td>
+<td>27.1 dB</td>
+</tr>
+<tr>
+<td>核心优势</td>
+<td>fab-ready，可直接量产</td>
+<td>太赫兹频段+高密度集成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：这两条路线不是竞争关系，而是互补的。STARE解决的是Sub-6G/毫米波频段的RIS量产问题，KAUST解决的是太赫兹频段的RIS集成问题。在完整的6G系统中，两者可能共存——低频段用STARE类方案做基站覆盖增强，高频段用RIS-on-Chip做芯片级波束赋形。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>PCB-RIS vs 半导体RIS</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>PCB贴装RIS</th>
+<th>STARE</th>
+<th>KAUST RIS-on-Chip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>适用频段</td>
+<td>Sub-6G / mmWave</td>
+<td>Sub-6G / 毫米波</td>
+<td>W波段太赫兹</td>
+</tr>
+<tr>
+<td>单元密度</td>
+<td>低（毫米级）</td>
+<td>中（百微米级）</td>
+<td>高（十微米级）</td>
+</tr>
+<tr>
+<td>集成度</td>
+<td>最低（分立元件）</td>
+<td>中（晶圆级）</td>
+<td>最高（芯片级）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>中等</td>
+<td>预期低</td>
+<td>极低（批量制造）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. RIS正在从&#34;面板&#34;走向&#34;芯片&#34;</h2>
+    <p>STARE证明了RIS可以用晶圆级制造，KAUST证明了RIS可以集成到芯片级别。未来的RIS可能不再是一个独立的面板，而是<strong>直接做进天线模组或收发芯片里</strong>。这意味着：</p>
+<ul>
+<li>RIS不再是"天线工程"的范畴，而是"半导体封装"的范畴</li>
+<li>与AAU/RRU的集成度会大幅提高，互连损耗进一步降低</li>
+<li>成本会因半导体规模效应而急剧下降</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. VO₂相变材料可能成为太赫兹RIS的主流方案</h2>
+    <p>相比PIN二极管和变容管，VO₂在太赫兹频段有独特优势：</p>
+<ul>
+<li><strong>无寄生参数</strong>：不需要外部偏置电路，纯材料相变驱动</li>
+<li><strong>超低功耗</strong>：相变只需要极小的能量，保持状态不需要持续供电</li>
+<li><strong>纳米级响应</strong>：开关速度在纳秒到皮秒量级</li>
+<li><strong>CMOS兼容</strong>：可以直接在标准BEOL工艺中沉积</li>
+</ul>
+<p>预计未来2-3年内会有更多基于VO₂或其他相变材料（如GeSbTe）的太赫兹RIS方案出现。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 对中兴的参考价值</h2>
+    <p>中兴在GigaMIMO和超大规模天线阵列上有深厚积累。RIS-on-Chip可以与中兴的AAU产品深度融合：</p>
+<ul>
+<li><strong>芯片级RIS集成</strong>：在AAU模组中嵌入RIS-on-Chip，实现更精细的波束控制</li>
+<li><strong>太赫兹预研</strong>：100 GHz RIS-on-Chip是通往更高频段（200-300 GHz）的自然演进路径</li>
+<li><strong>低成本覆盖增强</strong>：RIS-on-Chip的成本远低于传统相移器，适合大规模部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、与老大的关联</h2>
+    <p>这个方向对老大的参考价值在于：</p>
+<ol>
+<li><strong>太赫兹RIS路线补充</strong>：老大关注的RIS方向（有源智能超表面、逆拓扑设计）可以扩展到半导体集成路线。STARE和KAUST代表了RIS从"面板"到"芯片"的演进趋势</li>
+<li><strong>6G频谱规划参考</strong>：100 GHz W波段是6G候选频谱，RIS-on-Chip为该频段的覆盖增强提供了低成本方案</li>
+<li><strong>与中兴产品线的协同</strong>：RIS-on-Chip可以与中兴的GigaMIMO和AAU产品线融合，形成差异化竞争优势</li>
+<li><strong>VO₂材料路线值得跟踪</strong>：相变材料RIS在太赫兹频段的性能优势明显，建议持续关注KAUST和其他团队的后续进展</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>[arXiv:2512.18854] A 100-GHz CMOS-Compatible RIS-on-Chip Based on Phase-Delay Lines for 6G Applications, Su et al., KAUST, 2025.12</li>
+<li>[TelcoForge] 6G: Researchers Develop First Foundry-Ready Smart Surface, 2026.7.1</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

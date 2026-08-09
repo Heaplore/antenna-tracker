@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格拉斯哥EMI感知RIS框架 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">格拉斯哥EMI感知RIS框架</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">智能超表面</span><span class="chip brand">电磁兼容</span><span class="chip brand">6G</span><span class="chip brand">格拉斯哥大学</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p><strong>RIS有个致命缺陷：来者不拒。</strong></p>
+<p>传统RIS像一个"傻镜子"——任何打到它表面的电磁波都会被反射，不管是有用信号还是干扰噪声。在日益拥挤的电磁环境中，这导致RIS不仅放大了目标信号，也放大了电磁干扰（EMI），反而降低了通信质量和定位精度。</p>
+<p>格拉斯哥大学James Watt工程学院Saber Hassouna等人提出了一种<strong>EMI感知RIS框架（EMI-aware RIS Framework）</strong>，核心思路不是"抵消"干扰，而是"识别并绕过"干扰。这项研究于2026年发表，并搭建了64×64（4096单元）的真实USRP实验平台在3.5GHz频段验证。</p>
+<p><strong>为什么重要：</strong> 这是首个同时解决"通信+定位+安全"三大问题的RIS干扰管理方案，而且不需要基站做大量数字信号处理，计算开销极低。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>问题建模：空间相关干扰</h2>
+    <p>传统方法假设干扰是白噪声（各向同性、均匀分布），但实际环境中的EMI具有<strong>空间相关性</strong>——干扰源来自特定方向，具有独特的统计特征。论文建立了包含空间相关干扰的RIS信道模型，量化了干扰对以下指标的影响：</p>
+<ul>
+<li>可达数据速率（Achievable Data Rate）</li>
+<li>位置误差界（Position Error Bound, PEB）</li>
+<li>定位均方根误差（Localization RMSE）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>EMI指纹识别（Fingerprinting）</h2>
+    <p>核心创新：<strong>分析干扰的二阶空间统计特性</strong>。</p>
+<p>每个干扰源都有独特的"统计指纹"——类似于每个人的声纹。通过观测接收信号的协方差矩阵，可以提取干扰的空间功率谱分布，从而识别出干扰来自哪些方向、强度如何。</p>
+<p>具体做法：</p>
+<ol>
+<li>在RIS相位配置已知的情况下，采集一段时间内的接收信号</li>
+<li>计算信号的自相关矩阵（二阶统计量）</li>
+<li>通过特征分解或子空间分析，分离出信号子空间和干扰子空间</li>
+<li>得到干扰的方向-强度分布（即"指纹"）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>几何探测+迭代优化算法</h2>
+    <p>获得干扰指纹后，算法分两步确定最优RIS相位配置：</p>
+<p><strong>第一步：粗搜索（Coarse Search）</strong>
+- 在一个小的几何探测方向集合上扫描
+- 找到信号最强且干扰最弱的方向组合
+- 这一步计算量很小，因为搜索空间被限制在少量候选方向</p>
+<p><strong>第二步：精细迭代（Iterative Refinement）</strong>
+- 基于粗搜索结果，使用低复杂度的梯度类算法逐步优化RIS相位
+- 每次更新只调整少量单元相位，避免全排列搜索的指数级复杂度
+- 收敛到接近最优的相位配置</p>
+<p><strong>关键优势：</strong> 不需要知道用户的确切位置信息（no explicit user location required），仅依赖干扰的统计特征和信号强度反馈。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与&#34;干扰抵消&#34;方案的本质区别</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统干扰抵消</th>
+<th>EMI感知过滤（本文）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>思路</td>
+<td>基站端数字处理消除干扰</td>
+<td>RIS端物理层引导信号绕开干扰</td>
+</tr>
+<tr>
+<td>代价</td>
+<td>有用信号也被削弱</td>
+<td>有用信号保持强度</td>
+</tr>
+<tr>
+<td>计算开销</td>
+<td>高（大规模DSP）</td>
+<td>低（RIS控制器即可）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>LOS可用</td>
+<td>NLoS + LOS均可</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6G ISAC（Integrated Sensing and Communication）</h2>
+    <p>格拉斯哥大学在2026年2月成立了ISAC³中心（Integrated Sensing, Communication and Computing for Cognitive Cities），这个EMI感知RIS框架正是为ISAC系统量身定制的：</p>
+<ul>
+<li><strong>通信方面：</strong> 提升可达速率和 secrecy rate（保密速率）</li>
+<li><strong>感知方面：</strong> 提高定位精度（PEB和RMSE双优化）</li>
+<li><strong>安全方面：</strong> 天然具备物理层安全能力</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>实验室验证结果</h2>
+    <p>团队搭建了真实测试床：</p>
+<ul>
+<li><strong>频率：</strong> 3.5 GHz（与现有5G频段一致，工程落地门槛低）</li>
+<li><strong>RIS规模：</strong> 64×64 = 4096个可编程单元</li>
+<li><strong>设备：</strong> USRP软件无线电</li>
+<li><strong>场景：</strong> 5个用户（3个室内可信用户 + 2个走廊潜在窃听者）</li>
+<li><strong>结果：</strong> RIS成功将波束聚焦到3个可信用户，走廊窃听者完全收不到可用信号</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与 TIMES 项目的关联</h2>
+    <p>同一团队还参与了欧洲6G-SNS项目TIMES，研究子太赫兹频段的RIS非视距（NLoS）传输。EMI感知框架可以无缝叠加到时赫兹RIS系统上，为6G室内高速场景（智能工厂、高级研究设施）提供干扰鲁棒性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>格拉斯哥大学的RIS研究矩阵</h2>
+    <p>这个团队在RIS领域已经形成体系化布局：</p>
+<ol>
+<li><strong>RISCS（2026早期）：</strong> RIS辅助ISAC的网络物理安全框架 — 分类攻击向量（干扰、欺骗、窃听、数据注入），搭建OFDM测试床验证异常检测</li>
+<li><strong>EMI感知RIS（2026中期）：</strong> 本笔记主题 — 解决干扰过滤问题</li>
+<li><strong>TIMES项目（欧洲6G-SNS资助）：</strong> 子太赫兹RIS NLoS传输</li>
+</ol>
+<p>funding来源：EPSRC CHEDDAR Communications Hub (EP/X040518/1, EP/Y037421/1), ARCOM (EP/Z533609/1)</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与其他RIS路线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>机构</th>
+<th>技术路线</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>格拉斯哥（本文）</td>
+<td>EMI感知算法</td>
+<td>软件定义，无需硬件改动</td>
+</tr>
+<tr>
+<td>首尔大学STARE</td>
+<td>半导体工艺集成RIS</td>
+<td>硬件制造革新，Foundry-ready</td>
+</tr>
+<tr>
+<td>Skoltech</td>
+<td>碳纳米管太赫兹涂层</td>
+<td>材料层面吸收杂散波</td>
+</tr>
+<tr>
+<td>东京科学大学Okada</td>
+<td>300GHz CMOS相控阵</td>
+<td>芯片级集成，低功耗</td>
+</tr>
+</tbody>
+</table>
+<p>三条路线互补：格拉斯哥解决"怎么用"（算法层），首尔大学解决"怎么造"（制造层），Skoltech解决"怎么防"（材料层）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>RIS正从&#34;能不能用&#34;走向&#34;好不好用&#34;</h2>
+    <p>早期RIS研究集中在证明概念可行性（能反射、能转向、能增强信号）。现在进入第二阶段：<strong>如何让RIS在真实电磁环境中可靠工作</strong>。EMI感知就是第二阶段的标志性突破——它承认现实世界充满干扰，不再假设理想传播环境。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>&#34;感知先于控制&#34;是RIS算法的新范式</h2>
+    <p>传统RIS控制算法假设已知信道状态信息（CSI），然后优化相位。EMI感知框架反其道而行：先感知干扰环境（指纹识别），再据此做控制决策。这种"先感知后控制"的范式可以推广到其他RIS应用场景，比如多用户调度、移动性管理、能量收集等。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>物理层安全将成为RIS的核心卖点之一</h2>
+    <p>格拉斯哥团队的实验展示了RIS的天然安全能力——定向波束可以让可信用户收到信号，而走廊里的窃听者一无所获。随着6G对隐私和安全的要求越来越高，这种不需要额外加密硬件的物理层安全能力可能成为运营商选择RIS部署的重要驱动力。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>直接参考价值</h2>
+    <ol>
+<li>
+<p><strong>有源RIS的工程化挑战：</strong> 老大关注的有源RIS方向，白皮书里提到了但还没到商用时间表。这个EMI感知框架提供了有源RIS在干扰环境下的实用化路径——不需要在RIS单元上加放大器，纯靠算法就能显著提升性能。</p>
+</li>
+<li>
+<p><strong>质量控制的新维度：</strong> 作为天线质量岗，传统质检关注的是天线的增益、驻波比、方向图等物理参数。但EMI感知RIS引入了"干扰鲁棒性"这一新的性能维度——RIS在不同干扰场景下的表现如何？这需要新的测试方法和验收标准。</p>
+</li>
+<li>
+<p><strong>中兴通讯的RIS布局：</strong> IMT-2030的RIS报告里，国内产业链（含中兴）已形成合力。EMI感知算法可以作为中兴RIS系统的软件升级选项，不需要改动硬件即可提升现网性能。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>间接启发</h2>
+    <ul>
+<li>
+<p><strong>RIS部署策略：</strong> 格拉斯哥的实验表明，RIS单元数量越多（4096单元），干扰过滤效果越好。这意味着大规模RIS部署的边际收益在增加，而不是递减。</p>
+</li>
+<li>
+<p><strong>频段选择：</strong> 实验在3.5GHz完成，这个频段与现有5G频段一致，工程落地门槛低。</p>
+</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Saber Hassouna et al., "EMI-Aware Reconfigurable Intelligent Surfaces," IEEE J. Selected Topics in Electromagnetics, Antennas and Propagation, Vol. 2, pp. 213-233, 2026 (DOI: 10.1109/JSTEAP.2026.3708807)</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
