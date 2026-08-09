@@ -115,30 +115,18 @@ export default function KnowledgeGraphPage() {
       .slice(0, 10)
   }, [searchQuery, activeTypes])
 
-  // ===== 过滤后数据 =====
-
-  // 注意：filtered 只按搜索过滤，**不按类型** —— 类型筛选走独立的 display 显隐
-  // effect（见 typeVisibilityEffect），避免筛选时重建整个力导向布局导致 iframe 连接重置。
-  const filtered = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase()
-    const nodes = kgData.nodes.filter((n) => {
-      if (!q) return true
-      return (
-        n.name.toLowerCase().includes(q) ||
-        (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
-        n.tags.some((t) => t.toLowerCase().includes(q)) ||
-        n.oneLiner.toLowerCase().includes(q)
-      )
-    })
-    const ids = new Set(nodes.map((n) => n.id))
-    // d3.forceLink 会原地把 links 的 source/target 从字符串改成节点对象，
-    // 所以兼容两种形态（与 RelatedNotesPanel 同款 idOf 处理）
-    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
-    const links = kgData.links.filter(
-      (l) => ids.has(idOf(l.source)) && ids.has(idOf(l.target)),
-    )
-    return { nodes, links }
-  }, [searchQuery])
+  // ===== 图谱数据（固定全量）=====
+  // 用户要求：搜索和筛选都**不重建图谱**。图谱只渲染一次（223 节点全量），
+  // 搜索仅驱动下拉候选列表 + 跳转，类型筛选仅切 display 显隐。
+  // 因此 filtered 是恒定全量（依赖数组为空，useEffect [filtered] 只执行首次渲染）。
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const filtered = useMemo(
+    () => ({
+      nodes: kgData.nodes,
+      links: kgData.links,
+    }),
+    [],
+  )
 
   // header 计数：activeTypes 过滤后的可见节点/关系数（纯计算，不触发重建）
   const visibleCount = useMemo(() => {
