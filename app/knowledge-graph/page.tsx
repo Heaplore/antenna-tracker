@@ -6,7 +6,7 @@ import kgDataRaw from '@/app/_data/knowledge-graph.json'
 
 // ===== 类型定义 =====
 
-type NodeType = 'technology' | 'metric' | 'component' | 'material'
+type NodeType = 'technology' | 'metric' | 'component' | 'material' | 'report'
 
 interface KGNode {
   id: string
@@ -55,6 +55,7 @@ const TYPE_COLORS: Record<NodeType, string> = {
   metric: '#10b981',       // 翠绿
   component: '#f59e0b',    // 琥珀
   material: '#ef4444',     // 朱红
+  report: '#8b5cf6',        // 紫罗兰
 }
 
 const TYPE_LABELS: Record<NodeType, string> = {
@@ -62,6 +63,7 @@ const TYPE_LABELS: Record<NodeType, string> = {
   metric: '指标术语',
   component: '零部件',
   material: '材料',
+  report: '报告',
 }
 
 const TYPE_ICONS: Record<NodeType, string> = {
@@ -69,6 +71,7 @@ const TYPE_ICONS: Record<NodeType, string> = {
   metric: '○',
   component: '▣',
   material: '⬡',
+  report: '📄',
 }
 
 // Obsidian 风格：小圆点，文字随缩放/悬停/选中显示
@@ -85,7 +88,7 @@ export default function KnowledgeGraphPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTypes, setActiveTypes] = useState<Set<NodeType>>(
-    new Set<NodeType>(['technology', 'metric', 'component', 'material']),
+    new Set<NodeType>(['technology', 'metric', 'component', 'material', 'report']),
   )
   const svgRef = useRef<SVGSVGElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -347,8 +350,8 @@ export default function KnowledgeGraphPage() {
     } else {
       // ===== 后续更新：重新跑力导向布局（非重建） =====
       const existingG = g
-      const linkSel = existingG.select('.links')
-      const nodeSel = existingG.select('.nodes')
+      const linkSel = existingG.select('.links').selectAll('line')
+      const nodeSel = existingG.select('.nodes').selectAll('g.node')
       const sim = (existingG as any)._simulation as d3.Simulation<any, any> | undefined
       const getNodeRadius = (existingG as any)._getNodeRadius as ((node: any) => number) | undefined
       
@@ -429,7 +432,22 @@ export default function KnowledgeGraphPage() {
       const joinedNodes = nodeSel
         .data(nodes, (d: any) => d.id)
         .join(
-          (enter) => enter.append('g').attr('class', 'node').style('cursor', 'pointer'),
+          (enter) => {
+            const g = enter.append('g').attr('class', 'node').style('cursor', 'pointer')
+            g.append('circle')
+              .attr('stroke', '#fff')
+              .attr('stroke-width', 1)
+              .attr('opacity', 0.95)
+            g.append('text')
+              .attr('class', 'node-label')
+              .attr('text-anchor', 'middle')
+              .attr('font-size', 6.5)
+              .attr('fill', '#374151')
+              .attr('pointer-events', 'none')
+              .attr('font-weight', 400)
+              .attr('opacity', 0)
+            return g
+          },
           (exit) => exit.remove(),
           (update) => update,
         ) as any as d3.Selection<SVGGElement, any, any, any>
