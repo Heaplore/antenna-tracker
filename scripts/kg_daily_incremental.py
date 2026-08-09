@@ -293,7 +293,8 @@ def render_one(node: dict) -> Path:
 
 # ===================== 业务函数 =====================
 def find_pending(readme_text: str):
-    """返回 [(basename, section_prefix, full_filename)]，仅 ⏳ 待上传行。"""
+    """返回 [(basename, section_prefix, full_filename)]，仅 待上传 行。
+    兼容两种写法：「⏳ 待上传」（带符号）和「待上传」（无符号，2026-08-09 README 修正后格式）。"""
     lines = readme_text.split("\n")
     current_prefix = None
     pending = []
@@ -303,8 +304,8 @@ def find_pending(readme_text: str):
             current_prefix = hm.group(1) + "-"
             continue
         # 表格行: | idx | name | date | status | flag |
-        m = re.match(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*[^|]*\|\s*[^|]*\|\s*(⏳\s*待上传|✅\s*已上传)\s*\|", line)
-        if m and "⏳" in m.group(3):
+        m = re.match(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*[^|]*\|\s*[^|]*\|\s*((?:⏳\s*)?待上传|✅\s*已上传)\s*\|", line)
+        if m and "待上传" in m.group(3) and "已上传" not in m.group(3):
             basename = m.group(2).strip()
             full = f"{current_prefix}{basename}.md"
             pending.append((basename, current_prefix, full))
@@ -410,11 +411,11 @@ def build_links_for(new_nodes, existing_id_map):
 
 def update_readme(readme_text, processed_basenames):
     lines = readme_text.split("\n")
-    # 1) 行内 ⏳ -> ✅（仅匹配表格数据行）
+    # 1) 行内 ⏳/待上传 -> ✅（仅匹配表格数据行）
     for bn in processed_basenames:
         for k, line in enumerate(lines):
-            if re.search(r"\|\s*" + re.escape(bn) + r"\s*\|", line) and "⏳" in line:
-                lines[k] = line.replace("⏳ 待上传", "✅ 已上传").replace("⏳待上传", "✅已上传")
+            if re.search(r"\|\s*" + re.escape(bn) + r"\s*\|", line) and "待上传" in line:
+                lines[k] = line.replace("⏳ 待上传", "✅ 已上传").replace("⏳待上传", "✅已上传").replace("| 待上传", "| ✅ 已上传").replace("|待上传", "|✅ 已上传")
                 break
     # 2) 重算每个 ### 小节的 已上传/待上传 计数
     TYPE_NAMES = {"技术概念", "指标术语", "零部件", "材料"}
@@ -443,7 +444,7 @@ def update_readme(readme_text, processed_basenames):
                 continue
             if re.search(r"✅\s*已上传", lines[k]):
                 up += 1
-            elif re.search(r"⏳\s*待上传", lines[k]):
+            elif re.search(r"(?:⏳\s*)?待上传", lines[k]):
                 pe += 1
         section_counts[name] = (up, pe)
         if name in TYPE_NAMES:
