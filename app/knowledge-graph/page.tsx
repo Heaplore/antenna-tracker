@@ -117,19 +117,19 @@ export default function KnowledgeGraphPage() {
 
   // ===== 过滤后数据 =====
 
+  // 注意：filtered 只按搜索过滤，**不按类型** —— 类型筛选走独立的 display 显隐
+  // effect（见 typeVisibilityEffect），避免筛选时重建整个力导向布局导致 iframe 连接重置。
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
-    const nodes = kgData.nodes
-      .filter((n) => activeTypes.has(n.type))
-      .filter((n) => {
-        if (!q) return true
-        return (
-          n.name.toLowerCase().includes(q) ||
-          (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
-          n.tags.some((t) => t.toLowerCase().includes(q)) ||
-          n.oneLiner.toLowerCase().includes(q)
-        )
-      })
+    const nodes = kgData.nodes.filter((n) => {
+      if (!q) return true
+      return (
+        n.name.toLowerCase().includes(q) ||
+        (n.nameEn && n.nameEn.toLowerCase().includes(q)) ||
+        n.tags.some((t) => t.toLowerCase().includes(q)) ||
+        n.oneLiner.toLowerCase().includes(q)
+      )
+    })
     const ids = new Set(nodes.map((n) => n.id))
     // d3.forceLink 会原地把 links 的 source/target 从字符串改成节点对象，
     // 所以兼容两种形态（与 RelatedNotesPanel 同款 idOf 处理）
@@ -138,7 +138,39 @@ export default function KnowledgeGraphPage() {
       (l) => ids.has(idOf(l.source)) && ids.has(idOf(l.target)),
     )
     return { nodes, links }
-  }, [searchQuery, activeTypes])
+  }, [searchQuery])
+
+  // header 计数：activeTypes 过滤后的可见节点/关系数（纯计算，不触发重建）
+  const visibleCount = useMemo(() => {
+    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
+    const nodes = kgData.nodes.filter((n) => activeTypes.has(n.type))
+    const ids = new Set(nodes.map((n) => n.id))
+    const links = kgData.links.filter(
+      (l) => ids.has(idOf(l.source)) && ids.has(idOf(l.target)),
+    )
+    return { nodes: nodes.length, links: links.length }
+  }, [activeTypes])
+
+  // ===== 类型筛选显隐 effect：只切 display，不重建图谱 =====
+  // 节点按 type 显隐；连线两端任一隐藏则隐藏。不触发 forceSimulation 重建，
+  // 因此不打断 iframe 卡片连接、不重置节点位置。
+  useEffect(() => {
+    const svg = svgRef.current
+    if (!svg) return
+    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
+    const typeOf = new Map<string, NodeType>()
+    for (const n of kgData.nodes) typeOf.set(n.id, n.type)
+    d3.select(svg)
+      .selectAll<SVGGElement, SimNode>('g.node')
+      .attr('display', (d: any) => (activeTypes.has(d.type) ? null : 'none'))
+    d3.select(svg)
+      .selectAll<SVGLineElement, SimLink>('line')
+      .attr('display', (l: any) => {
+        const st = typeOf.get(idOf(l.source))
+        const tt = typeOf.get(idOf(l.target))
+        return st && tt && activeTypes.has(st) && activeTypes.has(tt) ? null : 'none'
+      })
+  }, [activeTypes, filtered])
 
   // ===== 选中节点 =====
   const selectedNode = useMemo(
@@ -669,7 +701,7 @@ export default function KnowledgeGraphPage() {
       {/* ===== 统一版头 ===== */}
       <header className="header">
         <h1>📡 天线知识图谱</h1>
-        <p>{filtered.nodes.length} 节点 / {filtered.links.length} 条关系 · 更新于 {kgData.lastUpdate}</p>
+        <p>{visibleCount.nodes} 节点 / {visibleCount.links} 条关系 · 更新于 {kgData.lastUpdate}</p>
         <p className="update-info">数据来源：内部知识库整理</p>
       </header>
 
