@@ -131,8 +131,11 @@ export default function KnowledgeGraphPage() {
         )
       })
     const ids = new Set(nodes.map((n) => n.id))
+    // d3.forceLink 会原地把 links 的 source/target 从字符串改成节点对象，
+    // 所以兼容两种形态（与 RelatedNotesPanel 同款 idOf 处理）
+    const idOf = (x: any) => (typeof x === 'string' ? x : x?.id)
     const links = kgData.links.filter(
-      (l) => ids.has(l.source) && ids.has(l.target),
+      (l) => ids.has(idOf(l.source)) && ids.has(idOf(l.target)),
     )
     return { nodes, links }
   }, [searchQuery, activeTypes])
