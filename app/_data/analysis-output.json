@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T15:32:08+08:00",
+  "generatedAt": "2026-08-10T16:14:05+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 23 条新闻入库（2026-08-02 ~ 2026-08-09）。",
+          "summary": "过去 7 天共 26 条新闻入库（2026-08-03 ~ 2026-08-10）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×235；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×238；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "马斯克瞄准全球宽带霸主地位，计划扩张Starlink卫星网络 | 通宇通讯澄清市场传闻：佳贤通信与英伟达不存在研发合作关系 | 中国联通重庆市分公司以全光算网一体化服务使能算力普惠山城！",
+          "summary": "从盘山公路到空中走廊，中国联通打造“云上医厝”无人机低空转运航线 | 中国移动牵头推动我国首批自智网络行业标准正式发布，引领通信网络迈向高阶自智 | 【上周小结】广电推出“随心享1.0”5G套餐",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×87；通信世界网×80；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×89；通信世界网×81；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
