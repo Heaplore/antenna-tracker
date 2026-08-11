@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MF-RIS多功能智能超表面 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">MF-RIS多功能智能超表面</h1>
+  <p class="lede">MF-RIS（Multi-Functional RIS）是RIS技术的第三代演进，首次实现反射、透射、放大三合一能力，同时解决传统RIS的半空间覆盖限制和双跳衰落问题，为6G ISAC（通感一体化）提供全空间覆盖+信号增强双重保障。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">MF-RIS</span><span class="chip brand">多功能超表面</span><span class="chip brand">ISAC</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 传统RIS的局限性</h2>
+    <p>传统反射型RIS存在两大核心瓶颈：</p>
+<ul>
+<li><strong>半空间覆盖限制</strong>：只能在一侧工作（反射空间），透射侧用户无法服务</li>
+<li><strong>双跳衰落问题</strong>：信号需经历BS→RIS→用户双跳，路径损耗严重（衰减~1/d²）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 RIS技术三代演进</h2>
+    <pre><code>第一代：传统反射型RIS（仅反射，半空间覆盖）
+    ↓
+第二代：STAR-RIS（同时透射反射，全空间覆盖）
+    ↓
+第三代：MF-RIS（反射+透射+放大，全空间覆盖+信号增强）← 本笔记核心
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 MF-RIS的核心创新</h2>
+    <p>MF-RIS由清华大学Ni Wanli团队于2024年首次系统提出（IEEE Wireless Communications 2025），核心创新：</p>
+<ul>
+<li><strong>三合一能力</strong>：每个单元同时支持信号反射、透射和放大</li>
+<li><strong>双跳衰落补偿</strong>：放大功能有效补偿双跳路径损耗</li>
+<li><strong>全空间覆盖</strong>：同时服务反射侧和透射侧用户</li>
+<li><strong>ISAC融合</strong>：天然支持通信与感知一体化设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 单元结构设计</h2>
+    <p>MF-RIS单元核心电路包含：</p>
+<ul>
+<li><strong>放大器</strong>：提供信号增益，补偿双跳衰落</li>
+<li><strong>功率分配器</strong>：控制反射/透射信号的能量分配比例</li>
+<li><strong>两个移相器</strong>：分别控制反射和透射信号的相位</li>
+</ul>
+<p>每个单元需满足能量守恒约束：
+$$|\Gamma_n|^2 + |\Tau_n|^2 \leq 1 + G_n$$</p>
+<p>其中$G_n$为单元$n$的放大增益，这是MF-RIS与传统RIS/STAR-RIS的根本区别。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 工作模式对比</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>传统RIS</th>
+<th>STAR-RIS</th>
+<th><strong>MF-RIS</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>反射能力</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>透射能力</strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>放大能力</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>覆盖范围</strong></td>
+<td>半空间</td>
+<td>全空间</td>
+<td>全空间</td>
+</tr>
+<tr>
+<td><strong>双跳衰落</strong></td>
+<td>严重</td>
+<td>中等</td>
+<td><strong>有效补偿</strong></td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>极低</td>
+<td>低</td>
+<td>中等</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>低</td>
+<td>中</td>
+<td>中高</td>
+</tr>
+<tr>
+<td><strong>自由度</strong></td>
+<td>1路</td>
+<td>2路</td>
+<td><strong>3路</strong></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 信号模型</h2>
+    <p>MF-RIS的等效信道模型：</p>
+<ul>
+<li><strong>反射链路</strong>：BS→RIS→用户（信号放大+相位调控）</li>
+<li><strong>透射链路</strong>：BS→RIS→用户（信号放大+相位调控）</li>
+<li><strong>噪声模型</strong>：放大器引入热噪声，需在波束赋形设计中考虑</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 学术前沿</h2>
+    <p><strong>1. 通信性能优化</strong>
+- MF-RIS辅助单播/组播/广播通信（IEEE WC 2025）
+- MF-RIS + NOMA非正交多址接入（SSRN 2024）
+- MF-RIS + OFDMA正交频分多址（arXiv 2025）</p>
+<p><strong>2. 感知性能增强</strong>
+- MF-RIS辅助目标检测与定位（IEEE WC 2025）
+- 多目标感知场景下的签名序列调制
+- 感知信噪比（SINR）优化框架</p>
+<p><strong>3. ISAC联合设计</strong>
+- MF-RIS辅助ISAC系统波束赋形
+- 通信速率与感知SINR的多目标优化
+- Pareto前沿分析与性能权衡</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 硬件实现突破</h2>
+    <ul>
+<li><strong>半导体集成路线</strong>：与STARE工艺兼容，支持晶圆级制造</li>
+<li><strong>太赫兹频段验证</strong>：300GHz CMOS兼容MF-RIS原型</li>
+<li><strong>低功耗设计</strong>：放大增益与噪声系数的联合优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 性能优势量化</h2>
+    <p>相比传统RIS：</p>
+<ul>
+<li><strong>覆盖增益</strong>：全空间覆盖，消除盲点</li>
+<li><strong>信号增强</strong>：放大增益可达7-15 dB</li>
+<li><strong>感知精度</strong>：目标检测SINR提升52%-110%</li>
+<li><strong>能效优化</strong>：总计算MSE降低95.2%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 典型应用场景</h2>
+    <p><strong>6G城市全覆盖</strong>
+- 解决建筑物遮挡问题
+- 室内外无缝切换
+- 智能交通V2X增强</p>
+<p><strong>卫星通信增强</strong>
+- 低轨卫星信号地面增强
+- 星地融合网络节点
+- 应急通信保障</p>
+<p><strong>工业物联网</strong>
+- 工厂全空间覆盖
+- 多用户MIMO增强
+- 资产追踪与感知</p>
+<p><strong>自动驾驶</strong>
+- 高精度目标检测
+- 多车辆协同感知
+- 盲区预警系统</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 厂商布局动态</h2>
+    <p><strong>学术界主导</strong>
+- <strong>清华大学</strong>：MF-RIS理论框架与ISAC融合（Ni Wanli团队）
+- <strong>北京邮电大学</strong>：MF-RIS信道估计与波束赋形
+- <strong>东南大学</strong>：MF-RIS硬件实现与外场试验
+- <strong>NTU新加坡</strong>：MF-RIS多目标优化算法</p>
+<p><strong>产业界跟进</strong>
+- <strong>华为</strong>：关注MF-RIS在6G愿景中的位置
+- <strong>爱立信/诺基亚</strong>：标准制定参与度较高
+- <strong>中兴</strong>：U6G架构中可能整合MF-RIS能力</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 产业链机会</h2>
+    <ul>
+<li><strong>半导体厂商</strong>：MF-RIS控制芯片（与STARE路线协同）</li>
+<li><strong>天线制造商</strong>：MF-RIS单元设计与集成</li>
+<li><strong>运营商</strong>：全空间覆盖场景的商业化试点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 短期（1-2年）</h2>
+    <ul>
+<li>MF-RIS成为RIS技术演进最新方向</li>
+<li>学术研究密集爆发，理论框架逐步完善</li>
+<li>原型系统外场试验启动</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 中期（3-5年）</h2>
+    <ul>
+<li>MF-RIS与XL-MIMO、AI-RAN协同部署</li>
+<li>成本下降至可接受范围</li>
+<li>6G标准中明确MF-RIS技术规范</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 长期（5年以上）</h2>
+    <ul>
+<li>成为6G基础设施标配</li>
+<li>与半导体工艺深度融合（晶圆级制造）</li>
+<li>催生全新应用场景（全息通信、数字孪生、自动驾驶）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 技术参考</h2>
+    <ul>
+<li><strong>中兴U6G架构</strong>：MF-RIS可作为U6G基站的增强模块，提供全空间覆盖+信号放大</li>
+<li><strong>RIS技术路线选择</strong>：传统反射型 vs STAR全向型 vs MF-RIS多功能型的技术权衡</li>
+<li><strong>半导体集成路径</strong>：STARE路线与MF-RIS的结合点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 行业洞察</h2>
+    <ul>
+<li><strong>标准化机会</strong>：3GPP R19/R20是参与MF-RIS标准制定的关键窗口</li>
+<li><strong>产业链位置</strong>：关注MF-RIS单元设计与集成的市场机会</li>
+<li><strong>竞争策略</strong>：传统RIS厂商可能向MF-RIS演进，需预判技术替代风险</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 行动建议</h2>
+    <ul>
+<li>持续跟踪清华大学Ni Wanli团队后续工作</li>
+<li>评估MF-RIS在中兴6G方案中的整合可能性</li>
+<li>关注半导体集成MF-RIS的产业化动态</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
+    <ul>
+<li><strong>2021年</strong>：STAR-RIS概念提出（Liu Yuanwei团队，IEEE WC）</li>
+<li><strong>2023年</strong>：STAR-RIS综述论文发表（Frontiers of IT&amp;E）</li>
+<li><strong>2024年</strong>：MF-RIS概念首次系统提出（Ni Wanli团队，IEEE WC）</li>
+<li><strong>2025年</strong>：MF-RIS ISAC融合研究密集爆发</li>
+<li><strong>2026年</strong>：MF-RIS原型系统外场试验启动</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ol>
+<li>Ni, W., Wang, W., Zheng, A., et al. Two Birds with One Stone: Enhancing Communication and Sensing via Multi-Functional RIS. IEEE Wireless Communications, 32(4), 72-80, 2025.</li>
+<li>arXiv:2410.06584. Two Birds With One Stone: Enhancing Communication and Sensing via Multi-Functional RIS. 2024.</li>
+<li>Zhou, Y., Wu, Y., Xu, W. Multi-Functional Reconfigurable Intelligent Surface for Maximizing Sum Rate in Wireless Communication Systems. SSRN, 2024.</li>
+<li>Pan, Z., Wang, W., Nie, G., et al. Channel Estimation and Beamforming Design for MF-RIS-Aided Communication Systems. IEEE Signal Processing Letters, 2025.</li>
+<li>Tishchenko, A., et al. The Emergence of Multi-Functional and Hybrid Reconfigurable Intelligent Surfaces for Integrated Sensing and Communications - A Survey. IEEE Communications Surveys &amp; Tutorials, Early Access, 2025.</li>
+</ol>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
