@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMI感知RIS框架通信定位安全三合一 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">EMI感知RIS框架通信定位安全三合一</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">6G</span><span class="chip brand">EMI</span><span class="chip brand">ISAC</span><span class="chip brand">物理层安全</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 研究背景</h2>
+    <p>随着5G-A向6G演进，电磁环境复杂度指数级增长。全球连接设备数已超80亿（约地球人口两倍），Wi-Fi、Bluetooth、5G/6G蜂窝网、IoT设备共同构成"电磁混沌"环境。传统RIS被视为"智能镜子"，能定向反射信号增强覆盖，但存在一个致命缺陷：<strong>RIS无差别反射所有入射信号，包括干扰</strong>。</p>
+<p>这一缺陷在以下场景尤为突出：</p>
+<ul>
+<li><strong>密集城市环境</strong>：多基站、多用户、多干扰源共存</li>
+<li><strong>ISAC融合网络</strong>：通信与感知共享频谱，感知回波成为干扰源</li>
+<li><strong>物理层安全需求</strong>：eavesdropper信号被RIS反射放大，威胁通信安全</li>
+<li><strong>定位精度要求</strong>：干扰信号影响TOA/TDOA估计时延精度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 核心问题</h2>
+    <p>传统RIS架构的三大局限：</p>
+<ol>
+<li><strong>被动反射</strong>：无选择性地放大所有信号（含干扰）</li>
+<li><strong>缺乏环境感知</strong>：不了解当前电磁环境特征</li>
+<li><strong>数字信号处理负担</strong>：基站需消耗大量能量进行干扰消除</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 研究目标</h2>
+    <p>Glasgow团队提出<strong>EMI-aware RIS框架</strong>，核心创新：</p>
+<ul>
+<li>不再"取消"干扰，而是"过滤"干扰</li>
+<li>保持期望信号强度，提升定位精度</li>
+<li>降低基站数字信号处理负担</li>
+<li>实现通信+定位+安全三合一能力</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 EMI感知框架架构</h2>
+    <pre><code>┌─────────────────────────────────────────────────────────┐
+│              EMI-Aware RIS Framework                      │
+├─────────────────────────────────────────────────────────┤
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐  │
+│  │ 干扰指纹识别 │ → │ 波束方向扫描 │ → │ 算法优化  │  │
+│  │ (统计特征)   │    │ (最强信号)   │    │ (RIS配置) │  │
+│  └──────────────┘    └──────────────┘    └───────────┘  │
+└─────────────────────────────────────────────────────────┘
+         ↓                    ↓                    ↓
+    识别干扰源         寻找最佳波束          过滤干扰
+    的统计特征         方向                保留期望信号
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块一：干扰指纹识别（Interference Fingerprinting）</h2>
+    <p><strong>原理</strong>：每个干扰源具有独特的统计特征（功率谱密度、空间相关性、时域分布）。</p>
+<p><strong>实现方法</strong>：</p>
+<ul>
+<li>使用软件定义无线电（SDR）捕获环境信号</li>
+<li>提取干扰信号的协方差矩阵特征</li>
+<li>构建干扰源空间分布模型</li>
+</ul>
+<p><strong>数学表达</strong>：</p>
+<pre><code>R_interference = E[{s_interference}(t){s_interference}^H(t)]
+</code></pre>
+<p>其中，$R_{interference}$ 是干扰协方差矩阵，$E[\cdot]$ 是期望算子，$(\cdot)^H$ 是共轭转置。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块二：几何探测与波束扫描（Geometric Scanning）</h2>
+    <p><strong>原理</strong>：通过扫描不同波束方向，识别期望信号与干扰信号的空间分布差异。</p>
+<p><strong>实现方法</strong>：</p>
+<ul>
+<li>预设多个波束方向进行扫描</li>
+<li>测量每个方向的信号强度与信干比（SIR）</li>
+<li>选择SIR最优的波束方向配置RIS</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>避免基站端的高复杂度数字干扰消除</li>
+<li>RIS在模拟域完成干扰过滤，能耗更低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块三：迭代优化算法</h2>
+    <p><strong>目标函数</strong>：</p>
+<pre><code>maximize:  f(RIS配置) = 期望信号增益 - λ × 干扰放大系数
+</code></pre>
+<p><strong>优化方法</strong>：</p>
+<ul>
+<li>交替优化RIS相位配置</li>
+<li>基于梯度上升的相位更新</li>
+<li>约束条件：RIS单元相位连续性、功率预算</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 实验平台参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>3.5 GHz（5G n78频段）</td>
+</tr>
+<tr>
+<td>RIS单元数</td>
+<td>4,096个（64×64阵列）</td>
+</tr>
+<tr>
+<td>信号源</td>
+<td>USRP软件定义无线电</td>
+</tr>
+<tr>
+<td>合法用户数</td>
+<td>3人（室内）</td>
+</tr>
+<tr>
+<td>干扰/窃听用户</td>
+<td>2人（走廊外）</td>
+</tr>
+<tr>
+<td>干扰类型</td>
+<td>空间相关干扰（典型城市环境）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景一：密集城区5G/6G覆盖增强</h2>
+    <p><strong>问题</strong>：多基站干扰严重，传统RIS放大干扰信号。</p>
+<p><strong>解决方案</strong>：EMI-aware RIS智能过滤干扰，仅增强目标用户信号。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>数据速率提升显著</li>
+<li>定位精度改善</li>
+<li>基站处理负担降低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景二：ISAC融合网络</h2>
+    <p><strong>问题</strong>：通信与感知共享频谱，感知回波成为干扰。</p>
+<p><strong>解决方案</strong>：RIS区分通信信号与感知回波，优化波束指向。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>通信性能不下降</li>
+<li>感知精度提升</li>
+<li>频谱效率提高</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>场景三：物理层安全增强</h2>
+    <p><strong>问题</strong>：eavesdropper可能利用RIS反射增强窃听信号。</p>
+<p><strong>解决方案</strong>：RIS仅向合法用户定向，向窃听者方向发送零功率。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>天然物理层安全</li>
+<li>无需额外加密开销</li>
+<li>符合6G安全需求</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与老大的关联</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>关联点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>技术协同</strong></td>
+<td>RIS+ISAC是6G核心使能技术，EMI感知框架直接支持ISAC融合应用</td>
+</tr>
+<tr>
+<td><strong>工程价值</strong></td>
+<td>降低基站数字信号处理负担，符合6G低功耗、高效率目标</td>
+</tr>
+<tr>
+<td><strong>安全意义</strong></td>
+<td>物理层安全是6G关键需求，该方案提供原生安全能力</td>
+</tr>
+<tr>
+<td><strong>竞品对标</strong></td>
+<td>华为、爱立信、中兴均在研发RIS+ISAC方案，该技术路线具有参考价值</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 学术界竞争格局</h2>
+    <table>
+<thead>
+<tr>
+<th>团队</th>
+<th>机构</th>
+<th>研究方向</th>
+<th>与本研究关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Glasgow团队</strong></td>
+<td>格拉斯哥大学James Watt工程学院</td>
+<td>EMI-aware RIS框架（本研究）</td>
+<td><strong>首创</strong>：干扰指纹识别+几何探测</td>
+</tr>
+<tr>
+<td><strong>Abbasi团队</strong></td>
+<td>ISAC³中心主任</td>
+<td>6G智能表面</td>
+<td><strong>合作者</strong>：论文共同作者</td>
+</tr>
+<tr>
+<td><strong>Kazim团队</strong></td>
+<td>Glasgow大学</td>
+<td>RIS硬件实现</td>
+<td><strong>合作者</strong>：实验平台支持</td>
+</tr>
+<tr>
+<td><strong>King Fahd团队</strong></td>
+<td>沙特国王科技大学</td>
+<td>RIS信道建模</td>
+<td><strong>合作者</strong>：理论分析支持</td>
+</tr>
+<tr>
+<td><strong>Leicester团队</strong></td>
+<td>莱斯特大学</td>
+<td>RIS优化算法</td>
+<td><strong>合作者</strong>：算法设计支持</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 产业界动向</h2>
+    <table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>动向</th>
+<th>与本研究的关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>华为</strong></td>
+<td>发布6G RIS白皮书，推进NCR标准</td>
+<td>EMI感知框架可作为华为RIS方案的增强模块</td>
+</tr>
+<tr>
+<td><strong>爱立信</strong></td>
+<td>AI-RAN结合RIS，聚焦低功耗</td>
+<td>干扰过滤能力符合爱立信低功耗目标</td>
+</tr>
+<tr>
+<td><strong>中兴</strong></td>
+<td>U6G 2048振子原型机，GigaMIMO</td>
+<td>RIS+XL-MIMO协同，EMI感知可提升近场波束聚焦性能</td>
+</tr>
+<tr>
+<td><strong>中信科移动</strong></td>
+<td>全息超表面RHS样机</td>
+<td>超大规模RIS需要智能干扰管理</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 标准化进展</h2>
+    <table>
+<thead>
+<tr>
+<th>组织</th>
+<th>进展</th>
+<th>与本研究的关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3GPP</strong></td>
+<td>Rel-18 NCR（Non-terrestrial Cooperative Relay）标准</td>
+<td>EMI感知框架可适配NCR标准架构</td>
+</tr>
+<tr>
+<td><strong>ETSI</strong></td>
+<td>RIS用例与部署场景研究</td>
+<td>本研究为ETSI RIS研究提供技术支撑</td>
+</tr>
+<tr>
+<td><strong>IMT-2030</strong></td>
+<td>6G推进组RIS任务组</td>
+<td>中国6G标准制定参考</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 技术演进趋势</h2>
+    <p><strong>趋势一：从"被动反射"到"主动感知"</strong></p>
+<p>传统RIS仅反射信号，EMI-aware RIS能感知电磁环境并智能过滤干扰。这是RIS技术从1.0到2.0的演进标志。</p>
+<p><strong>趋势二：从"单一通信"到"通信+定位+安全"三合一</strong></p>
+<p>6G网络需要同时满足通信、感知、安全三大需求。EMI-aware RIS框架天然支持这三类应用，符合6G系统设计哲学。</p>
+<p><strong>趋势三：从"基站端处理"到"环境端处理"</strong></p>
+<p>传统干扰消除依赖基站数字信号处理，能耗高、复杂度高。RIS在环境端完成干扰过滤，大幅降低基站负担。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 产业化路径预测</h2>
+    <table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>关键里程碑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>实验室验证</strong></td>
+<td>2025-2026</td>
+<td>Glasgow团队完成4096单元实验平台验证</td>
+</tr>
+<tr>
+<td><strong>原型机开发</strong></td>
+<td>2026-2027</td>
+<td>华为/中兴/爱立信推出EMI-aware RIS原型机</td>
+</tr>
+<tr>
+<td><strong>小规模试点</strong></td>
+<td>2027-2028</td>
+<td>运营商在城市热点区域部署试验网</td>
+</tr>
+<tr>
+<td><strong>规模商用</strong></td>
+<td>2028-2030</td>
+<td>6G标准冻结，EMI-aware RIS成为标配功能</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 对老大的启示</h2>
+    <ol>
+<li><strong>技术储备</strong>：建议关注EMI感知RIS与XL-MIMO近场波束聚焦的结合点</li>
+<li><strong>标准布局</strong>：NCR标准框架下，EMI感知能力可能成为差异化竞争力</li>
+<li><strong>产业协同</strong>：与华为、中兴等厂商探讨EMI-aware RIS工程化路径</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、核心参考文献</h2>
+    <ol>
+<li>
+<p><strong>Saber Hassouna et al.</strong>, "Integrated EMI-Aware RIS Framework for Robust Communication and Localization: Simulation and Experimental Evaluation," <em>IEEE Journal of Selected Topics in Electromagnetics, Antennas and Propagation</em>, 2026. DOI: <a href="https://dx.doi.org/10.1109/jsteap.2026.3708807">10.1109/jsteap.2026.3708807</a></p>
+</li>
+<li>
+<p><strong>Qammer Abbasi et al.</strong>, "ISAC³ Centre: Integrated Sensing, Communication and Computing for Cognitive Cities," <em>University of Glasgow</em>, 2026.</p>
+</li>
+<li>
+<p><strong>Zhar Research</strong>, "6G Communications: Reconfigurable Intelligent Surface RIS Materials and Hardware Markets, Technology 2026-2046," 2025.</p>
+</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 直接相关点</h2>
+    <table>
+<thead>
+<tr>
+<th>关联维度</th>
+<th>具体内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RIS技术路线</strong></td>
+<td>EMI感知框架是RIS 2.0的核心能力，补充了老大关注的STAR-RIS、STARE半导体集成等技术路线</td>
+</tr>
+<tr>
+<td><strong>ISAC融合</strong></td>
+<td>通信+定位+安全三合一能力，直接支持老大关注的通感一体化（ISAC）方向</td>
+</tr>
+<tr>
+<td><strong>6G标准化</strong></td>
+<td>与3GPP NCR标准、ETSI RIS研究紧密相关，影响6G标准制定</td>
+</tr>
+<tr>
+<td><strong>产业竞争</strong></td>
+<td>华为、爱立信、中兴等竞品均在布局RIS+ISAC，该技术路线具有战略价值</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 研究建议</h2>
+    <ol>
+<li><strong>深入调研</strong>：建议阅读IEEE JSTEAP原文，理解干扰指纹识别算法细节</li>
+<li><strong>技术对比</strong>：与STAR-RIS、STARE半导体集成RIS进行横向对比，评估技术成熟度差异</li>
+<li><strong>产业对接</strong>：关注华为/中兴是否已有类似EMI感知RIS方案，评估竞争态势</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
