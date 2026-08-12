@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T15:49:59+08:00",
+  "generatedAt": "2026-08-12T16:01:35+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 38 条新闻入库（2026-08-04 ~ 2026-08-11）。",
+          "summary": "过去 7 天共 41 条新闻入库（2026-08-05 ~ 2026-08-12）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×250；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×253；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "集邦咨询：预估iPhone 18 Pro成本大增近40% | 中国移动6922.2万芯公里光缆集采再招标 | “十五五”为何加速普及数智化天线？",
+          "summary": "可一家独揽！中国移动6922.2万芯公里普缆集采重启招标 | WAIC 2026 | VIAVI马可尼实验室Stephen Wang：四大能力 | SGS为中兴通讯MBB & FWA颁发SGS Performance Teste",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×98；通信世界网×84；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×100；通信世界网×85；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
