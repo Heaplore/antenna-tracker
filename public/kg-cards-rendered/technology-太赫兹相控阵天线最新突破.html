@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>太赫兹相控阵天线最新突破 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">太赫兹相控阵天线最新突破</h1>
+  <p class="lede">太赫兹相控阵天线是实现6G Tbit/s级超高速无线通信的核心使能技术，近期在CMOS工艺集成、GaN基无源器件、硅微加工封装三个方面取得关键突破，为6G通感一体化提供了可行技术路线。</p>
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">太赫兹</span><span class="chip brand">相控阵</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>核心技术/原理</h2>
+    <p>太赫兹（THz）频段通常指0.1-10 THz的电磁波谱区域，波长范围为0.03-3毫米，介于微波和红外光之间。这一频段被称为"太赫兹 gap"，长期以来受限于器件技术和材料科学的发展。</p>
+<p>相控阵天线通过控制阵列中各个辐射单元的相位，实现波束的电子扫描和指向控制。太赫兹相控阵则将这一技术扩展到更高频段，利用短波长特性实现超大规模天线阵列（XL-MIMO），从而获得高增益、窄波束、高精度定向传输能力。</p>
+<p>核心工作原理：</p>
+<ul>
+<li><strong>波束赋形</strong>：通过调整各阵元的相位差，控制主瓣指向和旁瓣电平</li>
+<li><strong>波束扫描</strong>：电子方式改变波束指向，无需机械转动</li>
+<li><strong>近场聚焦</strong>：在太赫兹频段，由于波长短、阵列孔径大，近场效应显著，可实现距离域聚焦</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 频率与带宽</h2>
+    <ul>
+<li><strong>工作频段</strong>：100 GHz - 1 THz（W波段、D波段、Q波段）</li>
+<li><strong>可用带宽</strong>：数十GHz至数百GHz</li>
+<li><strong>数据速率</strong>：理论可达Tbit/s级</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 阵列规模与间距</h2>
+    <ul>
+<li><strong>单元间距</strong>：λ/2（半波长）以避免栅瓣</li>
+<li><strong>典型规模</strong>：16×16至256×256单元</li>
+<li><strong>芯片尺寸</strong>：毫米级（8mm×8mm量级）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 性能指标</h2>
+    <ul>
+<li><strong>增益</strong>：20-40 dBi</li>
+<li><strong>扫描范围</strong>：±60°</li>
+<li><strong>扫描精度</strong>：10-bit（约0.35°）</li>
+<li><strong>功耗</strong>：20-30 mW/单元（CMOS工艺）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 传输性能</h2>
+    <ul>
+<li><strong>传输距离</strong>：室内10米级 demonstrated</li>
+<li><strong>速率演示</strong>：14 Gbps @ 134-141 GHz（电子科技大学）</li>
+<li><strong>误码率</strong>：&lt; 1E-6 @ 0.22 THz, 1000米（电子科技大学）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 CMOS工艺路线（主流）</h2>
+    <p><strong>特点</strong>：</p>
+<ul>
+<li>基于标准硅CMOS工艺（65nm、90nm、180nm）</li>
+<li>成本低、集成度高、可大规模生产</li>
+<li>适合高频段（200-400 GHz）</li>
+</ul>
+<p><strong>代表成果</strong>：</p>
+<ul>
+<li><strong>东京科学大学</strong>（2026 VLSI）：300 GHz CMOS二维相控阵收发器，4×4阵列，26mW/单元，±32°扫描</li>
+<li><strong>MIT团队</strong>（2025 ISSCC）：134-141 GHz 16单元CMOS 2D相控阵，半波长布局，10米距离14 Gbps传输</li>
+</ul>
+<p><strong>技术挑战</strong>：</p>
+<ul>
+<li>硅衬底损耗大（需SOI或硅微加工）</li>
+<li>封装寄生参数影响性能</li>
+<li>功率输出受限（单通道μW级）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 GaN基无源路线</h2>
+    <p><strong>特点</strong>：</p>
+<ul>
+<li>氮化镓肖特基二极管（GaN SBD）高速变容特性</li>
+<li>插入损耗低（5 dB）、调制速率高（&gt;200 MHz）</li>
+<li>适合大功率应用场景</li>
+</ul>
+<p><strong>代表成果</strong>：</p>
+<ul>
+<li><strong>中科院苏州纳米所</strong>（2025 Advanced Materials）：0.32 THz GaN SBD无源相控阵，32×25阵列，±210°相位调节，18 dBi增益（±45°扫描）</li>
+</ul>
+<p><strong>技术优势</strong>：</p>
+<ul>
+<li>无源设计降低功耗</li>
+<li>高击穿电压适合大功率</li>
+<li>匹配硅基CMOS读出电路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 硅微加工封装技术</h2>
+    <p><strong>关键创新</strong>：</p>
+<ul>
+<li><strong>深反应离子刻蚀（DRIE）</strong>：实现高深宽比垂直结构</li>
+<li>** sidewall metallization**：刻蚀 sidewall 金属化，保证导电连续性</li>
+<li><strong>介电匹配层</strong>：MIT团队开发亚波长孔洞结构匹配层，降低硅-空气界面反射</li>
+</ul>
+<p><strong>性能提升</strong>：</p>
+<ul>
+<li>辐射功率提升4300倍（ compared to unprocessed Si）</li>
+<li>插入损耗降低5-10 dB</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 瓦片式可扩展架构</h2>
+    <p><strong>设计理念</strong>：</p>
+<ul>
+<li>将大阵列拆分为小芯片模块</li>
+<li>通过边缘馈电实现2D级联</li>
+<li>支持按需扩展阵列规模</li>
+</ul>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>行波LO/IF分配网络</li>
+<li>边缘SPI控制信号馈入</li>
+<li>无需重新设计芯片即可扩展</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>行业应用</h2>
+    <table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>技术要求</th>
+<th>现状</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6G固定无线接入（FWA）</td>
+<td>Tbit/s回传、长距离传输</td>
+<td>原型验证阶段</td>
+</tr>
+<tr>
+<td>通感一体化（ISAC）</td>
+<td>高精度定位+大容量传输</td>
+<td>实验室演示</td>
+</tr>
+<tr>
+<td>卫星通信地面站</td>
+<td>高增益窄波束、快速扫描</td>
+<td>技术储备</td>
+</tr>
+<tr>
+<td>工业物联网</td>
+<td>低延迟、高可靠</td>
+<td>预研阶段</td>
+</tr>
+<tr>
+<td>安全成像</td>
+<td>高分辨率、穿透非金属材料</td>
+<td>已有商用系统</td>
+</tr>
+<tr>
+<td>汽车雷达</td>
+<td>高分辨率成像、抗干扰</td>
+<td>77GHz毫米波已商用，THz预研</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 相位控制精度</h2>
+    <ul>
+<li><strong>量化位数</strong>：6-10 bit</li>
+<li><strong>相位误差</strong>：&lt; 5°（均方根）</li>
+<li><strong>扫描精度</strong>：0.35°（10-bit @ 140 GHz）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 增益与效率</h2>
+    <ul>
+<li><strong>孔径效率</strong>：60-80%</li>
+<li><strong>辐射效率</strong>：&gt; 70%（考虑衬底损耗）</li>
+<li><strong>增益密度</strong>：0.5-1 dBi/mm²</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 功耗与散热</h2>
+    <ul>
+<li><strong>单元功耗</strong>：20-50 mW（有源CMOS）</li>
+<li><strong>阵列总功耗</strong>：瓦级（百单元规模）</li>
+<li><strong>散热挑战</strong>：功率密度高，需先进封装散热</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 扫描性能</h2>
+    <ul>
+<li><strong>扫描范围</strong>：±60°（电扫）</li>
+<li><strong>扫描速度</strong>：微秒级（电子扫描）</li>
+<li><strong>扫描精度</strong>：亚度级</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 材料损耗</h2>
+    <ul>
+<li><strong>硅衬底损耗</strong>：室温下硅在THz频段损耗角正切约0.0001-0.001</li>
+<li><strong>解决方案</strong>：SOI衬底、硅微加工镂空、空气桥结构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 封装寄生</h2>
+    <ul>
+<li><strong>bond wire电感</strong>：几十pH量级，在THz频段影响显著</li>
+<li><strong>解决方案</strong>：flip-chip封装、共面波导过渡、集成天线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 热管理</h2>
+    <ul>
+<li><strong>功率密度</strong>：cm²量级瓦级功耗</li>
+<li><strong>解决方案</strong>：微流道液冷、VC均热板、先进封装散热</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 校准与维护</h2>
+    <ul>
+<li><strong>阵元间偏差</strong>：工艺偏差导致相位不一致</li>
+<li><strong>解决方案</strong>：差分进化算法校准、嵌入式校准电路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 信道建模</h2>
+    <ul>
+<li><strong>频率选择性</strong>：THz频段传播损耗大，多径分量少</li>
+<li><strong>解决方案</strong>：混合信道模型（确定性+统计）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第一阶段：原理验证（2015-2020）</h2>
+    <ul>
+<li>单通道太赫兹发射/接收器件开发</li>
+<li>小规模阵列（4-16单元）原理验证</li>
+<li>主要平台：InP、GaAs III-V族化合物</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第二阶段：CMOS集成（2020-2024）</h2>
+    <ul>
+<li>65nm/90nm CMOS工艺适配THz频段</li>
+<li>16-64单元二维相控阵芯片</li>
+<li>集成波束赋形控制电路</li>
+<li>代表工作：MIT、IMEC、东京大学等</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第三阶段：大规模阵列（2024-2026）</h2>
+    <ul>
+<li>100单元级以上阵列实现</li>
+<li>瓦片式可扩展架构</li>
+<li>通感一体化系统演示</li>
+<li>代表工作：电子科技大学14Gbps @ 10m演示、苏州纳米所GaN SBD阵列</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第四阶段：商用预研（2026-2030）</h2>
+    <ul>
+<li>6G标准制定中的THz频段分配</li>
+<li>芯片级集成度提升</li>
+<li>成本下降到可商用水平</li>
+<li>与AI/RIS等技术融合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>当前阶段：原型验证 → 小规模商用过渡</h2>
+    <p><strong>判断依据</strong>：</p>
+<ul>
+<li>实验室环境已验证10米级14Gbps传输</li>
+<li>芯片级产品已有多个团队原型</li>
+<li>尚未进入6G标准正式条款</li>
+<li>成本仍较高，适合专网而非大众市场</li>
+</ul>
+<p><strong>成熟度评估</strong>：</p>
+<ul>
+<li>器件层面：7/10（CMOS THz器件成熟）</li>
+<li>芯片层面：6/10（阵列集成度提升中）</li>
+<li>系统层面：5/10（通感一体化demo阶段）</li>
+<li>商用层面：4/10（标准未定、成本高）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li><strong>标准化进展</strong>：3GPP Rel-20/21可能纳入THz研究用例</li>
+<li><strong>芯片迭代</strong>：单元数从16→64→256演进</li>
+<li><strong>材料创新</strong>：二维材料（石墨烯、MoS₂）THz器件研究加速</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li><strong>6G标准制定</strong>：THz频段（可能252-450 GHz）正式分配</li>
+<li><strong>通感一体化商用</strong>：THz ISAC系统在专网场景试点</li>
+<li><strong>AI辅助设计</strong>：ML用于THz阵列优化和校准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5年以上）</h2>
+    <ul>
+<li><strong>大规模商用</strong>：6G太赫兹基站部署</li>
+<li><strong>异构集成</strong>：THz与亚毫米波、光通信融合</li>
+<li><strong>新应用场景</strong>：全息通信、数字孪生、脑机接口</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>竞品/同行动态</h2>
+    <table>
+<thead>
+<tr>
+<th>团队/厂商</th>
+<th>技术路线</th>
+<th>阶段</th>
+<th>亮点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>东京科学大学</td>
+<td>300GHz CMOS相控阵</td>
+<td>芯片原型</td>
+<td>4×4阵列，26mW/单元，±32°扫描（VLSI 2026）</td>
+</tr>
+<tr>
+<td>MIT</td>
+<td>134-141GHz CMOS 2D相控阵</td>
+<td>系统演示</td>
+<td>16单元，10米距离14Gbps传输（ISSCC 2025）</td>
+</tr>
+<tr>
+<td>电子科技大学（樊勇团队）</td>
+<td>W/D波段相控阵</td>
+<td>系统演示</td>
+<td>14Gbps @134-141GHz；0.22THz 1000米 &lt;1E-6误码</td>
+</tr>
+<tr>
+<td>中科院苏州纳米所（秦华团队）</td>
+<td>GaN SBD无源相控阵</td>
+<td>原型</td>
+<td>0.32THz，32×25阵列，18dBi（Advanced Materials 2025）</td>
+</tr>
+<tr>
+<td>华为</td>
+<td>THz信道建模+ISAC原型</td>
+<td>预研</td>
+<td>6G星穹架构THz方向</td>
+</tr>
+<tr>
+<td>中兴</td>
+<td>太赫兹通信原型验证</td>
+<td>预研</td>
+<td>6G THz频段布局</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对工作的参考价值</h2>
+    <ol>
+<li><strong>技术储备</strong>：太赫兹是6G核心候选频段，提前了解技术路线有助于把握行业方向</li>
+<li><strong>竞品分析</strong>：华为、中兴、爱立信均在THz领域布局，需关注专利和标准动态</li>
+<li><strong>供应链机会</strong>：GaN SBD、硅微加工、先进封装等环节存在国产替代机会</li>
+<li><strong>标准参与</strong>：3GPP Rel-20/21 THz研究项目是参与标准制定的切入点</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>重点关注事项</h2>
+    <ul>
+<li><strong>电子科技大学</strong>：樊勇团队134-141 GHz 16单元CMOS相控阵（ISSCC 2024 Highlight）</li>
+<li><strong>中科院苏州纳米所</strong>：秦华团队GaN SBD无源THz相控阵（Advanced Materials 2025）</li>
+<li><strong>华为6G研究</strong>：THz信道建模与ISAC系统原型</li>
+<li><strong>中兴通讯</strong>：太赫兹通信原型验证进展</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>潜在合作机会</h2>
+    <ul>
+<li>高校联合实验室（成电、东南、清华等）</li>
+<li>产业链协同（芯片-封装-测试-系统）</li>
+<li>标准组织参与（3GPP、ITU-R、CCSA）</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

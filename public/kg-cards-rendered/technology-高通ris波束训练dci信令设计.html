@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高通RIS波束训练DCI信令设计 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">高通RIS波束训练DCI信令设计</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">RIS</span><span class="chip brand">波束训练</span><span class="chip brand">DCI</span><span class="chip brand">高通</span><span class="chip brand">6G标准化</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>高通公司于2026年8月4日获得授权的美国专利US12700912B2，提出了一种用于RIS波束训练的下行控制信息（DCI）设计框架。该专利是6G RIS标准化进程中最重要的信令层设计之一，解决了RIS辅助通信系统中波束训练开销大、控制信令复杂的核心难题。专利设计了两种DCI格式：组通用RIS训练DCI（配置RIS控制器和UE）和UE特定DCI（细化训练参数），通过联合优化实现低开销高准确的波束对齐。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. RIS波束训练架构</h2>
+    <p>传统MIMO波束训练仅涉及基站与UE之间的直接链路，而RIS辅助系统引入了第三维：基站-RIS-UE级联信道。波束训练需要同时优化：</p>
+<ul>
+<li><strong>主动波束成形</strong>：基站发射波束</li>
+<li><strong>被动波束成形</strong>：RIS反射系数矩阵</li>
+</ul>
+<p>专利提出的DCI框架将这一复杂过程分解为两个阶段：</p>
+<p><strong>第一阶段：组通用RIS训练DCI</strong>
+- 一次性配置多个UE和RIS控制器
+- 指示波束训练时隙分配
+- 分配上行控制信道资源（PUCCH）用于反馈</p>
+<p><strong>第二阶段：UE特定DCI</strong>
+- 针对单个UE细化训练参数
+- 指示具体的波束训练 occasion bitmap
+- 允许UE排除某些训练时隙以减少功耗</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. DCI字段设计</h2>
+    <p><strong>组通用RIS训练DCI关键字段：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>功能</th>
+<th>典型长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serving UE IDs</td>
+<td>服务UE标识列表</td>
+<td>动态</td>
+</tr>
+<tr>
+<td>Victim UE IDs</td>
+<td>干扰UE标识列表</td>
+<td>动态</td>
+</tr>
+<tr>
+<td>PUCCH资源指示</td>
+<td>上行反馈信道资源分配</td>
+<td>6-8 bits</td>
+</tr>
+<tr>
+<td>波束数量指示</td>
+<td>每个UE需报告的波束数</td>
+<td>3-4 bits</td>
+</tr>
+<tr>
+<td>干扰指标数量</td>
+<td>干扰UE需测量的指标数</td>
+<td>2-3 bits</td>
+</tr>
+<tr>
+<td>时频资源分配</td>
+<td>训练信号资源的时频位置</td>
+<td>动态</td>
+</tr>
+</tbody>
+</table>
+<p><strong>UE特定DCI关键字段：</strong>
+- Bitmap指示：哪些波束训练时隙需要监测
+- Victim UE专用资源：干扰测量专用PUCCH资源
+- 训练时隙排除指示：允许UE跳过低质量时隙</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 干扰管理机制</h2>
+    <p>RIS波束训练的关键挑战是训练信号对非目标UE的干扰。专利设计了双轨干扰管理：</p>
+<p><strong>服务UE轨道：</strong>
+- 接收参考信号并测量波束质量
+- 上报最佳波束索引和信道质量</p>
+<p><strong>受害者UE轨道：</strong>
+- 测量RIS训练信号对其的干扰水平
+- 上报干扰度量指标（如SINR下降值）</p>
+<p>基站根据两类反馈联合优化RIS配置，实现训练精度与干扰抑制的平衡。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 信令开销分析</h2>
+    <p>相比传统逐UE配置的波束训练方案，专利框架的开销优势：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>信令开销</th>
+<th>训练时隙数</th>
+<th>反馈比特数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传统逐UE配置</td>
+<td>O(N×M)</td>
+<td>N×M</td>
+<td>N×K</td>
+</tr>
+<tr>
+<td>专利组通用方案</td>
+<td>O(N+M)</td>
+<td>max(N,M)</td>
+<td>N×K + M×J</td>
+</tr>
+</tbody>
+</table>
+<p>其中N为服务UE数，M为RIS配置数，K为波束数，J为干扰指标数。组通用DCI将控制信令从线性增长降至接近常数级。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G RIS标准化核心支撑</h2>
+    <p>3GPP R19已启动RIS相关研究项目，但控制信令设计仍是开放问题。该专利提出的DCI框架：</p>
+<ul>
+<li>兼容现有5G NR物理层架构</li>
+<li>可直接映射到RRC信令流程</li>
+<li>为RAN1工作组提供可落地的技术方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 密集城区RIS部署</h2>
+    <p>城市微蜂窝场景下，多个RIS节点需要协调工作：</p>
+<ul>
+<li>组通用DCI可同时配置多个RIS节点</li>
+<li>减少控制信令时延，提升响应速度</li>
+<li>支持RIS协作波束赋形场景</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 车联网V2X场景</h2>
+    <p>车辆高速移动导致信道快速变化：</p>
+<ul>
+<li>低开销波束训练适应高移动性</li>
+<li>干扰管理机制保护路侧单元RSU</li>
+<li>支持RIS辅助的车载波束追踪</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 卫星通信NTN场景</h2>
+    <p>非地面网络中RIS辅助增强覆盖：</p>
+<ul>
+<li>减少星地链路的控制信令开销</li>
+<li>支持大规模用户同时接入</li>
+<li>适配卫星高延迟信道特性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>高通专利布局</h2>
+    <p>除US12700912外，高通在RIS领域已形成专利群：</p>
+<table>
+<thead>
+<tr>
+<th>专利号</th>
+<th>主题</th>
+<th>授权日期</th>
+<th>核心价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US12700912</td>
+<td>RIS波束训练DCI</td>
+<td>2026-08-04</td>
+<td>信令框架设计</td>
+</tr>
+<tr>
+<td>US12689424</td>
+<td>RIS元素聚类</td>
+<td>2026-07-21</td>
+<td>硬件架构优化</td>
+</tr>
+<tr>
+<td>US12532323</td>
+<td>DCI快速波束指示</td>
+<td>2026-01-20</td>
+<td>时延优化</td>
+</tr>
+<tr>
+<td>US20230216572</td>
+<td>RIS存在下的波束限制</td>
+<td>2023-07-06</td>
+<td>干扰管理</td>
+</tr>
+</tbody>
+</table>
+<p>高通策略：从物理层信令到MAC层调度再到RRC层配置，形成完整专利护城河。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>清华大学+中兴专利</h2>
+    <p>US20240413879A1（申请中）提出近场RIS波束训练方法：</p>
+<ul>
+<li>基于近场码本设计的波束训练</li>
+<li>适合XL-MIMO场景</li>
+<li>与中国6G标准提案呼应</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>欧洲学者方案</h2>
+    <p>Linglong Dai团队（上海交大）提出编码波束训练框架：</p>
+<ul>
+<li>利用信道编码纠错能力提升低SNR训练精度</li>
+<li>与高通DCI方案形成互补</li>
+<li>已在arXiv发表多篇论文</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3GPP标准化进展</h2>
+    <ul>
+<li>RAN1#121（2025年5月）：RIS相关讨论活跃</li>
+<li>RAN2：RIS控制信道架构仍在博弈</li>
+<li>中国提案倾向：基于NCR架构演进</li>
+<li>欧洲提案倾向：全新RIS控制信道设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. DCI-based RIS控制将成为6G标准主流</h2>
+    <p>传统RRC信令时延过高（数百ms级），不适合RIS快速调控需求。DCI直接在物理层传递，时延可降至符号级（&lt;1ms）。高通专利框架的灵活性使其成为3GPP讨论的基础参考。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 干扰管理是RIS部署关键瓶颈</h2>
+    <p>多RIS协同场景下，训练信号干扰问题日益突出。专利的双轨干扰管理机制提供了实用解决方案，预计将在R19/R20标准中被采纳。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 高通专利组合构成标准必要专利（SEP）风险</h2>
+    <p>高通在RIS控制信令领域已布局多项核心专利，未来6G设备厂商可能面临专利许可压力。中兴、华为等中国厂商需加速自身专利布局。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 与中国NCR标准的竞合关系</h2>
+    <p>中国推动的NCR（网络控制中继器）标准与高通RIS DCI方案存在技术路线差异：</p>
+<ul>
+<li>NCR：有源中继增强，偏向传统架构演进</li>
+<li>RIS DCI：无源/半无源调控，偏向颠覆性创新</li>
+</ul>
+<p>两者在物理层控制逻辑上有共通之处（SCI侧链路控制信息），未来可能融合。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 中兴6G RIS标准话语权</h2>
+    <p>老大在中兴负责天线与RIS相关技术预研。高通专利的授权意味着中国厂商在RIS控制信令领域面临标准必要专利威胁。建议：</p>
+<ul>
+<li>密切关注RAN1后续会议提案</li>
+<li>评估自身RIS波束训练专利布局缺口</li>
+<li>考虑与高校合作补充底层算法专利</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. GigaMIMO与RIS协同设计</h2>
+    <p>中兴GigaMIMO（笔记#33/139）强调空域资源重构，与RIS的电磁环境调控形成互补。高通DCI框架可直接扩展至GigaMIMO+RIS联合波束训练场景，实现空域+超表面的联合优化。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 越南/东南亚市场技术壁垒</h2>
+    <p>RIS控制信令标准化将影响设备兼容性。高通专利若成为标准，可能形成技术壁垒。中兴出海方案需提前布局替代技术或获得许可。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 知识图谱更新建议</h2>
+    <p>本笔记应归入<code>资料库/天线技术/技术概念/</code>，与以下笔记形成技术谱系：</p>
+<ul>
+<li>[[技术概念-智能反射面RIS深度解读-20260701]]（基础理论）</li>
+<li>[[技术概念-STAR-RIS全空间覆盖与6G演进-20260811]]（技术演进）</li>
+<li>[[技术概念-6G独立双极化RIS单元设计-20260718]]（硬件实现）</li>
+<li>[[技术概念-ZTE GigaMIMO空域资源深度重构-20260705]]（协同应用）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><a href="https://exa.ai/library/legal/patent/jzgxsk6ycr4klnt8vnpz7q">US Patent 12700912 - Downlink control information for reconfigurable intelligent surface beam training</a></li>
+<li><a href="https://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_121/">3GPP RAN1#121 Meeting Report (2025.05)</a></li>
+<li><a href="https://www.c114.com.cn/wireless/2936/a1301638.html">C114: RIS突破质疑冲刺6G标准化 (2025.12)</a></li>
+<li><a href="https://arxiv.org/abs/2406.15802">arXiv: Coded Beam Training for RIS (2024.06)</a></li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

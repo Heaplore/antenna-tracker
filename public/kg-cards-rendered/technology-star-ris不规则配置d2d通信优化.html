@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAR-RIS不规则配置D2D通信优化 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">STAR-RIS不规则配置D2D通信优化</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">STAR-RIS</span><span class="chip brand">D2D通信</span><span class="chip brand">不规则配置</span><span class="chip brand">交叉熵优化</span><span class="chip brand">6G</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1. STAR-RIS基本架构</h2>
+    <p>传统RIS仅支持信号反射，而STAR-RIS实现360°全空间覆盖：</p>
+<ul>
+<li><strong>反射模式</strong>：信号被反射到入射同侧</li>
+<li><strong>透射模式</strong>：信号穿透到入射异侧</li>
+<li><strong>能量分割协议</strong>：每个元素同时分配透射和反射系数，满足能量守恒约束</li>
+</ul>
+<p>$$|\beta_n^t|^2 + |\beta_n^r|^2 \leq 1, \quad \forall n \in {1,...,N}$$</p>
+<p>其中$\beta_n^t$和$\beta_n^r$分别为第n个元素的透射和反射系数。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 不规则配置创新</h2>
+    <p><strong>核心思想</strong>：不是激活所有N个元素，而是策略性地选择子集$\mathcal{S} \subset {1,...,N}$，$|\mathcal{S}| = N_s \ll N$。</p>
+<p><strong>优势分析</strong>：</p>
+<ul>
+<li>降低硬件成本：减少相移器数量</li>
+<li>节省功耗：只激活必要元素</li>
+<li>增强空间分集：稀疏激活避免元素间强耦合</li>
+<li>简化优化：搜索空间从$2^N$降至$\binom{N}{N_s}$</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 低分辨率相移器建模</h2>
+    <p>实际硬件约束：</p>
+<ul>
+<li><strong>耦合幅度-相位模型</strong>：透射和反射系数不是独立的</li>
+<li><strong>低分辨率量化</strong>：Phase shifters with $b$-bit quantization:</li>
+</ul>
+<p>$$\phi \in {0, \frac{2\pi}{2^b-1}, ..., \frac{(2^b-1)2\pi}{2^b-1}}$$</p>
+<p>论文采用2-bit量化（16个离散相位值），兼顾性能与实现复杂度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 交叉熵优化框架（CEO）</h2>
+    <p><strong>问题形式化</strong>：
+最大化K对D2D用户的对数和速率，联合优化：</p>
+<ul>
+<li>元素选择变量$\mathbf{s} \in {0,1}^N$</li>
+<li>透射系数$\boldsymbol{\beta}^t \in \mathbb{C}^N$</li>
+<li>反射系数$\boldsymbol{\beta}^r \in \mathbb{C}^N$</li>
+<li>用户调度分组$\mathcal{G}$</li>
+</ul>
+<p><strong>交叉熵方法核心</strong>：</p>
+<ol>
+<li>初始化概率分布$p(\mathbf{x})$</li>
+<li>采样生成候选解集</li>
+<li>选择精英样本（top-$\rho$）</li>
+<li>更新分布参数使精英样本概率最大化</li>
+<li>迭代直至收敛</li>
+</ol>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>处理混合连续-离散优化问题</li>
+<li>避免陷入局部最优</li>
+<li>计算复杂度低于 exhaustive search</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 用户调度分组策略</h2>
+    <p>将K个D2D用户分成$|\mathcal{G}|$组，同组用户共享时间 slot，不同组正交调度：</p>
+<ul>
+<li>减少组内干扰</li>
+<li>提高频谱效率</li>
+<li>降低调度复杂度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>传统RIS</th>
+<th>标准STAR-RIS</th>
+<th>不规则STAR-RIS（本文）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>覆盖范围</td>
+<td>半空间</td>
+<td>全空间</td>
+<td>全空间</td>
+</tr>
+<tr>
+<td>激活元素数</td>
+<td>N</td>
+<td>N</td>
+<td>$N_s \ll N$</td>
+</tr>
+<tr>
+<td>相移器分辨率</td>
+<td>无限</td>
+<td>低分辨率</td>
+<td>2-bit</td>
+</tr>
+<tr>
+<td>对数和速率提升</td>
+<td>baseline</td>
+<td>+35%</td>
+<td>+52% vs baseline</td>
+</tr>
+<tr>
+<td>能效提升</td>
+<td>-</td>
+<td>+28%</td>
+<td>+67% vs baseline</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 车联网V2X通信</h2>
+    <p>D2D是V2X的核心使能技术：</p>
+<ul>
+<li>车辆间直接通信降低延迟</li>
+<li>STAR-RIS不规则配置减少车载终端功耗</li>
+<li>适合高速公路、城市拥堵场景</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 物联网大规模连接</h2>
+    <p>海量IoT设备需要低成本连接方案：</p>
+<ul>
+<li>低分辨率相移器降低RIS部署成本</li>
+<li>不规则配置适配稀疏用户分布</li>
+<li>分组调度支持大规模设备接入</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 室内微蜂窝覆盖</h2>
+    <p>密集城区室内场景：</p>
+<ul>
+<li>STAR-RIS部署于墙面实现全空间覆盖</li>
+<li>不规则配置避免过覆盖干扰</li>
+<li>D2D offload缓解基站负载</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 应急通信网络</h2>
+    <p>灾难场景快速部署：</p>
+<ul>
+<li>STAR-RIS便携部署</li>
+<li>D2D自组网能力</li>
+<li>不规则配置适应临时拓扑</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>台湾成功大学团队</h2>
+    <ul>
+<li>负责人：Jung-Chieh Chen教授</li>
+<li>研究方向：STAR-RIS优化、D2D通信、交叉熵方法</li>
+<li>代表性成果：</li>
+<li>IEEE Open Journal of Vehicular Technology (2024)</li>
+<li>Engineering Proceedings (2026)</li>
+<li>ICKII 2025会议论文</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>韩国KAIST团队</h2>
+    <p>提出FDD模式下STAR-RIS加权对数和速率最大化：</p>
+<ul>
+<li>交替优化框架</li>
+<li>SCA技术处理非凸约束</li>
+<li>与本文CEO方法形成对比</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中国学者方案</h2>
+    <ul>
+<li>杭州电子科技大学：分布式STAR-RIS能效优化（PDD方法）</li>
+<li>西南交通大学：STAR-RIS辅助V2I低延迟配置（差分进化算法）</li>
+<li>浙江大学：近场宽带STAR-RIS波束成形（深度强化学习）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>标准化进展</h2>
+    <ul>
+<li>3GPP R19：RIS信道建模研究启动</li>
+<li>ETSI：RIS部署指南制定中</li>
+<li>IMT-2030：中国RIS测试验证推进</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 不规则配置将成为STAR-RIS实用化关键</h2>
+    <p>全元素激活的理论最优与硬件约束的现实差距日益突出。不规则配置在成本、功耗、性能三角中找到平衡点，预计成为产业界首选方案。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 低分辨率相移器是量产必经之路</h2>
+    <p>高精度相移器成本高昂且功耗大。2-bit甚至1-bit量化方案在理论性能损失&lt;3dB的情况下，可实现成本降低50%以上，是商业化必选项。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 交叉熵优化比传统凸优化更适应实际问题</h2>
+    <p>传统方法假设理想硬件模型，而CEO框架天然支持：</p>
+<ul>
+<li>离散-连续混合变量</li>
+<li>非凸约束处理</li>
+<li>硬件损伤建模</li>
+</ul>
+<p>预计将在RIS优化算法中占据主流地位。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. D2D+STAR-RIS融合是新赛道</h2>
+    <p>传统D2D研究聚焦于直连链路优化，引入STAR-RIS后：</p>
+<ul>
+<li>覆盖范围从点对点扩展至全空间</li>
+<li>干扰管理从二维提升至三维</li>
+<li>优化变量从功率控制扩展至元素选择</li>
+</ul>
+<p>形成新的研究热点。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 中兴D2D技术布局参考</h2>
+    <p>中兴在V2X和物联网领域有深厚积累。STAR-RIS不规则配置方案可为中兴D2D产品提供：</p>
+<ul>
+<li>低成本RIS辅助覆盖方案</li>
+<li>低功耗终端设计参考</li>
+<li>高密度场景干扰管理思路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. STAR-BD-RIS技术路线对比</h2>
+    <p>老大已关注的STAR-BD-RIS（笔记#112）侧重带放大模型的透反射优化，而本文侧重硬件约束下的不规则配置。两者互补：</p>
+<ul>
+<li>STAR-BD-RIS：性能优先，适合基站侧部署</li>
+<li>不规则STAR-RIS：成本优先，适合大规模IoT部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 6G标准提案素材</h2>
+    <p>论文提出的CEO优化框架和不规则配置概念，可作为中兴6G RIS标准提案的技术素材：</p>
+<ul>
+<li>硬件友好型RIS设计</li>
+<li>低开销优化算法</li>
+<li>D2D增强方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 知识图谱更新建议</h2>
+    <p>本笔记应归入<code>资料库/天线技术/技术概念/</code>，与以下笔记形成技术谱系：</p>
+<ul>
+<li>[[技术概念-STAR-RIS全空间覆盖与6G演进-20260811]]（STAR-RIS基础）</li>
+<li>[[技术概念-STAR-BD-RIS带放大模型与优化-20260718]]（有源STAR-RIS）</li>
+<li>[[技术概念-6G独立双极化RIS单元设计-20260718]]（硬件实现）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Su, Z.K. &amp; Chen, J.C. (2026). Joint User Scheduling and Beamforming Design in STAR-RIS-Assisted D2D Communications. <em>Engineering Proceedings</em>, 120(1), 53.</li>
+<li>Chen, J.C. et al. (2024). Optimizing D2D Communication With Practical STAR-RIS and Irregular Configurations. <em>IEEE Open Journal of Vehicular Technology</em>, 5, 778-791.</li>
+<li><a href="https://www.researchgate.net/publication/381056367_Optimizing_D2D_Communication_with_Practical_STAR-RIS_and_Irregular_Configurations">ResearchGate论文链接</a></li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

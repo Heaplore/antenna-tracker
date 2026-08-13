@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>银河航天第二代手机直连相控阵天线 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">银河航天第二代手机直连相控阵天线</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">星载相控阵</span><span class="chip brand">手机直连卫星</span><span class="chip brand">NTN</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>2.1 ASIC化相控阵架构</h2>
+    <p>传统相控阵采用通用射频芯片+FPGA控制，体积大、功耗高、成本高。银河航天第二代产品采用ASIC（专用集成电路）定制设计：</p>
+<ul>
+<li><strong>高度集成</strong>：芯片级实现，减小体积重量（SWaP-S）</li>
+<li><strong>低功耗</strong>：整阵功耗降低20%，延长卫星寿命</li>
+<li><strong>多波束</strong>：支持128波束同时工作，空间复用提升容量</li>
+<li><strong>批量化制造</strong>：半导体工艺降低成本，适合大规模部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 L/S双频段设计</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>频率范围</th>
+<th>特点</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L频段</td>
+<td>1-2 GHz</td>
+<td>穿透能力强，损耗小</td>
+<td>语音、低速数据、广域覆盖</td>
+</tr>
+<tr>
+<td>S频段</td>
+<td>2-4 GHz</td>
+<td>平衡带宽与覆盖</td>
+<td>高速数据、多媒体应用</td>
+</tr>
+</tbody>
+</table>
+<p>双频协同：L频段负责基础语音和信令，S频段负责高速数据业务，可根据业务需求动态切换或聚合。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 低压GaN射频前端</h2>
+    <p>采用低压GaN（氮化镓）射频前端+低功耗收发芯片：</p>
+<ul>
+<li><strong>高功率效率</strong>：GaN器件效率&gt;60%，降低卫星电源系统负担</li>
+<li><strong>宽频带</strong>：支持多频段灵活配置</li>
+<li><strong>高温稳定性</strong>：适应太空极端环境</li>
+<li><strong>低压驱动</strong>：降低功耗，提高安全性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 多波束形成技术</h2>
+    <p>相控阵通过控制每个天线单元的相位和幅度实现波束电子扫描：</p>
+<pre><code>波束指向角 θ = arcsin(λ·Δφ / (2π·d))
+</code></pre>
+<p>128波束意味着同时形成128个独立指向的电子波束，无需机械转动即可实现大范围覆盖。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 手机直连卫星应用场景</h2>
+    <ul>
+<li><strong>应急通信</strong>：地震/洪灾时地面基站损毁，手机直连卫星提供应急通信</li>
+<li><strong>全域覆盖</strong>：远洋航行、极地科考、跨境运输等无地面网络区域</li>
+<li><strong>物联网扩展</strong>：集装箱追踪、野生动物监测、农业物联网</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 与5G/6G标准的关系</h2>
+    <ul>
+<li><strong>3GPP Rel-17</strong>：首个支持NTN的5G标准</li>
+<li><strong>Rel-18/19</strong>：增强NTN支持，引入S-band频段</li>
+<li><strong>6G愿景</strong>：空天地一体化无缝融合，手机直连卫星成为标配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 产业链位置</h2>
+    <pre><code>上游：芯片设计（ASIC）、射频前端（GaN）、天线单元
+  ↓
+中游：相控阵天线集成、卫星平台、载荷制造 ← 银河航天
+  ↓
+下游：卫星发射、地面运营、终端适配
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 国际竞争</h2>
+    <table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>技术方案</th>
+<th>进展</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SpaceX Starlink</strong></td>
+<td>Direct to Cell</td>
+<td>2024宣布，2025-2026测试</td>
+<td>与T-Mobile合作，L-band</td>
+</tr>
+<tr>
+<td><strong>Amazon Kuiper</strong></td>
+<td>相控阵卫星</td>
+<td>2025首批发射</td>
+<td>Ku-band + L-band</td>
+</tr>
+<tr>
+<td><strong>OneWeb</strong></td>
+<td>企业/政府市场</td>
+<td>已发射约300颗</td>
+<td>Ku-band专注</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 国内竞争</h2>
+    <table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>技术路线</th>
+<th>进展</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>银河航天</strong></td>
+<td>ASIC相控阵+L/S双频</td>
+<td>第二代发布，功耗降20%</td>
+</tr>
+<tr>
+<td><strong>中国星网</strong></td>
+<td>集中采购+自主研制</td>
+<td>星座组网中</td>
+</tr>
+<tr>
+<td><strong>航天科技/科工</strong></td>
+<td>传统相控阵</td>
+<td>在研</td>
+</tr>
+<tr>
+<td><strong>小米/华为</strong></td>
+<td>终端适配</td>
+<td>已支持卫星通信</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 中兴通讯的可展开相控阵专利</h2>
+    <p>与银河航天ASIC化路线不同，中兴申请了"可展开相控阵天线结构"专利（CN121769477A）：</p>
+<ul>
+<li><strong>核心创新</strong>：多个天线单元通过可转动连接组件实现折叠/展开</li>
+<li><strong>展开状态</strong>：阵面朝向相同，相邻单元呈预设角度</li>
+<li><strong>折叠状态</strong>：相邻单元相对平行，节省发射空间</li>
+<li><strong>应用场景</strong>：星载相控阵、卫星平台</li>
+</ul>
+<p>两种技术路线各有优势：</p>
+<ul>
+<li>银河航天：ASIC集成度高，适合批量制造</li>
+<li>中兴通讯：可展开结构，适合大孔径需求</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 技术趋势</h2>
+    <ol>
+<li><strong>ASIC化成为主流</strong>：2027-2028年ASIC相控阵将成为手机直连卫星标配</li>
+<li><strong>多波束数量持续增长</strong>：从128波束向512+波束演进</li>
+<li><strong>低功耗设计持续优化</strong>：功耗每年降低10-15%</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 市场趋势</h2>
+    <ul>
+<li><strong>2026年</strong>：手机直连卫星试点商用</li>
+<li><strong>2027-2028年</strong>：规模化商用，覆盖主要城市</li>
+<li><strong>2030年</strong>：全球全覆盖，成为智能手机标配功能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 标准趋势</h2>
+    <ul>
+<li><strong>3GPP Rel-20</strong>：6G NTN融合标准预计2027年冻结</li>
+<li><strong>中国标准</strong>：YD/T手机直连卫星技术要求、CCT卫星互联网标准体系</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 技术协同</h2>
+    <ul>
+<li><strong>与XL-MIMO近场波束聚焦</strong>：都涉及多波束形成和波束管理，算法可相互借鉴</li>
+<li><strong>与RIS智能超表面</strong>：RIS地面反射面+星载相控阵太空平台，互补覆盖</li>
+<li><strong>与U6GHz频段</strong>：地面高频大容量+卫星低频广覆盖，分层覆盖架构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 产业洞察</h2>
+    <ul>
+<li><strong>传统天线厂商转型机会</strong>：通宇通讯、晨讯科技、杰赛科技可迁移技术至卫星通信</li>
+<li><strong>技术路线选择</strong>：ASIC化 vs 可展开结构，可考虑混合方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 研究建议</h2>
+    <ol>
+<li>星地融合波束管理：地面XL-MIMO与星载相控阵协同波束赋形</li>
+<li>NTN信道建模：卫星信道时空特性与传统地面信道差异</li>
+<li>低功耗相控阵设计：GaN器件、热管理、电源优化</li>
+<li>多波束调度算法：128波束动态调度和资源分配</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、参考资料</h2>
+    <ul>
+<li><a href="http://www.chinanews.com.cn/cj/2026/06-26/10647936.shtml">银河航天首次公开展示自研第二代手机直连相控阵天线 - 中新网</a></li>
+<li><a href="https://www.itbear.com.cn/html/2026-06/1416038.html">银河航天亮相MWC26上海 携第二代手机直连相控阵天线 - ITBear</a></li>
+<li><a href="https://www.163.com/dy/article/L097ESJF0550WHYR.html">国内首发！银河航天128波束ASIC化星载相控阵亮相MWC26上海 - 网易</a></li>
+<li><a href="https://finance.sina.com.cn/stock/aigc/zl/2026-04-02/doc-inhtakuf7930084.shtml">中兴通讯申请相控阵天线相关专利，可展开相控阵天线结构可折叠与展开 - 新浪财经</a></li>
+<li><a href="https://www.risalliance.com/6g-near-field-technologies-white-paper-2-0">6G近场技术白皮书2.0 - 智能超表面技术联盟</a></li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
