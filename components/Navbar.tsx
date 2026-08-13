@@ -26,13 +26,10 @@ export default function Navbar() {
             <Link href="/technology" className={`nav-link${isActive('/technology') ? ' active' : ''}`}>技术</Link>
             <Link href="/knowledge-graph" className={`nav-link${isActive('/knowledge-graph') ? ' active' : ''}`}>知识图谱</Link>
           </div>
+          <div className="navbar-search-hint">点击导航栏文字按钮切换页面</div>
           <div className="navbar-search">
             <SearchTrigger />
           </div>
-        </div>
-        {/* 导航提示行 */}
-        <div className="navbar-hint">
-          <span>点击导航栏文字按钮切换页面</span>
         </div>
       </nav>
       <GlobalSearch />
