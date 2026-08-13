@@ -30,6 +30,10 @@ export default function Navbar() {
             <SearchTrigger />
           </div>
         </div>
+        {/* 导航提示行 */}
+        <div className="navbar-hint">
+          <span>点击导航栏文字按钮切换页面</span>
+        </div>
       </nav>
       <GlobalSearch />
     </>
