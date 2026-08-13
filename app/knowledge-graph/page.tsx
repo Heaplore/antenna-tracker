@@ -893,7 +893,9 @@ export default function KnowledgeGraphPage() {
               return (
                 <div key={t} style={{ marginBottom: 4 }}>
                   <button
-                    onClick={() => {
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
                       const newExpanded = new Set(expandedTypes)
                       if (newExpanded.has(t)) newExpanded.delete(t)
                       else newExpanded.add(t)
