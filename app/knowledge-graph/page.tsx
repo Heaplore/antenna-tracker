@@ -90,6 +90,9 @@ export default function KnowledgeGraphPage() {
   const [activeTypes, setActiveTypes] = useState<Set<NodeType>>(
     new Set<NodeType>(['technology', 'metric', 'component', 'material', 'report']),
   )
+  const [expandedTypes, setExpandedTypes] = useState<Set<NodeType>>(
+    new Set<NodeType>(['technology']), // 默认只展开技术概念
+  )
   const svgRef = useRef<SVGSVGElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const simulationRef = useRef<d3.Simulation<SimNode, SimLink> | null>(null)
@@ -712,7 +715,9 @@ export default function KnowledgeGraphPage() {
         <p className="update-info">数据来源：内部知识库整理</p>
       </header>
 
-      {/* ===== 左侧知识目录侧边栏 ===== */}
+      {/* ===== 主布局：左侧边栏 + 右侧图谱区 ===== */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* ===== 左侧知识目录侧边栏 ===== */}
         <aside style={{
           width: 280,
           flexShrink: 0,
@@ -880,61 +885,89 @@ export default function KnowledgeGraphPage() {
           </div>
 
           {/* 知识目录 */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0', scrollbarWidth: 'thin' }}>
             {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
               const nodes = nodesByType[t]
               if (nodes.length === 0) return null
+              const isExpanded = expandedTypes.has(t)
               return (
                 <div key={t} style={{ marginBottom: 4 }}>
-                  <div style={{
-                    padding: '6px 14px',
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: TYPE_COLORS[t],
-                    textTransform: 'uppercase',
-                    letterSpacing: 0.5,
-                    borderBottom: `1px solid ${TYPE_COLORS[t]}20`,
-                  }}>
-                    {TYPE_ICONS[t]} {TYPE_LABELS[t]} ({nodes.length})
-                  </div>
-                  {nodes.slice(0, 15).map((node) => (
-                    <button
-                      key={node.id}
-                      onClick={() => setSelectedId(node.id)}
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        padding: '5px 14px 5px 20px',
-                        border: 'none',
-                        background: selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent',
-                        textAlign: 'left',
-                        fontSize: 12,
-                        color: selectedId === node.id ? TYPE_COLORS[t] : '#4b5563',
-                        cursor: 'pointer',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        transition: 'background 0.15s',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (selectedId !== node.id) e.currentTarget.style.background = '#f3f4f6'
-                      }}
-                      onMouseLeave={(e) => {
-                        if (selectedId !== node.id) e.currentTarget.style.background = 'transparent'
-                      }}
-                    >
-                      {node.name}
-                    </button>
-                  ))}
-                  {nodes.length > 15 && (
-                    <div style={{
-                      padding: '4px 14px 4px 20px',
+                  <button
+                    onClick={() => {
+                      const newExpanded = new Set(expandedTypes)
+                      if (newExpanded.has(t)) newExpanded.delete(t)
+                      else newExpanded.add(t)
+                      setExpandedTypes(newExpanded)
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '6px 14px',
                       fontSize: 11,
-                      color: '#9ca3af',
-                      fontStyle: 'italic',
-                    }}>
-                      ... 还有 {nodes.length - 15} 条
-                    </div>
+                      fontWeight: 700,
+                      color: TYPE_COLORS[t],
+                      textTransform: 'uppercase',
+                      letterSpacing: 0.5,
+                      borderBottom: `1px solid ${TYPE_COLORS[t]}20`,
+                      background: 'transparent',
+                      border: 'none',
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                    }}
+                  >
+                    <span style={{ fontSize: 10, transition: 'transform 0.2s', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+                      ▶
+                    </span>
+                    <span>{TYPE_ICONS[t]}</span>
+                    <span style={{ flex: 1, textAlign: 'left' }}>{TYPE_LABELS[t]}</span>
+                    <span style={{ color: '#9ca3af', fontWeight: 400 }}>{nodes.length}</span>
+                  </button>
+                  {isExpanded && (
+                    <>
+                      {nodes.slice(0, 15).map((node) => (
+                        <button
+                          key={node.id}
+                          onClick={() => setSelectedId(node.id)}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            padding: '5px 14px 5px 28px',
+                            border: 'none',
+                            background: selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent',
+                            textAlign: 'left',
+                            fontSize: 12,
+                            color: selectedId === node.id ? TYPE_COLORS[t] : '#4b5563',
+                            cursor: 'pointer',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            transition: 'background 0.15s',
+                          }}
+                          onMouseEnter={(e) => {
+                            if (selectedId !== node.id) e.currentTarget.style.background = '#f3f4f6'
+                          }}
+                          onMouseLeave={(e) => {
+                            if (selectedId !== node.id) e.currentTarget.style.background = 'transparent'
+                          }}
+                        >
+                          {node.name}
+                        </button>
+                      ))}
+                      {nodes.length > 15 && (
+                        <div style={{
+                          padding: '4px 14px 4px 28px',
+                          fontSize: 11,
+                          color: '#9ca3af',
+                          fontStyle: 'italic',
+                        }}>
+                          ... 还有 {nodes.length - 15} 条
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )
@@ -942,71 +975,71 @@ export default function KnowledgeGraphPage() {
           </div>
         </aside>
 
-        {/* ===== 右侧图谱区 ===== */}
-        <div
-          ref={containerRef}
-          style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
-        >
-        <svg
-          ref={svgRef}
-          width={containerSize.w}
-          height={containerSize.h}
-          style={{ display: 'block', background: '#f9fafb' }}
-        />
+      {/* ===== 右侧图谱区 ===== */}
+      <div
+        ref={containerRef}
+        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+      >
+          <svg
+            ref={svgRef}
+            width={containerSize.w}
+            height={containerSize.h}
+            style={{ display: 'block', background: '#f9fafb' }}
+          />
 
-        {/* 图例 */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 12,
-            left: 12,
-            background: 'rgba(255,255,255,0.95)',
-            border: '1px solid #e5e7eb',
-            borderRadius: 8,
-            padding: '10px 14px',
-            fontSize: 11,
-            color: '#4b5563',
-            pointerEvents: 'none',
-          }}
-        >
-          <div style={{ fontWeight: 700, marginBottom: 6, color: '#111827' }}>图例</div>
-          {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => (
-            <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: 12,
-                  height: 12,
-                  borderRadius: '50%',
-                  background: TYPE_COLORS[t],
-                }}
-              />
-              <span>{TYPE_LABELS[t]}</span>
-              <span style={{ color: '#9ca3af' }}>·</span>
-              <span style={{ color: '#9ca3af' }}>{kgData.stats[t]} 节点</span>
-            </div>
-          ))}
-        </div>
+          {/* 图例 */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 12,
+              left: 12,
+              background: 'rgba(255,255,255,0.95)',
+              border: '1px solid #e5e7eb',
+              borderRadius: 8,
+              padding: '10px 14px',
+              fontSize: 11,
+              color: '#4b5563',
+              pointerEvents: 'none',
+            }}
+          >
+            <div style={{ fontWeight: 700, marginBottom: 6, color: '#111827' }}>图例</div>
+            {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => (
+              <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    background: TYPE_COLORS[t],
+                  }}
+                />
+                <span>{TYPE_LABELS[t]}</span>
+                <span style={{ color: '#9ca3af' }}>·</span>
+                <span style={{ color: '#9ca3af' }}>{kgData.stats[t]} 节点</span>
+              </div>
+            ))}
+          </div>
 
-        {/* 提示 */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            background: 'rgba(255,255,255,0.85)',
-            padding: '6px 10px',
-            border: '1px solid #e5e7eb',
-            borderRadius: 6,
-            fontSize: 11,
-            color: '#6b7280',
-            pointerEvents: 'none',
-          }}
-        >
-          点击节点查看详情 · 拖动节点调整位置 · 滚动放大显示文字
+          {/* 提示 */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              background: 'rgba(255,255,255,0.85)',
+              padding: '6px 10px',
+              border: '1px solid #e5e7eb',
+              borderRadius: 6,
+              fontSize: 11,
+              color: '#6b7280',
+              pointerEvents: 'none',
+            }}
+          >
+            点击节点查看详情 · 拖动节点调整位置 · 滚动放大显示文字
+          </div>
         </div>
       </div>
-
       {/* ===== 节点详情弹窗（居中） ===== */}
       {selectedNode && (
         <Modal
