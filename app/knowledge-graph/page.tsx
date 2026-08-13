@@ -684,167 +684,269 @@ export default function KnowledgeGraphPage() {
     d3.select(svg).transition().duration(500).call(zoom.transform, d3.zoomIdentity)
   }
 
+  // 按类型分组节点列表（用于侧边栏目录）
+  const nodesByType = useMemo(() => {
+    const groups: Record<NodeType, KGNode[]> = {
+      technology: [],
+      metric: [],
+      component: [],
+      material: [],
+      report: [],
+    }
+    kgData.nodes.forEach((n) => {
+      if (activeTypes.has(n.type)) {
+        groups[n.type].push(n)
+      }
+    })
+    // 按名称排序
+    Object.values(groups).forEach((arr) => arr.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN')))
+    return groups
+  }, [activeTypes])
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', background: '#fafafa', height: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', background: '#fafafa', height: '100vh', overflow: 'hidden' }}>
       {/* ===== 统一版头 ===== */}
-      <header className="header">
+      <header className="header" style={{ margin: 0, borderRadius: 0, marginBottom: 0 }}>
         <h1>📡 天线知识图谱</h1>
         <p>{visibleCount.nodes} 节点 / {visibleCount.links} 条关系 · 更新于 {kgData.lastUpdate}</p>
         <p className="update-info">数据来源：内部知识库整理</p>
       </header>
 
-      {/* ===== 工具栏 ===== */}
-      <div style={{
-        padding: '12px 20px',
-        background: '#fff',
-        borderBottom: '1px solid #e5e7eb',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 16,
-        flexWrap: 'wrap',
-      }}>
-        {/* 搜索框 + 下拉候选 */}
-        <div style={{ position: 'relative', flex: 1, minWidth: 220 }}>
-          <input
-            type="text"
-            placeholder="搜索节点 (名称 / 标签 / 内容)"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value)
-              setShowSuggestions(true)
-              setHighlightedIdx(-1)
-            }}
-            onFocus={() => {
-              if (suggestions.length > 0) setShowSuggestions(true)
-            }}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            onKeyDown={(e) => {
-              if (!showSuggestions || suggestions.length === 0) return
-              if (e.key === 'ArrowDown') {
-                e.preventDefault()
-                setHighlightedIdx(prev => Math.min(prev + 1, suggestions.length - 1))
-              } else if (e.key === 'ArrowUp') {
-                e.preventDefault()
-                setHighlightedIdx(prev => Math.max(prev - 1, 0))
-              } else if (e.key === 'Enter' && highlightedIdx >= 0) {
-                e.preventDefault()
-                setSelectedId(suggestions[highlightedIdx].id)
-                setShowSuggestions(false)
-              } else if (e.key === 'Escape') {
-                setShowSuggestions(false)
-              }
-            }}
-            style={{
-              flex: 1,
-              padding: '6px 12px',
-              border: '1px solid #d1d5db',
-              borderRadius: 6,
-              fontSize: 13,
-              outline: 'none',
-            }}
-          />
-          {showSuggestions && suggestions.length > 0 && (
-            <div style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              marginTop: 4,
-              background: '#fff',
-              border: '1px solid #e5e7eb',
-              borderRadius: 8,
-              boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-              zIndex: 100,
-              maxHeight: 280,
-              overflowY: 'auto',
-            }}>
-              {suggestions.map((node, idx) => (
-                <button
-                  key={node.id}
-                  onClick={() => {
-                    setSelectedId(node.id)
+      {/* ===== 左侧知识目录侧边栏 ===== */}
+        <aside style={{
+          width: 280,
+          flexShrink: 0,
+          background: '#fff',
+          borderRight: '1px solid #e5e7eb',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}>
+          {/* 搜索框区域 */}
+          <div style={{
+            padding: '12px 14px',
+            borderBottom: '1px solid #e5e7eb',
+            position: 'sticky',
+            top: 0,
+            background: '#fff',
+            zIndex: 10,
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              🔍 搜索
+            </div>
+            <div style={{ position: 'relative' }}>
+              <input
+                type="text"
+                placeholder="搜索节点..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  setShowSuggestions(true)
+                  setHighlightedIdx(-1)
+                }}
+                onFocus={() => {
+                  if (suggestions.length > 0) setShowSuggestions(true)
+                }}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                onKeyDown={(e) => {
+                  if (!showSuggestions || suggestions.length === 0) return
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    setHighlightedIdx(prev => Math.min(prev + 1, suggestions.length - 1))
+                  } else if (e.key === 'ArrowUp') {
+                    e.preventDefault()
+                    setHighlightedIdx(prev => Math.max(prev - 1, 0))
+                  } else if (e.key === 'Enter' && highlightedIdx >= 0) {
+                    e.preventDefault()
+                    setSelectedId(suggestions[highlightedIdx].id)
                     setShowSuggestions(false)
-                  }}
-                  onMouseEnter={() => setHighlightedIdx(idx)}
+                  } else if (e.key === 'Escape') {
+                    setShowSuggestions(false)
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  padding: '8px 10px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: 6,
+                  fontSize: 13,
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+              {showSuggestions && suggestions.length > 0 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  marginTop: 4,
+                  background: '#fff',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: 8,
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                  zIndex: 100,
+                  maxHeight: 200,
+                  overflowY: 'auto',
+                }}>
+                  {suggestions.map((node, idx) => (
+                    <button
+                      key={node.id}
+                      onClick={() => {
+                        setSelectedId(node.id)
+                        setShowSuggestions(false)
+                      }}
+                      onMouseEnter={() => setHighlightedIdx(idx)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        width: '100%',
+                        padding: '8px 12px',
+                        background: idx === highlightedIdx ? '#f0f4ff' : '#fff',
+                        border: 'none',
+                        borderBottom: idx < suggestions.length - 1 ? '1px solid #f3f4f6' : 'none',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        fontSize: 12,
+                        color: '#111827',
+                      }}
+                    >
+                      <span style={{
+                        display: 'inline-block',
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: TYPE_COLORS[node.type],
+                        flexShrink: 0,
+                      }} />
+                      <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {node.name}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 类型筛选 */}
+          <div style={{
+            padding: '10px 14px',
+            borderBottom: '1px solid #e5e7eb',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 6,
+          }}>
+            {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
+              const on = activeTypes.has(t)
+              return (
+                <button
+                  key={t}
+                  onClick={() => toggleType(t)}
                   style={{
+                    padding: '3px 8px',
+                    fontSize: 11,
+                    border: `1px solid ${on ? TYPE_COLORS[t] : '#e5e7eb'}`,
+                    background: on ? TYPE_COLORS[t] : '#fff',
+                    color: on ? '#fff' : '#6b7280',
+                    borderRadius: 12,
+                    cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 8,
-                    width: '100%',
-                    padding: '8px 12px',
-                    background: idx === highlightedIdx ? '#f0f4ff' : '#fff',
-                    border: 'none',
-                    borderBottom: idx < suggestions.length - 1 ? '1px solid #f3f4f6' : 'none',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    fontSize: 13,
-                    color: '#111827',
-                    transition: 'background 0.1s',
+                    gap: 3,
                   }}
                 >
-                  <span style={{
-                    display: 'inline-block',
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    background: TYPE_COLORS[node.type],
-                    flexShrink: 0,
-                  }} />
-                  <span style={{ fontWeight: 600, flexShrink: 0 }}>{node.name}</span>
-                  {node.nameEn && <span style={{ color: '#9ca3af', fontSize: 11, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{node.nameEn}</span>}
+                  <span>{TYPE_ICONS[t]}</span>
+                  {TYPE_LABELS[t]}({kgData.stats[t]})
                 </button>
-              ))}
-            </div>
-          )}
-        </div>
-        {/* 类型筛选 */}
-        <div style={{ display: 'flex', gap: 6 }}>
-          {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
-            const on = activeTypes.has(t)
-            return (
-              <button
-                key={t}
-                onClick={() => toggleType(t)}
-                style={{
-                  padding: '4px 10px',
-                  fontSize: 12,
-                  border: `1px solid ${on ? TYPE_COLORS[t] : '#e5e7eb'}`,
-                  background: on ? TYPE_COLORS[t] : '#fff',
-                  color: on ? '#fff' : '#6b7280',
-                  borderRadius: 14,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 4,
-                }}
-              >
-                <span>{TYPE_ICONS[t]}</span>
-                {TYPE_LABELS[t]}({kgData.stats[t]})
-              </button>
-            )
-          })}
-          <button
-            onClick={fitView}
-            style={{
-              padding: '4px 10px',
-              fontSize: 12,
-              border: '1px solid #e5e7eb',
-              background: '#fff',
-              color: '#374151',
-              borderRadius: 14,
-              cursor: 'pointer',
-            }}
-          >
-            ↺ 复位
-          </button>
-        </div>
-        </div>
+              )
+            })}
+            <button
+              onClick={fitView}
+              style={{
+                padding: '3px 8px',
+                fontSize: 11,
+                border: '1px solid #e5e7eb',
+                background: '#fff',
+                color: '#374151',
+                borderRadius: 12,
+                cursor: 'pointer',
+                marginLeft: 'auto',
+              }}
+            >
+              ↺ 复位
+            </button>
+          </div>
 
-      {/* ===== 图谱区 ===== */}
-      <div
-        ref={containerRef}
-        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
-      >
+          {/* 知识目录 */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
+            {(Object.keys(TYPE_LABELS) as NodeType[]).map((t) => {
+              const nodes = nodesByType[t]
+              if (nodes.length === 0) return null
+              return (
+                <div key={t} style={{ marginBottom: 4 }}>
+                  <div style={{
+                    padding: '6px 14px',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: TYPE_COLORS[t],
+                    textTransform: 'uppercase',
+                    letterSpacing: 0.5,
+                    borderBottom: `1px solid ${TYPE_COLORS[t]}20`,
+                  }}>
+                    {TYPE_ICONS[t]} {TYPE_LABELS[t]} ({nodes.length})
+                  </div>
+                  {nodes.slice(0, 15).map((node) => (
+                    <button
+                      key={node.id}
+                      onClick={() => setSelectedId(node.id)}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '5px 14px 5px 20px',
+                        border: 'none',
+                        background: selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent',
+                        textAlign: 'left',
+                        fontSize: 12,
+                        color: selectedId === node.id ? TYPE_COLORS[t] : '#4b5563',
+                        cursor: 'pointer',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        transition: 'background 0.15s',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (selectedId !== node.id) e.currentTarget.style.background = '#f3f4f6'
+                      }}
+                      onMouseLeave={(e) => {
+                        if (selectedId !== node.id) e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      {node.name}
+                    </button>
+                  ))}
+                  {nodes.length > 15 && (
+                    <div style={{
+                      padding: '4px 14px 4px 20px',
+                      fontSize: 11,
+                      color: '#9ca3af',
+                      fontStyle: 'italic',
+                    }}>
+                      ... 还有 {nodes.length - 15} 条
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </aside>
+
+        {/* ===== 右侧图谱区 ===== */}
+        <div
+          ref={containerRef}
+          style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+        >
         <svg
           ref={svgRef}
           width={containerSize.w}
