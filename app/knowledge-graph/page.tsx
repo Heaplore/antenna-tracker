@@ -958,14 +958,55 @@ export default function KnowledgeGraphPage() {
                         </button>
                       ))}
                       {nodes.length > 15 && (
-                        <div style={{
-                          padding: '4px 14px 4px 28px',
-                          fontSize: 11,
-                          color: '#9ca3af',
-                          fontStyle: 'italic',
-                        }}>
-                          ... 还有 {nodes.length - 15} 条
-                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            // 展开显示所有节点（通过临时修改 visible count）
+                            const btn = e.currentTarget
+                            const remaining = nodes.slice(15)
+                            btn.style.display = 'none'
+                            remaining.forEach((node) => {
+                              const el = document.createElement('button')
+                              el.textContent = node.name
+                              el.style.cssText = `
+                                display: block;
+                                width: 100%;
+                                padding: 5px 14px 5px 28px;
+                                border: none;
+                                background: ${selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent'};
+                                text-align: left;
+                                font-size: 12px;
+                                color: ${selectedId === node.id ? TYPE_COLORS[t] : '#4b5563'};
+                                cursor: pointer;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                              `
+                              el.onclick = () => setSelectedId(node.id)
+                              el.onmouseenter = (ev: any) => {
+                                if (selectedId !== node.id && ev.currentTarget) ev.currentTarget.style.background = '#f3f4f6'
+                              }
+                              el.onmouseleave = (ev: any) => {
+                                if (selectedId !== node.id && ev.currentTarget) ev.currentTarget.style.background = 'transparent'
+                              }
+                              btn.parentNode?.insertBefore(el, btn.nextSibling)
+                            })
+                          }}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            padding: '4px 14px 4px 28px',
+                            border: 'none',
+                            background: 'transparent',
+                            textAlign: 'left',
+                            fontSize: 11,
+                            color: '#9ca3af',
+                            fontStyle: 'italic',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          ▼ 显示剩余 {nodes.length - 15} 条
+                        </button>
                       )}
                     </>
                   )}
