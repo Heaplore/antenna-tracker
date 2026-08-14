@@ -42,3 +42,8 @@ __pycache__/
 
 # local agent memory (not source, must not be committed)
 .workbuddy/
+
+# local backups and temp scripts
+*.bak-*
+*.bak
+refactor_kg_layout.py
