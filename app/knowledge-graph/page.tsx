@@ -93,6 +93,7 @@ export default function KnowledgeGraphPage() {
   const [expandedTypes, setExpandedTypes] = useState<Set<NodeType>>(
     new Set<NodeType>(['technology']), // 默认只展开技术概念
   )
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set()) // 记录每个类型已展开的节点 ID
   const svgRef = useRef<SVGSVGElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const simulationRef = useRef<d3.Simulation<SimNode, SimLink> | null>(null)
@@ -930,86 +931,69 @@ export default function KnowledgeGraphPage() {
                   </button>
                   {isExpanded && (
                     <>
-                      {nodes.slice(0, 15).map((node) => (
-                        <button
-                          key={node.id}
-                          onClick={() => setSelectedId(node.id)}
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            padding: '5px 14px 5px 28px',
-                            border: 'none',
-                            background: selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent',
-                            textAlign: 'left',
-                            fontSize: 12,
-                            color: selectedId === node.id ? TYPE_COLORS[t] : '#4b5563',
-                            cursor: 'pointer',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            transition: 'background 0.15s',
-                          }}
-                          onMouseEnter={(e) => {
-                            if (selectedId !== node.id) e.currentTarget.style.background = '#f3f4f6'
-                          }}
-                          onMouseLeave={(e) => {
-                            if (selectedId !== node.id) e.currentTarget.style.background = 'transparent'
-                          }}
-                        >
-                          {node.name}
-                        </button>
-                      ))}
-                      {nodes.length > 15 && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            // 展开显示所有节点（通过临时修改 visible count）
-                            const btn = e.currentTarget
-                            const remaining = nodes.slice(15)
-                            btn.style.display = 'none'
-                            remaining.forEach((node) => {
-                              const el = document.createElement('button')
-                              el.textContent = node.name
-                              el.style.cssText = `
-                                display: block;
-                                width: 100%;
-                                padding: 5px 14px 5px 28px;
-                                border: none;
-                                background: ${selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent'};
-                                text-align: left;
-                                font-size: 12px;
-                                color: ${selectedId === node.id ? TYPE_COLORS[t] : '#4b5563'};
-                                cursor: pointer;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                              `
-                              el.onclick = () => setSelectedId(node.id)
-                              el.onmouseenter = (ev: any) => {
-                                if (selectedId !== node.id && ev.currentTarget) ev.currentTarget.style.background = '#f3f4f6'
-                              }
-                              el.onmouseleave = (ev: any) => {
-                                if (selectedId !== node.id && ev.currentTarget) ev.currentTarget.style.background = 'transparent'
-                              }
-                              btn.parentNode?.insertBefore(el, btn.nextSibling)
-                            })
-                          }}
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            padding: '4px 14px 4px 28px',
-                            border: 'none',
-                            background: 'transparent',
-                            textAlign: 'left',
-                            fontSize: 11,
-                            color: '#9ca3af',
-                            fontStyle: 'italic',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          ▼ 显示剩余 {nodes.length - 15} 条
-                        </button>
-                      )}
+                      {(() => {
+                        const isNodeExpanded = expandedNodes.has(`${t}-${nodes[0]?.id}`)
+                        const displayNodes = isNodeExpanded ? nodes : nodes.slice(0, 15)
+                        return (
+                          <>
+                            {displayNodes.map((node) => (
+                              <button
+                                key={node.id}
+                                onClick={() => setSelectedId(node.id)}
+                                style={{
+                                  display: 'block',
+                                  width: '100%',
+                                  padding: '5px 14px 5px 28px',
+                                  border: 'none',
+                                  background: selectedId === node.id ? `${TYPE_COLORS[t]}15` : 'transparent',
+                                  textAlign: 'left',
+                                  fontSize: 12,
+                                  color: selectedId === node.id ? TYPE_COLORS[t] : '#4b5563',
+                                  cursor: 'pointer',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                  transition: 'background 0.15s',
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (selectedId !== node.id) e.currentTarget.style.background = '#f3f4f6'
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (selectedId !== node.id) e.currentTarget.style.background = 'transparent'
+                                }}
+                              >
+                                {node.name}
+                              </button>
+                            ))}
+                            {nodes.length > 15 && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  const key = `${t}-${nodes[0]?.id}`
+                                  const next = new Set(expandedNodes)
+                                  if (next.has(key)) next.delete(key)
+                                  else next.add(key)
+                                  setExpandedNodes(next)
+                                }}
+                                style={{
+                                  display: 'block',
+                                  width: '100%',
+                                  padding: '4px 14px 4px 28px',
+                                  border: 'none',
+                                  background: 'transparent',
+                                  textAlign: 'left',
+                                  fontSize: 11,
+                                  color: '#9ca3af',
+                                  fontStyle: 'italic',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                {isNodeExpanded ? '▲ 收起' : `▼ 显示剩余 ${nodes.length - 15} 条`}
+                              </button>
+                            )}
+                          </>
+                        )
+                      })()}
                     </>
                   )}
                 </div>
