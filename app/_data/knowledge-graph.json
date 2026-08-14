@@ -40972,31 +40972,6 @@
     },
     {
       "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-波束成形ic-bfic",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-相控阵天线phased-array-antenna",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-毫米波天线millimeter-wave-antenna",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "metric-扫描范围scan-range",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-6g信道建模范式转移-从统计拟合到数字孪生",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "target": "technology-3gpp-tr38901信道模型",
       "type": "related"
     },
@@ -41012,82 +40987,17 @@
     },
     {
       "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-口径照明分布aperture-illumination-taper",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-可转向天线ra-6g通感融合",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-天线ai设计预测-三星lg电子工程实践",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "target": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
       "type": "related"
     },
     {
       "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "target": "technology-天线制造质量检测iqc-ipqc-oqc尺寸公差插损驻波pim",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-波束成形ic-bfic",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-相控阵天线phased-array-antenna",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-毫米波天线millimeter-wave-antenna",
       "type": "related"
     },
     {
       "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "target": "technology-封装天线antenna-in-package-aip",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "metric-扫描范围scan-range",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-6g信道建模范式转移-从统计拟合到数字孪生",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-口径照明分布aperture-illumination-taper",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-可转向天线ra-6g通感融合",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-天线ai设计预测-三星lg电子工程实践",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
-      "type": "related"
-    },
-    {
-      "source": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "target": "technology-天线制造质量检测iqc-ipqc-oqc尺寸公差插损驻波pim",
       "type": "related"
     },
     {
@@ -41342,16 +41252,6 @@
     },
     {
       "source": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
       "target": "technology-3gpp-tr38901信道模型",
       "type": "related"
     },
@@ -41388,16 +41288,6 @@
     {
       "source": "technology-天线制造工艺冲压蚀刻cnc3d打印印刷电子",
       "target": "technology-d波段透射阵列天线vtt-anritsu",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线制造质量检测iqc-ipqc-oqc尺寸公差插损驻波pim",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线制造质量检测iqc-ipqc-oqc尺寸公差插损驻波pim",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "type": "related"
     },
     {
@@ -41483,16 +41373,6 @@
     {
       "source": "technology-天线匹配网络设计smith圆图lc微带",
       "target": "metric-vswr电压驻波比",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线可靠性与环境测试盐雾温度冰雹风载",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线可靠性与环境测试盐雾温度冰雹风载",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "type": "related"
     },
     {
@@ -41592,16 +41472,6 @@
     },
     {
       "source": "technology-天线标准与法规3gpp-etsi-ieee-fcc-srrc",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线标准与法规3gpp-etsi-ieee-fcc-srrc",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线标准与法规3gpp-etsi-ieee-fcc-srrc",
       "target": "technology-3gpp-tr38901信道模型",
       "type": "related"
     },
@@ -41648,16 +41518,6 @@
     {
       "source": "technology-天线测试与测量方法暗室近场远场校准",
       "target": "technology-ota天线测试over-the-air",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线测试与测量方法暗室近场远场校准",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
-      "type": "related"
-    },
-    {
-      "source": "technology-天线测试与测量方法暗室近场远场校准",
-      "target": "technology-300ghz-cmos相控阵收发器-东京科学大学",
       "type": "related"
     },
     {
@@ -42532,11 +42392,6 @@
     },
     {
       "source": "technology-银河航天asic化128波束星载相控阵",
-      "target": "technology-相控阵天线phased-array-antenna",
-      "type": "related"
-    },
-    {
-      "source": "technology-银河航天asic化128波束星载相控阵",
       "target": "technology-波束赋形beamforming",
       "type": "related"
     },
@@ -42553,16 +42408,6 @@
     {
       "source": "technology-银河航天asic化128波束星载相控阵",
       "target": "technology-tusk-ic-cmos-esa商业化破局",
-      "type": "related"
-    },
-    {
-      "source": "technology-银河航天asic化128波束星载相控阵",
-      "target": "component-t-r模块transmit-receive-module",
-      "type": "related"
-    },
-    {
-      "source": "technology-银河航天asic化128波束星载相控阵",
-      "target": "technology-星地融合ntn中信科移动标准布局",
       "type": "related"
     },
     {
