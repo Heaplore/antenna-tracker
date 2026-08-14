@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T16:01:36+08:00",
+  "generatedAt": "2026-08-14T15:57:34+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 47 条新闻入库（2026-08-06 ~ 2026-08-13）。",
+          "summary": "过去 7 天共 41 条新闻入库（2026-08-07 ~ 2026-08-14）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×259；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×268；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "VIAVI推出业界首款6G & WI-FI 7/8 信道仿真仪 | 国务院国资委主任程福波到中国电信调研 | 廖建任中国移动（成都）产业研究院党委书记、总经理",
+          "summary": "中国移动谈“六张网”：以需定投，追加算力网资本开支 | 中国移动：将推出全国统一Token套餐 | 中国移动：坚持“智为先”，持续加大智能领域投入力度",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×101；通信世界网×90；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×105；通信世界网×95；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
