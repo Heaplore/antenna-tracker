@@ -43,7 +43,7 @@ interface SimLink extends d3.SimulationLinkDatum<SimNode> {
 const kgData = kgDataRaw as {
   lastUpdate: string
   totalNotes: number
-  stats: Record<NodeType, number>
+  stats: Partial<Record<NodeType, number>>
   nodes: KGNode[]
   links: KGLink[]
 }
