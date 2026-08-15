@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相控阵天线在低轨卫星通信中的应用进展 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">相控阵天线在低轨卫星通信中的应用进展</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">行业调研</span><span class="chip brand">每日研究</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>引言</h2>
+    <p>低轨（LEO）卫星通信星座的兴起正在重塑全球宽带连接格局，而相控阵天线作为这一系统的核心载荷，其技术进展直接决定了星座的通信能力与商业可行性。从第一代铱星系统的模拟波束形成到新一代Starlink和千帆星座的数字波束成形及跳波束技术，相控阵天线经历了从“机械扫描”到“电子扫描”，再到“智能自适应”的范式跃迁 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。当前，随着中国星网星座计划发射约1.3万颗卫星、“G60”千帆星座计划发射约1.5万颗卫星的推进，相控阵天线已从高端定制走向批量生产阶段，其市场空间预计将在2030年达到数百亿元人民币规模 (<a href="https://www.163.com/dy/article/KQJK049405568W0A.html">in-text citation</a>)。本报告旨在深入分析相控阵天线在低轨卫星通信中的应用现状、关键技术、发展趋势及市场格局。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第一阶段：模拟波束形成的先驱时代</h2>
+    <p>20世纪80年代末，美国摩托罗拉公司提出的第一代铱星（Iridium）系统标志着低轨卫星通信的开端。铱星星座由66颗卫星组成，每颗卫星的主任务天线由3个L频段有源多波束相控阵天线组成，通过8个16x16 Butler矩阵组成的模拟波束形成网络，产生48个固定波束 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。这一时期的天线采用“砖块”架构，即微波电路模块垂直于阵面集成，虽易于散热和装配，但体积庞大，难以满足后续对轻量化和低成本的需求。随后发布的全球星（Globalstar）系统延续了类似的技术路线，但在带宽和容量上受到限制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第二阶段：高频段与高密度集成的突破</h2>
+    <p>随着宽带通信需求的激增，第三代低轨星载多波束相控阵天线开始向Ku和Ka频段发展，并逐渐向Q/V等更高频段的毫米波频段演进 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。频率的提升意味着在相同孔径下可以获得更高的增益和更窄的波束宽度，但也带来了更大的路径损耗和技术挑战。例如，工作在Ka频段（30GHz）时，天线单元间距仅为5mm左右，这要求在天线内部实现功率放大器、低噪声放大器、移相器等组件的高密度集成 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+<p>在此阶段，瓦片（Tile）架构因其低剖面、轻量化以及与平台共形的优势，逐渐取代砖块架构成为主流。瓦片架构采用多层集成方式，微波电路平行于阵列表面，极大降低了天线高度，但对热控管理提出了更高要求 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。此外，收发共口径和稀疏阵列设计也成为减少单元通道数、降低成本的重要手段，SpaceX的Starlink卫星便采用了由内向外逐渐稀疏的稀疏阵列设计 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>第三阶段：数字化与智能化时代</h2>
+    <p>当前，相控阵天线正处于数字化和智能化的快速演进期。数字波束形成（DBF）技术因其灵活性而备受青睐。与模拟波束形成不同，DBF技术在数字域完成幅度和相位加权，其产生的波束数量不受网络重量和功耗的限制，仅由信号带宽和辐射组件数量决定，从而能够生成大规模独立波束 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+<p>目前，面向低轨手机直连通信的卫星已被要求采用全数字相控阵天线技术，且波束数量不少于16个 (<a href="https://www.163.com/dy/article/KQJK049405568W0A.html">in-text citation</a>)。AST SpaceMobile的Bluebird-6卫星即搭载了展开面积达223平方米的超大规模相控阵天线阵列，以支持存量手机的弱信号收发 (<a href="https://www.163.com/dy/article/KQJK049405568W0A.html">in-text citation</a>)。同时，跳波束覆盖技术逐渐取代固定波束，通过将波束指向随时间动态变化，提高了星载功率利用率和频谱资源效率，这一技术已在Starlink和鸿雁星座中得到应用 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>高密度集成有源通道设计</h2>
+    <p>在Ka频段及更高频段，相控阵天线的单元间距极小，如何在狭小空间内集成多个T/R组件是核心难点。多通道集成技术利用CMOS或SiGe工艺，在一个芯片上实现TR组件的功能，成为解决这一问题的有效途径 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。例如，基于GaAs与CMOS工艺结合的方案已实现8个通道的高密度集成 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。然而，随着频率向毫米波特定方向演进，器件的热耗散和信号完整性问题愈发突出。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>抗干扰与频谱管理</h2>
+    <p>随着多个低轨星座（如Starlink、Kuiper、OneWeb等）的同时部署，星座间干扰、卫星间干扰以及波束间干扰日益严重 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。星载相控阵天线需具备强大的抗干扰能力，主要手段包括空域波束自适应调零、频域滤波以及时频联合处理 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。Starlink卫星采用的基于空时频资源调度的抗干扰手段，通过灵活调度波束和频率来规避共线干扰，显著提升了频谱利用率 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>快速测试与量产能力</h2>
+    <p>相控阵天线的测试是多波束相控阵天线生产环节中至关重要的部分。由于需要测试多个波位在多个频率和角度下的指标，测试工作量巨大 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。如何实现快速、准确的测量是产业化的关键瓶颈。随着中国星网和千帆星座的大规模建设需求，相控阵天线必须从“手工打造”转向“批量生产”，这对测试技术和制造工艺提出了极高的效率要求 (<a href="https://www.163.com/dy/article/KQJK049405568W0A.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>市场规模与增长预测</h2>
+    <p>LEO卫星通信相控阵天线市场正处于爆发式增长期。据Data Insights Market数据显示，2025年全球市场规模约为8.09亿美元，预计将以复合年增长率稳步增长，到2031年将达到15.05亿美元 (<a href="https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115">in-text citation</a>)。在中国市场，国信证券经济研究所预测，到2030年相控阵天线的市场空间将达307亿元人民币，2025年至2030年的年复合增长率高达71.0% (<a href="https://www.163.com/dy/article/KQJK049405568W0A.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>主要参与者与竞争态势</h2>
+    <p>目前，该市场呈现高集中度的特征，SpaceX、Boeing和Lockheed Martin等美国巨头占据主要市场份额，主要得益于其在Starlink等项目上的先发优势 (<a href="https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115">in-text citation</a>)。然而，新兴企业如Kymeta、Intellian Technologies以及中国的航天科技集团下属单位（如中国空间技术研究院西安分院）也在快速切入市场 (<a href="https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115">in-text citation</a>)。大唐电信等企业也已宣布其相控阵天线在低轨卫星通信领域实现应用 (<a href="https://news.10jqka.com.cn/20260403/c675755301.shtml">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>应用场景拓展</h2>
+    <p>相控阵天线的广泛应用不仅限于宽带互联网接入。在手机直连卫星领域，Starlink与T-Mobile合作、AST与Vodafone合作等项目均依赖于高性能星载相控阵天线 (<a href="https://h5.ifeng.com/c/vivoArticle/v002BVdqsoh8PI9EFXHldzj9y68BMIodyVMcaloepVEX40I__?isNews=1&amp;showComments=0">in-text citation</a>)。此外，在低空经济领域，卫星互联网作为通信、导航、监视、计算和气象监测的“五张网”基础设施，为无人机、eVTOL等低空飞行器提供全域覆盖和精确管理服务 (<a href="https://h5.ifeng.com/c/vivoArticle/v002BVdqsoh8PI9EFXHldzj9y68BMIodyVMcaloepVEX40I__?isNews=1&amp;showComments=0">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术趋势</h2>
+    <p>未来，相控阵天线将朝着以下几个方向发展：一是工作频率向更高频段（如Q/V波段）发展，以获取更大带宽 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)；二是波束形成方式从模拟向全数字演进，提升灵活性和抗干扰能力 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)；三是波束覆盖从固定向跳波束转变，优化资源分配 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)；四是架构上趋向收发共口径和稀疏化设计，以降低重量和成本 (<a href="https://cn-sec.com/archives/2022621.html">in-text citation</a>)。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>面临的挑战</h2>
+    <p>尽管前景广阔，但行业仍面临高研发制造成本、频谱资源分配复杂、以及不同星座间干扰协调等挑战 (<a href="https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115">in-text citation</a>)。此外，如何平衡高性能与低成本，实现大规模星座的快速部署和运维，是相控阵天线产业亟待解决的核心问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考文献</h2>
+    <ol>
+<li>Data Insights Market. (2026). <em>LEO Satellite Communication Phased Array Antenna Report: Trends and Forecasts 2026-2034</em>. <a href="https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115"></a></li>
+<li>于立, 雷柳洁, 张凯, 等. (2023). 低轨星座多波束相控阵天线研究进展与发展趋势. <em>CN-SEC 中文网</em>. <a href="https://cn-sec.com/archives/2022621.html"></a></li>
+<li>建投洞察. (2026). 藏在太空里的“通信神器”：星载相控阵天线，如何重塑未来卫星架构？. <em>网易订阅</em>. <a href="https://www.163.com/dy/article/KQJK049405568W0A.html"></a></li>
+<li>新华网. (2021). 这是一种很厉害的天线. <em>环球杂志</em>. <a href="http://www.news.cn/globe/2021-06/18/c_1310008859.htm"></a></li>
+<li>大唐电信. (2026). 公司相控阵天线已在低轨卫星通信领域实现应用. <em>同花顺iNews</em>. <a href="https://news.10jqka.com.cn/20260403/c675755301.shtml"></a></li>
+<li>Leo张ToB杂谈. (2024). 应用场景初现，卫星互联网产业化起步. <em>钛媒体官方网站</em>. <a href="https://www.tmtpost.com/7313059.html"></a></li>
+<li>凤凰卫视. (2024). 应用场景初现，卫星互联网产业化起步. <a href="https://h5.ifeng.com/c/vivoArticle/v002BVdqsoh8PI9EFXHldzj9y68BMIodyVMcaloepVEX40I__?isNews=1&amp;showComments=0"></a></li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考来源</h2>
+    <ol>
+<li>http://www.news.cn/globe/2021-06/18/c_1310008859.htm</li>
+<li>https://markwideresearch.com/leo-phased-array-antenna-market/</li>
+<li>https://news.10jqka.com.cn/20260403/c675755301.shtml</li>
+<li>https://www.datainsightsmarket.com/reports/leo-satellite-communication-phased-array-antenna-924115</li>
+<li>https://post.smzdm.com/p/anvo95m7/</li>
+<li>https://ksp.etri.re.kr/ksp/article/file/72337.pdf</li>
+<li>https://www.163.com/dy/article/KQJK049405568W0A.html</li>
+<li>https://www.tmtpost.com/7313059.html</li>
+<li>https://www.researching.cn/ArticlePdf/m00139/2025/42/5/1.pdf</li>
+<li>https://cn-sec.com/archives/2022621.html</li>
+</ol>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
