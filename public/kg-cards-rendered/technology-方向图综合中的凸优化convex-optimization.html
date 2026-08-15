@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>方向图综合中的凸优化（Convex Optimization in Pattern Synthesis） · 知识卡片</title>
+<title>方向图综合中的凸优化Convex-Optimization · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">方向图综合中的凸优化 <span class="en">Convex Optimization in Pattern Synthesis</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">方向图综合中的凸优化Convex-Optimization</h1>
   <p class="lede">方向图综合的凸优化方法将天线阵列的幅相加权问题转化为凸优化问题（如 SDP、SOCP），保证找到全局最优解，特别擅长处理多约束场景——同时压低旁瓣、放置零陷、控制波束宽度，而不像经典方法（Chebyshev/Taylor）那样只能优化单一指标。</p>
+  
 </header>
 
 <main>
@@ -99,263 +101,633 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>经典方向图综合像"调一首歌的音量"——你只能调整体音量大小。凸优化方向图综合像"调音台上的 20 个推子"——你可以独立控制低频、中频、高频，还可以静音某个频段。更形象地说：Chebyshev 是给阵列"穿上一件预设好的旁瓣抑制衣"，而凸优化是"量身定制一件衣服"——你要什么形状、什么旁瓣电平、要在哪个方向挖零陷，它都能满足。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 方向图综合的核心问题</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 方向图综合的核心问题</h2>
     <p>给定天线阵列的几何结构和期望的方向图，求解每个单元的激励幅度和相位：</p>
-    <pre><code>已知：阵列几何 G = {r₁, r₂, ..., r_N}
-    求解：激励向量 w = [w₁, w₂, ..., w_N]^T
-    使得：AF(θ,φ) ≈ F_desired(θ,φ)</code></pre>
-    <p>其中 AF 是阵列因子：</p>
-    <pre><code>AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])</code></pre>
-    <h3>1.2 为什么经典方法不够？</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>优点</th><th>缺点</th></tr></thead>
-    <tbody>
-    <tr><td>傅里叶变换法</td><td>简单快速</td><td>旁瓣高（-13dB），无法控制零陷</td></tr>
-    <tr><td>Dolph-Chebyshev</td><td>等旁瓣，旁瓣可控</td><td>只能优化旁瓣，不能放零陷</td></tr>
-    <tr><td>Taylor</td><td>旁瓣+零陷平衡</td><td>参数选择复杂，零陷位置受限</td></tr>
-    <tr><td>Woodward-Lawson</td><td>灵活</td><td>旁瓣不均匀</td></tr>
-    <tr><td><b>凸优化</b></td><td><b>多约束同时优化，全局最优</b></td><td>计算量大</td></tr>
-    </tbody></table></div>
-    <h3>1.3 凸优化的核心优势</h3>
-    <p><b>凸优化问题的定义</b>：</p>
-    <pre><code>minimize    f₀(x)        （凸目标函数）
-    subject to  fᵢ(x) ≤ bᵢ   （凸不等式约束）
-                Ax = c       （线性等式约束）</code></pre>
-    <p><b>关键性质</b>：任何局部最优解都是全局最优解。</p>
-    <p>对于方向图综合，这意味着：</p>
-    <ul><li>不会陷入局部最优（旁瓣假峰）</li><li>可以在同一问题中同时优化多个指标</li><li>有成熟的求解器（CVX、MOSEK、SeDuMi）</li></ul>
+<pre><code>已知：阵列几何 G = {r₁, r₂, ..., r_N}
+求解：激励向量 w = [w₁, w₂, ..., w_N]^T
+使得：AF(θ,φ) ≈ F_desired(θ,φ)
+</code></pre>
+<p>其中 AF 是阵列因子：</p>
+<pre><code>AF(θ,φ) = Σ(n=1 to N) w_n · exp(jk·r_n · [sinθcosφ, sinθsinφ, cosθ])
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、凸优化在方向图综合中的主要形式</h2>
-    <h3>2.1 半定松弛（Semidefinite Relaxation, SDR）</h3>
-    <p><b>核心思想</b>：将非凸的二次问题转化为凸的半定规划（SDP）。</p>
-    <p>原始问题（非凸）：</p>
-    <pre><code>minimize    ||AF(θ) - F_desired(θ)||²
-    subject to  |w_n|² ≤ P_max</code></pre>
-    <p>SDR 变换：</p>
-    <pre><code>令 R = wwᴴ    （秩为 1 的半正定矩阵）
-    则 w_n·w_m* = R_nm</code></pre>
-    <p>转化后的 SDP：</p>
-    <pre><code>minimize    tr(A₀R) + b₀
-    subject to  tr(AᵢR) ≤ bᵢ,  i = 1,...,m
-                R ⪰ 0           （R 半正定）
-                rank(R) = 1     （非凸，需松弛）</code></pre>
-    <p>松弛掉 rank(R) = 1 约束后，问题变为凸 SDP，求解后再通过随机化或特征分解恢复 w。</p>
-    <h3>2.2 二阶锥规划（Second-Order Cone Programming, SOCP）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么经典方法不够？</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>傅里叶变换法</td>
+<td>简单快速</td>
+<td>旁瓣高（-13dB），无法控制零陷</td>
+</tr>
+<tr>
+<td>Dolph-Chebyshev</td>
+<td>等旁瓣，旁瓣可控</td>
+<td>只能优化旁瓣，不能放零陷</td>
+</tr>
+<tr>
+<td>Taylor</td>
+<td>旁瓣+零陷平衡</td>
+<td>参数选择复杂，零陷位置受限</td>
+</tr>
+<tr>
+<td>Woodward-Lawson</td>
+<td>灵活</td>
+<td>旁瓣不均匀</td>
+</tr>
+<tr>
+<td><strong>凸优化</strong></td>
+<td><strong>多约束同时优化，全局最优</strong></td>
+<td>计算量大</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 凸优化的核心优势</h2>
+    <p><strong>凸优化问题的定义</strong>：</p>
+<pre><code>minimize    f₀(x)        （凸目标函数）
+subject to  fᵢ(x) ≤ bᵢ   （凸不等式约束）
+            Ax = c       （线性等式约束）
+</code></pre>
+<p><strong>关键性质</strong>：任何局部最优解都是全局最优解。</p>
+<p>对于方向图综合，这意味着：</p>
+<ul>
+<li>不会陷入局部最优（旁瓣假峰）</li>
+<li>可以在同一问题中同时优化多个指标</li>
+<li>有成熟的求解器（CVX、MOSEK、SeDuMi）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 半定松弛（Semidefinite Relaxation, SDR）</h2>
+    <p><strong>核心思想</strong>：将非凸的二次问题转化为凸的半定规划（SDP）。</p>
+<p>原始问题（非凸）：</p>
+<pre><code>minimize    ||AF(θ) - F_desired(θ)||²
+subject to  |w_n|² ≤ P_max
+</code></pre>
+<p>SDR 变换：</p>
+<pre><code>令 R = wwᴴ    （秩为 1 的半正定矩阵）
+则 w_n·w_m* = R_nm
+</code></pre>
+<p>转化后的 SDP：</p>
+<pre><code>minimize    tr(A₀R) + b₀
+subject to  tr(AᵢR) ≤ bᵢ,  i = 1,...,m
+            R ⪰ 0           （R 半正定）
+            rank(R) = 1     （非凸，需松弛）
+</code></pre>
+<p>松弛掉 rank(R) = 1 约束后，问题变为凸 SDP，求解后再通过随机化或特征分解恢复 w。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 二阶锥规划（Second-Order Cone Programming, SOCP）</h2>
     <p>适合处理范数约束和波束方向图约束：</p>
-    <pre><code>minimize    t
-    subject to  ||w||₂ ≤ P_max
-                |AF(θ_null,i)| ≤ ε,  i = 1,...,K    （零陷约束）
-                AF(θ_main,j) ≥ G_min,  j = 1,...,M  （主瓣约束）
-                PSLL(θ) ≤ SLL_max                     （旁瓣约束）</code></pre>
-    <p>每个约束都是二阶锥形式：</p>
-    <pre><code>||Ax + b||₂ ≤ cᵀx + d</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>比 SDP 计算效率高（无矩阵分解）</li><li>求解器成熟（CVX + ECOS/SCS）</li><li>适合实时波束赋形</li></ul>
-    <h3>2.3 线性规划（LP）</h3>
+<pre><code>minimize    t
+subject to  ||w||₂ ≤ P_max
+            |AF(θ_null,i)| ≤ ε,  i = 1,...,K    （零陷约束）
+            AF(θ_main,j) ≥ G_min,  j = 1,...,M  （主瓣约束）
+            PSLL(θ) ≤ SLL_max                     （旁瓣约束）
+</code></pre>
+<p>每个约束都是二阶锥形式：</p>
+<pre><code>||Ax + b||₂ ≤ cᵀx + d
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>比 SDP 计算效率高（无矩阵分解）</li>
+<li>求解器成熟（CVX + ECOS/SCS）</li>
+<li>适合实时波束赋形</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 线性规划（LP）</h2>
     <p>最简单的凸优化形式，适合处理绝对值约束：</p>
-    <pre><code>minimize    Σ_n |w_n|
-    subject to  AF(θ_null,i) = 0,  i = 1,...,K
-                |AF(θ_sidelobe)| ≤ ε</code></pre>
-    <p><b>优势</b>：计算最快，适合大规模阵列（N > 1000）。 <b>劣势</b>：表达能力有限，只能处理线性约束。</p>
-    <h3>2.4 二次规划（QP）</h3>
+<pre><code>minimize    Σ_n |w_n|
+subject to  AF(θ_null,i) = 0,  i = 1,...,K
+            |AF(θ_sidelobe)| ≤ ε
+</code></pre>
+<p><strong>优势</strong>：计算最快，适合大规模阵列（N &gt; 1000）。
+<strong>劣势</strong>：表达能力有限，只能处理线性约束。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 二次规划（QP）</h2>
     <p>目标函数为二次型，约束为线性：</p>
-    <pre><code>minimize    wᴴQw + cᵀw + d
-    subject to  Aw ≤ b</code></pre>
-    <p>适合最小化方向图与期望方向图的均方误差：</p>
-    <pre><code>Q = ∫ AF(θ)·AF*(θ) dΩ  （方向图自相关矩阵）</code></pre>
+<pre><code>minimize    wᴴQw + cᵀw + d
+subject to  Aw ≤ b
+</code></pre>
+<p>适合最小化方向图与期望方向图的均方误差：</p>
+<pre><code>Q = ∫ AF(θ)·AF*(θ) dΩ  （方向图自相关矩阵）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型应用场景</h2>
-    <h3>3.1 低旁瓣 + 零陷放置联合优化</h3>
-    <p><b>问题</b>：同时压低旁瓣并在干扰方向放置零陷。</p>
-    <pre><code>minimize    max_θ∈SLL |AF(θ)|          （最小化最大旁瓣）
-    subject to  AF(θ_interfere,i) = 0,    （零陷约束）
-                i = 1,...,K
-                |AF(θ_main)| ≥ G_min,     （主瓣增益约束）
-                ||w||² ≤ P_max            （功率约束）</code></pre>
-    <p><b>效果</b>：</p>
-    <ul><li>旁瓣压低到 -30dB 或更低</li><li>零陷深度 -60dB 或更低</li><li>主瓣宽度可控</li></ul>
-    <p><b>对比 Chebyshev</b>：Chebyshev 只能优化旁瓣，零陷需要额外处理（如 Longman 方法），效果不如联合优化。</p>
-    <h3>3.2 波束宽度 + 旁瓣联合优化</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 低旁瓣 + 零陷放置联合优化</h2>
+    <p><strong>问题</strong>：同时压低旁瓣并在干扰方向放置零陷。</p>
+<pre><code>minimize    max_θ∈SLL |AF(θ)|          （最小化最大旁瓣）
+subject to  AF(θ_interfere,i) = 0,    （零陷约束）
+            i = 1,...,K
+            |AF(θ_main)| ≥ G_min,     （主瓣增益约束）
+            ||w||² ≤ P_max            （功率约束）
+</code></pre>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>旁瓣压低到 -30dB 或更低</li>
+<li>零陷深度 -60dB 或更低</li>
+<li>主瓣宽度可控</li>
+</ul>
+<p><strong>对比 Chebyshev</strong>：Chebyshev 只能优化旁瓣，零陷需要额外处理（如 Longman 方法），效果不如联合优化。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 波束宽度 + 旁瓣联合优化</h2>
     <pre><code>minimize    SLL_max + λ · BW          （加权多目标）
-    subject to  ||w||² ≤ P_max</code></pre>
-    <p>其中 BW 是 3dB 波束宽度，λ 是权重系数。</p>
-    <p><b>Pareto 前沿</b>：通过调整 λ，可以得到一系列 (SLL, BW) 的 Pareto 最优解。</p>
-    <h3>3.3 幅相误差鲁棒综合</h3>
+subject to  ||w||² ≤ P_max
+</code></pre>
+<p>其中 BW 是 3dB 波束宽度，λ 是权重系数。</p>
+<p><strong>Pareto 前沿</strong>：通过调整 λ，可以得到一系列 (SLL, BW) 的 Pareto 最优解。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 幅相误差鲁棒综合</h2>
     <p>实际阵列中，幅相误差不可避免：</p>
-    <pre><code>w_actual = w_designed + Δw
-    Δw ~ CN(0, σ²)</code></pre>
-    <p>鲁棒优化考虑最坏情况：</p>
-    <pre><code>minimize    max_{||Δw||≤ε} max_θ∈SLL |AF(θ, w+Δw)|</code></pre>
-    <p><b>效果</b>：综合出的方向图对幅相误差不敏感，旁瓣在误差存在时仍能保持低位。</p>
-    <h3>3.4 近场方向图综合</h3>
+<pre><code>w_actual = w_designed + Δw
+Δw ~ CN(0, σ²)
+</code></pre>
+<p>鲁棒优化考虑最坏情况：</p>
+<pre><code>minimize    max_{||Δw||≤ε} max_θ∈SLL |AF(θ, w+Δw)|
+</code></pre>
+<p><strong>效果</strong>：综合出的方向图对幅相误差不敏感，旁瓣在误差存在时仍能保持低位。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 近场方向图综合</h2>
     <p>近场波束赋形需要同时优化焦点位置和方向图：</p>
-    <pre><code>minimize    ||AF_NF(r_focus, θ_focus) - F_desired||²
-    subject to  ||w||² ≤ P_max</code></pre>
-    <p>其中 AF_NF 是近场阵列因子（球面波模型）。</p>
-    <h3>3.5 极化方向图综合</h3>
+<pre><code>minimize    ||AF_NF(r_focus, θ_focus) - F_desired||²
+subject to  ||w||² ≤ P_max
+</code></pre>
+<p>其中 AF_NF 是近场阵列因子（球面波模型）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 极化方向图综合</h2>
     <p>双极化阵列需要同时优化两个极化通道的方向图：</p>
-    <pre><code>minimize    ||AF_V(θ) - F_V_desired||² + ||AF_H(θ) - F_H_desired||²
-    subject to  |w_V,n|² + |w_H,n|² ≤ P_max,n</code></pre>
+<pre><code>minimize    ||AF_V(θ) - F_V_desired||² + ||AF_H(θ) - F_H_desired||²
+subject to  |w_V,n|² + |w_H,n|² ≤ P_max,n
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、关键技术指标</h2>
-    <h3>4.1 方向图性能指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>PSLL</td><td>峰值旁瓣电平</td><td><-25dB（优化后）</td></tr>
-    <tr><td>零陷深度</td><td>干扰方向的增益</td><td><-50dB</td></tr>
-    <tr><td>3dB 波束宽度</td><td>主瓣半功率宽度</td><td>根据应用确定</td></tr>
-    <tr><td>第一旁瓣间隔</td><td>主瓣到第一旁瓣的角度</td><td>> 2°</td></tr>
-    <tr><td>方向图因子（DF）</td><td>主瓣能量/总能量</td><td>> 80%</td></tr>
-    </tbody></table></div>
-    <h3>4.2 优化性能指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>求解时间</td><td>优化器收敛所需时间</td><td>秒级（SOCP），分钟级（SDP）</td></tr>
-    <tr><td>全局最优性</td><td>解是否为全局最优</td><td>凸优化保证</td></tr>
-    <tr><td>约束满足度</td><td>实际约束 vs 要求约束</td><td>通常 < 1% 违反</td></tr>
-    <tr><td>可扩展性</td><td>N 增大时的计算复杂度</td><td>SOCP: O(N³), SDP: O(N⁶)</td></tr>
-    </tbody></table></div>
-    <h3>4.3 鲁棒性指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标</th></tr></thead>
-    <tbody>
-    <tr><td>旁瓣敏感度</td><td>幅相误差引起的旁瓣升高</td><td>< 3dB</td></tr>
-    <tr><td>零陷稳定性</td><td>频率偏移引起的零陷漂移</td><td>< 0.5°</td></tr>
-    <tr><td>波束指向误差</td><td>相位误差引起的波束偏移</td><td>< 0.1°</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>4.1 方向图性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSLL</td>
+<td>峰值旁瓣电平</td>
+<td>&lt;-25dB（优化后）</td>
+</tr>
+<tr>
+<td>零陷深度</td>
+<td>干扰方向的增益</td>
+<td>&lt;-50dB</td>
+</tr>
+<tr>
+<td>3dB 波束宽度</td>
+<td>主瓣半功率宽度</td>
+<td>根据应用确定</td>
+</tr>
+<tr>
+<td>第一旁瓣间隔</td>
+<td>主瓣到第一旁瓣的角度</td>
+<td>&gt; 2°</td>
+</tr>
+<tr>
+<td>方向图因子（DF）</td>
+<td>主瓣能量/总能量</td>
+<td>&gt; 80%</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、求解器与工具</h2>
-    <h3>5.1 主流求解器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>求解器</th><th>类型</th><th>适用问题</th><th>速度</th></tr></thead>
-    <tbody>
-    <tr><td>MOSEK</td><td>商业</td><td>SDP/SOCP/QP</td><td>快</td></tr>
-    <tr><td>SeDuMi</td><td>开源</td><td>SDP/SOCP</td><td>中等</td></tr>
-    <tr><td>CVX</td><td>开源（MATLAB）</td><td>高层建模</td><td>依赖底层</td></tr>
-    <tr><td>CVXPY</td><td>开源（Python）</td><td>高层建模</td><td>依赖底层</td></tr>
-    <tr><td>ECOS</td><td>开源</td><td>SOCP</td><td>很快</td></tr>
-    <tr><td>SCS</td><td>开源</td><td>SOCP</td><td>快（大规模）</td></tr>
-    <tr><td>Gurobi</td><td>商业</td><td>QP/MILP</td><td>快</td></tr>
-    </tbody></table></div>
-    <h3>5.2 典型工作流程（MATLAB + CVX）</h3>
+  
+  <article class="card ">
+    
+    <h2>4.2 优化性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>求解时间</td>
+<td>优化器收敛所需时间</td>
+<td>秒级（SOCP），分钟级（SDP）</td>
+</tr>
+<tr>
+<td>全局最优性</td>
+<td>解是否为全局最优</td>
+<td>凸优化保证</td>
+</tr>
+<tr>
+<td>约束满足度</td>
+<td>实际约束 vs 要求约束</td>
+<td>通常 &lt; 1% 违反</td>
+</tr>
+<tr>
+<td>可扩展性</td>
+<td>N 增大时的计算复杂度</td>
+<td>SOCP: O(N³), SDP: O(N⁶)</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 鲁棒性指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旁瓣敏感度</td>
+<td>幅相误差引起的旁瓣升高</td>
+<td>&lt; 3dB</td>
+</tr>
+<tr>
+<td>零陷稳定性</td>
+<td>频率偏移引起的零陷漂移</td>
+<td>&lt; 0.5°</td>
+</tr>
+<tr>
+<td>波束指向误差</td>
+<td>相位误差引起的波束偏移</td>
+<td>&lt; 0.1°</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 主流求解器</h2>
+    <table>
+<thead>
+<tr>
+<th>求解器</th>
+<th>类型</th>
+<th>适用问题</th>
+<th>速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOSEK</td>
+<td>商业</td>
+<td>SDP/SOCP/QP</td>
+<td>快</td>
+</tr>
+<tr>
+<td>SeDuMi</td>
+<td>开源</td>
+<td>SDP/SOCP</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>CVX</td>
+<td>开源（MATLAB）</td>
+<td>高层建模</td>
+<td>依赖底层</td>
+</tr>
+<tr>
+<td>CVXPY</td>
+<td>开源（Python）</td>
+<td>高层建模</td>
+<td>依赖底层</td>
+</tr>
+<tr>
+<td>ECOS</td>
+<td>开源</td>
+<td>SOCP</td>
+<td>很快</td>
+</tr>
+<tr>
+<td>SCS</td>
+<td>开源</td>
+<td>SOCP</td>
+<td>快（大规模）</td>
+</tr>
+<tr>
+<td>Gurobi</td>
+<td>商业</td>
+<td>QP/MILP</td>
+<td>快</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 典型工作流程（MATLAB + CVX）</h2>
     <pre><code class="language-matlab">N = 64;                          % 阵列单元数
-    theta_sll = [-90:-1:-30, 30:1:90];  % 旁瓣采样点
-    theta_null = [-15, 25];            % 零陷方向
-    theta_main = [-5:5];               % 主瓣采样点
-    
-    variables w_real(N) w_imag(N)
-    w = w_real + 1j*w_imag;
-    
-    % 阵列因子
-    AF_sll = zeros(length(theta_sll), 1);
-    for i = 1:length(theta_sll)
-        AF_sll(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_sll(i)*pi/180)));
-    end
-    
-    AF_null = zeros(length(theta_null), 1);
-    for i = 1:length(theta_null)
-        AF_null(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_null(i)*pi/180)));
-    end
-    
-    % 优化问题
-    minimize( max(abs(AF_sll)) )
-    subject to
-        abs(AF_null) &lt;= 1e-3;          % 零陷约束
-        abs(sum(w)) &gt;= sqrt(N)*0.8;    % 主瓣增益约束
-        sum(abs(w).^2) &lt;= N;           % 功率约束
-    
-    % 求解
-    cvx_solver mosek
-    cvx_begin
-        % ... 同上 ...
-    cvx_end
-    
-    disp([&#x27;Peak SLL: &#x27;, num2str(20*log10(cvx_optval), &#x27;%.2f&#x27;), &#x27; dB&#x27;]);</code></pre>
-    <h3>5.3 计算复杂度</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>N=64</th><th>N=256</th><th>N=1024</th></tr></thead>
-    <tbody>
-    <tr><td>Chebyshev（解析）</td><td>< 1ms</td><td>< 1ms</td><td>< 1ms</td></tr>
-    <tr><td>凸优化 SOCP</td><td>~1s</td><td>~10s</td><td>~60s</td></tr>
-    <tr><td>凸优化 SDP</td><td>~5s</td><td>~60s</td><td>~600s</td></tr>
-    <tr><td>遗传算法</td><td>~10s</td><td>~100s</td><td>~1000s</td></tr>
-    </tbody></table></div>
-  </article>
+theta_sll = [-90:-1:-30, 30:1:90];  % 旁瓣采样点
+theta_null = [-15, 25];            % 零陷方向
+theta_main = [-5:5];               % 主瓣采样点
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 离散化误差</h3>
+variables w_real(N) w_imag(N)
+w = w_real + 1j*w_imag;
+
+% 阵列因子
+AF_sll = zeros(length(theta_sll), 1);
+for i = 1:length(theta_sll)
+    AF_sll(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_sll(i)*pi/180)));
+end
+
+AF_null = zeros(length(theta_null), 1);
+for i = 1:length(theta_null)
+    AF_null(i) = sum(w .* exp(1j*2*pi*(0:N-1)*sin(theta_null(i)*pi/180)));
+end
+
+% 优化问题
+minimize( max(abs(AF_sll)) )
+subject to
+    abs(AF_null) &lt;= 1e-3;          % 零陷约束
+    abs(sum(w)) &gt;= sqrt(N)*0.8;    % 主瓣增益约束
+    sum(abs(w).^2) &lt;= N;           % 功率约束
+
+% 求解
+cvx_solver mosek
+cvx_begin
+    % ... 同上 ...
+cvx_end
+
+disp(['Peak SLL: ', num2str(20*log10(cvx_optval), '%.2f'), ' dB']);
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 计算复杂度</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>N=64</th>
+<th>N=256</th>
+<th>N=1024</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chebyshev（解析）</td>
+<td>&lt; 1ms</td>
+<td>&lt; 1ms</td>
+<td>&lt; 1ms</td>
+</tr>
+<tr>
+<td>凸优化 SOCP</td>
+<td>~1s</td>
+<td>~10s</td>
+<td>~60s</td>
+</tr>
+<tr>
+<td>凸优化 SDP</td>
+<td>~5s</td>
+<td>~60s</td>
+<td>~600s</td>
+</tr>
+<tr>
+<td>遗传算法</td>
+<td>~10s</td>
+<td>~100s</td>
+<td>~1000s</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 离散化误差</h2>
     <p>方向图约束需要在连续角度上定义，但实际只能采样离散点：</p>
-    <pre><code>θ_sampled = [-90, -89, ..., 90]  （1° 间隔）</code></pre>
-    <p>如果实际旁瓣峰出现在 0.5° 处，采样点会错过它。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>加密采样（0.1° 间隔）</li><li>随机采样 + 多次优化</li><li>解析约束（不依赖采样）</li></ul>
-    <h3>6.2 非凸问题的松弛间隙</h3>
+<pre><code>θ_sampled = [-90, -89, ..., 90]  （1° 间隔）
+</code></pre>
+<p>如果实际旁瓣峰出现在 0.5° 处，采样点会错过它。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>加密采样（0.1° 间隔）</li>
+<li>随机采样 + 多次优化</li>
+<li>解析约束（不依赖采样）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 非凸问题的松弛间隙</h2>
     <p>SDR 松弛掉 rank(R) = 1 约束后，可能存在松弛间隙（Relaxation Gap）：</p>
-    <pre><code>R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
-    如果 λ₂ &gt;&gt; 0 → 松弛间隙大 → 恢复的 w 质量差</code></pre>
-    <p><b>对策</b>：</p>
-    <ul><li>使用随机化方法（Randomized Rounding）</li><li>添加秩约束的凸近似</li><li>改用 SOCP 形式（天然保证 rank-1）</li></ul>
-    <h3>6.3 实时性</h3>
+<pre><code>R_opt 的特征值：[λ₁, λ₂, ..., λ_N]
+如果 λ₂ &gt;&gt; 0 → 松弛间隙大 → 恢复的 w 质量差
+</code></pre>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用随机化方法（Randomized Rounding）</li>
+<li>添加秩约束的凸近似</li>
+<li>改用 SOCP 形式（天然保证 rank-1）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 实时性</h2>
     <p>凸优化求解通常需要秒级时间，不适合实时波束赋形：</p>
-    <p><b>对策</b>：</p>
-    <ul><li>离线优化 + 在线查找（Codebook 预计算）</li><li>热启动（Warm Start）：利用上一次解作为初始值</li><li>一阶方法（ADMM）：适合大规模问题，收敛快但精度低</li></ul>
-    <h3>6.4 约束冲突</h3>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>离线优化 + 在线查找（Codebook 预计算）</li>
+<li>热启动（Warm Start）：利用上一次解作为初始值</li>
+<li>一阶方法（ADMM）：适合大规模问题，收敛快但精度低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 约束冲突</h2>
     <p>多个约束可能相互矛盾：</p>
-    <pre><code>约束 1：旁瓣 &lt; -30dB
-    约束 2：零陷深度 &lt; -60dB
-    约束 3：波束宽度 &lt; 2°</code></pre>
-    <p>这三个约束可能无法同时满足。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>优先级排序：主瓣 > 零陷 > 旁瓣</li><li>软约束：将硬性约束改为惩罚项</li><li>Pareto 优化：找最优折中</li></ul>
+<pre><code>约束 1：旁瓣 &lt; -30dB
+约束 2：零陷深度 &lt; -60dB
+约束 3：波束宽度 &lt; 2°
+</code></pre>
+<p>这三个约束可能无法同时满足。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>优先级排序：主瓣 &gt; 零陷 &gt; 旁瓣</li>
+<li>软约束：将硬性约束改为惩罚项</li>
+<li>Pareto 优化：找最优折中</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、与经典方法的对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>Chebyshev</th><th>Taylor</th><th>凸优化</th></tr></thead>
-    <tbody>
-    <tr><td>旁瓣控制</td><td>等旁瓣</td><td>旁瓣渐变</td><td>任意形状</td></tr>
-    <tr><td>零陷能力</td><td>无</td><td>有限</td><td>任意数量</td></tr>
-    <tr><td>波束宽度</td><td>固定</td><td>可调</td><td>任意控制</td></tr>
-    <tr><td>计算速度</td><td>极快（解析）</td><td>快（查表）</td><td>慢（迭代）</td></tr>
-    <tr><td>全局最优</td><td>是</td><td>是</td><td>是（凸问题）</td></tr>
-    <tr><td>多约束</td><td>无</td><td>弱</td><td>强</td></tr>
-    <tr><td>适用场景</td><td>通用</td><td>通用</td><td>复杂需求</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Chebyshev</th>
+<th>Taylor</th>
+<th>凸优化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旁瓣控制</td>
+<td>等旁瓣</td>
+<td>旁瓣渐变</td>
+<td>任意形状</td>
+</tr>
+<tr>
+<td>零陷能力</td>
+<td>无</td>
+<td>有限</td>
+<td>任意数量</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>固定</td>
+<td>可调</td>
+<td>任意控制</td>
+</tr>
+<tr>
+<td>计算速度</td>
+<td>极快（解析）</td>
+<td>快（查表）</td>
+<td>慢（迭代）</td>
+</tr>
+<tr>
+<td>全局最优</td>
+<td>是</td>
+<td>是</td>
+<td>是（凸问题）</td>
+</tr>
+<tr>
+<td>多约束</td>
+<td>无</td>
+<td>弱</td>
+<td>强</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>通用</td>
+<td>通用</td>
+<td>复杂需求</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、技术演进</h2>
-    <ul><li><b>1940s-1950s</b>：傅里叶变换法、 Woodward-Lawson 法</li><li><b>1950s-1960s</b>：Dolph-Chebyshev、Taylor 方法建立</li><li><b>1970s-1980s</b>：Longman 零陷方法、Bernstein 多项式</li><li><b>1990s</b>：Boyd 等人将凸优化引入天线设计</li><li><b>2000s</b>：SDR 在波束赋形中的应用</li><li><b>2010s</b>：SOCP 在实时波束赋形中的应用</li><li><b>2020s</b>：深度学习辅助凸优化（Learning to Optimize）</li><li><b>2025年</b>：AI + 凸优化混合方法，端到端可微优化</li></ul>
+    <ul>
+<li><strong>1940s-1950s</strong>：傅里叶变换法、 Woodward-Lawson 法</li>
+<li><strong>1950s-1960s</strong>：Dolph-Chebyshev、Taylor 方法建立</li>
+<li><strong>1970s-1980s</strong>：Longman 零陷方法、Bernstein 多项式</li>
+<li><strong>1990s</strong>：Boyd 等人将凸优化引入天线设计</li>
+<li><strong>2000s</strong>：SDR 在波束赋形中的应用</li>
+<li><strong>2010s</strong>：SOCP 在实时波束赋形中的应用</li>
+<li><strong>2020s</strong>：深度学习辅助凸优化（Learning to Optimize）</li>
+<li><strong>2025年</strong>：AI + 凸优化混合方法，端到端可微优化</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>九、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：凸优化方向图综合在雷达、卫星通信、5G/6G 基站中已有广泛应用。Chebyshev/Taylor 仍是工程首选（简单快速），凸优化在复杂约束场景中不可替代。</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>凸优化将方向图综合从"手工调参"升级为"自动求解"——你告诉优化器你要什么（旁瓣多少、零陷在哪、波束多宽），它给你全局最优的幅相加权。虽然计算代价比 Chebyshev 高，但在 6G 复杂波束赋形场景下，这是值得付出的成本。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -375,39 +747,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

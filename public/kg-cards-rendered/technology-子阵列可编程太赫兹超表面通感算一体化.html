@@ -92,10 +92,6 @@
   <h1 class="title">子阵列可编程太赫兹超表面通感算一体化</h1>
   
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">太赫兹</span><span class="chip brand">可编程超表面</span><span class="chip brand">通感算一体化</span><span class="chip brand">ISCC</span><span class="chip brand">HEMT</span><span class="chip brand">GaN</span><span class="chip brand">6G</span>
-  </div>
-  
 </header>
 
 <main>
@@ -238,7 +234,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -256,39 +256,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

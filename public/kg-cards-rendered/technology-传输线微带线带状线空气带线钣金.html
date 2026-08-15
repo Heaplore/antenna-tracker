@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>传输线技术（微带线/带状线/空气带线/钣金） · 知识卡片</title>
+<title>传输线微带线带状线空气带线钣金 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">传输线技术（微带线/带状线/空气带线/钣金）</h1>
-  <p class="lede">传输线是 AAU 内部信号分配的"血管"——从 PCB 上的微带线到金属腔体内的空气带线/钣金带状线，核心矛盾是"损耗 vs 体积 vs 功率容量"。Sub-6GHz 用微带线够用，毫米波和大功率开始转向空气带线和钣金结构。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">传输线微带线带状线空气带线钣金</h1>
+  <p class="lede">传输线是 AAU 内部信号分配的&#34;血管&#34;——从 PCB 上的微带线到金属腔体内的空气带线/钣金带状线，核心矛盾是&#34;损耗 vs 体积 vs 功率容量&#34;。Sub-6GHz 用微带线够用，毫米波和大功率开始转向空气带线和钣金结构。</p>
+  
 </header>
 
 <main>
@@ -99,217 +101,435 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传输线就像"水管"——信号是水，水管的形状决定了水流稳不稳。微带线是"塑料软管"（便宜、好做、但有点漏水）；空气带线是"不锈钢粗管"（几乎不漏、功率大、但笨重）；钣金带状线是"折边铁皮管"（介于两者之间）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、微带线（Microstrip）</h2>
-    <h3>1.1 结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 结构</h2>
     <pre><code>微带线结构：
-      ┌──────────────┐ ← 信号线（铜，宽度 W）
-      │              │
-      │  介质基板    │ ← Dk=3.48（RO4350B）
-      │              │
-      └──────────────┘ ← 接地层（铜）
+  ┌──────────────┐ ← 信号线（铜，宽度 W）
+  │              │
+  │  介质基板    │ ← Dk=3.48（RO4350B）
+  │              │
+  └──────────────┘ ← 接地层（铜）
+
+关键尺寸：
+  W/H（线宽/基板厚）→ 决定特性阻抗 Z₀
+  Z₀ = 50Ω（通信标准）
+
+典型参数（RO4350B, H=0.81mm）：
+  50Ω 微带线：W ≈ 1.5mm
+  3.5GHz 损耗：~0.5dB/10cm
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    关键尺寸：
-      W/H（线宽/基板厚）→ 决定特性阻抗 Z₀
-      Z₀ = 50Ω（通信标准）
-      
-    典型参数（RO4350B, H=0.81mm）：
-      50Ω 微带线：W ≈ 1.5mm
-      3.5GHz 损耗：~0.5dB/10cm</code></pre>
-    <h3>1.2 特点</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
-    <tbody>
-    <tr><td>损耗</td><td>中等（0.3-1dB/10cm @3.5GHz）</td></tr>
-    <tr><td>功率容量</td><td>低（< 1W）</td></tr>
-    <tr><td>尺寸</td><td>最小（适合高密度）</td></tr>
-    <tr><td>成本</td><td>最低</td></tr>
-    <tr><td>加工</td><td>最简单（PCB 蚀刻）</td></tr>
-    <tr><td>适用频段</td><td>DC-6.5GHz</td></tr>
-    </tbody></table></div>
-    <h3>1.3 在 AAU 中的应用</h3>
+    <h2>1.2 特点</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>值/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>损耗</td>
+<td>中等（0.3-1dB/10cm @3.5GHz）</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>低（&lt; 1W）</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>最小（适合高密度）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>加工</td>
+<td>最简单（PCB 蚀刻）</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>DC-6.5GHz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 在 AAU 中的应用</h2>
     <pre><code>微带线用于：
-      - T/R 模块内部信号分配
-      - 馈电网络（功分器/移相器）
-      - PCB 振子之间的连接
-      
-    局限：
-      - 损耗随频率升高急剧增加
-      - 28GHz 时 10cm 微带线损耗 &gt; 5dB
-      - 不适合毫米波长距离传输</code></pre>
-  </article>
+  - T/R 模块内部信号分配
+  - 馈电网络（功分器/移相器）
+  - PCB 振子之间的连接
 
-  <article class="card">
-    <h2>二、带状线（Stripline）</h2>
-    <h3>2.1 结构</h3>
+局限：
+  - 损耗随频率升高急剧增加
+  - 28GHz 时 10cm 微带线损耗 &gt; 5dB
+  - 不适合毫米波长距离传输
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 结构</h2>
     <pre><code>带状线结构：
-      ┌──────────────┐ ← 上层接地
-      │              │
-      │  ───────     │ ← 信号线（嵌在介质中间）
-      │  ───────     │   （宽度 W，离上下接地距离 H/2）
-      │              │
-      └──────────────┘ ← 下层接地
+  ┌──────────────┐ ← 上层接地
+  │              │
+  │  ───────     │ ← 信号线（嵌在介质中间）
+  │  ───────     │   （宽度 W，离上下接地距离 H/2）
+  │              │
+  └──────────────┘ ← 下层接地
+
+特点：
+  - 信号线被接地层上下包围
+  - 电磁场完全封闭在介质内
+  - 无辐射损耗
+  - 比微带线损耗低 20-30%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    特点：
-      - 信号线被接地层上下包围
-      - 电磁场完全封闭在介质内
-      - 无辐射损耗
-      - 比微带线损耗低 20-30%</code></pre>
-    <h3>2.2 微带线 vs 带状线</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>微带线</th><th>带状线</th></tr></thead>
-    <tbody>
-    <tr><td>结构</td><td>信号线在上层</td><td>信号线在介质中间</td></tr>
-    <tr><td>损耗</td><td>较高（有辐射）</td><td>较低（无辐射）</td></tr>
-    <tr><td>尺寸</td><td>更小</td><td>更大（需要多层板）</td></tr>
-    <tr><td>耦合</td><td>有边缘耦合</td><td>隔离度更好</td></tr>
-    <tr><td>加工</td><td>简单</td><td>复杂（需要多层压合）</td></tr>
-    <tr><td>适用</td><td>Sub-6GHz</td><td>Sub-6GHz 高密度</td></tr>
-    </tbody></table></div>
-    <h3>2.3 在 AAU 中的应用</h3>
+    <h2>2.2 微带线 vs 带状线</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>微带线</th>
+<th>带状线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结构</td>
+<td>信号线在上层</td>
+<td>信号线在介质中间</td>
+</tr>
+<tr>
+<td>损耗</td>
+<td>较高（有辐射）</td>
+<td>较低（无辐射）</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>更小</td>
+<td>更大（需要多层板）</td>
+</tr>
+<tr>
+<td>耦合</td>
+<td>有边缘耦合</td>
+<td>隔离度更好</td>
+</tr>
+<tr>
+<td>加工</td>
+<td>简单</td>
+<td>复杂（需要多层压合）</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>Sub-6GHz</td>
+<td>Sub-6GHz 高密度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 在 AAU 中的应用</h2>
     <pre><code>带状线用于：
-      - 64T64R AAU 的背板（多层 RO4350B）
-      - 需要高隔离度的信号分配
-      - 高密度布线（64 通道）
-      
-    优势：
-      - 通道间串扰 &lt; -30dB
-      - 比微带线更紧凑
-      - 适合 64 通道以上的密集布线</code></pre>
-  </article>
+  - 64T64R AAU 的背板（多层 RO4350B）
+  - 需要高隔离度的信号分配
+  - 高密度布线（64 通道）
 
-  <article class="card">
-    <h2>三、空气带线/空气微带线（Air Microstrip）</h2>
-    <h3>3.1 结构</h3>
+优势：
+  - 通道间串扰 &lt; -30dB
+  - 比微带线更紧凑
+  - 适合 64 通道以上的密集布线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 结构</h2>
     <pre><code>空气带线结构：
-      ┌──────────────┐ ← 金属盖板
-      │              │
-      │  空气（Dk≈1）│ ← 介质是空气！
-      │              │
-      │  ───────     │ ← 信号线（铜）
-      │  ───────     │
-      └──────────────┘ ← 金属底板（接地）
+  ┌──────────────┐ ← 金属盖板
+  │              │
+  │  空气（Dk≈1）│ ← 介质是空气！
+  │              │
+  │  ───────     │ ← 信号线（铜）
+  │  ───────     │
+  └──────────────┘ ← 金属底板（接地）
+
+关键：
+  - 介质是空气（Dk=1.0）
+  - 有效 Dk ≈ 1.0-1.5（取决于盖板高度）
+  - 信号在空气中传播 → 损耗极低
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    关键：
-      - 介质是空气（Dk=1.0）
-      - 有效 Dk ≈ 1.0-1.5（取决于盖板高度）
-      - 信号在空气中传播 → 损耗极低</code></pre>
-    <h3>3.2 特点</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
-    <tbody>
-    <tr><td>损耗</td><td>极低（0.05-0.2dB/10cm @3.5GHz）</td></tr>
-    <tr><td>功率容量</td><td>高（空气散热好）</td></tr>
-    <tr><td>尺寸</td><td>中等（比微带线大）</td></tr>
-    <tr><td>成本</td><td>中（需要精密加工）</td></tr>
-    <tr><td>适用频段</td><td>DC-10GHz</td></tr>
-    </tbody></table></div>
-    <h3>3.3 在 AAU 中的应用</h3>
+    <h2>3.2 特点</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>值/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>损耗</td>
+<td>极低（0.05-0.2dB/10cm @3.5GHz）</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>高（空气散热好）</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>中等（比微带线大）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>中（需要精密加工）</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>DC-10GHz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 在 AAU 中的应用</h2>
     <pre><code>空气带线用于：
-      - 毫米波 AAU 内部馈线（28/39GHz）
-      - 高功率 Sub-6GHz 分配网络
-      - 低损耗相位一致性要求高的场景
-      
-    优势：
-      - 损耗比微带线低 5-10 倍
-      - 温度稳定性好（空气 Dk 不随温度变）
-      - 功率容量大（空气不发热）</code></pre>
-  </article>
+  - 毫米波 AAU 内部馈线（28/39GHz）
+  - 高功率 Sub-6GHz 分配网络
+  - 低损耗相位一致性要求高的场景
 
-  <article class="card">
-    <h2>四、钣金传输线（Sheet Metal Transmission Line）</h2>
-    <h3>4.1 结构</h3>
-    <pre><code>钣金带状线结构：
-      ┌──────────────────┐ ← 金属上盖（铝/铜）
-      │                    │
-      │  ┌──────────────┐  │
-      │  │ 信号铜条     │  │ ← 信号导体（铜排）
-      │  │              │  │
-      │  │ 介质支撑柱   │  │ ← PTFE/陶瓷支撑
-      │  │              │  │
-      │  └──────────────┘  │
-      │                    │
-      └────────────────────┘ ← 金属底板（接地）
+优势：
+  - 损耗比微带线低 5-10 倍
+  - 温度稳定性好（空气 Dk 不随温度变）
+  - 功率容量大（空气不发热）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    加工方式：
-      - 钣金折弯/冲压形成金属腔体
-      - 铜排蚀刻/冲压形成信号线
-      - PTFE 支撑柱固定间距
-      
-    特点：
-      - 全金属结构 → 屏蔽极佳
-      - 功率容量大（铜排散热好）
-      - 损耗低（空气+PTFE 介质）</code></pre>
-    <h3>4.2 特点</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>值/说明</th></tr></thead>
-    <tbody>
-    <tr><td>损耗</td><td>低（0.1-0.3dB/10cm @3.5GHz）</td></tr>
-    <tr><td>功率容量</td><td>很高（10-100W）</td></tr>
-    <tr><td>尺寸</td><td>较大（适合机架内）</td></tr>
-    <tr><td>成本</td><td>中（钣金加工）</td></tr>
-    <tr><td>适用频段</td><td>DC-6.5GHz</td></tr>
-    <tr><td>隔离度</td><td>> 40dB</td></tr>
-    </tbody></table></div>
-    <h3>4.3 在 AAU 中的应用</h3>
+    <h2>4.1 结构</h2>
+    <pre><code>钣金带状线结构：
+  ┌──────────────────┐ ← 金属上盖（铝/铜）
+  │                    │
+  │  ┌──────────────┐  │
+  │  │ 信号铜条     │  │ ← 信号导体（铜排）
+  │  │              │  │
+  │  │ 介质支撑柱   │  │ ← PTFE/陶瓷支撑
+  │  │              │  │
+  │  └──────────────┘  │
+  │                    │
+  └────────────────────┘ ← 金属底板（接地）
+
+加工方式：
+  - 钣金折弯/冲压形成金属腔体
+  - 铜排蚀刻/冲压形成信号线
+  - PTFE 支撑柱固定间距
+
+特点：
+  - 全金属结构 → 屏蔽极佳
+  - 功率容量大（铜排散热好）
+  - 损耗低（空气+PTFE 介质）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 特点</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>值/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>损耗</td>
+<td>低（0.1-0.3dB/10cm @3.5GHz）</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>很高（10-100W）</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>较大（适合机架内）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>中（钣金加工）</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>DC-6.5GHz</td>
+</tr>
+<tr>
+<td>隔离度</td>
+<td>&gt; 40dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 在 AAU 中的应用</h2>
     <pre><code>钣金传输线用于：
-      - 4G/5G 基站馈电网络（功分器/合路器）
-      - RRU 到 AAU 的内部连接
-      - 大功率分配网络
-      
-    优势：
-      - 比 PCB 微带线功率容量高 10-100 倍
-      - 比同轴电缆更紧凑
-      - 适合批量生产（钣金+组装）
-      
-    典型应用：
-      - 64 通道功分器（钣金腔体 + PCB 电路）
-      - 双频/三频合路器
-      - 滤波器腔体</code></pre>
-  </article>
+  - 4G/5G 基站馈电网络（功分器/合路器）
+  - RRU 到 AAU 的内部连接
+  - 大功率分配网络
 
-  <article class="card">
+优势：
+  - 比 PCB 微带线功率容量高 10-100 倍
+  - 比同轴电缆更紧凑
+  - 适合批量生产（钣金+组装）
+
+典型应用：
+  - 64 通道功分器（钣金腔体 + PCB 电路）
+  - 双频/三频合路器
+  - 滤波器腔体
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>五、四种传输线对比总结</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>微带线</th><th>带状线</th><th>空气带线</th><th>钣金传输线</th></tr></thead>
-    <tbody>
-    <tr><td>损耗(@3.5GHz)</td><td>0.5dB/10cm</td><td>0.35dB/10cm</td><td>0.1dB/10cm</td><td>0.2dB/10cm</td></tr>
-    <tr><td>功率容量</td><td>< 1W</td><td>< 1W</td><td>1-5W</td><td>10-100W</td></tr>
-    <tr><td>尺寸</td><td>★★★★★(最小)</td><td>★★★★</td><td>★★★</td><td>★★(最大)</td></tr>
-    <tr><td>成本</td><td>★★★★★(最低)</td><td>★★★★</td><td>★★★</td><td>★★★</td></tr>
-    <tr><td>加工难度</td><td>低</td><td>中</td><td>高</td><td>中</td></tr>
-    <tr><td>适用频段</td><td>DC-6.5GHz</td><td>DC-6.5GHz</td><td>DC-10GHz</td><td>DC-6.5GHz</td></tr>
-    <tr><td>5G 应用场景</td><td>T/R 模块内</td><td>64T 背板</td><td>毫米波 AAU</td><td>功分器/合路器</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>微带线</th>
+<th>带状线</th>
+<th>空气带线</th>
+<th>钣金传输线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>损耗(@3.5GHz)</td>
+<td>0.5dB/10cm</td>
+<td>0.35dB/10cm</td>
+<td>0.1dB/10cm</td>
+<td>0.2dB/10cm</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>&lt; 1W</td>
+<td>&lt; 1W</td>
+<td>1-5W</td>
+<td>10-100W</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>★★★★★(最小)</td>
+<td>★★★★</td>
+<td>★★★</td>
+<td>★★(最大)</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>★★★★★(最低)</td>
+<td>★★★★</td>
+<td>★★★</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>加工难度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>DC-6.5GHz</td>
+<td>DC-6.5GHz</td>
+<td>DC-10GHz</td>
+<td>DC-6.5GHz</td>
+</tr>
+<tr>
+<td>5G 应用场景</td>
+<td>T/R 模块内</td>
+<td>64T 背板</td>
+<td>毫米波 AAU</td>
+<td>功分器/合路器</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>六、5G AAU 传输线选型指南</h2>
     <pre><code>Sub-6GHz AAU（3.5GHz）：
-      T/R 模块内部 → 微带线（PCB 集成）
-      64 通道分配 → 带状线（多层背板）
-      功分器/合路器 → 钣金传输线（功率大）
-      
-    毫米波 AAU（28GHz）：
-      BFIC 到 AiP → 空气带线/FFC（低损耗）
-      腔体内 → 波导（功率大/损耗最低）
-      
-    关键决策因素：
-      1. 频率 → 越高越需要低损耗结构
-      2. 功率 → 越大越需要金属结构
-      3. 尺寸 → 越小越需要 PCB 集成
-      4. 成本 → 越低越需要批量工艺</code></pre>
-  </article>
+  T/R 模块内部 → 微带线（PCB 集成）
+  64 通道分配 → 带状线（多层背板）
+  功分器/合路器 → 钣金传输线（功率大）
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>传输线选型是"损耗-功率-尺寸-成本"的 trade-off——微带线最便宜最紧凑但损耗大，钣金传输线功率大损耗低但尺寸大，空气带线是毫米波的最佳折中。5G AAU 里通常四种都用：T/R 模块内用微带线、背板用带状线、功分器用钣金、毫米波用空气带线。记住：传输线不是"随便一条线"——64 通道之间的损耗差异必须控制在 0.1dB 以内，否则波束指向就会偏移。</p>
+毫米波 AAU（28GHz）：
+  BFIC 到 AiP → 空气带线/FFC（低损耗）
+  腔体内 → 波导（功率大/损耗最低）
+
+关键决策因素：
+  1. 频率 → 越高越需要低损耗结构
+  2. 功率 → 越大越需要金属结构
+  3. 尺寸 → 越小越需要 PCB 集成
+  4. 成本 → 越低越需要批量工艺
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -329,39 +549,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -90,11 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">Cadence AlphaGo天线逆拓扑框架</h1>
-  
-  
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">AI天线设计</span><span class="chip brand">逆拓扑</span><span class="chip brand">蒙特卡洛树搜索</span><span class="chip brand">Cadence</span>
-  </div>
+  <p class="lede">Cadence 把 AlphaGo 的&#34;棋盘 + 落子 + 评估&#34;思路搬到天线设计上，把单层平面天线的版图离散成 N×N 网格，用蒙特卡洛树搜索（MCTS）做序列决策、ML 代理模型做在线评估，把设计评估次数从万级压到 10³ 量级 —— 这是天线设计从「正向参数优化」转向「逆向拓扑生成」的第一个工程化范本。</p>
   
 </header>
 
@@ -107,14 +103,48 @@
 
 
   
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>1. AlphaGo 类比：从围棋棋盘到天线拓扑</h2>
-    <p>AlphaGo 的核心思想是在离散的动作空间中用 MCTS 做序列决策。Cadence 团队将此思路迁移到天线设计：</p>
+  <article class="card ">
+    
+    <h2>一、基本定义与原理</h2>
+    <p><strong>逆拓扑合成</strong>（Inverse Topology Synthesis）是相对于传统<strong>正向参数优化</strong>的概念：在给定性能指标（频点、增益、极化、回波损耗等）的前提下，AI 自动生成满足约束的天线几何拓扑（材料分布、网格形态），而非在固定结构上调参。</p>
+<p>Cadence AlphaGo 框架（2026, Scientific Reports）把逆拓扑合成问题建模为<strong>序列决策过程</strong>：</p>
 <ul>
-<li><strong>棋盘 = 天线布局网格</strong>：将单层平面天线的物理版图离散化为一个 N×N 的网格，每个网格单元可以是金属或介质</li>
-<li><strong>落子 = 拓扑生成步骤</strong>：每一步决定一个网格单元的状态（金属/空），逐步构建天线拓扑</li>
-<li><strong>好棋 = 好设计</strong>：用 ML 代理模型预测当前拓扑的射频性能（S11、增益、方向图等），作为策略网络的奖励信号</li>
+<li><strong>状态空间</strong>：单层平面天线的 N×N 网格（典型 N=32 或 64），每格 ∈ {金属, 介质}，状态总数 2^(N²)</li>
+<li><strong>动作空间</strong>：每一步选择下一个要被"翻面"的格子</li>
+<li><strong>奖励函数</strong>：ML 代理模型预测的当前拓扑的电磁性能（S11、增益、方向图）</li>
+<li><strong>求解器</strong>：蒙特卡洛树搜索（MCTS）+ 机器学习代理模型（surrogate model）</li>
+</ul>
+<p>这一思路的关键突破是<strong>把离散的拓扑搜索从"穷举/GA/PSO 暴力迭代"变成"有记忆的渐进式收敛"</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 MCTS 四步循环</h2>
+    <p>MCTS 是 AlphaGo 的核心算法，移植到天线拓扑搜索后由四步组成：</p>
+<ul>
+<li><strong>选择（Selection）</strong>：从根节点出发，按 UCB1 公式选择最有潜力的子节点继续向下</li>
+</ul>
+<p>$$
+\text{UCB1} = \frac{w_i}{n_i} + c \sqrt{\frac{\ln N}{n_i}}
+$$</p>
+<p>其中 $w_i$ 是节点 i 的累计奖励，$n_i$ 是访问次数，$N$ 是父节点访问次数，$c$ 是探索系数
+- <strong>扩展（Expansion）</strong>：在叶子节点生成新的拓扑分支（即新加入一格）
+- <strong>模拟（Simulation）</strong>：用 ML 代理模型快速预测新拓扑的射频性能，耗时从 HFSS 数小时压缩到 ms 级
+- <strong>回溯（Backpropagation）</strong>：把评估结果沿搜索路径反向传播，更新沿途节点的 $(w_i, n_i)$ 统计</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 代理模型（Surrogate Model）的在线精炼</h2>
+    <p>代理模型是框架能够"加速"的关键：</p>
+<ul>
+<li><strong>初始训练</strong>：用 50–100 个随机拓扑的 HFSS 全波仿真数据训练初始代理</li>
+<li><strong>在线精炼</strong>：每轮 MCTS 评估都把新拓扑和预测结果回灌到训练集</li>
+<li><strong>预测精度递增</strong>：随样本量从 O(10²) 增长到 O(10⁴)，代理对 "拓扑 → S11/增益/方向图" 的映射越来越准</li>
 </ul>
   </article>
   
@@ -122,149 +152,207 @@
   
   <article class="card ">
     
-    <h2>2. 蒙特卡洛树搜索（MCTS）优化</h2>
-    <p>MCTS 是 AlphaGo 的核心算法之一，包含四个步骤：</p>
-<ol>
-<li><strong>选择（Selection）</strong>：从根节点出发，用 UCB1 公式选择最有潜力的子节点向下遍历</li>
-<li><strong>扩展（Expansion）</strong>：在叶子节点生成新的拓扑分支</li>
-<li><strong>模拟（Simulation）</strong>：用 ML 代理模型快速评估新拓扑的性能</li>
-<li><strong>回溯（Backpropagation）</strong>：将评估结果沿搜索路径回传，更新节点统计</li>
-</ol>
-<p>与传统遗传算法（GA）或粒子群优化（PSO）不同，MCTS 的优势在于：</p>
+    <h2>2.3 搜索空间约束</h2>
+    <p>整个框架建立在三层约简之上：</p>
 <ul>
-<li><strong>有记忆的搜索</strong>：已访问的拓扑分支会被记录，不会重复无效探索</li>
-<li><strong>探索-利用平衡</strong>：UCB1 公式自动平衡"尝试新分支"和"深化已知好分支"</li>
-<li><strong>渐进收敛</strong>：随着搜索深度增加，策略网络不断自我修正</li>
+<li><strong>物理约简</strong>：单层平面天线（微带贴片、偶极子、IFA 等），排除 3D 立体结构和多层堆叠</li>
+<li><strong>离散约简</strong>：固定 N×N 网格分辨率，搜索从连续几何降到离散分布</li>
+<li><strong>目标约简</strong>：每次只能围绕一个目标函数（如最小 S11）做单目标优化</li>
 </ul>
+<p>这些约简让"求全局最优"在 GPU 资源下变成小时级而非天级。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. ML 代理模型（Surrogate Model）</h2>
-    <p>传统天线设计每次评估都需要运行全波电磁仿真（HFSS/CST），耗时数小时。Cadence 框架用 ML 代理模型替代：</p>
+    <h2>2.4 后处理四件套</h2>
+    <p>MCTS 输出的是离散网格分布，需要四步后处理才能上工艺：</p>
 <ul>
-<li><strong>初始训练</strong>：用少量（约 50-100 个）随机拓扑的电磁仿真数据训练初始代理模型</li>
-<li><strong>在线精炼</strong>：每轮 MCTS 评估后，将新数据加入训练集，增量更新代理模型</li>
-<li><strong>预测精度递增</strong>：随着样本量增加，代理模型对拓扑→性能的映射越来越准</li>
+<li><strong>边缘平滑</strong>：去除网格锯齿效应</li>
+<li><strong>连续几何参数微调</strong>：金属条带的实际尺寸、边距</li>
+<li><strong>全波仿真验证</strong>：用 HFSS/CST 跑一次完整电磁求解</li>
+<li><strong>制造可行性评估</strong>：检查最小特征尺寸、连通性</li>
 </ul>
+<p>论文强调生成结果 "<strong>potentially more fabrication-friendly</strong>" —— MCTS 的有记忆搜索倾向于收敛到连通性好、特征均匀的拓扑，避免 GA/PSO 易产生的碎片化设计。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 后处理微调</h2>
-    <p>MCTS 生成的拓扑是离散网格表示，需要后处理将离散几何转换为连续参数：</p>
-<ul>
-<li>边缘平滑（去除锯齿效应）</li>
-<li>连续几何参数微调（尺寸、位置微调）</li>
-<li>最终用全波仿真验证</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 快速原型设计</h2>
-    <p>对于单层平面天线（微带贴片、偶极子、喇叭等），设计师只需给定频点、增益、极化等指标要求，框架即可自动生成多种可行拓扑，无需人工设计初始形状。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 复杂目标优化</h2>
-    <p>当目标函数包含多个相互制约的参数（如宽频带+高增益+低剖面+特定方向图），传统方法很难找到最优解。MCTS 的搜索空间覆盖能力更强，能找到人类直觉之外的非直观拓扑。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 制造友好性</h2>
-    <p>论文强调生成的拓扑"potentially more fabrication-friendly"——MCTS 搜索倾向于生成连通性好、特征尺寸均匀的拓扑，避免了过度碎片化的设计，更适合 PCB 或 MMIC 工艺。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. Antenna Forge（开源项目）</h2>
-    <p>GitHub 上 1ove9/antenna-forge（479 stars，2026-05-25 创建）是一个开源 AI 天线逆设计平台，将 NEC2 电磁求解器闭环嵌入优化器。与 Cadence 框架的对比：</p>
+    <h2>三、实现方式与分类</h2>
+    <p>按搜索算法与评估后端的耦合方式，逆拓扑天线设计目前有四种实现路线：</p>
 <table>
 <thead>
 <tr>
-<th>维度</th>
-<th>Cadence AlphaGo 框架</th>
-<th>Antenna Forge</th>
+<th>路线</th>
+<th>搜索算法</th>
+<th>评估后端</th>
+<th>代表</th>
+<th>评估次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MCTS + ML 代理</strong></td>
+<td>蒙特卡洛树搜索</td>
+<td>在线精炼 ML 模型</td>
+<td>Cadence AlphaGo 框架（2026）</td>
+<td><strong>10³ 量级</strong></td>
+</tr>
+<tr>
+<td><strong>差分进化 + 实仿真</strong></td>
+<td>差分进化</td>
+<td>NEC2 / openEMS 实时调用</td>
+<td>Antenna Forge（1ove9 开源, 479 ⭐, 2026-05 创建）</td>
+<td>数千~数万</td>
+</tr>
+<tr>
+<td><strong>强化学习 + MLP</strong></td>
+<td>Policy Gradient + 多层感知机</td>
+<td>周期回灌全波仿真</td>
+<td>剑桥 IJMWT 2026.02（RL + TBM/THA 解决高维拓扑数据映射）</td>
+<td>10⁴ 量级</td>
+</tr>
+<tr>
+<td><strong>预计算格林函数</strong></td>
+<td>优化求解</td>
+<td>预计算 NGF 加速</td>
+<td>Nature Communications 2026.02</td>
+<td><strong>加速 16,000 倍</strong></td>
+</tr>
+</tbody>
+</table>
+<p>前两条路线是"少评估 + 准代理"流派；后两条是"多评估 + 直接求解"流派的两个变种。Cadence 走的是第一条路——这意味着它<strong>对代理模型的精度极度依赖</strong>，初期需要 50–100 个 HFSS 真仿真"暖启动"。</p>
+<p>按可生成的拓扑类型，还可分：</p>
+<ul>
+<li><strong>2D 离散网格</strong>：Cadence 框架和 Antenna Forge 都属此类</li>
+<li><strong>连续几何参数</strong>：传统 GA/PSO 微调阶段，可作为 MCTS 后处理串联</li>
+<li><strong>多层堆叠 3D 结构</strong>：当前主流 AI 框架尚未覆盖（仍是未来方向）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 快速原型设计</h2>
+    <p>设计师给定"2.4 GHz / 增益 ≥ 5 dBi / 线极化 / S11 &lt; -10 dB"这类指标，框架即可在数小时内输出多种候选拓扑。从"几周迭代"压缩到"一下午多方案"。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 复杂多目标优化</h2>
+    <p>当目标函数包含<strong>宽频带 + 高增益 + 低剖面 + 特定方向图</strong>这种多维度约束，传统优化器容易陷入局部最优。MCTS 的树结构天然具备多分支并行能力，能跳出局部最优找到非直观拓扑。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 大规模阵列单元布局</h2>
+    <p>对相控阵、AAU 的 N×N 单元阵列布局，传统等间距方案在扫描到大角度时会出现栅瓣。逆拓扑框架可针对目标扫描范围、波束宽度优化单元位置 —— 这一点对 GigaMIMO/AAU 这类大规模阵列有直接价值。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 制造友好性筛选</h2>
+    <p>MCTS 搜索天然倾向于"连通性好、特征尺寸均匀"的拓扑，对 PCB/MMIC 工艺友好。可在生成阶段就把制造约束嵌入 reward，避免后期反复修图。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Cadence AlphaGo</th>
+<th>Antenna Forge（开源）</th>
+<th>剑桥 RL（IJMWT 2026.02）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>搜索算法</td>
-<td>MCTS + ML 代理</td>
-<td>差分进化 + 实仿真</td>
+<td>MCTS</td>
+<td>差分进化</td>
+<td>RL + MLP</td>
 </tr>
 <tr>
-<td>仿真后端</td>
-<td>ML 代理（在线精炼）</td>
-<td>NEC2/openEMS 实时</td>
+<td>评估后端</td>
+<td>ML 代理在线精炼</td>
+<td>NEC2 实仿真</td>
+<td>全波 + TBM/THA 映射</td>
 </tr>
 <tr>
-<td>频率范围</td>
-<td>平面天线（低频到中频）</td>
+<td>适用频段</td>
+<td>平面天线（低–中频）</td>
 <td>线天线（NEC2 适用）</td>
+<td>多层拓扑</td>
 </tr>
 <tr>
 <td>评估次数</td>
-<td>10³ 量级</td>
+<td><strong>10³</strong></td>
 <td>数千~数万</td>
+<td>10⁴ 量级</td>
+</tr>
+<tr>
+<td>单次评估耗时</td>
+<td>ms 级（代理）</td>
+<td>s~min（实仿真）</td>
+<td>s~min（实仿真）</td>
 </tr>
 <tr>
 <td>开放性</td>
-<td>论文+专利</td>
-<td>开源 MIT</td>
+<td>论文 + 专利</td>
+<td>MIT 开源</td>
+<td>论文</td>
+</tr>
+<tr>
+<td>可求解维度</td>
+<td>单目标单层</td>
+<td>单目标线天线</td>
+<td>多目标单层</td>
 </tr>
 </tbody>
 </table>
+<p>注：Nature Communications 2026.02 的"预计算 NGF 加速 16,000 倍"不属于逆拓扑搜索流派，是另一种思路的加速方案——此处不直接对比。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 强化学习天线拓扑优化</h2>
-    <p>剑桥期刊 International Journal of Microwave and Wireless Technologies（2026.02）发表了 RL + 多层感知机的天线拓扑优化方法，用 TBM（双向映射）和 THA（分层分析）解决 ML 与高维拓扑数据的兼容性问题。与 Cadence 框架相比，RL 方法需要更多 EM 仿真迭代，而 MCTS 的有记忆搜索更高效。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 预计算格林函数逆设计</h2>
-    <p>Nature Communications 2026.02 提出了 Precomputed Numerical Green Function 方法，全波逆设计加速 16,000 倍。这是另一种思路——从电磁场正问题入手，而非从拓扑搜索入手。与 MCTS 框架形成互补。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>趋势判断</h2>
+    <h2>六、工程挑战与坑</h2>
     <ol>
 <li>
-<p><strong>AI 天线设计进入"生成式"时代</strong>：从"给定参数优化性能"（正向）到"给定性能生成拓扑"（逆向），这是设计范式的根本转变。AlphaGo 框架代表了 MCTS 在电磁设计中的第一个成功案例。</p>
+<p><strong>代理模型的冷启动偏差</strong>：初期 50–100 个 HFSS 真仿真如果分布不均，代理会在新区域严重过自信。MCTS 在外推时会"误判"分支奖励，导致搜索方向跑偏。</p>
 </li>
 <li>
-<p><strong>Cadence 的野心</strong>：所有作者均为 Cadence 员工，且已申请专利（under review）。这意味着该框架很可能被整合进 Cadence 的 SIwave/Clarisys/ACP 等产品线，成为商业 EDA 的标准功能。</p>
+<p><strong>网格分辨率的取舍</strong>：N=32 给出 2¹⁰²⁴ 状态空间，过粗的几何无法还原工程细节；N=64 状态空间暴增 2¹⁴⁷×，评估次数又爆掉。</p>
 </li>
 <li>
-<p><strong>MCTS vs 其他 AI 方法</strong>：MCTS 的最大优势是"有记忆的探索"，特别适合离散拓扑空间。未来可能与扩散模型（Diffusion Model）结合——用扩散模型生成初始拓扑候选，用 MCTS 精细优化。</p>
+<p><strong>多目标优化的结构性失能</strong>：当前框架以单目标 reward 为主（最小 S11 最常见），多目标加权是工程妥协而非真 Pareto。</p>
 </li>
 <li>
-<p><strong>对老大的参考价值</strong>：如果老大在 AAU/相控阵天线设计中遇到复杂馈电网络或阵列布局优化问题，这个框架的思路（离散化+MCTS+代理模型）可以直接迁移。特别是大规模阵列的单元布局优化，MCTS 的并行搜索能力可能有独特优势。</p>
+<p><strong>后处理损失</strong>：边缘平滑和连续化会把代理验证的最优值再"吸"回若干 dB，最终仿真常常要补一刀。</p>
+</li>
+<li>
+<p><strong>碎片化陷阱</strong>：MCTS 早期会先填孤立单元格，连通性差，PCB 工艺做不出来。要么靠"连通性 reward"约束，要么靠后处理拓扑剪枝。</p>
+</li>
+<li>
+<p><strong>训练-推理分布偏移</strong>：代理训练集集中在早期 MCTS 的"好区域"，后期搜索到分布外拓扑，预测方差大、置信区间宽——这是所有 surrogate-based optimization 的通病。</p>
+</li>
+<li>
+<p><strong>专利护城河</strong>：Cadence 已申请专利（under review），学术复现和小公司落地需要绕开权利要求点。</p>
 </li>
 </ol>
   </article>
@@ -273,29 +361,66 @@
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
-    <ol>
-<li>
-<p><strong>相控阵布局优化</strong>：中兴 GigaMIMO 和 AAU 天线中的大规模阵列布局，可以用 MCTS 框架做单元间距/位置的联合优化，突破传统均匀阵列的限制。</p>
-</li>
-<li>
-<p><strong>EDA 工具链整合</strong>：Cadence 正在将 AI 天线设计功能产品化，老大在日常仿真工作中可能需要关注 EDA 工具的 AI 功能演进，提前适应新的设计流程。</p>
-</li>
-<li>
-<p><strong>逆设计思维</strong>：传统天线设计是"正向设计"（先有结构再算性能），逆拓扑框架代表"逆向设计"（先有性能指标再自动生成结构）。这种思维转变对老大的天线优化工作有启发意义。</p>
-</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>来源</h2>
+    <h2>七、技术演进</h2>
     <ul>
-<li>Scientific Reports, "AlphaGo-driven generative machine learning framework for inverse topology synthesis and optimization of planar antennas", Cadence Design Systems, 2026</li>
-<li>DOI: 10.1038/s41598-026-61389-7</li>
-<li>专利：METHOD AND SYSTEM FOR IMPROVED ANTENNA DESIGN USING AI AND MACHINE LEARNING (under review)</li>
+<li><strong>2016 年</strong>：AlphaGo 击败李世石，MCTS + DNN 组合验证序列决策 + 评估模型的有效性</li>
+<li><strong>2018 年</strong>：MnasNet、AutoML 等 NAS 框架开始用类似思路搜索网络结构</li>
+<li><strong>2020 年</strong>：天线领域的早期 AI 辅助设计仍以正向参数优化为主（GA/PSO + 全波仿真）</li>
+<li><strong>2023 年</strong>：Antenna Forge（1ove9）在 GitHub 开源，将 NEC2 闭环嵌入差分进化，成为开源 AI 天线逆设计的标志事件</li>
+<li><strong>2024 年</strong>：扩散模型（Diffusion Model）开始进入射频/电磁设计领域</li>
+<li><strong>2025 年</strong>：剑桥期刊 RL + MLP 天线拓扑优化论文（IJMWT）发表</li>
+<li><strong>2026 年 2 月</strong>：Nature Communications 预计算格林函数逆设计加速 16,000 倍</li>
+<li><strong>2026 年</strong>：Cadence AlphaGo 框架论文在 Scientific Reports 发表，<strong>首次系统化把 MCTS + ML 代理移植到天线逆拓扑生成</strong>，全部 7 位作者均为 Cadence 员工，专利同步申请</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、技术成熟度</h2>
+    <ul>
+<li><strong>成熟度等级</strong>：原型验证（小规模商用前夜）</li>
+<li><strong>判断依据</strong>：</li>
+<li>Cadence 已公开论文与专利，框架在内部项目验证集上有效</li>
+<li>与现有 EDA 工具（SIwave/Clarisys/ACP）的整合路径已经清晰</li>
+<li>但<strong>尚无第三方独立复现公开数据集</strong>，代理模型的泛化性能仍是黑盒</li>
+<li>生成结果集中在"单层平面天线"这一受限类型，多层/3D 结构尚未覆盖</li>
+</ul>
+<p>距离大规模商用还有约 1–2 年——主要瓶颈是代理模型的"出分布预测"鲁棒性和工艺适配规则库。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（2026–2027）</strong>：</li>
+<li>MCTS + Diffusion Model 混合：扩散模型生成粗拓扑候选池，MCTS 精细搜索</li>
+<li>与现有 EDA 工具（HFSS/CST/Cadence Clarity）集成插件化</li>
+<li>学术复现数据集开放，第三方 benchmark 建立</li>
+<li><strong>中期（2027–2029）</strong>：</li>
+<li>多层 3D 拓扑 AI 生成成为可能</li>
+<li>多目标 Pareto 解集取代单目标 reward</li>
+<li>工艺约束（线宽、层间对准）从后处理前移到 reward 阶段</li>
+<li><strong>长期（2030+）</strong>：</li>
+<li>AI 天线设计进入"自然语言需求 → 直接出图"阶段</li>
+<li>阵列级 AI 设计与单元级 AI 设计融合</li>
+<li>Cadence 等 EDA 厂商的 AI 模块成为工程师标配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>附录：与老大的具体联动</h2>
+    <ul>
+<li><strong>相控阵单元布局</strong>：把 MCTS 框架的"二维网格 + 拓扑生成"思路迁移到 AAU/GigaMIMO 阵列单元位置 + 馈电网络拓扑的联合搜索；可参考本笔记 §2 与 §4.3</li>
+<li><strong>EDA 工具链升级</strong>：留意 Cadence Clarity/AWR 在 2026–2027 的 AI 模块发布节奏，提前建立团队对"逆向设计"工作流的认知</li>
+<li><strong>学术复现尝试</strong>：如果老大团队有学术合作项目，可考虑对开源 Antenna Forge 框架加约束、做对比——这是验证 MCTS 路线工程可行性的最低成本方法</li>
+<li><strong>风险提示</strong>：Cadence 专利 pending，国内 EDA 厂商（华大九天、概伦电子）尚未公开对应反制方案；未来 1–2 年关注国产 EDA 的 AI 路线选择</li>
 </ul>
   </article>
   

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3GPP TR 38.901 信道模型 · 知识卡片</title>
+<title>3GPP TR38.901信道模型 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">3GPP TR 38.901 信道模型 <span class="en">GPP TR38</span></h1>
-  <p class="lede">3GPP TR 38.901 是 5G NR 信道建模的标准——定义了从 0.5-100GHz 的路径损耗、时延扩展、RMS 角度扩展、到达/离开角度分布。Rel-17 新增了"近场信道模型"（平面波模型），为 XL-MIMO/CAPA 做准备。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">3GPP TR38.901信道模型</h1>
+  <p class="lede">3GPP TR 38.901 是 5G NR 信道建模的标准——定义了从 0.5-100GHz 的路径损耗、时延扩展、RMS 角度扩展、到达/离开角度分布。Rel-17 新增了&#34;近场信道模型&#34;（平面波模型），为 XL-MIMO/CAPA 做准备。</p>
+  
 </header>
 
 <main>
@@ -99,125 +101,148 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>信道模型就像"天气预报模型"——根据历史数据和物理规律，预测信号在空间中的"天气"。38.901 就是通信行业的"气象局"，告诉工程师：在这个城市、这个频段、这个距离，信号大概会怎样衰减、怎样散射、怎样延迟。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、38.901 核心内容</h2>
-    <h3>1.1 适用范围</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 适用范围</h2>
     <pre><code>3GPP TR 38.901 V17.0.0（2022）：
+
+频率范围：0.5 - 100 GHz
+场景：
+  - UMi（Urban Microcell，城市微蜂窝）
+  - UMa（Urban Macrocell，城市宏蜂窝）
+  - Rural（乡村）
+  - Indoor（室内）
+  - 室外到室内（O2I）
+
+天线模型：
+  - 远场（球面波 SWP）
+  - 近场（平面波 PW，Rel-17 新增）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    频率范围：0.5 - 100 GHz
-    场景：
-      - UMi（Urban Microcell，城市微蜂窝）
-      - UMa（Urban Macrocell，城市宏蜂窝）
-      - Rural（乡村）
-      - Indoor（室内）
-      - 室外到室内（O2I）
-      
-    天线模型：
-      - 远场（球面波 SWP）
-      - 近场（平面波 PW，Rel-17 新增）</code></pre>
-    <h3>1.2 路径损耗模型（PL）</h3>
+    <h2>1.2 路径损耗模型（PL）</h2>
     <pre><code>总路径损耗 = PL_BSD + PL_IN + PL_O2I
+
+1. BSD（Base Station to Device）路径损耗：
+
+   LOS（视距）：
+    PL_BSD_LOS = max(PL_FS, PL_BSD_LOS_min) + X
+
+  NLOS（非视距）：
+    PL_BSD_NLOS = max(PL_FS + L_OsNLoS, PL_BSD_NLOS_min) + X
+
+  其中：
+    PL_FS = 20log₁₀(4πd·f/c)  （自由空间损耗）
+    d = 传输距离（m）
+    f = 频率（GHz）
+    X = 阴影衰落（高斯分布）
+
+  LOS/NLOS 判定：
+    根据 BS 和 UE 高度、距离、城市环境
+    → 计算 LOS 概率
+
+2. IN（Indoor）路径损耗：
+   - 墙壁穿透损耗：15-25dB（混凝土）
+   - 楼层损耗：10-20dB/层
+   - 室内传播损耗：30-40dB/10m
+
+典型值对比（d=100m, f=3.5GHz）：
+  ┌─────────────────────────────────┐
+  │ 场景    │ PL(dB) │ 备注         │
+  ├─────────────────────────────────┤
+  │ 自由空间 │ 80     │ 理论下限     │
+  │ UMi LOS │ 88     │ 城市视距     │
+  │ UMi NLOS│ 112    │ 城市非视距   │
+  │ UMa LOS │ 85     │ 宏站视距     │
+  │ UMa NLOS│ 118    │ 宏站非视距   │
+  └─────────────────────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    1. BSD（Base Station to Device）路径损耗：
-      
-       LOS（视距）：
-        PL_BSD_LOS = max(PL_FS, PL_BSD_LOS_min) + X
-       
-      NLOS（非视距）：
-        PL_BSD_NLOS = max(PL_FS + L_OsNLoS, PL_BSD_NLOS_min) + X
-       
-      其中：
-        PL_FS = 20log₁₀(4πd·f/c)  （自由空间损耗）
-        d = 传输距离（m）
-        f = 频率（GHz）
-        X = 阴影衰落（高斯分布）
-        
-      LOS/NLOS 判定：
-        根据 BS 和 UE 高度、距离、城市环境
-        → 计算 LOS 概率
-        
-    2. IN（Indoor）路径损耗：
-       - 墙壁穿透损耗：15-25dB（混凝土）
-       - 楼层损耗：10-20dB/层
-       - 室内传播损耗：30-40dB/10m
-    
-    典型值对比（d=100m, f=3.5GHz）：
-      ┌─────────────────────────────────┐
-      │ 场景    │ PL(dB) │ 备注         │
-      ├─────────────────────────────────┤
-      │ 自由空间 │ 80     │ 理论下限     │
-      │ UMi LOS │ 88     │ 城市视距     │
-      │ UMi NLOS│ 112    │ 城市非视距   │
-      │ UMa LOS │ 85     │ 宏站视距     │
-      │ UMa NLOS│ 118    │ 宏站非视距   │
-      └─────────────────────────────────┘</code></pre>
-    <h3>1.3 时空信道参数（TSCS）</h3>
+    <h2>1.3 时空信道参数（TSCS）</h2>
     <pre><code>38.901 定义的完整信道参数：
-    
-    1. 时延扩展（Delay Spread）：
-       RMS 时延扩展：0.5-15ns（城市）
-       
-    2. 角度扩展（Angular Spread）：
-       - Azimuth Angle Spread（AAS）：水平角度扩展
-       - Elevation Angle Spread（EES）：垂直角度扩展
-       
-    3. 到达/离开角度（AoA/AoD）：
-       - 水平 AoA/AoD：均匀分布 + 主瓣
-       - 垂直 AoA/AoD：高斯分布
-       
-    4. 多普勒扩展（Doppler Spread）：
-       - 静止：0Hz
-       - 步行（3km/h）：~100Hz @3.5GHz
-       - 驾车（60km/h）：~200Hz @3.5GHz
-       - 高铁（300km/h）：~1000Hz @3.5GHz</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>二、Rel-17 近场信道模型</h2>
-    <h3>2.1 为什么需要近场模型？</h3>
+1. 时延扩展（Delay Spread）：
+   RMS 时延扩展：0.5-15ns（城市）
+
+2. 角度扩展（Angular Spread）：
+   - Azimuth Angle Spread（AAS）：水平角度扩展
+   - Elevation Angle Spread（EES）：垂直角度扩展
+
+3. 到达/离开角度（AoA/AoD）：
+   - 水平 AoA/AoD：均匀分布 + 主瓣
+   - 垂直 AoA/AoD：高斯分布
+
+4. 多普勒扩展（Doppler Spread）：
+   - 静止：0Hz
+   - 步行（3km/h）：~100Hz @3.5GHz
+   - 驾车（60km/h）：~200Hz @3.5GHz
+   - 高铁（300km/h）：~1000Hz @3.5GHz
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 为什么需要近场模型？</h2>
     <pre><code>传统 38.901（Rel-15/16）：
-      假设球面波（Spherical Wave, SWP）
-      → 适用于远场（d &gt; 2D²/λ）
-      → D = 天线口径，λ = 波长
-      
-    6G XL-MIMO / CAPA：
-      天线口径极大（D = 10-100m）
-      → 近场区域延伸到 km 级！
-      → 球面波假设不准确
-      
-    解决方案：
-      平面波（Plane Wave, PW）分解模型
-      → 近场用多个平面波叠加
-      → 更准确地描述近场传播</code></pre>
-    <h3>2.2 近场信道特征</h3>
-    <pre><code>近场 vs 远场：
-    
-      远场：
-        - 波前 = 球面（近似平面）
-        - 角度与距离解耦
-        - 一个 AoA 对应一个方向
-        
-      近场：
-        - 波前 = 明显球面
-        - 角度与距离耦合
-        - 同一个 AoA 在不同距离有不同的相位分布
-        → 需要同时估计 AoA + 距离
-        
-    影响：
-      - 近场波束赋形 = 球面波赋形（不是平面波）
-      - 信道矩阵不再是 Toeplitz 结构
-      - 容量计算需要新方法</code></pre>
-  </article>
+  假设球面波（Spherical Wave, SWP）
+  → 适用于远场（d &gt; 2D²/λ）
+  → D = 天线口径，λ = 波长
 
-  <article class="card">
-    <h2>三、一句话总结</h2>
-    <p>3GPP TR 38.901 是 5G 信道建模的"圣经"——定义了路径损耗、时延扩展、角度扩展等关键参数。Rel-17 新增的近场平面波模型是为 6G XL-MIMO 做准备。记住：信道模型不是"随便选的"，而是 3GPP 基于大量测量数据拟合出来的标准——所有 5G/6G 系统设计都必须基于 38.901。</p>
+6G XL-MIMO / CAPA：
+  天线口径极大（D = 10-100m）
+  → 近场区域延伸到 km 级！
+  → 球面波假设不准确
+
+解决方案：
+  平面波（Plane Wave, PW）分解模型
+  → 近场用多个平面波叠加
+  → 更准确地描述近场传播
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 近场信道特征</h2>
+    <pre><code>近场 vs 远场：
+
+  远场：
+    - 波前 = 球面（近似平面）
+    - 角度与距离解耦
+    - 一个 AoA 对应一个方向
+
+  近场：
+    - 波前 = 明显球面
+    - 角度与距离耦合
+    - 同一个 AoA 在不同距离有不同的相位分布
+    → 需要同时估计 AoA + 距离
+
+影响：
+  - 近场波束赋形 = 球面波赋形（不是平面波）
+  - 信道矩阵不再是 Toeplitz 结构
+  - 容量计算需要新方法
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -237,39 +262,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

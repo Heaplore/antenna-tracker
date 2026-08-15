@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A+P 天线（Active + Passive Hybrid Antenna） · 知识卡片</title>
+<title>A+P混合天线Active-Plus-Passive · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">A+P 天线 <span class="en">Active + Passive Hybrid Antenna</span></h1>
-  <p class="lede">A+P 天线是 5G 基站天线的"混搭方案"——有源层（AAU）负责高频段（3.5GHz）提供容量，无源层（平板天线）负责低频段（700/2.6GHz）提供覆盖，两层共用一个支架，节省站址资源。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">A+P混合天线Active-Plus-Passive</h1>
+  <p class="lede">A+P 天线是 5G 基站天线的&#34;混搭方案&#34;——有源层（AAU）负责高频段（3.5GHz）提供容量，无源层（平板天线）负责低频段（700/2.6GHz）提供覆盖，两层共用一个支架，节省站址资源。</p>
+  
 </header>
 
 <main>
@@ -99,123 +101,196 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>A+P 就像双层汉堡包——上层 AAU 是"肉饼"（高频高容量），下层平板是"面包"（低频广覆盖），共用一个"托盘"（安装支架）。比单独装两套天线省空间、省成本。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、A+P 的基本架构</h2>
-    <h3>1.1 分层结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 分层结构</h2>
     <pre><code>顶层：AAU（有源层）
-      - 频段：3.5GHz（n78）
-      - 通道：64T64R
-      - 功能：高容量数据
-      - 供电：48V DC，200-500W
-      
-    中层：馈电/隔离层
-      - 频段隔离（700MHz ↔ 3.5GHz）
-      - 结构支撑
-      
-    底层：平板天线（无源层）
-      - 频段：700MHz（n28）+ 2.6GHz（n41）
-      - 通道：2T2R 或 4T4R
-      - 功能：广覆盖 + 容量补充
-      - 供电：不需要</code></pre>
-    <h3>1.2 天线共装</h3>
+  - 频段：3.5GHz（n78）
+  - 通道：64T64R
+  - 功能：高容量数据
+  - 供电：48V DC，200-500W
+
+中层：馈电/隔离层
+  - 频段隔离（700MHz ↔ 3.5GHz）
+  - 结构支撑
+
+底层：平板天线（无源层）
+  - 频段：700MHz（n28）+ 2.6GHz（n41）
+  - 通道：2T2R 或 4T4R
+  - 功能：广覆盖 + 容量补充
+  - 供电：不需要
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 天线共装</h2>
     <pre><code>传统方案（分开安装）：
-      700MHz 天线 → 独立抱杆
-      3.5GHz AAU → 独立抱杆
-      占用 2 个站址或 2 组抱杆
-      
-    A+P 方案（共装）：
-      700MHz 天线 + 3.5GHz AAU → 同一抱杆
-      占用 1 个站址，1 组抱杆
-      节省站址成本 30-50%</code></pre>
-  </article>
+  700MHz 天线 → 独立抱杆
+  3.5GHz AAU → 独立抱杆
+  占用 2 个站址或 2 组抱杆
 
-  <article class="card">
-    <h2>二、频段隔离</h2>
-    <h3>2.1 隔离需求</h3>
+A+P 方案（共装）：
+  700MHz 天线 + 3.5GHz AAU → 同一抱杆
+  占用 1 个站址，1 组抱杆
+  节省站址成本 30-50%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 隔离需求</h2>
     <pre><code>700MHz ↔ 3.5GHz 隔离度要求：
-      - 互调抑制：&gt; 80dB
-      - 耦合抑制：&gt; 60dB
-      - 防止 700MHz 信号进入 3.5GHz 接收机
-      
-    2.6GHz ↔ 3.5GHz 隔离度要求：
-      - 互调抑制：&gt; 70dB
-      - 耦合抑制：&gt; 50dB</code></pre>
-    <h3>2.2 隔离方法</h3>
+  - 互调抑制：&gt; 80dB
+  - 耦合抑制：&gt; 60dB
+  - 防止 700MHz 信号进入 3.5GHz 接收机
+
+2.6GHz ↔ 3.5GHz 隔离度要求：
+  - 互调抑制：&gt; 70dB
+  - 耦合抑制：&gt; 50dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 隔离方法</h2>
     <pre><code>1. 物理间距
-       - 700MHz ↔ 3.5GHz：≥ 0.5m
-       - 2.6GHz ↔ 3.5GHz：≥ 0.3m
-       
-    2. 极化隔离
-       - 底层：±45° 极化
-       - 顶层：±45° 极化（错开 90°）
-       
-    3. 滤波隔离
-       - 底层加带通滤波器
-       - 顶层加带通滤波器</code></pre>
-  </article>
+   - 700MHz ↔ 3.5GHz：≥ 0.5m
+   - 2.6GHz ↔ 3.5GHz：≥ 0.3m
 
-  <article class="card">
-    <h2>三、A+P 的优势与挑战</h2>
-    <h3>3.1 优势</h3>
-    <div class="tw"><table>
-    <thead><tr><th>优势</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>站址节省</td><td>共装一套抱杆，节省 30-50% 站址成本</td></tr>
-    <tr><td>覆盖+容量</td><td>低频广覆盖 + 高频高容量</td></tr>
-    <tr><td>运维简化</td><td>一套站点，统一运维</td></tr>
-    <tr><td>快速部署</td><td>5G 快速覆盖，无需新建站址</td></tr>
-    </tbody></table></div>
-    <h3>3.2 挑战</h3>
-    <div class="tw"><table>
-    <thead><tr><th>挑战</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>重量负担</td><td>总重可达 50-70kg，抱杆需加固</td></tr>
-    <tr><td>风载增加</td><td>迎风面积增加 50-100%，风载加倍</td></tr>
-    <tr><td>频段隔离</td><td>需要足够的物理间距和滤波</td></tr>
-    <tr><td>散热</td><td>AAU 发热 + 密闭空间 = 散热挑战</td></tr>
-    <tr><td>安装难度</td><td>需要更大抱杆和更强支架</td></tr>
-    </tbody></table></div>
-  </article>
+2. 极化隔离
+   - 底层：±45° 极化
+   - 顶层：±45° 极化（错开 90°）
 
-  <article class="card">
-    <h2>四、典型配置</h2>
-    <h3>4.1 中国移动 A+P</h3>
+3. 滤波隔离
+   - 底层加带通滤波器
+   - 顶层加带通滤波器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 优势</h2>
+    <table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站址节省</td>
+<td>共装一套抱杆，节省 30-50% 站址成本</td>
+</tr>
+<tr>
+<td>覆盖+容量</td>
+<td>低频广覆盖 + 高频高容量</td>
+</tr>
+<tr>
+<td>运维简化</td>
+<td>一套站点，统一运维</td>
+</tr>
+<tr>
+<td>快速部署</td>
+<td>5G 快速覆盖，无需新建站址</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 挑战</h2>
+    <table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重量负担</td>
+<td>总重可达 50-70kg，抱杆需加固</td>
+</tr>
+<tr>
+<td>风载增加</td>
+<td>迎风面积增加 50-100%，风载加倍</td>
+</tr>
+<tr>
+<td>频段隔离</td>
+<td>需要足够的物理间距和滤波</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>AAU 发热 + 密闭空间 = 散热挑战</td>
+</tr>
+<tr>
+<td>安装难度</td>
+<td>需要更大抱杆和更强支架</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 中国移动 A+P</h2>
     <pre><code>底层：700MHz n28（中国移动）
-      - 天线：2T2R 平板
-      - 增益：17dBi
-      - 功率：43dBm
-      
-    顶层：3.5GHz n78（中国电信/联通）
-      - AAU：64T64R
-      - 增益：24dBi
-      - 功率：200W（每通道）
-      
-    间距：≥ 0.8m</code></pre>
-    <h3>4.2 欧洲 A+P</h3>
-    <pre><code>底层：800MHz（运营商 A）
-      - 2T2R 平板
-      - 覆盖层
-      
-    中层：1.8GHz（运营商 A）
-      - 4T4R 平板
-      - 容量层
-      
-    顶层：3.5GHz（运营商 B）
-      - 64T64R AAU
-      - 5G 容量层
-      
-    间距：≥ 0.5m（每层）</code></pre>
-  </article>
+  - 天线：2T2R 平板
+  - 增益：17dBi
+  - 功率：43dBm
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>A+P 是 5G 部署的"务实方案"——有源层做容量，无源层做覆盖，共用抱杆省站址。核心挑战是重量和风载（总重 50-70kg），抱杆必须加固。记住：A+P 不是"新技术"，而是工程上的"聪明组合"。</p>
+顶层：3.5GHz n78（中国电信/联通）
+  - AAU：64T64R
+  - 增益：24dBi
+  - 功率：200W（每通道）
+
+间距：≥ 0.8m
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 欧洲 A+P</h2>
+    <pre><code>底层：800MHz（运营商 A）
+  - 2T2R 平板
+  - 覆盖层
+
+中层：1.8GHz（运营商 A）
+  - 4T4R 平板
+  - 容量层
+
+顶层：3.5GHz（运营商 B）
+  - 64T64R AAU
+  - 5G 容量层
+
+间距：≥ 0.5m（每层）
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -235,39 +310,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

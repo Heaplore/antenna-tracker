@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doherty PA 与 DPD 预失真 · 知识卡片</title>
+<title>Doherty-PA-DPD预失真 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">Doherty PA 与 DPD 预失真 <span class="en">Doherty-PA-DPD</span></h1>
-  <p class="lede">Doherty PA 是 5G 基站 PA 的"效率之王"——通过主从两级结构，在 6-8dB 的回退范围内保持 50-60% 的 PAE（比传统 Class AB 高 20-30%）。DPD（数字预失真）是 Doherty 的"拍档"——没有 DPD，Doherty 的线性度根本达不到 5G NR 的要求。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Doherty-PA-DPD预失真</h1>
+  <p class="lede">Doherty PA 是 5G 基站 PA 的&#34;效率之王&#34;——通过主从两级结构，在 6-8dB 的回退范围内保持 50-60% 的 PAE（比传统 Class AB 高 20-30%）。DPD（数字预失真）是 Doherty 的&#34;拍档&#34;——没有 DPD，Doherty 的线性度根本达不到 5G NR 的要求。</p>
+  
 </header>
 
 <main>
@@ -99,196 +101,310 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>Doherty PA 就像"双人自行车"——低速时只有一个人蹬（主通道），高速时两个人一起蹬（主通道+辅助通道），这样在低速时也不浪费体力。DPD 就像"教练"——告诉骑手怎么调整踩踏力度，避免骑歪（失真）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、Doherty PA 原理</h2>
-    <h3>1.1 为什么需要 Doherty</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 为什么需要 Doherty</h2>
     <pre><code>5G NR 信号特性：
-      峰均比（PAPR）：8-12dB（4x4 MIMO）
-      平均功率：比峰值低 6-8dB
-      
-    传统 Class AB PA：
-      峰值效率：~50%
-      平均效率（回退 6dB）：~15%
-      → 功耗大、散热难
-      
-    Doherty PA：
-      峰值效率：~50%
-      平均效率（回退 6dB）：~40-50%
-      → 效率提升 2-3 倍</code></pre>
-    <h3>1.2 Doherty 架构</h3>
+  峰均比（PAPR）：8-12dB（4x4 MIMO）
+  平均功率：比峰值低 6-8dB
+
+传统 Class AB PA：
+  峰值效率：~50%
+  平均效率（回退 6dB）：~15%
+  → 功耗大、散热难
+
+Doherty PA：
+  峰值效率：~50%
+  平均效率（回退 6dB）：~40-50%
+  → 效率提升 2-3 倍
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 Doherty 架构</h2>
     <pre><code>Doherty PA 结构：
-      
-      输入信号
-        │
-        ├─→ 功率分路器（1:√2:1）
-        │     │         │
-        │     ↓         ↓
-        │   主通道     辅助通道
-        │   (Carrier)  (Peaker)
-        │     │         │
-        │     ↓         ↓
-        │   Class AB   Class C
-        │     │         │
-        │     ↓         ↓
-        │   合成器（λ/4 传输线）
-        │     │
-        │     ↓
-        │   输出信号
-      
-    关键：辅助通道通过 λ/4 传输线连接到主通道
-      低功率时：辅助通道关闭，主通道独立工作
-      高功率时：辅助通道导通，两通道并联工作</code></pre>
-    <h3>1.3 工作原理</h3>
+
+  输入信号
+    │
+    ├─→ 功率分路器（1:√2:1）
+    │     │         │
+    │     ↓         ↓
+    │   主通道     辅助通道
+    │   (Carrier)  (Peaker)
+    │     │         │
+    │     ↓         ↓
+    │   Class AB   Class C
+    │     │         │
+    │     ↓         ↓
+    │   合成器（λ/4 传输线）
+    │     │
+    │     ↓
+    │   输出信号
+
+关键：辅助通道通过 λ/4 传输线连接到主通道
+  低功率时：辅助通道关闭，主通道独立工作
+  高功率时：辅助通道导通，两通道并联工作
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 工作原理</h2>
     <pre><code>阶段 1：低功率（P &lt; P_th）
-      - 辅助通道关闭（Class C 偏置在截止区）
-      - 主通道独立工作（Class AB）
-      - 效率：~30-40%
-      
-    阶段 2：中等功率（P_th &lt; P &lt; P_sat）
-      - 辅助通道开始导通
-      - λ/4 传输线实现阻抗变换
-      - 主通道看到的负载阻抗下降
-      - 效率：~40-50%
-      
-    阶段 3：峰值功率（P = P_sat）
-      - 两通道都饱和
-      - 效率：~50-60%
-      
-    效率提升原理：
-      辅助通道&quot;借用&quot;主通道的负载阻抗
-      使主通道在高回退时仍保持高效率</code></pre>
-  </article>
+  - 辅助通道关闭（Class C 偏置在截止区）
+  - 主通道独立工作（Class AB）
+  - 效率：~30-40%
 
-  <article class="card">
-    <h2>二、Doherty PA 指标</h2>
-    <h3>2.1 关键指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>PAE（峰值）</td><td>50-60%</td><td>功率附加效率</td></tr>
-    <tr><td>PAE（6dB 回退）</td><td>40-50%</td><td>5G NR 典型工作点</td></tr>
-    <tr><td>增益</td><td>15-25dB</td><td>小信号增益</td></tr>
-    <tr><td>带宽</td><td>100-400MHz</td><td>5G NR 信道带宽</td></tr>
-    <tr><td>线性度（ACLR）</td><td><-45dBc</td><td>需要 DPD 辅助</td></tr>
-    <tr><td>工作频段</td><td>2.6/3.5/6.5GHz</td><td>Sub-6GHz</td></tr>
-    </tbody></table></div>
-    <h3>2.2 工艺选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>PAE</th><th>成本</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>GaN on SiC</td><td>60-70%</td><td>高</td><td>5G 基站 PA</td></tr>
-    <tr><td>GaAs HBT</td><td>40-50%</td><td>中</td><td>4G 基站 PA</td></tr>
-    <tr><td>LDMOS</td><td>35-45%</td><td>低</td><td>4G 基站 PA</td></tr>
-    <tr><td>CMOS</td><td>20-30%</td><td>低</td><td>集成度要求高</td></tr>
-    </tbody></table></div>
-  </article>
+阶段 2：中等功率（P_th &lt; P &lt; P_sat）
+  - 辅助通道开始导通
+  - λ/4 传输线实现阻抗变换
+  - 主通道看到的负载阻抗下降
+  - 效率：~40-50%
 
-  <article class="card">
-    <h2>三、DPD 数字预失真</h2>
-    <h3>3.1 为什么需要 DPD</h3>
+阶段 3：峰值功率（P = P_sat）
+  - 两通道都饱和
+  - 效率：~50-60%
+
+效率提升原理：
+  辅助通道&quot;借用&quot;主通道的负载阻抗
+  使主通道在高回退时仍保持高效率
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 关键指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAE（峰值）</td>
+<td>50-60%</td>
+<td>功率附加效率</td>
+</tr>
+<tr>
+<td>PAE（6dB 回退）</td>
+<td>40-50%</td>
+<td>5G NR 典型工作点</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>15-25dB</td>
+<td>小信号增益</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>100-400MHz</td>
+<td>5G NR 信道带宽</td>
+</tr>
+<tr>
+<td>线性度（ACLR）</td>
+<td>&lt;-45dBc</td>
+<td>需要 DPD 辅助</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>2.6/3.5/6.5GHz</td>
+<td>Sub-6GHz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 工艺选择</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>PAE</th>
+<th>成本</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GaN on SiC</td>
+<td>60-70%</td>
+<td>高</td>
+<td>5G 基站 PA</td>
+</tr>
+<tr>
+<td>GaAs HBT</td>
+<td>40-50%</td>
+<td>中</td>
+<td>4G 基站 PA</td>
+</tr>
+<tr>
+<td>LDMOS</td>
+<td>35-45%</td>
+<td>低</td>
+<td>4G 基站 PA</td>
+</tr>
+<tr>
+<td>CMOS</td>
+<td>20-30%</td>
+<td>低</td>
+<td>集成度要求高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 为什么需要 DPD</h2>
     <pre><code>Doherty PA 的非线性来源：
-      1. Class AB 主通道：AM-AM/AM-PM
-      2. Class C 辅助通道：开关非线性
-      3. λ/4 合成器：频率依赖性
-      4. 温度漂移：效率随温度变化
-      
-    5G NR 线性度要求：
-      ACLR（Adjacent Channel Leakage Ratio）：&lt;-45dBc（30MHz BW）
-      EVM（Error Vector Magnitude）：&lt;3.5%（256QAM）
-      
-    没有 DPD 的 Doherty PA：
-      ACLR：&lt;-30dBc（不达标）
-      EVM：&gt;8%（不达标）
-      
-    有 DPD 的 Doherty PA：
-      ACLR：&lt;-50dBc（达标）
-      EVM：&lt;2.5%（达标）</code></pre>
-    <h3>3.2 DPD 架构</h3>
+  1. Class AB 主通道：AM-AM/AM-PM
+  2. Class C 辅助通道：开关非线性
+  3. λ/4 合成器：频率依赖性
+  4. 温度漂移：效率随温度变化
+
+5G NR 线性度要求：
+  ACLR（Adjacent Channel Leakage Ratio）：&lt;-45dBc（30MHz BW）
+  EVM（Error Vector Magnitude）：&lt;3.5%（256QAM）
+
+没有 DPD 的 Doherty PA：
+  ACLR：&lt;-30dBc（不达标）
+  EVM：&gt;8%（不达标）
+
+有 DPD 的 Doherty PA：
+  ACLR：&lt;-50dBc（达标）
+  EVM：&lt;2.5%（达标）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 DPD 架构</h2>
     <pre><code>DPD 系统：
-      
-      输入信号 → DPD 预失真器 → PA → 输出信号
-                              ↓
-                          采样电路
-                              ↓
-                          误差计算器
-                              ↓
-                      自适应算法（RLS/LMS）
-                              ↓
-                      更新预失真器系数</code></pre>
-    <h3>3.3 DPD 算法</h3>
+
+  输入信号 → DPD 预失真器 → PA → 输出信号
+                          ↓
+                      采样电路
+                          ↓
+                      误差计算器
+                          ↓
+                  自适应算法（RLS/LMS）
+                          ↓
+                  更新预失真器系数
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 DPD 算法</h2>
     <pre><code>主流 DPD 模型：
-      1. Volterra 级数
-         - 通用非线性模型
-         - 计算量大
-         
-      2. 多项式模型
-         - AM-AM + AM-PM
-         - 计算量中等
-         
-      3. 查找表（LUT）
-         - 直接存储预失真值
-         - 计算量小，实时性好
-         
-      4. 神经网络 DPD
-         - 深度学习模型
-         - 适应性强
-         - 5G-A/6G 趋势</code></pre>
-    <h3>3.4 DPD 实现位置</h3>
+  1. Volterra 级数
+     - 通用非线性模型
+     - 计算量大
+
+  2. 多项式模型
+     - AM-AM + AM-PM
+     - 计算量中等
+
+  3. 查找表（LUT）
+     - 直接存储预失真值
+     - 计算量小，实时性好
+
+  4. 神经网络 DPD
+     - 深度学习模型
+     - 适应性强
+     - 5G-A/6G 趋势
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 DPD 实现位置</h2>
     <pre><code>DPD 部署位置：
-      1. 基带 DPD（BBU/DU 内）
-         - 数字域预失真
-         - 灵活性高
-         - 5G AAU 主流方案
-         
-      2. 射频 DPD（AAU 内）
-         - 模拟/混合预失真
-         - 延迟小
-         - 适合高频段
-         
-      3. 分布式 DPD
-         - BBU 粗 DPD + AAU 细 DPD
-         - 前传带宽优化</code></pre>
-  </article>
+  1. 基带 DPD（BBU/DU 内）
+     - 数字域预失真
+     - 灵活性高
+     - 5G AAU 主流方案
 
-  <article class="card">
-    <h2>四、Doherty + DPD 在 5G 中的应用</h2>
-    <h3>4.1 Sub-6GHz AAU</h3>
-    <pre><code>典型配置：
-      频段：3.5GHz（n78）
-      通道：64T64R
-      PA：GaN Doherty × 64
-      DPD：数字 DPD（每通道独立）
-      带宽：100MHz（单载波）
-      功率：200-300W（总输出）
-      
-    效率：
-      峰值 PAE：~55%
-      平均 PAE（6dB 回退）：~40%
-      对比传统 Class AB：节能 30-40%</code></pre>
-    <h3>4.2 U6G AAU（6.5GHz）</h3>
-    <pre><code>典型配置：
-      频段：6.5GHz（n104）
-      通道：64T64R/192T192R
-      PA：GaN Doherty × 64/192
-      DPD：数字 DPD
-      带宽：400MHz（单载波）
-      功率：100-200W（总输出）
-      
-    挑战：
-      - 6.5GHz GaN 成本高
-      - DPD 带宽需求大（400MHz）
-      - 散热更严峻</code></pre>
-  </article>
+  2. 射频 DPD（AAU 内）
+     - 模拟/混合预失真
+     - 延迟小
+     - 适合高频段
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>Doherty PA 是 5G 基站 PA 的效率之王（平均 PAE 40-50%），但线性度不够，必须搭配 DPD（数字预失真）才能达到 5G NR 的 ACLR<-45dBc 要求。GaN 工艺是主流（PAE 60-70%），DPD 算法从多项式向神经网络演进。记住：Doherty + DPD 是 5G PA 的"黄金搭档"，缺一不可。</p>
+  3. 分布式 DPD
+     - BBU 粗 DPD + AAU 细 DPD
+     - 前传带宽优化
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 Sub-6GHz AAU</h2>
+    <pre><code>典型配置：
+  频段：3.5GHz（n78）
+  通道：64T64R
+  PA：GaN Doherty × 64
+  DPD：数字 DPD（每通道独立）
+  带宽：100MHz（单载波）
+  功率：200-300W（总输出）
+
+效率：
+  峰值 PAE：~55%
+  平均 PAE（6dB 回退）：~40%
+  对比传统 Class AB：节能 30-40%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 U6G AAU（6.5GHz）</h2>
+    <pre><code>典型配置：
+  频段：6.5GHz（n104）
+  通道：64T64R/192T192R
+  PA：GaN Doherty × 64/192
+  DPD：数字 DPD
+  带宽：400MHz（单载波）
+  功率：100-200W（总输出）
+
+挑战：
+  - 6.5GHz GaN 成本高
+  - DPD 带宽需求大（400MHz）
+  - 散热更严峻
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -308,39 +424,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

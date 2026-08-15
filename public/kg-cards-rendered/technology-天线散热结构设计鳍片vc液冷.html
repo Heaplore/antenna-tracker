@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线散热结构设计 · 知识卡片</title>
+<title>天线散热结构设计鳍片VC液冷 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线散热结构设计 <span class="en">VC</span></h1>
-  <p class="lede">AAU 散热从被动鳍片到均温板（VC）再到液冷，核心矛盾是"600W 热源在一个密闭腔体里怎么排出去"。Sub-6GHz 用铝合金鳍片+导热硅胶就够了，毫米波和 128T 开始用 VC 均温板和冷板液冷。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线散热结构设计鳍片VC液冷</h1>
+  <p class="lede">AAU 散热从被动鳍片到均温板（VC）再到液冷，核心矛盾是&#34;600W 热源在一个密闭腔体里怎么排出去&#34;。Sub-6GHz 用铝合金鳍片+导热硅胶就够了，毫米波和 128T 开始用 VC 均温板和冷板液冷。</p>
+  
 </header>
 
 <main>
@@ -99,174 +101,240 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>AAU 散热就像"电脑 CPU 散热"——小功率用铝鳍片+风扇，大功率用铜均温板（VC），超高性能用水冷。AAU 在户外，没有风扇（防尘防水），所以只能靠自然对流+辐射，散热效率更低，需要更大的散热面积。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、AAU 热设计挑战</h2>
-    <h3>1.1 热源分布</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 热源分布</h2>
     <pre><code>AAU 内部热源：
-      
-      ┌─────────────────────────────────────┐
-      │  上腔体（天线阵列）                   │
-      │  T/R 模块：~50W（64 通道）           │
-      │  移相器/衰减器：~20W                 │
-      ├─────────────────────────────────────┤
-      │  中腔体（数字处理）                   │
-      │  DSP/FPGA Board：~100W               │
-      │  背板/传输线：~30W                    │
-      ├─────────────────────────────────────┤
-      │  下腔体（功放 PA）                     │
-      │  PA 模组：~450W（64 通道）           │
-      │  Doherty PA 效率：25-35%             │
-      │  → 65-75% 变成热量！                 │
-      └─────────────────────────────────────┘
-      
-    总发热：~650W（64T64R AAU, 满负荷）</code></pre>
-    <h3>1.2 散热约束</h3>
+
+  ┌─────────────────────────────────────┐
+  │  上腔体（天线阵列）                   │
+  │  T/R 模块：~50W（64 通道）           │
+  │  移相器/衰减器：~20W                 │
+  ├─────────────────────────────────────┤
+  │  中腔体（数字处理）                   │
+  │  DSP/FPGA Board：~100W               │
+  │  背板/传输线：~30W                    │
+  ├─────────────────────────────────────┤
+  │  下腔体（功放 PA）                     │
+  │  PA 模组：~450W（64 通道）           │
+  │  Doherty PA 效率：25-35%             │
+  │  → 65-75% 变成热量！                 │
+  └─────────────────────────────────────┘
+
+总发热：~650W（64T64R AAU, 满负荷）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 散热约束</h2>
     <pre><code>户外安装约束：
-      - IP67 防护（防尘防水）→ 不能开窗
-      - 无风扇（静音+防尘）→ 只能自然对流
-      - -40°C to +65°C 环境温度
-      - 太阳直射 → 额外热负荷 200-300W
-      - 海拔 5000m → 空气稀薄，对流效率降低
-      
-    设计目标：
-      PA 结温 &lt; 100°C（GaN 允许到 175°C，但寿命要求降额）
-      数字板温度 &lt; 70°C（FPGA 热节流阈值）</code></pre>
-  </article>
+  - IP67 防护（防尘防水）→ 不能开窗
+  - 无风扇（静音+防尘）→ 只能自然对流
+  - -40°C to +65°C 环境温度
+  - 太阳直射 → 额外热负荷 200-300W
+  - 海拔 5000m → 空气稀薄，对流效率降低
 
-  <article class="card">
-    <h2>二、散热结构方案</h2>
-    <h3>2.1 铝合金散热鳍片（最主流）</h3>
-    <pre><code>结构：
-      AAU 外壳 = 铝合金腔体 + 外部散热鳍片
-      
-    材料：
-      6063-T5 铝合金（常用）
-      导热率：~200 W/m·K
-      
-    散热鳍片设计：
-      - 鳍片高度：50-150mm
-      - 鳍片间距：5-15mm（自然对流优化）
-      - 鳍片厚度：1-3mm
-      - 表面处理：阳极氧化（ emissivity ~0.8）
-      
-    散热路径：
-      PA 芯片 → 导热硅胶 → DBC 基板
-        → 散热铜皮 → 导热垫 → 外壳内壁
-        → 外壳外壁 → 鳍片 → 空气（自然对流+辐射）
-          
-    散热能力：
-      自然对流 + 辐射：~3-5 W/(m²·K)
-      150W 鳍片 AAU：散热面积 ~0.5m²
-      → 可散掉 ~400-500W
-      
-    优势：
-      - 结构简单，成本低
-      - 重量轻（铝合金）
-      - 成熟工艺（CNC/挤压）
-      
-    劣势：
-      - 散热能力有限（&gt; 800W 不够用）
-      - 鳍片体积大（影响美观和风载）</code></pre>
-    <h3>2.2 均温板/VC（Vapor Chamber）</h3>
-    <pre><code>结构：
-       sealed 金属腔体（铜）
-      内部：毛细结构 + 少量工质（水）
-      
-    工作原理：
-      热源端 → 工质蒸发 → 蒸汽流向冷端
-        → 冷端冷凝 → 液体回流（毛细力）
-        → 相变传热，效率远高于纯导热
-      
-    参数：
-      等效导热率：10,000-100,000 W/m·K
-      （铜只有 400 W/m·K，VC 是铜的 25-250 倍！）
-      
-    在 AAU 中的应用：
-      PA 模组背面贴 VC → VC 贴合外壳内壁
-      → 热量快速从 PA 区域传到整个外壳
-      → 避免局部热点
-      
-    优势：
-      - 均温效果好（温差 &lt; 2°C）
-      - 薄（2-5mm）
-      - 适合高功率密度场景
-      
-    劣势：
-      - 成本较高（铜+真空封装）
-      - 长期可靠性（工质泄漏）
-      - 抗震动能力需验证</code></pre>
-    <h3>2.3 冷板液冷（Cold Plate Liquid Cooling）</h3>
-    <pre><code>结构：
-      金属冷板（铜/铝）+ 内部流道
-      冷却液（乙二醇水溶液）循环
-      
-    工作原理：
-      PA 模组 → 导热界面 → 冷板
-        → 冷却液带走热量 → 外部换热器
-        → 冷却液返回冷板
-          
-    散热能力：
-      液冷：~50-200 W/(m²·K)
-      （比自然对流高 10-50 倍）
-      
-    在 AAU 中的应用：
-      - 128T128R 高功率 AAU
-      - 毫米波 AAU（功率密度更高）
-      - 室内分布系统（Small Cell 液冷）
-      
-    优势：
-      - 散热能力极强
-      - 体积小（无需大鳍片）
-      - 适合功率 &gt; 1kW 的场景
-      
-    劣势：
-      - 需要泵+换热器+管路
-      - 漏水风险（IP67 要求更高）
-      - 维护复杂
-      - 成本高（3-5 倍于风冷）</code></pre>
-    <h3>2.4 热管（Heat Pipe）</h3>
-    <pre><code>结构：
-      密封铜管 + 毛细结构 + 工质
-      原理类似 VC，但是线性的
-      
-    参数：
-      等效导热率：~10,000 W/m·K
-      直径：6-12mm
-      
-    在 AAU 中的应用：
-      PA 区域 → 热管 → 鳍片区域
-      → 热量横向传输
-      
-    优势：
-      - 比 VC 便宜
-      - 安装灵活
-      
-    劣势：
-      - 传热能力不如 VC
-      - 抗震动能力差</code></pre>
+设计目标：
+  PA 结温 &lt; 100°C（GaN 允许到 175°C，但寿命要求降额）
+  数字板温度 &lt; 70°C（FPGA 热节流阈值）
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.1 铝合金散热鳍片（最主流）</h2>
+    <pre><code>结构：
+  AAU 外壳 = 铝合金腔体 + 外部散热鳍片
+
+材料：
+  6063-T5 铝合金（常用）
+  导热率：~200 W/m·K
+
+散热鳍片设计：
+  - 鳍片高度：50-150mm
+  - 鳍片间距：5-15mm（自然对流优化）
+  - 鳍片厚度：1-3mm
+  - 表面处理：阳极氧化（ emissivity ~0.8）
+
+散热路径：
+  PA 芯片 → 导热硅胶 → DBC 基板
+    → 散热铜皮 → 导热垫 → 外壳内壁
+    → 外壳外壁 → 鳍片 → 空气（自然对流+辐射）
+
+散热能力：
+  自然对流 + 辐射：~3-5 W/(m²·K)
+  150W 鳍片 AAU：散热面积 ~0.5m²
+  → 可散掉 ~400-500W
+
+优势：
+  - 结构简单，成本低
+  - 重量轻（铝合金）
+  - 成熟工艺（CNC/挤压）
+
+劣势：
+  - 散热能力有限（&gt; 800W 不够用）
+  - 鳍片体积大（影响美观和风载）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 均温板/VC（Vapor Chamber）</h2>
+    <pre><code>结构：
+   sealed 金属腔体（铜）
+  内部：毛细结构 + 少量工质（水）
+
+工作原理：
+  热源端 → 工质蒸发 → 蒸汽流向冷端
+    → 冷端冷凝 → 液体回流（毛细力）
+    → 相变传热，效率远高于纯导热
+
+参数：
+  等效导热率：10,000-100,000 W/m·K
+  （铜只有 400 W/m·K，VC 是铜的 25-250 倍！）
+
+在 AAU 中的应用：
+  PA 模组背面贴 VC → VC 贴合外壳内壁
+  → 热量快速从 PA 区域传到整个外壳
+  → 避免局部热点
+
+优势：
+  - 均温效果好（温差 &lt; 2°C）
+  - 薄（2-5mm）
+  - 适合高功率密度场景
+
+劣势：
+  - 成本较高（铜+真空封装）
+  - 长期可靠性（工质泄漏）
+  - 抗震动能力需验证
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 冷板液冷（Cold Plate Liquid Cooling）</h2>
+    <pre><code>结构：
+  金属冷板（铜/铝）+ 内部流道
+  冷却液（乙二醇水溶液）循环
+
+工作原理：
+  PA 模组 → 导热界面 → 冷板
+    → 冷却液带走热量 → 外部换热器
+    → 冷却液返回冷板
+
+散热能力：
+  液冷：~50-200 W/(m²·K)
+  （比自然对流高 10-50 倍）
+
+在 AAU 中的应用：
+  - 128T128R 高功率 AAU
+  - 毫米波 AAU（功率密度更高）
+  - 室内分布系统（Small Cell 液冷）
+
+优势：
+  - 散热能力极强
+  - 体积小（无需大鳍片）
+  - 适合功率 &gt; 1kW 的场景
+
+劣势：
+  - 需要泵+换热器+管路
+  - 漏水风险（IP67 要求更高）
+  - 维护复杂
+  - 成本高（3-5 倍于风冷）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 热管（Heat Pipe）</h2>
+    <pre><code>结构：
+  密封铜管 + 毛细结构 + 工质
+  原理类似 VC，但是线性的
+
+参数：
+  等效导热率：~10,000 W/m·K
+  直径：6-12mm
+
+在 AAU 中的应用：
+  PA 区域 → 热管 → 鳍片区域
+  → 热量横向传输
+
+优势：
+  - 比 VC 便宜
+  - 安装灵活
+
+劣势：
+  - 传热能力不如 VC
+  - 抗震动能力差
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、散热方案对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>方案</th><th>散热能力</th><th>成本</th><th>体积</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>铝合金鳍片</td><td>300-500W</td><td>低</td><td>大</td><td>Sub-6GHz 64T</td></tr>
-    <tr><td>VC 均温板</td><td>500-800W</td><td>中</td><td>中</td><td>128T/毫米波</td></tr>
-    <tr><td>热管</td><td>400-600W</td><td>中</td><td>中</td><td>中功率 AAU</td></tr>
-    <tr><td>冷板液冷</td><td>> 1kW</td><td>高</td><td>小</td><td>高功率/Small Cell</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>方案</th>
+<th>散热能力</th>
+<th>成本</th>
+<th>体积</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>铝合金鳍片</td>
+<td>300-500W</td>
+<td>低</td>
+<td>大</td>
+<td>Sub-6GHz 64T</td>
+</tr>
+<tr>
+<td>VC 均温板</td>
+<td>500-800W</td>
+<td>中</td>
+<td>中</td>
+<td>128T/毫米波</td>
+</tr>
+<tr>
+<td>热管</td>
+<td>400-600W</td>
+<td>中</td>
+<td>中</td>
+<td>中功率 AAU</td>
+</tr>
+<tr>
+<td>冷板液冷</td>
+<td>&gt; 1kW</td>
+<td>高</td>
+<td>小</td>
+<td>高功率/Small Cell</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>AAU 散热方案选择取决于功率密度：64T Sub-6GHz 用铝合金鳍片够了（500W 级别），128T 和毫米波开始上 VC 均温板（800W 级别），> 1kW 才考虑液冷。记住：AAU 散热最难的不是"散热"，而是"在无风扇、IP67、户外极端环境下散热"——这比电脑 CPU 散热难得多。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -286,39 +354,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

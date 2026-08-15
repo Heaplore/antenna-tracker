@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>绿色天线（Green Antenna） · 知识卡片</title>
+<title>绿色天线Green-Antenna · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">绿色天线 <span class="en">Green Antenna</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">绿色天线Green-Antenna</h1>
   <p class="lede">绿色天线是通过智能反射面（RIS）、休眠波束、功率自适应等技术降低基站能耗的天线方案——5G AAU 的能耗是 4G 的 3 倍，绿色天线技术可以在不影响覆盖的前提下降低 20-40% 的能耗。</p>
+  
 </header>
 
 <main>
@@ -99,150 +101,179 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>绿色天线就像"智能空调"——没人时自动关机，人少时调低功率，人多时全开。传统基站天线是"24 小时恒温"，不管有没有用户都在满功率运行。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、为什么需要绿色天线</h2>
-    <h3>1.1 5G 能耗挑战</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 5G 能耗挑战</h2>
     <pre><code>4G 基站功耗：~1000W
-    5G AAU 功耗：~2000-5000W
+5G AAU 功耗：~2000-5000W
+
+原因：
+  1. 通道数增加（4T4R → 64T64R）
+  2. PA 数量增加（4 → 64）
+  3. 散热需求增加
+  4. 前传带宽增加
+
+运营商痛点：
+  电费占 OPEX 30-40%
+  5G 部署速度受限于能耗成本
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    原因：
-      1. 通道数增加（4T4R → 64T64R）
-      2. PA 数量增加（4 → 64）
-      3. 散热需求增加
-      4. 前传带宽增加
-    
-    运营商痛点：
-      电费占 OPEX 30-40%
-      5G 部署速度受限于能耗成本</code></pre>
-    <h3>1.2 绿色天线目标</h3>
+    <h2>1.2 绿色天线目标</h2>
     <pre><code>目标：
-      1. 降低 AAU 功耗 30-50%
-      2. 不影响覆盖和容量
-      3. 支持智能节能/唤醒
-      4. 延长设备寿命</code></pre>
+  1. 降低 AAU 功耗 30-50%
+  2. 不影响覆盖和容量
+  3. 支持智能节能/唤醒
+  4. 延长设备寿命
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、绿色天线技术</h2>
-    <h3>2.1 符号级休眠（Symbol Shutdown）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 符号级休眠（Symbol Shutdown）</h2>
     <pre><code>原理：
-      5G OFDM 帧中有很多空闲符号
-      空闲符号 → PA 关闭 → 节能
-      
-    节能效果：
-      平均负载 20% → 节能 30-40%
-      平均负载 50% → 节能 15-20%
-      平均负载 80% → 节能 5-10%
-      
-    实现方式：
-      1. PA 偏置电压关闭
-      2. 移相器归零
-      3. 时钟门控</code></pre>
-    <h3>2.2 通道级休眠（Channel Shutdown）</h3>
-    <pre><code>原理：
-      低负载时关闭部分通道
-      例如：64T64R → 16T16R
-      
-    节能效果：
-      关闭 50% 通道 → 节能 20-30%
-      
-    影响：
-      - 峰值容量下降
-      - 覆盖范围缩小
-      - 适合夜间低负载场景</code></pre>
-    <h3>2.3 波束级休眠（Beam Shutdown）</h3>
-    <pre><code>原理：
-      关闭服务于空闲区域的波束
-      保留核心覆盖波束
-      
-    节能效果：
-      关闭 50% 波束 → 节能 10-20%
-      
-    优势：
-      - 不影响核心覆盖
-      - 用户无感知</code></pre>
-    <h3>2.4 智能反射面（RIS）辅助</h3>
-    <pre><code>原理：
-      用无源 RIS 反射信号
-      替代部分有源 AAU
-      
-    节能效果：
-      减少 1-2 个 AAU → 节能 2000-5000W
-      
-    优势：
-      - RIS 无源（几乎零功耗）
-      - 成本低
-      - 安装简单
-      
-    局限：
-      - 覆盖范围有限
-      - 不适合高速移动场景</code></pre>
-    <h3>2.5 功率自适应（Adaptive Power）</h3>
-    <pre><code>原理：
-      根据负载动态调整 PA 功率
-      低负载 → 低功率
-      高负载 → 满功率
-      
-    节能效果：
-      平均负载 30% → 节能 25-35%
-      
-    实现：
-      1. 实时负载监测
-      2. PID 功率控制
-      3. 功率回退（Back-off）</code></pre>
+  5G OFDM 帧中有很多空闲符号
+  空闲符号 → PA 关闭 → 节能
+
+节能效果：
+  平均负载 20% → 节能 30-40%
+  平均负载 50% → 节能 15-20%
+  平均负载 80% → 节能 5-10%
+
+实现方式：
+  1. PA 偏置电压关闭
+  2. 移相器归零
+  3. 时钟门控
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、绿色天线 vs 传统天线</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>传统天线</th><th>绿色天线</th></tr></thead>
-    <tbody>
-    <tr><td>PA 功耗</td><td>恒定</td><td>自适应</td></tr>
-    <tr><td>休眠支持</td><td>无</td><td>符号/通道/波束级</td></tr>
-    <tr><td>RIS 辅助</td><td>无</td><td>可选</td></tr>
-    <tr><td>节能效果</td><td>0%</td><td>20-40%</td></tr>
-    <tr><td>覆盖影响</td><td>无</td><td>低负载时轻微缩小</td></tr>
-    <tr><td>用户感知</td><td>无</td><td>夜间无感知</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.2 通道级休眠（Channel Shutdown）</h2>
+    <pre><code>原理：
+  低负载时关闭部分通道
+  例如：64T64R → 16T16R
+
+节能效果：
+  关闭 50% 通道 → 节能 20-30%
+
+影响：
+  - 峰值容量下降
+  - 覆盖范围缩小
+  - 适合夜间低负载场景
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、实际部署案例</h2>
-    <h3>4.1 中国移动绿色 AAU</h3>
+  
+  <article class="card ">
+    
+    <h2>2.3 波束级休眠（Beam Shutdown）</h2>
+    <pre><code>原理：
+  关闭服务于空闲区域的波束
+  保留核心覆盖波束
+
+节能效果：
+  关闭 50% 波束 → 节能 10-20%
+
+优势：
+  - 不影响核心覆盖
+  - 用户无感知
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 智能反射面（RIS）辅助</h2>
+    <pre><code>原理：
+  用无源 RIS 反射信号
+  替代部分有源 AAU
+
+节能效果：
+  减少 1-2 个 AAU → 节能 2000-5000W
+
+优势：
+  - RIS 无源（几乎零功耗）
+  - 成本低
+  - 安装简单
+
+局限：
+  - 覆盖范围有限
+  - 不适合高速移动场景
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 功率自适应（Adaptive Power）</h2>
+    <pre><code>原理：
+  根据负载动态调整 PA 功率
+  低负载 → 低功率
+  高负载 → 满功率
+
+节能效果：
+  平均负载 30% → 节能 25-35%
+
+实现：
+  1. 实时负载监测
+  2. PID 功率控制
+  3. 功率回退（Back-off）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 中国移动绿色 AAU</h2>
     <pre><code>方案：
-      1. 符号级休眠（标配）
-      2. 通道级休眠（可选）
-      3. 智能唤醒（基于 AI 预测）
-      
-    节能效果：
-      日均节能 30%
-      年节省电费：~¥5000/站
-      
-    AI 预测：
-      基于历史流量预测负载
-      提前 30 分钟唤醒/休眠</code></pre>
-    <h3>4.2 华为绿色 AAU</h3>
-    <pre><code>方案：
-      1. Dynamic MIMO Power Saving
-      2. Symbol Shutdown
-      3. Channel Shutdown
-      4. AAU Sleep Mode
-      
-    节能效果：
-      夜间节能 40%
-      日间节能 15%
-      综合节能 25-30%</code></pre>
-  </article>
+  1. 符号级休眠（标配）
+  2. 通道级休眠（可选）
+  3. 智能唤醒（基于 AI 预测）
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>绿色天线是 5G 可持续发展的关键——通过符号/通道/波束级休眠和功率自适应，可在不影响覆盖的前提下降低 20-40% 能耗。RIS 辅助是未来方向（无源反射替代有源 AAU）。记住：节能不是"牺牲覆盖"，而是"智能分配资源"。</p>
+节能效果：
+  日均节能 30%
+  年节省电费：~¥5000/站
+
+AI 预测：
+  基于历史流量预测负载
+  提前 30 分钟唤醒/休眠
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 华为绿色 AAU</h2>
+    <pre><code>方案：
+  1. Dynamic MIMO Power Saving
+  2. Symbol Shutdown
+  3. Channel Shutdown
+  4. AAU Sleep Mode
+
+节能效果：
+  夜间节能 40%
+  日间节能 15%
+  综合节能 25-30%
+</code></pre>
+  </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -262,39 +293,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

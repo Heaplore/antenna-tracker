@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>电磁超表面单元（Metasurface Unit Cell / Meta-atom） · 知识卡片</title>
+<title>超表面单元Meta-atomUnit-Cell · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">电磁超表面单元 <span class="en">Metasurface Unit Cell / Meta-atom</span></h1>
-  <p class="lede">超表面单元（meta-atom）是 RIS、全息 MIMO 和可编程电磁表面的"纳米砖块"——每个单元通过可调元件（PIN 二极管、变容管、MEMS 等）独立控制入射电磁波的相位、幅度和极化，成千上万个单元组合起来就能在宏观上"雕刻"电磁波前。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">超表面单元Meta-atomUnit-Cell</h1>
+  <p class="lede">超表面单元（meta-atom）是 RIS、全息 MIMO 和可编程电磁表面的&#34;纳米砖块&#34;——每个单元通过可调元件（PIN 二极管、变容管、MEMS 等）独立控制入射电磁波的相位、幅度和极化，成千上万个单元组合起来就能在宏观上&#34;雕刻&#34;电磁波前。</p>
+  
 </header>
 
 <main>
@@ -99,262 +101,747 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一面镜子，但镜面上的每一个微小像素都可以独立调节光的相位。如果你让中间部分的相位延迟比边缘多，这面镜子就不再是平的——它变成了一个透镜。超表面单元就是这个"可编程像素"，只不过它处理的是无线电波而不是可见光。每个单元就像一个微型调音台旋钮，拧到不同位置就产生不同的相位响应。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 什么是超表面单元？</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是超表面单元？</h2>
     <p>超表面单元（Unit Cell / Meta-atom）是超表面的最小可寻址电磁控制单元。它的核心功能是：</p>
-    <ul><li><b>相位调控</b>：改变反射或透射波的相位（通常 0-360° 可调）</li><li><b>幅度调控</b>：改变反射或透射波的幅度（可选）</li><li><b>极化转换</b>：改变波的极化状态（如线极化 → 圆极化）</li><li><b>频率调控</b>：对特定频率响应（通常窄带）</li></ul>
-    <h3>1.2 超表面的物理结构</h3>
+<ul>
+<li><strong>相位调控</strong>：改变反射或透射波的相位（通常 0-360° 可调）</li>
+<li><strong>幅度调控</strong>：改变反射或透射波的幅度（可选）</li>
+<li><strong>极化转换</strong>：改变波的极化状态（如线极化 → 圆极化）</li>
+<li><strong>频率调控</strong>：对特定频率响应（通常窄带）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 超表面的物理结构</h2>
     <p>典型的超表面单元由三层组成：</p>
-    <pre><code>┌──────────────────────┐  ← 顶层：可调谐振结构（金属贴片/缝隙）
-    │   Meta-atom          │
-    ├──────────────────────┤
-    │   Dielectric Layer   │  ← 中间：介质层（FR4 / Rogers / 陶瓷）
-    ├──────────────────────┤
-    │   Ground Plane       │  ← 底层：连续金属接地层
-    └──────────────────────┘</code></pre>
-    <p><b>关键尺寸</b>：</p>
-    <ul><li>单元间距：d ≤ λ/2（避免栅瓣）</li><li>单元尺寸：a ≈ λ/4 - λ/2</li><li>介质层厚度：h ≈ λ/20 - λ/10</li></ul>
-    <h3>1.3 工作原理：等效电路模型</h3>
-    <p>每个超表面单元可以用一个<b>可调表面阻抗</b> Z_s 来描述：</p>
-    <pre><code>Z_s = R_s + jX_s = f(V_control)</code></pre>
-    <p>其中 V_control 是控制电压（施加到 PIN 二极管或变容管上的电压）。</p>
-    <p><b>反射系数</b>：</p>
-    <pre><code>Γ = (Z_s - Z_0) / (Z_s + Z_0)</code></pre>
-    <p>其中 Z_0 = 377Ω 是自由空间阻抗。</p>
-    <p>通过调节 Z_s，可以控制 Γ 的<b>相位</b> arg(Γ) 从 0 到 2π。</p>
-    <h3>1.4 相位调控的物理机制</h3>
-    <div class="tw"><table>
-    <thead><tr><th>机制</th><th>原理</th><th>典型单元</th></tr></thead>
-    <tbody>
-    <tr><td>谐振相位</td><td>改变贴片尺寸 → 谐振频率偏移 → 相位变化</td><td>十字形贴片</td></tr>
-    <tr><td>干涉相位</td><td>多层结构干涉 → 相位累积</td><td>双层/三层贴片</td></tr>
-    <tr><td>传输线相位</td><td>改变等效传输线长度 → 相位延迟</td><td>蛇形线</td></tr>
-    <tr><td>光子晶体相位</td><td>改变晶格常数 → 带隙偏移</td><td>周期性孔阵列</td></tr>
-    </tbody></table></div>
+<pre><code>┌──────────────────────┐  ← 顶层：可调谐振结构（金属贴片/缝隙）
+│   Meta-atom          │
+├──────────────────────┤
+│   Dielectric Layer   │  ← 中间：介质层（FR4 / Rogers / 陶瓷）
+├──────────────────────┤
+│   Ground Plane       │  ← 底层：连续金属接地层
+└──────────────────────┘
+</code></pre>
+<p><strong>关键尺寸</strong>：</p>
+<ul>
+<li>单元间距：d ≤ λ/2（避免栅瓣）</li>
+<li>单元尺寸：a ≈ λ/4 - λ/2</li>
+<li>介质层厚度：h ≈ λ/20 - λ/10</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、可调元件类型</h2>
-    <h3>2.1 PIN 二极管</h3>
-    <p><b>原理</b>：正向偏置时导通（短路），反向偏置时截止（开路）。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>开关速度：纳秒级（10-100ns）</li><li>插入损耗：0.5-2dB</li><li>控制功率：低（只需直流偏置）</li><li>寿命：长（> 10⁹ 次开关）</li></ul>
-    <p><b>相位调控</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>状态</th><th>等效电路</th><th>反射相位</th></tr></thead>
-    <tbody>
-    <tr><td>导通（ON）</td><td>短路</td><td>0°</td></tr>
-    <tr><td>截止（OFF）</td><td>开路</td><td>180°</td></tr>
-    </tbody></table></div>
-    <p><b>1-bit PIN 单元</b>：只有 0° 和 180° 两种相位状态。</p>
-    <p><b>2-bit PIN 单元</b>：四个状态（0°, 90°, 180°, 270°），需要 2 个 PIN 管。</p>
-    <h3>2.2 变容二极管（Varactor）</h3>
-    <p><b>原理</b>：通过改变反向偏置电压，调节结电容 C_j。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>连续相位调控：0-360° 连续可调</li><li>响应速度：微秒级（1-10μs）</li><li>插入损耗：0.2-1dB</li><li>调谐范围：50-200%</li></ul>
-    <p><b>电容-电压特性</b>：</p>
-    <pre><code>C_j(V) = C_0 / (1 + V/V_0)^γ</code></pre>
-    <p>其中 γ 是掺杂剖面指数（0.33 为突变结，0.5 为缓变结）。</p>
-    <h3>2.3 MEMS（微机电系统）</h3>
-    <p><b>原理</b>：通过静电力或热力驱动微机械结构移动。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>极低损耗：< 0.1dB</li><li>连续相位调控</li><li>寿命：10⁷-10⁹ 次循环</li><li>响应速度：毫秒级（1-10ms）</li><li>驱动电压：50-200V（需要高压驱动器）</li></ul>
-    <p><b>类型</b>：</p>
-    <ul><li>悬臂梁式：一端固定，一端可移动</li><li>夹持式：两端固定，中间可移动</li><li>翻转盖式：整个盖板翻转</li></ul>
-    <h3>2.4 液晶（Liquid Crystal）</h3>
-    <p><b>原理</b>：电场改变液晶分子的取向 → 介电常数各向异性 → 相位变化。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>连续相位调控：0-360°</li><li>极低功耗：只需维持电压（不切换时零功耗）</li><li>响应速度慢：毫秒到秒级</li><li>工作温度范围窄：-20°C 到 60°C</li></ul>
-    <h3>2.5 新型可调元件</h3>
-    <div class="tw"><table>
-    <thead><tr><th>元件</th><th>原理</th><th>特点</th></tr></thead>
-    <tbody>
-    <tr><td>GST（相变材料）</td><td>晶态/非晶态切换</td><td>非易失性，2 态</td></tr>
-    <tr><td>VO₂</td><td>金属-绝缘体相变</td><td>温度/电场触发</td></tr>
-    <tr><td>石墨烯</td><td>费米能级调控</td><td>超快（皮秒），太赫兹</td></tr>
-    <tr><td>铁电体</td><td>极化方向切换</td><td>非易失性，多态</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>1.3 工作原理：等效电路模型</h2>
+    <p>每个超表面单元可以用一个<strong>可调表面阻抗</strong> Z_s 来描述：</p>
+<pre><code>Z_s = R_s + jX_s = f(V_control)
+</code></pre>
+<p>其中 V_control 是控制电压（施加到 PIN 二极管或变容管上的电压）。</p>
+<p><strong>反射系数</strong>：</p>
+<pre><code>Γ = (Z_s - Z_0) / (Z_s + Z_0)
+</code></pre>
+<p>其中 Z_0 = 377Ω 是自由空间阻抗。</p>
+<p>通过调节 Z_s，可以控制 Γ 的<strong>相位</strong> arg(Γ) 从 0 到 2π。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、超表面单元的设计参数</h2>
-    <h3>3.1 关键设计指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>相位范围</td><td>可调相位跨度</td><td>0-360°（≥ 2π）</td></tr>
-    <tr><td>相位分辨率</td><td>最小相位步进</td><td>≤ 22.5°（4-bit）</td></tr>
-    <tr><td>插入损耗</td><td>信号通过单元的衰减</td><td>< 1dB</td></tr>
-    <tr><td>带宽</td><td>有效工作频率范围</td><td>> 10%（中心频率）</td></tr>
-    <tr><td>极化纯度</td><td>主极化/交叉极化比</td><td>> 20dB</td></tr>
-    <tr><td>单元尺寸</td><td>物理面积</td><td>≤ (λ/2)²</td></tr>
-    </tbody></table></div>
-    <h3>3.2 相位量化与性能</h3>
+  
+  <article class="card ">
+    
+    <h2>1.4 相位调控的物理机制</h2>
+    <table>
+<thead>
+<tr>
+<th>机制</th>
+<th>原理</th>
+<th>典型单元</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>谐振相位</td>
+<td>改变贴片尺寸 → 谐振频率偏移 → 相位变化</td>
+<td>十字形贴片</td>
+</tr>
+<tr>
+<td>干涉相位</td>
+<td>多层结构干涉 → 相位累积</td>
+<td>双层/三层贴片</td>
+</tr>
+<tr>
+<td>传输线相位</td>
+<td>改变等效传输线长度 → 相位延迟</td>
+<td>蛇形线</td>
+</tr>
+<tr>
+<td>光子晶体相位</td>
+<td>改变晶格常数 → 带隙偏移</td>
+<td>周期性孔阵列</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 PIN 二极管</h2>
+    <p><strong>原理</strong>：正向偏置时导通（短路），反向偏置时截止（开路）。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>开关速度：纳秒级（10-100ns）</li>
+<li>插入损耗：0.5-2dB</li>
+<li>控制功率：低（只需直流偏置）</li>
+<li>寿命：长（&gt; 10⁹ 次开关）</li>
+</ul>
+<p><strong>相位调控</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>等效电路</th>
+<th>反射相位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导通（ON）</td>
+<td>短路</td>
+<td>0°</td>
+</tr>
+<tr>
+<td>截止（OFF）</td>
+<td>开路</td>
+<td>180°</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1-bit PIN 单元</strong>：只有 0° 和 180° 两种相位状态。</p>
+<p><strong>2-bit PIN 单元</strong>：四个状态（0°, 90°, 180°, 270°），需要 2 个 PIN 管。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 变容二极管（Varactor）</h2>
+    <p><strong>原理</strong>：通过改变反向偏置电压，调节结电容 C_j。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>连续相位调控：0-360° 连续可调</li>
+<li>响应速度：微秒级（1-10μs）</li>
+<li>插入损耗：0.2-1dB</li>
+<li>调谐范围：50-200%</li>
+</ul>
+<p><strong>电容-电压特性</strong>：</p>
+<pre><code>C_j(V) = C_0 / (1 + V/V_0)^γ
+</code></pre>
+<p>其中 γ 是掺杂剖面指数（0.33 为突变结，0.5 为缓变结）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 MEMS（微机电系统）</h2>
+    <p><strong>原理</strong>：通过静电力或热力驱动微机械结构移动。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>极低损耗：&lt; 0.1dB</li>
+<li>连续相位调控</li>
+<li>寿命：10⁷-10⁹ 次循环</li>
+<li>响应速度：毫秒级（1-10ms）</li>
+<li>驱动电压：50-200V（需要高压驱动器）</li>
+</ul>
+<p><strong>类型</strong>：</p>
+<ul>
+<li>悬臂梁式：一端固定，一端可移动</li>
+<li>夹持式：两端固定，中间可移动</li>
+<li>翻转盖式：整个盖板翻转</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 液晶（Liquid Crystal）</h2>
+    <p><strong>原理</strong>：电场改变液晶分子的取向 → 介电常数各向异性 → 相位变化。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>连续相位调控：0-360°</li>
+<li>极低功耗：只需维持电压（不切换时零功耗）</li>
+<li>响应速度慢：毫秒到秒级</li>
+<li>工作温度范围窄：-20°C 到 60°C</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 新型可调元件</h2>
+    <table>
+<thead>
+<tr>
+<th>元件</th>
+<th>原理</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GST（相变材料）</td>
+<td>晶态/非晶态切换</td>
+<td>非易失性，2 态</td>
+</tr>
+<tr>
+<td>VO₂</td>
+<td>金属-绝缘体相变</td>
+<td>温度/电场触发</td>
+</tr>
+<tr>
+<td>石墨烯</td>
+<td>费米能级调控</td>
+<td>超快（皮秒），太赫兹</td>
+</tr>
+<tr>
+<td>铁电体</td>
+<td>极化方向切换</td>
+<td>非易失性，多态</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 关键设计指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相位范围</td>
+<td>可调相位跨度</td>
+<td>0-360°（≥ 2π）</td>
+</tr>
+<tr>
+<td>相位分辨率</td>
+<td>最小相位步进</td>
+<td>≤ 22.5°（4-bit）</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>信号通过单元的衰减</td>
+<td>&lt; 1dB</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>有效工作频率范围</td>
+<td>&gt; 10%（中心频率）</td>
+</tr>
+<tr>
+<td>极化纯度</td>
+<td>主极化/交叉极化比</td>
+<td>&gt; 20dB</td>
+</tr>
+<tr>
+<td>单元尺寸</td>
+<td>物理面积</td>
+<td>≤ (λ/2)²</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 相位量化与性能</h2>
     <p>超表面单元的相位控制通常是离散的（受限于可控元件的位数）：</p>
-    <div class="tw"><table>
-    <thead><tr><th>量化位数</th><th>相位状态</th><th>波束指向误差</th><th>增益损失</th><th>控制复杂度</th></tr></thead>
-    <tbody>
-    <tr><td>1-bit</td><td>2 种</td><td>高</td><td>2-6dB</td><td>最低</td></tr>
-    <tr><td>2-bit</td><td>4 种</td><td>中高</td><td>1-3dB</td><td>低</td></tr>
-    <tr><td>3-bit</td><td>8 种</td><td>中</td><td>0.5-1.5dB</td><td>中</td></tr>
-    <tr><td>4-bit</td><td>16 种</td><td>低</td><td>0.1-0.5dB</td><td>中高</td></tr>
-    <tr><td>连续</td><td>∞</td><td>极低</td><td>< 0.1dB</td><td>高</td></tr>
-    </tbody></table></div>
-    <p><b>工程折中</b>：大多数商用 RIS 采用 1-bit 或 2-bit，因为成本低、控制简单。高端场景（如全息 MIMO）采用 4-bit 或连续调控。</p>
-    <h3>3.3 互耦效应</h3>
+<table>
+<thead>
+<tr>
+<th>量化位数</th>
+<th>相位状态</th>
+<th>波束指向误差</th>
+<th>增益损失</th>
+<th>控制复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-bit</td>
+<td>2 种</td>
+<td>高</td>
+<td>2-6dB</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>2-bit</td>
+<td>4 种</td>
+<td>中高</td>
+<td>1-3dB</td>
+<td>低</td>
+</tr>
+<tr>
+<td>3-bit</td>
+<td>8 种</td>
+<td>中</td>
+<td>0.5-1.5dB</td>
+<td>中</td>
+</tr>
+<tr>
+<td>4-bit</td>
+<td>16 种</td>
+<td>低</td>
+<td>0.1-0.5dB</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>连续</td>
+<td>∞</td>
+<td>极低</td>
+<td>&lt; 0.1dB</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工程折中</strong>：大多数商用 RIS 采用 1-bit 或 2-bit，因为成本低、控制简单。高端场景（如全息 MIMO）采用 4-bit 或连续调控。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 互耦效应</h2>
     <p>相邻单元之间的电磁耦合是超表面设计的核心挑战：</p>
-    <pre><code>Z_effective = Z_self + Σ_{neighbors} Z_coupling</code></pre>
-    <p><b>影响</b>：</p>
-    <ul><li>一个单元的控制会影响相邻单元的响应</li><li>相位-幅度耦合：调相位时幅度也会变化</li><li>设计复杂度：N 个单元不再是 N 个独立问题，而是 N² 耦合问题</li></ul>
-    <p><b>缓解方法</b>：</p>
-    <ul><li>单元间距 ≥ λ/2（降低耦合）</li><li>单元之间加隔离槽（decoupling slots）</li><li>预补偿算法（在控制信号中补偿互耦）</li><li>全波仿真优化（HFSS/CST）</li></ul>
+<pre><code>Z_effective = Z_self + Σ_{neighbors} Z_coupling
+</code></pre>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>一个单元的控制会影响相邻单元的响应</li>
+<li>相位-幅度耦合：调相位时幅度也会变化</li>
+<li>设计复杂度：N 个单元不再是 N 个独立问题，而是 N² 耦合问题</li>
+</ul>
+<p><strong>缓解方法</strong>：</p>
+<ul>
+<li>单元间距 ≥ λ/2（降低耦合）</li>
+<li>单元之间加隔离槽（decoupling slots）</li>
+<li>预补偿算法（在控制信号中补偿互耦）</li>
+<li>全波仿真优化（HFSS/CST）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、典型超表面单元结构</h2>
-    <h3>4.1 十字形贴片（Cross Dipole）</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 十字形贴片（Cross Dipole）</h2>
     <p>最简单的可调单元：</p>
-    <pre><code>    ┌───┐
-        │   │
-    ───┼───┼───
-        │   │
-        └───┘</code></pre>
-    <ul><li>每个臂上串联一个 PIN 二极管</li><li>通过控制四个臂的导通/截止，实现 4 种相位状态（2-bit）</li><li>优点：结构简单，易于加工</li><li>缺点：带宽窄（~5%）</li></ul>
-    <h3>4.2 环形谐振器（Ring Resonator）</h3>
+<pre><code>    ┌───┐
+    │   │
+───┼───┼───
+    │   │
+    └───┘
+</code></pre>
+<ul>
+<li>每个臂上串联一个 PIN 二极管</li>
+<li>通过控制四个臂的导通/截止，实现 4 种相位状态（2-bit）</li>
+<li>优点：结构简单，易于加工</li>
+<li>缺点：带宽窄（~5%）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 环形谐振器（Ring Resonator）</h2>
     <pre><code>   ┌─────┐
-      /       \
-     |         |
-      \       /
-       └─────┘</code></pre>
-    <ul><li>环上嵌入可变电容或 PIN 二极管</li><li>谐振频率可调 → 相位响应可调</li><li>优点：Q 值高，相位变化陡峭</li><li>缺点：带宽极窄（< 3%）</li></ul>
-    <h3>4.3 蛇形传输线（Meander Line）</h3>
+  /       \
+ |         |
+  \       /
+   └─────┘
+</code></pre>
+<ul>
+<li>环上嵌入可变电容或 PIN 二极管</li>
+<li>谐振频率可调 → 相位响应可调</li>
+<li>优点：Q 值高，相位变化陡峭</li>
+<li>缺点：带宽极窄（&lt; 3%）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 蛇形传输线（Meander Line）</h2>
     <pre><code>_______
-         |
-     _____|
-    |
-    |_____
-         |
-     _____|</code></pre>
-    <ul><li>等效传输线长度可调（通过开关接入不同长度的蛇形线）</li><li>相位变化 = β · ΔL（β 是传播常数，ΔL 是长度变化）</li><li>优点：相位-幅度解耦好</li><li>缺点：单元尺寸较大</li></ul>
-    <h3>4.4 双层/三层结构</h3>
+     |
+ _____|
+|
+|_____
+     |
+ _____|
+</code></pre>
+<ul>
+<li>等效传输线长度可调（通过开关接入不同长度的蛇形线）</li>
+<li>相位变化 = β · ΔL（β 是传播常数，ΔL 是长度变化）</li>
+<li>优点：相位-幅度解耦好</li>
+<li>缺点：单元尺寸较大</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 双层/三层结构</h2>
     <pre><code>Layer 1: 顶层谐振结构（可调）
-    Layer 2: 介质层
-    Layer 3: 中间谐振结构（固定）
-    Layer 4: 介质层
-    Layer 5: 底层接地</code></pre>
-    <ul><li>多层干涉产生更大的相位调控范围</li><li>可以实现透射和反射双模式</li><li>优点：相位范围大（> 300°）</li><li>缺点：加工复杂，成本高</li></ul>
-    <h3>4.5 Huygens 单元</h3>
+Layer 2: 介质层
+Layer 3: 中间谐振结构（固定）
+Layer 4: 介质层
+Layer 5: 底层接地
+</code></pre>
+<ul>
+<li>多层干涉产生更大的相位调控范围</li>
+<li>可以实现透射和反射双模式</li>
+<li>优点：相位范围大（&gt; 300°）</li>
+<li>缺点：加工复杂，成本高</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 Huygens 单元</h2>
     <p>最理想的超表面单元——同时 electric dipole + magnetic dipole：</p>
-    <pre><code>electric response:  J_s = σ_e · E_inc
-    magnetic response:  M_s = σ_m · H_inc</code></pre>
-    <p>当 σ_e = σ_m 时，可以实现 100% 透射或反射，且相位覆盖 0-2π。</p>
-    <p><b>优势</b>：</p>
-    <ul><li>高效率（> 90%）</li><li>任意波前调控</li><li>低互耦</li></ul>
+<pre><code>electric response:  J_s = σ_e · E_inc
+magnetic response:  M_s = σ_m · H_inc
+</code></pre>
+<p>当 σ_e = σ_m 时，可以实现 100% 透射或反射，且相位覆盖 0-2π。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>高效率（&gt; 90%）</li>
+<li>任意波前调控</li>
+<li>低互耦</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、单元设计与仿真流程</h2>
-    <h3>5.1 设计流程</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 设计流程</h2>
     <pre><code>1. 确定工作频率和带宽
-    2. 选择可调元件类型（PIN/Varactor/MEMS/LC）
-    3. 设计单元几何结构
-    4. 单单元仿真（HFSS/CST）→ 提取 S 参数和相位响应
-    5. 调节几何参数 → 扫描相位响应曲线
-    6. 确定相位-控制电压/电流映射关系
-    7. 多单元阵列仿真 → 评估互耦效应
-    8. 全表面仿真 → 验证波前调控能力
-    9. 加工测试 → 实测 vs 仿真对比
-    10. 迭代优化</code></pre>
-    <h3>5.2 仿真工具</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工具</th><th>优势</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>HFSS</td><td>精度高，频域求解</td><td>单单元/小阵列</td></tr>
-    <tr><td>CST Studio</td><td>时域求解，速度快</td><td>大阵列/宽带</td></tr>
-    <tr><td>FEKO</td><td>MoM，适合电大尺寸</td><td>全表面仿真</td></tr>
-    <tr><td>COMSOL</td><td>多物理场耦合</td><td>MEMS/热/力学耦合</td></tr>
-    <tr><td>MATLAB + Python</td><td>快速原型设计</td><td>参数扫描/优化</td></tr>
-    </tbody></table></div>
-    <h3>5.3 优化方法</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>原理</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>参数扫描</td><td>逐个改变几何参数</td><td>简单结构</td></tr>
-    <tr><td>遗传算法</td><td>群体进化优化</td><td>复杂结构</td></tr>
-    <tr><td>粒子群优化</td><td>群体智能搜索</td><td>多目标优化</td></tr>
-    <tr><td>深度学习</td><td>逆向设计（目标 → 结构）</td><td>大规模优化</td></tr>
-    <tr><td>伴随变量法</td><td>梯度高效计算</td><td>连续可调设计</td></tr>
-    </tbody></table></div>
+2. 选择可调元件类型（PIN/Varactor/MEMS/LC）
+3. 设计单元几何结构
+4. 单单元仿真（HFSS/CST）→ 提取 S 参数和相位响应
+5. 调节几何参数 → 扫描相位响应曲线
+6. 确定相位-控制电压/电流映射关系
+7. 多单元阵列仿真 → 评估互耦效应
+8. 全表面仿真 → 验证波前调控能力
+9. 加工测试 → 实测 vs 仿真对比
+10. 迭代优化
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、应用场景</h2>
-    <h3>6.1 RIS 智能反射面</h3>
-    <ul><li>每个单元独立控制相位</li><li>宏观上实现波束反射/折射/聚焦</li><li>典型规模：100-10000 个单元</li></ul>
-    <h3>6.2 全息 MIMO / CAPA</h3>
-    <ul><li>超表面作为连续孔径的实现载体</li><li>单元间距 << λ，近似连续</li><li>通过控制每个单元的阻抗，生成任意波前</li></ul>
-    <h3>6.3 可重构天线</h3>
-    <ul><li>单个超表面单元阵列作为天线辐射体</li><li>通过改变单元状态，动态调整天线方向图</li><li>应用：波束扫描、极化切换、零点放置</li></ul>
-    <h3>6.4 电磁隐身/ cloaking</h3>
-    <ul><li>超表面单元设计为特定的折射率分布</li><li>引导电磁波绕过目标物体</li><li>应用：天线罩、隐身涂层</li></ul>
-    <h3>6.5 太赫兹/光学子表面</h3>
-    <ul><li>单元尺寸缩小到亚微米级</li><li>工作频率从 THz 到可见光</li><li>应用：超透镜、全息显示、光通信</li></ul>
+  
+  <article class="card ">
+    
+    <h2>5.2 仿真工具</h2>
+    <table>
+<thead>
+<tr>
+<th>工具</th>
+<th>优势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HFSS</td>
+<td>精度高，频域求解</td>
+<td>单单元/小阵列</td>
+</tr>
+<tr>
+<td>CST Studio</td>
+<td>时域求解，速度快</td>
+<td>大阵列/宽带</td>
+</tr>
+<tr>
+<td>FEKO</td>
+<td>MoM，适合电大尺寸</td>
+<td>全表面仿真</td>
+</tr>
+<tr>
+<td>COMSOL</td>
+<td>多物理场耦合</td>
+<td>MEMS/热/力学耦合</td>
+</tr>
+<tr>
+<td>MATLAB + Python</td>
+<td>快速原型设计</td>
+<td>参数扫描/优化</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>七、工程挑战与坑</h2>
-    <h3>7.1 温度稳定性</h3>
+  
+  <article class="card ">
+    
+    <h2>5.3 优化方法</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>原理</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参数扫描</td>
+<td>逐个改变几何参数</td>
+<td>简单结构</td>
+</tr>
+<tr>
+<td>遗传算法</td>
+<td>群体进化优化</td>
+<td>复杂结构</td>
+</tr>
+<tr>
+<td>粒子群优化</td>
+<td>群体智能搜索</td>
+<td>多目标优化</td>
+</tr>
+<tr>
+<td>深度学习</td>
+<td>逆向设计（目标 → 结构）</td>
+<td>大规模优化</td>
+</tr>
+<tr>
+<td>伴随变量法</td>
+<td>梯度高效计算</td>
+<td>连续可调设计</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 RIS 智能反射面</h2>
+    <ul>
+<li>每个单元独立控制相位</li>
+<li>宏观上实现波束反射/折射/聚焦</li>
+<li>典型规模：100-10000 个单元</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 全息 MIMO / CAPA</h2>
+    <ul>
+<li>超表面作为连续孔径的实现载体</li>
+<li>单元间距 &lt;&lt; λ，近似连续</li>
+<li>通过控制每个单元的阻抗，生成任意波前</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 可重构天线</h2>
+    <ul>
+<li>单个超表面单元阵列作为天线辐射体</li>
+<li>通过改变单元状态，动态调整天线方向图</li>
+<li>应用：波束扫描、极化切换、零点放置</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 电磁隐身/ cloaking</h2>
+    <ul>
+<li>超表面单元设计为特定的折射率分布</li>
+<li>引导电磁波绕过目标物体</li>
+<li>应用：天线罩、隐身涂层</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 太赫兹/光学子表面</h2>
+    <ul>
+<li>单元尺寸缩小到亚微米级</li>
+<li>工作频率从 THz 到可见光</li>
+<li>应用：超透镜、全息显示、光通信</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 温度稳定性</h2>
     <p>可调元件的参数随温度变化：</p>
-    <ul><li>PIN 二极管：正向压降 -2mV/°C</li><li>变容管：结电容温度系数 ±50ppm/°C</li><li>MEMS：热膨胀导致机械应力变化</li></ul>
-    <p><b>对策</b>：温度补偿电路 + 校准算法。</p>
-    <h3>7.2 控制电路复杂度</h3>
+<ul>
+<li>PIN 二极管：正向压降 -2mV/°C</li>
+<li>变容管：结电容温度系数 ±50ppm/°C</li>
+<li>MEMS：热膨胀导致机械应力变化</li>
+</ul>
+<p><strong>对策</strong>：温度补偿电路 + 校准算法。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 控制电路复杂度</h2>
     <p>N 个单元需要 N 个控制信号：</p>
-    <ul><li>1-bit：N 条 GPIO 线</li><li>2-bit：2N 条 GPIO 线</li><li>4-bit：4N 条 GPIO 线</li></ul>
-    <p>对于 10000 单元的 RIS，4-bit 需要 40000 条控制线——这不现实。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>行列复用（Row-Column Multiplexing）：N² 单元只需 2N 条线</li><li>级联控制：通过少数控制线驱动多个单元</li><li>FPGA/ASIC 专用控制器</li></ul>
-    <h3>7.3 功耗</h3>
+<ul>
+<li>1-bit：N 条 GPIO 线</li>
+<li>2-bit：2N 条 GPIO 线</li>
+<li>4-bit：4N 条 GPIO 线</li>
+</ul>
+<p>对于 10000 单元的 RIS，4-bit 需要 40000 条控制线——这不现实。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>行列复用（Row-Column Multiplexing）：N² 单元只需 2N 条线</li>
+<li>级联控制：通过少数控制线驱动多个单元</li>
+<li>FPGA/ASIC 专用控制器</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 功耗</h2>
     <p>每个可调元件都需要控制功耗：</p>
-    <div class="tw"><table>
-    <thead><tr><th>元件类型</th><th>静态功耗</th><th>切换功耗</th></tr></thead>
-    <tbody>
-    <tr><td>PIN 二极管</td><td>0（反向偏置）</td><td>低</td></tr>
-    <tr><td>变容二极管</td><td>0（反向偏置）</td><td>低</td></tr>
-    <tr><td>MEMS</td><td>0（保持位置）</td><td>中（驱动高压）</td></tr>
-    <tr><td>液晶</td><td>极低（维持电压）</td><td>极低</td></tr>
-    <tr><td>GST</td><td>0（非易失性）</td><td>高（加热相变）</td></tr>
-    </tbody></table></div>
-    <p>对于大规模 RIS（10000 单元），总控制功耗可能在 10-100W 量级。</p>
-    <h3>7.4 可靠性</h3>
-    <ul><li>PIN 二极管：平均无故障时间 > 10 年（10⁹ 次开关）</li><li>MEMS：机械疲劳是主要失效模式</li><li>变容管：结老化导致电容漂移</li><li>液晶：高温下性能退化</li></ul>
-    <h3>7.5 加工公差</h3>
+<table>
+<thead>
+<tr>
+<th>元件类型</th>
+<th>静态功耗</th>
+<th>切换功耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PIN 二极管</td>
+<td>0（反向偏置）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>变容二极管</td>
+<td>0（反向偏置）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>MEMS</td>
+<td>0（保持位置）</td>
+<td>中（驱动高压）</td>
+</tr>
+<tr>
+<td>液晶</td>
+<td>极低（维持电压）</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>GST</td>
+<td>0（非易失性）</td>
+<td>高（加热相变）</td>
+</tr>
+</tbody>
+</table>
+<p>对于大规模 RIS（10000 单元），总控制功耗可能在 10-100W 量级。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.4 可靠性</h2>
+    <ul>
+<li>PIN 二极管：平均无故障时间 &gt; 10 年（10⁹ 次开关）</li>
+<li>MEMS：机械疲劳是主要失效模式</li>
+<li>变容管：结老化导致电容漂移</li>
+<li>液晶：高温下性能退化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.5 加工公差</h2>
     <p>单元尺寸的微小变化会导致相位响应的显著偏移：</p>
-    <pre><code>Δphase ≈ (2π/λ) · (Δa/a) · L_effective</code></pre>
-    <p>对于 λ = 3cm（10GHz），Δa = 0.1mm（加工公差），a = 15mm：</p>
-    <pre><code>Δphase ≈ (2π/0.03) · (0.001/0.015) · 0.015 ≈ 0.21 rad ≈ 12°</code></pre>
-    <p>12° 的相位误差在 4-bit（22.5° 步进）系统中是不可忽视的。</p>
+<pre><code>Δphase ≈ (2π/λ) · (Δa/a) · L_effective
+</code></pre>
+<p>对于 λ = 3cm（10GHz），Δa = 0.1mm（加工公差），a = 15mm：</p>
+<pre><code>Δphase ≈ (2π/0.03) · (0.001/0.015) · 0.015 ≈ 0.21 rad ≈ 12°
+</code></pre>
+<p>12° 的相位误差在 4-bit（22.5° 步进）系统中是不可忽视的。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、技术演进</h2>
-    <ul><li><b>1990s</b>：超材料（Metamaterial）概念提出（Pendry 等）</li><li><b>2000s</b>：超表面（Metasurface）从 3D 超材料简化为 2D 表面</li><li><b>2011年</b>：Huygens 超表面理论建立</li><li><b>2013-2015年</b>：可编程超表面概念提出</li><li><b>2015-2018年</b>：RIS 在无线通信中的应用被广泛研究</li><li><b>2019-2021年</b>：商用 RIS 原型系统出现</li><li><b>2022-2024年</b>：4-bit 连续可调超表面、全息超表面</li><li><b>2025年</b>：AI 辅助超表面逆向设计</li><li><b>2025-2026年</b>：太赫兹超表面、柔性超表面</li></ul>
+    <ul>
+<li><strong>1990s</strong>：超材料（Metamaterial）概念提出（Pendry 等）</li>
+<li><strong>2000s</strong>：超表面（Metasurface）从 3D 超材料简化为 2D 表面</li>
+<li><strong>2011年</strong>：Huygens 超表面理论建立</li>
+<li><strong>2013-2015年</strong>：可编程超表面概念提出</li>
+<li><strong>2015-2018年</strong>：RIS 在无线通信中的应用被广泛研究</li>
+<li><strong>2019-2021年</strong>：商用 RIS 原型系统出现</li>
+<li><strong>2022-2024年</strong>：4-bit 连续可调超表面、全息超表面</li>
+<li><strong>2025年</strong>：AI 辅助超表面逆向设计</li>
+<li><strong>2025-2026年</strong>：太赫兹超表面、柔性超表面</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>九、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：原型验证 → 小规模商用过渡</li><li><b>说明</b>：1-bit 和 2-bit 超表面单元已商业化（RIS 产品），4-bit 和连续可调单元处于原型验证阶段。AI 辅助设计是最新趋势。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>超表面单元是 RIS、全息 MIMO 和可编程电磁表面的"原子"——每个单元通过可调元件独立控制电磁波的相位、幅度和极化，成千上万个单元组合起来就能在宏观上"雕刻"任意波前。它是 6G 电磁智能的物理基石。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -374,39 +861,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

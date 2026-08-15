@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sub-6GHz 天线技术 · 知识卡片</title>
+<title>Sub-6GHz天线技术 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">Sub-6GHz 天线技术 <span class="en">Sub-6GHz</span></h1>
-  <p class="lede">Sub-6GHz 是 5G 的"主力频段"（600MHz-7.125GHz），覆盖半径大、穿墙能力强、产业链成熟——全球 90% 以上的 5G 用户通过 Sub-6GHz 接入。Sub-6GHz 天线面临的最大挑战是"多频段合一"——一块天线要同时覆盖 700MHz、2.6GHz 和 3.5GHz，还要做到小型化。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Sub-6GHz天线技术</h1>
+  <p class="lede">Sub-6GHz 是 5G 的&#34;主力频段&#34;（600MHz-7.125GHz），覆盖半径大、穿墙能力强、产业链成熟——全球 90% 以上的 5G 用户通过 Sub-6GHz 接入。Sub-6GHz 天线面临的最大挑战是&#34;多频段合一&#34;——一块天线要同时覆盖 700MHz、2.6GHz 和 3.5GHz，还要做到小型化。</p>
+  
 </header>
 
 <main>
@@ -99,158 +101,271 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>Sub-6GHz 天线就像"瑞士军刀"——一把刀要干所有活（多个频段），但每个频段都有自己的最佳形态。700MHz 需要大尺寸（λ/2 = 21cm），3.5GHz 只需要小尺寸（λ/2 = 4cm），怎么把 21cm 和 4cm 的天线塞进同一个 30cm 高的平板里？这就是 Sub-6GHz 天线的核心工程挑战。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、Sub-6GHz 频段分布</h2>
-    <h3>1.1 5G Sub-6GHz 频段</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 5G Sub-6GHz 频段</h2>
     <pre><code>FR1（Sub-6GHz）频段划分：
-    
-    低频段（Coverage Layer）：
-      600MHz（n71）：覆盖半径 ~10km
-      700MHz（n28）：覆盖半径 ~8km（中国移动）
-      800MHz（n20/n28）：覆盖半径 ~7km
-      
-    中频段（Capacity Layer）：
-      1.8GHz（n3）：覆盖半径 ~3km
-      2.1GHz（n1）：覆盖半径 ~3km
-      2.6GHz（n41）：覆盖半径 ~2km（中国联通/电信）
-      3.5GHz（n78）：覆盖半径 ~1km（5G 主力）
-      
-    高 Sub-6GHz：
-      4.9GHz（n79）：覆盖半径 ~800m
-      6.425-7.125GHz（n104/U6G）：覆盖半径 ~1km（6G 试验）</code></pre>
-    <h3>1.2 频段对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>波长</th><th>覆盖半径</th><th>单载波带宽</th><th>典型增益</th></tr></thead>
-    <tbody>
-    <tr><td>700MHz</td><td>429mm</td><td>8-10km</td><td>20MHz</td><td>15-17dBi</td></tr>
-    <tr><td>2.6GHz</td><td>115mm</td><td>2-3km</td><td>100MHz</td><td>17-19dBi</td></tr>
-    <tr><td>3.5GHz</td><td>86mm</td><td>1-2km</td><td>100MHz</td><td>20-22dBi</td></tr>
-    <tr><td>4.9GHz</td><td>61mm</td><td>0.8-1km</td><td>100MHz</td><td>20-22dBi</td></tr>
-    <tr><td>6.5GHz</td><td>46mm</td><td>1km</td><td>400MHz</td><td>22-24dBi</td></tr>
-    </tbody></table></div>
-  </article>
 
-  <article class="card">
-    <h2>二、Sub-6GHz 天线设计挑战</h2>
-    <h3>2.1 多频段合一（Multi-Band）</h3>
+低频段（Coverage Layer）：
+  600MHz（n71）：覆盖半径 ~10km
+  700MHz（n28）：覆盖半径 ~8km（中国移动）
+  800MHz（n20/n28）：覆盖半径 ~7km
+
+中频段（Capacity Layer）：
+  1.8GHz（n3）：覆盖半径 ~3km
+  2.1GHz（n1）：覆盖半径 ~3km
+  2.6GHz（n41）：覆盖半径 ~2km（中国联通/电信）
+  3.5GHz（n78）：覆盖半径 ~1km（5G 主力）
+
+高 Sub-6GHz：
+  4.9GHz（n79）：覆盖半径 ~800m
+  6.425-7.125GHz（n104/U6G）：覆盖半径 ~1km（6G 试验）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 频段对比</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>波长</th>
+<th>覆盖半径</th>
+<th>单载波带宽</th>
+<th>典型增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700MHz</td>
+<td>429mm</td>
+<td>8-10km</td>
+<td>20MHz</td>
+<td>15-17dBi</td>
+</tr>
+<tr>
+<td>2.6GHz</td>
+<td>115mm</td>
+<td>2-3km</td>
+<td>100MHz</td>
+<td>17-19dBi</td>
+</tr>
+<tr>
+<td>3.5GHz</td>
+<td>86mm</td>
+<td>1-2km</td>
+<td>100MHz</td>
+<td>20-22dBi</td>
+</tr>
+<tr>
+<td>4.9GHz</td>
+<td>61mm</td>
+<td>0.8-1km</td>
+<td>100MHz</td>
+<td>20-22dBi</td>
+</tr>
+<tr>
+<td>6.5GHz</td>
+<td>46mm</td>
+<td>1km</td>
+<td>400MHz</td>
+<td>22-24dBi</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 多频段合一（Multi-Band）</h2>
     <pre><code>问题：运营商需要一块天线覆盖多个频段
-      中国移动：700MHz（n28）+ 2.6GHz（n41）
-      中国电信/联通：3.5GHz（n78）+ 2.6GHz（n41）
+  中国移动：700MHz（n28）+ 2.6GHz（n41）
+  中国电信/联通：3.5GHz（n78）+ 2.6GHz（n41）
+
+解决方案：
+  1. 多振子阵列
+     - 700MHz 振子：~21cm 长
+     - 2.6GHz 振子：~5.7cm 长
+     - 3.5GHz 振子：~4.3cm 长
+     - 三层叠放，共用同一口径
+
+  2. 宽带天线
+     - 单振子覆盖 2.6-3.5GHz
+     - 需要特殊匹配网络
+     - 增益略低（-1-2dB）
+
+  3. 共口径设计
+     - 不同频段共用同一反射板
+     - 馈电网络隔离是关键
+     - 需要 &gt; 30dB 频段间隔离
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    解决方案：
-      1. 多振子阵列
-         - 700MHz 振子：~21cm 长
-         - 2.6GHz 振子：~5.7cm 长
-         - 3.5GHz 振子：~4.3cm 长
-         - 三层叠放，共用同一口径
-         
-      2. 宽带天线
-         - 单振子覆盖 2.6-3.5GHz
-         - 需要特殊匹配网络
-         - 增益略低（-1-2dB）
-         
-      3. 共口径设计
-         - 不同频段共用同一反射板
-         - 馈电网络隔离是关键
-         - 需要 &gt; 30dB 频段间隔离</code></pre>
-    <h3>2.2 小型化</h3>
+    <h2>2.2 小型化</h2>
     <pre><code>Sub-6GHz 天线尺寸约束：
-      抱杆空间有限：天线宽度 ≤ 300mm
-      重量限制：单面天线 ≤ 30kg（4G）/ 50kg（5G）
-      
-    700MHz 天线小型化方法：
-      1. 折叠振子（Folded Dipole）
-         - 将 λ/2 振子折叠成 U 形
-         - 尺寸缩小 30-40%
-         
-      2. 加载电感/电容
-         - 电加载缩短振子长度
-         - 代价：带宽变窄
-         
-      3. 高介电常数基板
-         - ε_r = 10-20 的陶瓷基板
-         - 尺寸缩小 √ε_r 倍
-         - 代价：损耗增加</code></pre>
-    <h3>2.3 互耦与隔离</h3>
+  抱杆空间有限：天线宽度 ≤ 300mm
+  重量限制：单面天线 ≤ 30kg（4G）/ 50kg（5G）
+
+700MHz 天线小型化方法：
+  1. 折叠振子（Folded Dipole）
+     - 将 λ/2 振子折叠成 U 形
+     - 尺寸缩小 30-40%
+
+  2. 加载电感/电容
+     - 电加载缩短振子长度
+     - 代价：带宽变窄
+
+  3. 高介电常数基板
+     - ε_r = 10-20 的陶瓷基板
+     - 尺寸缩小 √ε_r 倍
+     - 代价：损耗增加
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 互耦与隔离</h2>
     <pre><code>多频段天线互耦问题：
-      700MHz ↔ 2.6GHz：~15dB 耦合
-      2.6GHz ↔ 3.5GHz：~10dB 耦合
-      3.5GHz ↔ 6.5GHz：~8dB 耦合
-      
-    隔离方法：
-      1. 物理间距：≥ λ_low/4
-      2. 极化隔离：±45° 错开
-      3. 去耦结构：DGS/EBG/中和线
-      4. 滤波网络：每个频段加带通滤波器</code></pre>
-  </article>
+  700MHz ↔ 2.6GHz：~15dB 耦合
+  2.6GHz ↔ 3.5GHz：~10dB 耦合
+  3.5GHz ↔ 6.5GHz：~8dB 耦合
 
-  <article class="card">
-    <h2>三、Sub-6GHz 天线技术路线</h2>
-    <h3>3.1 4G 到 5G 的演进</h3>
+隔离方法：
+  1. 物理间距：≥ λ_low/4
+  2. 极化隔离：±45° 错开
+  3. 去耦结构：DGS/EBG/中和线
+  4. 滤波网络：每个频段加带通滤波器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 4G 到 5G 的演进</h2>
     <pre><code>4G Sub-6GHz 天线：
-      频段：1.8GHz + 2.6GHz（双频）
-      通道：2T2R/4T4R
-      天线形态：平板（偶极子阵列）
-      增益：17-19dBi
-      下倾：机械/RET
-      
-    5G Sub-6GHz 天线（AAU）：
-      频段：3.5GHz（主力）+ 2.6GHz（补充）
-      通道：64T64R/128T128R
-      天线形态：平板（贴片阵列）
-      增益：22-25dBi
-      下倾：RET + 数字波束赋形
-      
-    5G-A Sub-6GHz 天线：
-      频段：3.5GHz + 6.5GHz（U6G）
-      通道：192T192R/256T256R
-      天线形态：紧凑平板
-      增益：24-27dBi
-      下倾：3D 波束赋形</code></pre>
-    <h3>3.2 多频段 AAU</h3>
+  频段：1.8GHz + 2.6GHz（双频）
+  通道：2T2R/4T4R
+  天线形态：平板（偶极子阵列）
+  增益：17-19dBi
+  下倾：机械/RET
+
+5G Sub-6GHz 天线（AAU）：
+  频段：3.5GHz（主力）+ 2.6GHz（补充）
+  通道：64T64R/128T128R
+  天线形态：平板（贴片阵列）
+  增益：22-25dBi
+  下倾：RET + 数字波束赋形
+
+5G-A Sub-6GHz 天线：
+  频段：3.5GHz + 6.5GHz（U6G）
+  通道：192T192R/256T256R
+  天线形态：紧凑平板
+  增益：24-27dBi
+  下倾：3D 波束赋形
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 多频段 AAU</h2>
     <pre><code>三频段 AAU（主流方案）：
-      频段 1：700MHz（n28）→ 覆盖层
-      频段 2：2.6GHz（n41）→ 容量层
-      频段 3：3.5GHz（n78）→ 容量层
-      
-    实现方式：
-      1. 共口径三频段 AAU
-         - 三层天线叠放
-         - 共用散热系统
-         - 重量：60-80kg
-         
-      2. 分离式三频段
-         - 700MHz 平板（无源）
-         - 2.6GHz AAU（有源）
-         - 3.5GHz AAU（有源）
-         - A+P 共装</code></pre>
-  </article>
+  频段 1：700MHz（n28）→ 覆盖层
+  频段 2：2.6GHz（n41）→ 容量层
+  频段 3：3.5GHz（n78）→ 容量层
 
-  <article class="card">
+实现方式：
+  1. 共口径三频段 AAU
+     - 三层天线叠放
+     - 共用散热系统
+     - 重量：60-80kg
+
+  2. 分离式三频段
+     - 700MHz 平板（无源）
+     - 2.6GHz AAU（有源）
+     - 3.5GHz AAU（有源）
+     - A+P 共装
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、Sub-6GHz vs 毫米波</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>Sub-6GHz</th><th>毫米波（24-40GHz）</th></tr></thead>
-    <tbody>
-    <tr><td>覆盖半径</td><td>1-10km</td><td>100-300m</td></tr>
-    <tr><td>穿墙能力</td><td>强（-5dB 墙体）</td><td>弱（-20dB 墙体）</td></tr>
-    <tr><td>带宽</td><td>20-400MHz</td><td>400MHz-2GHz</td></tr>
-    <tr><td>天线尺寸</td><td>大（cm 级）</td><td>小（mm 级）</td></tr>
-    <tr><td>通道数</td><td>64-256</td><td>256-1024</td></tr>
-    <tr><td>功耗</td><td>200-500W</td><td>500-1000W</td></tr>
-    <tr><td>部署成本</td><td>低</td><td>高（需要密集部署）</td></tr>
-    <tr><td>成熟度</td><td>成熟（2019 商用）</td><td>早期（2025+ 商用）</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Sub-6GHz</th>
+<th>毫米波（24-40GHz）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>覆盖半径</td>
+<td>1-10km</td>
+<td>100-300m</td>
+</tr>
+<tr>
+<td>穿墙能力</td>
+<td>强（-5dB 墙体）</td>
+<td>弱（-20dB 墙体）</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>20-400MHz</td>
+<td>400MHz-2GHz</td>
+</tr>
+<tr>
+<td>天线尺寸</td>
+<td>大（cm 级）</td>
+<td>小（mm 级）</td>
+</tr>
+<tr>
+<td>通道数</td>
+<td>64-256</td>
+<td>256-1024</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>200-500W</td>
+<td>500-1000W</td>
+</tr>
+<tr>
+<td>部署成本</td>
+<td>低</td>
+<td>高（需要密集部署）</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>成熟（2019 商用）</td>
+<td>早期（2025+ 商用）</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>Sub-6GHz 是 5G 的"基本盘"——全球 90% 的 5G 用户通过 Sub-6GHz 接入。核心挑战是多频段合一（700MHz+2.6GHz+3.5GHz 共口径）和小型化。记住：Sub-6GHz 不是"落后的技术"，而是"成熟且持续演进的技术"——5G-A 时代 U6G（6.5GHz）的加入让它继续担当主力。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -270,39 +385,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

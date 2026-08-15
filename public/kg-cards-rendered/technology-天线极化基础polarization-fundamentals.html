@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线极化基础（Antenna Polarization Fundamentals） · 知识卡片</title>
+<title>天线极化基础Polarization-Fundamentals · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线极化基础 <span class="en">Antenna Polarization Fundamentals</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线极化基础Polarization-Fundamentals</h1>
   <p class="lede">天线极化描述了电磁波电场矢量在空间中随时间变化的轨迹——可以是直线（线极化）、圆（圆极化）或椭圆（椭圆极化），极化匹配程度直接决定了收发天线之间的功率传输效率，错极化可导致 20-30dB 的功率损失。</p>
+  
 </header>
 
 <main>
@@ -99,259 +101,550 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象你用一根绳子的一端拴在墙上，另一端在你手里抖动。如果你上下抖，绳子产生的是"竖直极化"波；如果你左右抖，产生的是"水平极化"波。如果你又上下又左右、且两个动作之间有先后（相位差），绳子的末端就会画出一个圆或椭圆——这就是圆极化和椭圆极化。天线接收信号就像墙上的挂钩：竖直的挂钩只能"抓住"上下抖动的绳子，抓不住左右抖动的。极化不匹配 = 绳子在抖但挂钩纹丝不动。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、电磁波的极化本质</h2>
-    <h3>1.1 极化的数学定义</h3>
-    <p>电磁波的电场可以分解为两个正交分量：</p>
-    <pre><code>E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ</code></pre>
-    <p>极化由三个参数决定：</p>
-    <ul><li><b>幅度比</b>：E_y / E_x</li><li><b>相位差</b>：Δφ = φ_y - φ_x</li><li><b>传播方向</b>：k（通常取 +z 方向）</li></ul>
-    <h3>1.2 极化椭圆的形成</h3>
-    <p>当 E_x 和 E_y 都存在且 Δφ ≠ 0, π 时，电场矢量的末端在固定位置随时间画出一个椭圆：</p>
-    <pre><code>(E_x/E_0x)² + (E_y/E_0y)² - 2(E_x/E_0x)(E_y/E_0y)cos(Δφ) = sin²(Δφ)</code></pre>
-    <p>这就是<b>极化椭圆方程</b>。</p>
-    <h3>1.3 极化椭圆的几何参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>符号</th><th>含义</th></tr></thead>
-    <tbody>
-    <tr><td>倾角（Tilt Angle）</td><td>τ</td><td>椭圆长轴与 x 轴的夹角，-90° ≤ τ ≤ 90°</td></tr>
-    <tr><td>轴比（Axial Ratio）</td><td>AR</td><td>长轴/短轴之比，线性极化 AR=∞，圆极化 AR=1</td></tr>
-    <tr><td>旋向（Handedness）</td><td>LHCP/RHCP</td><td>顺时针/逆时针旋转</td></tr>
-    </tbody></table></div>
-    <p><b>轴比的 dB 表示</b>：</p>
-    <pre><code>AR_dB = 20·log₁₀(AR)</code></pre>
-    <ul><li>AR = 1（线性）→ AR_dB = 0dB ❌ 不对，AR=∞ 是线极化</li><li>AR = 1（圆）→ AR_dB = 0dB ✅</li><li>AR = 3 → AR_dB = 9.5dB ❌ 也不对</li></ul>
-    <p>纠正：</p>
-    <pre><code>AR = 长轴 / 短轴
-    AR = ∞ → 线极化（短轴=0）
-    AR = 1 → 圆极化（长轴=短轴）
-    AR = 1.5 → 椭圆极化（接近圆）</code></pre>
-    <p>AR_dB 的定义有两种常见方式：</p>
-    <ol><li><b>线性尺度</b>：AR（无量纲比值）</li><li><b>dB 尺度</b>：AR_dB = 20·log₁₀(AR)，圆极化 = 0dB，线极化 = ∞dB</li></ol>
-    <p>工程中常用"轴比 ≤ 3dB"作为圆极化天线的验收标准。</p>
-  </article>
-
-  <article class="card">
-    <h2>二、三种基本极化</h2>
-    <h3>2.1 线极化（Linear Polarization）</h3>
-    <pre><code>Δφ = 0 或 π
-    E_y / E_x = 常数</code></pre>
-    <p>电场矢量始终沿一条直线振荡：</p>
-    <pre><code>      ↑ E
-          │
-          │
-    ──────┼────── z（传播方向）
-          │
-          ↓</code></pre>
-    <p><b>分类</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>Δφ</th><th>方向</th><th>示例</th></tr></thead>
-    <tbody>
-    <tr><td>水平线极化（HPol）</td><td>0</td><td>平行于地面</td><td>FM 广播</td></tr>
-    <tr><td>垂直线极化（VPol）</td><td>0</td><td>垂直于地面</td><td>对讲机</td></tr>
-    <tr><td>±45° 线极化</td><td>0 或 π</td><td>倾斜 45°</td><td>5G MIMO 基站</td></tr>
-    </tbody></table></div>
-    <p><b>特点</b>：</p>
-    <ul><li>最简单、最常用</li><li>基站天线几乎都用 ±45° 线极化</li><li>极化隔离度：理论 ∞（正交极化完全不干扰），实际 20-35dB</li></ul>
-    <h3>2.2 圆极化（Circular Polarization）</h3>
-    <pre><code>E_x = E_y
-    Δφ = ±π/2</code></pre>
-    <p>电场矢量末端画出一个圆：</p>
-    <pre><code>      ↺ RHCP（右手圆极化）
-        ← ↑ →
-          ↻</code></pre>
-    <p><b>旋向定义</b>（IEEE 标准）：</p>
-    <ul><li><b>RHCP（Right-Hand CP）</b>：观察者面向波传播方向，电场顺时针旋转</li><li><b>LHCP（Left-Hand CP）</b>：观察者面向波传播方向，电场逆时针旋转</li></ul>
-    <p><b>注意</b>：天线学界有两种定义方式（IEEE vs 光学），务必确认标准！</p>
-    <p><b>圆极化的优势</b>：</p>
-    <ol><li><b>不受天线取向影响</b>：接收天线旋转不影响信号强度</li><li><b>抑制多径干扰</b>：反射波会翻转旋向，RHCP 天线接收 LHCP 反射波时被抑制</li><li><b>雨衰较小</b>：对降水引起的极化旋转不敏感</li></ol>
-    <p><b>应用场景</b>：</p>
-    <ul><li>GPS/GLONASS/Galileo（卫星信号）</li><li>卫星通信（DVB-S2）</li><li>气象雷达（区分雨滴和冰雹）</li><li>RFID（标签取向不确定）</li><li>军事通信（抗干扰）</li></ul>
-    <h3>2.3 椭圆极化（Elliptical Polarization）</h3>
-    <p>最一般的情况：</p>
-    <pre><code>E_x ≠ E_y 且 Δφ ≠ 0, π/2, π</code></pre>
-    <p>电场矢量末端画出一个椭圆：</p>
-    <pre><code>      ╱───╲
-        ╱       ╲
-       │    ●    │  ← 椭圆
-        ╲       ╱
-          ╲───╱</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>线极化和圆极化都是椭圆极化的特例</li><li>实际天线辐射的几乎都是椭圆极化（不完美）</li><li>轴比 AR 是衡量"有多椭圆"的指标</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>三、极化匹配与极化损失</h2>
-    <h3>3.1 极化匹配因子（Polarization Match Factor）</h3>
-    <p>收发天线之间的功率传输效率：</p>
-    <pre><code>PLF = |ρ̂_t · ρ̂_r|²</code></pre>
-    <p>其中 ρ̂_t 和 ρ̂_r 分别是发射和接收天线的极化单位矢量。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>发射 × 接收</th><th>PLF (线性)</th><th>PLF (dB)</th><th>功率损失</th></tr></thead>
-    <tbody>
-    <tr><td>VPol × VPol</td><td>1.0</td><td>0dB</td><td>0dB</td></tr>
-    <tr><td>HPol × HPol</td><td>1.0</td><td>0dB</td><td>0dB</td></tr>
-    <tr><td>VPol × HPol</td><td>0</td><td>-∞dB</td><td>完全隔离</td></tr>
-    <tr><td>±45° × ∓45°</td><td>0</td><td>-∞dB</td><td>完全隔离</td></tr>
-    <tr><td>RHCP × RHCP</td><td>1.0</td><td>0dB</td><td>0dB</td></tr>
-    <tr><td>RHCP × LHCP</td><td>0</td><td>-∞dB</td><td>完全隔离</td></tr>
-    <tr><td>VPol × RHCP</td><td>0.5</td><td>-3dB</td><td>一半功率</td></tr>
-    <tr><td>HPol × RHCP</td><td>0.5</td><td>-3dB</td><td>一半功率</td></tr>
-    </tbody></table></div>
-    <h3>3.2 极化隔离度（Polarization Isolation）</h3>
-    <p>衡量天线抑制交叉极化的能力：</p>
-    <pre><code>PI = 10·log₁₀(P_co-pol / P_cross-pol) [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>极化类型</th><th>典型隔离度</th></tr></thead>
-    <tbody>
-    <tr><td>±45° 线极化</td><td>20-35dB</td></tr>
-    <tr><td>圆极化（同旋向 vs 反旋向）</td><td>20-30dB</td></tr>
-    <tr><td>高隔离度基站天线</td><td>> 30dB</td></tr>
-    </tbody></table></div>
-    <h3>3.3 交叉极化（Cross-Polarization）</h3>
-    <p>理想情况下，天线只辐射期望的极化（co-pol），但实际上总会有少量交叉极化（cross-pol）：</p>
-    <pre><code>总辐射 = co-pol + cross-pol
-    XPD（交叉极化比）= co-pol / cross-pol</code></pre>
-    <p><b>交叉极化的来源</b>：</p>
-    <ol><li>天线结构不对称</li><li>反射面散射</li><li>馈源极化不纯</li><li>传播过程中的极化旋转（电离层、降雨）</li></ol>
-    <p><b>XPD 的典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>XPD</th></tr></thead>
-    <tbody>
-    <tr><td>理想天线</td><td>> 30dB</td></tr>
-    <tr><td>实际基站天线</td><td>20-25dB</td></tr>
-    <tr><td>雨中对流层链路</td><td>10-15dB</td></tr>
-    <tr><td>电离层传播</td><td>5-10dB</td></tr>
-    </tbody></table></div>
-  </article>
-
-  <article class="card">
-    <h2>四、极化在通信中的应用</h2>
-    <h3>4.1 极化分集（Polarization Diversity）</h3>
-    <p>利用两个正交极化在同一频率上传输独立数据流：</p>
-    <pre><code>天线 A：+45° 线极化 → 数据流 1
-    天线 B：-45° 线极化 → 数据流 2</code></pre>
-    <p><b>效果</b>：</p>
-    <ul><li>容量翻倍（在低互耦条件下）</li><li>无需额外频谱</li><li>实际互耦 20-30dB → 容量提升 30-50%</li></ul>
-    <p><b>已有笔记</b>：<span class="wl">技术概念-极化分集Polarization-Diversity</span></p>
-    <h3>4.2 MIMO 中的极化</h3>
-    <p>4G/5G 基站广泛使用双极化天线：</p>
-    <pre><code>AAU 天线单元：
-      ┌──────┐
-      │+45°  │  ← 端口 A
-      │──────│
-      │-45°  │  ← 端口 B
-      └──────┘</code></pre>
-    <p><b>为什么用 ±45° 而不是 V/H</b>：</p>
-    <ul><li>±45° 在用户手持设备中更鲁棒（手机旋转时两个极化都有信号）</li><li>V/H 极化在手机横屏/竖屏时可能一个极化完全对准、另一个完全正交</li><li>±45° 提供更稳定的分集增益</li></ul>
-    <h3>4.3 极化复用（Polarization Division Multiplexing, PDM）</h3>
-    <p>光纤通信和卫星通信中广泛使用：</p>
-    <pre><code>发送端：
-      数据 A → 水平极化光
-      数据 B → 垂直极化光
+  
+  <article class="card ">
     
-    接收端：
-      分离 H 和 V 极化 → 分别解调</code></pre>
-    <p><b>频谱效率提升</b>：2×（同一频率传两路数据）</p>
-    <h3>4.4 卫星通信中的圆极化</h3>
+    <h2>1.1 极化的数学定义</h2>
+    <p>电磁波的电场可以分解为两个正交分量：</p>
+<pre><code>E(z,t) = E_x·cos(ωt - kz + φ_x)·x̂ + E_y·cos(ωt - kz + φ_y)·ŷ
+</code></pre>
+<p>极化由三个参数决定：</p>
+<ul>
+<li><strong>幅度比</strong>：E_y / E_x</li>
+<li><strong>相位差</strong>：Δφ = φ_y - φ_x</li>
+<li><strong>传播方向</strong>：k（通常取 +z 方向）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 极化椭圆的形成</h2>
+    <p>当 E_x 和 E_y 都存在且 Δφ ≠ 0, π 时，电场矢量的末端在固定位置随时间画出一个椭圆：</p>
+<pre><code>(E_x/E_0x)² + (E_y/E_0y)² - 2(E_x/E_0x)(E_y/E_0y)cos(Δφ) = sin²(Δφ)
+</code></pre>
+<p>这就是<strong>极化椭圆方程</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 极化椭圆的几何参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>倾角（Tilt Angle）</td>
+<td>τ</td>
+<td>椭圆长轴与 x 轴的夹角，-90° ≤ τ ≤ 90°</td>
+</tr>
+<tr>
+<td>轴比（Axial Ratio）</td>
+<td>AR</td>
+<td>长轴/短轴之比，线性极化 AR=∞，圆极化 AR=1</td>
+</tr>
+<tr>
+<td>旋向（Handedness）</td>
+<td>LHCP/RHCP</td>
+<td>顺时针/逆时针旋转</td>
+</tr>
+</tbody>
+</table>
+<p><strong>轴比的 dB 表示</strong>：</p>
+<pre><code>AR_dB = 20·log₁₀(AR)
+</code></pre>
+<ul>
+<li>AR = 1（线性）→ AR_dB = 0dB ❌ 不对，AR=∞ 是线极化</li>
+<li>AR = 1（圆）→ AR_dB = 0dB ✅</li>
+<li>AR = 3 → AR_dB = 9.5dB ❌ 也不对</li>
+</ul>
+<p>纠正：</p>
+<pre><code>AR = 长轴 / 短轴
+AR = ∞ → 线极化（短轴=0）
+AR = 1 → 圆极化（长轴=短轴）
+AR = 1.5 → 椭圆极化（接近圆）
+</code></pre>
+<p>AR_dB 的定义有两种常见方式：</p>
+<ol>
+<li><strong>线性尺度</strong>：AR（无量纲比值）</li>
+<li><strong>dB 尺度</strong>：AR_dB = 20·log₁₀(AR)，圆极化 = 0dB，线极化 = ∞dB</li>
+</ol>
+<p>工程中常用"轴比 ≤ 3dB"作为圆极化天线的验收标准。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 线极化（Linear Polarization）</h2>
+    <pre><code>Δφ = 0 或 π
+E_y / E_x = 常数
+</code></pre>
+<p>电场矢量始终沿一条直线振荡：</p>
+<pre><code>      ↑ E
+      │
+      │
+──────┼────── z（传播方向）
+      │
+      ↓
+</code></pre>
+<p><strong>分类</strong>：
+| 类型 | Δφ | 方向 | 示例 |
+|------|-----|------|------|
+| 水平线极化（HPol） | 0 | 平行于地面 | FM 广播 |
+| 垂直线极化（VPol） | 0 | 垂直于地面 | 对讲机 |
+| ±45° 线极化 | 0 或 π | 倾斜 45° | 5G MIMO 基站 |</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>最简单、最常用</li>
+<li>基站天线几乎都用 ±45° 线极化</li>
+<li>极化隔离度：理论 ∞（正交极化完全不干扰），实际 20-35dB</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 圆极化（Circular Polarization）</h2>
+    <pre><code>E_x = E_y
+Δφ = ±π/2
+</code></pre>
+<p>电场矢量末端画出一个圆：</p>
+<pre><code>      ↺ RHCP（右手圆极化）
+    ← ↑ →
+      ↻
+</code></pre>
+<p><strong>旋向定义</strong>（IEEE 标准）：</p>
+<ul>
+<li><strong>RHCP（Right-Hand CP）</strong>：观察者面向波传播方向，电场顺时针旋转</li>
+<li><strong>LHCP（Left-Hand CP）</strong>：观察者面向波传播方向，电场逆时针旋转</li>
+</ul>
+<p><strong>注意</strong>：天线学界有两种定义方式（IEEE vs 光学），务必确认标准！</p>
+<p><strong>圆极化的优势</strong>：</p>
+<ol>
+<li><strong>不受天线取向影响</strong>：接收天线旋转不影响信号强度</li>
+<li><strong>抑制多径干扰</strong>：反射波会翻转旋向，RHCP 天线接收 LHCP 反射波时被抑制</li>
+<li><strong>雨衰较小</strong>：对降水引起的极化旋转不敏感</li>
+</ol>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>GPS/GLONASS/Galileo（卫星信号）</li>
+<li>卫星通信（DVB-S2）</li>
+<li>气象雷达（区分雨滴和冰雹）</li>
+<li>RFID（标签取向不确定）</li>
+<li>军事通信（抗干扰）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 椭圆极化（Elliptical Polarization）</h2>
+    <p>最一般的情况：</p>
+<pre><code>E_x ≠ E_y 且 Δφ ≠ 0, π/2, π
+</code></pre>
+<p>电场矢量末端画出一个椭圆：</p>
+<pre><code>      ╱───╲
+    ╱       ╲
+   │    ●    │  ← 椭圆
+    ╲       ╱
+      ╲───╱
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>线极化和圆极化都是椭圆极化的特例</li>
+<li>实际天线辐射的几乎都是椭圆极化（不完美）</li>
+<li>轴比 AR 是衡量"有多椭圆"的指标</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 极化匹配因子（Polarization Match Factor）</h2>
+    <p>收发天线之间的功率传输效率：</p>
+<pre><code>PLF = |ρ̂_t · ρ̂_r|²
+</code></pre>
+<p>其中 ρ̂_t 和 ρ̂_r 分别是发射和接收天线的极化单位矢量。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>发射 × 接收</th>
+<th>PLF (线性)</th>
+<th>PLF (dB)</th>
+<th>功率损失</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPol × VPol</td>
+<td>1.0</td>
+<td>0dB</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>HPol × HPol</td>
+<td>1.0</td>
+<td>0dB</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>VPol × HPol</td>
+<td>0</td>
+<td>-∞dB</td>
+<td>完全隔离</td>
+</tr>
+<tr>
+<td>±45° × ∓45°</td>
+<td>0</td>
+<td>-∞dB</td>
+<td>完全隔离</td>
+</tr>
+<tr>
+<td>RHCP × RHCP</td>
+<td>1.0</td>
+<td>0dB</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>RHCP × LHCP</td>
+<td>0</td>
+<td>-∞dB</td>
+<td>完全隔离</td>
+</tr>
+<tr>
+<td>VPol × RHCP</td>
+<td>0.5</td>
+<td>-3dB</td>
+<td>一半功率</td>
+</tr>
+<tr>
+<td>HPol × RHCP</td>
+<td>0.5</td>
+<td>-3dB</td>
+<td>一半功率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 极化隔离度（Polarization Isolation）</h2>
+    <p>衡量天线抑制交叉极化的能力：</p>
+<pre><code>PI = 10·log₁₀(P_co-pol / P_cross-pol) [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>极化类型</th>
+<th>典型隔离度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>±45° 线极化</td>
+<td>20-35dB</td>
+</tr>
+<tr>
+<td>圆极化（同旋向 vs 反旋向）</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>高隔离度基站天线</td>
+<td>&gt; 30dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 交叉极化（Cross-Polarization）</h2>
+    <p>理想情况下，天线只辐射期望的极化（co-pol），但实际上总会有少量交叉极化（cross-pol）：</p>
+<pre><code>总辐射 = co-pol + cross-pol
+XPD（交叉极化比）= co-pol / cross-pol
+</code></pre>
+<p><strong>交叉极化的来源</strong>：</p>
+<ol>
+<li>天线结构不对称</li>
+<li>反射面散射</li>
+<li>馈源极化不纯</li>
+<li>传播过程中的极化旋转（电离层、降雨）</li>
+</ol>
+<p><strong>XPD 的典型值</strong>：
+| 场景 | XPD |
+|------|-----|
+| 理想天线 | &gt; 30dB |
+| 实际基站天线 | 20-25dB |
+| 雨中对流层链路 | 10-15dB |
+| 电离层传播 | 5-10dB |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 极化分集（Polarization Diversity）</h2>
+    <p>利用两个正交极化在同一频率上传输独立数据流：</p>
+<pre><code>天线 A：+45° 线极化 → 数据流 1
+天线 B：-45° 线极化 → 数据流 2
+</code></pre>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>容量翻倍（在低互耦条件下）</li>
+<li>无需额外频谱</li>
+<li>实际互耦 20-30dB → 容量提升 30-50%</li>
+</ul>
+<p><strong>已有笔记</strong>：[[技术概念-极化分集Polarization-Diversity]]</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 MIMO 中的极化</h2>
+    <p>4G/5G 基站广泛使用双极化天线：</p>
+<pre><code>AAU 天线单元：
+  ┌──────┐
+  │+45°  │  ← 端口 A
+  │──────│
+  │-45°  │  ← 端口 B
+  └──────┘
+</code></pre>
+<p><strong>为什么用 ±45° 而不是 V/H</strong>：</p>
+<ul>
+<li>±45° 在用户手持设备中更鲁棒（手机旋转时两个极化都有信号）</li>
+<li>V/H 极化在手机横屏/竖屏时可能一个极化完全对准、另一个完全正交</li>
+<li>±45° 提供更稳定的分集增益</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 极化复用（Polarization Division Multiplexing, PDM）</h2>
+    <p>光纤通信和卫星通信中广泛使用：</p>
+<pre><code>发送端：
+  数据 A → 水平极化光
+  数据 B → 垂直极化光
+
+接收端：
+  分离 H 和 V 极化 → 分别解调
+</code></pre>
+<p><strong>频谱效率提升</strong>：2×（同一频率传两路数据）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 卫星通信中的圆极化</h2>
     <p>GPS 信号使用 RHCP：</p>
-    <pre><code>卫星 → RHCP 信号 → 地面接收天线（RHCP）
-                        ↓
-    反射地面 → LHCP 信号（旋向翻转）→ 被 RHCP 天线抑制</code></pre>
-    <p><b>好处</b>：</p>
-    <ul><li>卫星姿态变化不影响信号（圆极化不受旋转影响）</li><li>多径反射被抑制（反射改变旋向）</li><li>室内/城市峡谷中仍有较好接收</li></ul>
+<pre><code>卫星 → RHCP 信号 → 地面接收天线（RHCP）
+                    ↓
+反射地面 → LHCP 信号（旋向翻转）→ 被 RHCP 天线抑制
+</code></pre>
+<p><strong>好处</strong>：</p>
+<ul>
+<li>卫星姿态变化不影响信号（圆极化不受旋转影响）</li>
+<li>多径反射被抑制（反射改变旋向）</li>
+<li>室内/城市峡谷中仍有较好接收</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、极化波束赋形（Polarization Beamforming）</h2>
-    <p>这是 6G 的前沿方向：</p>
-    <h3>5.1 XL-MIMO 中的极化维度</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 XL-MIMO 中的极化维度</h2>
     <p>传统 MIMO 利用空间维度（多个物理位置的天线单元）：</p>
-    <pre><code>空间 MIMO：
-      ┌─┐ ┌─┐ ┌─┐ ┌─┐
-      │ │ │ │ │ │ │ │  ← 每个单元单极化
-      └─┘ └─┘ └─┘ └─┘</code></pre>
-    <p>极化 MIMO 在每个空间位置增加极化维度：</p>
-    <pre><code>极化 MIMO：
-      ┌┌┐ ┌┌┐ ┌┌┐ ┌┌┐
-      │││ │││ │││ │││  ← 每个单元双极化（+45°/-45°）
-      └└┘ └└┘ └└┘ └└┘</code></pre>
-    <p><b>容量提升</b>：2×（理论上）</p>
-    <h3>5.2 独立极化波束</h3>
+<pre><code>空间 MIMO：
+  ┌─┐ ┌─┐ ┌─┐ ┌─┐
+  │ │ │ │ │ │ │ │  ← 每个单元单极化
+  └─┘ └─┘ └─┘ └─┘
+</code></pre>
+<p>极化 MIMO 在每个空间位置增加极化维度：</p>
+<pre><code>极化 MIMO：
+  ┌┌┐ ┌┌┐ ┌┌┐ ┌┌┐
+  │││ │││ │││ │││  ← 每个单元双极化（+45°/-45°）
+  └└┘ └└┘ └└┘ └└┘
+</code></pre>
+<p><strong>容量提升</strong>：2×（理论上）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 独立极化波束</h2>
     <pre><code>波束 1（+45° 极化）→ 用户 A
-    波束 2（-45° 极化）→ 用户 B</code></pre>
-    <p>两个用户可以使用相同频率、相同波束指向，通过极化隔离实现复用。</p>
-    <h3>5.3 自适应极化波束赋形</h3>
+波束 2（-45° 极化）→ 用户 B
+</code></pre>
+<p>两个用户可以使用相同频率、相同波束指向，通过极化隔离实现复用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 自适应极化波束赋形</h2>
     <p>根据信道状态动态调整极化方向：</p>
-    <pre><code>信道测量 → 最优极化方向 → 调整天线极化 → 最大化信噪比</code></pre>
-    <p><b>已有笔记</b>：<span class="wl">技术概念-极化波束赋形Polarization-Beamforming</span></p>
+<pre><code>信道测量 → 最优极化方向 → 调整天线极化 → 最大化信噪比
+</code></pre>
+<p><strong>已有笔记</strong>：[[技术概念-极化波束赋形Polarization-Beamforming]]</p>
   </article>
+  
 
-  <article class="card">
-    <h2>六、传播对极化的影响</h2>
-    <h3>6.1 雨致极化旋转</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 雨致极化旋转</h2>
     <p>降雨会使线极化波发生旋转：</p>
-    <pre><code>旋转角 ∝ 降雨率 × 传播距离 × f²</code></pre>
-    <p><b>影响</b>：</p>
-    <ul><li>Ku 波段（12GHz）：小雨可忽略，大雨旋转 5-10°</li><li>Ka 波段（30GHz）：小雨旋转 10-20°</li><li>100GHz+：旋转可达 45°+</li></ul>
-    <p><b>对策</b>：使用圆极化（不受旋转影响）或自适应极化补偿</p>
-    <h3>6.2 电离层法拉第旋转</h3>
-    <p>低频（< 1GHz）信号穿过电离层时极化面旋转：</p>
-    <pre><code>旋转角 ∝ TEC × f⁻²</code></pre>
-    <p>TEC 是总电子含量，随太阳活动变化。</p>
-    <p><b>影响</b>：</p>
-    <ul><li>GPS L1（1.57GHz）：旋转 5-20°</li><li>使用 RHCP 可消除影响</li></ul>
-    <h3>6.3 多径极化散射</h3>
+<pre><code>旋转角 ∝ 降雨率 × 传播距离 × f²
+</code></pre>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>Ku 波段（12GHz）：小雨可忽略，大雨旋转 5-10°</li>
+<li>Ka 波段（30GHz）：小雨旋转 10-20°</li>
+<li>100GHz+：旋转可达 45°+</li>
+</ul>
+<p><strong>对策</strong>：使用圆极化（不受旋转影响）或自适应极化补偿</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 电离层法拉第旋转</h2>
+    <p>低频（&lt; 1GHz）信号穿过电离层时极化面旋转：</p>
+<pre><code>旋转角 ∝ TEC × f⁻²
+</code></pre>
+<p>TEC 是总电子含量，随太阳活动变化。</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>GPS L1（1.57GHz）：旋转 5-20°</li>
+<li>使用 RHCP 可消除影响</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 多径极化散射</h2>
     <p>信号经建筑物/地面反射后极化状态改变：</p>
-    <pre><code>入射 VPol → 反射 → VPol + 少量 HPol（交叉极化）
-    入射 HPol → 反射 → HPol + 少量 VPol（交叉极化）</code></pre>
-    <p>反射面越粗糙，交叉极化分量越大。</p>
+<pre><code>入射 VPol → 反射 → VPol + 少量 HPol（交叉极化）
+入射 HPol → 反射 → HPol + 少量 VPol（交叉极化）
+</code></pre>
+<p>反射面越粗糙，交叉极化分量越大。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>七、极化测量</h2>
-    <h3>7.1 轴比测量</h3>
-    <p><b>旋转天线法</b>：</p>
-    <ol><li>固定发射天线（RHCP）</li><li>旋转接收天线，记录功率变化</li><li>最大功率与最小功率之比 = AR²</li></ol>
-    <p><b>两点法</b>：</p>
-    <ol><li>测量两个正交线极化分量</li><li>计算相位差和幅度比</li><li>推导轴比</li></ol>
-    <h3>7.2 极化隔离度测量</h3>
-    <ol><li>发射天线设为 +45° 线极化</li><li>接收天线分别设为 +45° 和 -45°</li><li>测量 S21_co 和 S21_cross</li><li>PI = S21_co - S21_cross</li></ol>
-    <h3>7.3 极化方向图测量</h3>
+  
+  <article class="card ">
+    
+    <h2>7.1 轴比测量</h2>
+    <p><strong>旋转天线法</strong>：</p>
+<ol>
+<li>固定发射天线（RHCP）</li>
+<li>旋转接收天线，记录功率变化</li>
+<li>最大功率与最小功率之比 = AR²</li>
+</ol>
+<p><strong>两点法</strong>：</p>
+<ol>
+<li>测量两个正交线极化分量</li>
+<li>计算相位差和幅度比</li>
+<li>推导轴比</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 极化隔离度测量</h2>
+    <ol>
+<li>发射天线设为 +45° 线极化</li>
+<li>接收天线分别设为 +45° 和 -45°</li>
+<li>测量 S21_co 和 S21_cross</li>
+<li>PI = S21_co - S21_cross</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 极化方向图测量</h2>
     <p>在暗室中使用可旋转极化的参考天线：</p>
-    <pre><code>方位角 θ → 旋转接收天线极化 → 记录 co-pol 和 cross-pol 方向图</code></pre>
-    <p>输出：</p>
-    <ul><li>co-pol 方向图（期望极化）</li><li>cross-pol 方向图（交叉极化）</li><li>轴比方向图（全空间 AR 分布）</li></ul>
+<pre><code>方位角 θ → 旋转接收天线极化 → 记录 co-pol 和 cross-pol 方向图
+</code></pre>
+<p>输出：</p>
+<ul>
+<li>co-pol 方向图（期望极化）</li>
+<li>cross-pol 方向图（交叉极化）</li>
+<li>轴比方向图（全空间 AR 分布）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、已有笔记关联</h2>
-    <div class="tw"><table>
-    <thead><tr><th>已有笔记</th><th>与本笔记的关系</th></tr></thead>
-    <tbody>
-    <tr><td><span class="wl">技术概念-极化分集Polarization-Diversity</span></td><td>已覆盖极化分集在 MIMO 中的应用</td></tr>
-    <tr><td><span class="wl">技术概念-圆极化天线Circular-Polarization</span></td><td>已覆盖圆极化天线的具体实现</td></tr>
-    <tr><td><span class="wl">技术概念-极化波束赋形Polarization-Beamforming</span></td><td>已覆盖 6G 极化波束赋形的高级应用</td></tr>
-    <tr><td><span class="wl">技术概念-MIMO天线技术解读</span></td><td>涉及极化在 MIMO 中的角色</td></tr>
-    </tbody></table></div>
-    <p><b>本笔记的定位</b>：填补上述笔记的前置基础——统一讲解线极化、圆极化、椭圆极化的底层原理和数学描述，让读者理解"极化到底是什么"。</p>
+    <table>
+<thead>
+<tr>
+<th>已有笔记</th>
+<th>与本笔记的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[[技术概念-极化分集Polarization-Diversity]]</td>
+<td>已覆盖极化分集在 MIMO 中的应用</td>
+</tr>
+<tr>
+<td>[[技术概念-圆极化天线Circular-Polarization]]</td>
+<td>已覆盖圆极化天线的具体实现</td>
+</tr>
+<tr>
+<td>[[技术概念-极化波束赋形Polarization-Beamforming]]</td>
+<td>已覆盖 6G 极化波束赋形的高级应用</td>
+</tr>
+<tr>
+<td>[[技术概念-MIMO天线技术解读]]</td>
+<td>涉及极化在 MIMO 中的角色</td>
+</tr>
+</tbody>
+</table>
+<p><strong>本笔记的定位</strong>：填补上述笔记的前置基础——统一讲解线极化、圆极化、椭圆极化的底层原理和数学描述，让读者理解"极化到底是什么"。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>九、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：高度成熟</li><li><b>说明</b>：极化理论是天线学的基石（19世纪麦克斯韦方程组就包含了）。线极化和圆极化天线的工程实现已非常成熟。极化波束赋形和自适应极化控制是 6G 前沿方向，处于研究阶段。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>极化是电磁波的"舞蹈姿势"——线极化是"原地踏步"，圆极化是"转圈圈"，椭圆极化是"不规则跳舞"。天线接收信号就像找一个舞伴：姿势相同的跳得最好（极化匹配），姿势不同的只能勉强配合（极化失配），完全正交的干脆各跳各的（极化隔离）。在 MIMO 和 6G 时代，极化已经从"要不要用"变成了"怎么用更好"——它提供了一个额外的维度来倍增容量。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -371,39 +664,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

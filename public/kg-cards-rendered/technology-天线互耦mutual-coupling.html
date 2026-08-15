@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线互耦（Mutual Coupling in Antenna Arrays） · 知识卡片</title>
+<title>天线互耦Mutual-Coupling · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线互耦 <span class="en">Mutual Coupling in Antenna Arrays</span></h1>
-  <p class="lede">互耦是天线阵列中相邻单元之间的电磁相互作用——当一个单元辐射时，一部分能量会通过空间耦合或表面波耦合被邻近单元"偷走"，导致阻抗偏移、方向图畸变和 MIMO 容量下降。它是阵列设计中无处不在的物理现象，无法消除只能管理。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线互耦Mutual-Coupling</h1>
+  <p class="lede">互耦是天线阵列中相邻单元之间的电磁相互作用——当一个单元辐射时，一部分能量会通过空间耦合或表面波耦合被邻近单元&#34;偷走&#34;，导致阻抗偏移、方向图畸变和 MIMO 容量下降。它是阵列设计中无处不在的物理现象，无法消除只能管理。</p>
+  
 </header>
 
 <main>
@@ -99,224 +101,530 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一排人站在广场上喊话。第一个人喊的时候，声音不仅传向远方，还会被旁边的人听到并产生回声——这些人听到的声音和自己嘴里发出的声音叠加在一起，改变了他们对自己"声音大小"的判断。天线阵列中的互耦就是这样：每个单元不仅辐射自己的信号，还会"听到"邻居的信号，从而改变自己的阻抗和辐射特性。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 什么是互耦？</h3>
-    <p>互耦（Mutual Coupling）是指天线阵列中两个或多个单元之间的电磁能量交换。当一个单元（端口 n）被激励时，不仅该单元辐射能量，部分能量还会通过以下方式耦合到其他单元（端口 m）：</p>
-    <ol><li><b>空间耦合（Space Wave）</b>：直接通过自由空间传播</li><li><b>表面波耦合（Surface Wave）</b>：通过基板或接地面传播</li><li><b>导波耦合（Guide Wave）</b>：通过馈电网络传播</li></ol>
-    <h3>1.2 互耦的数学描述</h3>
-    <h4>阻抗矩阵形式</h4>
-    <pre><code>[V₁]   [Z₁₁  Z₁₂  ... Z₁N]   [I₁]
-    [V₂]   [Z₂₁  Z₂₂  ... Z₂N]   [I₂]
-    [...] = [...            ...] · [...]
-    [VN]   [ZN1  ZN2  ... ZNN]   [IN]</code></pre>
-    <p>其中：</p>
-    <ul><li>Z_nn 是自阻抗（self-impedance）</li><li>Z_nm (n≠m) 是<b>互阻抗（mutual impedance）</b></li></ul>
-    <p><b>关键关系</b>：</p>
-    <pre><code>Z₁₂ = Z₂₁  （互易定理，无源阵列）</code></pre>
-    <h4>S 参数形式</h4>
-    <pre><code>[b₁]   [S₁₁  S₁₂  ... S₁N]   [a₁]
-    [b₂]   [S₂₁  S₂₂  ... S₂N]   [a₂]
-    [...] = [...            ...] · [...]
-    [bN]   [SN1  SN2  ... SNN]   [aN]</code></pre>
-    <p>其中：</p>
-    <ul><li>S_nm = b_n / a_m |_{a_k=0, k≠m} 是端口 m 到端口 n 的传输系数</li><li>|S_nm|² 表示从端口 m 耦合到端口 n 的<b>功率比例</b></li></ul>
-    <p><b>工程意义</b>：</p>
-    <ul><li>S₁₂ = -20dB → 5% 的能量从端口 2 耦合到端口 1</li><li>S₁₂ = -30dB → 0.1% 的能量耦合</li><li>S₁₂ = -40dB → 0.01% 的能量耦合</li></ul>
-    <h3>1.3 互耦的物理机制</h3>
-    <pre><code>激励端口 m
-        │
-        ▼
-    ┌─────────┐     空间耦合      ┌─────────┐
-    │  单元 m  │ ───────────────→ │  单元 n  │
-    │ (发射)   │                  │ (接收)   │
-    └─────────┘                  └─────────┘
-        │                              ▲
-        │         表面波               │
-        └──────────────────────────────┘
-             通过基板/接地面传播</code></pre>
-    <p><b>空间耦合</b>：</p>
-    <ul><li>距离衰减：∝ 1/r²（远场）或 1/r³（近场）</li><li>与波长相关：d > λ/2 时显著降低</li><li>与极化相关：正交极化耦合更低</li></ul>
-    <p><b>表面波耦合</b>：</p>
-    <ul><li>在介质基板中传播，衰减较慢</li><li>在高介电常数基板（如硅、LTCC）中更强</li><li>与基板厚度、介电常数、损耗角正切相关</li></ul>
-    <p><b>馈电网络耦合</b>：</p>
-    <ul><li>通过公共馈电线传播</li><li>在功分器/合路器中形成间接耦合路径</li><li>与馈电网络的隔离度相关</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>二、互耦的影响</h2>
-    <h3>2.1 对阻抗的影响</h3>
-    <p>互耦导致每个单元的输入阻抗随阵列状态变化：</p>
-    <pre><code>Z_in,n = Z_nn + Σ(m≠n) (I_m/I_n) · Z_nm</code></pre>
-    <p><b>后果</b>：</p>
-    <ul><li>单个单元的 50Ω 匹配在阵列中可能变成 30+j20Ω</li><li>波束扫描时阻抗随扫描角变化（scan impedance variation）</li><li>VSWR 恶化，反射损耗增加</li></ul>
-    <p><b>典型数据</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>单元间距</th><th>S₁₂ (dB)</th><th>阻抗偏移</th></tr></thead>
-    <tbody>
-    <tr><td>0.5λ</td><td>-10dB</td><td>±15Ω</td></tr>
-    <tr><td>0.7λ</td><td>-18dB</td><td>±8Ω</td></tr>
-    <tr><td>1.0λ</td><td>-25dB</td><td>±3Ω</td></tr>
-    <tr><td>1.5λ</td><td>-35dB</td><td>±1Ω</td></tr>
-    </tbody></table></div>
-    <h3>2.2 对方向图的影响</h3>
-    <p>互耦改变有源单元方向图（AEP）：</p>
-    <pre><code>AF_active(θ) = Σ w_n · exp(jk·r_n) · F_element(θ) · (1 + Σ_m≠n Γ_nm)</code></pre>
-    <p>其中 Γ_nm 是单元 m 对单元 n 的耦合系数。</p>
-    <p><b>后果</b>：</p>
-    <ul><li>主瓣增益变化（通常降低 0.5-2dB）</li><li>旁瓣电平升高（3-10dB）</li><li>波束指向偏移（0.1-1°）</li><li>扫描盲区（scan blindness）</li></ul>
-    <h3>2.3 对 MIMO 容量的影响</h3>
-    <p>互耦降低 MIMO 信道矩阵的条件数：</p>
-    <pre><code>H_MIMO = H_free_space + H_coupling
-    H_coupling = K_c · H_free_space</code></pre>
-    <p>其中 K_c 是耦合矩阵。</p>
-    <p><b>后果</b>：</p>
-    <ul><li>信道矩阵列之间相关性增加</li><li>空间复用增益下降</li><li>MIMO 容量降低 10-30%</li></ul>
-    <p><b>但</b>：在某些情况下，互耦可以增加相关性从而提高容量（当空间自由度受限时）。</p>
-    <h3>2.4 对波束赋形的影响</h3>
-    <p>互耦导致波束赋形向量偏离预期：</p>
-    <pre><code>w_actual = (I + K_c) · w_desired</code></pre>
-    <p><b>后果</b>：</p>
-    <ul><li>零陷深度恶化</li><li>旁瓣不对称</li><li>波束指向误差</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>三、互耦的量化指标</h2>
-    <h3>3.1 耦合系数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>S₁₂</td><td>相邻单元传输系数</td><td>-10 到 -40dB</td></tr>
-    <tr><td>耦合效率 η_c</td><td></td><td>S₁₂</td><td>²</td><td>0.01%-10%</td></tr>
-    <tr><td>隔离度 ISO</td><td>-20·log₁₀</td><td>S₁₂</td><td></td><td>10-40dB</td></tr>
-    <tr><td>互阻抗比</td><td></td><td>Z₁₂</td><td>/</td><td>Z₁₁</td><td></td><td>0.01-0.5</td></tr>
-    </tbody></table></div>
-    <h3>3.2 阵列级指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标</th></tr></thead>
-    <tbody>
-    <tr><td>平均耦合</td><td>(1/N(N-1)) · Σ</td><td>S_nm</td><td>²</td><td><-0.01</td></tr>
-    <tr><td>最大耦合</td><td>max</td><td>S_nm</td><td></td><td><-20dB</td></tr>
-    <tr><td>耦合引起的增益变化</td><td>ΔG_coupling</td><td><-1dB</td></tr>
-    <tr><td>耦合引起的方向图误差</td><td>ΔAF_coupling</td><td><-3dB</td></tr>
-    </tbody></table></div>
-  </article>
-
-  <article class="card">
-    <h2>四、互耦的减小方法</h2>
-    <h3>4.1 增加单元间距</h3>
-    <p>最简单的办法，但有局限性：</p>
-    <pre><code>S₁₂ ∝ exp(-π·d/λ)  （近似）</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>间距</th><th>S₁₂</th><th>阵列尺寸</th></tr></thead>
-    <tbody>
-    <tr><td>0.5λ</td><td>-10dB</td><td>最小</td></tr>
-    <tr><td>0.7λ</td><td>-18dB</td><td>紧凑</td></tr>
-    <tr><td>1.0λ</td><td>-25dB</td><td>适中</td></tr>
-    <tr><td>1.5λ</td><td>-35dB</td><td>较大</td></tr>
-    </tbody></table></div>
-    <p><b>代价</b>：阵列尺寸增大，可能出现栅瓣（d > λ 时）。</p>
-    <h3>4.2 去耦结构</h3>
-    <p>详见 <span class="wl">技术概念-MIMO天线去耦Decoupling</span>：</p>
-    <ul><li>DGS（缺陷Ground结构）</li><li>EBG（电磁带隙）</li><li>中和线（Neutralization Line）</li><li>超材料/超表面</li><li>隔离腔体</li></ul>
-    <h3>4.3 极化正交</h3>
-    <p>利用正交极化降低互耦：</p>
-    <pre><code>S₁₂ (co-pol) = -10dB
-    S₁₂ (cross-pol) = -30dB</code></pre>
-    <h3>4.4 数字域互耦补偿</h3>
-    <p>在数字波束赋形中，通过预矫正矩阵消除互耦影响：</p>
-    <pre><code>w_compensated = (I + K_c)^{-1} · w_desired</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>不需要物理修改</li><li>可以自适应更新</li><li>补偿高阶互耦</li></ul>
-    <p><b>挑战</b>：</p>
-    <ul><li>需要精确测量 K_c</li><li>计算复杂度 O(N³)</li><li>温度/频率漂移需要重新校准</li></ul>
-    <h3>4.5 去耦馈电网络（DFN）</h3>
-    <p>2024 年提出的新方法——在馈电网络中引入额外的耦合路径，抵消单元之间的空间耦合：</p>
-    <pre><code>S_DFN = -S_space</code></pre>
-    <p>效果：互耦降低 7-24dB。</p>
-  </article>
-
-  <article class="card">
-    <h2>五、互耦的利用</h2>
-    <h3>5.1 互耦增强 MIMO 容量</h3>
-    <p>当空间自由度受限时，互耦可以增加通道间的相关性，反而提升容量：</p>
-    <pre><code>C = log₂ det(I + ρ/N · H·Hᴴ)</code></pre>
-    <p>当 H 的列相关性高时，互耦可以"混叠"信号，创造新的自由度。</p>
-    <h3>5.2 互耦用于传感</h3>
-    <p>利用互耦对环境的敏感性实现传感功能：</p>
-    <ul><li>生物传感：介电常数变化 → 互耦变化</li><li>湿度传感：水汽吸收 → 基板 Dk 变化 → 互耦变化</li><li>形变监测：单元间距变化 → 互耦变化</li></ul>
-    <h3>5.3 互耦用于小型化</h3>
-    <p>利用互耦的"电磁近邻效应"，可以在小于 λ/2 的间距下实现可接受的隔离度：</p>
-    <ul><li>寄生单元（parasitic elements）通过互耦被激励</li><li>等效孔径增大，增益不降</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>六、互耦测量与仿真</h2>
-    <h3>6.1 S 参数测量</h3>
-    <p>使用 VNA（矢量网络分析仪）测量多端口 S 参数矩阵：</p>
-    <pre><code>步骤：
-    1. 将所有端口接 50Ω 负载
-    2. 逐端口激励，测量所有端口的 S 参数
-    3. 得到 N×N 的 S 矩阵</code></pre>
-    <p><b>注意</b>：测量时需要确保所有端口正确端接（a_k = 0, k ≠ m）。</p>
-    <h3>6.2 全波仿真</h3>
-    <p>使用 HFSS、CST 等工具仿真阵列的 S 参数：</p>
-    <pre><code>优势：
-    - 可以分离空间耦合和表面波耦合
-    - 可以研究互耦随扫描角的变化
-    - 可以优化去耦结构
+  
+  <article class="card ">
     
-    劣势：
-    - 大规模阵列（N &gt; 100）计算成本高
-    - 需要网格收敛性验证</code></pre>
-    <h3>6.3 半解析方法</h3>
+    <h2>1.1 什么是互耦？</h2>
+    <p>互耦（Mutual Coupling）是指天线阵列中两个或多个单元之间的电磁能量交换。当一个单元（端口 n）被激励时，不仅该单元辐射能量，部分能量还会通过以下方式耦合到其他单元（端口 m）：</p>
+<ol>
+<li><strong>空间耦合（Space Wave）</strong>：直接通过自由空间传播</li>
+<li><strong>表面波耦合（Surface Wave）</strong>：通过基板或接地面传播</li>
+<li><strong>导波耦合（Guide Wave）</strong>：通过馈电网络传播</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>阻抗矩阵形式</h2>
+    <pre><code>[V₁]   [Z₁₁  Z₁₂  ... Z₁N]   [I₁]
+[V₂]   [Z₂₁  Z₂₂  ... Z₂N]   [I₂]
+[...] = [...            ...] · [...]
+[VN]   [ZN1  ZN2  ... ZNN]   [IN]
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>Z_nn 是自阻抗（self-impedance）</li>
+<li>Z_nm (n≠m) 是<strong>互阻抗（mutual impedance）</strong></li>
+</ul>
+<p><strong>关键关系</strong>：</p>
+<pre><code>Z₁₂ = Z₂₁  （互易定理，无源阵列）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>S 参数形式</h2>
+    <pre><code>[b₁]   [S₁₁  S₁₂  ... S₁N]   [a₁]
+[b₂]   [S₂₁  S₂₂  ... S₂N]   [a₂]
+[...] = [...            ...] · [...]
+[bN]   [SN1  SN2  ... SNN]   [aN]
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>S_nm = b_n / a_m |_{a_k=0, k≠m} 是端口 m 到端口 n 的传输系数</li>
+<li>|S_nm|² 表示从端口 m 耦合到端口 n 的<strong>功率比例</strong></li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>S₁₂ = -20dB → 5% 的能量从端口 2 耦合到端口 1</li>
+<li>S₁₂ = -30dB → 0.1% 的能量耦合</li>
+<li>S₁₂ = -40dB → 0.01% 的能量耦合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 互耦的物理机制</h2>
+    <pre><code>激励端口 m
+    │
+    ▼
+┌─────────┐     空间耦合      ┌─────────┐
+│  单元 m  │ ───────────────→ │  单元 n  │
+│ (发射)   │                  │ (接收)   │
+└─────────┘                  └─────────┘
+    │                              ▲
+    │         表面波               │
+    └──────────────────────────────┘
+         通过基板/接地面传播
+</code></pre>
+<p><strong>空间耦合</strong>：</p>
+<ul>
+<li>距离衰减：∝ 1/r²（远场）或 1/r³（近场）</li>
+<li>与波长相关：d &gt; λ/2 时显著降低</li>
+<li>与极化相关：正交极化耦合更低</li>
+</ul>
+<p><strong>表面波耦合</strong>：</p>
+<ul>
+<li>在介质基板中传播，衰减较慢</li>
+<li>在高介电常数基板（如硅、LTCC）中更强</li>
+<li>与基板厚度、介电常数、损耗角正切相关</li>
+</ul>
+<p><strong>馈电网络耦合</strong>：</p>
+<ul>
+<li>通过公共馈电线传播</li>
+<li>在功分器/合路器中形成间接耦合路径</li>
+<li>与馈电网络的隔离度相关</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 对阻抗的影响</h2>
+    <p>互耦导致每个单元的输入阻抗随阵列状态变化：</p>
+<pre><code>Z_in,n = Z_nn + Σ(m≠n) (I_m/I_n) · Z_nm
+</code></pre>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>单个单元的 50Ω 匹配在阵列中可能变成 30+j20Ω</li>
+<li>波束扫描时阻抗随扫描角变化（scan impedance variation）</li>
+<li>VSWR 恶化，反射损耗增加</li>
+</ul>
+<p><strong>典型数据</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>单元间距</th>
+<th>S₁₂ (dB)</th>
+<th>阻抗偏移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5λ</td>
+<td>-10dB</td>
+<td>±15Ω</td>
+</tr>
+<tr>
+<td>0.7λ</td>
+<td>-18dB</td>
+<td>±8Ω</td>
+</tr>
+<tr>
+<td>1.0λ</td>
+<td>-25dB</td>
+<td>±3Ω</td>
+</tr>
+<tr>
+<td>1.5λ</td>
+<td>-35dB</td>
+<td>±1Ω</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 对方向图的影响</h2>
+    <p>互耦改变有源单元方向图（AEP）：</p>
+<pre><code>AF_active(θ) = Σ w_n · exp(jk·r_n) · F_element(θ) · (1 + Σ_m≠n Γ_nm)
+</code></pre>
+<p>其中 Γ_nm 是单元 m 对单元 n 的耦合系数。</p>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>主瓣增益变化（通常降低 0.5-2dB）</li>
+<li>旁瓣电平升高（3-10dB）</li>
+<li>波束指向偏移（0.1-1°）</li>
+<li>扫描盲区（scan blindness）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 对 MIMO 容量的影响</h2>
+    <p>互耦降低 MIMO 信道矩阵的条件数：</p>
+<pre><code>H_MIMO = H_free_space + H_coupling
+H_coupling = K_c · H_free_space
+</code></pre>
+<p>其中 K_c 是耦合矩阵。</p>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>信道矩阵列之间相关性增加</li>
+<li>空间复用增益下降</li>
+<li>MIMO 容量降低 10-30%</li>
+</ul>
+<p><strong>但</strong>：在某些情况下，互耦可以增加相关性从而提高容量（当空间自由度受限时）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 对波束赋形的影响</h2>
+    <p>互耦导致波束赋形向量偏离预期：</p>
+<pre><code>w_actual = (I + K_c) · w_desired
+</code></pre>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>零陷深度恶化</li>
+<li>旁瓣不对称</li>
+<li>波束指向误差</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 耦合系数</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S₁₂</td>
+<td>相邻单元传输系数</td>
+<td>-10 到 -40dB</td>
+</tr>
+<tr>
+<td>耦合效率 η_c</td>
+<td></td>
+<td>S₁₂</td>
+</tr>
+<tr>
+<td>隔离度 ISO</td>
+<td>-20·log₁₀</td>
+<td>S₁₂</td>
+</tr>
+<tr>
+<td>互阻抗比</td>
+<td></td>
+<td>Z₁₂</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 阵列级指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平均耦合</td>
+<td>(1/N(N-1)) · Σ</td>
+<td>S_nm</td>
+</tr>
+<tr>
+<td>最大耦合</td>
+<td>max</td>
+<td>S_nm</td>
+</tr>
+<tr>
+<td>耦合引起的增益变化</td>
+<td>ΔG_coupling</td>
+<td>&lt;-1dB</td>
+</tr>
+<tr>
+<td>耦合引起的方向图误差</td>
+<td>ΔAF_coupling</td>
+<td>&lt;-3dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 增加单元间距</h2>
+    <p>最简单的办法，但有局限性：</p>
+<pre><code>S₁₂ ∝ exp(-π·d/λ)  （近似）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>间距</th>
+<th>S₁₂</th>
+<th>阵列尺寸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5λ</td>
+<td>-10dB</td>
+<td>最小</td>
+</tr>
+<tr>
+<td>0.7λ</td>
+<td>-18dB</td>
+<td>紧凑</td>
+</tr>
+<tr>
+<td>1.0λ</td>
+<td>-25dB</td>
+<td>适中</td>
+</tr>
+<tr>
+<td>1.5λ</td>
+<td>-35dB</td>
+<td>较大</td>
+</tr>
+</tbody>
+</table>
+<p><strong>代价</strong>：阵列尺寸增大，可能出现栅瓣（d &gt; λ 时）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 去耦结构</h2>
+    <p>详见 [[技术概念-MIMO天线去耦Decoupling]]：</p>
+<ul>
+<li>DGS（缺陷Ground结构）</li>
+<li>EBG（电磁带隙）</li>
+<li>中和线（Neutralization Line）</li>
+<li>超材料/超表面</li>
+<li>隔离腔体</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 极化正交</h2>
+    <p>利用正交极化降低互耦：</p>
+<pre><code>S₁₂ (co-pol) = -10dB
+S₁₂ (cross-pol) = -30dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 数字域互耦补偿</h2>
+    <p>在数字波束赋形中，通过预矫正矩阵消除互耦影响：</p>
+<pre><code>w_compensated = (I + K_c)^{-1} · w_desired
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>不需要物理修改</li>
+<li>可以自适应更新</li>
+<li>补偿高阶互耦</li>
+</ul>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>需要精确测量 K_c</li>
+<li>计算复杂度 O(N³)</li>
+<li>温度/频率漂移需要重新校准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 去耦馈电网络（DFN）</h2>
+    <p>2024 年提出的新方法——在馈电网络中引入额外的耦合路径，抵消单元之间的空间耦合：</p>
+<pre><code>S_DFN = -S_space
+</code></pre>
+<p>效果：互耦降低 7-24dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 互耦增强 MIMO 容量</h2>
+    <p>当空间自由度受限时，互耦可以增加通道间的相关性，反而提升容量：</p>
+<pre><code>C = log₂ det(I + ρ/N · H·Hᴴ)
+</code></pre>
+<p>当 H 的列相关性高时，互耦可以"混叠"信号，创造新的自由度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 互耦用于传感</h2>
+    <p>利用互耦对环境的敏感性实现传感功能：</p>
+<ul>
+<li>生物传感：介电常数变化 → 互耦变化</li>
+<li>湿度传感：水汽吸收 → 基板 Dk 变化 → 互耦变化</li>
+<li>形变监测：单元间距变化 → 互耦变化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 互耦用于小型化</h2>
+    <p>利用互耦的"电磁近邻效应"，可以在小于 λ/2 的间距下实现可接受的隔离度：</p>
+<ul>
+<li>寄生单元（parasitic elements）通过互耦被激励</li>
+<li>等效孔径增大，增益不降</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 S 参数测量</h2>
+    <p>使用 VNA（矢量网络分析仪）测量多端口 S 参数矩阵：</p>
+<pre><code>步骤：
+
+1. 将所有端口接 50Ω 负载
+2. 逐端口激励，测量所有端口的 S 参数
+3. 得到 N×N 的 S 矩阵
+</code></pre>
+<p><strong>注意</strong>：测量时需要确保所有端口正确端接（a_k = 0, k ≠ m）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 全波仿真</h2>
+    <p>使用 HFSS、CST 等工具仿真阵列的 S 参数：</p>
+<pre><code>优势：
+
+- 可以分离空间耦合和表面波耦合
+- 可以研究互耦随扫描角的变化
+- 可以优化去耦结构
+
+劣势：
+
+- 大规模阵列（N &gt; 100）计算成本高
+- 需要网格收敛性验证
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 半解析方法</h2>
     <p>使用矩量法（MoM）或等效电流法快速估算互耦：</p>
-    <pre><code>Z_nm = (1/I_n·I_m) · ∬∬ J_n · E_m dS</code></pre>
-    <p>其中 J_n 是单元 n 的等效电流，E_m 是单元 m 产生的场。</p>
+<pre><code>Z_nm = (1/I_n·I_m) · ∬∬ J_n · E_m dS
+</code></pre>
+<p>其中 J_n 是单元 n 的等效电流，E_m 是单元 m 产生的场。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>七、工程挑战与坑</h2>
-    <h3>7.1 互耦的频率依赖性</h3>
+  
+  <article class="card ">
+    
+    <h2>7.1 互耦的频率依赖性</h2>
     <p>互耦随频率变化，在中心频率匹配良好，但在频带边缘可能恶化：</p>
-    <pre><code>S₁₂(f) = S₁₂(f₀) · (f/f₀)²</code></pre>
-    <p>对于宽带阵列（> 20% 带宽），需要在整个频带上评估互耦。</p>
-    <h3>7.2 互耦的扫描角依赖性</h3>
+<pre><code>S₁₂(f) = S₁₂(f₀) · (f/f₀)²
+</code></pre>
+<p>对于宽带阵列（&gt; 20% 带宽），需要在整个频带上评估互耦。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 互耦的扫描角依赖性</h2>
     <p>波束扫描时，互耦随扫描角变化：</p>
-    <pre><code>S₁₂(θ) = S₁₂(0°) · cos(θ)</code></pre>
-    <p>扫描角越大，互耦越强（因为单元间的投影距离变短）。</p>
-    <h3>7.3 互耦的温度依赖性</h3>
+<pre><code>S₁₂(θ) = S₁₂(0°) · cos(θ)
+</code></pre>
+<p>扫描角越大，互耦越强（因为单元间的投影距离变短）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 互耦的温度依赖性</h2>
     <p>温度变化改变基板介电常数和金属导电率，从而影响互耦：</p>
-    <pre><code>Δε_r/ε_r ≈ -0.001/°C（FR4）
-    Δσ/σ ≈ 0.004/°C（铜）</code></pre>
-    <p>对于高精度阵列（如雷达），需要进行温度补偿。</p>
-    <h3>7.4 互耦与表面波的耦合</h3>
+<pre><code>Δε_r/ε_r ≈ -0.001/°C（FR4）
+Δσ/σ ≈ 0.004/°C（铜）
+</code></pre>
+<p>对于高精度阵列（如雷达），需要进行温度补偿。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.4 互耦与表面波的耦合</h2>
     <p>在高介电常数基板（如硅 ε_r = 11.9）上，表面波耦合可能占主导地位：</p>
-    <pre><code>η_surface ≈ 1 - exp(-2π·h/λ·√(ε_r - 1))</code></pre>
-    <p>其中 h 是基板厚度。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>使用薄基板</li><li>使用低介电常数材料（LCP ε_r = 3.5）</li><li>使用 EBG/DGS 抑制表面波</li></ul>
+<pre><code>η_surface ≈ 1 - exp(-2π·h/λ·√(ε_r - 1))
+</code></pre>
+<p>其中 h 是基板厚度。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用薄基板</li>
+<li>使用低介电常数材料（LCP ε_r = 3.5）</li>
+<li>使用 EBG/DGS 抑制表面波</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、技术演进</h2>
-    <ul><li><b>1950s</b>：互耦的阻抗矩阵理论建立</li><li><b>1970s</b>：互耦对方向图影响的定量分析</li><li><b>1990s</b>：互耦在 MIMO 中的作用被认识</li><li><b>2000s</b>：DGS/EBG 去耦技术提出</li><li><b>2010s</b>：数字域互耦补偿</li><li><b>2020-2022年</b>：互耦在 XL-MIMO 中的新特性研究</li><li><b>2023-2024年</b>：去耦馈电网络（DFN）、AI 辅助互耦建模</li></ul>
+    <ul>
+<li><strong>1950s</strong>：互耦的阻抗矩阵理论建立</li>
+<li><strong>1970s</strong>：互耦对方向图影响的定量分析</li>
+<li><strong>1990s</strong>：互耦在 MIMO 中的作用被认识</li>
+<li><strong>2000s</strong>：DGS/EBG 去耦技术提出</li>
+<li><strong>2010s</strong>：数字域互耦补偿</li>
+<li><strong>2020-2022年</strong>：互耦在 XL-MIMO 中的新特性研究</li>
+<li><strong>2023-2024年</strong>：去耦馈电网络（DFN）、AI 辅助互耦建模</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>九、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：成熟</li><li><b>说明</b>：互耦理论已完全成熟，S 参数测量是天线阵列的标准测试项目。去耦技术和数字补偿方法已广泛商用。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>互耦是天线的"邻里效应"——每个单元都不是孤立的，它会受到邻居的电磁影响，也会影响到邻居。它无法消除（这是麦克斯韦方程决定的），但可以通过增加间距、去耦结构、数字补偿等方法控制在可接受范围内。在 6G XL-MIMO 中，互耦的影响更加显著，需要更精细的建模和补偿。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -336,39 +644,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

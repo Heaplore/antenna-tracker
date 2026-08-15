@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>透明天线（Transparent Antenna） · 知识卡片</title>
+<title>透明天线Transparent-Antenna · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">透明天线 <span class="en">Transparent Antenna</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">透明天线Transparent-Antenna</h1>
   <p class="lede">透明天线使用透明导电材料（ITO、石墨烯、银纳米线、导电聚合物等）替代传统金属导体，使天线能够嵌入玻璃、OLED 屏幕或车窗中——在保持视觉透明度的同时实现无线信号收发，是 6G 智能窗户、透明显示屏和车载天线的前沿方向。</p>
+  
 </header>
 
 <main>
@@ -99,210 +101,572 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>现在的智能手机屏幕是不透明的，因为下面铺满了金属电路。想象一下如果你的手机屏幕是透明的——你能看到后面的风景，同时屏幕还能收发 5G/6G 信号。透明天线就是让这个设想成为可能的技术：用透明的导电材料代替金属，让天线"隐形"在你的窗户、屏幕甚至汽车挡风玻璃上。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、透明导电材料</h2>
-    <h3>1.1 材料对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>光学透明度</th><th>方块电阻</th><th>柔性</th><th>成本</th><th>成熟度</th></tr></thead>
-    <tbody>
-    <tr><td>ITO（氧化铟锡）</td><td>85-90%</td><td>10-100Ω/□</td><td>脆</td><td>高</td><td>成熟</td></tr>
-    <tr><td>石墨烯</td><td>97.7%</td><td>30-200Ω/□</td><td>极好</td><td>很高</td><td>实验室</td></tr>
-    <tr><td>银纳米线</td><td>85-92%</td><td>5-50Ω/□</td><td>好</td><td>中</td><td>原型</td></tr>
-    <tr><td>导电聚合物（PEDOT:PSS）</td><td>70-85%</td><td>100-1000Ω/□</td><td>极好</td><td>低</td><td>原型</td></tr>
-    <tr><td>金属网格（Ag Mesh）</td><td>80-90%</td><td>1-10Ω/□</td><td>好</td><td>中</td><td>商用过渡</td></tr>
-    <tr><td>IZO/IZO/Al-ZnO</td><td>80-90%</td><td>20-200Ω/□</td><td>脆</td><td>中</td><td>原型</td></tr>
-    </tbody></table></div>
-    <h3>1.2 ITO（Indium Tin Oxide）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 材料对比</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>光学透明度</th>
+<th>方块电阻</th>
+<th>柔性</th>
+<th>成本</th>
+<th>成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ITO（氧化铟锡）</td>
+<td>85-90%</td>
+<td>10-100Ω/□</td>
+<td>脆</td>
+<td>高</td>
+<td>成熟</td>
+</tr>
+<tr>
+<td>石墨烯</td>
+<td>97.7%</td>
+<td>30-200Ω/□</td>
+<td>极好</td>
+<td>很高</td>
+<td>实验室</td>
+</tr>
+<tr>
+<td>银纳米线</td>
+<td>85-92%</td>
+<td>5-50Ω/□</td>
+<td>好</td>
+<td>中</td>
+<td>原型</td>
+</tr>
+<tr>
+<td>导电聚合物（PEDOT:PSS）</td>
+<td>70-85%</td>
+<td>100-1000Ω/□</td>
+<td>极好</td>
+<td>低</td>
+<td>原型</td>
+</tr>
+<tr>
+<td>金属网格（Ag Mesh）</td>
+<td>80-90%</td>
+<td>1-10Ω/□</td>
+<td>好</td>
+<td>中</td>
+<td>商用过渡</td>
+</tr>
+<tr>
+<td>IZO/IZO/Al-ZnO</td>
+<td>80-90%</td>
+<td>20-200Ω/□</td>
+<td>脆</td>
+<td>中</td>
+<td>原型</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 ITO（Indium Tin Oxide）</h2>
     <p>最常用的透明导电材料：</p>
-    <pre><code>化学式：In₂O₃:SnO₂（90:10 摩尔比）
-    晶体结构：立方晶系（Bixbyite）
-    沉积方法：溅射、蒸镀、旋涂</code></pre>
-    <p><b>电学-光学权衡</b>：</p>
-    <pre><code>载流子浓度 N ∝ 电导率 σ
-    等离子体频率 ω_p ∝ √N</code></pre>
-    <p>当 N 太高时，ω_p 进入可见光范围 → 材料变反光（不透明）。 当 N 太低时，σ 不够 → 天线效率下降。</p>
-    <p><b>最佳窗口</b>：光学透明度 85% 时，方块电阻 ≈ 10-30Ω/□。</p>
-    <h3>1.3 石墨烯</h3>
+<pre><code>化学式：In₂O₃:SnO₂（90:10 摩尔比）
+晶体结构：立方晶系（Bixbyite）
+沉积方法：溅射、蒸镀、旋涂
+</code></pre>
+<p><strong>电学-光学权衡</strong>：</p>
+<pre><code>载流子浓度 N ∝ 电导率 σ
+等离子体频率 ω_p ∝ √N
+</code></pre>
+<p>当 N 太高时，ω_p 进入可见光范围 → 材料变反光（不透明）。
+当 N 太低时，σ 不够 → 天线效率下降。</p>
+<p><strong>最佳窗口</strong>：光学透明度 85% 时，方块电阻 ≈ 10-30Ω/□。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 石墨烯</h2>
     <p>单层石墨烯的理论透明度：97.7%（每层吸收 2.3% 可见光）。</p>
-    <pre><code>电导率 σ_graphene = 4e²/h ≈ 1.5×10⁻⁴ S</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>超高透明度</li><li>超高载流子迁移率（200,000 cm²/V·s）</li><li>柔性、轻薄</li><li>化学稳定性好</li></ul>
-    <p><b>劣势</b>：</p>
-    <ul><li>大面积制备困难（CVD 转移易破损）</li><li>方块电阻高（> 100Ω/□）</li><li>与射频电路集成复杂</li></ul>
-    <h3>1.4 银纳米线（Ag Nanowire）</h3>
+<pre><code>电导率 σ_graphene = 4e²/h ≈ 1.5×10⁻⁴ S
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>超高透明度</li>
+<li>超高载流子迁移率（200,000 cm²/V·s）</li>
+<li>柔性、轻薄</li>
+<li>化学稳定性好</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>大面积制备困难（CVD 转移易破损）</li>
+<li>方块电阻高（&gt; 100Ω/□）</li>
+<li>与射频电路集成复杂</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.4 银纳米线（Ag Nanowire）</h2>
     <pre><code>线径：50-100nm
-    长度：10-100μm
-    网络密度：可调</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>方块电阻低（5-20Ω/□）</li><li>透明度较高（85-92%）</li><li>溶液可加工（旋涂/喷涂/卷对卷）</li><li>柔性较好</li></ul>
-    <p><b>劣势</b>：</p>
-    <ul><li>纳米线接触电阻</li><li>长期稳定性（银迁移/氧化）</li><li>可见光下网格图案可能可见</li></ul>
-    <h3>1.5 金属网格（Metal Mesh）</h3>
+长度：10-100μm
+网络密度：可调
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>方块电阻低（5-20Ω/□）</li>
+<li>透明度较高（85-92%）</li>
+<li>溶液可加工（旋涂/喷涂/卷对卷）</li>
+<li>柔性较好</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>纳米线接触电阻</li>
+<li>长期稳定性（银迁移/氧化）</li>
+<li>可见光下网格图案可能可见</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.5 金属网格（Metal Mesh）</h2>
     <pre><code>线宽：5-20μm
-    线距：50-200μm
-    厚度：1-5μm</code></pre>
-    <p>通过光刻或纳米压印在玻璃上形成极细的金属网格。人眼无法分辨（低于视觉阈值 ~50μm）。</p>
+线距：50-200μm
+厚度：1-5μm
+</code></pre>
+<p>通过光刻或纳米压印在玻璃上形成极细的金属网格。人眼无法分辨（低于视觉阈值 ~50μm）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、透明天线的主要结构</h2>
-    <h3>2.1 透明贴片天线（Transparent Patch）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 透明贴片天线（Transparent Patch）</h2>
     <pre><code>┌─────────────────────┐
-    │  ITO/Graphene Patch │  ← 辐射贴片（透明）
-    ├─────────────────────┤
-    │   Glass Substrate   │  ← 玻璃基板（透明）
-    ├─────────────────────┤
-    │  ITO/Graphene GND   │  ← 接地层（透明）
-    └─────────────────────┘</code></pre>
-    <ul><li>工作频率：2.4GHz / 5.8GHz / 28GHz</li><li>增益：2-6dBi</li><li>带宽：2-5%</li><li>透明度：70-90%</li></ul>
-    <h3>2.2 透明缝隙天线（Transparent Slot）</h3>
+│  ITO/Graphene Patch │  ← 辐射贴片（透明）
+├─────────────────────┤
+│   Glass Substrate   │  ← 玻璃基板（透明）
+├─────────────────────┤
+│  ITO/Graphene GND   │  ← 接地层（透明）
+└─────────────────────┘
+</code></pre>
+<ul>
+<li>工作频率：2.4GHz / 5.8GHz / 28GHz</li>
+<li>增益：2-6dBi</li>
+<li>带宽：2-5%</li>
+<li>透明度：70-90%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 透明缝隙天线（Transparent Slot）</h2>
     <p>在透明导电层上刻蚀缝隙：</p>
-    <pre><code>透明导电层:  ████████ ▒▒▒▒████  ← 缝隙（不导电）</code></pre>
-    <ul><li>带宽优于贴片</li><li>双面辐射</li><li>更适合毫米波</li></ul>
-    <h3>2.3 透明偶极子/单极子</h3>
+<pre><code>透明导电层:  ████████ ▒▒▒▒████  ← 缝隙（不导电）
+</code></pre>
+<ul>
+<li>带宽优于贴片</li>
+<li>双面辐射</li>
+<li>更适合毫米波</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 透明偶极子/单极子</h2>
     <p>最简单结构：</p>
-    <pre><code>    ┌──────┐
-        │ ITO  │  ← 透明臂
-        └──────┘
-             │
-          馈电点
-             │
-        ┌──────┐
-        │ ITO  │
-        └──────┘</code></pre>
-    <ul><li>适用于 2.4/5GHz WiFi</li><li>增益：2-3dBi</li><li>透明度：80-90%</li></ul>
-    <h3>2.4 ScreenAnt（屏幕天线）</h3>
+<pre><code>    ┌──────┐
+    │ ITO  │  ← 透明臂
+    └──────┘
+         │
+      馈电点
+         │
+    ┌──────┐
+    │ ITO  │
+    └──────┘
+</code></pre>
+<ul>
+<li>适用于 2.4/5GHz WiFi</li>
+<li>增益：2-3dBi</li>
+<li>透明度：80-90%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 ScreenAnt（屏幕天线）</h2>
     <p>2025 年提出的创新概念——将整个手机屏幕变成天线阵列：</p>
-    <pre><code>┌─────────────────────────┐
-    │  ITO 透明导电薄膜（全覆盖）│  ← 整个屏幕作为辐射体
-    │  ┌──┐ ┌──┐ ┌──┐ ┌──┐   │
-    │  │▓▓│ │▓▓│ │▓▓│ │▓▓│   │  ← 电极化图案（透明）
-    │  └──┘ └──┘ └──┘ └──┘   │
-    │                         │
-    │  OLED 显示层            │
-    └─────────────────────────┘</code></pre>
-    <p><b>核心创新</b>：</p>
-    <ul><li>天线从"边缘移到屏幕中央"——有效孔径增大 10 倍</li><li>使用 ITO 薄膜覆盖整个前玻璃</li><li>通过电极化图案定义辐射单元</li><li>波束赋形通过屏幕上的透明电极独立控制</li></ul>
-    <p><b>性能</b>（28GHz）：</p>
-    <ul><li>频谱效率比边缘天线高 50%（有遮挡）或 30%（无遮挡）</li><li>人手遮挡影响降低 80%</li><li>透明度：75-85%</li></ul>
-    <p><b>性能</b>（300GHz 太赫兹）：</p>
-    <ul><li>频谱效率提升 150%</li></ul>
-    <h3>2.5 透明相控阵</h3>
+<pre><code>┌─────────────────────────┐
+│  ITO 透明导电薄膜（全覆盖）│  ← 整个屏幕作为辐射体
+│  ┌──┐ ┌──┐ ┌──┐ ┌──┐   │
+│  │▓▓│ │▓▓│ │▓▓│ │▓▓│   │  ← 电极化图案（透明）
+│  └──┘ └──┘ └──┘ └──┘   │
+│                         │
+│  OLED 显示层            │
+└─────────────────────────┘
+</code></pre>
+<p><strong>核心创新</strong>：</p>
+<ul>
+<li>天线从"边缘移到屏幕中央"——有效孔径增大 10 倍</li>
+<li>使用 ITO 薄膜覆盖整个前玻璃</li>
+<li>通过电极化图案定义辐射单元</li>
+<li>波束赋形通过屏幕上的透明电极独立控制</li>
+</ul>
+<p><strong>性能</strong>（28GHz）：</p>
+<ul>
+<li>频谱效率比边缘天线高 50%（有遮挡）或 30%（无遮挡）</li>
+<li>人手遮挡影响降低 80%</li>
+<li>透明度：75-85%</li>
+</ul>
+<p><strong>性能</strong>（300GHz 太赫兹）：</p>
+<ul>
+<li>频谱效率提升 150%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 透明相控阵</h2>
     <p>在玻璃上集成透明天线阵列 + 透明馈电网络：</p>
-    <pre><code>┌────┬────┬────┬────┐
-    │▓▓▓▓│▓▓▓▓│▓▓▓▓│▓▓▓▓│  ← 透明辐射单元
-    ├────┼────┼────┼────┤
-    │透明│透明│透明│透明│  ← 透明馈电线路
-    └────┴────┴────┴────┘</code></pre>
-    <ul><li>单元数：16-64</li><li>波束扫描：±60°</li><li>透明度：60-80%（馈电网络会降低透明度）</li></ul>
+<pre><code>┌────┬────┬────┬────┐
+│▓▓▓▓│▓▓▓▓│▓▓▓▓│▓▓▓▓│  ← 透明辐射单元
+├────┼────┼────┼────┤
+│透明│透明│透明│透明│  ← 透明馈电线路
+└────┴────┴────┴────┘
+</code></pre>
+<ul>
+<li>单元数：16-64</li>
+<li>波束扫描：±60°</li>
+<li>透明度：60-80%（馈电网络会降低透明度）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、透明天线的性能权衡</h2>
-    <h3>3.1 透明度 vs 电导率</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 透明度 vs 电导率</h2>
     <p>这是透明天线设计的核心矛盾：</p>
-    <pre><code>透明度 T ≈ 1 - σ·d
-    电导率 σ_cond ∝ n·e·μ ∝ (1-T)</code></pre>
-    <p>其中 d 是厚度，n 是载流子浓度。</p>
-    <p><b>透明度-增益权衡</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>透明度</th><th>方块电阻</th><th>增益损失</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>95%</td><td>200Ω/□</td><td>-3dB</td><td>装饰性 WiFi</td></tr>
-    <tr><td>90%</td><td>50Ω/□</td><td>-1.5dB</td><td>车载天线</td></tr>
-    <tr><td>85%</td><td>20Ω/□</td><td>-0.5dB</td><td>5G 手机屏幕</td></tr>
-    <tr><td>80%</td><td>10Ω/□</td><td>0dB</td><td>高性能场景</td></tr>
-    <tr><td>< 70%</td><td>< 5Ω/□</td><td>无</td><td>不再"透明"</td></tr>
-    </tbody></table></div>
-    <h3>3.2 透明度 vs 带宽</h3>
-    <pre><code>高透明度 → 低电导率 → 高损耗 → Q 值升高 → 带宽变窄</code></pre>
-    <p>典型透明天线的带宽只有 1-5%（相比金属天线的 5-15%）。</p>
-    <h3>3.3 透明度 vs 效率</h3>
-    <pre><code>η_radiation = P_rad / (P_rad + P_loss_conductor + P_loss_dielectric)</code></pre>
-    <p>透明材料的导体损耗远高于铜：</p>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>电导率相对铜</th><th>辐射效率</th></tr></thead>
-    <tbody>
-    <tr><td>铜</td><td>100%</td><td>95%</td></tr>
-    <tr><td>ITO</td><td>5-10%</td><td>60-80%</td></tr>
-    <tr><td>石墨烯</td><td>1-3%</td><td>40-60%</td></tr>
-    <tr><td>银纳米线</td><td>20-40%</td><td>75-90%</td></tr>
-    <tr><td>金属网格</td><td>60-80%</td><td>85-95%</td></tr>
-    </tbody></table></div>
+<pre><code>透明度 T ≈ 1 - σ·d
+电导率 σ_cond ∝ n·e·μ ∝ (1-T)
+</code></pre>
+<p>其中 d 是厚度，n 是载流子浓度。</p>
+<p><strong>透明度-增益权衡</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>透明度</th>
+<th>方块电阻</th>
+<th>增益损失</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>95%</td>
+<td>200Ω/□</td>
+<td>-3dB</td>
+<td>装饰性 WiFi</td>
+</tr>
+<tr>
+<td>90%</td>
+<td>50Ω/□</td>
+<td>-1.5dB</td>
+<td>车载天线</td>
+</tr>
+<tr>
+<td>85%</td>
+<td>20Ω/□</td>
+<td>-0.5dB</td>
+<td>5G 手机屏幕</td>
+</tr>
+<tr>
+<td>80%</td>
+<td>10Ω/□</td>
+<td>0dB</td>
+<td>高性能场景</td>
+</tr>
+<tr>
+<td>&lt; 70%</td>
+<td>&lt; 5Ω/□</td>
+<td>无</td>
+<td>不再"透明"</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 智能手机</h3>
-    <ul><li>屏幕即天线（ScreenAnt）</li><li>边框透明天线（替代金属注塑条）</li><li>摄像头窗口天线</li><li>玻璃背板天线</li></ul>
-    <h3>4.2 车载天线</h3>
-    <ul><li>车窗天线（前后挡风玻璃）</li><li>天窗天线</li><li>透明 HUD 显示集成天线</li><li>电动汽车太阳能天窗 + 天线</li></ul>
-    <h3>4.3 智能窗户/建筑</h3>
-    <ul><li>大楼玻璃幕墙集成 5G/6G 天线</li><li>智能家居窗户集成 IoT 传感器天线</li><li>飞机舷窗天线</li></ul>
-    <h3>4.4 AR/VR 眼镜</h3>
-    <ul><li>透明波导集成天线</li><li>镜片上的透明辐射体</li><li>减轻头戴设备重量</li></ul>
-    <h3>4.5 医疗设备</h3>
-    <ul><li>透明导电涂层用于生物传感天线</li><li>医用显示器集成天线</li><li>可穿戴健康监测</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.2 透明度 vs 带宽</h2>
+    <pre><code>高透明度 → 低电导率 → 高损耗 → Q 值升高 → 带宽变窄
+</code></pre>
+<p>典型透明天线的带宽只有 1-5%（相比金属天线的 5-15%）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>五、设计与仿真</h2>
-    <h3>5.1 关键设计参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>影响</th></tr></thead>
-    <tbody>
-    <tr><td>贴片尺寸</td><td>λ/2 ≈ 5-15mm（Sub-6GHz）</td><td>谐振频率</td></tr>
-    <tr><td>基板厚度</td><td>0.5-3mm（玻璃）</td><td>阻抗、带宽</td></tr>
-    <tr><td>透明材料方块电阻</td><td>10-200Ω/□</td><td>效率、带宽</td></tr>
-    <tr><td>馈电方式</td><td>微带线/探针/耦合</td><td>匹配、透明度</td></tr>
-    <tr><td>极化</td><td>线极化（最常见）</td><td>方向图</td></tr>
-    </tbody></table></div>
-    <h3>5.2 仿真工具</h3>
-    <ul><li>HFSS：精确但计算量大（透明材料的色散模型需手动输入）</li><li>CST：时域求解器，适合宽带透明天线</li><li>FEKO：MoM，适合大型透明阵列</li><li>COMSOL：多物理场（热+电磁+光学）</li></ul>
-    <h3>5.3 光学-电磁联合仿真</h3>
+  
+  <article class="card ">
+    
+    <h2>3.3 透明度 vs 效率</h2>
+    <pre><code>η_radiation = P_rad / (P_rad + P_loss_conductor + P_loss_dielectric)
+</code></pre>
+<p>透明材料的导体损耗远高于铜：</p>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>电导率相对铜</th>
+<th>辐射效率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>铜</td>
+<td>100%</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>ITO</td>
+<td>5-10%</td>
+<td>60-80%</td>
+</tr>
+<tr>
+<td>石墨烯</td>
+<td>1-3%</td>
+<td>40-60%</td>
+</tr>
+<tr>
+<td>银纳米线</td>
+<td>20-40%</td>
+<td>75-90%</td>
+</tr>
+<tr>
+<td>金属网格</td>
+<td>60-80%</td>
+<td>85-95%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 智能手机</h2>
+    <ul>
+<li>屏幕即天线（ScreenAnt）</li>
+<li>边框透明天线（替代金属注塑条）</li>
+<li>摄像头窗口天线</li>
+<li>玻璃背板天线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 车载天线</h2>
+    <ul>
+<li>车窗天线（前后挡风玻璃）</li>
+<li>天窗天线</li>
+<li>透明 HUD 显示集成天线</li>
+<li>电动汽车太阳能天窗 + 天线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 智能窗户/建筑</h2>
+    <ul>
+<li>大楼玻璃幕墙集成 5G/6G 天线</li>
+<li>智能家居窗户集成 IoT 传感器天线</li>
+<li>飞机舷窗天线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 AR/VR 眼镜</h2>
+    <ul>
+<li>透明波导集成天线</li>
+<li>镜片上的透明辐射体</li>
+<li>减轻头戴设备重量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 医疗设备</h2>
+    <ul>
+<li>透明导电涂层用于生物传感天线</li>
+<li>医用显示器集成天线</li>
+<li>可穿戴健康监测</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 关键设计参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>贴片尺寸</td>
+<td>λ/2 ≈ 5-15mm（Sub-6GHz）</td>
+<td>谐振频率</td>
+</tr>
+<tr>
+<td>基板厚度</td>
+<td>0.5-3mm（玻璃）</td>
+<td>阻抗、带宽</td>
+</tr>
+<tr>
+<td>透明材料方块电阻</td>
+<td>10-200Ω/□</td>
+<td>效率、带宽</td>
+</tr>
+<tr>
+<td>馈电方式</td>
+<td>微带线/探针/耦合</td>
+<td>匹配、透明度</td>
+</tr>
+<tr>
+<td>极化</td>
+<td>线极化（最常见）</td>
+<td>方向图</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 仿真工具</h2>
+    <ul>
+<li>HFSS：精确但计算量大（透明材料的色散模型需手动输入）</li>
+<li>CST：时域求解器，适合宽带透明天线</li>
+<li>FEKO：MoM，适合大型透明阵列</li>
+<li>COMSOL：多物理场（热+电磁+光学）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 光学-电磁联合仿真</h2>
     <p>透明天线需要同时优化光学和电磁性能：</p>
-    <pre><code>目标函数：
-    J = w₁·(1 - η_EM) + w₂·(T_target - T_actual)² + w₃·(f_res - f_target)²</code></pre>
-    <p>其中 η_EM 是电磁效率，T 是光学透明度，f_res 是谐振频率。</p>
+<pre><code>目标函数：
+J = w₁·(1 - η_EM) + w₂·(T_target - T_actual)² + w₃·(f_res - f_target)²
+</code></pre>
+<p>其中 η_EM 是电磁效率，T 是光学透明度，f_res 是谐振频率。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战</h2>
-    <h3>6.1 ITO 的脆性问题</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 ITO 的脆性问题</h2>
     <p>ITO 在弯曲时容易开裂：</p>
-    <pre><code>临界应变：~0.5-1%</code></pre>
-    <p>对于柔性设备，需要使用银纳米线或石墨烯替代。</p>
-    <h3>6.2 大面积均匀性</h3>
+<pre><code>临界应变：~0.5-1%
+</code></pre>
+<p>对于柔性设备，需要使用银纳米线或石墨烯替代。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 大面积均匀性</h2>
     <p>透明导电薄膜在大面积上的方块电阻不均匀：</p>
-    <pre><code>ΔR_square / R_square ≈ 5-15%（大面积）</code></pre>
-    <p>导致天线性能在屏幕上不均匀。</p>
-    <h3>6.3 与显示技术的兼容</h3>
+<pre><code>ΔR_square / R_square ≈ 5-15%（大面积）
+</code></pre>
+<p>导致天线性能在屏幕上不均匀。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 与显示技术的兼容</h2>
     <p>透明天线需要与 OLED/LCD 显示层共存：</p>
-    <ul><li>OLED 的金属电极可能与透明天线耦合</li><li>显示刷新可能产生电磁干扰</li><li>需要电磁隔离设计</li></ul>
-    <h3>6.4 耐候性</h3>
+<ul>
+<li>OLED 的金属电极可能与透明天线耦合</li>
+<li>显示刷新可能产生电磁干扰</li>
+<li>需要电磁隔离设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 耐候性</h2>
     <p>户外使用的透明天线（车窗、幕墙）需要抵抗：</p>
-    <ul><li>UV 老化（ITO 降解）</li><li>温度循环（-40°C 到 +85°C）</li><li>湿度（水汽渗透）</li><li>刮擦</li></ul>
+<ul>
+<li>UV 老化（ITO 降解）</li>
+<li>温度循环（-40°C 到 +85°C）</li>
+<li>湿度（水汽渗透）</li>
+<li>刮擦</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>2000s</b>：ITO 透明电极研究（触摸屏起步）</li><li><b>2010s</b>：透明贴片天线概念验证（2.4/5.8GHz）</li><li><b>2015-2018年</b>：石墨烯透明天线研究爆发</li><li><b>2019-2022年</b>：银纳米线透明天线实用化</li><li><b>2023-2024年</b>：金属网格透明天线商用（车载）</li><li><b>2025年</b>：ScreenAnt 概念提出（屏幕即天线阵列）</li><li><b>2026年</b>：6G 透明天线标准化起步</li></ul>
+    <ul>
+<li><strong>2000s</strong>：ITO 透明电极研究（触摸屏起步）</li>
+<li><strong>2010s</strong>：透明贴片天线概念验证（2.4/5.8GHz）</li>
+<li><strong>2015-2018年</strong>：石墨烯透明天线研究爆发</li>
+<li><strong>2019-2022年</strong>：银纳米线透明天线实用化</li>
+<li><strong>2023-2024年</strong>：金属网格透明天线商用（车载）</li>
+<li><strong>2025年</strong>：ScreenAnt 概念提出（屏幕即天线阵列）</li>
+<li><strong>2026年</strong>：6G 透明天线标准化起步</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：原型 → 小规模商用</li><li><b>说明</b>：Sub-6GHz 透明天线已有原型系统。车载透明天线（车窗）进入小规模商用。毫米波透明天线（28GHz+）仍处于实验室阶段。ScreenAnt 是最新研究方向，代表了 6G 终端天线的重要趋势。</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>九、一句话总结</h2>
-    <p>透明天线用"透明的导电材料"替代"不透明的金属"，让天线可以藏在窗户、屏幕和车玻璃里看不见。它的核心矛盾是透明度越高、电导率越低、效率越差——所以目前最适合的场景是 Sub-6GHz 的低速率应用。6G 时代的 ScreenAnt 概念试图用整个屏幕做大孔径阵列来弥补效率损失，这可能彻底改变手机天线的设计范式。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -322,39 +686,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

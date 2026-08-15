@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>龙勃透镜天线（Luneburg Lens Antenna） · 知识卡片</title>
+<title>龙勃透镜天线Luneburg-Lens · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">龙勃透镜天线 <span class="en">Luneburg Lens Antenna</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">龙勃透镜天线Luneburg-Lens</h1>
   <p class="lede">龙勃透镜是一种介电常数从中心到表面呈径向渐变的球形透镜天线——中心 ε_r ≈ 2，表面 ε_r ≈ 1。它将馈源置于球面上任意一点时，能将球面波转换为相反方向的高增益平行波束，且无需有源移相器即可实现无源波束扫描。</p>
+  
 </header>
 
 <main>
@@ -99,198 +101,555 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一个透明的玻璃球，但球的内部不是均匀的——越靠近中心折射率越高，越靠近表面越低。如果你在球表面 A 点放一个灯泡，光线穿过球体后会变成一束平行光从球表面正对面的 B 点射出。如果你把灯泡移到 A' 点，平行光的方向就跟着变了。龙勃透镜就是这个"智能玻璃球"，只不过它处理的是无线电波。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本原理</h2>
-    <h3>1.1 龙勃透镜的折射率分布</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 龙勃透镜的折射率分布</h2>
     <p>理想龙勃透镜的相对介电常数径向分布：</p>
-    <pre><code>ε_r(r) = 2 - (r/R)²</code></pre>
-    <p>其中：</p>
-    <ul><li>r 是从球心到球面的径向距离</li><li>R 是球半径</li><li>r = 0（球心）：ε_r = 2</li><li>r = R（球面）：ε_r = 1（等于空气）</li></ul>
-    <p><b>折射率分布曲线</b>：</p>
-    <pre><code>ε_r
-     2.0 │●
-         │  ●
-     1.8 │    ●
-         │       ●
-     1.5 │          ●
-         │             ●
-     1.0 │                ●●●●●
-         └──────────────────────── r/R
-         0    0.2  0.4  0.6  0.8   1.0</code></pre>
-    <h3>1.2 工作原理</h3>
-    <p><b>发射模式</b>：</p>
-    <ol><li>馈源置于球面某点 F₁</li><li>球面波进入透镜</li><li>由于折射率梯度，波前被逐渐弯曲</li><li>从球面正对面 F₂ 射出时变成平行波束</li><li>波束方向指向 F₁ 的对跖点</li></ol>
-    <p><b>接收模式</b>：</p>
-    <ol><li>来自 F₁ 对跖点方向的平面波入射</li><li>透镜将平面波聚焦到球面 F₂ 点</li><li>馈源在 F₂ 点接收聚焦能量</li></ol>
-    <p><b>波束扫描</b>：</p>
-    <ul><li>将多个馈源排列在球面的"焦平面"上</li><li>切换不同的馈源 → 波束指向改变</li><li>扫描范围：理论上 ±90°（实际 ±60-70°）</li></ul>
-    <h3>1.3 增益公式</h3>
-    <pre><code>G = π²·D²/λ² · ε_ap</code></pre>
-    <p>其中 D = 2R 是透镜直径，ε_ap 是孔径效率（通常 50-70%）。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>透镜直径</th><th>频率</th><th>增益</th></tr></thead>
-    <tbody>
-    <tr><td>0.5m</td><td>10GHz</td><td>28dBi</td></tr>
-    <tr><td>0.3m</td><td>14GHz</td><td>27dBi</td></tr>
-    <tr><td>0.1m</td><td>28GHz</td><td>24dBi</td></tr>
-    <tr><td>0.05m</td><td>60GHz</td><td>21dBi</td></tr>
-    </tbody></table></div>
+<pre><code>ε_r(r) = 2 - (r/R)²
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>r 是从球心到球面的径向距离</li>
+<li>R 是球半径</li>
+<li>r = 0（球心）：ε_r = 2</li>
+<li>r = R（球面）：ε_r = 1（等于空气）</li>
+</ul>
+<p><strong>折射率分布曲线</strong>：</p>
+<pre><code>ε_r
+ 2.0 │●
+     │  ●
+ 1.8 │    ●
+     │       ●
+ 1.5 │          ●
+     │             ●
+ 1.0 │                ●●●●●
+     └──────────────────────── r/R
+     0    0.2  0.4  0.6  0.8   1.0
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、龙勃透镜的类型</h2>
-    <h3>2.1 全球形透镜</h3>
+  
+  <article class="card ">
+    
+    <h2>1.2 工作原理</h2>
+    <p><strong>发射模式</strong>：</p>
+<ol>
+<li>馈源置于球面某点 F₁</li>
+<li>球面波进入透镜</li>
+<li>由于折射率梯度，波前被逐渐弯曲</li>
+<li>从球面正对面 F₂ 射出时变成平行波束</li>
+<li>波束方向指向 F₁ 的对跖点</li>
+</ol>
+<p><strong>接收模式</strong>：</p>
+<ol>
+<li>来自 F₁ 对跖点方向的平面波入射</li>
+<li>透镜将平面波聚焦到球面 F₂ 点</li>
+<li>馈源在 F₂ 点接收聚焦能量</li>
+</ol>
+<p><strong>波束扫描</strong>：</p>
+<ul>
+<li>将多个馈源排列在球面的"焦平面"上</li>
+<li>切换不同的馈源 → 波束指向改变</li>
+<li>扫描范围：理论上 ±90°（实际 ±60-70°）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 增益公式</h2>
+    <pre><code>G = π²·D²/λ² · ε_ap
+</code></pre>
+<p>其中 D = 2R 是透镜直径，ε_ap 是孔径效率（通常 50-70%）。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>透镜直径</th>
+<th>频率</th>
+<th>增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5m</td>
+<td>10GHz</td>
+<td>28dBi</td>
+</tr>
+<tr>
+<td>0.3m</td>
+<td>14GHz</td>
+<td>27dBi</td>
+</tr>
+<tr>
+<td>0.1m</td>
+<td>28GHz</td>
+<td>24dBi</td>
+</tr>
+<tr>
+<td>0.05m</td>
+<td>60GHz</td>
+<td>21dBi</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 全球形透镜</h2>
     <pre><code>       ┌───────┐
-        ───┤  ε(r) ├───← 馈源在球面
-           └───────┘</code></pre>
-    <ul><li>馈源在球面上</li><li>全向扫描（360° azimuth）</li><li>馈源与透镜耦合复杂</li></ul>
-    <h3>2.2 半球形透镜（Half-Luneburg）</h3>
+    ───┤  ε(r) ├───← 馈源在球面
+       └───────┘
+</code></pre>
+<ul>
+<li>馈源在球面上</li>
+<li>全向扫描（360° azimuth）</li>
+<li>馈源与透镜耦合复杂</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 半球形透镜（Half-Luneburg）</h2>
     <pre><code>       ┌───────┐
-        ───┤  ε(r) ├───← 馈源阵列在焦平面
-           └───────┘
-          ────────      ← 金属接地面</code></pre>
-    <ul><li>底部加金属接地面</li><li>馈源在焦平面上方（易于布线）</li><li>扫描范围：±60°（azimuth 360°）</li></ul>
-    <h3>2.3 阶梯折射率透镜（Stepped-Index）</h3>
+    ───┤  ε(r) ├───← 馈源阵列在焦平面
+       └───────┘
+      ────────      ← 金属接地面
+</code></pre>
+<ul>
+<li>底部加金属接地面</li>
+<li>馈源在焦平面上方（易于布线）</li>
+<li>扫描范围：±60°（azimuth 360°）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 阶梯折射率透镜（Stepped-Index）</h2>
     <p>理想 ε_r(r) 是连续函数，实际用多层球壳近似：</p>
-    <pre><code>Layer 1 (core):    ε_r = 1.95
-    Layer 2:           ε_r = 1.80
-    Layer 3:           ε_r = 1.55
-    Layer 4:           ε_r = 1.30
-    Layer 5 (surface): ε_r = 1.05</code></pre>
-    <p><b>层数 vs 性能</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>层数</th><th>增益损失</th><th>扫描角误差</th><th>制造难度</th></tr></thead>
-    <tbody>
-    <tr><td>3</td><td>-2dB</td><td>±5°</td><td>低</td></tr>
-    <tr><td>5</td><td>-0.5dB</td><td>±2°</td><td>中</td></tr>
-    <tr><td>10</td><td>-0.1dB</td><td>±0.5°</td><td>高</td></tr>
-    <tr><td>∞（理想）</td><td>0</td><td>0</td><td>不可能</td></tr>
-    </tbody></table></div>
-    <h3>2.4 GRIN 透镜（渐变折射率超材料）</h3>
-    <p>用超材料或周期性结构实现连续的 ε_r(r) 分布：</p>
-    <pre><code>外层：小单元、低填充率 → 低 ε_r
-    中层：中等单元 → 中等 ε_r
-    内层：大单元、高填充率 → 高 ε_r</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>逼近理想折射率分布</li><li>可实现任意曲面（非球形）</li><li>轻量化</li></ul>
-    <h3>2.5 准形变换透镜（Quasi-Conformal Luneburg）</h3>
-    <p>通过共形变换光学设计，将球形透镜"压扁"成任意形状：</p>
-    <pre><code>理想球形 → 准形变换 → 扁平/圆柱形透镜</code></pre>
-    <p><b>应用</b>：</p>
-    <ul><li>卫星表面贴装（减轻重量和气动阻力）</li><li>车辆集成（低剖面）</li></ul>
+<pre><code>Layer 1 (core):    ε_r = 1.95
+Layer 2:           ε_r = 1.80
+Layer 3:           ε_r = 1.55
+Layer 4:           ε_r = 1.30
+Layer 5 (surface): ε_r = 1.05
+</code></pre>
+<p><strong>层数 vs 性能</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层数</th>
+<th>增益损失</th>
+<th>扫描角误差</th>
+<th>制造难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>-2dB</td>
+<td>±5°</td>
+<td>低</td>
+</tr>
+<tr>
+<td>5</td>
+<td>-0.5dB</td>
+<td>±2°</td>
+<td>中</td>
+</tr>
+<tr>
+<td>10</td>
+<td>-0.1dB</td>
+<td>±0.5°</td>
+<td>高</td>
+</tr>
+<tr>
+<td>∞（理想）</td>
+<td>0</td>
+<td>0</td>
+<td>不可能</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.4 GRIN 透镜（渐变折射率超材料）</h2>
+    <p>用超材料或周期性结构实现连续的 ε_r(r) 分布：</p>
+<pre><code>外层：小单元、低填充率 → 低 ε_r
+中层：中等单元 → 中等 ε_r
+内层：大单元、高填充率 → 高 ε_r
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>逼近理想折射率分布</li>
+<li>可实现任意曲面（非球形）</li>
+<li>轻量化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 准形变换透镜（Quasi-Conformal Luneburg）</h2>
+    <p>通过共形变换光学设计，将球形透镜"压扁"成任意形状：</p>
+<pre><code>理想球形 → 准形变换 → 扁平/圆柱形透镜
+</code></pre>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>卫星表面贴装（减轻重量和气动阻力）</li>
+<li>车辆集成（低剖面）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、与相控阵的对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>龙勃透镜</th><th>相控阵</th></tr></thead>
-    <tbody>
-    <tr><td>波束扫描方式</td><td>馈源切换（无源）</td><td>移相器（有源）</td></tr>
-    <tr><td>复杂度</td><td>低（无源透镜 + N 个馈源）</td><td>高（N 个 T/R 模块）</td></tr>
-    <tr><td>功耗</td><td>极低（透镜无源）</td><td>高（T/R 模块功耗大）</td></tr>
-    <tr><td>波束数量</td><td>离散（等于馈源数）</td><td>连续（任意指向）</td></tr>
-    <tr><td>扫描速度</td><td>微秒级（开关切换）</td><td>纳秒级（电子移相）</td></tr>
-    <tr><td>成本</td><td>低（无源）</td><td>高（有源）</td></tr>
-    <tr><td>增益</td><td>高（25-35dBi）</td><td>高（25-35dBi）</td></tr>
-    <tr><td>极化纯度</td><td>好</td><td>好</td></tr>
-    <tr><td>多波束</td><td>天然支持（多馈源）</td><td>需要数字波束赋形</td></tr>
-    <tr><td>体积</td><td>大（球径 D > λ）</td><td>薄（平板）</td></tr>
-    </tbody></table></div>
-    <h3>3.1 核心优势：无源扫描</h3>
-    <p>龙勃透镜最大的亮点是<b>不需要任何有源移相器就能扫描波束</b>。相控阵需要 N 个移相器（每个 T/R 模块一个），而龙勃透镜只需要 N 个馈源 + 一个开关矩阵：</p>
-    <pre><code>馈源 1 ──┐
-    馈源 2 ──┤
-    馈源 3 ──┼── [RF Switch] ──→ 接收机
-     ...     │
-    馈源 N ──┘</code></pre>
-    <p>开关矩阵的复杂度是 O(N)，而相控阵的复杂度是 O(N²)（每个单元都需要移相器）。</p>
-    <h3>3.2 核心劣势：扫描速度</h3>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>龙勃透镜</th>
+<th>相控阵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束扫描方式</td>
+<td>馈源切换（无源）</td>
+<td>移相器（有源）</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>低（无源透镜 + N 个馈源）</td>
+<td>高（N 个 T/R 模块）</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>极低（透镜无源）</td>
+<td>高（T/R 模块功耗大）</td>
+</tr>
+<tr>
+<td>波束数量</td>
+<td>离散（等于馈源数）</td>
+<td>连续（任意指向）</td>
+</tr>
+<tr>
+<td>扫描速度</td>
+<td>微秒级（开关切换）</td>
+<td>纳秒级（电子移相）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低（无源）</td>
+<td>高（有源）</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>高（25-35dBi）</td>
+<td>高（25-35dBi）</td>
+</tr>
+<tr>
+<td>极化纯度</td>
+<td>好</td>
+<td>好</td>
+</tr>
+<tr>
+<td>多波束</td>
+<td>天然支持（多馈源）</td>
+<td>需要数字波束赋形</td>
+</tr>
+<tr>
+<td>体积</td>
+<td>大（球径 D &gt; λ）</td>
+<td>薄（平板）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 核心优势：无源扫描</h2>
+    <p>龙勃透镜最大的亮点是<strong>不需要任何有源移相器就能扫描波束</strong>。相控阵需要 N 个移相器（每个 T/R 模块一个），而龙勃透镜只需要 N 个馈源 + 一个开关矩阵：</p>
+<pre><code>馈源 1 ──┐
+馈源 2 ──┤
+馈源 3 ──┼── [RF Switch] ──→ 接收机
+ ...     │
+馈源 N ──┘
+</code></pre>
+<p>开关矩阵的复杂度是 O(N)，而相控阵的复杂度是 O(N²)（每个单元都需要移相器）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 核心劣势：扫描速度</h2>
     <p>龙勃透镜的扫描速度受限于 RF 开关（微秒级），而相控阵的移相器可以达到纳秒级。对于需要快速跳波束的应用（如电子战），相控阵更合适。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、典型应用场景</h2>
-    <h3>4.1 卫星通信（SATCOM）</h3>
-    <ul><li>移动卫星通信（SoM）的终端天线</li><li>无需电子移相器，减轻卫星重量</li><li>Ku/Ka 波段（12-40GHz）</li><li>扫描范围：±50-70°</li></ul>
-    <h3>4.2 地面基站</h3>
-    <ul><li>多波束基站（一颗透镜 + 多个馈源 = 多个扇区）</li><li>减少 T/R 模块数量（降低成本）</li><li>5G 前传/回传</li></ul>
-    <h3>4.3 雷达系统</h3>
-    <ul><li>防空雷达（大扫描范围 + 高增益）</li><li>火控雷达（F-22 等战机使用龙勃透镜天线罩）</li><li>无源扫描，可靠性高</li></ul>
-    <h3>4.4 5G 固定无线接入（FWA）</h3>
-    <ul><li>户外 CPE 天线</li><li>免维护（无源，无电子故障点）</li><li>安装简单（对准基站即可）</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.1 卫星通信（SATCOM）</h2>
+    <ul>
+<li>移动卫星通信（SoM）的终端天线</li>
+<li>无需电子移相器，减轻卫星重量</li>
+<li>Ku/Ka 波段（12-40GHz）</li>
+<li>扫描范围：±50-70°</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、设计与制造</h2>
-    <h3>5.1 材料选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>ε_r (core)</th><th>密度</th><th>成本</th><th>适用频段</th></tr></thead>
-    <tbody>
-    <tr><td>聚苯乙烯泡沫</td><td>1.05</td><td>极低</td><td>低</td><td>UHF/VHF</td></tr>
-    <tr><td>PVC 泡沫</td><td>1.5-2.5</td><td>低</td><td>低</td><td>L/S/C 波段</td></tr>
-    <tr><td>陶瓷粉末复合材料</td><td>1.5-2.0</td><td>中</td><td>中</td><td>X/Ka 波段</td></tr>
-    <tr><td>3D 打印梯度材料</td><td>可调</td><td>中</td><td>高</td><td>毫米波</td></tr>
-    <tr><td>超材料/超表面</td><td>可调</td><td>低</td><td>很高</td><td>毫米波/THz</td></tr>
-    </tbody></table></div>
-    <h3>5.2 制造工艺</h3>
-    <p><b>传统方法</b>：</p>
-    <ol><li>分层球壳加工（每层不同 ε_r 的材料）</li><li>球壳组装（胶合或机械固定）</li><li>表面精加工（抛光）</li></ol>
-    <p><b>现代方法</b>：</p>
-    <ol><li>3D 打印梯度介电结构</li><li>超材料单元排列（等效 ε_r）</li><li>注塑成型（大批量低成本）</li></ol>
-    <h3>5.3 馈源设计</h3>
+  
+  <article class="card ">
+    
+    <h2>4.2 地面基站</h2>
+    <ul>
+<li>多波束基站（一颗透镜 + 多个馈源 = 多个扇区）</li>
+<li>减少 T/R 模块数量（降低成本）</li>
+<li>5G 前传/回传</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 雷达系统</h2>
+    <ul>
+<li>防空雷达（大扫描范围 + 高增益）</li>
+<li>火控雷达（F-22 等战机使用龙勃透镜天线罩）</li>
+<li>无源扫描，可靠性高</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 5G 固定无线接入（FWA）</h2>
+    <ul>
+<li>户外 CPE 天线</li>
+<li>免维护（无源，无电子故障点）</li>
+<li>安装简单（对准基站即可）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 材料选择</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>ε_r (core)</th>
+<th>密度</th>
+<th>成本</th>
+<th>适用频段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>聚苯乙烯泡沫</td>
+<td>1.05</td>
+<td>极低</td>
+<td>低</td>
+<td>UHF/VHF</td>
+</tr>
+<tr>
+<td>PVC 泡沫</td>
+<td>1.5-2.5</td>
+<td>低</td>
+<td>低</td>
+<td>L/S/C 波段</td>
+</tr>
+<tr>
+<td>陶瓷粉末复合材料</td>
+<td>1.5-2.0</td>
+<td>中</td>
+<td>中</td>
+<td>X/Ka 波段</td>
+</tr>
+<tr>
+<td>3D 打印梯度材料</td>
+<td>可调</td>
+<td>中</td>
+<td>高</td>
+<td>毫米波</td>
+</tr>
+<tr>
+<td>超材料/超表面</td>
+<td>可调</td>
+<td>低</td>
+<td>很高</td>
+<td>毫米波/THz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 制造工艺</h2>
+    <p><strong>传统方法</strong>：</p>
+<ol>
+<li>分层球壳加工（每层不同 ε_r 的材料）</li>
+<li>球壳组装（胶合或机械固定）</li>
+<li>表面精加工（抛光）</li>
+</ol>
+<p><strong>现代方法</strong>：</p>
+<ol>
+<li>3D 打印梯度介电结构</li>
+<li>超材料单元排列（等效 ε_r）</li>
+<li>注塑成型（大批量低成本）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 馈源设计</h2>
     <p>馈源是龙勃透镜的天线"嘴巴"，直接决定了性能：</p>
-    <div class="tw"><table>
-    <thead><tr><th>馈源类型</th><th>带宽</th><th>增益</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>角锥喇叭</td><td>1-2oct</td><td>8-12dBi</td><td>基站/卫星</td></tr>
-    <tr><td>贴片天线</td><td>< 5%</td><td>5-8dBi</td><td>手机集成</td></tr>
-    <tr><td>Vivaldi</td><td>> 3oct</td><td>10-15dBi</td><td>超宽带</td></tr>
-    <tr><td>螺旋天线</td><td>1-2oct</td><td>8-12dBi</td><td>圆极化</td></tr>
-    </tbody></table></div>
+<table>
+<thead>
+<tr>
+<th>馈源类型</th>
+<th>带宽</th>
+<th>增益</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角锥喇叭</td>
+<td>1-2oct</td>
+<td>8-12dBi</td>
+<td>基站/卫星</td>
+</tr>
+<tr>
+<td>贴片天线</td>
+<td>&lt; 5%</td>
+<td>5-8dBi</td>
+<td>手机集成</td>
+</tr>
+<tr>
+<td>Vivaldi</td>
+<td>&gt; 3oct</td>
+<td>10-15dBi</td>
+<td>超宽带</td>
+</tr>
+<tr>
+<td>螺旋天线</td>
+<td>1-2oct</td>
+<td>8-12dBi</td>
+<td>圆极化</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战</h2>
-    <h3>6.1 体积问题</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 体积问题</h2>
     <p>透镜直径 D 必须满足：</p>
-    <pre><code>D &gt; 10λ  （保证高增益）</code></pre>
-    <p>在 28GHz（λ = 10.7mm）时，D > 107mm。在 10GHz 时，D > 300mm。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>使用半透镜（Half-Luneburg）减小体积</li><li>使用高 ε_r 核心材料缩小波长等效尺寸</li><li>超材料 GRIN 实现轻薄化</li></ul>
-    <h3>6.2 馈源互耦</h3>
+<pre><code>D &gt; 10λ  （保证高增益）
+</code></pre>
+<p>在 28GHz（λ = 10.7mm）时，D &gt; 107mm。在 10GHz 时，D &gt; 300mm。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用半透镜（Half-Luneburg）减小体积</li>
+<li>使用高 ε_r 核心材料缩小波长等效尺寸</li>
+<li>超材料 GRIN 实现轻薄化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 馈源互耦</h2>
     <p>多个馈源紧密排列在球面上时，馈源之间会互相耦合：</p>
-    <pre><code>S_feeder_coupling &gt; -15dB  （典型值）</code></pre>
-    <p><b>解决方案</b>：</p>
-    <ul><li>馈源之间加隔离墙</li><li>使用低增益馈源（减少能量泄漏到相邻馈源）</li><li>馈源间距 ≥ 2λ</li></ul>
-    <h3>6.3 制造公差</h3>
+<pre><code>S_feeder_coupling &gt; -15dB  （典型值）
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>馈源之间加隔离墙</li>
+<li>使用低增益馈源（减少能量泄漏到相邻馈源）</li>
+<li>馈源间距 ≥ 2λ</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 制造公差</h2>
     <p>每层介电常数的偏差会导致波束指向误差：</p>
-    <pre><code>Δθ_beam ≈ arctan(Δε_r / ε_r) · 90°</code></pre>
-    <p>对于 ε_r 偏差 5%，Δθ_beam ≈ 3°。</p>
-    <h3>6.4 极化纯度</h3>
+<pre><code>Δθ_beam ≈ arctan(Δε_r / ε_r) · 90°
+</code></pre>
+<p>对于 ε_r 偏差 5%，Δθ_beam ≈ 3°。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 极化纯度</h2>
     <p>馈源切换时，极化纯度可能下降：</p>
-    <pre><code>交叉极化隔离度：20-30dB（典型）</code></pre>
+<pre><code>交叉极化隔离度：20-30dB（典型）
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1944年</b>：Luneburg 提出理论（Rainer Karl Luneburg 著作）</li><li><b>1950s</b>：多层球壳实现</li><li><b>1960-1980s</b>：军事雷达广泛应用（F-4、F-15、F-22）</li><li><b>1990s-2000s</b>：卫星通信应用</li><li><b>2010s</b>：GRIN 超材料实现连续折射率</li><li><b>2015-2020年</b>：准形变换透镜（任意形状）</li><li><b>2020-2024年</b>：5G/6G 多波束基站应用</li><li><b>2025年</b>：3D 打印梯度介电透镜商业化</li></ul>
+    <ul>
+<li><strong>1944年</strong>：Luneburg 提出理论（Rainer Karl Luneburg 著作）</li>
+<li><strong>1950s</strong>：多层球壳实现</li>
+<li><strong>1960-1980s</strong>：军事雷达广泛应用（F-4、F-15、F-22）</li>
+<li><strong>1990s-2000s</strong>：卫星通信应用</li>
+<li><strong>2010s</strong>：GRIN 超材料实现连续折射率</li>
+<li><strong>2015-2020年</strong>：准形变换透镜（任意形状）</li>
+<li><strong>2020-2024年</strong>：5G/6G 多波束基站应用</li>
+<li><strong>2025年</strong>：3D 打印梯度介电透镜商业化</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：成熟（军事）→ 商用过渡</li><li><b>说明</b>：龙勃透镜在军事雷达领域已有数十年应用历史（F-22 等战机）。民用领域（卫星通信、5G 基站）正在从原型走向小规模商用。超材料 GRIN 透镜是最新研究方向。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>九、一句话总结</h2>
-    <p>龙勃透镜是天线的"物理外挂"——用一个介电常数渐变的球体，把多个馈源的信号转换成指向不同方向的平行波束。它不需要有源移相器就能扫描，成本低、功耗低、可靠性高，是相控阵的有力替代方案，特别适合卫星通信和多波束基站场景。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -310,39 +669,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

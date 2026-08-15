@@ -92,10 +92,6 @@
   <h1 class="title">Metacrystal超晶体逆拓扑优化3D打印智能面板</h1>
   <p class="lede">Aalto大学+斯坦福团队在Nature Communications 2026提出Metacrystal：一种通过逆拓扑优化设计的被动式体积超材料智能面板，用低成本3D打印制造，无需电源即可在毫米波至100GHz频段同时独立控制多路入射波的反射、透射和吸收，为6G室内覆盖提供极简基础设施方案。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">Metacrystal</span><span class="chip brand">逆拓扑优化</span><span class="chip brand">3D打印</span><span class="chip brand">被动智能表面</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>传统RIS像一面只能反射一个方向的镜子，而Metacrystal像一组精密排列的水晶棱镜——不同颜色（频率）、不同方向来的光可以同时被折射到各自的目标位置，而且完全被动，不需要任何电力驱动。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -286,7 +270,6 @@
   
 
 
-
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
@@ -305,39 +288,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

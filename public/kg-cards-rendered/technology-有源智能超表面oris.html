@@ -92,10 +92,6 @@
   <h1 class="title">有源智能超表面ORIS</h1>
   <p class="lede">有源智能超表面在被动RIS的反射单元上集成功率放大器，不仅能调控电磁波相位，还能主动放大信号，从根本上克服被动RIS的&#34;乘性衰落&#34;瓶颈，是6G时代从&#34;反射信号&#34;走向&#34;增强信号&#34;的关键跃迁。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">RIS</span><span class="chip brand">有源智能超表面</span><span class="chip brand">ORIS</span><span class="chip brand">主动式RIS</span><span class="chip brand">ARIS</span><span class="chip brand">乘性衰落</span><span class="chip brand">清华大学</span><span class="chip brand">中兴通讯</span><span class="chip brand">6G标准化</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>被动RIS就像一面镜子——它能把光线反射到你想要的方向，但不会让光变得更亮。有源ORIS则像一面"魔法放大镜"，不仅能把光反射到正确方向，还能在反射的同时把光放大。就像普通音箱只是被动反射声音，而有源音箱自带功放，能让声音更大更清晰。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -477,7 +461,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -495,39 +483,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STAR-RIS全空间覆盖与6G演进 · 知识卡片</title>
+<title>Star-RIS全空间覆盖与6G演进 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -89,12 +89,8 @@
 <body>
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
-  <h1 class="title">STAR-RIS全空间覆盖与6G演进</h1>
-  
-  
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">RIS</span><span class="chip brand">STAR-RIS</span><span class="chip brand">6G</span>
-  </div>
+  <h1 class="title">Star-RIS全空间覆盖与6G演进</h1>
+  <p class="lede">STAR-RIS是RIS技术的重大演进，通过同时实现透射和反射功能，将传统RIS的半空间覆盖扩展为360度全空间覆盖，为6G ISAC（通感一体化）提供关键使能技术，已在IEEE标准组织和学术界引发密集研究。</p>
   
 </header>
 
@@ -109,56 +105,114 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）是传统反射型/透射型 RIS 的演进方向，通过同时控制信号的透射和反射系数，实现 360° 全空间覆盖。相比传统 RIS 的 180° 半空间覆盖，STAR-RIS 将无线环境智能控制的自由度大幅提升，被视为 6G 关键使能技术之一。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>核心技术/原理</h2>
-    <p><strong>基本原理</strong>：每个 STAR-RIS 单元独立调控入射信号的透射（Transmission, T）和反射（Reflection, R）系数，包括相位和幅度。与传统 RIS 只能反射或只能透射不同，STAR-RIS 允许信号从表面两侧同时传播，形成全维度智能无线电环境。</p>
-<p><strong>三种操作协议</strong>（Yuanwei Liu 等, arXiv 2304.14180）：</p>
+    <h2>1.1 传统RIS的局限性</h2>
+    <p>传统反射型RIS只能在一侧工作（反射空间），存在两大瓶颈：</p>
 <ul>
-<li><strong>能量分割（ES）</strong>：每个单元同时执行透射和反射，信号被分成两部分分别向两侧传播</li>
-<li><strong>模式切换（MS）</strong>：单元在透射和反射模式之间切换</li>
-<li><strong>时间切换（TS）</strong>：在不同时隙分别执行透射和反射</li>
+<li><strong>半空间覆盖限制</strong>：只能服务反射侧用户，透射侧信号被阻挡</li>
+<li><strong>双跳衰落问题</strong>：信号需经历BS→RIS→用户双跳，路径损耗严重</li>
+<li><strong>部署灵活性差</strong>：需要精确朝向用户，易受建筑物遮挡影响</li>
 </ul>
-<p><strong>硬件实现分类</strong>：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 STAR-RIS的突破</h2>
+    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）由刘裕团队于2021年首次提出（IEEE Wireless Communications），核心创新：</p>
 <ul>
-<li><strong>贴片阵列型（Patch-array-based）</strong>：周期尺寸约几厘米，相位轮廓空间离散</li>
-<li><strong>超表面型（Metasurface-based）</strong>：周期尺寸毫米级至分子级，可实现空间连续配置</li>
+<li><strong>双向信号调控</strong>：每个单元同时具备透射和反射能力</li>
+<li><strong>360度全空间覆盖</strong>：同时服务反射侧和透射侧用户</li>
+<li><strong>能量分裂协议</strong>：支持能量分裂（ES）、模式切换（MS）、时间切换（TS）三种工作模式</li>
+<li><strong>自由度倍增</strong>：相比传统RIS，设计自由度翻倍</li>
 </ul>
-<p><strong>关键数学约束</strong>：ES 协议下，每个单元的透射和反射系数满足能量守恒约束 $|t_n|^2 + |r_n|^2 \leq 1$，且相位耦合关系使得优化问题高度非凸。</p>
-<p><strong>深度学习的角色</strong>：多项 2025-2026 年研究利用 DRL（DDPG、TD3、PPO）和元学习解决 STAR-RIS 高维非凸优化问题，在动态用户场景下显著优于传统交替优化方法。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>行业应用</h2>
-    <ol>
-<li><strong>6G 全空间覆盖</strong>：STAR-RIS 消除传统 RIS 的拓扑约束，无论用户位于 RIS 哪一侧均可受益</li>
-<li><strong>SWIPT（同时无线信息与能量传输）</strong>：结合 RSMA 技术，在密集纳米小区中实现能量收集与通信的联合优化</li>
-<li><strong>物理层安全（PLS）</strong>：STAR-RIS + NOMA 组合可提升 secrecy outage performance，对外部/内部窃听者提供不同防护策略</li>
-<li><strong>UAV 通信</strong>：为空中用户提供 360° 覆盖，特别适用于 pLEO 战术卫星通信场景</li>
-<li><strong>SIM（Stacked Intelligent Metasurface）协同</strong>：结合光计算能力，STAR-RIS 可将系统数据速率提升 21%（vs 传统 RIS）和 38%（vs SIM 单独部署）</li>
-</ol>
+    <h2>1.3 技术谱系演进</h2>
+    <pre><code>传统RIS（反射型）
+    ↓
+STAR-RIS（同时透射反射型）← 本笔记核心
+    ↓
+Active STAR-RIS（有源STAR-RIS）
+    ↓
+STAR-RIS + ISAC（通感一体化）
+    ↓
+STAR-RIS + MFA-RIS（多功能超表面）
+</code></pre>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>竞品/同行动态</h2>
+    <h2>2.1 单元结构设计</h2>
+    <p>STAR-RIS单元核心结构：</p>
+<ul>
+<li><strong>透射-反射解耦设计</strong>：通过电磁耦合或空间隔离实现透射和反射通道的独立控制</li>
+<li><strong>能量分裂系数</strong>：每个单元需满足能量守恒约束 $|\Gamma_n|^2 + |\Tau_n|^2 \leq 1$</li>
+<li><strong>相位调控机制</strong>：透射相位和反射相位可独立或联合调控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 工作模式对比</h2>
+    <table>
+<thead>
+<tr>
+<th>工作模式</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ES（Energy Splitting）</strong></td>
+<td>信号同时透射和反射，按固定比例分裂</td>
+<td>均匀覆盖需求</td>
+</tr>
+<tr>
+<td><strong>MS（Mode Switching）</strong></td>
+<td>单元工作在透射或反射单一模式</td>
+<td>最大化单边增益</td>
+</tr>
+<tr>
+<td><strong>TS（Time Switching）</strong></td>
+<td>时间域上交替透射/反射</td>
+<td>动态切换需求</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 信道建模创新</h2>
+    <p>STAR-RIS引入新信道模型挑战：</p>
+<ul>
+<li><strong>双路径信道</strong>：反射链路和透射链路独立建模</li>
+<li><strong>空间非平稳性</strong>：不同侧用户经历不同散射环境</li>
+<li><strong>近场效应</strong>：大规模阵列下的球面波前建模</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 标准组织进展</h2>
     <ul>
-<li><strong>Yuanwei Liu（QMUL/BUPT）</strong>：STAR-RIS 领域最核心学术团队，2023 年 arXiv 综述已被引用数百次，持续产出高质量论文</li>
-<li><strong>ZTE</strong>：已有 Dynamic RIS 2.0 商用产品（2023 MWC Shanghai），与 Turkcell 合作完成 mmWave 实测验证（2026 年论文 arXiv 2506.06525），与 AIS 在曼谷完成全球首个 mmWave 动态 RIS 试验</li>
-<li><strong>ETSI RIS ISG</strong>：分三阶段推进标准化，Phase I 聚焦技术潜力评估，Phase II 进入具体规范制定</li>
-<li><strong>CCSA（中国）</strong>：同步推进 RIS 标准制定</li>
-<li><strong>Nature Communications / IEEE TWC</strong>：2025-2026 年 STAR-RIS 相关论文爆发式增长</li>
+<li><strong>ETSI GR RIS 006 V1.1.1</strong>（2025-06）：首次将STAR-RIS纳入标准框架</li>
+<li><strong>3GPP R19</strong>：讨论STAR-RIS在NR Rel-19中的标准化路径</li>
+<li><strong>IEEE 802.11bf</strong>：WLAN感知标准中考虑STAR-RIS辅助方案</li>
 </ul>
   </article>
   
@@ -166,25 +220,168 @@
   
   <article class="card ">
     
-    <h2>趋势判断</h2>
-    <ol>
-<li><strong>STAR-RIS → Active STAR-RIS（ASTAR）</strong>：被动 STAR-RIS 虽能抑制干扰放大，但主动式 ASTAR 在最优信道条件下性能更优，代价是能耗增加。后续研究焦点在于能效-频谱效率权衡</li>
-<li><strong>AI-Native 控制成为主流</strong>：传统交替优化在高维动态场景下计算复杂度不可接受，DRL/元学习/联邦学习正在成为 STAR-RIS 优化的标准工具</li>
-<li><strong>与 O-RAN 融合</strong>：RIS + RIC xApp 的多用户优化原型已实现，标志着 RIS 从"外挂设备"走向"网络原生组件"</li>
-<li><strong>STAR-RIS + NOMA + SWIPT 三合一</strong>：2026 年多篇论文集中探索这三项技术的联合优化，指向高密度 IoT 场景的终极方案</li>
-</ol>
+    <h2>3.2 学术前沿</h2>
+    <p><strong>1. 多目标优化与波束赋形</strong>
+- 混合STAR-RIS优化框架（Hybrid STAR-RIS, 2024）
+- 考虑硬件损伤的鲁棒波束赋形设计
+- AI驱动的动态STAR-RIS配置算法</p>
+<p><strong>2. STAR-RIS + ISAC集成</strong>
+- 2025年Nature Scientific Reports论文：STAR-RIS辅助ISAC安全通信
+- 2026年IEEE WCNC教程：近场XL-MIMO与STAR-RIS协同
+- 多站多STAR-RIS协同感知通信架构</p>
+<p><strong>3. 硬件实现突破</strong>
+- 基于半导体工艺的STAR-RIS原型（与STARE路线互补）
+- 太赫兹频段STAR-RIS实验验证
+-  graphene基可调谐STAR单元</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
+    <h2>3.3 性能优势量化</h2>
+    <p>相比传统RIS：</p>
+<ul>
+<li><strong>覆盖增益</strong>：360度覆盖，消除盲点</li>
+<li><strong>容量提升</strong>：理论上可达传统RIS的2倍（双路服务）</li>
+<li><strong>能效优化</strong>：能量分裂协议支持灵活的资源分配</li>
+<li><strong>感知增强</strong>：ISAC场景下雷达截面（RCS）提升显著</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 典型应用场景</h2>
+    <p><strong>6G城市覆盖</strong>
+- 解决建筑物遮挡问题
+- 室内外无缝切换
+- 智能交通V2X增强</p>
+<p><strong>卫星通信增强</strong>
+- 低轨卫星信号地面增强
+- 星地融合网络节点
+- 应急通信保障</p>
+<p><strong>工业物联网</strong>
+- 工厂全空间覆盖
+- 多用户MIMO增强
+- 资产追踪与感知</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 厂商布局动态</h2>
+    <p><strong>学术界主导</strong>
+- 东南大学、北京邮电大学：STAR-RIS理论与标准
+- 首尔大学：半导体集成STAR-RIS（与STARE团队重叠）
+- 清华大学：STAR-RIS+ISAC一体化设计</p>
+<p><strong>产业界跟进</strong>
+- <strong>华为</strong>：关注STAR-RIS在6G愿景中的位置
+- <strong>爱立信/诺基亚</strong>：标准制定参与度较高
+- <strong>中兴</strong>：U6G架构中可能整合STAR-RIS能力</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 产业链机会</h2>
     <ul>
-<li>STAR-RIS 是老大已研究的 Active BD-RIS 的自然演进方向，两者都涉及 RIS 的主动放大和复杂优化问题</li>
-<li>ZTE Dynamic RIS 2.0 的 mmWave 实测论文（arXiv 2506.06525）由 Turkcell + ZTE 联合发表，可作为 ZTE 在 RIS 领域的工程落地能力佐证</li>
-<li>STAR-RIS 与老大关注的 6G 通感一体化、ORIS 有源智能超表面存在交叉，值得持续跟踪</li>
+<li><strong>半导体厂商</strong>：STAR-RIS控制芯片（与STARE路线协同）</li>
+<li><strong>天线制造商</strong>：STAR-RIS单元设计与集成</li>
+<li><strong>运营商</strong>：360度覆盖场景的商业化试点</li>
 </ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 短期（1-2年）</h2>
+    <ul>
+<li>STAR-RIS成为RIS技术演进主流方向</li>
+<li>ETSI/3GPP标准框架初步建立</li>
+<li>原型系统外场试验启动</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 中期（3-5年）</h2>
+    <ul>
+<li>STAR-RIS与XL-MIMO、AI-RAN协同部署</li>
+<li>成本下降至与传统RIS相当</li>
+<li>6G标准中明确STAR-RIS技术规范</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 长期（5年以上）</h2>
+    <ul>
+<li>成为6G基础设施标配</li>
+<li>与半导体工艺深度融合（晶圆级制造）</li>
+<li>催生全新应用场景（全息通信、数字孪生）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 技术参考</h2>
+    <ul>
+<li><strong>中兴U6G架构</strong>：STAR-RIS可作为U6G基站的多覆盖增强方案</li>
+<li><strong>RIS技术路线选择</strong>：传统反射型 vs STAR全向型的技术权衡</li>
+<li><strong>半导体集成路径</strong>：STARE路线与STAR-RIS的结合点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 行业洞察</h2>
+    <ul>
+<li><strong>标准化机会</strong>：3GPP R19/R20是参与STAR-RIS标准制定的关键窗口</li>
+<li><strong>产业链位置</strong>：关注STAR-RIS单元设计与集成的市场机会</li>
+<li><strong>竞争策略</strong>：传统RIS厂商可能向STAR-RIS演进，需预判技术替代风险</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 行动建议</h2>
+    <ul>
+<li>持续跟踪ETSI GR RIS和3GPP R19标准化进展</li>
+<li>评估STAR-RIS在中兴6G方案中的整合可能性</li>
+<li>关注半导体集成STAR-RIS的产业化动态</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ol>
+<li>Liu, Y., Mu, X., Xu, J., et al. STAR: Simultaneous Transmission and Reflection for 360° Coverage by Intelligent Surfaces. IEEE Wireless Communications, 28(5), 102-109, 2021.</li>
+<li>Xu, J., Liu, Y., Mu, X., Dobre, O.A. STAR-RISs: Simultaneous Transmitting and Reflecting Reconfigurable Intelligent Surfaces. IEEE Communications Letters, 25(10), 3134-3138, 2021.</li>
+<li>ETSI GR RIS 006 V1.1.1 (2025-06). Reconfigurable Intelligent Surfaces; Technical Features and Use Cases.</li>
+<li>Tishchenko, A., et al. The Emergence of Multi-Functional and Hybrid Reconfigurable Intelligent Surfaces for Integrated Sensing and Communications - A Survey. IEEE Communications Surveys &amp; Tutorials, Early Access, 2025.</li>
+<li>Ni, W., et al. Two Birds with One Stone: Enhancing Communication and Sensing via Multi-Functional RIS. IEEE Wireless Communications, 32(4), 72-80, 2025.</li>
+<li>Scientific Reports. STAR-RIS enabled covert integration of sensing, communication and over-the-air computing. 2025.</li>
+<li>arXiv:2410.18767. STAR-RIS-Enabled Full-Duplex Integrated Sensing and Communication. 2024.</li>
+<li>arXiv:2602.02893. Gridless Full-Space DOA Estimation for STAR-RIS-Assisted Wireless. 2026.</li>
+</ol>
   </article>
   
 

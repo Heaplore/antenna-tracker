@@ -92,10 +92,6 @@
   <h1 class="title">LuLIS 256天线分布式MIMO测试床</h1>
   <p class="lede">瑞典隆德大学开发的世界首个实时256天线分布式MIMO测试床LuLIS，用16块可编程面板+AMD RFSoC芯片实现全数字波束赋形的真实时处理，为6G超大规模MIMO(XL-MIMO)铺路。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">Massive MIMO</span><span class="chip brand">分布式MIMO</span><span class="chip brand">XL-MIMO</span><span class="chip brand">测试床</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>以前的MIMO测试床像"集中式厨房"——所有天线信号都送到一个中央处理器处理，带宽瓶颈明显。LuLIS则像"分布式餐厅"——每个区域有自己的小厨房（RFSoC节点），各自处理自己那块区域的菜，最后协调上桌。这样既分散了计算压力，又能灵活扩展。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -330,7 +314,6 @@
   
 
 
-
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
@@ -349,39 +332,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

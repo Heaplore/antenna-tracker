@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>极化方式工程实现对比 · 知识卡片</title>
+<title>极化方式工程实现线极化圆极化对比 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">极化方式工程实现对比</h1>
-  <p class="lede">基站天线 99% 用 ±45° 线极化（双极化天线），卫星/GNSS 用圆极化。极化方式选择取决于"空间复用效率 vs 实现复杂度"——±45° 线极化在移动场景中表现最好，交叉极化隔离度 > 25dB 就能实现双流复用。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">极化方式工程实现线极化圆极化对比</h1>
+  <p class="lede">基站天线 99% 用 ±45° 线极化（双极化天线），卫星/GNSS 用圆极化。极化方式选择取决于&#34;空间复用效率 vs 实现复杂度&#34;——±45° 线极化在移动场景中表现最好，交叉极化隔离度 &gt; 25dB 就能实现双流复用。</p>
+  
 </header>
 
 <main>
@@ -99,124 +101,219 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>极化就像"光的偏振方向"——太阳镜的偏振片只让特定方向的光通过。基站天线用两个互相垂直的极化方向（±45°），相当于同时开两条"光车道"，互不干扰，容量翻倍。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、线极化（Linear Polarization）</h2>
-    <h3>1.1 ±45° 双极化（基站主流）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 ±45° 双极化（基站主流）</h2>
     <pre><code>结构：
-      每个天线单元 = 两根互相垂直的振子
-      振子 1：+45° 方向
-      振子 2：-45° 方向
-      
-    实现方式：
-      1. 交叉偶极子（Crossed Dipole）
-         两根半波振子成 90° 交叉
-         馈电点偏移 45° 实现 ±45° 极化
-         
-      2. 微带贴片（Patch）
-         两个馈点激励正 TM 模
-         馈电相位差 90° → ±45°
-         
-      3. 波导缝隙（Waveguide Slot）
-         波导壁上切两组正交缝隙
-         分别激励 +45°/-45°
+  每个天线单元 = 两根互相垂直的振子
+  振子 1：+45° 方向
+  振子 2：-45° 方向
+
+实现方式：
+  1. 交叉偶极子（Crossed Dipole）
+     两根半波振子成 90° 交叉
+     馈电点偏移 45° 实现 ±45° 极化
+
+  2. 微带贴片（Patch）
+     两个馈点激励正 TM 模
+     馈电相位差 90° → ±45°
+
+  3. 波导缝隙（Waveguide Slot）
+     波导壁上切两组正交缝隙
+     分别激励 +45°/-45°
+
+关键指标：
+  - 极化隔离度（Cross-Pol Isolation）：&gt; 25dB
+  - 轴比（Axial Ratio）：&lt; 3dB（线极化接近 0°）
+  - 极化纯度：&gt; 95%
+
+优势：
+  - 结构简单，成本低
+  - 极化隔离度好（25-30dB）
+  - 适合空间复用（双流 MIMO）
+  - 5G 基站标配
+
+劣势：
+  - 多径衰落时极化失配
+  - 终端天线极化不确定时性能下降
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    关键指标：
-      - 极化隔离度（Cross-Pol Isolation）：&gt; 25dB
-      - 轴比（Axial Ratio）：&lt; 3dB（线极化接近 0°）
-      - 极化纯度：&gt; 95%
-    
-    优势：
-      - 结构简单，成本低
-      - 极化隔离度好（25-30dB）
-      - 适合空间复用（双流 MIMO）
-      - 5G 基站标配
-    
-    劣势：
-      - 多径衰落时极化失配
-      - 终端天线极化不确定时性能下降</code></pre>
-    <h3>1.0°/90° 垂直极化</h3>
+    <h2>1.0°/90° 垂直极化</h2>
     <pre><code>应用：
-      - 卫星通信（部分）
-      - 雷达
-      - 老旧 2G/3G 基站
-      
-    特点：
-      - 极化隔离度好
-      - 但受终端姿态影响大
-      - 5G 已基本不用</code></pre>
-  </article>
+  - 卫星通信（部分）
+  - 雷达
+  - 老旧 2G/3G 基站
 
-  <article class="card">
-    <h2>二、圆极化（Circular Polarization）</h2>
-    <h3>2.1 原理</h3>
+特点：
+  - 极化隔离度好
+  - 但受终端姿态影响大
+  - 5G 已基本不用
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 原理</h2>
     <pre><code>圆极化：
-      电场矢量端点随时间画圆
-      
-      右旋圆极化（RHCP）：顺时针旋转
-      左旋圆极化（LHCP）：逆时针旋转
-      
-    产生方式：
-      1. 正交线极化 + 90° 相位差
-         E_x = E₀·cos(ωt)
-         E_y = E₀·cos(ωt + 90°) = -E₀·sin(ωt)
-         → 合成矢量端点画圆
-         
-      2. 螺旋天线（Helical Antenna）
-         导线绕成螺旋形
-         轴向辐射 = 圆极化
-         
-      3. 微带贴片 + 偏心馈电
-         方形贴片两个对角馈电
-         相位差 90° → 圆极化</code></pre>
-    <h3>2.2 关键指标</h3>
+  电场矢量端点随时间画圆
+
+  右旋圆极化（RHCP）：顺时针旋转
+  左旋圆极化（LHCP）：逆时针旋转
+
+产生方式：
+  1. 正交线极化 + 90° 相位差
+     E_x = E₀·cos(ωt)
+     E_y = E₀·cos(ωt + 90°) = -E₀·sin(ωt)
+     → 合成矢量端点画圆
+
+  2. 螺旋天线（Helical Antenna）
+     导线绕成螺旋形
+     轴向辐射 = 圆极化
+
+  3. 微带贴片 + 偏心馈电
+     方形贴片两个对角馈电
+     相位差 90° → 圆极化
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 关键指标</h2>
     <pre><code>轴比（Axial Ratio, AR）：
-      衡量圆极化&quot;圆&quot;的程度
-      AR = 长轴/短轴
-      
-      AR = 1（0dB）→ 完美圆极化
-      AR = 3dB → 可接受
-      AR &gt; 6dB → 不适合圆极化应用
-      
-    带宽：
-      圆极化带宽通常比线极化窄
-      ±45° 线极化：~100% 相对带宽
-      圆极化：~10-20% 相对带宽</code></pre>
-    <h3>2.3 应用场景</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>极化方式</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>GNSS（GPS/北斗）</td><td>RHCP</td><td>卫星信号经过大气反射后极化不变</td></tr>
-    <tr><td>卫星通信</td><td>RHCP/LHCP</td><td>减少极化失配（卫星姿态变化）</td></tr>
-    <tr><td>RFID</td><td>RHCP</td><td>标签姿态不确定</td></tr>
-    <tr><td>车载毫米波雷达</td><td>圆极化</td><td>多径反射抑制</td></tr>
-    <tr><td>5G 基站</td><td>❌ 不用</td><td>线极化更高效</td></tr>
-    </tbody></table></div>
-  </article>
+  衡量圆极化&quot;圆&quot;的程度
+  AR = 长轴/短轴
 
-  <article class="card">
+  AR = 1（0dB）→ 完美圆极化
+  AR = 3dB → 可接受
+  AR &gt; 6dB → 不适合圆极化应用
+
+带宽：
+  圆极化带宽通常比线极化窄
+  ±45° 线极化：~100% 相对带宽
+  圆极化：~10-20% 相对带宽
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>应用</th>
+<th>极化方式</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GNSS（GPS/北斗）</td>
+<td>RHCP</td>
+<td>卫星信号经过大气反射后极化不变</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>RHCP/LHCP</td>
+<td>减少极化失配（卫星姿态变化）</td>
+</tr>
+<tr>
+<td>RFID</td>
+<td>RHCP</td>
+<td>标签姿态不确定</td>
+</tr>
+<tr>
+<td>车载毫米波雷达</td>
+<td>圆极化</td>
+<td>多径反射抑制</td>
+</tr>
+<tr>
+<td>5G 基站</td>
+<td>❌ 不用</td>
+<td>线极化更高效</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、极化方式对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>±45° 线极化</th><th>垂直线极化</th><th>圆极化</th></tr></thead>
-    <tbody>
-    <tr><td>极化隔离度</td><td>25-30dB</td><td>30+dB</td><td>N/A</td></tr>
-    <tr><td>实现复杂度</td><td>低</td><td>低</td><td>中</td></tr>
-    <tr><td>带宽</td><td>宽（> 100%）</td><td>宽</td><td>窄（10-20%）</td></tr>
-    <tr><td>终端兼容性</td><td>好（手机双极化）</td><td>差</td><td>中</td></tr>
-    <tr><td>多径容忍度</td><td>中</td><td>低</td><td>高</td></tr>
-    <tr><td>5G 基站</td><td>✅ 主流</td><td>❌</td><td>❌</td></tr>
-    <tr><td>卫星/GNSS</td><td>❌</td><td>❌</td><td>✅</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>±45° 线极化</th>
+<th>垂直线极化</th>
+<th>圆极化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化隔离度</td>
+<td>25-30dB</td>
+<td>30+dB</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>宽（&gt; 100%）</td>
+<td>宽</td>
+<td>窄（10-20%）</td>
+</tr>
+<tr>
+<td>终端兼容性</td>
+<td>好（手机双极化）</td>
+<td>差</td>
+<td>中</td>
+</tr>
+<tr>
+<td>多径容忍度</td>
+<td>中</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>5G 基站</td>
+<td>✅ 主流</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>卫星/GNSS</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>5G 基站天线 99% 用 ±45° 双极化——结构简单、隔离度好、终端兼容性强。圆极化只在卫星/GNSS/RFID 等"接收端姿态不确定"的场景用。记住：极化方式不是"越高级越好"，而是"越适合场景越好"。±45° 线极化在移动场景的空间复用效率最高，所以成了 5G 基站的事实标准。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -236,39 +333,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

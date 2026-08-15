@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>波束倾斜（Beam Tilt） · 知识卡片</title>
+<title>波束倾斜Beam-Tilt · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">波束倾斜 <span class="en">Beam Tilt</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">波束倾斜Beam-Tilt</h1>
   <p class="lede">波束倾斜是通过调整天线阵列各单元的馈电相位，使辐射波束在垂直面内向下或向上偏转的技术。它是蜂窝网络覆盖优化的核心手段，分为机械倾角、预设电倾角、远程电控倾角（RET）和数字波束倾斜四种实现方式。</p>
+  
 </header>
 
 <main>
@@ -99,183 +101,574 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象你拿着一支手电筒照向远方——如果你想照亮近处的地面而不是远处的天空，最简单的方法是用手把手电筒往下扳（机械倾角），但更聪明的方法是改变手电筒内部的反射镜角度（电倾角），这样你可以在不碰手电筒的情况下远程控制光束方向。5G 基站的波束倾斜就是这个"远程控制光束方向"的能力。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
-    <p>波束倾斜（Beam Tilt）是指相控阵天线的主波束在垂直面内偏离水平方向的角度。在蜂窝移动通信中，通常使用<b>下倾角</b>（Downtilt），即将波束指向地面而非水平方向，以实现更好的覆盖和减少小区间干扰。</p>
-    <p>总倾角 = 机械倾角（Mechanical Tilt）+ 电倾角（Electrical Tilt）</p>
-    <h3>1.2 波束倾斜的物理原理</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
+    <p>波束倾斜（Beam Tilt）是指相控阵天线的主波束在垂直面内偏离水平方向的角度。在蜂窝移动通信中，通常使用<strong>下倾角</strong>（Downtilt），即将波束指向地面而非水平方向，以实现更好的覆盖和减少小区间干扰。</p>
+<p>总倾角 = 机械倾角（Mechanical Tilt）+ 电倾角（Electrical Tilt）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 波束倾斜的物理原理</h2>
     <p>对于均匀线性阵列，波束指向角 θ₀ 由相邻单元的相位差 α 决定：</p>
-    <pre><code>θ₀ = arcsin(-α / kd)</code></pre>
-    <p>其中 k = 2π/λ，d 是单元间距。</p>
-    <p>要实现波束下倾 θ_tilt，只需给从上到下第 n 个单元施加相位偏移：</p>
-    <pre><code>α_n = n · k · d · sin(θ_tilt)</code></pre>
-    <p>也就是说，越靠下的单元相位越超前（或滞后，取决于符号约定），使得波束向下偏转。</p>
-    <h3>1.3 波束倾斜的三种类型</h3>
-    <h4>机械倾角（Mechanical Tilt, M-Tilt）</h4>
-    <ul><li><b>原理</b>：物理上调整天线的安装角度，将整个天线向下倾斜</li><li><b>控制方式</b>：人工现场调整</li><li><b>倾角范围</b>：0° - 15°（通常）</li><li><b>特点</b>：整个方向图（主瓣 + 旁瓣 + 后瓣）一起下倾</li></ul>
-    <h4>预设电倾角（Preset Electrical Tilt）</h4>
-    <ul><li><b>原理</b>：在天线工厂生产时，通过固定移相器设置一个固定的电倾角</li><li><b>控制方式</b>：不可远程调整，出厂后固定</li><li><b>倾角范围</b>：2° - 10°（通常）</li><li><b>特点</b>：成本低，但灵活性差</li></ul>
-    <h4>远程电控倾角（Remote Electrical Tilt, RET）</h4>
-    <ul><li><b>原理</b>：在天线内部集成可调移相器，通过 AISG 协议远程控制倾角</li><li><b>控制方式</b>：通过网管系统（OMC/RAN Optimization Tool）远程调整</li><li><b>倾角范围</b>：0° - 15°（步进 0.1°-1°）</li><li><b>特点</b>：可远程优化，是目前 4G/5G 基站的主流方案</li></ul>
-    <h4>数字波束倾斜（Digital Tilt / Beam-specific Tilt）</h4>
-    <ul><li><b>原理</b>：在 Massive MIMO 中，每个下行波束可以独立设置不同的倾角</li><li><b>控制方式</b>：通过 BFIC 和基带 DSP 软件控制</li><li><b>倾角范围</b>：理论上 -90° 到 +90°（实际常用 -5° 到 +5°）</li><li><b>特点</b>：最灵活，不同用户可以有不同的波束倾角，但需要全数字波束成形架构</li></ul>
+<pre><code>θ₀ = arcsin(-α / kd)
+</code></pre>
+<p>其中 k = 2π/λ，d 是单元间距。</p>
+<p>要实现波束下倾 θ_tilt，只需给从上到下第 n 个单元施加相位偏移：</p>
+<pre><code>α_n = n · k · d · sin(θ_tilt)
+</code></pre>
+<p>也就是说，越靠下的单元相位越超前（或滞后，取决于符号约定），使得波束向下偏转。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 覆盖半径与倾角的关系</h3>
+  
+  <article class="card ">
+    
+    <h2>机械倾角（Mechanical Tilt, M-Tilt）</h2>
+    <ul>
+<li><strong>原理</strong>：物理上调整天线的安装角度，将整个天线向下倾斜</li>
+<li><strong>控制方式</strong>：人工现场调整</li>
+<li><strong>倾角范围</strong>：0° - 15°（通常）</li>
+<li><strong>特点</strong>：整个方向图（主瓣 + 旁瓣 + 后瓣）一起下倾</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>预设电倾角（Preset Electrical Tilt）</h2>
+    <ul>
+<li><strong>原理</strong>：在天线工厂生产时，通过固定移相器设置一个固定的电倾角</li>
+<li><strong>控制方式</strong>：不可远程调整，出厂后固定</li>
+<li><strong>倾角范围</strong>：2° - 10°（通常）</li>
+<li><strong>特点</strong>：成本低，但灵活性差</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>远程电控倾角（Remote Electrical Tilt, RET）</h2>
+    <ul>
+<li><strong>原理</strong>：在天线内部集成可调移相器，通过 AISG 协议远程控制倾角</li>
+<li><strong>控制方式</strong>：通过网管系统（OMC/RAN Optimization Tool）远程调整</li>
+<li><strong>倾角范围</strong>：0° - 15°（步进 0.1°-1°）</li>
+<li><strong>特点</strong>：可远程优化，是目前 4G/5G 基站的主流方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>数字波束倾斜（Digital Tilt / Beam-specific Tilt）</h2>
+    <ul>
+<li><strong>原理</strong>：在 Massive MIMO 中，每个下行波束可以独立设置不同的倾角</li>
+<li><strong>控制方式</strong>：通过 BFIC 和基带 DSP 软件控制</li>
+<li><strong>倾角范围</strong>：理论上 -90° 到 +90°（实际常用 -5° 到 +5°）</li>
+<li><strong>特点</strong>：最灵活，不同用户可以有不同的波束倾角，但需要全数字波束成形架构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 覆盖半径与倾角的关系</h2>
     <p>天线高度 H，倾角 θ，覆盖半径 R 的近似关系：</p>
-    <pre><code>R ≈ H / tan(θ_mech + θ_elec)</code></pre>
-    <p>更精确的计算需要考虑地球曲率和大气折射：</p>
-    <pre><code>R ≈ √(2 · R_earth · H_eff)</code></pre>
-    <p>其中 H_eff 是有效天线高度（考虑了倾角和折射）。</p>
-    <h3>2.2 倾角对垂直方向图的影响</h3>
+<pre><code>R ≈ H / tan(θ_mech + θ_elec)
+</code></pre>
+<p>更精确的计算需要考虑地球曲率和大气折射：</p>
+<pre><code>R ≈ √(2 · R_earth · H_eff)
+</code></pre>
+<p>其中 H_eff 是有效天线高度（考虑了倾角和折射）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 倾角对垂直方向图的影响</h2>
     <p>电倾角不会改变波束形状的"内在"宽度，但会使整个方向图在垂直面内平移：</p>
-    <pre><code>F_tilt(θ) = F_original(θ + θ_tilt)</code></pre>
-    <p>其中 F_original 是无倾角时的方向图，θ_tilt 是电倾角（下倾为正）。</p>
-    <h3>2.3 波束宽度与倾角的关系</h3>
+<pre><code>F_tilt(θ) = F_original(θ + θ_tilt)
+</code></pre>
+<p>其中 F_original 是无倾角时的方向图，θ_tilt 是电倾角（下倾为正）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 波束宽度与倾角的关系</h2>
     <p>垂直波束宽度（VBW）随电倾角的变化：</p>
-    <ul><li><b>机械倾角</b>：不改变 VBW</li><li><b>电倾角</b>：在靠近波束边缘的方向上，有效 VBW 会"压缩"</li><li>当电倾角增大时，靠近地面的那部分方向图被"挤压"，导致覆盖区域的信号强度分布不均匀</li></ul>
-    <p><b>经验法则</b>：电倾角每增加 1°，垂直方向图的下半部分增益下降约 0.5-1 dB。</p>
-    <h3>2.4 总倾角的分配原则</h3>
-    <pre><code>总倾角 = M-Tilt + RET-Tilt</code></pre>
-    <p><b>典型分配</b>：</p>
-    <ul><li>机械倾角：0° - 5°（主要用于粗调，保证方向图质量）</li><li>RET 电倾角：0° - 15°（主要用于精细优化）</li></ul>
-    <p><b>为什么不建议只用机械倾角？</b></p>
-    <ul><li>机械倾角会使旁瓣也一起下倾，可能导致干扰到其他小区</li><li>机械倾角无法远程调整，每次优化都需要爬塔</li><li>机械倾角过大（> 10°）会导致方向图畸变</li></ul>
-    <p><b>为什么不建议只用 RET 电倾角？</b></p>
-    <ul><li>纯电倾角过大时，上半部分方向图（远离地面的一侧）增益急剧下降</li><li>纯电倾角 > 10° 时，旁瓣结构严重畸变</li><li>最佳实践：机械倾角 2°-5° + RET 电倾角 2°-10°</li></ul>
-    <h3>2.5 5G Massive MIMO 的数字波束倾斜</h3>
+<ul>
+<li><strong>机械倾角</strong>：不改变 VBW</li>
+<li><strong>电倾角</strong>：在靠近波束边缘的方向上，有效 VBW 会"压缩"</li>
+<li>当电倾角增大时，靠近地面的那部分方向图被"挤压"，导致覆盖区域的信号强度分布不均匀</li>
+</ul>
+<p><strong>经验法则</strong>：电倾角每增加 1°，垂直方向图的下半部分增益下降约 0.5-1 dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 总倾角的分配原则</h2>
+    <pre><code>总倾角 = M-Tilt + RET-Tilt
+</code></pre>
+<p><strong>典型分配</strong>：</p>
+<ul>
+<li>机械倾角：0° - 5°（主要用于粗调，保证方向图质量）</li>
+<li>RET 电倾角：0° - 15°（主要用于精细优化）</li>
+</ul>
+<p><strong>为什么不建议只用机械倾角？</strong>
+- 机械倾角会使旁瓣也一起下倾，可能导致干扰到其他小区
+- 机械倾角无法远程调整，每次优化都需要爬塔
+- 机械倾角过大（&gt; 10°）会导致方向图畸变</p>
+<p><strong>为什么不建议只用 RET 电倾角？</strong>
+- 纯电倾角过大时，上半部分方向图（远离地面的一侧）增益急剧下降
+- 纯电倾角 &gt; 10° 时，旁瓣结构严重畸变
+- 最佳实践：机械倾角 2°-5° + RET 电倾角 2°-10°</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 5G Massive MIMO 的数字波束倾斜</h2>
     <p>5G AAU（有源天线单元）支持数字波束倾斜，其原理是：</p>
-    <pre><code>SSB 波束 i 的倾角 = 基础倾角 + 数字偏移_i</code></pre>
-    <p>其中 SSB（Synchronization Signal Block）波束是 5G 的同步波束，通常有 4-8 个垂直波束层。数字波束倾斜可以对每个 SSB 波束设置不同的倾角，实现：</p>
-    <ul><li>小区边缘用户：用大倾角波束（照亮近处）</li><li>小区中心用户：用小倾角波束（照到远处）</li></ul>
-    <p>华为的 5G RAN2.0 方案中，倾角规划公式：</p>
-    <pre><code>总倾角 α = arctan(1.5H / D)</code></pre>
-    <p>其中 H 是天线高度，D 是小区间距离。</p>
+<pre><code>SSB 波束 i 的倾角 = 基础倾角 + 数字偏移_i
+</code></pre>
+<p>其中 SSB（Synchronization Signal Block）波束是 5G 的同步波束，通常有 4-8 个垂直波束层。数字波束倾斜可以对每个 SSB 波束设置不同的倾角，实现：</p>
+<ul>
+<li>小区边缘用户：用大倾角波束（照亮近处）</li>
+<li>小区中心用户：用小倾角波束（照到远处）</li>
+</ul>
+<p>华为的 5G RAN2.0 方案中，倾角规划公式：</p>
+<pre><code>总倾角 α = arctan(1.5H / D)
+</code></pre>
+<p>其中 H 是天线高度，D 是小区间距离。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、实现方式与分类</h2>
-    <h3>3.1 按控制方式分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方式</th><th>响应时间</th><th>寿命（次）</th><th>成本</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>手动机械倾角</td><td>分钟级（需爬塔）</td><td>∞</td><td>最低</td><td>新建站粗调</td></tr>
-    <tr><td>预设电倾角</td><td>不可调</td><td>∞</td><td>低</td><td>低成本部署</td></tr>
-    <tr><td>RET 远程电控</td><td>秒级</td><td>10万-50万次</td><td>中</td><td>现网优化</td></tr>
-    <tr><td>数字波束倾斜</td><td>毫秒级</td><td>∞</td><td>高（需Massive MIMO）</td><td>5G AAU</td></tr>
-    </tbody></table></div>
-    <h3>3.2 RET 控制技术</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 按控制方式分类</h2>
+    <table>
+<thead>
+<tr>
+<th>方式</th>
+<th>响应时间</th>
+<th>寿命（次）</th>
+<th>成本</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手动机械倾角</td>
+<td>分钟级（需爬塔）</td>
+<td>∞</td>
+<td>最低</td>
+<td>新建站粗调</td>
+</tr>
+<tr>
+<td>预设电倾角</td>
+<td>不可调</td>
+<td>∞</td>
+<td>低</td>
+<td>低成本部署</td>
+</tr>
+<tr>
+<td>RET 远程电控</td>
+<td>秒级</td>
+<td>10万-50万次</td>
+<td>中</td>
+<td>现网优化</td>
+</tr>
+<tr>
+<td>数字波束倾斜</td>
+<td>毫秒级</td>
+<td>∞</td>
+<td>高（需Massive MIMO）</td>
+<td>5G AAU</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 RET 控制技术</h2>
     <p>RET 通过 AISG（Antenna Interface Standards Group）协议控制：</p>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>原理</th><th>精度</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>电机驱动移相器</td><td>步进电机带动移相器旋转</td><td>0.1° - 1°</td><td>主流方案</td></tr>
-    <tr><td>压控移相器</td><td>电压控制变容二极管</td><td>0.01°</td><td>精度高，但温度稳定性差</td></tr>
-    <tr><td>数字移相器</td><td>BFIC 内置数字移相</td><td>5.625°（6-bit）</td><td>5G AAU 方案</td></tr>
-    </tbody></table></div>
-    <h3>3.3 倾角类型对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>机械倾角</th><th>RET电倾角</th><th>数字波束倾斜</th></tr></thead>
-    <tbody>
-    <tr><td>方向图形状</td><td>整体平移，不变形</td><td>整体平移，轻微畸变</td><td>每个波束独立优化</td></tr>
-    <tr><td>旁瓣影响</td><td>旁瓣一起下倾</td><td>旁瓣一起下倾</td><td>可独立控制</td></tr>
-    <tr><td>调整速度</td><td>手动（小时级）</td><td>秒级</td><td>毫秒级</td></tr>
-    <tr><td>调整精度</td><td>±0.5°</td><td>0.1°</td><td>0.1°-1°</td></tr>
-    <tr><td>成本增量</td><td>无</td><td>+$50-200/天线</td><td>需Massive MIMO</td></tr>
-    <tr><td>适用频段</td><td>所有</td><td>所有</td><td>Sub-6GHz</td></tr>
-    <tr><td>远程可控</td><td>否</td><td>是</td><td>是</td></tr>
-    </tbody></table></div>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>原理</th>
+<th>精度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电机驱动移相器</td>
+<td>步进电机带动移相器旋转</td>
+<td>0.1° - 1°</td>
+<td>主流方案</td>
+</tr>
+<tr>
+<td>压控移相器</td>
+<td>电压控制变容二极管</td>
+<td>0.01°</td>
+<td>精度高，但温度稳定性差</td>
+</tr>
+<tr>
+<td>数字移相器</td>
+<td>BFIC 内置数字移相</td>
+<td>5.625°（6-bit）</td>
+<td>5G AAU 方案</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 4G LTE 基站</h3>
-    <ul><li><b>典型配置</b>：机械倾角 2°-5° + RET 电倾角 2°-10°</li><li><b>优化目标</b>：覆盖半径、SINR、切换边界</li><li><b>调整频率</b>：每月或每季度一次（人工优化）</li><li><b>工具</b>：Drive Test + OMC 网管系统</li></ul>
-    <h3>4.2 5G Sub-6GHz Massive MIMO</h3>
-    <ul><li><b>典型配置</b>：机械倾角 0°-3° + 数字波束倾斜（每波束独立）</li><li><b>SSB 波束</b>：4-8 个垂直波束层，每层可独立设置倾角</li><li><b>CSI-RS 波束</b>：更细粒度的波束，倾角由波束赋形算法自动优化</li><li><b>优化目标</b>：用户吞吐量、SINR、负载均衡</li><li><b>调整频率</b>：实时/每小时（AI 自动优化）</li></ul>
-    <h3>4.3 5G mmWave（28/39GHz）</h3>
-    <ul><li><b>典型配置</b>：窄波束（2°-5° HPBW），倾角精度要求更高</li><li><b>挑战</b>：毫米波波束窄，倾角误差 0.5° 就可能导致覆盖偏移</li><li><b>解决方案</b>：AiP 模组内集成数字移相器，每通道独立控制</li></ul>
-    <h3>4.4 室内分布系统</h3>
-    <ul><li><b>典型配置</b>：小倾角（0°-3°），主要靠天线位置和朝向控制覆盖</li><li><b>挑战</b>：室内空间小，过大倾角会导致信号打不到远处</li></ul>
-    <h3>4.5 专网/物联网</h3>
-    <ul><li><b>典型配置</b>：固定倾角（根据场景预设）</li><li><b>场景</b>：工厂、港口、矿山等封闭区域</li><li><b>优化目标</b>：覆盖无死角 + 干扰最小化</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.3 倾角类型对比</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>机械倾角</th>
+<th>RET电倾角</th>
+<th>数字波束倾斜</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方向图形状</td>
+<td>整体平移，不变形</td>
+<td>整体平移，轻微畸变</td>
+<td>每个波束独立优化</td>
+</tr>
+<tr>
+<td>旁瓣影响</td>
+<td>旁瓣一起下倾</td>
+<td>旁瓣一起下倾</td>
+<td>可独立控制</td>
+</tr>
+<tr>
+<td>调整速度</td>
+<td>手动（小时级）</td>
+<td>秒级</td>
+<td>毫秒级</td>
+</tr>
+<tr>
+<td>调整精度</td>
+<td>±0.5°</td>
+<td>0.1°</td>
+<td>0.1°-1°</td>
+</tr>
+<tr>
+<td>成本增量</td>
+<td>无</td>
+<td>+$50-200/天线</td>
+<td>需Massive MIMO</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>所有</td>
+<td>所有</td>
+<td>Sub-6GHz</td>
+</tr>
+<tr>
+<td>远程可控</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 倾角相关指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>机械倾角范围</td><td>物理可调角度</td><td>0° - 15°</td></tr>
-    <tr><td>RET 倾角范围</td><td>电控可调角度</td><td>0° - 15°（AISG 标准）</td></tr>
-    <tr><td>倾角精度</td><td>设定值与实际值的偏差</td><td>±0.5°（RET）</td></tr>
-    <tr><td>倾角分辨率</td><td>最小可调步进</td><td>0.1°（RET）/ 5.625°（6-bit 数字）</td></tr>
-    <tr><td>垂直波束宽度（VBW）</td><td>3dB 波束宽度</td><td>6°-15°（4G）/ 3°-8°（5G Massive MIMO）</td></tr>
-    <tr><td>倾角-增益关系</td><td>倾角增大时的增益下降</td><td>~0.5dB/°（电倾角）</td></tr>
-    </tbody></table></div>
-    <h3>5.2 覆盖优化指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>RSRP</td><td>参考信号接收功率</td><td>> -105 dBm（95%区域）</td></tr>
-    <tr><td>SINR</td><td>信噪比</td><td>> 0 dB（95%区域）</td></tr>
-    <tr><td>切换边界 SINR</td><td>小区边缘用户 SINR</td><td>> -3 dB</td></tr>
-    <tr><td>覆盖重叠区</td><td>相邻小区信号重叠区域</td><td>3-5 dB（避免过覆盖）</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>4.1 4G LTE 基站</h2>
+    <ul>
+<li><strong>典型配置</strong>：机械倾角 2°-5° + RET 电倾角 2°-10°</li>
+<li><strong>优化目标</strong>：覆盖半径、SINR、切换边界</li>
+<li><strong>调整频率</strong>：每月或每季度一次（人工优化）</li>
+<li><strong>工具</strong>：Drive Test + OMC 网管系统</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 倾角过大导致方向图畸变</h3>
+  
+  <article class="card ">
+    
+    <h2>4.2 5G Sub-6GHz Massive MIMO</h2>
+    <ul>
+<li><strong>典型配置</strong>：机械倾角 0°-3° + 数字波束倾斜（每波束独立）</li>
+<li><strong>SSB 波束</strong>：4-8 个垂直波束层，每层可独立设置倾角</li>
+<li><strong>CSI-RS 波束</strong>：更细粒度的波束，倾角由波束赋形算法自动优化</li>
+<li><strong>优化目标</strong>：用户吞吐量、SINR、负载均衡</li>
+<li><strong>调整频率</strong>：实时/每小时（AI 自动优化）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 5G mmWave（28/39GHz）</h2>
+    <ul>
+<li><strong>典型配置</strong>：窄波束（2°-5° HPBW），倾角精度要求更高</li>
+<li><strong>挑战</strong>：毫米波波束窄，倾角误差 0.5° 就可能导致覆盖偏移</li>
+<li><strong>解决方案</strong>：AiP 模组内集成数字移相器，每通道独立控制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 室内分布系统</h2>
+    <ul>
+<li><strong>典型配置</strong>：小倾角（0°-3°），主要靠天线位置和朝向控制覆盖</li>
+<li><strong>挑战</strong>：室内空间小，过大倾角会导致信号打不到远处</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 专网/物联网</h2>
+    <ul>
+<li><strong>典型配置</strong>：固定倾角（根据场景预设）</li>
+<li><strong>场景</strong>：工厂、港口、矿山等封闭区域</li>
+<li><strong>优化目标</strong>：覆盖无死角 + 干扰最小化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 倾角相关指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机械倾角范围</td>
+<td>物理可调角度</td>
+<td>0° - 15°</td>
+</tr>
+<tr>
+<td>RET 倾角范围</td>
+<td>电控可调角度</td>
+<td>0° - 15°（AISG 标准）</td>
+</tr>
+<tr>
+<td>倾角精度</td>
+<td>设定值与实际值的偏差</td>
+<td>±0.5°（RET）</td>
+</tr>
+<tr>
+<td>倾角分辨率</td>
+<td>最小可调步进</td>
+<td>0.1°（RET）/ 5.625°（6-bit 数字）</td>
+</tr>
+<tr>
+<td>垂直波束宽度（VBW）</td>
+<td>3dB 波束宽度</td>
+<td>6°-15°（4G）/ 3°-8°（5G Massive MIMO）</td>
+</tr>
+<tr>
+<td>倾角-增益关系</td>
+<td>倾角增大时的增益下降</td>
+<td>~0.5dB/°（电倾角）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 覆盖优化指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSRP</td>
+<td>参考信号接收功率</td>
+<td>&gt; -105 dBm（95%区域）</td>
+</tr>
+<tr>
+<td>SINR</td>
+<td>信噪比</td>
+<td>&gt; 0 dB（95%区域）</td>
+</tr>
+<tr>
+<td>切换边界 SINR</td>
+<td>小区边缘用户 SINR</td>
+<td>&gt; -3 dB</td>
+</tr>
+<tr>
+<td>覆盖重叠区</td>
+<td>相邻小区信号重叠区域</td>
+<td>3-5 dB（避免过覆盖）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 倾角过大导致方向图畸变</h2>
     <p>电倾角超过 10° 后，方向图下半部分的增益急剧下降，上半部分的旁瓣升高：</p>
-    <ul><li><b>后果</b>：近处信号弱，远处干扰强</li><li><b>对策</b>：机械倾角 + 电倾角组合使用，总倾角中电倾角部分不超过 10°</li></ul>
-    <h3>6.2 多频共存时的倾角冲突</h3>
+<ul>
+<li><strong>后果</strong>：近处信号弱，远处干扰强</li>
+<li><strong>对策</strong>：机械倾角 + 电倾角组合使用，总倾角中电倾角部分不超过 10°</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 多频共存时的倾角冲突</h2>
     <p>一个基站天线通常同时承载 2.6GHz（n77）、3.5GHz（n78）、4.9GHz（n79）等多频段：</p>
-    <ul><li>不同频段的垂直波束宽度不同（频率越高，VBW 越窄）</li><li>同一倾角对不同频段的效果不同</li><li><b>对策</b>：以最低频段（最宽 VBW）为基准设置倾角，高频段通过数字波束倾斜微调</li></ul>
-    <h3>6.3 RET 电机故障</h3>
+<ul>
+<li>不同频段的垂直波束宽度不同（频率越高，VBW 越窄）</li>
+<li>同一倾角对不同频段的效果不同</li>
+<li><strong>对策</strong>：以最低频段（最宽 VBW）为基准设置倾角，高频段通过数字波束倾斜微调</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 RET 电机故障</h2>
     <p>RET 电机是机械部件，长期运行后可能出现：</p>
-    <ul><li>电机卡死（Jam）：无法响应倾角调整指令</li><li>位置漂移：设定倾角与实际倾角不一致</li><li>寿命到期：超过 10 万次操作后故障率显著上升</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>定期自检（OMS 系统监控 RET 状态）</li><li>设置倾角调整频率上限（如每天不超过 10 次）</li><li>选用高品质 RET 电机（寿命 > 50 万次）</li></ul>
-    <h3>6.4 5G 与 4G 共站时的倾角协调</h3>
+<ul>
+<li>电机卡死（Jam）：无法响应倾角调整指令</li>
+<li>位置漂移：设定倾角与实际倾角不一致</li>
+<li>寿命到期：超过 10 万次操作后故障率显著上升</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>定期自检（OMS 系统监控 RET 状态）</li>
+<li>设置倾角调整频率上限（如每天不超过 10 次）</li>
+<li>选用高品质 RET 电机（寿命 &gt; 50 万次）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 5G 与 4G 共站时的倾角协调</h2>
     <p>4G 和 5G 天线共站时，需要协调两者的倾角：</p>
-    <pre><code>5G 总倾角 ≈ 4G 总倾角 - 0.5 × 4G VBW</code></pre>
-    <p>这是因为 5G 的 VBW 通常比 4G 窄，如果倾角相同，5G 的覆盖会比 4G 更"远"，导致切换问题。</p>
-    <h3>6.5 数字波束倾斜的波束间干扰</h3>
+<pre><code>5G 总倾角 ≈ 4G 总倾角 - 0.5 × 4G VBW
+</code></pre>
+<p>这是因为 5G 的 VBW 通常比 4G 窄，如果倾角相同，5G 的覆盖会比 4G 更"远"，导致切换问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 数字波束倾斜的波束间干扰</h2>
     <p>在 Massive MIMO 中，不同倾角的 SSB 波束之间可能存在干扰：</p>
-    <ul><li>大倾角波束（近处）和小倾角波束（远处）同时工作时，近处用户的信号可能被远处波束的旁瓣干扰</li><li><b>对策</b>：波束功率控制 + 智能波束选择</li></ul>
+<ul>
+<li>大倾角波束（近处）和小倾角波束（远处）同时工作时，近处用户的信号可能被远处波束的旁瓣干扰</li>
+<li><strong>对策</strong>：波束功率控制 + 智能波束选择</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1980s</b>：机械倾角是唯一的倾角调整方式</li><li><b>1990s</b>：预设电倾角出现，工厂生产时固定</li><li><b>2000s</b>：RET（远程电控倾角）成为 3G/4G 基站标配</li><li><b>2010s</b>：4G LTE Massive MIMO 初步应用，支持有限的电倾角调整</li><li><b>2018年</b>：5G NR 标准确立，AAU 支持数字波束倾斜</li><li><b>2020年</b>：华为 5G RAN2.0 提出数字波束倾斜 + 机械倾角联合优化方案</li><li><b>2022-2024年</b>：AI 驱动的自动倾角优化（Auto Tilt Optimization）在运营商网络中部署</li><li><b>2025-2026年</b>：6G 智能超表面（RIS）实现连续可调的"无级"波束倾斜</li></ul>
+    <ul>
+<li><strong>1980s</strong>：机械倾角是唯一的倾角调整方式</li>
+<li><strong>1990s</strong>：预设电倾角出现，工厂生产时固定</li>
+<li><strong>2000s</strong>：RET（远程电控倾角）成为 3G/4G 基站标配</li>
+<li><strong>2010s</strong>：4G LTE Massive MIMO 初步应用，支持有限的电倾角调整</li>
+<li><strong>2018年</strong>：5G NR 标准确立，AAU 支持数字波束倾斜</li>
+<li><strong>2020年</strong>：华为 5G RAN2.0 提出数字波束倾斜 + 机械倾角联合优化方案</li>
+<li><strong>2022-2024年</strong>：AI 驱动的自动倾角优化（Auto Tilt Optimization）在运营商网络中部署</li>
+<li><strong>2025-2026年</strong>：6G 智能超表面（RIS）实现连续可调的"无级"波束倾斜</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：机械倾角和 RET 电倾角技术已非常成熟（30+ 年历史），是 4G/5G 基站的标准功能。数字波束倾斜在 5G Massive MIMO 中已大规模商用。AI 自动倾角优化处于快速推广阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced 推动更细粒度的波束级倾角控制（每个 UE 独立倾角）</li><li>AI 自动倾角优化成为运营商标配</li><li>多频段 AAU 的倾角协调自动化</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G RIS（智能反射面）实现无源波束倾斜，无需 T/R 模块</li><li>通感一体化（ISAC）中波束倾斜同时优化通信和 sensing 性能</li><li>无人机基站（UAV）的动态波束倾斜</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO 的连续波束倾斜：不再有"离散波束"的概念</li><li>太赫兹频段的超精细波束倾斜控制（精度 < 0.01°）</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced 推动更细粒度的波束级倾角控制（每个 UE 独立倾角）</li>
+<li>AI 自动倾角优化成为运营商标配</li>
+<li>
+<p>多频段 AAU 的倾角协调自动化</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G RIS（智能反射面）实现无源波束倾斜，无需 T/R 模块</li>
+<li>通感一体化（ISAC）中波束倾斜同时优化通信和 sensing 性能</li>
+<li>
+<p>无人机基站（UAV）的动态波束倾斜</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO 的连续波束倾斜：不再有"离散波束"的概念</li>
+<li>太赫兹频段的超精细波束倾斜控制（精度 &lt; 0.01°）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>波束倾斜是蜂窝网络覆盖优化的"基本功"——从机械扳手到 RET 电机，再到 5G Massive MIMO 的数字波束倾斜，每一次技术进步都在让"把信号打到该打的地方"这件事变得更精准、更自动、更智能。理解倾角的物理原理和工程权衡，是 RF 优化的第一课。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -295,39 +688,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

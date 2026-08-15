@@ -92,10 +92,6 @@
   <h1 class="title">E-Band天线</h1>
   <p class="lede">E-Band 是 71-86 GHz 毫米波频段的天线系统，提供 10-25 Gbps 光纤级无线回传能力，是 5G 小基站密集部署场景下替代光纤的首选方案，以极窄波束实现超高频谱复用和超低时延传输。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">E-Band</span><span class="chip brand">微波回传</span><span class="chip brand">毫米波</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>就像在两座大楼之间架设了一条"看不见的微波光纤"——E-Band 天线用极其窄的波束把数据像激光一样精准对准接收端，10 GHz 的可用带宽相当于在拥挤的高速公路上凭空多开了 100 条车道，而且不需要挖沟埋缆。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -517,7 +501,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -535,39 +523,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

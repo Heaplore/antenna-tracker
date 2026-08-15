@@ -92,10 +92,6 @@
   <h1 class="title">北京6G实验室超维度天线技术全景</h1>
   
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">超维度天线</span><span class="chip brand">E-MIMO</span><span class="chip brand">北京6G实验室</span><span class="chip brand">大唐移动</span><span class="chip brand">中兴数字星云</span><span class="chip brand">中国信科</span><span class="chip brand">全息超表面</span>
-  </div>
-  
 </header>
 
 <main>
@@ -332,7 +328,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -350,39 +350,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

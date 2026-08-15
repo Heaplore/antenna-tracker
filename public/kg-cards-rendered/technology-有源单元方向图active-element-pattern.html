@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>有源单元方向图（Active Element Pattern, AEP） · 知识卡片</title>
+<title>有源单元方向图Active-Element-Pattern · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">有源单元方向图（Active Element Pattern, AEP） <span class="en">Active-Element-Pattern</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">有源单元方向图Active-Element-Pattern</h1>
   <p class="lede">有源单元方向图（AEP）是指在大规模阵列中，当只有一个单元被激励而其他所有单元保持匹配负载时，该单元在整个空间中的辐射方向图。它包含了互耦效应和扫描角依赖的全部信息，是分析和设计相控阵天线最核心的工具之一。</p>
+  
 </header>
 
 <main>
@@ -99,171 +101,464 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一个合唱团的歌手——当每个人都孤立地唱歌时，声音传播模式是固定的（这就是"无源单元方向图"，即单个天线单元自身的方向图）。但当所有人一起唱时，彼此的声音会互相干扰和叠加，每个人的"实际发声效果"就变了。AEP 就是在合唱团一起唱的时候，单独测量某一个人"实际发出的声音模式"——它包含了所有人互相影响的综合效果。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
     <p>有源单元方向图（Active Element Pattern, AEP），也称为扫描单元方向图（Scanned Element Pattern），是相控阵天线分析中的一个核心概念。它定义为：</p>
-    <p><b>在无限大或有限大阵列中，当第 n 个单元被激励（施加信号），而阵列中所有其他单元都端接匹配负载（通常为 50Ω）时，该单元在整个空间中的归一化辐射方向图。</b></p>
-    <p>AEP 与无源单元方向图（Isolated Element Pattern）的区别在于：AEP 包含了<b>互耦效应（Mutual Coupling）</b>的影响，因此它随扫描角变化而变化，而无源单元方向图是固定不变的。</p>
-    <h3>1.2 与阵列因子理论的关系</h3>
+<p><strong>在无限大或有限大阵列中，当第 n 个单元被激励（施加信号），而阵列中所有其他单元都端接匹配负载（通常为 50Ω）时，该单元在整个空间中的归一化辐射方向图。</strong></p>
+<p>AEP 与无源单元方向图（Isolated Element Pattern）的区别在于：AEP 包含了<strong>互耦效应（Mutual Coupling）</strong>的影响，因此它随扫描角变化而变化，而无源单元方向图是固定不变的。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 与阵列因子理论的关系</h2>
     <p>天线阵列的总方向图可以分解为：</p>
-    <p>总方向图 = AEP(θ,φ,θ₀,φ₀) × AF(θ,φ)</p>
-    <p>注意这里的关键区别：</p>
-    <ul><li><b>经典分解</b>：总方向图 = 单元方向图 × 阵列因子（AF）—— 这只在无互耦的理想情况下成立</li><li><b>实际分解</b>：总方向图 = <b>有源单元方向图</b> × 阵列因子 —— AEP 已经包含了互耦效应</li></ul>
-    <p>这意味着 AEP 本质上是一个"修正因子"，它将理想单元方向图修正为考虑了互耦后的实际方向图。</p>
-    <h3>1.3 扫描角依赖性</h3>
-    <p>AEP 不是固定的，它强烈依赖于阵列的<b>波束指向角</b>（θ₀, φ₀）：</p>
-    <ul><li>当波束指向 broadside（垂直于阵列平面）时，AEP 对应于 broadside AEP</li><li>当波束扫描到某个角度 θ₀ 时，AEP 会随之变化</li><li>扫描角度越大，AEP 畸变越严重</li></ul>
-    <p>这种扫描角依赖性正是互耦效应在方向图上的体现——每个单元周围的"电磁环境"随扫描角而变化。</p>
+<p>总方向图 = AEP(θ,φ,θ₀,φ₀) × AF(θ,φ)</p>
+<p>注意这里的关键区别：</p>
+<ul>
+<li><strong>经典分解</strong>：总方向图 = 单元方向图 × 阵列因子（AF）—— 这只在无互耦的理想情况下成立</li>
+<li><strong>实际分解</strong>：总方向图 = <strong>有源单元方向图</strong> × 阵列因子 —— AEP 已经包含了互耦效应</li>
+</ul>
+<p>这意味着 AEP 本质上是一个"修正因子"，它将理想单元方向图修正为考虑了互耦后的实际方向图。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 AEP 的数学推导</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 扫描角依赖性</h2>
+    <p>AEP 不是固定的，它强烈依赖于阵列的<strong>波束指向角</strong>（θ₀, φ₀）：</p>
+<ul>
+<li>当波束指向 broadside（垂直于阵列平面）时，AEP 对应于 broadside AEP</li>
+<li>当波束扫描到某个角度 θ₀ 时，AEP 会随之变化</li>
+<li>扫描角度越大，AEP 畸变越严重</li>
+</ul>
+<p>这种扫描角依赖性正是互耦效应在方向图上的体现——每个单元周围的"电磁环境"随扫描角而变化。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 AEP 的数学推导</h2>
     <p>基于散射参数（S-parameters），AEP 可以严格推导如下：</p>
-    <p>对于一个 N 单元阵列，第 i 个单元的有源辐射场可以表示为：</p>
-    <p>E_i(θ,φ; θ₀,φ₀) = √(4π/G₀) · Γ_i(θ₀,φ₀) · exp(j·k·r_i·sinθ·cos(φ-φ₀))</p>
-    <p>其中：</p>
-    <ul><li>G₀ 是参考单元增益</li><li>Γ_i(θ₀,φ₀) 是第 i 个单元在扫描角 (θ₀, φ₀) 下的<b>有源反射系数</b></li><li>r_i 是第 i 个单元的位置矢量</li></ul>
-    <h3>2.2 有源反射系数与 TARC</h3>
-    <p><b>有源反射系数（Active Reflection Coefficient, ARC）</b> 是 AEP 理论中最关键的参数之一：</p>
-    <p>Γ_active,i = b_i / a_i | (a_j=0, j≠i)</p>
-    <p>即在只有第 i 个单元激励的情况下，该端口的反射系数。它不同于传统的 S11，因为考虑了其他端口的匹配负载产生的反射回来信号。</p>
-    <p><b>总有源反射系数（Total Active Reflection Coefficient, TARC）</b> 是多端口阵列的推广：</p>
-    <p>TARC = √(Σ|b_i|²) / √(Σ|a_i|²) | 所有端口按波束指向角加权激励</p>
-    <p>TARC 的物理意义：</p>
-    <ul><li>TARC = 0：所有功率都被天线吸收（完美匹配）</li><li>TARC = 1：所有功率都被反射（完全失配）</li><li>工程接受标准：TARC ≤ -10 dB（通常要求 ≤ -15 dB）</li></ul>
-    <h3>2.3 扫描阻抗（Scan Impedance）</h3>
+<p>对于一个 N 单元阵列，第 i 个单元的有源辐射场可以表示为：</p>
+<p>E_i(θ,φ; θ₀,φ₀) = √(4π/G₀) · Γ_i(θ₀,φ₀) · exp(j·k·r_i·sinθ·cos(φ-φ₀))</p>
+<p>其中：</p>
+<ul>
+<li>G₀ 是参考单元增益</li>
+<li>Γ_i(θ₀,φ₀) 是第 i 个单元在扫描角 (θ₀, φ₀) 下的<strong>有源反射系数</strong></li>
+<li>r_i 是第 i 个单元的位置矢量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 有源反射系数与 TARC</h2>
+    <p><strong>有源反射系数（Active Reflection Coefficient, ARC）</strong> 是 AEP 理论中最关键的参数之一：</p>
+<p>Γ_active,i = b_i / a_i | (a_j=0, j≠i)</p>
+<p>即在只有第 i 个单元激励的情况下，该端口的反射系数。它不同于传统的 S11，因为考虑了其他端口的匹配负载产生的反射回来信号。</p>
+<p><strong>总有源反射系数（Total Active Reflection Coefficient, TARC）</strong> 是多端口阵列的推广：</p>
+<p>TARC = √(Σ|b_i|²) / √(Σ|a_i|²) | 所有端口按波束指向角加权激励</p>
+<p>TARC 的物理意义：</p>
+<ul>
+<li>TARC = 0：所有功率都被天线吸收（完美匹配）</li>
+<li>TARC = 1：所有功率都被反射（完全失配）</li>
+<li>工程接受标准：TARC ≤ -10 dB（通常要求 ≤ -15 dB）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 扫描阻抗（Scan Impedance）</h2>
     <p>AEP 与扫描阻抗直接相关：</p>
-    <p>Z_active(θ₀,φ₀) = Z₀ · (1 + Γ_active) / (1 - Γ_active)</p>
-    <p>扫描阻抗随扫描角变化是阵列设计中最头疼的问题之一——阻抗匹配网络在 broadside 调好了，扫描到大角度就失配了。</p>
-    <h3>2.4 互耦矩阵与补偿</h3>
+<p>Z_active(θ₀,φ₀) = Z₀ · (1 + Γ_active) / (1 - Γ_active)</p>
+<p>扫描阻抗随扫描角变化是阵列设计中最头疼的问题之一——阻抗匹配网络在 broadside 调好了，扫描到大角度就失配了。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 互耦矩阵与补偿</h2>
     <p>对于 N 单元阵列，互耦可以用 N×N 的互阻抗矩阵 Z_mutual 描述：</p>
-    <p>V = Z_self · I + Z_mutual · I</p>
-    <p>其中 V 是端口电压向量，I 是端口电流向量，Z_self 是自阻抗对角矩阵。</p>
-    <p>互耦补偿矩阵 C 可以通过求逆得到：</p>
-    <p>I_corrected = C⁻¹ · I_measured</p>
-    <p>补偿后可以显著降低旁瓣电平（SLL）和提高波束指向精度。</p>
-    <h3>2.5 AEP 与单元方向图的关系</h3>
+<p>V = Z_self · I + Z_mutual · I</p>
+<p>其中 V 是端口电压向量，I 是端口电流向量，Z_self 是自阻抗对角矩阵。</p>
+<p>互耦补偿矩阵 C 可以通过求逆得到：</p>
+<p>I_corrected = C⁻¹ · I_measured</p>
+<p>补偿后可以显著降低旁瓣电平（SLL）和提高波束指向精度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 AEP 与单元方向图的关系</h2>
     <p>AEP(θ,φ; θ₀,φ₀) = E_isolated(θ,φ) · F_coupling(θ,φ; θ₀,φ₀)</p>
-    <p>其中 F_coupling 是互耦修正因子，它包含了：</p>
-    <ul><li>相邻单元的散射效应</li><li>阵列底板的表面波模式</li><li>介质基板的导波模式</li></ul>
+<p>其中 F_coupling 是互耦修正因子，它包含了：</p>
+<ul>
+<li>相邻单元的散射效应</li>
+<li>阵列底板的表面波模式</li>
+<li>介质基板的导波模式</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、测量与分析方法</h2>
-    <h3>3.1 AEP 测量方法</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>原理</th><th>优点</th><th>缺点</th></tr></thead>
-    <tbody>
-    <tr><td>单单元激励法</td><td>只激励目标单元，其余端接50Ω</td><td>简单直接</td><td>需要大量测量（N次）</td></tr>
-    <tr><td>近场扫描法</td><td>测量近场后FFT变换到远场</td><td>精度高，自动化</td><td>设备昂贵</td></tr>
-    <tr><td>波导模拟器法</td><td>用波导模拟无限大阵列</td><td>适合高频段</td><td>体积大，不灵活</td></tr>
-    <tr><td>电磁仿真法</td><td>HFSS/CST全波仿真</td><td>无需实物</td><td>计算量大，模型精度依赖</td></tr>
-    </tbody></table></div>
-    <h3>3.2 相位归一化 AEP（PNAEP）</h3>
-    <p>在异质架构（如混频架构）阵列中，本振信号的相位不确定性会影响 AEP 测量。解决方法是引入<b>相位归一化 AEP</b>：</p>
-    <p>PNAEP = AEP / exp(j·φ_LO)</p>
-    <p>其中 φ_LO 是本振信号的相位。PNAEP 消除了 LO 相位不确定性的影响，可以同时表征幅度和相位。</p>
-    <h3>3.3 有限阵列 vs 无限阵列</h3>
-    <ul><li><b>无限阵列模型</b>：假设阵列尺寸无穷大，边缘效应可忽略。计算效率高，适合初步设计</li><li><b>有限阵列模型</b>：考虑边缘效应，更贴近实际。边缘单元的 AEP 与中心单元不同</li></ul>
-    <p>在大型阵列（N > 100）中，中心单元的 AEP 与无限阵列模型吻合良好，但边缘单元的 AEP 会有明显差异（约 1-2 dB 增益偏差）。</p>
+  
+  <article class="card ">
+    
+    <h2>3.1 AEP 测量方法</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单单元激励法</td>
+<td>只激励目标单元，其余端接50Ω</td>
+<td>简单直接</td>
+<td>需要大量测量（N次）</td>
+</tr>
+<tr>
+<td>近场扫描法</td>
+<td>测量近场后FFT变换到远场</td>
+<td>精度高，自动化</td>
+<td>设备昂贵</td>
+</tr>
+<tr>
+<td>波导模拟器法</td>
+<td>用波导模拟无限大阵列</td>
+<td>适合高频段</td>
+<td>体积大，不灵活</td>
+</tr>
+<tr>
+<td>电磁仿真法</td>
+<td>HFSS/CST全波仿真</td>
+<td>无需实物</td>
+<td>计算量大，模型精度依赖</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>3.2 相位归一化 AEP（PNAEP）</h2>
+    <p>在异质架构（如混频架构）阵列中，本振信号的相位不确定性会影响 AEP 测量。解决方法是引入<strong>相位归一化 AEP</strong>：</p>
+<p>PNAEP = AEP / exp(j·φ_LO)</p>
+<p>其中 φ_LO 是本振信号的相位。PNAEP 消除了 LO 相位不确定性的影响，可以同时表征幅度和相位。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 有限阵列 vs 无限阵列</h2>
+    <ul>
+<li><strong>无限阵列模型</strong>：假设阵列尺寸无穷大，边缘效应可忽略。计算效率高，适合初步设计</li>
+<li><strong>有限阵列模型</strong>：考虑边缘效应，更贴近实际。边缘单元的 AEP 与中心单元不同</li>
+</ul>
+<p>在大型阵列（N &gt; 100）中，中心单元的 AEP 与无限阵列模型吻合良好，但边缘单元的 AEP 会有明显差异（约 1-2 dB 增益偏差）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、应用场景</h2>
-    <div class="tw"><table>
-    <thead><tr><th>应用领域</th><th>AEP 的作用</th><th>重要性</th></tr></thead>
-    <tbody>
-    <tr><td>相控阵波束合成</td><td>精确计算每个单元的加权系数</td><td>核心</td></tr>
-    <tr><td>互耦补偿</td><td>通过 AEP 提取互耦矩阵，进行数字补偿</td><td>核心</td></tr>
-    <tr><td>旁瓣优化</td><td>根据 AEP 调整幅度加权，降低 SLL</td><td>高</td></tr>
-    <tr><td>扫描范围评估</td><td>通过 AEP 变化判断阵列的有效扫描角</td><td>高</td></tr>
-    <tr><td>5G Massive MIMO OTA 测试</td><td>AEP 用于校准测试环境中的互耦影响</td><td>中高</td></tr>
-    <tr><td>卫星通信终端</td><td>AEP 用于波束指向精度优化</td><td>中</td></tr>
-    <tr><td>雷达抗干扰</td><td>AEP 用于零陷放置和干扰抑制</td><td>中高</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>应用领域</th>
+<th>AEP 的作用</th>
+<th>重要性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相控阵波束合成</td>
+<td>精确计算每个单元的加权系数</td>
+<td>核心</td>
+</tr>
+<tr>
+<td>互耦补偿</td>
+<td>通过 AEP 提取互耦矩阵，进行数字补偿</td>
+<td>核心</td>
+</tr>
+<tr>
+<td>旁瓣优化</td>
+<td>根据 AEP 调整幅度加权，降低 SLL</td>
+<td>高</td>
+</tr>
+<tr>
+<td>扫描范围评估</td>
+<td>通过 AEP 变化判断阵列的有效扫描角</td>
+<td>高</td>
+</tr>
+<tr>
+<td>5G Massive MIMO OTA 测试</td>
+<td>AEP 用于校准测试环境中的互耦影响</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>卫星通信终端</td>
+<td>AEP 用于波束指向精度优化</td>
+<td>中</td>
+</tr>
+<tr>
+<td>雷达抗干扰</td>
+<td>AEP 用于零陷放置和干扰抑制</td>
+<td>中高</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 AEP 相关指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型要求</th></tr></thead>
-    <tbody>
-    <tr><td>有源 VSWR</td><td>考虑互耦后的驻波比</td><td>≤ 2:1（扫描范围内）</td></tr>
-    <tr><td>TARC</td><td>总反射系数</td><td>≤ -10 dB（工程最低）</td></tr>
-    <tr><td>扫描阻抗变化</td><td>Z_active(θ) / Z_active(0°)</td><td>变化 < 20%</td></tr>
-    <tr><td>AEP 增益偏差</td><td>AEP增益 - 孤立单元增益</td><td>< ±1 dB（扫描±60°）</td></tr>
-    <tr><td>旁瓣电平（有源）</td><td>AEP 的最大旁瓣</td><td>< -15 dB</td></tr>
-    <tr><td>波束指向误差</td><td>实际波束角 - 理论波束角</td><td>< 0.1°</td></tr>
-    </tbody></table></div>
-    <h3>5.2 TARC 接受准则</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用场景</th><th>TARC 要求</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>5G Massive MIMO</td><td>≤ -10 dB</td><td>3GPP 建议值</td></tr>
-    <tr><td>卫星通信</td><td>≤ -15 dB</td><td>更高要求</td></tr>
-    <tr><td>军用雷达</td><td>≤ -20 dB</td><td>极端要求</td></tr>
-    <tr><td>Wi-Fi MIMO</td><td>≤ -8 dB</td><td>宽松要求</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>5.1 AEP 相关指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有源 VSWR</td>
+<td>考虑互耦后的驻波比</td>
+<td>≤ 2:1（扫描范围内）</td>
+</tr>
+<tr>
+<td>TARC</td>
+<td>总反射系数</td>
+<td>≤ -10 dB（工程最低）</td>
+</tr>
+<tr>
+<td>扫描阻抗变化</td>
+<td>Z_active(θ) / Z_active(0°)</td>
+<td>变化 &lt; 20%</td>
+</tr>
+<tr>
+<td>AEP 增益偏差</td>
+<td>AEP增益 - 孤立单元增益</td>
+<td>&lt; ±1 dB（扫描±60°）</td>
+</tr>
+<tr>
+<td>旁瓣电平（有源）</td>
+<td>AEP 的最大旁瓣</td>
+<td>&lt; -15 dB</td>
+</tr>
+<tr>
+<td>波束指向误差</td>
+<td>实际波束角 - 理论波束角</td>
+<td>&lt; 0.1°</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 扫描盲区（Scan Blindness）</h3>
-    <p><b>扫描盲区</b>是 AEP 理论中最严重的现象之一：</p>
-    <ul><li><b>定义</b>：在某些特定的扫描角度，阵列的有源反射系数急剧增大（接近 1），导致大部分功率被反射而不是辐射出去</li><li><b>成因</b>：阵列中的 Floquet 模式（导波模式）与表面波模式耦合，形成谐振</li><li><b>影响</b>：在该扫描角附近，阵列几乎"失效"，无法正常工作</li><li><b>典型场景</b>：微带阵列在介质基板较厚时更容易出现扫描盲区</li></ul>
-    <p><b>避免扫描盲区的方法</b>：</p>
-    <ul><li>减小单元间距（但会增加互耦）</li><li>使用薄介质基板（但会降低增益）</li><li>在阵列上方添加吸波层（增加重量和成本）</li><li>使用波导或槽缝阵列（天然不易出现盲区，但体积大）</li></ul>
-    <h3>6.2 边缘效应（Edge Effect）</h3>
+  
+  <article class="card ">
+    
+    <h2>5.2 TARC 接受准则</h2>
+    <table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>TARC 要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G Massive MIMO</td>
+<td>≤ -10 dB</td>
+<td>3GPP 建议值</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>≤ -15 dB</td>
+<td>更高要求</td>
+</tr>
+<tr>
+<td>军用雷达</td>
+<td>≤ -20 dB</td>
+<td>极端要求</td>
+</tr>
+<tr>
+<td>Wi-Fi MIMO</td>
+<td>≤ -8 dB</td>
+<td>宽松要求</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 扫描盲区（Scan Blindness）</h2>
+    <p><strong>扫描盲区</strong>是 AEP 理论中最严重的现象之一：</p>
+<ul>
+<li><strong>定义</strong>：在某些特定的扫描角度，阵列的有源反射系数急剧增大（接近 1），导致大部分功率被反射而不是辐射出去</li>
+<li><strong>成因</strong>：阵列中的 Floquet 模式（导波模式）与表面波模式耦合，形成谐振</li>
+<li><strong>影响</strong>：在该扫描角附近，阵列几乎"失效"，无法正常工作</li>
+<li><strong>典型场景</strong>：微带阵列在介质基板较厚时更容易出现扫描盲区</li>
+</ul>
+<p><strong>避免扫描盲区的方法</strong>：</p>
+<ul>
+<li>减小单元间距（但会增加互耦）</li>
+<li>使用薄介质基板（但会降低增益）</li>
+<li>在阵列上方添加吸波层（增加重量和成本）</li>
+<li>使用波导或槽缝阵列（天然不易出现盲区，但体积大）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 边缘效应（Edge Effect）</h2>
     <p>有限尺寸阵列的边缘单元与中心单元的 AEP 不同：</p>
-    <ul><li>中心单元：周围被其他单元包围，互耦对称</li><li>边缘单元：一侧没有相邻单元，互耦不对称</li><li>结果：边缘单元的有源阻抗与中心单元不同，导致方向图不对称</li></ul>
-    <p><b>工程对策</b>：</p>
-    <ul><li>在阵列边缘添加"死单元"（dummy elements），模拟无限阵列环境</li><li>通过数字波束赋形补偿边缘效应</li></ul>
-    <h3>6.3 互耦导致的增益 paradox（增益悖论）</h3>
+<ul>
+<li>中心单元：周围被其他单元包围，互耦对称</li>
+<li>边缘单元：一侧没有相邻单元，互耦不对称</li>
+<li>结果：边缘单元的有源阻抗与中心单元不同，导致方向图不对称</li>
+</ul>
+<p><strong>工程对策</strong>：</p>
+<ul>
+<li>在阵列边缘添加"死单元"（dummy elements），模拟无限阵列环境</li>
+<li>通过数字波束赋形补偿边缘效应</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 互耦导致的增益 paradox（增益悖论）</h2>
     <p>Hannan 悖论：当扫描角增大时，单个单元的有源增益可能增加，但整个阵列的总增益却下降。这是因为：</p>
-    <ul><li>有源增益增加是因为单元方向图在主瓣方向变得更窄</li><li>但阵列因子在主瓣方向也变窄，导致总的 HPBW 展宽</li><li>结果是总增益下降</li></ul>
-    <p>这个悖论提醒我们：<b>不能单独看 AEP 增益，必须结合阵列因子一起分析</b>。</p>
-    <h3>6.4 温度漂移对 AEP 的影响</h3>
+<ul>
+<li>有源增益增加是因为单元方向图在主瓣方向变得更窄</li>
+<li>但阵列因子在主瓣方向也变窄，导致总的 HPBW 展宽</li>
+<li>结果是总增益下降</li>
+</ul>
+<p>这个悖论提醒我们：<strong>不能单独看 AEP 增益，必须结合阵列因子一起分析</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 温度漂移对 AEP 的影响</h2>
     <p>T/R 模块的温度变化会导致：</p>
-    <ul><li>移相器相位漂移（约 0.5-2°/°C）</li><li>功放增益变化（约 0.05-0.1 dB/°C）</li><li>介质基板介电常数变化 → 谐振频率偏移</li></ul>
-    <p>这些变化会导致 AEP 随温度漂移，进而影响波束指向精度。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>内置温度传感器，实时补偿</li><li>使用温度稳定的介质材料（如 RT/duroid 系列）</li><li>定期在线校准</li></ul>
-    <h3>6.5 AEP 测量的复杂性</h3>
+<ul>
+<li>移相器相位漂移（约 0.5-2°/°C）</li>
+<li>功放增益变化（约 0.05-0.1 dB/°C）</li>
+<li>介质基板介电常数变化 → 谐振频率偏移</li>
+</ul>
+<p>这些变化会导致 AEP 随温度漂移，进而影响波束指向精度。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>内置温度传感器，实时补偿</li>
+<li>使用温度稳定的介质材料（如 RT/duroid 系列）</li>
+<li>定期在线校准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 AEP 测量的复杂性</h2>
     <p>测量一个 N 单元阵列的完整 AEP 需要：</p>
-    <ul><li>N 次单独测量（每次激励一个单元）</li><li>每个测量需要在球面上扫描 θ 和 φ 两个角度</li><li>对于 256 单元的 5G AAU，意味着 256 × 360 × 180 ≈ 1.6 亿个数据点</li></ul>
-    <p>这在实际操作中是不可行的，因此业界通常采用：</p>
-    <ul><li>抽样测量（只测关键角度）</li><li>近场扫描 + FFT 外推</li><li>电磁仿真 + 少量实测校准</li></ul>
+<ul>
+<li>N 次单独测量（每次激励一个单元）</li>
+<li>每个测量需要在球面上扫描 θ 和 φ 两个角度</li>
+<li>对于 256 单元的 5G AAU，意味着 256 × 360 × 180 ≈ 1.6 亿个数据点</li>
+</ul>
+<p>这在实际操作中是不可行的，因此业界通常采用：</p>
+<ul>
+<li>抽样测量（只测关键角度）</li>
+<li>近场扫描 + FFT 外推</li>
+<li>电磁仿真 + 少量实测校准</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1960s</b>：AEP 概念首次提出，Allen 和 Hannan 分别独立发表相关论文</li><li><b>1970s</b>：无限阵列模型建立，AEP 理论系统化</li><li><b>1980s</b>：扫描盲区现象被深入研究，Floquet 模式理论应用于阵列分析</li><li><b>1990s</b>：TARC 概念提出，成为多端口阵列的标准化评价指标</li><li><b>2000s</b>：近场扫描技术成熟，AEP 测量自动化</li><li><b>2010s</b>：5G Massive MIMO 兴起，AEP 在 OTA 测试中广泛应用</li><li><b>2014年</b>：混频架构阵列的 PNAEP（相位归一化 AEP）方法提出</li><li><b>2017年</b>：基于 AEP 的双基 retrodirective 方向图计算方法</li><li><b>2024年</b>：TARC、ACI（阵列耦合指数）和互耦补偿矩阵的综合分析方法</li><li><b>2025-2026年</b>：AI 辅助 AEP 预测和互耦补偿自动化</li></ul>
+    <ul>
+<li><strong>1960s</strong>：AEP 概念首次提出，Allen 和 Hannan 分别独立发表相关论文</li>
+<li><strong>1970s</strong>：无限阵列模型建立，AEP 理论系统化</li>
+<li><strong>1980s</strong>：扫描盲区现象被深入研究，Floquet 模式理论应用于阵列分析</li>
+<li><strong>1990s</strong>：TARC 概念提出，成为多端口阵列的标准化评价指标</li>
+<li><strong>2000s</strong>：近场扫描技术成熟，AEP 测量自动化</li>
+<li><strong>2010s</strong>：5G Massive MIMO 兴起，AEP 在 OTA 测试中广泛应用</li>
+<li><strong>2014年</strong>：混频架构阵列的 PNAEP（相位归一化 AEP）方法提出</li>
+<li><strong>2017年</strong>：基于 AEP 的双基 retrodirective 方向图计算方法</li>
+<li><strong>2024年</strong>：TARC、ACI（阵列耦合指数）和互耦补偿矩阵的综合分析方法</li>
+<li><strong>2025-2026年</strong>：AI 辅助 AEP 预测和互耦补偿自动化</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：AEP 理论本身已非常成熟（超过 60 年历史），是相控阵天线设计和分析的标准工具。TARC 作为多端口阵列的评价指标已被 3GPP 等标准采纳。AEP 测量和分析技术在 5G Massive MIMO OTA 测试中已实现工业化应用。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>AI 辅助 AEP 预测：用深度学习模型替代耗时的大型电磁仿真</li><li>在线 AEP 监测：通过内置耦合器实时监测 AEP 变化，实现自校准</li><li>6G UM-MIMO（超大规模 MIMO）推动 AEP 理论向数千单元尺度扩展</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>智能超表面（RIS）的 AEP 分析：RIS 单元间的互耦机制与传统阵列不同</li><li>太赫兹频段 AEP 测量：100-300GHz 频段的 AEP 测量技术挑战</li><li>全息 MIMO 的 AEP 理论：连续孔径下的 AEP 定义需要重新思考</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>量子阵列的 AEP：量子纠缠对方向图的影响</li><li>可编程物质天线的 AEP：动态可调材料的 AEP 建模</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>AI 辅助 AEP 预测：用深度学习模型替代耗时的大型电磁仿真</li>
+<li>在线 AEP 监测：通过内置耦合器实时监测 AEP 变化，实现自校准</li>
+<li>
+<p>6G UM-MIMO（超大规模 MIMO）推动 AEP 理论向数千单元尺度扩展</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>智能超表面（RIS）的 AEP 分析：RIS 单元间的互耦机制与传统阵列不同</li>
+<li>太赫兹频段 AEP 测量：100-300GHz 频段的 AEP 测量技术挑战</li>
+<li>
+<p>全息 MIMO 的 AEP 理论：连续孔径下的 AEP 定义需要重新思考</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>量子阵列的 AEP：量子纠缠对方向图的影响</li>
+<li>可编程物质天线的 AEP：动态可调材料的 AEP 建模</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>有源单元方向图（AEP）是相控阵天线从"理想理论"走向"工程现实"的桥梁——它把互耦、扫描盲区、边缘效应等所有"不完美"因素打包成一个方向图函数，让工程师可以在一个统一的框架下理解和优化阵列性能。不理解 AEP，就不可能真正理解相控阵。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -283,39 +578,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

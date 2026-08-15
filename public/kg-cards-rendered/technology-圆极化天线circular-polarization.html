@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>圆极化天线（Circularly Polarized Antenna） · 知识卡片</title>
+<title>圆极化天线Circular-Polarization · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">圆极化天线 <span class="en">Circularly Polarized Antenna</span></h1>
-  <p class="lede"><b>圆极化天线发出的电磁波像螺旋钻——电场矢量端点在空间画出一个圆。好处是接收端不管卫星怎么翻转都能收到信号，GPS 卫星全用圆极化就是这个原因。衡量圆极化质量的指标叫"轴比"（Axial Ratio），越接近 0dB 越圆。5G 毫米波也开始用圆极化来降 RCS（雷达截面积），让隐身效果更好。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">圆极化天线Circular-Polarization</h1>
+  
+  
 </header>
 
 <main>
@@ -99,203 +101,419 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、圆极化的物理本质</h2>
-    <h3>1.1 线极化 vs 圆极化 vs 椭圆极化</h3>
-    <p><b>线极化</b>：电场矢量只在一个平面内振动。</p>
-    <pre><code>    ↑
-        │ E
-        ↓</code></pre>
-    <p><b>右旋圆极化（RHCP）</b>：电场矢量端点在空间顺时针画圆（从波源看）。</p>
-    <pre><code>      ↻
-        ↵   ↶
-       ← E →
-        ↶   ↵
-          ↻</code></pre>
-    <p><b>左旋圆极化（LHCP）</b>：逆时针画圆。</p>
-    <p><b>椭圆极化</b>：介于圆和线之间，电场矢量端点画椭圆。</p>
-    <h3>1.2 圆极化的产生条件</h3>
-    <p><b>两个正交的线极化波，幅度相等，相位差 90°</b>：</p>
-    <pre><code>E_x = E₀ cos(ωt)
-    E_y = E₀ cos(ωt ± π/2) = ±E₀ sin(ωt)</code></pre>
-    <p>合成电场：</p>
-    <pre><code>|E|² = E_x² + E_y² = E₀²(cos²ωt + sin²ωt) = E₀²</code></pre>
-    <p><b>结论</b>：电场幅度恒定，方向匀速旋转 → 圆极化。</p>
-    <h3>1.3 轴比（Axial Ratio, AR）</h3>
-    <p><b>定义</b>：椭圆长轴与短轴之比（线性单位），或以 dB 表示。</p>
-    <pre><code>AR_linear = a/b ≥ 1
-    AR_dB = 20 × log₁₀(AR_linear)</code></pre>
-    <p><b>理想圆极化</b>：AR = 1（0dB）</p>
-    <p><b>工程标准</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>AR (dB)</th><th>极化质量</th><th>应用场景</th></tr></thead>
-    <tbody>
-    <tr><td>0-1</td><td>优秀</td><td>高精度卫星导航</td></tr>
-    <tr><td>1-3</td><td>良好</td><td>GNSS 接收</td></tr>
-    <tr><td>3-6</td><td>一般</td><td>卫星通信</td></tr>
-    <tr><td>6-10</td><td>较差</td><td>宽带应用可接受</td></tr>
-    <tr><td>> 10</td><td>接近线极化</td><td>不认为是 CP</td></tr>
-    </tbody></table></div>
-    <p><b>3dB AR 带宽</b>：AR < 3dB 的频率范围，是圆极化天线的有效工作带宽。</p>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、圆极化天线的实现方法</h2>
-    <h3>2.1 正交馈电贴片天线（Quadrature-Fed Patch）</h3>
-    <p><b>结构</b>：两个正交的微带贴片，馈电相位差 90°。</p>
-    <pre><code>        ┌─────┐
-            │  ▓  │  ← 贴片（十字形或方形）
-            └─────┘
-             │   │
-           90°  0°
-             │   │</code></pre>
-    <p><b>实现 90° 相位差的方法</b>：</p>
-    <ol><li><b>quadrature hybrid（3dB 电桥）</b>：如分支线耦合器、Lange 耦合器</li><li><b>不等长馈线</b>：利用传输线相位延迟</li><li><b>激励端口位置偏移</b>：在贴片对角线两侧激励</li></ol>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：平面结构，易于集成</li><li>缺点：AR 带宽窄（通常 2-5%）</li><li>适用：卫星通信终端、GPS 接收</li></ul>
-    <h3>2.2 螺旋天线（Helical Antenna / Turnstile）</h3>
-    <p><b>结构</b>：导线绕成螺旋形，沿轴向辐射。</p>
-    <pre><code>      ╭───╮
-        ╭─╯   ╰─╮
-      ╭─╯       ╰─╮
-      │           │
-      │  螺旋线圈  │
-      │           │
-        ╰─╮   ╮─╯
-          ╰───╯
-           轴向辐射</code></pre>
-    <p><b>参数</b>：</p>
-    <pre><code>周长 C ≈ λ
-    匝间距 S ≈ λ/4
-    总匝数 N</code></pre>
-    <p><b>增益</b>：</p>
-    <pre><code>G ≈ 15 × N × (C/λ)² × SA  （dBi）</code></pre>
-    <p>其中 SA 是轴比效率（SA = 1/[1+(AR²)]，理想圆极化时 SA ≈ 0.81）。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：纯圆极化（AR < 1dB），增益高（N=3-5 时 12-15dBi）</li><li>缺点：体积大，轴向安装</li><li>适用：卫星通信、深空探测（NASA 经典选择）</li></ul>
-    <p><b>2014 清华突破</b>：贴片-螺旋混合天线</p>
-    <ul><li>寄生贴片 + 10 匝螺旋</li><li>小地平面下增益 13.35dBic</li><li>阻抗带宽 22%（5.05-6.30GHz）</li><li>螺旋电流均匀分布，不受地平面限制</li></ul>
-    <h3>2.3 缝隙天线（Slot Antenna）</h3>
-    <p><b>结构</b>：在金属面上蚀刻特定形状的缝隙。</p>
-    <p><b>常见形状</b>：</p>
-    <ul><li>十字形缝隙（cross-slot）：天然正交</li><li>S 形缝隙：紧凑设计</li><li>阶梯形缝隙：多频谐振</li></ul>
-    <p><b>2024 PMC 空气填充 SIW 圆极化缝隙阵列</b>：</p>
-    <ul><li>1×8 阵列，34.5-41.5GHz</li><li>阻抗带宽 18.4%</li><li>3dB AR 带宽 16.4%（36.5-43GHz）</li><li>峰值增益 18dBic</li><li>金属腔体辐射，S 形缝隙产生 CP</li></ul>
-    <h3>2.4 螺旋线天线（Quadrifilar Helix）</h3>
-    <p><b>结构</b>：四根导线绕成螺旋形，交替馈电。</p>
-    <pre><code>    ╭──╮  ╭──╮
-      ╭─╯  ╰─╯  ╰─╮
-      │   四线螺旋   │
-      ╰─╮  ╭──╮  ╭─╯
-        ╰─╯    ╰─╯</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>半球形覆盖（hemispherical）</li><li>AR 带宽宽（> 20%）</li><li>增益 6-9dBi</li><li><b>GNSS 天线经典选择</b>（GPS/GLONASS/BDS 接收）</li></ul>
-    <h3>2.5 螺旋天线（Travelling-Wave Spiral）</h3>
-    <p><b>结构</b>：平面阿基米德螺旋或对数螺旋。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>超宽带（> 10:1 频率比）</li><li>圆极化纯度好</li><li>增益恒定（~8dBi）在整个频带</li><li>适用：频谱监测、电子战</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.1 正交馈电贴片天线（Quadrature-Fed Patch）</h2>
+    <p><strong>结构</strong>：两个正交的微带贴片，馈电相位差 90°。</p>
+<pre><code>        ┌─────┐
+        │  ▓  │  ← 贴片（十字形或方形）
+        └─────┘
+         │   │
+       90°  0°
+         │   │
+</code></pre>
+<p><strong>实现 90° 相位差的方法</strong>：</p>
+<ol>
+<li><strong>quadrature hybrid（3dB 电桥）</strong>：如分支线耦合器、Lange 耦合器</li>
+<li><strong>不等长馈线</strong>：利用传输线相位延迟</li>
+<li><strong>激励端口位置偏移</strong>：在贴片对角线两侧激励</li>
+</ol>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：平面结构，易于集成</li>
+<li>缺点：AR 带宽窄（通常 2-5%）</li>
+<li>适用：卫星通信终端、GPS 接收</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、圆极化的极化损失（Polarization Mismatch Loss）</h2>
-    <h3>3.1 极化失配公式</h3>
-    <pre><code>Polarization Loss Factor (PLF) = |ρ̂_w · ρ̂_a|²</code></pre>
-    <p>其中 ρ̂_w 是入射波极化单位矢量，ρ̂_a 是天线极化单位矢量。</p>
-    <h3>3.2 圆极化 - 圆极化匹配</h3>
-    <div class="tw"><table>
-    <thead><tr><th>发射</th><th>接收</th><th>PLF (dB)</th></tr></thead>
-    <tbody>
-    <tr><td>RHCP</td><td>RHCP</td><td>0dB（完美匹配）</td></tr>
-    <tr><td>LHCP</td><td>LHCP</td><td>0dB（完美匹配）</td></tr>
-    <tr><td>RHCP</td><td>LHCP</td><td>-∞dB（完全隔离！）</td></tr>
-    <tr><td>LHCP</td><td>RHCP</td><td>-∞dB（完全隔离！）</td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：圆极化的左右旋之间是完全隔离的！这意味着可以在同一频段、同一位置用 RHCP 发射、LHCP 接收，实现频率复用。</p>
-    <h3>3.3 圆极化 - 线极化匹配</h3>
-    <pre><code>PLF = 0.5（-3dB）</code></pre>
-    <p><b>无论线极化方向如何，圆极化天线接收线极化波总是损失 3dB</b>。</p>
-    <p><b>实际意义</b>：</p>
-    <ul><li>GPS 卫星用 RHCP 发射</li><li>手机天线是线极化 → 理论损失 3dB</li><li>但好处是：手机怎么拿都不会信号骤降（因为线极化方向随机变化时，圆极化接收稳定）</li></ul>
-    <h3>3.4 极化损失总结</h3>
-    <div class="tw"><table>
-    <thead><tr><th>发射极化</th><th>接收极化</th><th>损失</th></tr></thead>
-    <tbody>
-    <tr><td>RHCP</td><td>RHCP</td><td>0dB</td></tr>
-    <tr><td>LHCP</td><td>LHCP</td><td>0dB</td></tr>
-    <tr><td>RHCP</td><td>LHCP</td><td>> 20dB（隔离）</td></tr>
-    <tr><td>线极化</td><td>RHCP</td><td>3dB</td></tr>
-    <tr><td>线极化</td><td>线极化（同向）</td><td>0dB</td></tr>
-    <tr><td>线极化</td><td>线极化（正交）</td><td>> 20dB（隔离）</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.2 螺旋天线（Helical Antenna / Turnstile）</h2>
+    <p><strong>结构</strong>：导线绕成螺旋形，沿轴向辐射。</p>
+<pre><code>      ╭───╮
+    ╭─╯   ╰─╮
+  ╭─╯       ╰─╮
+  │           │
+  │  螺旋线圈  │
+  │           │
+    ╰─╮   ╮─╯
+      ╰───╯
+       轴向辐射
+</code></pre>
+<p><strong>参数</strong>：</p>
+<pre><code>周长 C ≈ λ
+匝间距 S ≈ λ/4
+总匝数 N
+</code></pre>
+<p><strong>增益</strong>：</p>
+<pre><code>G ≈ 15 × N × (C/λ)² × SA  （dBi）
+</code></pre>
+<p>其中 SA 是轴比效率（SA = 1/[1+(AR²)]，理想圆极化时 SA ≈ 0.81）。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：纯圆极化（AR &lt; 1dB），增益高（N=3-5 时 12-15dBi）</li>
+<li>缺点：体积大，轴向安装</li>
+<li>适用：卫星通信、深空探测（NASA 经典选择）</li>
+</ul>
+<p><strong>2014 清华突破</strong>：贴片-螺旋混合天线
+- 寄生贴片 + 10 匝螺旋
+- 小地平面下增益 13.35dBic
+- 阻抗带宽 22%（5.05-6.30GHz）
+- 螺旋电流均匀分布，不受地平面限制</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、圆极化天线的应用场景</h2>
-    <h3>4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</h3>
-    <p><b>为什么用圆极化？</b></p>
-    <ul><li>卫星在轨道上会翻滚/姿态变化 → 线极化会失效</li><li>圆极化不受卫星姿态影响</li><li>多径抑制：地面反射波会反转旋向（RHCP → LHCP），被天线天然抑制</li></ul>
-    <p><b>典型参数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>数值</th></tr></thead>
-    <tbody>
-    <tr><td>频率</td><td>L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz</td></tr>
-    <tr><td>极化</td><td>卫星发 RHCP，接收机天线 RHCP</td></tr>
-    <tr><td>增益</td><td>6-9dBi</td></tr>
-    <tr><td>3dB AR 波束宽度</td><td>> 200°（半球覆盖）</td></tr>
-    <tr><td>前后比</td><td>> 20dB</td></tr>
-    <tr><td>多径抑制</td><td>10-15dB</td></tr>
-    </tbody></table></div>
-    <p><b>2025 高精度海洋定位 GNSS 天线</b>：</p>
-    <ul><li>八根短路销钉围绕贴片 → 扩宽 3dB AR 波束</li><li>两组弯曲金属分支在接地层 → 前后比提升</li><li>重叠带宽 > 45%（10dB 回波损耗 + 3dB AR）</li><li>覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</li></ul>
-    <h3>4.2 卫星通信</h3>
-    <p><b>应用场景</b>：</p>
-    <ul><li>北斗/GPS 导航卫星发射天线</li><li>通信卫星星载天线</li><li>地面站接收天线</li><li>无人机/导弹导引头</li></ul>
-    <p><b>特点</b>：</p>
-    <ul><li>卫星姿态不确定 → 必须圆极化</li><li>远距离传输 → 线极化旋转（Faraday 旋转）→ 圆极化不受影响</li></ul>
-    <h3>4.3 5G 毫米波通信</h3>
-    <p><b>2024 研究热点</b>：</p>
-    <ul><li>圆极化 MIMO：降低通道相关性，提升容量</li><li>圆极化阵列：RCS 降低（隐身应用）</li><li>正交圆极化复用：RHCP + LHCP = 双倍频谱效率</li></ul>
-    <p><b>2025 5G mmWave 圆极化 MIMO</b>：</p>
-    <ul><li>频段：25.45-32.92GHz</li><li>AR 带宽：26.24-29.88GHz（3.64GHz）</li><li>增益：> 5.8dBi</li><li>辐射效率：> 91.72%</li><li>ECC < 10⁻²（极低相关性）</li><li>设计：圆形贴片 + 扇形槽 + 半月形槽</li></ul>
-    <h3>4.4 雷达与隐身（RCS Reduction）</h3>
-    <p><b>原理</b>：圆极化天线发射 RHCP，目标反射后变为 LHCP → 接收天线只收 RHCP → 回波被抑制。</p>
-    <p><b>RCS 降低量</b>：</p>
-    <pre><code>ΔRCS = 20 × log₁₀(AR)  （dB）</code></pre>
-    <p>对于 AR = 3dB 的天线，RCS 可降低 <b>~12dB</b>（功率降低 98.4%）。</p>
-    <p><b>2019-2025 研究进展</b>：</p>
-    <ul><li>超表面（Metasurface）加载贴片阵列 → 带外 RCS 降低 15-20dB</li><li>圆极化序贯旋转阵列 → 宽频 RCS 降低</li><li>极化转换超表面 + CP 阵列 → 联合优化 RCS 和辐射性能</li></ul>
-    <h3>4.5 可穿戴设备</h3>
-    <p><b>优势</b>：</p>
-    <ul><li>用户头部/身体转动不影响天线极化匹配</li><li>降低人体组织吸收导致的极化畸变</li><li>MIMO + CP → 高隔离、低相关性</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.3 缝隙天线（Slot Antenna）</h2>
+    <p><strong>结构</strong>：在金属面上蚀刻特定形状的缝隙。</p>
+<p><strong>常见形状</strong>：</p>
+<ul>
+<li>十字形缝隙（cross-slot）：天然正交</li>
+<li>S 形缝隙：紧凑设计</li>
+<li>阶梯形缝隙：多频谐振</li>
+</ul>
+<p><strong>2024 PMC 空气填充 SIW 圆极化缝隙阵列</strong>：</p>
+<ul>
+<li>1×8 阵列，34.5-41.5GHz</li>
+<li>阻抗带宽 18.4%</li>
+<li>3dB AR 带宽 16.4%（36.5-43GHz）</li>
+<li>峰值增益 18dBic</li>
+<li>金属腔体辐射，S 形缝隙产生 CP</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.4 螺旋线天线（Quadrifilar Helix）</h2>
+    <p><strong>结构</strong>：四根导线绕成螺旋形，交替馈电。</p>
+<pre><code>    ╭──╮  ╭──╮
+  ╭─╯  ╰─╯  ╰─╮
+  │   四线螺旋   │
+  ╰─╮  ╭──╮  ╭─╯
+    ╰─╯    ╰─╯
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>半球形覆盖（hemispherical）</li>
+<li>AR 带宽宽（&gt; 20%）</li>
+<li>增益 6-9dBi</li>
+<li><strong>GNSS 天线经典选择</strong>（GPS/GLONASS/BDS 接收）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 螺旋天线（Travelling-Wave Spiral）</h2>
+    <p><strong>结构</strong>：平面阿基米德螺旋或对数螺旋。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超宽带（&gt; 10:1 频率比）</li>
+<li>圆极化纯度好</li>
+<li>增益恒定（~8dBi）在整个频带</li>
+<li>适用：频谱监测、电子战</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 极化失配公式</h2>
+    <pre><code>Polarization Loss Factor (PLF) = |ρ̂_w · ρ̂_a|²
+</code></pre>
+<p>其中 ρ̂_w 是入射波极化单位矢量，ρ̂_a 是天线极化单位矢量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 圆极化 - 圆极化匹配</h2>
+    <table>
+<thead>
+<tr>
+<th>发射</th>
+<th>接收</th>
+<th>PLF (dB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RHCP</td>
+<td>RHCP</td>
+<td>0dB（完美匹配）</td>
+</tr>
+<tr>
+<td>LHCP</td>
+<td>LHCP</td>
+<td>0dB（完美匹配）</td>
+</tr>
+<tr>
+<td>RHCP</td>
+<td>LHCP</td>
+<td>-∞dB（完全隔离！）</td>
+</tr>
+<tr>
+<td>LHCP</td>
+<td>RHCP</td>
+<td>-∞dB（完全隔离！）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：圆极化的左右旋之间是完全隔离的！这意味着可以在同一频段、同一位置用 RHCP 发射、LHCP 接收，实现频率复用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 圆极化 - 线极化匹配</h2>
+    <pre><code>PLF = 0.5（-3dB）
+</code></pre>
+<p><strong>无论线极化方向如何，圆极化天线接收线极化波总是损失 3dB</strong>。</p>
+<p><strong>实际意义</strong>：</p>
+<ul>
+<li>GPS 卫星用 RHCP 发射</li>
+<li>手机天线是线极化 → 理论损失 3dB</li>
+<li>但好处是：手机怎么拿都不会信号骤降（因为线极化方向随机变化时，圆极化接收稳定）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 极化损失总结</h2>
+    <table>
+<thead>
+<tr>
+<th>发射极化</th>
+<th>接收极化</th>
+<th>损失</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RHCP</td>
+<td>RHCP</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>LHCP</td>
+<td>LHCP</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>RHCP</td>
+<td>LHCP</td>
+<td>&gt; 20dB（隔离）</td>
+</tr>
+<tr>
+<td>线极化</td>
+<td>RHCP</td>
+<td>3dB</td>
+</tr>
+<tr>
+<td>线极化</td>
+<td>线极化（同向）</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>线极化</td>
+<td>线极化（正交）</td>
+<td>&gt; 20dB（隔离）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 GNSS 卫星导航（GPS/BDS/GLONASS/Galileo）</h2>
+    <p><strong>为什么用圆极化？</strong>
+- 卫星在轨道上会翻滚/姿态变化 → 线极化会失效
+- 圆极化不受卫星姿态影响
+- 多径抑制：地面反射波会反转旋向（RHCP → LHCP），被天线天然抑制</p>
+<p><strong>典型参数</strong>：
+| 参数 | 数值 |
+|------|------|
+| 频率 | L1: 1575.42MHz, L2: 1227.60MHz, L5: 1176.45MHz |
+| 极化 | 卫星发 RHCP，接收机天线 RHCP |
+| 增益 | 6-9dBi |
+| 3dB AR 波束宽度 | &gt; 200°（半球覆盖） |
+| 前后比 | &gt; 20dB |
+| 多径抑制 | 10-15dB |</p>
+<p><strong>2025 高精度海洋定位 GNSS 天线</strong>：</p>
+<ul>
+<li>八根短路销钉围绕贴片 → 扩宽 3dB AR 波束</li>
+<li>两组弯曲金属分支在接地层 → 前后比提升</li>
+<li>重叠带宽 &gt; 45%（10dB 回波损耗 + 3dB AR）</li>
+<li>覆盖 GPS L1/L2, BDS B1/B2, GLONASS, Galileo</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 卫星通信</h2>
+    <p><strong>应用场景</strong>：</p>
+<ul>
+<li>北斗/GPS 导航卫星发射天线</li>
+<li>通信卫星星载天线</li>
+<li>地面站接收天线</li>
+<li>无人机/导弹导引头</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>卫星姿态不确定 → 必须圆极化</li>
+<li>远距离传输 → 线极化旋转（Faraday 旋转）→ 圆极化不受影响</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 5G 毫米波通信</h2>
+    <p><strong>2024 研究热点</strong>：</p>
+<ul>
+<li>圆极化 MIMO：降低通道相关性，提升容量</li>
+<li>圆极化阵列：RCS 降低（隐身应用）</li>
+<li>正交圆极化复用：RHCP + LHCP = 双倍频谱效率</li>
+</ul>
+<p><strong>2025 5G mmWave 圆极化 MIMO</strong>：</p>
+<ul>
+<li>频段：25.45-32.92GHz</li>
+<li>AR 带宽：26.24-29.88GHz（3.64GHz）</li>
+<li>增益：&gt; 5.8dBi</li>
+<li>辐射效率：&gt; 91.72%</li>
+<li>ECC &lt; 10⁻²（极低相关性）</li>
+<li>设计：圆形贴片 + 扇形槽 + 半月形槽</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 雷达与隐身（RCS Reduction）</h2>
+    <p><strong>原理</strong>：圆极化天线发射 RHCP，目标反射后变为 LHCP → 接收天线只收 RHCP → 回波被抑制。</p>
+<p><strong>RCS 降低量</strong>：</p>
+<pre><code>ΔRCS = 20 × log₁₀(AR)  （dB）
+</code></pre>
+<p>对于 AR = 3dB 的天线，RCS 可降低 <strong>~12dB</strong>（功率降低 98.4%）。</p>
+<p><strong>2019-2025 研究进展</strong>：</p>
+<ul>
+<li>超表面（Metasurface）加载贴片阵列 → 带外 RCS 降低 15-20dB</li>
+<li>圆极化序贯旋转阵列 → 宽频 RCS 降低</li>
+<li>极化转换超表面 + CP 阵列 → 联合优化 RCS 和辐射性能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 可穿戴设备</h2>
+    <p><strong>优势</strong>：</p>
+<ul>
+<li>用户头部/身体转动不影响天线极化匹配</li>
+<li>降低人体组织吸收导致的极化畸变</li>
+<li>MIMO + CP → 高隔离、低相关性</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>五、圆极化 vs 线极化对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>线极化</th><th>圆极化</th></tr></thead>
-    <tbody>
-    <tr><td>极化纯度</td><td>高</td><td>中（取决于 AR）</td></tr>
-    <tr><td>极化对准要求</td><td>严格（正交时完全隔离）</td><td>宽松（旋转不变）</td></tr>
-    <tr><td>多径抑制</td><td>差</td><td>好（反射反转旋向）</td></tr>
-    <tr><td>极化损失</td><td>0dB（对准）/ >20dB（正交）</td><td>3dB（对线极化）/ 0dB（同旋向）</td></tr>
-    <tr><td>带宽</td><td>宽</td><td>窄（AR 带宽通常 < 阻抗带宽）</td></tr>
-    <tr><td>复杂度</td><td>低</td><td>中（需要 90° 相位差）</td></tr>
-    <tr><td>典型增益</td><td>高</td><td>略低（~0.5-1dB 极化效率损失）</td></tr>
-    <tr><td>应用</td><td>WiFi/基站/大多数地面通信</td><td>GNSS/卫星/隐身/可穿戴</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>线极化</th>
+<th>圆极化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化纯度</td>
+<td>高</td>
+<td>中（取决于 AR）</td>
+</tr>
+<tr>
+<td>极化对准要求</td>
+<td>严格（正交时完全隔离）</td>
+<td>宽松（旋转不变）</td>
+</tr>
+<tr>
+<td>多径抑制</td>
+<td>差</td>
+<td>好（反射反转旋向）</td>
+</tr>
+<tr>
+<td>极化损失</td>
+<td>0dB（对准）/ &gt;20dB（正交）</td>
+<td>3dB（对线极化）/ 0dB（同旋向）</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>宽</td>
+<td>窄（AR 带宽通常 &lt; 阻抗带宽）</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>低</td>
+<td>中（需要 90° 相位差）</td>
+</tr>
+<tr>
+<td>典型增益</td>
+<td>高</td>
+<td>略低（~0.5-1dB 极化效率损失）</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>WiFi/基站/大多数地面通信</td>
+<td>GNSS/卫星/隐身/可穿戴</td>
+</tr>
+</tbody>
+</table>
+<hr />
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>六、给非专业读者的一句话总结</h2>
-    <div class="call"><b>圆极化天线发出的电磁波是"螺旋钻"——电场矢量在空间画圆圈。GPS 卫星用圆极化是因为卫星在天上翻滚，线极化的话地面天线就收不到了。圆极化还有一个神奇特性：左右旋完全隔离，互不干扰。这让科学家想到用它来做隐身——雷达发射 RHCP，飞机收到后反射变成 LHCP，雷达天线只收 RHCP，于是回波被大幅削弱。圆极化就是物理学送给工程师的"免费礼物"：一个结构，两种能力（通信+隐身）。</b></div>
-    <p><b>金句</b>：圆极化告诉你一个道理——<b>有时候转一圈不是绕远路，而是为了在任何角度都能接到</b>。</p>
-    <p>---</p>
+    <blockquote>
+<p><strong>圆极化天线发出的电磁波是"螺旋钻"——电场矢量在空间画圆圈。GPS 卫星用圆极化是因为卫星在天上翻滚，线极化的话地面天线就收不到了。圆极化还有一个神奇特性：左右旋完全隔离，互不干扰。这让科学家想到用它来做隐身——雷达发射 RHCP，飞机收到后反射变成 LHCP，雷达天线只收 RHCP，于是回波被大幅削弱。圆极化就是物理学送给工程师的"免费礼物"：一个结构，两种能力（通信+隐身）。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：圆极化告诉你一个道理——<strong>有时候转一圈不是绕远路，而是为了在任何角度都能接到</strong>。</p>
+<hr />
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -316,39 +534,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

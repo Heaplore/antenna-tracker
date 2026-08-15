@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>波束成形 IC（Beamforming IC, BFIC） · 知识卡片</title>
+<title>波束成形IC-BFIC · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">波束成形 IC（Beamforming IC, BFIC） <span class="en">IC-BFIC</span></h1>
-  <p class="lede">波束成形 IC（BFIC）是相控阵系统的"大脑"——它将移相器、衰减器、增益控制和收发切换集成在一颗芯片上，通过精确控制每个天线通道的幅度和相位来实现波束指向和形状调控。它是 5G 毫米波基站和雷达相控阵的核心控制芯片。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">波束成形IC-BFIC</h1>
+  <p class="lede">波束成形 IC（BFIC）是相控阵系统的&#34;大脑&#34;——它将移相器、衰减器、增益控制和收发切换集成在一颗芯片上，通过精确控制每个天线通道的幅度和相位来实现波束指向和形状调控。它是 5G 毫米波基站和雷达相控阵的核心控制芯片。</p>
+  
 </header>
 
 <main>
@@ -99,235 +101,821 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>如果说 T/R 模块是每个乐手，天线阵列是乐器，那么 BFIC 就是指挥——它坐在乐队前面，告诉每个乐手"你大声一点"、"你慢半拍"，通过精细控制每个人的演奏时机和音量，最终让整个乐队的声音汇聚成一个方向。BFIC 做的就是这件事：给每个通道下达"幅度多少、相位多少"的指令，让电磁波在需要的方向叠加增强。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
     <p>波束成形 IC（Beamforming IC, BFIC）是一种专用的射频/微波集成电路，用于在相控阵天线系统中实现波束成形（Beamforming）功能。它将波束成形所需的所有模拟或数字控制功能集成在一个芯片上，包括：</p>
-    <ul><li><b>相位控制</b>：调节每个通道的信号相位</li><li><b>幅度控制</b>：调节每个通道的信号幅度（衰减）</li><li><b>增益控制</b>：可变增益放大器（VGA）</li><li><b>收发切换</b>：控制信号在发射和接收模式之间的切换</li><li><b>时钟和数字接口</b>：SPI/I2C 等控制接口</li></ul>
-    <p>BFIC 可以是纯模拟的（在 RF 域做波束成形），也可以是混合式的（部分在基带数字域处理）。</p>
-    <h3>1.2 波束成形的三种架构</h3>
+<ul>
+<li><strong>相位控制</strong>：调节每个通道的信号相位</li>
+<li><strong>幅度控制</strong>：调节每个通道的信号幅度（衰减）</li>
+<li><strong>增益控制</strong>：可变增益放大器（VGA）</li>
+<li><strong>收发切换</strong>：控制信号在发射和接收模式之间的切换</li>
+<li><strong>时钟和数字接口</strong>：SPI/I2C 等控制接口</li>
+</ul>
+<p>BFIC 可以是纯模拟的（在 RF 域做波束成形），也可以是混合式的（部分在基带数字域处理）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 波束成形的三种架构</h2>
     <p>BFIC 的设计取决于它在整个波束成形架构中的位置：</p>
-    <p><b>模拟波束成形（Analog Beamforming）：</b></p>
-    <pre><code>天线阵列 → T/R 模块 → BFIC(移相器+衰减器) → 合路器 → 单通道收发机</code></pre>
-    <ul><li>每通道一个 BFIC，在 RF 域做相位/幅度控制</li><li>只需 1 对 ADC/DAC（整个阵列共享）</li><li>优点：功耗低、成本低</li><li>缺点：只能形成 1 个波束</li></ul>
-    <p><b>数字波束成形（Digital Beamforming）：</b></p>
-    <pre><code>天线阵列 → T/R 模块 → ADC → BFIC(数字信号处理) → 多通道收发机</code></pre>
-    <ul><li>每个天线单元都有独立的 ADC</li><li>BFIC 在数字域做波束成形（DSP/FPGA/ASIC）</li><li>优点：多波束、自适应零陷、灵活</li><li>缺点：功耗极高、成本极高</li></ul>
-    <p><b>混合波束成形（Hybrid Beamforming）：</b></p>
-    <pre><code>天线阵列 → T/R 模块 → 模拟 BFIC(子阵级) → ADC → 数字 BFIC(DSP)</code></pre>
-    <ul><li>模拟 + 数字两级处理</li><li>每个子阵（Sub-array）有一组 ADC</li><li>5G mmWave 主流方案</li></ul>
-    <h3>1.3 BFIC 与相关芯片的区别</h3>
-    <div class="tw"><table>
-    <thead><tr><th>芯片类型</th><th>缩写</th><th>功能</th><th>位置</th></tr></thead>
-    <tbody>
-    <tr><td>波束成形 IC</td><td>BFIC</td><td>相位/幅度控制</td><td>T/R 模块之后，合路之前</td></tr>
-    <tr><td>射频前端模块</td><td>FEM</td><td>功放、低噪放、开关</td><td>天线单元处</td></tr>
-    <tr><td>毫米波收发 IC</td><td>mmWave Transceiver</td><td>上/下变频、ADC/DAC</td><td>基带和 RF 之间</td></tr>
-    <tr><td>基带处理器</td><td>BBU/DSP</td><td>数字信号处理</td><td>基带域</td></tr>
-    </tbody></table></div>
-    <p>BFIC 通常与 FEM 和 Transceiver IC 协同工作，构成完整的相控阵射频链路。</p>
+<p><strong>模拟波束成形（Analog Beamforming）：</strong></p>
+<pre><code>天线阵列 → T/R 模块 → BFIC(移相器+衰减器) → 合路器 → 单通道收发机
+</code></pre>
+<ul>
+<li>每通道一个 BFIC，在 RF 域做相位/幅度控制</li>
+<li>只需 1 对 ADC/DAC（整个阵列共享）</li>
+<li>优点：功耗低、成本低</li>
+<li>缺点：只能形成 1 个波束</li>
+</ul>
+<p><strong>数字波束成形（Digital Beamforming）：</strong></p>
+<pre><code>天线阵列 → T/R 模块 → ADC → BFIC(数字信号处理) → 多通道收发机
+</code></pre>
+<ul>
+<li>每个天线单元都有独立的 ADC</li>
+<li>BFIC 在数字域做波束成形（DSP/FPGA/ASIC）</li>
+<li>优点：多波束、自适应零陷、灵活</li>
+<li>缺点：功耗极高、成本极高</li>
+</ul>
+<p><strong>混合波束成形（Hybrid Beamforming）：</strong></p>
+<pre><code>天线阵列 → T/R 模块 → 模拟 BFIC(子阵级) → ADC → 数字 BFIC(DSP)
+</code></pre>
+<ul>
+<li>模拟 + 数字两级处理</li>
+<li>每个子阵（Sub-array）有一组 ADC</li>
+<li>5G mmWave 主流方案</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 模拟 BFIC 内部架构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 BFIC 与相关芯片的区别</h2>
+    <table>
+<thead>
+<tr>
+<th>芯片类型</th>
+<th>缩写</th>
+<th>功能</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束成形 IC</td>
+<td>BFIC</td>
+<td>相位/幅度控制</td>
+<td>T/R 模块之后，合路之前</td>
+</tr>
+<tr>
+<td>射频前端模块</td>
+<td>FEM</td>
+<td>功放、低噪放、开关</td>
+<td>天线单元处</td>
+</tr>
+<tr>
+<td>毫米波收发 IC</td>
+<td>mmWave Transceiver</td>
+<td>上/下变频、ADC/DAC</td>
+<td>基带和 RF 之间</td>
+</tr>
+<tr>
+<td>基带处理器</td>
+<td>BBU/DSP</td>
+<td>数字信号处理</td>
+<td>基带域</td>
+</tr>
+</tbody>
+</table>
+<p>BFIC 通常与 FEM 和 Transceiver IC 协同工作，构成完整的相控阵射频链路。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 模拟 BFIC 内部架构</h2>
     <p>典型的模拟 BFIC 包含以下功能块：</p>
-    <pre><code>通道 1:  LNA → VGA → 移相器 → 衰减器 → 合路器 → RF Out
-    通道 2:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗
-    通道 N:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗</code></pre>
-    <p><b>关键参数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>移相器位数</td><td>5-bit / 6-bit / 7-bit</td><td>6-bit = 64 个相位状态</td></tr>
-    <tr><td>相位分辨率</td><td>5.625° (6-bit)</td><td>360°/2^n</td></tr>
-    <tr><td>RMS 相位误差</td><td>< 5°</td><td>影响波束指向精度</td></tr>
-    <tr><td>衰减器位数</td><td>4-bit / 5-bit / 6-bit</td><td>6-bit = 0.5dB 分辨率</td></tr>
-    <tr><td>幅度误差</td><td>< ±0.5dB</td><td>影响旁瓣电平</td></tr>
-    <tr><td>VGA 增益范围</td><td>0-30 dB</td><td>动态范围控制</td></tr>
-    <tr><td>增益分辨率</td><td>0.5 dB</td><td>与衰减器位数对应</td></tr>
-    <tr><td>插入损耗</td><td>2-5 dB</td><td>模拟通路固有损耗</td></tr>
-    <tr><td>工作频率</td><td>4-40 GHz</td><td>覆盖 Sub-6 到 mmWave</td></tr>
-    </tbody></table></div>
-    <h3>2.2 相位控制精度与波束质量</h3>
+<pre><code>通道 1:  LNA → VGA → 移相器 → 衰减器 → 合路器 → RF Out
+通道 2:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗
+通道 N:  LNA → VGA → 移相器 → 衰减器 → 合路器 ↗
+</code></pre>
+<p><strong>关键参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移相器位数</td>
+<td>5-bit / 6-bit / 7-bit</td>
+<td>6-bit = 64 个相位状态</td>
+</tr>
+<tr>
+<td>相位分辨率</td>
+<td>5.625° (6-bit)</td>
+<td>360°/2^n</td>
+</tr>
+<tr>
+<td>RMS 相位误差</td>
+<td>&lt; 5°</td>
+<td>影响波束指向精度</td>
+</tr>
+<tr>
+<td>衰减器位数</td>
+<td>4-bit / 5-bit / 6-bit</td>
+<td>6-bit = 0.5dB 分辨率</td>
+</tr>
+<tr>
+<td>幅度误差</td>
+<td>&lt; ±0.5dB</td>
+<td>影响旁瓣电平</td>
+</tr>
+<tr>
+<td>VGA 增益范围</td>
+<td>0-30 dB</td>
+<td>动态范围控制</td>
+</tr>
+<tr>
+<td>增益分辨率</td>
+<td>0.5 dB</td>
+<td>与衰减器位数对应</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>2-5 dB</td>
+<td>模拟通路固有损耗</td>
+</tr>
+<tr>
+<td>工作频率</td>
+<td>4-40 GHz</td>
+<td>覆盖 Sub-6 到 mmWave</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 相位控制精度与波束质量</h2>
     <p>移相器的位数直接决定了波束控制的精度：</p>
-    <div class="tw"><table>
-    <thead><tr><th>位数</th><th>相位步进</th><th>RMS 相位误差</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>3-bit</td><td>45°</td><td>~12.9°</td><td>低端雷达</td></tr>
-    <tr><td>4-bit</td><td>22.5°</td><td>~6.5°</td><td>简单通信</td></tr>
-    <tr><td>5-bit</td><td>11.25°</td><td>~3.2°</td><td>5G Sub-6</td></tr>
-    <tr><td>6-bit</td><td>5.625°</td><td>~1.6°</td><td>5G mmWave / 中端雷达</td></tr>
-    <tr><td>7-bit</td><td>2.81°</td><td>~0.8°</td><td>高端雷达 / 卫星通信</td></tr>
-    <tr><td>8-bit</td><td>1.41°</td><td>~0.4°</td><td>精密雷达 / 射电天文</td></tr>
-    </tbody></table></div>
-    <p><b>6-bit 是 5G mmWave 的主流选择</b>——它在性能和成本之间取得了最佳平衡。</p>
-    <h3>2.3 波束指向计算公式</h3>
+<table>
+<thead>
+<tr>
+<th>位数</th>
+<th>相位步进</th>
+<th>RMS 相位误差</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3-bit</td>
+<td>45°</td>
+<td>~12.9°</td>
+<td>低端雷达</td>
+</tr>
+<tr>
+<td>4-bit</td>
+<td>22.5°</td>
+<td>~6.5°</td>
+<td>简单通信</td>
+</tr>
+<tr>
+<td>5-bit</td>
+<td>11.25°</td>
+<td>~3.2°</td>
+<td>5G Sub-6</td>
+</tr>
+<tr>
+<td>6-bit</td>
+<td>5.625°</td>
+<td>~1.6°</td>
+<td>5G mmWave / 中端雷达</td>
+</tr>
+<tr>
+<td>7-bit</td>
+<td>2.81°</td>
+<td>~0.8°</td>
+<td>高端雷达 / 卫星通信</td>
+</tr>
+<tr>
+<td>8-bit</td>
+<td>1.41°</td>
+<td>~0.4°</td>
+<td>精密雷达 / 射电天文</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6-bit 是 5G mmWave 的主流选择</strong>——它在性能和成本之间取得了最佳平衡。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 波束指向计算公式</h2>
     <p>BFIC 通过控制每个通道的相位偏移来实现波束扫描：</p>
-    <pre><code>ψ_n = -2π·d·sin(θ₀)·n/λ</code></pre>
-    <p>其中：</p>
-    <ul><li>ψ_n 是第 n 个通道的相位偏移</li><li>d 是单元间距</li><li>θ₀ 是目标波束指向角</li><li>λ 是工作波长</li><li>n 是通道序号</li></ul>
-    <p>BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了量化误差。</p>
-    <h3>2.4 旁瓣电平与幅度加权</h3>
+<pre><code>ψ_n = -2π·d·sin(θ₀)·n/λ
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>ψ_n 是第 n 个通道的相位偏移</li>
+<li>d 是单元间距</li>
+<li>θ₀ 是目标波束指向角</li>
+<li>λ 是工作波长</li>
+<li>n 是通道序号</li>
+</ul>
+<p>BFIC 需要在离散相位状态中选择最接近 ψ_n 的值，这就引入了量化误差。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 旁瓣电平与幅度加权</h2>
     <p>为了实现低旁瓣，BFIC 需要对各通道施加不同的幅度加权（窗函数）：</p>
-    <div class="tw"><table>
-    <thead><tr><th>窗函数</th><th>旁瓣电平</th><th>波束宽度</th><th>BFIC 实现难度</th></tr></thead>
-    <tbody>
-    <tr><td>均匀加权</td><td>-13.2 dB</td><td>最窄</td><td>最简单（全通道等幅）</td></tr>
-    <tr><td>泰勒加权</td><td>-25 dB</td><td>稍宽</td><td>中等（6-bit 衰减器）</td></tr>
-    <tr><td>切比雪夫</td><td>-30 dB</td><td>更宽</td><td>中等</td></tr>
-    <tr><td>汉宁/海明</td><td>-44 dB</td><td>最宽</td><td>较高（需要精细幅度控制）</td></tr>
-    </tbody></table></div>
-    <h3>2.5 功耗公式</h3>
+<table>
+<thead>
+<tr>
+<th>窗函数</th>
+<th>旁瓣电平</th>
+<th>波束宽度</th>
+<th>BFIC 实现难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀加权</td>
+<td>-13.2 dB</td>
+<td>最窄</td>
+<td>最简单（全通道等幅）</td>
+</tr>
+<tr>
+<td>泰勒加权</td>
+<td>-25 dB</td>
+<td>稍宽</td>
+<td>中等（6-bit 衰减器）</td>
+</tr>
+<tr>
+<td>切比雪夫</td>
+<td>-30 dB</td>
+<td>更宽</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>汉宁/海明</td>
+<td>-44 dB</td>
+<td>最宽</td>
+<td>较高（需要精细幅度控制）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 功耗公式</h2>
     <p>BFIC 的功耗主要由以下部分组成：</p>
-    <pre><code>P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × N_channels + P_control + P_interface</code></pre>
-    <p>典型值：</p>
-    <ul><li>单通道模拟 BFIC：10-50 mW（4-8 GHz）</li><li>单通道 mmWave BFIC：50-200 mW（28 GHz）</li><li>16 通道 BFIC 芯片：200-800 mW</li></ul>
+<pre><code>P_total = P_phase_shifter × N_channels + P_attenuator × N_channels + P_VGA × N_channels + P_control + P_interface
+</code></pre>
+<p>典型值：</p>
+<ul>
+<li>单通道模拟 BFIC：10-50 mW（4-8 GHz）</li>
+<li>单通道 mmWave BFIC：50-200 mW（28 GHz）</li>
+<li>16 通道 BFIC 芯片：200-800 mW</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、实现方式与分类</h2>
-    <h3>3.1 按工艺分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>特点</th><th>频率范围</th><th>代表厂商</th></tr></thead>
-    <tbody>
-    <tr><td>GaAs MMIC</td><td>高功率、成熟工艺</td><td>DC-40 GHz</td><td>Qorvo, MACOM, Avago</td></tr>
-    <tr><td>SiGe BiCMOS</td><td>低功耗、高集成</td><td>DC-100 GHz</td><td>Analog Devices, NXP</td></tr>
-    <tr><td>CMOS 28nm</td><td>低成本、大规模集成</td><td>DC-40 GHz</td><td>Samsung, TI, NEC</td></tr>
-    <tr><td>CMOS 16nm</td><td>更高集成、更低功耗</td><td>DC-60 GHz</td><td>先进 5G/6G BFIC</td></tr>
-    <tr><td>InP HBT</td><td>最高频率性能</td><td>DC-300 GHz</td><td>科研/卫星</td></tr>
-    </tbody></table></div>
-    <p><b>CMOS 成为 5G BFIC 主流工艺的原因</b>：</p>
-    <ul><li>成本最低（标准晶圆代工）</li><li>集成度最高（可在单芯片上集成数百通道）</li><li>功耗可控（16nm 工艺下单通道 < 10mW）</li><li>缺点：输出功率和噪声系数不如 GaAs/SiGe</li></ul>
-    <h3>3.2 按功能分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>功能</th><th>典型通道数</th><th>应用</th></tr></thead>
-    <tbody>
-    <tr><td>纯模拟 BFIC</td><td>移相 + 衰减 + VGA</td><td>4-16</td><td>5G 基站</td></tr>
-    <tr><td>收发一体 BFIC</td><td>发射 + 接收通道</td><td>8-32</td><td>雷达</td></tr>
-    <tr><td>数字 BFIC</td><td>DSP/FPGA 波束成形</td><td>N/A</td><td>军用 AESA</td></tr>
-    <tr><td>混合 BFIC</td><td>模拟前端 + 数字后端</td><td>4-64</td><td>5G-Advanced</td></tr>
-    <tr><td>多波束 BFIC</td><td>同时形成多个波束</td><td>8-32</td><td>卫星通信</td></tr>
-    </tbody></table></div>
-    <h3>3.3 按封装形式分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>形式</th><th>特点</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>裸芯片（Die）</td><td>最小尺寸，需外部封装</td><td>AiP 模组内集成</td></tr>
-    <tr><td>LGA/QFN 封装</td><td>标准封装，便于 SMT</td><td>模组级集成</td></tr>
-    <tr><td>SiP 封装</td><td>含无源元件和散热结构</td><td>基站 AAU</td></tr>
-    <tr><td>模块级</td><td>含匹配网络和测试点</td><td>研发/原型</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 按工艺分类</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>特点</th>
+<th>频率范围</th>
+<th>代表厂商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GaAs MMIC</td>
+<td>高功率、成熟工艺</td>
+<td>DC-40 GHz</td>
+<td>Qorvo, MACOM, Avago</td>
+</tr>
+<tr>
+<td>SiGe BiCMOS</td>
+<td>低功耗、高集成</td>
+<td>DC-100 GHz</td>
+<td>Analog Devices, NXP</td>
+</tr>
+<tr>
+<td>CMOS 28nm</td>
+<td>低成本、大规模集成</td>
+<td>DC-40 GHz</td>
+<td>Samsung, TI, NEC</td>
+</tr>
+<tr>
+<td>CMOS 16nm</td>
+<td>更高集成、更低功耗</td>
+<td>DC-60 GHz</td>
+<td>先进 5G/6G BFIC</td>
+</tr>
+<tr>
+<td>InP HBT</td>
+<td>最高频率性能</td>
+<td>DC-300 GHz</td>
+<td>科研/卫星</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CMOS 成为 5G BFIC 主流工艺的原因</strong>：</p>
+<ul>
+<li>成本最低（标准晶圆代工）</li>
+<li>集成度最高（可在单芯片上集成数百通道）</li>
+<li>功耗可控（16nm 工艺下单通道 &lt; 10mW）</li>
+<li>缺点：输出功率和噪声系数不如 GaAs/SiGe</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 5G 基站 Massive MIMO</h3>
-    <ul><li><b>配置</b>：16-64 通道模拟 BFIC</li><li><b>频率</b>：3.5 GHz (n77/n78)</li><li><b>典型产品</b>：</li><li>Analog Devices ADRF5510（6-bit 移相器 + 6-bit 衰减器，DC-6 GHz）</li><li>Qorvo QPA2107（集成 LNA+VGA+移相器+衰减器）</li><li>NXP BF5xx 系列（28GHz 毫米波 BFIC）</li><li><b>关键要求</b>：低功耗（单通道 < 50mW）、高线性度</li></ul>
-    <h3>4.2 5G 手机 mmWave</h3>
-    <ul><li><b>配置</b>：4-8 通道 BFIC + AiP 天线</li><li><b>频率</b>：28/39 GHz</li><li><b>典型产品</b>：</li><li>Samsung 28GHz 8-channel BFIC（ISSCC 2017）</li><li>TI IWR1443（集成 BF 功能的毫米波雷达 SoC）</li><li><b>关键要求</b>：极小尺寸（< 5mm²）、低功耗（< 200mW 整机）</li></ul>
-    <h3>4.3 军用雷达</h3>
-    <ul><li><b>配置</b>：64-256 通道 BFIC 阵列</li><li><b>频率</b>：X/Ku/Ka band</li><li><b>典型产品</b>：</li><li>ADI ADRF5001 系列（6-bit 数字移相器，DC-40 GHz）</li><li>Hittite/MACOM 毫米波 BFIC</li><li><b>关键要求</b>：高可靠性（-55°C 至 +125°C）、抗辐射</li></ul>
-    <h3>4.4 卫星通信</h3>
-    <ul><li><b>配置</b>：16-128 通道多波束 BFIC</li><li><b>频率</b>：Ku/Ka band</li><li><b>典型产品</b>：</li><li>Viasat 相控阵终端 BFIC</li><li>Starlink 用户端波束控制芯片</li><li><b>关键要求</b>：多波束同时工作、低噪声</li></ul>
-    <h3>4.5 汽车雷达</h3>
-    <ul><li><b>配置</b>：4-16 通道 BFIC</li><li><b>频率</b>：77/79 GHz</li><li><b>典型产品</b>：</li><li>TI AWR1642/AWR2243（集成 BF 功能的毫米波雷达 SoC）</li><li>NXP SR OSAR（片上系统雷达）</li><li><b>关键要求</b>：车规级可靠性、成本 < $10</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.2 按功能分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功能</th>
+<th>典型通道数</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯模拟 BFIC</td>
+<td>移相 + 衰减 + VGA</td>
+<td>4-16</td>
+<td>5G 基站</td>
+</tr>
+<tr>
+<td>收发一体 BFIC</td>
+<td>发射 + 接收通道</td>
+<td>8-32</td>
+<td>雷达</td>
+</tr>
+<tr>
+<td>数字 BFIC</td>
+<td>DSP/FPGA 波束成形</td>
+<td>N/A</td>
+<td>军用 AESA</td>
+</tr>
+<tr>
+<td>混合 BFIC</td>
+<td>模拟前端 + 数字后端</td>
+<td>4-64</td>
+<td>5G-Advanced</td>
+</tr>
+<tr>
+<td>多波束 BFIC</td>
+<td>同时形成多个波束</td>
+<td>8-32</td>
+<td>卫星通信</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 射频性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>工作频率</td><td>DC-110 GHz</td><td>覆盖 Sub-6 到 W-band</td></tr>
-    <tr><td>通道数</td><td>1-64</td><td>单芯片最大通道数</td></tr>
-    <tr><td>插入损耗</td><td>2-8 dB</td><td>信号通过 BFIC 的损耗</td></tr>
-    <tr><td>隔离度（通道间）</td><td>>30 dB</td><td>串扰抑制</td></tr>
-    <tr><td>线性度（IP3）</td><td>+20 to +35 dBm</td><td>多信号场景下的线性度</td></tr>
-    </tbody></table></div>
-    <h3>5.2 波束控制精度</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>移相器位数</td><td>5-8 bit</td><td>6-bit 最常见</td></tr>
-    <tr><td>衰减器位数</td><td>4-6 bit</td><td>6-bit 对应 0.5dB 步进</td></tr>
-    <tr><td>RMS 相位误差</td><td>< 3° (6-bit)</td><td>决定波束指向精度</td></tr>
-    <tr><td>RMS 幅度误差</td><td>< 0.3dB (6-bit)</td><td>决定旁瓣电平</td></tr>
-    <tr><td>波束指向分辨率</td><td>0.1-1.0°</td><td>取决于移相器位数</td></tr>
-    </tbody></table></div>
-    <h3>5.3 功耗与热</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>单通道功耗</td><td>5-200 mW</td><td>取决于频率和通道数</td></tr>
-    <tr><td>芯片总功耗</td><td>50mW - 2W</td><td>4通道到64通道</td></tr>
-    <tr><td>热阻</td><td>10-50°C/W</td><td>取决于封装</td></tr>
-    <tr><td>结温</td><td>< 125°C</td><td>商业级 / < 175°C 军用级</td></tr>
-    </tbody></table></div>
-    <h3>5.4 控制接口</h3>
-    <div class="tw"><table>
-    <thead><tr><th>接口</th><th>速率</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>SPI</td><td>10-50 MHz</td><td>最常用，配置移相器/衰减器</td></tr>
-    <tr><td>I2C</td><td>1-400 kHz</td><td>简单配置</td></tr>
-    <tr><td>LVDS</td><td>> 1 Gbps</td><td>高速波束扫描控制</td></tr>
-    <tr><td>并行</td><td>> 100 MHz</td><td>超大阵列（256+ 通道）</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.3 按封装形式分类</h2>
+    <table>
+<thead>
+<tr>
+<th>形式</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>裸芯片（Die）</td>
+<td>最小尺寸，需外部封装</td>
+<td>AiP 模组内集成</td>
+</tr>
+<tr>
+<td>LGA/QFN 封装</td>
+<td>标准封装，便于 SMT</td>
+<td>模组级集成</td>
+</tr>
+<tr>
+<td>SiP 封装</td>
+<td>含无源元件和散热结构</td>
+<td>基站 AAU</td>
+</tr>
+<tr>
+<td>模块级</td>
+<td>含匹配网络和测试点</td>
+<td>研发/原型</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 相位误差累积</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 5G 基站 Massive MIMO</h2>
+    <ul>
+<li><strong>配置</strong>：16-64 通道模拟 BFIC</li>
+<li><strong>频率</strong>：3.5 GHz (n77/n78)</li>
+<li><strong>典型产品</strong>：</li>
+<li>Analog Devices ADRF5510（6-bit 移相器 + 6-bit 衰减器，DC-6 GHz）</li>
+<li>Qorvo QPA2107（集成 LNA+VGA+移相器+衰减器）</li>
+<li>NXP BF5xx 系列（28GHz 毫米波 BFIC）</li>
+<li><strong>关键要求</strong>：低功耗（单通道 &lt; 50mW）、高线性度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 5G 手机 mmWave</h2>
+    <ul>
+<li><strong>配置</strong>：4-8 通道 BFIC + AiP 天线</li>
+<li><strong>频率</strong>：28/39 GHz</li>
+<li><strong>典型产品</strong>：</li>
+<li>Samsung 28GHz 8-channel BFIC（ISSCC 2017）</li>
+<li>TI IWR1443（集成 BF 功能的毫米波雷达 SoC）</li>
+<li><strong>关键要求</strong>：极小尺寸（&lt; 5mm²）、低功耗（&lt; 200mW 整机）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 军用雷达</h2>
+    <ul>
+<li><strong>配置</strong>：64-256 通道 BFIC 阵列</li>
+<li><strong>频率</strong>：X/Ku/Ka band</li>
+<li><strong>典型产品</strong>：</li>
+<li>ADI ADRF5001 系列（6-bit 数字移相器，DC-40 GHz）</li>
+<li>Hittite/MACOM 毫米波 BFIC</li>
+<li><strong>关键要求</strong>：高可靠性（-55°C 至 +125°C）、抗辐射</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 卫星通信</h2>
+    <ul>
+<li><strong>配置</strong>：16-128 通道多波束 BFIC</li>
+<li><strong>频率</strong>：Ku/Ka band</li>
+<li><strong>典型产品</strong>：</li>
+<li>Viasat 相控阵终端 BFIC</li>
+<li>Starlink 用户端波束控制芯片</li>
+<li><strong>关键要求</strong>：多波束同时工作、低噪声</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 汽车雷达</h2>
+    <ul>
+<li><strong>配置</strong>：4-16 通道 BFIC</li>
+<li><strong>频率</strong>：77/79 GHz</li>
+<li><strong>典型产品</strong>：</li>
+<li>TI AWR1642/AWR2243（集成 BF 功能的毫米波雷达 SoC）</li>
+<li>NXP SR OSAR（片上系统雷达）</li>
+<li><strong>关键要求</strong>：车规级可靠性、成本 &lt; $10</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 射频性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频率</td>
+<td>DC-110 GHz</td>
+<td>覆盖 Sub-6 到 W-band</td>
+</tr>
+<tr>
+<td>通道数</td>
+<td>1-64</td>
+<td>单芯片最大通道数</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>2-8 dB</td>
+<td>信号通过 BFIC 的损耗</td>
+</tr>
+<tr>
+<td>隔离度（通道间）</td>
+<td>&gt;30 dB</td>
+<td>串扰抑制</td>
+</tr>
+<tr>
+<td>线性度（IP3）</td>
+<td>+20 to +35 dBm</td>
+<td>多信号场景下的线性度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 波束控制精度</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移相器位数</td>
+<td>5-8 bit</td>
+<td>6-bit 最常见</td>
+</tr>
+<tr>
+<td>衰减器位数</td>
+<td>4-6 bit</td>
+<td>6-bit 对应 0.5dB 步进</td>
+</tr>
+<tr>
+<td>RMS 相位误差</td>
+<td>&lt; 3° (6-bit)</td>
+<td>决定波束指向精度</td>
+</tr>
+<tr>
+<td>RMS 幅度误差</td>
+<td>&lt; 0.3dB (6-bit)</td>
+<td>决定旁瓣电平</td>
+</tr>
+<tr>
+<td>波束指向分辨率</td>
+<td>0.1-1.0°</td>
+<td>取决于移相器位数</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 功耗与热</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单通道功耗</td>
+<td>5-200 mW</td>
+<td>取决于频率和通道数</td>
+</tr>
+<tr>
+<td>芯片总功耗</td>
+<td>50mW - 2W</td>
+<td>4通道到64通道</td>
+</tr>
+<tr>
+<td>热阻</td>
+<td>10-50°C/W</td>
+<td>取决于封装</td>
+</tr>
+<tr>
+<td>结温</td>
+<td>&lt; 125°C</td>
+<td>商业级 / &lt; 175°C 军用级</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 控制接口</h2>
+    <table>
+<thead>
+<tr>
+<th>接口</th>
+<th>速率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPI</td>
+<td>10-50 MHz</td>
+<td>最常用，配置移相器/衰减器</td>
+</tr>
+<tr>
+<td>I2C</td>
+<td>1-400 kHz</td>
+<td>简单配置</td>
+</tr>
+<tr>
+<td>LVDS</td>
+<td>&gt; 1 Gbps</td>
+<td>高速波束扫描控制</td>
+</tr>
+<tr>
+<td>并行</td>
+<td>&gt; 100 MHz</td>
+<td>超大阵列（256+ 通道）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 相位误差累积</h2>
     <p>BFIC 的移相器不是理想的——每个通道的相位误差会累积：</p>
-    <ul><li>制造公差：±1-2°</li><li>温度漂移：±0.5°/°C</li><li>电压波动：±0.3°</li></ul>
-    <p>对于一个 64 通道阵列，最大累积相位误差可达 ±20°，导致波束指向偏移 1-2°——在 28GHz 毫米波下，这可能意味着信号损失 3-5 dB。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>出厂校准：逐个通道测量相位误差，写入查找表</li><li>在线自校准：通过反馈环路实时调整</li><li>温度补偿：内置温度传感器，动态调整</li></ul>
-    <h3>6.2 通道间串扰（Crosstalk）</h3>
+<ul>
+<li>制造公差：±1-2°</li>
+<li>温度漂移：±0.5°/°C</li>
+<li>电压波动：±0.3°</li>
+</ul>
+<p>对于一个 64 通道阵列，最大累积相位误差可达 ±20°，导致波束指向偏移 1-2°——在 28GHz 毫米波下，这可能意味着信号损失 3-5 dB。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>出厂校准：逐个通道测量相位误差，写入查找表</li>
+<li>在线自校准：通过反馈环路实时调整</li>
+<li>温度补偿：内置温度传感器，动态调整</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 通道间串扰（Crosstalk）</h2>
     <p>模拟 BFIC 中多个通道共享电源和地线，通道之间的信号会通过电源噪声耦合：</p>
-    <ul><li>通道间隔离度不足会导致波束畸形</li><li>在高密度阵列中（如 256 通道 AAU），串扰问题尤为严重</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>电源去耦：每个通道配独立去耦电容</li><li>接地优化：星型接地布局</li><li>通道间屏蔽：金属隔离墙</li></ul>
-    <h3>6.3 散热——高密度集成的噩梦</h3>
+<ul>
+<li>通道间隔离度不足会导致波束畸形</li>
+<li>在高密度阵列中（如 256 通道 AAU），串扰问题尤为严重</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>电源去耦：每个通道配独立去耦电容</li>
+<li>接地优化：星型接地布局</li>
+<li>通道间屏蔽：金属隔离墙</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 散热——高密度集成的噩梦</h2>
     <p>一个 64 通道 BFIC 在 28GHz 下的总功耗可达 5-10W，集中在一个几毫米见方的芯片上，功率密度超过 100W/cm²。这比 CPU 的功率密度还高。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>背面散热焊盘（Exposed Pad）</li><li>导热过孔（Thermal Via）阵列</li><li>金属盖板（Metal Lid）传导散热</li><li>高阶方案：嵌入式散热层</li></ul>
-    <h3>6.4 多波束形成的限制</h3>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>背面散热焊盘（Exposed Pad）</li>
+<li>导热过孔（Thermal Via）阵列</li>
+<li>金属盖板（Metal Lid）传导散热</li>
+<li>高阶方案：嵌入式散热层</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 多波束形成的限制</h2>
     <p>模拟 BFIC 通常只能形成 1 个波束（因为所有通道合路后输出到单一 RF 链）。如果需要同时形成多个波束（多用户 MIMO），需要：</p>
-    <ul><li>多个 BFIC 通道组（每组形成 1 个波束）</li><li>或者切换到混合/数字波束成形架构</li></ul>
-    <p>这在芯片面积和功耗上是巨大的开销。</p>
-    <h3>6.5 校准复杂度</h3>
+<ul>
+<li>多个 BFIC 通道组（每组形成 1 个波束）</li>
+<li>或者切换到混合/数字波束成形架构</li>
+</ul>
+<p>这在芯片面积和功耗上是巨大的开销。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 校准复杂度</h2>
     <p>BFIC 的校准是一个系统工程：</p>
-    <ul><li>每个通道的相位和幅度都需要单独校准</li><li>校准数据存储在非易失性存储器中</li><li>运行中需要定期重新校准（温度漂移）</li><li>对于 256 通道的 AAU，校准时间可能长达数小时</li></ul>
+<ul>
+<li>每个通道的相位和幅度都需要单独校准</li>
+<li>校准数据存储在非易失性存储器中</li>
+<li>运行中需要定期重新校准（温度漂移）</li>
+<li>对于 256 通道的 AAU，校准时间可能长达数小时</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1960s</b>：分立移相器和衰减器构成最早的模拟波束成形网络</li><li><b>1970s</b>：GaAs MMIC 技术使 BFIC 小型化成为可能</li><li><b>1980s</b>：首批单片模拟 BFIC 问世（6-bit 移相器 + 衰减器）</li><li><b>1990s</b>：SiGe BiCMOS 工艺推出，BFIC 功耗大幅降低</li><li><b>2000s</b>：数字波束成形 IC 出现（DSP/FPGA 方案）</li><li><b>2010s</b>：5G 标准制定推动 BFIC 从军用走向民用</li><li><b>2017年</b>：Samsung 28GHz 32-element BFIC（ISSCC），首次实现 28GHz 大规模集成</li><li><b>2019年</b>：ADI ADRF5001 系列（DC-40GHz 6-bit BFIC），成为行业标准</li><li><b>2021年</b>：16nm CMOS BFIC 量产，通道数突破 64</li><li><b>2023-2024年</b>：5G-Advanced 推动混合波束成形 BFIC 成为主流</li><li><b>2025年</b>：AI 辅助 BFIC 校准自动化</li><li><b>2025-2026年</b>：太赫兹 BFIC（200-300GHz）进入实验室验证阶段</li></ul>
+    <ul>
+<li><strong>1960s</strong>：分立移相器和衰减器构成最早的模拟波束成形网络</li>
+<li><strong>1970s</strong>：GaAs MMIC 技术使 BFIC 小型化成为可能</li>
+<li><strong>1980s</strong>：首批单片模拟 BFIC 问世（6-bit 移相器 + 衰减器）</li>
+<li><strong>1990s</strong>：SiGe BiCMOS 工艺推出，BFIC 功耗大幅降低</li>
+<li><strong>2000s</strong>：数字波束成形 IC 出现（DSP/FPGA 方案）</li>
+<li><strong>2010s</strong>：5G 标准制定推动 BFIC 从军用走向民用</li>
+<li><strong>2017年</strong>：Samsung 28GHz 32-element BFIC（ISSCC），首次实现 28GHz 大规模集成</li>
+<li><strong>2019年</strong>：ADI ADRF5001 系列（DC-40GHz 6-bit BFIC），成为行业标准</li>
+<li><strong>2021年</strong>：16nm CMOS BFIC 量产，通道数突破 64</li>
+<li><strong>2023-2024年</strong>：5G-Advanced 推动混合波束成形 BFIC 成为主流</li>
+<li><strong>2025年</strong>：AI 辅助 BFIC 校准自动化</li>
+<li><strong>2025-2026年</strong>：太赫兹 BFIC（200-300GHz）进入实验室验证阶段</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：模拟 BFIC 技术已非常成熟，在 5G 基站和军用雷达中广泛部署。毫米波 BFIC（28-39GHz）已在 5G 手机和基站中大规模商用。混合波束成形 BFIC 是 5G-Advanced 的标准方案。太赫兹 BFIC 仍处于研究阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced Rel-18/19 推动更大规模 BFIC（128 通道）</li><li>AI 辅助 BFIC 在线校准自动化</li><li>多频段 BFIC（Sub-6 + mmWave 双频段集成）</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 太赫兹 BFIC（100-300GHz）进入小规模商用</li><li>数字波束成形 BFIC 在中小规模阵列中普及</li><li>BFIC + T/R 模块 + AiP 集成在一个 SiP 封装内</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>可编程波束成形：通过软件定义波束形状和指向</li><li>量子 BFIC：利用量子效应实现超低噪声波束成形</li><li>全息 BFIC：连续孔径波束成形，取代离散通道架构</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced Rel-18/19 推动更大规模 BFIC（128 通道）</li>
+<li>AI 辅助 BFIC 在线校准自动化</li>
+<li>
+<p>多频段 BFIC（Sub-6 + mmWave 双频段集成）</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 太赫兹 BFIC（100-300GHz）进入小规模商用</li>
+<li>数字波束成形 BFIC 在中小规模阵列中普及</li>
+<li>
+<p>BFIC + T/R 模块 + AiP 集成在一个 SiP 封装内</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>可编程波束成形：通过软件定义波束形状和指向</li>
+<li>量子 BFIC：利用量子效应实现超低噪声波束成形</li>
+<li>全息 BFIC：连续孔径波束成形，取代离散通道架构</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>波束成形 IC（BFIC）是相控阵天线的"神经中枢"——T/R 模块负责放大信号，AiP 负责辐射信号，而 BFIC 负责"指挥"信号往哪个方向走。没有 BFIC，相控阵就是一堆散乱的喇叭；有了 BFIC，它们才能像一个整体一样精准地指向目标。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -347,39 +935,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

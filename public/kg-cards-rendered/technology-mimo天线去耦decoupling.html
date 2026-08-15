@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIMO天线去耦技术（MIMO Antenna Decoupling） · 知识卡片</title>
+<title>MIMO天线去耦Decoupling · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">MIMO天线去耦技术 <span class="en">MIMO Antenna Decoupling</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">MIMO天线去耦Decoupling</h1>
   <p class="lede">MIMO天线去耦技术是通过各种电磁结构设计或信号处理手段，降低多输入多输出天线系统中相邻端口之间互耦（Mutual Coupling）的方法集合。它是实现高密度 MIMO 和 Massive MIMO 的关键使能技术，直接决定了空间复用的增益能否在现实中兑现。</p>
+  
 </header>
 
 <main>
@@ -99,179 +101,513 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象两个人在狭小的房间里同时打电话——如果房间太小，A 说的话会干扰 B 的通话质量。去耦技术就像是给每个人建一个隔音 booth（ booths 之间用吸音材料隔开），或者让 A 和 B 用不同的语言说话（极化分集），或者让他们站在房间的角落（空间分集），总之要让各自的通话互不干扰。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 互耦的本质</h3>
-    <p>当两个天线单元靠得很近时（通常间距 < 2λ），一个单元辐射的电磁场会在相邻单元中感应出电流，这种现象称为互耦（Mutual Coupling）。互耦用 S 参数表示为 S_ij（i ≠ j），即从端口 j 到端口 i 的耦合系数。</p>
-    <p><b>互耦的危害</b>：</p>
-    <ul><li>端口间信号串扰 → MIMO 空间复用增益下降</li><li>输入阻抗变化 → 匹配恶化 → VSWR 升高</li><li>方向图畸变 → 波束指向偏移</li><li>相关性增加 → ECC（Envelope Correlation Coefficient）升高 → 分集增益下降</li></ul>
-    <h3>1.2 去耦技术的两大类别</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类别</th><th>方法</th><th>原理</th></tr></thead>
-    <tbody>
-    <tr><td><b>内部去耦</b></td><td>空间分集、极化分集、频率分集</td><td>让天线"天生"就不耦合</td></tr>
-    <tr><td><b>外部去耦</b></td><td>DGS、EBG、中和线、寄生单元、超材料</td><td>在天线之间加"隔离墙"</td></tr>
-    </tbody></table></div>
-    <h3>1.3 性能评价指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>端口隔离度（S21）</td><td>端口间耦合系数</td><td>< -15dB（一般）/<-25dB（MIMO）</td></tr>
-    <tr><td>ECC</td><td>包络相关系数</td><td>< 0.5（4G）/< 0.1（5G）</td></tr>
-    <tr><td>DGC</td><td>分集增益系数</td><td>> 10dB</td></tr>
-    <tr><td>TARC</td><td>总有源反射系数</td><td>< -10dB</td></tr>
-    <tr><td>Channel Capacity Loss</td><td>信道容量损失</td><td>< 0.5bps/Hz</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>1.1 互耦的本质</h2>
+    <p>当两个天线单元靠得很近时（通常间距 &lt; 2λ），一个单元辐射的电磁场会在相邻单元中感应出电流，这种现象称为互耦（Mutual Coupling）。互耦用 S 参数表示为 S_ij（i ≠ j），即从端口 j 到端口 i 的耦合系数。</p>
+<p><strong>互耦的危害</strong>：</p>
+<ul>
+<li>端口间信号串扰 → MIMO 空间复用增益下降</li>
+<li>输入阻抗变化 → 匹配恶化 → VSWR 升高</li>
+<li>方向图畸变 → 波束指向偏移</li>
+<li>相关性增加 → ECC（Envelope Correlation Coefficient）升高 → 分集增益下降</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、内部去耦技术</h2>
-    <h3>2.1 空间分集（Spatial Diversity）</h3>
-    <p><b>原理</b>：将天线单元物理间距拉大，降低互耦。</p>
-    <pre><code>隔离度 ≈ 20·log₁₀(λ / (4π·d))</code></pre>
-    <p><b>典型效果</b>：</p>
-    <ul><li>d = 0.5λ → S21 ≈ -14dB</li><li>d = λ → S21 ≈ -28dB</li><li>d = 2λ → S21 ≈ -34dB</li></ul>
-    <p><b>优点</b>：最简单、最有效、无额外损耗 <b>缺点</b>：占用面积大，不适合手机等小型设备 <b>适用场景</b>：基站 AAU（单元间距通常 ≥ 0.5λ）、户外 MIMO</p>
-    <h3>2.2 极化分集（Polarization Diversity）</h3>
-    <p><b>原理</b>：使用正交极化（如 ±45° 双极化）的天线单元，正交极化之间的天然隔离度可达 25-35dB。</p>
-    <p><b>关键参数</b>：XPD（Cross-Polarization Discrimination，交叉极化鉴别率）</p>
-    <pre><code>XPD = 10·log₁₀(P_co / P_cross)</code></pre>
-    <p><b>典型效果</b>：</p>
-    <ul><li>±45° 双极化：隔离度 25-35dB</li><li>水平/垂直极化：隔离度 20-30dB</li><li>左旋/右旋圆极化：隔离度 20-25dB</li></ul>
-    <p><b>优点</b>：不增加天线间距，可在同一位置放置两个正交极化天线 <b>缺点</b>：传播环境会改变极化状态（去极化），实际隔离度可能降至 15-20dB <b>适用场景</b>：基站双极化天线（±45° 是行业标准）、手机 MIMO</p>
-    <h3>2.3 频率分集（Frequency Diversity）</h3>
-    <p><b>原理</b>：不同频段的天线之间天然隔离（工作频率不同，互耦可忽略）。</p>
-    <p><b>适用场景</b>：多频段 MIMO（如 4G + 5G 共存）、载波聚合</p>
-    <h3>2.4 模式分集（Mode Diversity）</h3>
-    <p><b>原理</b>：利用天线 Different Radiation Modes（如 TE10 和 TE20 模式）的正交性实现去耦。</p>
-    <p><b>典型应用</b>：波导 MIMO、介质谐振器天线（DRA）</p>
+  
+  <article class="card ">
+    
+    <h2>1.2 去耦技术的两大类别</h2>
+    <table>
+<thead>
+<tr>
+<th>类别</th>
+<th>方法</th>
+<th>原理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>内部去耦</strong></td>
+<td>空间分集、极化分集、频率分集</td>
+<td>让天线"天生"就不耦合</td>
+</tr>
+<tr>
+<td><strong>外部去耦</strong></td>
+<td>DGS、EBG、中和线、寄生单元、超材料</td>
+<td>在天线之间加"隔离墙"</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、外部去耦技术</h2>
-    <h3>3.1 缺陷接地结构（Defected Ground Structure, DGS）</h3>
-    <p><b>原理</b>：在接地层上蚀刻特定形状的缺口（如 U 形、V 形、环形），破坏表面波的传播路径。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：5-15dB</li><li>工作频带：DC-40GHz</li><li>尺寸：缺口尺寸 ≈ λ/2</li></ul>
-    <p><b>典型形状</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>形状</th><th>特点</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>U 形</td><td>最简单，易加工</td><td>Sub-6GHz MIMO</td></tr>
-    <tr><td>V 形</td><td>可调谐频带</td><td>多频段</td></tr>
-    <tr><td>环形</td><td>多频带抑制</td><td>多频段 MIMO</td></tr>
-    <tr><td>十字形</td><td>宽频抑制</td><td>宽带 MIMO</td></tr>
-    </tbody></table></div>
-    <h3>3.2 电磁带隙结构（Electromagnetic Bandgap, EBG）</h3>
-    <p><b>原理</b>：周期性排列的金属贴片或孔洞，在特定频段内形成"带隙"，阻止表面波传播。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：10-25dB</li><li>带宽：通常 10-20%（相对带宽）</li><li>尺寸：周期 ≈ λ/2</li></ul>
-    <p><b>EBG 的变种</b>：</p>
-    <ul><li><b>Mushroom EBG</b>：金属柱 + 顶部金属贴片，最常用</li><li><b>Yagi EBG</b>：类似 Yagi-Uda 结构，宽带效果好</li><li><b>UC-EBG（Ultra-Compact）</b>：紧凑版 EBG，尺寸减半</li></ul>
-    <h3>3.3 中和线（Neutralization Line, NL）</h3>
-    <p><b>原理</b>：在天线单元之间连接一条金属线（或微带线），产生一个与互耦电流反向的电流，抵消互耦。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：15-30dB</li><li>带宽：较窄（5-10%）</li><li>设计复杂度高（需要精确计算中和线长度和位置）</li></ul>
-    <p><b>适用场景</b>：紧密间距的 MIMO 天线（d < 0.3λ）</p>
-    <h3>3.4 寄生去耦单元（Parasitic Decoupling Element, PDE）</h3>
-    <p><b>原理</b>：在天线之间放置一个无源（不连接馈线）的金属单元，通过感应电流产生反向耦合场。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：10-20dB</li><li>带宽：10-15%</li><li>设计相对简单</li></ul>
-    <p><b>变种</b>：</p>
-    <ul><li>单寄生单元：简单但带宽窄</li><li>多寄生单元：带宽更宽</li><li>可调寄生单元（含 varactor）：可动态调谐</li></ul>
-    <h3>3.5 超材料去耦（Metamaterial Decoupling）</h3>
-    <p><b>原理</b>：使用人工超材料（如 SRR 谐振环、NRI 材料）的特殊电磁特性来抑制互耦。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：15-35dB</li><li>带宽：5-20%（取决于设计）</li><li>可设计性强，但加工复杂</li></ul>
-    <p><b>典型结构</b>：</p>
-    <ul><li>SRR（Split Ring Resonator）：适用于 10-60GHz</li><li>ELC（Electric LC Resonator）：适用于 Sub-6GHz</li><li>超表面（Metasurface）：覆盖大面积，宽带效果好</li></ul>
-    <h3>3.6 去耦网络（Decoupling Network）</h3>
-    <p><b>原理</b>：在天线馈线之间插入无源网络（变压器、LC 网络、传输线组合），直接在电路层面抵消耦合。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度改善：20-40dB</li><li>带宽：取决于网络设计</li><li>不改变天线结构，可后加装</li></ul>
-    <p><b>典型方案</b>：</p>
-    <ul><li>正交模耦合器（OMC）：用于双极化天线</li><li>传输线变压器：宽带去耦</li><li>LC 谐振网络：窄带但高效</li></ul>
-    <h3>3.7 去耦与图案塑造表面（DPSS）</h3>
-    <p><b>原理</b>：2025 年最新技术，在天线阵列上方放置周期性金属贴片表面，同时实现去耦和方向图塑造。</p>
-    <p><b>效果</b>：</p>
-    <ul><li>隔离度：< -20dB</li><li>效率：> 75%</li><li>同时可塑造方向图（降低特定方向的旁瓣）</li></ul>
-    <p><b>特点</b>：通过遗传算法优化贴片连接状态，将问题转化为二进制优化问题。</p>
+  
+  <article class="card ">
+    
+    <h2>1.3 性能评价指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口隔离度（S21）</td>
+<td>端口间耦合系数</td>
+<td>&lt; -15dB（一般）/&lt;-25dB（MIMO）</td>
+</tr>
+<tr>
+<td>ECC</td>
+<td>包络相关系数</td>
+<td>&lt; 0.5（4G）/&lt; 0.1（5G）</td>
+</tr>
+<tr>
+<td>DGC</td>
+<td>分集增益系数</td>
+<td>&gt; 10dB</td>
+</tr>
+<tr>
+<td>TARC</td>
+<td>总有源反射系数</td>
+<td>&lt; -10dB</td>
+</tr>
+<tr>
+<td>Channel Capacity Loss</td>
+<td>信道容量损失</td>
+<td>&lt; 0.5bps/Hz</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.1 空间分集（Spatial Diversity）</h2>
+    <p><strong>原理</strong>：将天线单元物理间距拉大，降低互耦。</p>
+<pre><code>隔离度 ≈ 20·log₁₀(λ / (4π·d))
+</code></pre>
+<p><strong>典型效果</strong>：</p>
+<ul>
+<li>d = 0.5λ → S21 ≈ -14dB</li>
+<li>d = λ → S21 ≈ -28dB</li>
+<li>d = 2λ → S21 ≈ -34dB</li>
+</ul>
+<p><strong>优点</strong>：最简单、最有效、无额外损耗
+<strong>缺点</strong>：占用面积大，不适合手机等小型设备
+<strong>适用场景</strong>：基站 AAU（单元间距通常 ≥ 0.5λ）、户外 MIMO</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 极化分集（Polarization Diversity）</h2>
+    <p><strong>原理</strong>：使用正交极化（如 ±45° 双极化）的天线单元，正交极化之间的天然隔离度可达 25-35dB。</p>
+<p><strong>关键参数</strong>：XPD（Cross-Polarization Discrimination，交叉极化鉴别率）</p>
+<pre><code>XPD = 10·log₁₀(P_co / P_cross)
+</code></pre>
+<p><strong>典型效果</strong>：</p>
+<ul>
+<li>±45° 双极化：隔离度 25-35dB</li>
+<li>水平/垂直极化：隔离度 20-30dB</li>
+<li>左旋/右旋圆极化：隔离度 20-25dB</li>
+</ul>
+<p><strong>优点</strong>：不增加天线间距，可在同一位置放置两个正交极化天线
+<strong>缺点</strong>：传播环境会改变极化状态（去极化），实际隔离度可能降至 15-20dB
+<strong>适用场景</strong>：基站双极化天线（±45° 是行业标准）、手机 MIMO</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 频率分集（Frequency Diversity）</h2>
+    <p><strong>原理</strong>：不同频段的天线之间天然隔离（工作频率不同，互耦可忽略）。</p>
+<p><strong>适用场景</strong>：多频段 MIMO（如 4G + 5G 共存）、载波聚合</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 模式分集（Mode Diversity）</h2>
+    <p><strong>原理</strong>：利用天线 Different Radiation Modes（如 TE10 和 TE20 模式）的正交性实现去耦。</p>
+<p><strong>典型应用</strong>：波导 MIMO、介质谐振器天线（DRA）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 缺陷接地结构（Defected Ground Structure, DGS）</h2>
+    <p><strong>原理</strong>：在接地层上蚀刻特定形状的缺口（如 U 形、V 形、环形），破坏表面波的传播路径。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：5-15dB</li>
+<li>工作频带：DC-40GHz</li>
+<li>尺寸：缺口尺寸 ≈ λ/2</li>
+</ul>
+<p><strong>典型形状</strong>：
+| 形状 | 特点 | 适用场景 |
+|------|------|---------|
+| U 形 | 最简单，易加工 | Sub-6GHz MIMO |
+| V 形 | 可调谐频带 | 多频段 |
+| 环形 | 多频带抑制 | 多频段 MIMO |
+| 十字形 | 宽频抑制 | 宽带 MIMO |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 电磁带隙结构（Electromagnetic Bandgap, EBG）</h2>
+    <p><strong>原理</strong>：周期性排列的金属贴片或孔洞，在特定频段内形成"带隙"，阻止表面波传播。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：10-25dB</li>
+<li>带宽：通常 10-20%（相对带宽）</li>
+<li>尺寸：周期 ≈ λ/2</li>
+</ul>
+<p><strong>EBG 的变种</strong>：</p>
+<ul>
+<li><strong>Mushroom EBG</strong>：金属柱 + 顶部金属贴片，最常用</li>
+<li><strong>Yagi EBG</strong>：类似 Yagi-Uda 结构，宽带效果好</li>
+<li><strong>UC-EBG（Ultra-Compact）</strong>：紧凑版 EBG，尺寸减半</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 中和线（Neutralization Line, NL）</h2>
+    <p><strong>原理</strong>：在天线单元之间连接一条金属线（或微带线），产生一个与互耦电流反向的电流，抵消互耦。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：15-30dB</li>
+<li>带宽：较窄（5-10%）</li>
+<li>设计复杂度高（需要精确计算中和线长度和位置）</li>
+</ul>
+<p><strong>适用场景</strong>：紧密间距的 MIMO 天线（d &lt; 0.3λ）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 寄生去耦单元（Parasitic Decoupling Element, PDE）</h2>
+    <p><strong>原理</strong>：在天线之间放置一个无源（不连接馈线）的金属单元，通过感应电流产生反向耦合场。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：10-20dB</li>
+<li>带宽：10-15%</li>
+<li>设计相对简单</li>
+</ul>
+<p><strong>变种</strong>：</p>
+<ul>
+<li>单寄生单元：简单但带宽窄</li>
+<li>多寄生单元：带宽更宽</li>
+<li>可调寄生单元（含 varactor）：可动态调谐</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 超材料去耦（Metamaterial Decoupling）</h2>
+    <p><strong>原理</strong>：使用人工超材料（如 SRR 谐振环、NRI 材料）的特殊电磁特性来抑制互耦。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：15-35dB</li>
+<li>带宽：5-20%（取决于设计）</li>
+<li>可设计性强，但加工复杂</li>
+</ul>
+<p><strong>典型结构</strong>：</p>
+<ul>
+<li>SRR（Split Ring Resonator）：适用于 10-60GHz</li>
+<li>ELC（Electric LC Resonator）：适用于 Sub-6GHz</li>
+<li>超表面（Metasurface）：覆盖大面积，宽带效果好</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.6 去耦网络（Decoupling Network）</h2>
+    <p><strong>原理</strong>：在天线馈线之间插入无源网络（变压器、LC 网络、传输线组合），直接在电路层面抵消耦合。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度改善：20-40dB</li>
+<li>带宽：取决于网络设计</li>
+<li>不改变天线结构，可后加装</li>
+</ul>
+<p><strong>典型方案</strong>：</p>
+<ul>
+<li>正交模耦合器（OMC）：用于双极化天线</li>
+<li>传输线变压器：宽带去耦</li>
+<li>LC 谐振网络：窄带但高效</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.7 去耦与图案塑造表面（DPSS）</h2>
+    <p><strong>原理</strong>：2025 年最新技术，在天线阵列上方放置周期性金属贴片表面，同时实现去耦和方向图塑造。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>隔离度：&lt; -20dB</li>
+<li>效率：&gt; 75%</li>
+<li>同时可塑造方向图（降低特定方向的旁瓣）</li>
+</ul>
+<p><strong>特点</strong>：通过遗传算法优化贴片连接状态，将问题转化为二进制优化问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、8 大去耦技术对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>隔离度改善</th><th>带宽</th><th>尺寸代价</th><th>复杂度</th><th>适用频段</th><th>量产可行性</th></tr></thead>
-    <tbody>
-    <tr><td>空间分集</td><td>高（随距离）</td><td>无限</td><td>大</td><td>低</td><td>所有</td><td>高（基站）</td></tr>
-    <tr><td>极化分集</td><td>中高（25-35dB）</td><td>无限</td><td>无</td><td>低</td><td>所有</td><td>极高</td></tr>
-    <tr><td>DGS</td><td>中（5-15dB）</td><td>中</td><td>小</td><td>中</td><td>Sub-6G/mmWave</td><td>高</td></tr>
-    <tr><td>EBG</td><td>中高（10-25dB）</td><td>中</td><td>小</td><td>中高</td><td>Sub-6G/mmWave</td><td>中</td></tr>
-    <tr><td>中和线</td><td>高（15-30dB）</td><td>窄</td><td>无</td><td>高</td><td>Sub-6G</td><td>中</td></tr>
-    <tr><td>寄生单元</td><td>中（10-20dB）</td><td>中</td><td>小</td><td>中</td><td>Sub-6G/mmWave</td><td>中</td></tr>
-    <tr><td>超材料</td><td>高（15-35dB）</td><td>中</td><td>小</td><td>高</td><td>mmWave/THz</td><td>低</td></tr>
-    <tr><td>去耦网络</td><td>很高（20-40dB）</td><td>可变</td><td>无</td><td>高</td><td>Sub-6G</td><td>中</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>隔离度改善</th>
+<th>带宽</th>
+<th>尺寸代价</th>
+<th>复杂度</th>
+<th>适用频段</th>
+<th>量产可行性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空间分集</td>
+<td>高（随距离）</td>
+<td>无限</td>
+<td>大</td>
+<td>低</td>
+<td>所有</td>
+<td>高（基站）</td>
+</tr>
+<tr>
+<td>极化分集</td>
+<td>中高（25-35dB）</td>
+<td>无限</td>
+<td>无</td>
+<td>低</td>
+<td>所有</td>
+<td>极高</td>
+</tr>
+<tr>
+<td>DGS</td>
+<td>中（5-15dB）</td>
+<td>中</td>
+<td>小</td>
+<td>中</td>
+<td>Sub-6G/mmWave</td>
+<td>高</td>
+</tr>
+<tr>
+<td>EBG</td>
+<td>中高（10-25dB）</td>
+<td>中</td>
+<td>小</td>
+<td>中高</td>
+<td>Sub-6G/mmWave</td>
+<td>中</td>
+</tr>
+<tr>
+<td>中和线</td>
+<td>高（15-30dB）</td>
+<td>窄</td>
+<td>无</td>
+<td>高</td>
+<td>Sub-6G</td>
+<td>中</td>
+</tr>
+<tr>
+<td>寄生单元</td>
+<td>中（10-20dB）</td>
+<td>中</td>
+<td>小</td>
+<td>中</td>
+<td>Sub-6G/mmWave</td>
+<td>中</td>
+</tr>
+<tr>
+<td>超材料</td>
+<td>高（15-35dB）</td>
+<td>中</td>
+<td>小</td>
+<td>高</td>
+<td>mmWave/THz</td>
+<td>低</td>
+</tr>
+<tr>
+<td>去耦网络</td>
+<td>很高（20-40dB）</td>
+<td>可变</td>
+<td>无</td>
+<td>高</td>
+<td>Sub-6G</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、5G Massive MIMO 的去耦挑战</h2>
-    <h3>5.1 规模效应</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 规模效应</h2>
     <p>64T64R AAU 有 128 个端口（64TX + 64RX），端口之间的互耦组合多达 128×127 = 16,256 对。即使每对的耦合只有 -15dB，累积效应也会导致严重的性能下降。</p>
-    <h3>5.2 双极化 + 空间密集排列</h3>
-    <p>典型 4V8H 配置（4 垂直 × 8 水平 = 32 单元，双极化 → 64 端口）：</p>
-    <ul><li>水平间距：≈ 0.5λ</li><li>垂直间距：≈ 0.5λ</li><li>极化隔离：25-30dB</li><li>互耦隔离：15-20dB（同极化相邻单元）</li></ul>
-    <h3>5.3 去耦方案的工程选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>首选方案</th><th>备选方案</th></tr></thead>
-    <tbody>
-    <tr><td>基站 AAU</td><td>极化分集 + 空间分集</td><td>DGS/EBG</td></tr>
-    <tr><td>手机 MIMO</td><td>极化分集 + DGS</td><td>寄生单元</td></tr>
-    <tr><td>mmWave AiP</td><td>空间分集（λ 小，单元间距相对大）</td><td>超材料</td></tr>
-    <tr><td>车载雷达</td><td>极化分集 + EBG</td><td>去耦网络</td></tr>
-    </tbody></table></div>
   </article>
+  
 
-  <article class="card">
-    <h2>六、数字域去耦</h2>
-    <p>除了电磁结构设计层面的去耦，还可以在数字信号处理层面进行补偿：</p>
-    <h3>6.1 耦合矩阵补偿</h3>
+  
+  <article class="card ">
+    
+    <h2>5.2 双极化 + 空间密集排列</h2>
+    <p>典型 4V8H 配置（4 垂直 × 8 水平 = 32 单元，双极化 → 64 端口）：</p>
+<ul>
+<li>水平间距：≈ 0.5λ</li>
+<li>垂直间距：≈ 0.5λ</li>
+<li>极化隔离：25-30dB</li>
+<li>互耦隔离：15-20dB（同极化相邻单元）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 去耦方案的工程选择</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>首选方案</th>
+<th>备选方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基站 AAU</td>
+<td>极化分集 + 空间分集</td>
+<td>DGS/EBG</td>
+</tr>
+<tr>
+<td>手机 MIMO</td>
+<td>极化分集 + DGS</td>
+<td>寄生单元</td>
+</tr>
+<tr>
+<td>mmWave AiP</td>
+<td>空间分集（λ 小，单元间距相对大）</td>
+<td>超材料</td>
+</tr>
+<tr>
+<td>车载雷达</td>
+<td>极化分集 + EBG</td>
+<td>去耦网络</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 耦合矩阵补偿</h2>
     <p>通过测量得到 N×N 的耦合矩阵 C，在基带对接收信号进行补偿：</p>
-    <pre><code>x_clean = C⁻¹ · x_measured</code></pre>
-    <h3>6.2 自适应波束成形</h3>
+<pre><code>x_clean = C⁻¹ · x_measured
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 自适应波束成形</h2>
     <p>MVDR（最小方差无畸变响应）波束成形器可以自动在互耦方向上放置零陷：</p>
-    <pre><code>w_opt = R⁻¹ · a(θ₀) / (a(θ₀)ᴴ · R⁻¹ · a(θ₀))</code></pre>
-    <p>其中 R 是协方差矩阵（包含互耦信息），a(θ₀) 是导向矢量。</p>
-    <h3>6.3 AI 辅助去耦</h3>
+<pre><code>w_opt = R⁻¹ · a(θ₀) / (a(θ₀)ᴴ · R⁻¹ · a(θ₀))
+</code></pre>
+<p>其中 R 是协方差矩阵（包含互耦信息），a(θ₀) 是导向矢量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 AI 辅助去耦</h2>
     <p>2024-2026 年的研究趋势：用深度学习模型直接从天线几何结构预测最优去耦方案，或将互耦补偿学习为端到端的神经网络。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1990s</b>：空间分集和极化分集是主要的去耦手段</li><li><b>2000s</b>：DGS 和 EBG 被提出用于微带天线去耦</li><li><b>2010s</b>：中和线和寄生去耦单元在 4G MIMO 中广泛应用</li><li><b>2015-2018年</b>：超材料去耦成为研究热点</li><li><b>2018-2022年</b>：5G Massive MIMO 推动多技术组合去耦方案</li><li><b>2023-2024年</b>：去耦网络 + 数字域补偿成为基站 AAU 标准方案</li><li><b>2025年</b>：DPSS（去耦与图案塑造表面）首次提出</li><li><b>2025-2026年</b>：AI 辅助去耦设计进入工程验证阶段</li></ul>
+    <ul>
+<li><strong>1990s</strong>：空间分集和极化分集是主要的去耦手段</li>
+<li><strong>2000s</strong>：DGS 和 EBG 被提出用于微带天线去耦</li>
+<li><strong>2010s</strong>：中和线和寄生去耦单元在 4G MIMO 中广泛应用</li>
+<li><strong>2015-2018年</strong>：超材料去耦成为研究热点</li>
+<li><strong>2018-2022年</strong>：5G Massive MIMO 推动多技术组合去耦方案</li>
+<li><strong>2023-2024年</strong>：去耦网络 + 数字域补偿成为基站 AAU 标准方案</li>
+<li><strong>2025年</strong>：DPSS（去耦与图案塑造表面）首次提出</li>
+<li><strong>2025-2026年</strong>：AI 辅助去耦设计进入工程验证阶段</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：空间分集和极化分集是最成熟的技术（30+ 年历史）。DGS 和 EBG 在基站和手机中已广泛应用。中和线、寄生单元和超材料去耦在特定场景中商用。数字域去耦在 5G Massive MIMO 中已成为标配。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>6G UM-MIMO（数千单元）的去耦挑战推动新理论</li><li>AI 端到端去耦设计工具商用化</li><li>可重构去耦结构（动态调谐）</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>智能超表面（RIS）用于大规模去耦</li><li>太赫兹频段的去耦技术标准化</li><li>封装级去耦（AiP 内部单元间耦合抑制）</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>量子 MIMO 的去耦理论</li><li>全息 MIMO 的去耦重新定义</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>6G UM-MIMO（数千单元）的去耦挑战推动新理论</li>
+<li>AI 端到端去耦设计工具商用化</li>
+<li>
+<p>可重构去耦结构（动态调谐）</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>智能超表面（RIS）用于大规模去耦</li>
+<li>太赫兹频段的去耦技术标准化</li>
+<li>
+<p>封装级去耦（AiP 内部单元间耦合抑制）</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>量子 MIMO 的去耦理论</li>
+<li>全息 MIMO 的去耦重新定义</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>MIMO 去耦技术是"让多个天线在同一空间和平共处"的艺术——从最简单的拉开距离（空间分集），到让它们在"不同语言"中交流（极化分集），再到在它们之间建隔音墙（DGS/EBG/超材料），去耦技术的每一次进步都在推动 MIMO 系统走向更高密度、更多端口、更强性能。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -291,39 +627,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OTA 天线测试技术（Over-The-Air Testing） · 知识卡片</title>
+<title>OTA天线测试Over-The-Air · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">OTA 天线测试技术 <span class="en">Over-The-Air Testing</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">OTA天线测试Over-The-Air</h1>
   <p class="lede">OTA（Over-The-Air）测试是直接通过无线空间辐射方式测量天线和终端性能的方法，无需有线连接。它是 5G Massive MIMO 和毫米波终端测试的必选方案——当天线被封装在芯片封装内部（AiP）或设备外壳内部时，传统的矢量网络分析仪（VNA）馈电测试已无法使用。</p>
+  
 </header>
 
 <main>
@@ -99,238 +101,704 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统的天线测试就像用水管直接给花洒水箱注水——你可以精确测量每根水管的水量和水压（S 参数）。但 OTA 测试就像是把整个花洒放到雨中，看它实际能接到多少水——你不再关心每根水管的细节，而是关心整个系统在真实环境中的表现。对于 5G 手机来说，天线藏在机身里，你没法接电缆，只能"淋雨"测试。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 为什么需要 OTA 测试？</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 为什么需要 OTA 测试？</h2>
     <p>传统天线测试方法（VNA + 电缆）的前提是：天线端口可以物理接触到。但在以下场景中这个前提不再成立：</p>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>为什么不能用 VNA</th><th>必须用 OTA</th></tr></thead>
-    <tbody>
-    <tr><td>5G 手机（Sub-6GHz）</td><td>天线在机身内部，无外露端口</td><td>需要测量整机辐射性能</td></tr>
-    <tr><td>毫米波 AiP（28/39GHz）</td><td>天线集成在封装内，无测试点</td><td>芯片级测试必须 OTA</td></tr>
-    <tr><td>Massive MIMO AAU</td><td>数百个端口，无法逐一接电缆</td><td>需要测量整体辐射性能</td></tr>
-    <tr><td>IoT 设备/可穿戴</td><td>无标准连接器</td><td>只能 OTA 测试</td></tr>
-    <tr><td>卫星终端</td><td>天线在整流罩内</td><td>无法接触</td></tr>
-    </tbody></table></div>
-    <h3>1.2 OTA 测试的核心指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>全称</th><th>定义</th><th>测量方向</th></tr></thead>
-    <tbody>
-    <tr><td>TRP</td><td>Total Radiated Power</td><td>总辐射功率</td><td>发射方向</td></tr>
-    <tr><td>TIS</td><td>Total Isotropic Sensitivity</td><td>总各向同性灵敏度</td><td>接收方向</td></tr>
-    <tr><td>ERP</td><td>Effective Radiated Power</td><td>有效辐射功率</td><td>发射方向（含馈线损耗）</td></tr>
-    <tr><td>EIRP</td><td>Equivalent Isotropically Radiated Power</td><td>等效全向辐射功率</td><td>发射方向（含馈线损耗）</td></tr>
-    <tr><td>ARPL</td><td>Average Radiated Power Level</td><td>平均辐射功率电平</td><td>发射方向</td></tr>
-    <tr><td>G/T</td><td>Gain-to-Noise-Temperature Ratio</td><td>增益噪比</td><td>接收方向</td></tr>
-    </tbody></table></div>
-    <p><b>TRP 和 TIS 是 3GPP 规定的 5G OTA 测试核心指标</b>：</p>
-    <pre><code>TRP = Σ(各方向辐射功率) = ∫∫ P_rad(θ,φ) · sinθ dθ dφ
-    TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]</code></pre>
-    <h3>1.3 OTA 测试方法的分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>缩写</th><th>原理</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>直接远场法</td><td>DFF（Direct Far-Field）</td><td>天线在远场区直接测量</td><td>Sub-6GHz，小天线</td></tr>
-    <tr><td>紧缩场法</td><td>CATR（Compact Antenna Test Range）</td><td>抛物面反射器产生平面波</td><td>大天线、毫米波</td></tr>
-    <tr><td>近场扫描法</td><td>NF-FF（Near-Field to Far-Field）</td><td>近场扫描 + FFT 变换</td><td>高精度测量</td></tr>
-    <tr><td>混响室法</td><td>RC（Reverberation Chamber）</td><td>搅拌器产生统计均匀场</td><td>MIMO/TRP/TIS</td></tr>
-    <tr><td>多探头暗室法</td><td>MPAC（Multi-Probe Anechoic Chamber）</td><td>多天线模拟多径信道</td><td>5G MIMO OTA</td></tr>
-    <tr><td>近场天线测试仪</td><td>NFA</td><td>近场探头直接测量</td><td>芯片/模组级</td></tr>
-    </tbody></table></div>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么不能用 VNA</th>
+<th>必须用 OTA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G 手机（Sub-6GHz）</td>
+<td>天线在机身内部，无外露端口</td>
+<td>需要测量整机辐射性能</td>
+</tr>
+<tr>
+<td>毫米波 AiP（28/39GHz）</td>
+<td>天线集成在封装内，无测试点</td>
+<td>芯片级测试必须 OTA</td>
+</tr>
+<tr>
+<td>Massive MIMO AAU</td>
+<td>数百个端口，无法逐一接电缆</td>
+<td>需要测量整体辐射性能</td>
+</tr>
+<tr>
+<td>IoT 设备/可穿戴</td>
+<td>无标准连接器</td>
+<td>只能 OTA 测试</td>
+</tr>
+<tr>
+<td>卫星终端</td>
+<td>天线在整流罩内</td>
+<td>无法接触</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>二、各 OTA 方法详解</h2>
-    <h3>2.1 直接远场法（DFF）</h3>
-    <p><b>原理</b>：将被测设备（EUT）放在远场区，用标准增益天线发射/接收信号。</p>
-    <p><b>远场条件</b>：</p>
-    <pre><code>R &gt; 2D² / λ</code></pre>
-    <p>其中 D 是被测天线的最大尺寸，λ 是波长。</p>
-    <p><b>典型参数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>λ</th><th>D（手机）</th><th>远场距离</th></tr></thead>
-    <tbody>
-    <tr><td>700MHz</td><td>0.43m</td><td>0.15m</td><td>> 0.17m</td></tr>
-    <tr><td>2.6GHz</td><td>0.115m</td><td>0.15m</td><td>> 0.21m</td></tr>
-    <tr><td>3.5GHz</td><td>0.086m</td><td>0.15m</td><td>> 0.16m</td></tr>
-    <tr><td>28GHz</td><td>0.0107m</td><td>0.02m</td><td>> 0.007m</td></tr>
-    <tr><td>39GHz</td><td>0.0077m</td><td>0.02m</td><td>> 0.004m</td></tr>
-    </tbody></table></div>
-    <p><b>优点</b>：</p>
-    <ul><li>设备简单（暗室 + 两台信号发生器 + 两台接收机）</li><li>测量精度高</li><li>可直接获得方向图</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>低频时需要很大的远场距离（Sub-6GHz 可能需要 10m+ 暗室）</li><li>不适合 MIMO（只能一次测一个端口）</li><li>不能模拟多径信道</li></ul>
-    <p><b>适用场景</b>：单端口天线方向图测量、TRP/TIS 基础测量。</p>
-    <h3>2.2 紧缩场法（CATR）</h3>
-    <p><b>原理</b>：使用抛物面反射器将点源天线发出的球面波转换为平面波，在较短的距离内实现"远场"效果。</p>
-    <p><b>焦距与口径的关系</b>：</p>
-    <pre><code>F/D ≈ 0.35 - 0.6</code></pre>
-    <p>其中 F 是焦距，D 是反射器直径。</p>
-    <p><b>平面波区尺寸</b>：</p>
-    <pre><code>λ_z / λ &lt; 1/16  （相位误差 &lt; 22.5°）</code></pre>
-    <p><b>优点</b>：</p>
-    <ul><li>可以在较短距离内实现远场测量</li><li>适合大尺寸天线（如卫星天线、AAU）</li><li>精度高（相位均匀性好）</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>设备昂贵（大型抛物面反射器 + 精密定位系统）</li><li>暗室体积仍然很大</li><li>不适合 MIMO 多端口同时测试</li></ul>
-    <p><b>典型应用</b>：</p>
-    <ul><li>卫星天线测试（口径 1-10m）</li><li>5G AAU 测试（3.5-39GHz）</li><li>机载雷达天线测试</li></ul>
-    <h3>2.3 近场扫描法（NF-FF）</h3>
-    <p><b>原理</b>：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。</p>
-    <p><b>扫描类型</b>：</p>
-    <ul><li><b>平面近场</b>：扫描平面，适合方向性强的天线</li><li><b>圆柱近场</b>：扫描圆柱面，适合垂直极化天线</li><li><b>球面近场</b>：扫描球面，最通用但最复杂</li></ul>
-    <p><b>FFT 变换公式</b>：</p>
-    <pre><code>E_ff(θ,φ) = FFT[E_near(x,y)]</code></pre>
-    <p><b>优点</b>：</p>
-    <ul><li>测量距离短（不需要远场距离）</li><li>精度高（可以测量相位和幅度）</li><li>适合各种天线类型</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>需要精密扫描系统（三维运动平台）</li><li>数据处理复杂</li><li>不适合 MIMO 或多端口同时测试</li></ul>
-    <p><b>典型应用</b>：</p>
-    <ul><li>高精度天线方向图测量</li><li>反射面天线测试</li><li>相控阵天线校准</li></ul>
-    <h3>2.4 混响室法（Reverberation Chamber, RC）</h3>
-    <p><b>原理</b>：在一个金属腔体内用搅拌器（Mode Stirrer）产生统计均匀的电磁场环境，被测设备在其中测量 TRP/TIS。</p>
-    <p><b>混响室的工作条件</b>：</p>
-    <pre><code>f &gt; 2.5 · f_c</code></pre>
-    <p>其中 f_c 是混响室的截止频率（最低有效模态频率）。</p>
-    <p><b>搅拌方式</b>：</p>
-    <ul><li>机械搅拌：旋转金属叶片</li><li>电子搅拌：可调匹配网络</li><li>位置搅拌：移动 EUT 位置</li></ul>
-    <p><b>优点</b>：</p>
-    <ul><li>设备紧凑（3-5m³ 即可）</li><li>测试速度快（TRP 测量 < 5 分钟）</li><li>适合 MIMO 设备的批量测试</li><li>可以模拟多径环境</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>不能获得方向图（统计均匀场）</li><li>精度低于远场方法（不确定度较大）</li><li>不适合高频（> 20GHz）</li></ul>
-    <p><b>典型应用</b>：</p>
-    <ul><li>手机/TRP/TIS 批量测试</li><li>WiFi/蓝牙 MIMO 设备测试</li><li>电磁兼容性（EMC）预兼容性测试</li></ul>
-    <h3>2.5 多探头暗室法（MPAC）</h3>
-    <p><b>原理</b>：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。</p>
-    <p><b>3GPP 标准配置</b>：</p>
-    <ul><li>FR1（Sub-6GHz）：16 根双极化探头 = 32 通道</li><li>FR2（毫米波）：8 根双极化探头 = 16 通道</li></ul>
-    <p><b>信道模型模拟</b>：</p>
-    <ul><li>UMi CDL-C（城市微蜂窝）</li><li>UMa CDL-C（城市宏蜂窝）</li><li>RMa CDL-C（农村）</li></ul>
-    <p><b>优点</b>：</p>
-    <ul><li>可以模拟真实的空中信道（多径、衰落、多普勒）</li><li>支持 MIMO 性能测试（吞吐量、ECC、MCR）</li><li>符合 3GPP 标准</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>设备昂贵（多通道信号发生器 + 暗室）</li><li>校准复杂</li><li>测试时间长</li></ul>
-    <p><b>典型应用</b>：</p>
-    <ul><li>5G NR UE MIMO OTA 测试（3GPP TS 38.551）</li><li>Massive MIMO 基站 OTA 测试（3GPP TS 38.810）</li><li>信道模型验证</li></ul>
+  
+  <article class="card ">
+    
+    <h2>1.2 OTA 测试的核心指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>定义</th>
+<th>测量方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TRP</td>
+<td>Total Radiated Power</td>
+<td>总辐射功率</td>
+<td>发射方向</td>
+</tr>
+<tr>
+<td>TIS</td>
+<td>Total Isotropic Sensitivity</td>
+<td>总各向同性灵敏度</td>
+<td>接收方向</td>
+</tr>
+<tr>
+<td>ERP</td>
+<td>Effective Radiated Power</td>
+<td>有效辐射功率</td>
+<td>发射方向（含馈线损耗）</td>
+</tr>
+<tr>
+<td>EIRP</td>
+<td>Equivalent Isotropically Radiated Power</td>
+<td>等效全向辐射功率</td>
+<td>发射方向（含馈线损耗）</td>
+</tr>
+<tr>
+<td>ARPL</td>
+<td>Average Radiated Power Level</td>
+<td>平均辐射功率电平</td>
+<td>发射方向</td>
+</tr>
+<tr>
+<td>G/T</td>
+<td>Gain-to-Noise-Temperature Ratio</td>
+<td>增益噪比</td>
+<td>接收方向</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TRP 和 TIS 是 3GPP 规定的 5G OTA 测试核心指标</strong>：</p>
+<pre><code>TRP = Σ(各方向辐射功率) = ∫∫ P_rad(θ,φ) · sinθ dθ dφ
+TIS = 1 / [ (1/N) · Σ(1/各方向灵敏度) ]
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、OTA 测试的关键指标与计算方法</h2>
-    <h3>3.1 TRP 计算</h3>
-    <pre><code>TRP = (1/4π) · ∫∫ G(θ,φ) · P_inc(θ,φ) · sinθ dθ dφ</code></pre>
-    <p>简化为离散形式（N 个测量点）：</p>
-    <pre><code>TRP ≈ (4π/N) · Σ[G(θ_i,φ_i) · P_inc(θ_i,φ_i)]</code></pre>
-    <p>其中 G(θ,φ) 是 EUT 的发射增益，P_inc(θ,φ) 是入射功率密度。</p>
-    <h3>3.2 TIS 计算</h3>
-    <pre><code>TIS = N / Σ(1/G_i(θ,φ))</code></pre>
-    <p>其中 G_i 是每个测量方向的接收增益。</p>
-    <h3>3.3 EIRP 计算</h3>
-    <pre><code>EIRP = P_TX + G_ant - L_cable</code></pre>
-    <p>其中 P_TX 是发射功率，G_ant 是天线增益，L_cable 是馈线损耗。</p>
-    <h3>3.4 5G MIMO 吞吐量测试</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 OTA 测试方法的分类</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>缩写</th>
+<th>原理</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接远场法</td>
+<td>DFF（Direct Far-Field）</td>
+<td>天线在远场区直接测量</td>
+<td>Sub-6GHz，小天线</td>
+</tr>
+<tr>
+<td>紧缩场法</td>
+<td>CATR（Compact Antenna Test Range）</td>
+<td>抛物面反射器产生平面波</td>
+<td>大天线、毫米波</td>
+</tr>
+<tr>
+<td>近场扫描法</td>
+<td>NF-FF（Near-Field to Far-Field）</td>
+<td>近场扫描 + FFT 变换</td>
+<td>高精度测量</td>
+</tr>
+<tr>
+<td>混响室法</td>
+<td>RC（Reverberation Chamber）</td>
+<td>搅拌器产生统计均匀场</td>
+<td>MIMO/TRP/TIS</td>
+</tr>
+<tr>
+<td>多探头暗室法</td>
+<td>MPAC（Multi-Probe Anechoic Chamber）</td>
+<td>多天线模拟多径信道</td>
+<td>5G MIMO OTA</td>
+</tr>
+<tr>
+<td>近场天线测试仪</td>
+<td>NFA</td>
+<td>近场探头直接测量</td>
+<td>芯片/模组级</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 直接远场法（DFF）</h2>
+    <p><strong>原理</strong>：将被测设备（EUT）放在远场区，用标准增益天线发射/接收信号。</p>
+<p><strong>远场条件</strong>：</p>
+<pre><code>R &gt; 2D² / λ
+</code></pre>
+<p>其中 D 是被测天线的最大尺寸，λ 是波长。</p>
+<p><strong>典型参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>λ</th>
+<th>D（手机）</th>
+<th>远场距离</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700MHz</td>
+<td>0.43m</td>
+<td>0.15m</td>
+<td>&gt; 0.17m</td>
+</tr>
+<tr>
+<td>2.6GHz</td>
+<td>0.115m</td>
+<td>0.15m</td>
+<td>&gt; 0.21m</td>
+</tr>
+<tr>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>0.15m</td>
+<td>&gt; 0.16m</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>0.0107m</td>
+<td>0.02m</td>
+<td>&gt; 0.007m</td>
+</tr>
+<tr>
+<td>39GHz</td>
+<td>0.0077m</td>
+<td>0.02m</td>
+<td>&gt; 0.004m</td>
+</tr>
+</tbody>
+</table>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>设备简单（暗室 + 两台信号发生器 + 两台接收机）</li>
+<li>测量精度高</li>
+<li>可直接获得方向图</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>低频时需要很大的远场距离（Sub-6GHz 可能需要 10m+ 暗室）</li>
+<li>不适合 MIMO（只能一次测一个端口）</li>
+<li>不能模拟多径信道</li>
+</ul>
+<p><strong>适用场景</strong>：单端口天线方向图测量、TRP/TIS 基础测量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 紧缩场法（CATR）</h2>
+    <p><strong>原理</strong>：使用抛物面反射器将点源天线发出的球面波转换为平面波，在较短的距离内实现"远场"效果。</p>
+<p><strong>焦距与口径的关系</strong>：</p>
+<pre><code>F/D ≈ 0.35 - 0.6
+</code></pre>
+<p>其中 F 是焦距，D 是反射器直径。</p>
+<p><strong>平面波区尺寸</strong>：</p>
+<pre><code>λ_z / λ &lt; 1/16  （相位误差 &lt; 22.5°）
+</code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以在较短距离内实现远场测量</li>
+<li>适合大尺寸天线（如卫星天线、AAU）</li>
+<li>精度高（相位均匀性好）</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>设备昂贵（大型抛物面反射器 + 精密定位系统）</li>
+<li>暗室体积仍然很大</li>
+<li>不适合 MIMO 多端口同时测试</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>卫星天线测试（口径 1-10m）</li>
+<li>5G AAU 测试（3.5-39GHz）</li>
+<li>机载雷达天线测试</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 近场扫描法（NF-FF）</h2>
+    <p><strong>原理</strong>：在靠近天线的区域内扫描电磁场（电场或磁场），然后通过傅里叶变换计算远场方向图。</p>
+<p><strong>扫描类型</strong>：</p>
+<ul>
+<li><strong>平面近场</strong>：扫描平面，适合方向性强的天线</li>
+<li><strong>圆柱近场</strong>：扫描圆柱面，适合垂直极化天线</li>
+<li><strong>球面近场</strong>：扫描球面，最通用但最复杂</li>
+</ul>
+<p><strong>FFT 变换公式</strong>：</p>
+<pre><code>E_ff(θ,φ) = FFT[E_near(x,y)]
+</code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>测量距离短（不需要远场距离）</li>
+<li>精度高（可以测量相位和幅度）</li>
+<li>适合各种天线类型</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要精密扫描系统（三维运动平台）</li>
+<li>数据处理复杂</li>
+<li>不适合 MIMO 或多端口同时测试</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>高精度天线方向图测量</li>
+<li>反射面天线测试</li>
+<li>相控阵天线校准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 混响室法（Reverberation Chamber, RC）</h2>
+    <p><strong>原理</strong>：在一个金属腔体内用搅拌器（Mode Stirrer）产生统计均匀的电磁场环境，被测设备在其中测量 TRP/TIS。</p>
+<p><strong>混响室的工作条件</strong>：</p>
+<pre><code>f &gt; 2.5 · f_c
+</code></pre>
+<p>其中 f_c 是混响室的截止频率（最低有效模态频率）。</p>
+<p><strong>搅拌方式</strong>：</p>
+<ul>
+<li>机械搅拌：旋转金属叶片</li>
+<li>电子搅拌：可调匹配网络</li>
+<li>位置搅拌：移动 EUT 位置</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>设备紧凑（3-5m³ 即可）</li>
+<li>测试速度快（TRP 测量 &lt; 5 分钟）</li>
+<li>适合 MIMO 设备的批量测试</li>
+<li>可以模拟多径环境</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>不能获得方向图（统计均匀场）</li>
+<li>精度低于远场方法（不确定度较大）</li>
+<li>不适合高频（&gt; 20GHz）</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>手机/TRP/TIS 批量测试</li>
+<li>WiFi/蓝牙 MIMO 设备测试</li>
+<li>电磁兼容性（EMC）预兼容性测试</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 多探头暗室法（MPAC）</h2>
+    <p><strong>原理</strong>：在暗室中围绕 EUT 布置多根探头天线（通常 8-16 根），每根天线从不同方向发射/接收信号，模拟真实的空中多径信道。</p>
+<p><strong>3GPP 标准配置</strong>：</p>
+<ul>
+<li>FR1（Sub-6GHz）：16 根双极化探头 = 32 通道</li>
+<li>FR2（毫米波）：8 根双极化探头 = 16 通道</li>
+</ul>
+<p><strong>信道模型模拟</strong>：</p>
+<ul>
+<li>UMi CDL-C（城市微蜂窝）</li>
+<li>UMa CDL-C（城市宏蜂窝）</li>
+<li>RMa CDL-C（农村）</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以模拟真实的空中信道（多径、衰落、多普勒）</li>
+<li>支持 MIMO 性能测试（吞吐量、ECC、MCR）</li>
+<li>符合 3GPP 标准</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>设备昂贵（多通道信号发生器 + 暗室）</li>
+<li>校准复杂</li>
+<li>测试时间长</li>
+</ul>
+<p><strong>典型应用</strong>：</p>
+<ul>
+<li>5G NR UE MIMO OTA 测试（3GPP TS 38.551）</li>
+<li>Massive MIMO 基站 OTA 测试（3GPP TS 38.810）</li>
+<li>信道模型验证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 TRP 计算</h2>
+    <pre><code>TRP = (1/4π) · ∫∫ G(θ,φ) · P_inc(θ,φ) · sinθ dθ dφ
+</code></pre>
+<p>简化为离散形式（N 个测量点）：</p>
+<pre><code>TRP ≈ (4π/N) · Σ[G(θ_i,φ_i) · P_inc(θ_i,φ_i)]
+</code></pre>
+<p>其中 G(θ,φ) 是 EUT 的发射增益，P_inc(θ,φ) 是入射功率密度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 TIS 计算</h2>
+    <pre><code>TIS = N / Σ(1/G_i(θ,φ))
+</code></pre>
+<p>其中 G_i 是每个测量方向的接收增益。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 EIRP 计算</h2>
+    <pre><code>EIRP = P_TX + G_ant - L_cable
+</code></pre>
+<p>其中 P_TX 是发射功率，G_ant 是天线增益，L_cable 是馈线损耗。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 5G MIMO 吞吐量测试</h2>
     <p>3GPP 定义了 MIMO 吞吐量测试方法：</p>
-    <pre><code>Throughput = Σ(各层数据速率) × (1 - BLER_threshold)</code></pre>
-    <p>其中 BLER（Block Error Rate）阈值为 10%。</p>
-    <h3>3.5 包络相关系数（ECC）</h3>
-    <pre><code>ECC = |ρ₁₂|² = |s₁ᴴ · s₂|² / (|s₁|² · |s₂|²)</code></pre>
-    <p>其中 s₁ 和 s₂ 是两个端口的 S 参数向量。</p>
-    <p>ECC < 0.5 被认为是可接受的 MIMO 性能。</p>
+<pre><code>Throughput = Σ(各层数据速率) × (1 - BLER_threshold)
+</code></pre>
+<p>其中 BLER（Block Error Rate）阈值为 10%。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、OTA 测试设备与方法选择指南</h2>
-    <h3>4.1 按频段选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>推荐方法</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>< 1GHz</td><td>DFF / RC</td><td>远场距离可接受，RC 效率高</td></tr>
-    <tr><td>1-6GHz（Sub-6GHz）</td><td>MPAC / DFF / RC</td><td>3GPP 标准方法</td></tr>
-    <tr><td>24-40GHz（mmWave）</td><td>CATR / 近场</td><td>远场距离短但精度要求高</td></tr>
-    <tr><td>> 60GHz（太赫兹）</td><td>近场 / 暗室</td><td>设备 specialized</td></tr>
-    </tbody></table></div>
-    <h3>4.2 按被测对象选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>被测对象</th><th>推荐方法</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>手机/UE</td><td>MPAC / RC</td><td>3GPP 标准要求</td></tr>
-    <tr><td>毫米波 AiP 模组</td><td>近场 / CATR</td><td>芯片级测试</td></tr>
-    <tr><td>基站 AAU</td><td>CATR / DFF</td><td>大尺寸，高精度</td></tr>
-    <tr><td>卫星终端</td><td>CATR / DFF</td><td>远距离远场</td></tr>
-    <tr><td>WiFi/蓝牙模组</td><td>RC / 暗室</td><td>成本低，速度快</td></tr>
-    </tbody></table></div>
-    <h3>4.3 按测试目的选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>目的</th><th>推荐方法</th></tr></thead>
-    <tbody>
-    <tr><td>方向图测量</td><td>CATR / 近场 / DFF</td></tr>
-    <tr><td>TRP/TIS 认证</td><td>MPAC / RC</td></tr>
-    <tr><td>MIMO 吞吐量</td><td>MPAC</td></tr>
-    <tr><td>ECC/DGC</td><td>MPAC / RC</td></tr>
-    <tr><td>EIRP/ERP</td><td>DFF / RC</td></tr>
-    <tr><td>信道模型验证</td><td>MPAC</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.5 包络相关系数（ECC）</h2>
+    <pre><code>ECC = |ρ₁₂|² = |s₁ᴴ · s₂|² / (|s₁|² · |s₂|²)
+</code></pre>
+<p>其中 s₁ 和 s₂ 是两个端口的 S 参数向量。</p>
+<p>ECC &lt; 0.5 被认为是可接受的 MIMO 性能。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>五、工程挑战与坑</h2>
-    <h3>5.1 远场距离的"陷阱"</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 按频段选择</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>推荐方法</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 1GHz</td>
+<td>DFF / RC</td>
+<td>远场距离可接受，RC 效率高</td>
+</tr>
+<tr>
+<td>1-6GHz（Sub-6GHz）</td>
+<td>MPAC / DFF / RC</td>
+<td>3GPP 标准方法</td>
+</tr>
+<tr>
+<td>24-40GHz（mmWave）</td>
+<td>CATR / 近场</td>
+<td>远场距离短但精度要求高</td>
+</tr>
+<tr>
+<td>&gt; 60GHz（太赫兹）</td>
+<td>近场 / 暗室</td>
+<td>设备 specialized</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 按被测对象选择</h2>
+    <table>
+<thead>
+<tr>
+<th>被测对象</th>
+<th>推荐方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机/UE</td>
+<td>MPAC / RC</td>
+<td>3GPP 标准要求</td>
+</tr>
+<tr>
+<td>毫米波 AiP 模组</td>
+<td>近场 / CATR</td>
+<td>芯片级测试</td>
+</tr>
+<tr>
+<td>基站 AAU</td>
+<td>CATR / DFF</td>
+<td>大尺寸，高精度</td>
+</tr>
+<tr>
+<td>卫星终端</td>
+<td>CATR / DFF</td>
+<td>远距离远场</td>
+</tr>
+<tr>
+<td>WiFi/蓝牙模组</td>
+<td>RC / 暗室</td>
+<td>成本低，速度快</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 按测试目的选择</h2>
+    <table>
+<thead>
+<tr>
+<th>目的</th>
+<th>推荐方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方向图测量</td>
+<td>CATR / 近场 / DFF</td>
+</tr>
+<tr>
+<td>TRP/TIS 认证</td>
+<td>MPAC / RC</td>
+</tr>
+<tr>
+<td>MIMO 吞吐量</td>
+<td>MPAC</td>
+</tr>
+<tr>
+<td>ECC/DGC</td>
+<td>MPAC / RC</td>
+</tr>
+<tr>
+<td>EIRP/ERP</td>
+<td>DFF / RC</td>
+</tr>
+<tr>
+<td>信道模型验证</td>
+<td>MPAC</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 远场距离的&#34;陷阱&#34;</h2>
     <p>对于 3.5GHz、口径 1m 的 Massive MIMO AAU：</p>
-    <pre><code>R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m</code></pre>
-    <p>这意味着需要一个至少 25m 长的暗室——这在大多数测试实验室中是不现实的。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>使用 CATR（紧缩场）：可以在 10m 内实现等效远场</li><li>使用近场扫描 + FFT</li><li>使用中近场方法（Near-to-Far-Field Transformation）</li></ul>
-    <h3>5.2 毫米波 OTA 的对准难题</h3>
+<pre><code>R &gt; 2D²/λ = 2 × 1² / 0.086 = 23.3m
+</code></pre>
+<p>这意味着需要一个至少 25m 长的暗室——这在大多数测试实验室中是不现实的。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用 CATR（紧缩场）：可以在 10m 内实现等效远场</li>
+<li>使用近场扫描 + FFT</li>
+<li>使用中近场方法（Near-to-Far-Field Transformation）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 毫米波 OTA 的对准难题</h2>
     <p>28GHz 下波束宽度仅 2-5°，EUT 和测试天线的对准误差 0.5° 就可能导致 3dB 的测量误差。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>使用精密旋转台（角度分辨率 < 0.01°）</li><li>自动对准算法</li><li>多位置平均</li></ul>
-    <h3>5.3 MIMO 通道校准</h3>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用精密旋转台（角度分辨率 &lt; 0.01°）</li>
+<li>自动对准算法</li>
+<li>多位置平均</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 MIMO 通道校准</h2>
     <p>MPAC 中 32 根探头天线的幅度和相位必须精确校准，否则 MIMO 性能测试结果不可信。</p>
-    <p><b>校准方法</b>：</p>
-    <ul><li>点对点校准（每对探头之间）</li><li>使用校准天线（Calibration Antenna）</li><li>定期重新校准（建议每 6 个月）</li></ul>
-    <h3>5.4 混响室的模式密度</h3>
+<p><strong>校准方法</strong>：</p>
+<ul>
+<li>点对点校准（每对探头之间）</li>
+<li>使用校准天线（Calibration Antenna）</li>
+<li>定期重新校准（建议每 6 个月）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 混响室的模式密度</h2>
     <p>混响室要产生统计均匀场，必须保证模式密度足够：</p>
-    <pre><code>N_modes &gt; 20-50  （最低要求）</code></pre>
-    <p>模式密度与频率的关系：</p>
-    <pre><code>N_modes ∝ f³ · V</code></pre>
-    <p>其中 V 是混响室体积。低频时模式密度不足，混响室无效。</p>
-    <p><b>经验法则</b>：混响室的最低工作频率 f_min ≈ 300-500MHz（取决于体积）。</p>
-    <h3>5.5 测试不确定度</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>典型不确定度（TRP）</th><th>典型不确定度（方向图）</th></tr></thead>
-    <tbody>
-    <tr><td>DFF</td><td>0.3-0.5dB</td><td>0.5-1dB</td></tr>
-    <tr><td>CATR</td><td>0.2-0.4dB</td><td>0.3-0.8dB</td></tr>
-    <tr><td>近场</td><td>0.3-0.6dB</td><td>0.5-1dB</td></tr>
-    <tr><td>RC</td><td>0.5-1.5dB</td><td>N/A</td></tr>
-    <tr><td>MPAC</td><td>0.5-1.0dB</td><td>1-2dB</td></tr>
-    </tbody></table></div>
+<pre><code>N_modes &gt; 20-50  （最低要求）
+</code></pre>
+<p>模式密度与频率的关系：</p>
+<pre><code>N_modes ∝ f³ · V
+</code></pre>
+<p>其中 V 是混响室体积。低频时模式密度不足，混响室无效。</p>
+<p><strong>经验法则</strong>：混响室的最低工作频率 f_min ≈ 300-500MHz（取决于体积）。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>5.5 测试不确定度</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>典型不确定度（TRP）</th>
+<th>典型不确定度（方向图）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFF</td>
+<td>0.3-0.5dB</td>
+<td>0.5-1dB</td>
+</tr>
+<tr>
+<td>CATR</td>
+<td>0.2-0.4dB</td>
+<td>0.3-0.8dB</td>
+</tr>
+<tr>
+<td>近场</td>
+<td>0.3-0.6dB</td>
+<td>0.5-1dB</td>
+</tr>
+<tr>
+<td>RC</td>
+<td>0.5-1.5dB</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>MPAC</td>
+<td>0.5-1.0dB</td>
+<td>1-2dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>六、技术演进</h2>
-    <ul><li><b>1990s</b>：OTA 测试概念提出，主要用于卫星和雷达天线</li><li><b>2000s</b>：混响室法（RC）用于 WiFi/蓝牙设备测试</li><li><b>2010s</b>：3GPP 开始制定 LTE OTA 测试标准（Release 11-13）</li><li><b>2016-2018年</b>：5G NR OTA 标准确立（TS 38.521-1, 38.551, 38.810）</li><li><b>2019-2021年</b>：毫米波 OTA 测试方法标准化（FR2）</li><li><b>2022-2024年</b>：Massive MIMO OTA 测试成为 5G 基站认证标配</li><li><b>2025年</b>：3GPP Release 18 扩展 OTA 到 7GHz+ 频段</li><li><b>2025-2026年</b>：6G 太赫兹 OTA 测试方法研究</li></ul>
+    <ul>
+<li><strong>1990s</strong>：OTA 测试概念提出，主要用于卫星和雷达天线</li>
+<li><strong>2000s</strong>：混响室法（RC）用于 WiFi/蓝牙设备测试</li>
+<li><strong>2010s</strong>：3GPP 开始制定 LTE OTA 测试标准（Release 11-13）</li>
+<li><strong>2016-2018年</strong>：5G NR OTA 标准确立（TS 38.521-1, 38.551, 38.810）</li>
+<li><strong>2019-2021年</strong>：毫米波 OTA 测试方法标准化（FR2）</li>
+<li><strong>2022-2024年</strong>：Massive MIMO OTA 测试成为 5G 基站认证标配</li>
+<li><strong>2025年</strong>：3GPP Release 18 扩展 OTA 到 7GHz+ 频段</li>
+<li><strong>2025-2026年</strong>：6G 太赫兹 OTA 测试方法研究</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用（Sub-6GHz）/ 快速成长期（毫米波）</li><li><b>说明</b>：Sub-6GHz 的 OTA 测试（DFF、RC、MPAC）已非常成熟，是全球运营商和设备商的标配测试方法。毫米波 OTA 测试（28-39GHz）在 5G 手机认证中已大规模商用。太赫兹 OTA 测试仍处于研究阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced 推动更高频段（7GHz+）的 OTA 测试标准化</li><li>AI 辅助 OTA 测试自动化（自动对准、自动校准）</li><li>大规模 MIMO OTA 测试时间压缩（从小时级到分钟级）</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 太赫兹 OTA 测试方法建立</li><li>通感一体化（ISAC）设备的联合 OTA 测试</li><li>无人机/卫星终端的 OTA 测试标准化</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO 的 OTA 测试理论重新定义</li><li>量子传感器的 OTA 测试</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced 推动更高频段（7GHz+）的 OTA 测试标准化</li>
+<li>AI 辅助 OTA 测试自动化（自动对准、自动校准）</li>
+<li>
+<p>大规模 MIMO OTA 测试时间压缩（从小时级到分钟级）</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 太赫兹 OTA 测试方法建立</li>
+<li>通感一体化（ISAC）设备的联合 OTA 测试</li>
+<li>
+<p>无人机/卫星终端的 OTA 测试标准化</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO 的 OTA 测试理论重新定义</li>
+<li>量子传感器的 OTA 测试</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>九、一句话总结</h2>
-    <p>OTA 测试是 5G 时代的"必经之路"——当手机的天线藏在机身里面、当基站的天线有数百个端口、当毫米波的波长只有 1 厘米时，传统的 VNA 电缆测试已经完全不够用了。OTA 让我们可以在"真实世界"中测量天线的真实表现，这正是 5G 和 6G 测试的核心方法论。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -350,39 +818,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

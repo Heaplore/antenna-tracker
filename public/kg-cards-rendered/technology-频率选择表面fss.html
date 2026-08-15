@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>频率选择表面 FSS（Frequency Selective Surface） · 知识卡片</title>
+<title>频率选择表面FSS · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">频率选择表面 FSS <span class="en">Frequency Selective Surface</span></h1>
-  <p class="lede">FSS 是"频率滤镜"——它只对特定频率的电磁波透明，对其他频率反射或吸收。用在天线罩上就是"滤波天线罩"，用在多频共存天线中间就是"频段隔离层"。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">频率选择表面FSS</h1>
+  <p class="lede">FSS 是&#34;频率滤镜&#34;——它只对特定频率的电磁波透明，对其他频率反射或吸收。用在天线罩上就是&#34;滤波天线罩&#34;，用在多频共存天线中间就是&#34;频段隔离层&#34;。</p>
+  
 </header>
 
 <main>
@@ -99,126 +101,152 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>FSS 就像百叶窗——阳光（电磁波）从外面照过来，但百叶窗只让特定颜色的光通过，其他颜色的光被挡住。不同的是，FSS 挡的是"频率"而不是"颜色"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、FSS 的基本原理</h2>
-    <h3>1.1 结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 结构</h2>
     <pre><code>FSS 单元结构（周期性排列）：
-      ┌──────────────────┐
-      │  金属贴片/缝隙    │  ← 谐振结构
-      ├──────────────────┤
-      │  介质基板         │  ← ε_r = 2.2-10
-      ├──────────────────┤
-      │  金属贴片/缝隙    │  ← 谐振结构
-      └──────────────────┘
-      
-    单元间距：d &lt; λ/2（避免栅瓣）</code></pre>
-    <h3>1.2 工作机理</h3>
+  ┌──────────────────┐
+  │  金属贴片/缝隙    │  ← 谐振结构
+  ├──────────────────┤
+  │  介质基板         │  ← ε_r = 2.2-10
+  ├──────────────────┤
+  │  金属贴片/缝隙    │  ← 谐振结构
+  └──────────────────┘
+
+单元间距：d &lt; λ/2（避免栅瓣）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 工作机理</h2>
     <pre><code>共振频率 f_r：
-      f_r = c / (2π√(ε_eff) · L)
-      
-    L = 单元尺寸
-    ε_eff = 有效介电常数
-      
-    当 f = f_r：
-      - 带通型 FSS：透射（天线罩应用）
-      - 带阻型 FSS：反射（隔离应用）
-      
-    当 f ≠ f_r：
-      - 带通型 FSS：反射
-      - 带阻型 FSS：透射</code></pre>
-  </article>
+  f_r = c / (2π√(ε_eff) · L)
 
-  <article class="card">
-    <h2>二、FSS 类型</h2>
-    <h3>2.1 带通型 FSS（Pass-Band）</h3>
+L = 单元尺寸
+ε_eff = 有效介电常数
+
+当 f = f_r：
+  - 带通型 FSS：透射（天线罩应用）
+  - 带阻型 FSS：反射（隔离应用）
+
+当 f ≠ f_r：
+  - 带通型 FSS：反射
+  - 带阻型 FSS：透射
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 带通型 FSS（Pass-Band）</h2>
     <pre><code>结构：金属贴片阵列
-    功能：只让目标频段通过
-    应用：滤波天线罩、多频天线隔离
+功能：只让目标频段通过
+应用：滤波天线罩、多频天线隔离
+
+典型参数：
+  中心频率：3.5GHz
+  带宽：100MHz（2.8% FBW）
+  插入损耗：&lt; 0.1dB
+  阻带抑制：&gt; 30dB（@ 700MHz）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型参数：
-      中心频率：3.5GHz
-      带宽：100MHz（2.8% FBW）
-      插入损耗：&lt; 0.1dB
-      阻带抑制：&gt; 30dB（@ 700MHz）</code></pre>
-    <h3>2.2 带阻型 FSS（Stop-Band）</h3>
+    <h2>2.2 带阻型 FSS（Stop-Band）</h2>
     <pre><code>结构：缝隙阵列
-    功能：阻挡特定频段
-    应用：天线隔离、EMI 屏蔽
+功能：阻挡特定频段
+应用：天线隔离、EMI 屏蔽
+
+典型参数：
+  中心频率：2.4GHz
+  带宽：200MHz（8% FBW）
+  插入损耗：&lt; 0.5dB（通带）
+  阻带抑制：&gt; 40dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型参数：
-      中心频率：2.4GHz
-      带宽：200MHz（8% FBW）
-      插入损耗：&lt; 0.5dB（通带）
-      阻带抑制：&gt; 40dB</code></pre>
-    <h3>2.3 双频/多频 FSS</h3>
+    <h2>2.3 双频/多频 FSS</h2>
     <pre><code>结构：多层 FSS（每层不同频率）
-    功能：多层频段选择
-    应用：A+P 天线频段隔离
+功能：多层频段选择
+应用：A+P 天线频段隔离
+
+典型参数：
+  层数：2-4 层
+  频段：700MHz + 2.6GHz + 3.5GHz
+  层间间距：λ/4
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型参数：
-      层数：2-4 层
-      频段：700MHz + 2.6GHz + 3.5GHz
-      层间间距：λ/4</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>三、FSS 在基站天线中的应用</h2>
-    <h3>3.1 滤波天线罩</h3>
+    <h2>3.1 滤波天线罩</h2>
     <pre><code>传统天线罩：
-      全频段透明（300MHz-6GHz）
-      损耗：0.5-1dB
-      
-    FSS 滤波天线罩：
-      只透射目标频段（如 3.5GHz）
-      阻挡干扰频段（700MHz、2.6GHz）
-      损耗：&lt; 0.1dB（通带）
-      抑制：&gt; 30dB（阻带）</code></pre>
-    <h3>3.2 A+P 天线频段隔离</h3>
+  全频段透明（300MHz-6GHz）
+  损耗：0.5-1dB
+
+FSS 滤波天线罩：
+  只透射目标频段（如 3.5GHz）
+  阻挡干扰频段（700MHz、2.6GHz）
+  损耗：&lt; 0.1dB（通带）
+  抑制：&gt; 30dB（阻带）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 A+P 天线频段隔离</h2>
     <pre><code>问题：
-      700MHz ↔ 3.5GHz 互调
-      
-    解决方案：
-      在两层天线之间加 FSS 隔离层
-      
-    效果：
-      700MHz 信号被 FSS 反射
-      3.5GHz 信号透过 FSS
-      互调抑制：&gt; 80dB</code></pre>
-    <h3>3.3 多频共口径天线</h3>
+  700MHz ↔ 3.5GHz 互调
+
+解决方案：
+  在两层天线之间加 FSS 隔离层
+
+效果：
+  700MHz 信号被 FSS 反射
+  3.5GHz 信号透过 FSS
+  互调抑制：&gt; 80dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 多频共口径天线</h2>
     <pre><code>结构：
-      上层：3.5GHz 贴片天线
-      中层：FSS 隔离层（透 3.5GHz，阻 700MHz）
-      下层：700MHz 偶极子天线
-      
-    效果：
-      两层天线共用同一口径
-      频段隔离 &gt; 40dB
-      节省站址空间</code></pre>
-  </article>
+  上层：3.5GHz 贴片天线
+  中层：FSS 隔离层（透 3.5GHz，阻 700MHz）
+  下层：700MHz 偶极子天线
 
-  <article class="card">
-    <h2>四、FSS 设计参数</h2>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>单元尺寸</td><td>0.1-10mm</td><td>取决于频率</td></tr>
-    <tr><td>单元间距</td><td>< λ/2</td><td>避免栅瓣</td></tr>
-    <tr><td>插入损耗</td><td>0.01-0.5dB</td><td>通带</td></tr>
-    <tr><td>阻带抑制</td><td>20-60dB</td><td>阻带</td></tr>
-    <tr><td>带宽</td><td>1-20% FBW</td><td>取决于单元设计</td></tr>
-    <tr><td>角度稳定性</td><td>±30°</td><td>入射角</td></tr>
-    </tbody></table></div>
+效果：
+  两层天线共用同一口径
+  频段隔离 &gt; 40dB
+  节省站址空间
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>FSS 是"频率滤镜"——带通型让目标频段通过、带阻型阻挡目标频段。在基站天线中主要用于滤波天线罩和 A+P 频段隔离。记住：FSS 不是"新材料"，而是"新结构"——周期性排列的金属贴片/缝隙就能实现频率选择。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -238,39 +266,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

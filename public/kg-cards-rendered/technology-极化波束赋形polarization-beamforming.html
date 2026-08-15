@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>极化波束赋形（Polarization Beamforming） · 知识卡片</title>
+<title>极化波束赋形Polarization-Beamforming · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">极化波束赋形 <span class="en">Polarization Beamforming</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">极化波束赋形Polarization-Beamforming</h1>
   <p class="lede">极化波束赋形是在传统空间波束赋形基础上，额外利用电磁波的极化自由度（如 ±45° 双极化、圆极化、任意椭圆极化）进行独立的波束控制和空间复用，从而在不增加天线数量的前提下将容量翻倍的技术。它是 6G XL-MIMO 的核心使能技术之一。</p>
+  
 </header>
 
 <main>
@@ -99,199 +101,559 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统波束赋形像是在一维的墙上打孔——你只能左右上下调整角度。极化波束赋形相当于在墙上开了两扇独立的门：一扇门处理"水平"信号，另一扇门处理"垂直"信号，两扇门可以指向不同方向、服务不同用户。这样，同样的天线阵列可以同时服务两倍的用户。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 从极化分集到极化波束赋形</h3>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>原理</th><th>容量增益</th></tr></thead>
-    <tbody>
-    <tr><td>极化分集</td><td>利用正交极化降低信号相关性</td><td>1.2-1.5×</td></tr>
-    <tr><td>极化复用</td><td>同一频率、不同极化传输独立数据流</td><td>2×</td></tr>
-    <tr><td><b>极化波束赋形</b></td><td><b>对不同极化通道独立赋形，形成极化依赖的波束</b></td><td><b>2-4×</b></td></tr>
-    </tbody></table></div>
-    <p>极化波束赋形是上述技术的综合——它不仅利用双极化来倍增容量，还对每个极化通道独立进行波束指向控制。</p>
-    <h3>1.2 ±45° 双极化阵列的基本模型</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 从极化分集到极化波束赋形</h2>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>原理</th>
+<th>容量增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化分集</td>
+<td>利用正交极化降低信号相关性</td>
+<td>1.2-1.5×</td>
+</tr>
+<tr>
+<td>极化复用</td>
+<td>同一频率、不同极化传输独立数据流</td>
+<td>2×</td>
+</tr>
+<tr>
+<td><strong>极化波束赋形</strong></td>
+<td><strong>对不同极化通道独立赋形，形成极化依赖的波束</strong></td>
+<td><strong>2-4×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>极化波束赋形是上述技术的综合——它不仅利用双极化来倍增容量，还对每个极化通道独立进行波束指向控制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 ±45° 双极化阵列的基本模型</h2>
     <p>基站天线通常采用 ±45° 交叉极化配置：</p>
-    <pre><code>E_total = E_V · p_V + E_H · p_H</code></pre>
-    <p>其中 p_V 和 p_H 分别是 +45° 和 -45° 极化单位矢量。</p>
-    <p>对于 N 单元双极化阵列（N 个物理单元，每个单元有两个极化端口），波束赋形向量是 2N × 1 的复数向量：</p>
-    <pre><code>w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T</code></pre>
-    <h3>1.3 极化波束赋形的核心思想</h3>
+<pre><code>E_total = E_V · p_V + E_H · p_H
+</code></pre>
+<p>其中 p_V 和 p_H 分别是 +45° 和 -45° 极化单位矢量。</p>
+<p>对于 N 单元双极化阵列（N 个物理单元，每个单元有两个极化端口），波束赋形向量是 2N × 1 的复数向量：</p>
+<pre><code>w = [w_V1, w_V2, ..., w_VN, w_H1, w_H2, ..., w_HN]^T
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 极化波束赋形的核心思想</h2>
     <p>传统空间波束赋形只优化 w 的相位部分（控制波束指向），而极化波束赋形同时优化：</p>
-    <ol><li><b>空间相位</b>：控制波束指向角（θ, φ）</li><li><b>极化相位</b>：控制 V/H 极化之间的相位差 → 决定辐射极化状态</li><li><b>极化幅度</b>：控制 V/H 极化之间的幅度比 → 决定极化纯度</li></ol>
-    <h3>1.4 极化状态的数学描述</h3>
+<ol>
+<li><strong>空间相位</strong>：控制波束指向角（θ, φ）</li>
+<li><strong>极化相位</strong>：控制 V/H 极化之间的相位差 → 决定辐射极化状态</li>
+<li><strong>极化幅度</strong>：控制 V/H 极化之间的幅度比 → 决定极化纯度</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.4 极化状态的数学描述</h2>
     <p>任意极化状态可以用极化椭圆参数描述：</p>
-    <pre><code>椭圆率 χ = arctan(b/a)  （a=长半轴，b=短半轴）
-    倾斜角 τ = arctan(E_H/E_V)</code></pre>
-    <ul><li>τ = 0° → 垂直极化</li><li>τ = 45° → +45° 线性极化</li><li>τ = -45° → -45° 线性极化</li><li>χ = ±45° → 右/左旋圆极化</li></ul>
-    <p>通过控制 w_V 和 w_H 的幅度和相位，可以动态生成任意极化状态。</p>
+<pre><code>椭圆率 χ = arctan(b/a)  （a=长半轴，b=短半轴）
+倾斜角 τ = arctan(E_H/E_V)
+</code></pre>
+<ul>
+<li>τ = 0° → 垂直极化</li>
+<li>τ = 45° → +45° 线性极化</li>
+<li>τ = -45° → -45° 线性极化</li>
+<li>χ = ±45° → 右/左旋圆极化</li>
+</ul>
+<p>通过控制 w_V 和 w_H 的幅度和相位，可以动态生成任意极化状态。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、XL-MIMO 中的极化波束赋形</h2>
-    <h3>2.1 XL-MIMO 的极化挑战</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 XL-MIMO 的极化挑战</h2>
     <p>6G 的 XL-MIMO（超大规模 MIMO）天线阵列可能有 1024-4096 个单元，双极化后达到 2048-8192 个端口。极化波束赋形在此规模下面临独特挑战：</p>
-    <div class="tw"><table>
-    <thead><tr><th>挑战</th><th>原因</th><th>影响</th></tr></thead>
-    <tbody>
-    <tr><td>XPD 空间变化</td><td>阵列不同位置的单元 XPD 不同</td><td>极化隔离度下降</td></tr>
-    <tr><td>近场效应</td><td>XL-MIMO 的近场区可达数百米</td><td>极化状态随距离变化</td></tr>
-    <tr><td>去极化</td><td>传播环境导致极化状态改变</td><td>极化复用增益下降</td></tr>
-    <tr><td>校准复杂度</td><td>2N 个端口的幅相校准</td><td>校准时间大幅增加</td></tr>
-    </tbody></table></div>
-    <h3>2.2 XPD（交叉极化鉴别率）的空间变化</h3>
-    <p>在传统 MIMO 中，XPD 被视为一个标量值（通常 20-30dB）。但在 XL-MIMO 中，XPD 在阵列上是<b>非均匀的</b>：</p>
-    <pre><code>XPD(x,y) = 10·log₁₀(P_co(x,y) / P_cross(x,y))</code></pre>
-    <p>边缘单元的 XPD 可能比中心单元低 5-10dB，原因是：</p>
-    <ul><li>边缘单元的互耦环境不同</li><li>近场效应在边缘更显著</li><li>安装公差在边缘累积更大</li></ul>
-    <p><b>影响</b>：XPD 不均匀会导致极化复用串扰增加，容量下降 10-30%。</p>
-    <h3>2.3 近场极化波束赋形</h3>
+<table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>原因</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XPD 空间变化</td>
+<td>阵列不同位置的单元 XPD 不同</td>
+<td>极化隔离度下降</td>
+</tr>
+<tr>
+<td>近场效应</td>
+<td>XL-MIMO 的近场区可达数百米</td>
+<td>极化状态随距离变化</td>
+</tr>
+<tr>
+<td>去极化</td>
+<td>传播环境导致极化状态改变</td>
+<td>极化复用增益下降</td>
+</tr>
+<tr>
+<td>校准复杂度</td>
+<td>2N 个端口的幅相校准</td>
+<td>校准时间大幅增加</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 XPD（交叉极化鉴别率）的空间变化</h2>
+    <p>在传统 MIMO 中，XPD 被视为一个标量值（通常 20-30dB）。但在 XL-MIMO 中，XPD 在阵列上是<strong>非均匀的</strong>：</p>
+<pre><code>XPD(x,y) = 10·log₁₀(P_co(x,y) / P_cross(x,y))
+</code></pre>
+<p>边缘单元的 XPD 可能比中心单元低 5-10dB，原因是：</p>
+<ul>
+<li>边缘单元的互耦环境不同</li>
+<li>近场效应在边缘更显著</li>
+<li>安装公差在边缘累积更大</li>
+</ul>
+<p><strong>影响</strong>：XPD 不均匀会导致极化复用串扰增加，容量下降 10-30%。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 近场极化波束赋形</h2>
     <p>在 XL-MIMO 的近场区（Fresnel 区），电磁波是球面波而非平面波，极化状态随传播方向变化：</p>
-    <pre><code>E_r(θ,φ) = E_θ · r̂_θ + E_φ · r̂_φ</code></pre>
-    <p>其中 r̂_θ 和 r̂_φ 是球坐标系下的极化单位矢量，随 (θ, φ) 变化。</p>
-    <p><b>传统波束赋形假设</b>：所有单元的极化方向一致（平面波近似）。 <b>近场极化波束赋形</b>：每个单元的极化方向需要根据其到用户的几何关系独立调整。</p>
-    <h3>2.4 极化波束赋形的容量增益</h3>
+<pre><code>E_r(θ,φ) = E_θ · r̂_θ + E_φ · r̂_φ
+</code></pre>
+<p>其中 r̂_θ 和 r̂_φ 是球坐标系下的极化单位矢量，随 (θ, φ) 变化。</p>
+<p><strong>传统波束赋形假设</strong>：所有单元的极化方向一致（平面波近似）。
+<strong>近场极化波束赋形</strong>：每个单元的极化方向需要根据其到用户的几何关系独立调整。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 极化波束赋形的容量增益</h2>
     <p>双极化 XL-MIMO 相比单极化的容量增益：</p>
-    <pre><code>C_dual-pol ≈ C_single-pol × (1 + ρ_xpol)</code></pre>
-    <p>其中 ρ_xpol 是交叉极化通道的相关系数。</p>
-    <ul><li>理想情况（ρ_xpol = 0）：容量翻倍（2×）</li><li>实际情况（ρ_xpol = 0.3-0.5）：容量增加 1.5-1.7×</li><li>恶劣情况（ρ_xpol > 0.7）：容量增加 < 1.3×</li></ul>
-    <p><b>关键</b>：降低极化相关性是极化波束赋形发挥容量的前提。</p>
+<pre><code>C_dual-pol ≈ C_single-pol × (1 + ρ_xpol)
+</code></pre>
+<p>其中 ρ_xpol 是交叉极化通道的相关系数。</p>
+<ul>
+<li>理想情况（ρ_xpol = 0）：容量翻倍（2×）</li>
+<li>实际情况（ρ_xpol = 0.3-0.5）：容量增加 1.5-1.7×</li>
+<li>恶劣情况（ρ_xpol &gt; 0.7）：容量增加 &lt; 1.3×</li>
+</ul>
+<p><strong>关键</strong>：降低极化相关性是极化波束赋形发挥容量的前提。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、极化波束赋形的方法</h2>
-    <h3>3.1 独立极化波束（Independent Polarization Beam）</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 独立极化波束（Independent Polarization Beam）</h2>
     <p>为 V 和 H 极化通道分别设计独立的波束赋形向量：</p>
-    <pre><code>w_V = [w_V1, w_V2, ..., w_VN]^T  → 波束指向 θ_V, φ_V
-    w_H = [w_H1, w_H2, ..., w_HN]^T  → 波束指向 θ_H, φ_H</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>V 和 H 波束可以指向不同方向</li><li>可以同时服务两个不同方向的用户</li><li>极化隔离度要求较低</li></ul>
-    <h3>3.2 联合极化波束（Joint Polarization Beam）</h3>
+<pre><code>w_V = [w_V1, w_V2, ..., w_VN]^T  → 波束指向 θ_V, φ_V
+w_H = [w_H1, w_H2, ..., w_HN]^T  → 波束指向 θ_H, φ_H
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>V 和 H 波束可以指向不同方向</li>
+<li>可以同时服务两个不同方向的用户</li>
+<li>极化隔离度要求较低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 联合极化波束（Joint Polarization Beam）</h2>
     <p>V 和 H 极化波束指向同一方向，但极化状态不同：</p>
-    <pre><code>w_V = w · cos(τ)
-    w_H = w · sin(τ) · exp(j·Δφ)</code></pre>
-    <p>其中 τ 是倾斜角，Δφ 是极化相位差。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>波束指向一致，利于覆盖优化</li><li>通过调整 τ 和 Δφ 可以动态改变极化状态</li><li>适合极化复用场景</li></ul>
-    <h3>3.3 自适应极化波束赋形</h3>
+<pre><code>w_V = w · cos(τ)
+w_H = w · sin(τ) · exp(j·Δφ)
+</code></pre>
+<p>其中 τ 是倾斜角，Δφ 是极化相位差。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>波束指向一致，利于覆盖优化</li>
+<li>通过调整 τ 和 Δφ 可以动态改变极化状态</li>
+<li>适合极化复用场景</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 自适应极化波束赋形</h2>
     <p>根据信道状态信息（CSI）动态调整极化波束：</p>
-    <pre><code>maximize    C(w_V, w_H)
-    subject to  ||w_V||² + ||w_H||² ≤ P_total
-                XPD(w_V, w_H) ≥ XPD_min</code></pre>
-    <p><b>优化变量</b>：</p>
-    <ul><li>w_V 和 w_H 的幅度</li><li>w_V 和 w_H 的相位</li><li>极化倾斜角 τ</li><li>极化相位差 Δφ</li></ul>
-    <p><b>求解方法</b>：</p>
-    <ul><li>交替优化（Alternating Optimization）</li><li>凸优化（Convex Optimization）</li><li>深度学习（Deep Learning）</li></ul>
-    <h3>3.4 极化波束量化</h3>
+<pre><code>maximize    C(w_V, w_H)
+subject to  ||w_V||² + ||w_H||² ≤ P_total
+            XPD(w_V, w_H) ≥ XPD_min
+</code></pre>
+<p><strong>优化变量</strong>：</p>
+<ul>
+<li>w_V 和 w_H 的幅度</li>
+<li>w_V 和 w_H 的相位</li>
+<li>极化倾斜角 τ</li>
+<li>极化相位差 Δφ</li>
+</ul>
+<p><strong>求解方法</strong>：</p>
+<ul>
+<li>交替优化（Alternating Optimization）</li>
+<li>凸优化（Convex Optimization）</li>
+<li>深度学习（Deep Learning）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 极化波束量化</h2>
     <p>实际系统中，极化状态只能离散取值（受限于 BFIC 的移相器位数）：</p>
-    <div class="tw"><table>
-    <thead><tr><th>极化状态</th><th>τ (度)</th><th>Δφ (度)</th><th>对应极化</th></tr></thead>
-    <tbody>
-    <tr><td>1</td><td>45</td><td>0</td><td>+45° 线性</td></tr>
-    <tr><td>2</td><td>-45</td><td>0</td><td>-45° 线性</td></tr>
-    <tr><td>3</td><td>45</td><td>90</td><td>右旋圆</td></tr>
-    <tr><td>4</td><td>45</td><td>-90</td><td>左旋圆</td></tr>
-    <tr><td>5</td><td>0</td><td>0</td><td>垂直线性</td></tr>
-    <tr><td>6</td><td>90</td><td>0</td><td>水平线性</td></tr>
-    </tbody></table></div>
-    <p>6-bit BFIC 可以提供 64 种极化状态，足以近似任意极化椭圆。</p>
+<table>
+<thead>
+<tr>
+<th>极化状态</th>
+<th>τ (度)</th>
+<th>Δφ (度)</th>
+<th>对应极化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>45</td>
+<td>0</td>
+<td>+45° 线性</td>
+</tr>
+<tr>
+<td>2</td>
+<td>-45</td>
+<td>0</td>
+<td>-45° 线性</td>
+</tr>
+<tr>
+<td>3</td>
+<td>45</td>
+<td>90</td>
+<td>右旋圆</td>
+</tr>
+<tr>
+<td>4</td>
+<td>45</td>
+<td>-90</td>
+<td>左旋圆</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>垂直线性</td>
+</tr>
+<tr>
+<td>6</td>
+<td>90</td>
+<td>0</td>
+<td>水平线性</td>
+</tr>
+</tbody>
+</table>
+<p>6-bit BFIC 可以提供 64 种极化状态，足以近似任意极化椭圆。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、关键技术指标</h2>
-    <h3>4.1 极化性能指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>XPD</td><td>交叉极化鉴别率</td><td>> 25dB（基站）/ > 20dB（手机）</td></tr>
-    <tr><td>极化隔离度</td><td>V/H 端口间的 S 参数</td><td>> 25dB</td></tr>
-    <tr><td>极化纯度</td><td>主极化功率 / 总功率</td><td>> 95%</td></tr>
-    <tr><td>轴比（AR）</td><td>椭圆极化的长短轴比</td><td>< 3dB（圆极化）</td></tr>
-    </tbody></table></div>
-    <h3>4.2 波束赋形指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>极化波束数</td><td>可同时形成的独立极化波束数</td><td>≥ 2（V+H）</td></tr>
-    <tr><td>波束切换时间</td><td>从一个极化波束切换到另一个的时间</td><td>< 1ms</td></tr>
-    <tr><td>极化复用增益</td><td>双极化相比单极化的容量增益</td><td>1.5-2×</td></tr>
-    <tr><td>极化相关性</td><td>V/H 通道之间的相关系数</td><td>< 0.3</td></tr>
-    </tbody></table></div>
-    <h3>4.3 XL-MIMO 特有指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>XPD 均匀性</td><td>阵列上各单元 XPD 的标准差</td><td>< 3dB</td></tr>
-    <tr><td>近场极化误差</td><td>球面波极化假设与实际的偏差</td><td>< 2°</td></tr>
-    <tr><td>极化校准误差</td><td>极化波束赋形向量与实际向量的偏差</td><td>< 0.5dB / < 3°</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>4.1 极化性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XPD</td>
+<td>交叉极化鉴别率</td>
+<td>&gt; 25dB（基站）/ &gt; 20dB（手机）</td>
+</tr>
+<tr>
+<td>极化隔离度</td>
+<td>V/H 端口间的 S 参数</td>
+<td>&gt; 25dB</td>
+</tr>
+<tr>
+<td>极化纯度</td>
+<td>主极化功率 / 总功率</td>
+<td>&gt; 95%</td>
+</tr>
+<tr>
+<td>轴比（AR）</td>
+<td>椭圆极化的长短轴比</td>
+<td>&lt; 3dB（圆极化）</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、应用场景</h2>
-    <h3>5.1 6G XL-MIMO 基站</h3>
-    <ul><li>配置：1024-4096 单元双极化阵列</li><li>目标：容量相比 5G 提升 10-100 倍</li><li>极化波束赋形作用：在不增加硬件的前提下，将空间自由度翻倍</li></ul>
-    <h3>5.2 卫星通信</h3>
-    <ul><li>圆极化波束赋形：适应卫星姿态变化导致的极化旋转</li><li>频率复用：同一频率、不同极化（RHCP/LHCP）实现两次容量</li></ul>
-    <h3>5.3 无人机通信</h3>
-    <ul><li>极化自适应：无人机姿态变化时，自动调整极化状态保持最佳连接</li><li>极化分集：多架无人机之间的极化正交复用</li></ul>
-    <h3>5.4 ISAC（通感一体化）</h3>
-    <ul><li>不同极化波束分别服务于通信和感知</li><li>感知波束使用圆极化（对目标极化不敏感）</li><li>通信波束使用线性极化（高纯度）</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.2 波束赋形指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化波束数</td>
+<td>可同时形成的独立极化波束数</td>
+<td>≥ 2（V+H）</td>
+</tr>
+<tr>
+<td>波束切换时间</td>
+<td>从一个极化波束切换到另一个的时间</td>
+<td>&lt; 1ms</td>
+</tr>
+<tr>
+<td>极化复用增益</td>
+<td>双极化相比单极化的容量增益</td>
+<td>1.5-2×</td>
+</tr>
+<tr>
+<td>极化相关性</td>
+<td>V/H 通道之间的相关系数</td>
+<td>&lt; 0.3</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 极化校准</h3>
+  
+  <article class="card ">
+    
+    <h2>4.3 XL-MIMO 特有指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XPD 均匀性</td>
+<td>阵列上各单元 XPD 的标准差</td>
+<td>&lt; 3dB</td>
+</tr>
+<tr>
+<td>近场极化误差</td>
+<td>球面波极化假设与实际的偏差</td>
+<td>&lt; 2°</td>
+</tr>
+<tr>
+<td>极化校准误差</td>
+<td>极化波束赋形向量与实际向量的偏差</td>
+<td>&lt; 0.5dB / &lt; 3°</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 6G XL-MIMO 基站</h2>
+    <ul>
+<li>配置：1024-4096 单元双极化阵列</li>
+<li>目标：容量相比 5G 提升 10-100 倍</li>
+<li>极化波束赋形作用：在不增加硬件的前提下，将空间自由度翻倍</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 卫星通信</h2>
+    <ul>
+<li>圆极化波束赋形：适应卫星姿态变化导致的极化旋转</li>
+<li>频率复用：同一频率、不同极化（RHCP/LHCP）实现两次容量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 无人机通信</h2>
+    <ul>
+<li>极化自适应：无人机姿态变化时，自动调整极化状态保持最佳连接</li>
+<li>极化分集：多架无人机之间的极化正交复用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 ISAC（通感一体化）</h2>
+    <ul>
+<li>不同极化波束分别服务于通信和感知</li>
+<li>感知波束使用圆极化（对目标极化不敏感）</li>
+<li>通信波束使用线性极化（高纯度）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 极化校准</h2>
     <p>双极化阵列的极化波束赋形需要精确的极化校准：</p>
-    <p><b>校准步骤</b>：</p>
-    <ol><li>测量每个单元的 S 参数矩阵（2N × 2N）</li><li>确定每个单元的极化倾斜角 τ 和极化相位差 Δφ</li><li>计算极化波束赋形向量 w_V 和 w_H</li><li>在线监测和定期重新校准</li></ol>
-    <p><b>校准精度要求</b>：</p>
-    <ul><li>幅度误差：< 0.2dB</li><li>相位误差：< 2°</li><li>极化角误差：< 1°</li></ul>
-    <h3>6.2 温度漂移</h3>
+<p><strong>校准步骤</strong>：</p>
+<ol>
+<li>测量每个单元的 S 参数矩阵（2N × 2N）</li>
+<li>确定每个单元的极化倾斜角 τ 和极化相位差 Δφ</li>
+<li>计算极化波束赋形向量 w_V 和 w_H</li>
+<li>在线监测和定期重新校准</li>
+</ol>
+<p><strong>校准精度要求</strong>：</p>
+<ul>
+<li>幅度误差：&lt; 0.2dB</li>
+<li>相位误差：&lt; 2°</li>
+<li>极化角误差：&lt; 1°</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 温度漂移</h2>
     <p>温度变化会导致：</p>
-    <ul><li>移相器相位漂移（±0.5°/°C）</li><li>极化倾斜角漂移（±0.3°/°C）</li><li>XPD 变化（±1dB/°C）</li></ul>
-    <p><b>对策</b>：内置温度传感器 + 实时补偿算法。</p>
-    <h3>6.3 极化失配</h3>
+<ul>
+<li>移相器相位漂移（±0.5°/°C）</li>
+<li>极化倾斜角漂移（±0.3°/°C）</li>
+<li>XPD 变化（±1dB/°C）</li>
+</ul>
+<p><strong>对策</strong>：内置温度传感器 + 实时补偿算法。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 极化失配</h2>
     <p>传播环境中的散射、反射和折射会改变信号的极化状态：</p>
-    <pre><code>E_received = Γ_co · E_transmitted + Γ_cross · E_transmitted_perp</code></pre>
-    <p>其中 Γ_co 是同极化传输系数，Γ_cross 是交叉极化传输系数。</p>
-    <p><b>去极化系数</b>：</p>
-    <pre><code>δ = |Γ_cross|² / |Γ_co|²</code></pre>
-    <p>δ 越大，极化复用增益越低。在城市环境中 δ ≈ 0.1-0.3，在室内环境中 δ ≈ 0.3-0.5。</p>
-    <h3>6.4 计算复杂度</h3>
+<pre><code>E_received = Γ_co · E_transmitted + Γ_cross · E_transmitted_perp
+</code></pre>
+<p>其中 Γ_co 是同极化传输系数，Γ_cross 是交叉极化传输系数。</p>
+<p><strong>去极化系数</strong>：</p>
+<pre><code>δ = |Γ_cross|² / |Γ_co|²
+</code></pre>
+<p>δ 越大，极化复用增益越低。在城市环境中 δ ≈ 0.1-0.3，在室内环境中 δ ≈ 0.3-0.5。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 计算复杂度</h2>
     <p>N 单元双极化阵列的波束赋形向量有 2N 个复数自由度：</p>
-    <pre><code>w ∈ ℂ^(2N)</code></pre>
-    <p>对于 N = 1024 的 XL-MIMO，需要优化 2048 个复数变量——这比 5G Massive MIMO（64 通道）大了 32 倍。</p>
-    <p><b>降维策略</b>：</p>
-    <ul><li>波束域（Beamspace）方法：在傅里叶域优化，自由度降低 8-16 倍</li><li>两级波束赋形：模拟域（极化+粗波束）+ 数字域（精波束）</li><li>分组优化：将阵列分成子阵，每阵独立优化</li></ul>
+<pre><code>w ∈ ℂ^(2N)
+</code></pre>
+<p>对于 N = 1024 的 XL-MIMO，需要优化 2048 个复数变量——这比 5G Massive MIMO（64 通道）大了 32 倍。</p>
+<p><strong>降维策略</strong>：</p>
+<ul>
+<li>波束域（Beamspace）方法：在傅里叶域优化，自由度降低 8-16 倍</li>
+<li>两级波束赋形：模拟域（极化+粗波束）+ 数字域（精波束）</li>
+<li>分组优化：将阵列分成子阵，每阵独立优化</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1980s</b>：双极化 MIMO 概念提出</li><li><b>2000s</b>：±45° 双极化成为基站天线标准配置</li><li><b>2010s</b>：4G LTE 双极化 Massive MIMO 商用</li><li><b>2018-2020年</b>：5G NR 双极化波束赋形标准化</li><li><b>2022-2024年</b>：XL-MIMO 极化波束赋形理论建立</li><li><b>2025年</b>：近场极化波束赋形算法提出</li><li><b>2025-2026年</b>：6G 极化波束赋形进入原型验证</li></ul>
+    <ul>
+<li><strong>1980s</strong>：双极化 MIMO 概念提出</li>
+<li><strong>2000s</strong>：±45° 双极化成为基站天线标准配置</li>
+<li><strong>2010s</strong>：4G LTE 双极化 Massive MIMO 商用</li>
+<li><strong>2018-2020年</strong>：5G NR 双极化波束赋形标准化</li>
+<li><strong>2022-2024年</strong>：XL-MIMO 极化波束赋形理论建立</li>
+<li><strong>2025年</strong>：近场极化波束赋形算法提出</li>
+<li><strong>2025-2026年</strong>：6G 极化波束赋形进入原型验证</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：快速成长期</li><li><b>说明</b>：±45° 双极化天线已大规模商用（4G/5G），但"极化波束赋形"作为独立技术（对 V/H 极化独立控制波束指向）仍处于快速发展和标准化阶段。6G XL-MIMO 的极化波束赋形是当前的研究热点。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>3GPP Rel-20/21 纳入 XL-MIMO 极化波束赋形标准</li><li>波束域极化赋形算法商用化</li><li>6G 原型系统验证极化复用增益</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>RIS 辅助的极化波束赋形</li><li>太赫兹频段的极化波束赋形</li><li>AI 驱动的自适应极化波束控制</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO 的连续极化波束赋形</li><li>量子极化波束赋形</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>3GPP Rel-20/21 纳入 XL-MIMO 极化波束赋形标准</li>
+<li>波束域极化赋形算法商用化</li>
+<li>
+<p>6G 原型系统验证极化复用增益</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>RIS 辅助的极化波束赋形</li>
+<li>太赫兹频段的极化波束赋形</li>
+<li>
+<p>AI 驱动的自适应极化波束控制</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO 的连续极化波束赋形</li>
+<li>量子极化波束赋形</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>极化波束赋形是在空间维度之外打开的"第二维度"——同样的天线阵列，通过独立控制 V/H 极化波束，可以将容量提升 1.5-2 倍而不增加任何硬件成本。在 6G XL-MIMO 的时代，极化不再是简单的分集手段，而是与空间维度同等重要的波束控制自由度。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -311,39 +673,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

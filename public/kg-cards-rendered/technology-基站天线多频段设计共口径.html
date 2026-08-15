@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>基站天线多频段/多频点设计 · 知识卡片</title>
+<title>基站天线多频段设计共口径 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">基站天线多频段/多频点设计</h1>
-  <p class="lede">5G 基站天线要同时支持 2-4 个频段（700/900/1800/2600/3500MHz），核心方法是"共口径设计"——不同频段用不同尺寸的振子，堆叠在同一副天线上，通过滤波器隔离各频段信号。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">基站天线多频段设计共口径</h1>
+  <p class="lede">5G 基站天线要同时支持 2-4 个频段（700/900/1800/2600/3500MHz），核心方法是&#34;共口径设计&#34;——不同频段用不同尺寸的振子，堆叠在同一副天线上，通过滤波器隔离各频段信号。</p>
+  
 </header>
 
 <main>
@@ -99,164 +101,250 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>多频天线就像"多层蛋糕"——底层放低频振子（700MHz，尺寸大），中层放中频（2600MHz），顶层放高频（3500MHz，尺寸小）。每层之间用滤波器隔开，互不干扰。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、多频段天线的挑战</h2>
-    <h3>1.1 频率与尺寸的关系</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 频率与尺寸的关系</h2>
     <pre><code>天线振子尺寸 ∝ λ/2 = c/(2f·√Dk)
+
+频率越低 → 波长越长 → 振子越大
+
+  700MHz：λ = 429mm → 半波振子 ≈ 210mm
+  2600MHz：λ = 115mm → 半波振子 ≈ 57mm
+  3500MHz：λ = 86mm → 半波振子 ≈ 43mm
+
+问题：
+  700MHz 振子比 3500MHz 振子大 5 倍！
+  → 低频振子需要更多空间
+  → 多频段天线高度随最低频率降低而增加
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    频率越低 → 波长越长 → 振子越大
-    
-      700MHz：λ = 429mm → 半波振子 ≈ 210mm
-      2600MHz：λ = 115mm → 半波振子 ≈ 57mm
-      3500MHz：λ = 86mm → 半波振子 ≈ 43mm
-      
-    问题：
-      700MHz 振子比 3500MHz 振子大 5 倍！
-      → 低频振子需要更多空间
-      → 多频段天线高度随最低频率降低而增加</code></pre>
-    <h3>1.2 频段隔离</h3>
+    <h2>1.2 频段隔离</h2>
     <pre><code>多频段天线核心难题：
-      不同频段的天线振子互相靠近
-      → 电磁耦合 → 信号互相干扰
-      
-    隔离方法：
-      1. 空间隔离
-         不同频段振子之间保持 ≥ λ_low/4 距离
-         例如：700MHz 和 3500MHz 间距 ≥ 100mm
-         
-      2. 正交极化
-         不同频段使用不同极化方向
-         例如：700MHz 用 ±45°，3500MHz 用 0°/90°
-         
-      3. 电磁屏蔽
-         振子之间加屏蔽隔板
-         例如：金属网/ perforated plate
-         
-      4. 滤波器隔离（主流）
-         每个频段配专用滤波器
-         滤波器带外抑制 &gt; 60dB</code></pre>
-  </article>
+  不同频段的天线振子互相靠近
+  → 电磁耦合 → 信号互相干扰
 
-  <article class="card">
-    <h2>二、多频段天线设计方法</h2>
-    <h3>2.1 振子堆叠法（Stacked Element）</h3>
-    <pre><code>结构：
-      垂直堆叠不同频段的振子阵列
-      
-    典型 3 频天线（700+2600+3500MHz）：
-      
-      ┌─────────────────────┐
-      │  3500MHz 振子阵列    │  ← 顶部（尺寸最小）
-      ├─────────────────────┤
-      │  屏蔽隔板            │
-      ├─────────────────────┤
-      │  2600MHz 振子阵列    │  ← 中部
-      ├─────────────────────┤
-      │  屏蔽隔板            │
-      ├─────────────────────┤
-      │  700MHz 振子阵列     │  ← 底部（尺寸最大）
-      └─────────────────────┘
+隔离方法：
+  1. 空间隔离
+     不同频段振子之间保持 ≥ λ_low/4 距离
+     例如：700MHz 和 3500MHz 间距 ≥ 100mm
+
+  2. 正交极化
+     不同频段使用不同极化方向
+     例如：700MHz 用 ±45°，3500MHz 用 0°/90°
+
+  3. 电磁屏蔽
+     振子之间加屏蔽隔板
+     例如：金属网/ perforated plate
+
+  4. 滤波器隔离（主流）
+     每个频段配专用滤波器
+     滤波器带外抑制 &gt; 60dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    优点：
-      - 隔离度好（物理间距大）
-      - 各频段独立优化
-      - 成熟方案
-      
-    缺点：
-      - 天线高度大（3 频 ~ 300-400mm）
-      - 风载大
-      - 重量大</code></pre>
-    <h3>2.2 共口径法（Co-Aperture）</h3>
+    <h2>2.1 振子堆叠法（Stacked Element）</h2>
     <pre><code>结构：
-      不同频段振子在同一平面上
-      通过极化/频率/图案隔离
-      
-    实现方式：
-      1. 极化隔离
-         700MHz：±45° 双极化
-         2600MHz：0°/90° 正交极化
-         → 极化隔离度 &gt; 25dB
-         
-      2. 频率隔离
-         不同频段振子尺寸不同
-         → 谐振频率天然隔离
-         
-      3. 图案隔离
-         不同频段波束宽度不同
-         → 空间隔离
+  垂直堆叠不同频段的振子阵列
+
+典型 3 频天线（700+2600+3500MHz）：
+
+  ┌─────────────────────┐
+  │  3500MHz 振子阵列    │  ← 顶部（尺寸最小）
+  ├─────────────────────┤
+  │  屏蔽隔板            │
+  ├─────────────────────┤
+  │  2600MHz 振子阵列    │  ← 中部
+  ├─────────────────────┤
+  │  屏蔽隔板            │
+  ├─────────────────────┤
+  │  700MHz 振子阵列     │  ← 底部（尺寸最大）
+  └─────────────────────┘
+
+优点：
+  - 隔离度好（物理间距大）
+  - 各频段独立优化
+  - 成熟方案
+
+缺点：
+  - 天线高度大（3 频 ~ 300-400mm）
+  - 风载大
+  - 重量大
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    优点：
-      - 天线更薄（~100-150mm）
-      - 风载小
-      - 美观
-      
-    缺点：
-      - 设计复杂
-      - 频段间耦合需精细处理
-      - 隔离度相对较低（~20dB）</code></pre>
-    <h3>2.3 多频振子（Multi-Band Element）</h3>
+    <h2>2.2 共口径法（Co-Aperture）</h2>
     <pre><code>结构：
-      单个振子支持多个频段
-      
-    实现方式：
-      1. 折叠振子（Folded Dipole）
-         振子折成多个&quot;U&quot;形
-         每个 U 形谐振在不同频率
-         
-      2. 耦合振子（Coupled Dipole）
-         主振子 + 寄生振子
-         寄生振子调谐到不同频率
-         
-      3. 多谐振结构
-         振子上集成多个谐振腔
-         每个腔体谐振在不同频率
-         
-    优点：
-      - 单元数少
-      - 天线紧凑
-      
-    缺点：
-      - 带宽窄
-      - 效率低
-      - 设计复杂
-      - 5G 基站较少用</code></pre>
-  </article>
+  不同频段振子在同一平面上
+  通过极化/频率/图案隔离
 
-  <article class="card">
-    <h2>三、典型多频段配置</h2>
-    <h3>3.1 双频天线（主流）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段组合</th><th>应用场景</th><th>天线高度</th></tr></thead>
-    <tbody>
-    <tr><td>700+2600MHz</td><td>城乡覆盖</td><td>~250mm</td></tr>
-    <tr><td>900+1800MHz</td><td>欧洲/海外</td><td>~200mm</td></tr>
-    <tr><td>1800+2600MHz</td><td>城市热点</td><td>~180mm</td></tr>
-    </tbody></table></div>
-    <h3>3.2 三频天线（5G 主流）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段组合</th><th>应用场景</th><th>天线高度</th></tr></thead>
-    <tbody>
-    <tr><td>700+2600+3500MHz</td><td>中国主流 5G</td><td>~350mm</td></tr>
-    <tr><td>800+1800+3500MHz</td><td>欧洲 5G</td><td>~300mm</td></tr>
-    <tr><td>900+1800+2600MHz</td><td>海外 4G/5G</td><td>~250mm</td></tr>
-    </tbody></table></div>
-    <h3>3.3 四频天线（高端）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段组合</th><th>应用场景</th><th>天线高度</th></tr></thead>
-    <tbody>
-    <tr><td>700+900+2600+3500MHz</td><td>多运营商共享</td><td>~450mm</td></tr>
-    </tbody></table></div>
-  </article>
+实现方式：
+  1. 极化隔离
+     700MHz：±45° 双极化
+     2600MHz：0°/90° 正交极化
+     → 极化隔离度 &gt; 25dB
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>多频段天线设计的核心矛盾是"低频振子大 vs 天线高度有限"——700MHz 振子需要 20cm 半波长，但天线高度只有 30cm。解决方案是"堆叠+隔离"：低频振子放底部，高频放顶部，中间加屏蔽隔板和滤波器。记住：3 频天线（700+2600+3500MHz）是目前中国 5G 基站的主流配置，天线高度 ~350mm，风载面积 ~0.12m²。</p>
+  2. 频率隔离
+     不同频段振子尺寸不同
+     → 谐振频率天然隔离
+
+  3. 图案隔离
+     不同频段波束宽度不同
+     → 空间隔离
+
+优点：
+  - 天线更薄（~100-150mm）
+  - 风载小
+  - 美观
+
+缺点：
+  - 设计复杂
+  - 频段间耦合需精细处理
+  - 隔离度相对较低（~20dB）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 多频振子（Multi-Band Element）</h2>
+    <pre><code>结构：
+  单个振子支持多个频段
+
+实现方式：
+  1. 折叠振子（Folded Dipole）
+     振子折成多个&quot;U&quot;形
+     每个 U 形谐振在不同频率
+
+  2. 耦合振子（Coupled Dipole）
+     主振子 + 寄生振子
+     寄生振子调谐到不同频率
+
+  3. 多谐振结构
+     振子上集成多个谐振腔
+     每个腔体谐振在不同频率
+
+优点：
+  - 单元数少
+  - 天线紧凑
+
+缺点：
+  - 带宽窄
+  - 效率低
+  - 设计复杂
+  - 5G 基站较少用
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 双频天线（主流）</h2>
+    <table>
+<thead>
+<tr>
+<th>频段组合</th>
+<th>应用场景</th>
+<th>天线高度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700+2600MHz</td>
+<td>城乡覆盖</td>
+<td>~250mm</td>
+</tr>
+<tr>
+<td>900+1800MHz</td>
+<td>欧洲/海外</td>
+<td>~200mm</td>
+</tr>
+<tr>
+<td>1800+2600MHz</td>
+<td>城市热点</td>
+<td>~180mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 三频天线（5G 主流）</h2>
+    <table>
+<thead>
+<tr>
+<th>频段组合</th>
+<th>应用场景</th>
+<th>天线高度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700+2600+3500MHz</td>
+<td>中国主流 5G</td>
+<td>~350mm</td>
+</tr>
+<tr>
+<td>800+1800+3500MHz</td>
+<td>欧洲 5G</td>
+<td>~300mm</td>
+</tr>
+<tr>
+<td>900+1800+2600MHz</td>
+<td>海外 4G/5G</td>
+<td>~250mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 四频天线（高端）</h2>
+    <table>
+<thead>
+<tr>
+<th>频段组合</th>
+<th>应用场景</th>
+<th>天线高度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700+900+2600+3500MHz</td>
+<td>多运营商共享</td>
+<td>~450mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -276,39 +364,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

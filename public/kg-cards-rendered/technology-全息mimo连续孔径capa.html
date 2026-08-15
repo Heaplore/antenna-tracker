@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>全息 MIMO / 连续孔径天线（Holographic MIMO / CAPA） · 知识卡片</title>
+<title>全息MIMO连续孔径CAPA · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">全息 MIMO / 连续孔径天线 <span class="en">Holographic MIMO / CAPA</span></h1>
-  <p class="lede">全息 MIMO（Holographic MIMO）和连续孔径阵列（CAPA）是 6G 的终极天线形态——它用一块连续的、可编程的电磁表面替代了离散的天线单元阵列，实现了理论上无限多的空间自由度。这不是"更多的天线"，而是"没有天线"的天线：电磁波直接在连续表面上被编程和控制。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">全息MIMO连续孔径CAPA</h1>
+  <p class="lede">全息 MIMO（Holographic MIMO）和连续孔径阵列（CAPA）是 6G 的终极天线形态——它用一块连续的、可编程的电磁表面替代了离散的天线单元阵列，实现了理论上无限多的空间自由度。这不是&#34;更多的天线&#34;，而是&#34;没有天线&#34;的天线：电磁波直接在连续表面上被编程和控制。</p>
+  
 </header>
 
 <main>
@@ -99,204 +101,643 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统天线阵列像钢琴——有固定的黑白键（天线单元），你能弹的音符是有限的。全息 MIMO 像电子琴的触摸屏——没有固定的键，你可以在任何位置"按"出任何音符。更准确地说，它像 hologram（全息图）——不是一个个独立的发光点，而是一块连续的发光表面，通过调制表面各点的相位和幅度，在空间中"雕刻"出任意形状的电磁波。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 从离散到连续：天线范式的根本转变</h3>
-    <div class="tw"><table>
-    <thead><tr><th>维度</th><th>离散阵列（SPDA）</th><th>连续孔径（CAPA）</th></tr></thead>
-    <tbody>
-    <tr><td>辐射体</td><td>离散的天线单元（N 个）</td><td>连续的电磁表面</td></tr>
-    <tr><td>自由度</td><td>N 个（有限）</td><td>无限个（理论）</td></tr>
-    <tr><td>波束控制</td><td>通过离散单元的幅相加权</td><td>通过表面电流分布 J(x,y)</td></tr>
-    <tr><td>方向图</td><td>AF(θ) = Σ I_n · exp(j·n·ψ)</td><td>F(θ) = ∬ J(x,y) · exp(j·k·r) dx dy</td></tr>
-    <tr><td>物理实现</td><td>天线单元 + 移相器</td><td>超表面 / RIS / 可编程金属表面</td></tr>
-    </tbody></table></div>
-    <h3>1.2 数学本质：从傅里叶级数到傅里叶变换</h3>
-    <p>离散阵列的方向图是<b>傅里叶级数</b>：</p>
-    <pre><code>AF(θ) = Σ(n=-N/2 to N/2) [I_n · exp(j·n·k·d·sinθ)]</code></pre>
-    <p>连续孔径的方向图是<b>傅里叶变换</b>：</p>
-    <pre><code>F(k_x, k_y) = ∬∬ J(x,y) · exp[j·(k_x·x + k_y·y)] dx dy</code></pre>
-    <p>其中 J(x,y) 是连续表面上的电流分布，k_x = k·sinθ·cosφ，k_y = k·sinθ·sinφ。</p>
-    <p><b>关键洞察</b>：傅里叶变换有无限多的频率分量，而傅里叶级数只有 N 个。这意味着 CAPA 可以形成无限多的独立波束（理论上）。</p>
-    <h3>1.3 全息原理</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 从离散到连续：天线范式的根本转变</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>离散阵列（SPDA）</th>
+<th>连续孔径（CAPA）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>辐射体</td>
+<td>离散的天线单元（N 个）</td>
+<td>连续的电磁表面</td>
+</tr>
+<tr>
+<td>自由度</td>
+<td>N 个（有限）</td>
+<td>无限个（理论）</td>
+</tr>
+<tr>
+<td>波束控制</td>
+<td>通过离散单元的幅相加权</td>
+<td>通过表面电流分布 J(x,y)</td>
+</tr>
+<tr>
+<td>方向图</td>
+<td>AF(θ) = Σ I_n · exp(j·n·ψ)</td>
+<td>F(θ) = ∬ J(x,y) · exp(j·k·r) dx dy</td>
+</tr>
+<tr>
+<td>物理实现</td>
+<td>天线单元 + 移相器</td>
+<td>超表面 / RIS / 可编程金属表面</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 数学本质：从傅里叶级数到傅里叶变换</h2>
+    <p>离散阵列的方向图是<strong>傅里叶级数</strong>：</p>
+<pre><code>AF(θ) = Σ(n=-N/2 to N/2) [I_n · exp(j·n·k·d·sinθ)]
+</code></pre>
+<p>连续孔径的方向图是<strong>傅里叶变换</strong>：</p>
+<pre><code>F(k_x, k_y) = ∬∬ J(x,y) · exp[j·(k_x·x + k_y·y)] dx dy
+</code></pre>
+<p>其中 J(x,y) 是连续表面上的电流分布，k_x = k·sinθ·cosφ，k_y = k·sinθ·sinφ。</p>
+<p><strong>关键洞察</strong>：傅里叶变换有无限多的频率分量，而傅里叶级数只有 N 个。这意味着 CAPA 可以形成无限多的独立波束（理论上）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 全息原理</h2>
     <p>全息 MIMO 的名称来源于光学全息技术——全息图记录的是光波的完整振幅和相位信息，而不是简单的强度分布。</p>
-    <p>在天线领域，"全息"意味着：</p>
-    <ul><li>表面不仅控制辐射强度</li><li>还精确控制每个点的辐射相位</li><li>通过干涉和衍射原理，在空间中"重建"出任意波前</li></ul>
-    <h3>1.4 CAPA 的实现方式</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方式</th><th>原理</th><th>成熟度</th><th>特点</th></tr></thead>
-    <tbody>
-    <tr><td>超表面（Metasurface）</td><td>亚波长单元组成的可编程表面</td><td>原型</td><td>超薄、轻量、可重构</td></tr>
-    <tr><td>智能反射面（RIS）</td><td>大规模被动反射单元阵列</td><td>商用初期</td><td>成本低、无需电源</td></tr>
-    <tr><td>可编程金属表面</td><td>连续金属表面 + 电子开关</td><td>研究</td><td>真正的连续孔径</td></tr>
-    <tr><td>介电谐振器阵列</td><td>高介电常数谐振器排列</td><td>研究</td><td>低损耗、高增益</td></tr>
-    </tbody></table></div>
+<p>在天线领域，"全息"意味着：</p>
+<ul>
+<li>表面不仅控制辐射强度</li>
+<li>还精确控制每个点的辐射相位</li>
+<li>通过干涉和衍射原理，在空间中"重建"出任意波前</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 CAPA 的信道模型</h3>
-    <p>传统 MIMO 信道矩阵 H 是 N_t × N_r 的离散矩阵。CAPA 的信道是<b>连续信道函数</b> h(x,y; x',y')：</p>
-    <pre><code>y(x&#x27;,y&#x27;) = ∬ h(x,y; x&#x27;,y&#x27;) · J(x,y) dx dy + n</code></pre>
-    <p>其中：</p>
-    <ul><li>J(x,y) 是发射表面的电流分布</li><li>h(x,y; x',y') 是两点之间的信道传递函数</li><li>y(x',y') 是接收表面的感应电流</li></ul>
-    <h3>2.2 CAPA 的容量上限</h3>
+  
+  <article class="card ">
+    
+    <h2>1.4 CAPA 的实现方式</h2>
+    <table>
+<thead>
+<tr>
+<th>方式</th>
+<th>原理</th>
+<th>成熟度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超表面（Metasurface）</td>
+<td>亚波长单元组成的可编程表面</td>
+<td>原型</td>
+<td>超薄、轻量、可重构</td>
+</tr>
+<tr>
+<td>智能反射面（RIS）</td>
+<td>大规模被动反射单元阵列</td>
+<td>商用初期</td>
+<td>成本低、无需电源</td>
+</tr>
+<tr>
+<td>可编程金属表面</td>
+<td>连续金属表面 + 电子开关</td>
+<td>研究</td>
+<td>真正的连续孔径</td>
+</tr>
+<tr>
+<td>介电谐振器阵列</td>
+<td>高介电常数谐振器排列</td>
+<td>研究</td>
+<td>低损耗、高增益</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 CAPA 的信道模型</h2>
+    <p>传统 MIMO 信道矩阵 H 是 N_t × N_r 的离散矩阵。CAPA 的信道是<strong>连续信道函数</strong> h(x,y; x',y')：</p>
+<pre><code>y(x',y') = ∬ h(x,y; x',y') · J(x,y) dx dy + n
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>J(x,y) 是发射表面的电流分布</li>
+<li>h(x,y; x',y') 是两点之间的信道传递函数</li>
+<li>y(x',y') 是接收表面的感应电流</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 CAPA 的容量上限</h2>
     <p>传统 MIMO 的容量：</p>
-    <pre><code>C = log₂ det(I + (ρ/N_t) · H · Hᴴ)</code></pre>
-    <p>CAPA 的容量是上述公式的<b>连续极限</b>：</p>
-    <pre><code>C_CAPA = lim(N→∞) C_MIMO(N)</code></pre>
-    <p>研究表明，在相同面积和功率下，CAPA 的容量可以比最优离散 MIMO 高 <b>2-5 倍</b>，原因是：</p>
-    <ul><li>无限自由度可以精确匹配信道特征函数</li><li>没有单元间距限制（无栅瓣）</li><li>近场波前可以精确建模</li></ul>
-    <h3>2.3 波束赋形的电磁优化</h3>
+<pre><code>C = log₂ det(I + (ρ/N_t) · H · Hᴴ)
+</code></pre>
+<p>CAPA 的容量是上述公式的<strong>连续极限</strong>：</p>
+<pre><code>C_CAPA = lim(N→∞) C_MIMO(N)
+</code></pre>
+<p>研究表明，在相同面积和功率下，CAPA 的容量可以比最优离散 MIMO 高 <strong>2-5 倍</strong>，原因是：</p>
+<ul>
+<li>无限自由度可以精确匹配信道特征函数</li>
+<li>没有单元间距限制（无栅瓣）</li>
+<li>近场波前可以精确建模</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 波束赋形的电磁优化</h2>
     <p>CAPA 的波束赋形不是简单的向量乘法，而是电磁场的优化问题：</p>
-    <pre><code>maximize    接收功率 = ||∬ J(x,y) · h(x,y) dx dy||²
-    subject to  ∬ |J(x,y)|² dx dy ≤ P_max
-                J(x,y) ∈ 可实现集合</code></pre>
-    <p><b>可实现集合</b>的约束取决于物理实现：</p>
-    <ul><li>超表面：|J(x,y)| = 常数，相位可调（0-2π）</li><li>可编程金属：|J(x,y)| 和相位都可调</li><li>RIS：|J(x,y)| = 0 或 1（被动反射）</li></ul>
-    <h3>2.4 模式分割复用（Pattern-Division Multiplexing, PDM）</h3>
-    <p>CAPA 的核心创新——不再用空间位置或极化来区分用户，而是用<b>波束形状</b>来区分：</p>
-    <pre><code>用户 1: J₁(x,y) → 波束形状 F₁(θ,φ)
-    用户 2: J₂(x,y) → 波束形状 F₂(θ,φ)
-    ...
-    用户 K: J_K(x,y) → 波束形状 F_K(θ,φ)</code></pre>
-    <p>只要 {F₁, F₂, ..., F_K} 在接收端正交，就可以在同一频率、同一时间、同一空间位置服务 K 个用户。</p>
-    <p><b>关键公式</b>（正交条件）：</p>
-    <pre><code>∬ F_i(θ,φ) · F_j*(θ,φ) dΩ = 0,  i ≠ j</code></pre>
-    <h3>2.5 全息波束赋形设计</h3>
+<pre><code>maximize    接收功率 = ||∬ J(x,y) · h(x,y) dx dy||²
+subject to  ∬ |J(x,y)|² dx dy ≤ P_max
+            J(x,y) ∈ 可实现集合
+</code></pre>
+<p><strong>可实现集合</strong>的约束取决于物理实现：</p>
+<ul>
+<li>超表面：|J(x,y)| = 常数，相位可调（0-2π）</li>
+<li>可编程金属：|J(x,y)| 和相位都可调</li>
+<li>RIS：|J(x,y)| = 0 或 1（被动反射）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 模式分割复用（Pattern-Division Multiplexing, PDM）</h2>
+    <p>CAPA 的核心创新——不再用空间位置或极化来区分用户，而是用<strong>波束形状</strong>来区分：</p>
+<pre><code>用户 1: J₁(x,y) → 波束形状 F₁(θ,φ)
+用户 2: J₂(x,y) → 波束形状 F₂(θ,φ)
+...
+用户 K: J_K(x,y) → 波束形状 F_K(θ,φ)
+</code></pre>
+<p>只要 {F₁, F₂, ..., F_K} 在接收端正交，就可以在同一频率、同一时间、同一空间位置服务 K 个用户。</p>
+<p><strong>关键公式</strong>（正交条件）：</p>
+<pre><code>∬ F_i(θ,φ) · F_j*(θ,φ) dΩ = 0,  i ≠ j
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 全息波束赋形设计</h2>
     <p>给定目标波前 W_target(θ,φ)，求解表面电流分布 J(x,y)：</p>
-    <pre><code>J(x,y) = F⁻¹[W_target(k_x, k_y)]</code></pre>
-    <p>其中 F⁻¹ 是逆傅里叶变换。这就是"全息"的含义——通过逆傅里叶变换"重建"出产生目标波前的表面电流分布。</p>
+<pre><code>J(x,y) = F⁻¹[W_target(k_x, k_y)]
+</code></pre>
+<p>其中 F⁻¹ 是逆傅里叶变换。这就是"全息"的含义——通过逆傅里叶变换"重建"出产生目标波前的表面电流分布。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、CAPA vs 离散阵列的性能对比</h2>
-    <h3>3.1 理论性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>离散 MIMO（最优）</th><th>CAPA（理论）</th><th>增益</th></tr></thead>
-    <tbody>
-    <tr><td>容量（相同面积）</td><td>C</td><td>2-5C</td><td>2-5×</td></tr>
-    <tr><td>自由度</td><td>N（有限）</td><td>∞（无限）</td><td>∞</td></tr>
-    <tr><td>波束数量</td><td>有限（受限于 N）</td><td>无限</td><td>∞</td></tr>
-    <tr><td>波束形状灵活性</td><td>受限（离散单元）</td><td>任意（连续表面）</td><td>∞</td></tr>
-    <tr><td>近场建模精度</td><td>近似</td><td>精确</td><td>显著</td></tr>
-    </tbody></table></div>
-    <h3>3.2 实际性能（原型系统）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>原型 CAPA</th><th>64T64R Massive MIMO</th><th>比较</th></tr></thead>
-    <tbody>
-    <tr><td>单元数</td><td>~1000（等效）</td><td>128</td><td>~8×</td></tr>
-    <tr><td>增益</td><td>25-30 dBi</td><td>22-25 dBi</td><td>+3-5dB</td></tr>
-    <tr><td>波束数量</td><td>10+</td><td>4-8</td><td>2-3×</td></tr>
-    <tr><td>功耗</td><td>相似</td><td>相似</td><td>相当</td></tr>
-    </tbody></table></div>
-    <h3>3.3 成本对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>成本项</th><th>离散 Massive MIMO</th><th>CAPA</th></tr></thead>
-    <tbody>
-    <tr><td>T/R 模块</td><td>128-256 个</td><td>0 个（被动表面）</td></tr>
-    <tr><td>移相器</td><td>128-256 个</td><td>集成在表面中</td></tr>
-    <tr><td>馈电网络</td><td>复杂</td><td>无（表面自馈电）</td></tr>
-    <tr><td>散热</td><td>复杂</td><td>简单（无有源器件）</td></tr>
-    <tr><td>单位面积成本</td><td>高</td><td>低（材料+制造）</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 理论性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>离散 MIMO（最优）</th>
+<th>CAPA（理论）</th>
+<th>增益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>容量（相同面积）</td>
+<td>C</td>
+<td>2-5C</td>
+<td>2-5×</td>
+</tr>
+<tr>
+<td>自由度</td>
+<td>N（有限）</td>
+<td>∞（无限）</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>波束数量</td>
+<td>有限（受限于 N）</td>
+<td>无限</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>波束形状灵活性</td>
+<td>受限（离散单元）</td>
+<td>任意（连续表面）</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>近场建模精度</td>
+<td>近似</td>
+<td>精确</td>
+<td>显著</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 6G 基站</h3>
-    <ul><li>用一块 2m × 2m 的超表面替代传统 AAU</li><li>同时服务数十个用户（每个用户一个独立波束）</li><li>波束形状可动态调整（适应不同场景）</li></ul>
-    <h3>4.2 室内覆盖</h3>
-    <ul><li>天花板安装可编程电磁表面</li><li>自动跟踪用户位置，形成"跟随波束"</li><li>无需传统 AP/RRU</li></ul>
-    <h3>4.3 ISAC（通感一体化）</h3>
-    <ul><li>同一块超表面同时完成通信和感知</li><li>通信波束和感知波束在电磁域联合优化</li><li>CAPA 的无限自由度可以最大化 ISAC 的 Pareto 最优区域</li></ul>
-    <h3>4.4 卫星通信</h3>
-    <ul><li>轻量化、超薄型的 CAPA 天线</li><li>可展开的柔性连续孔径（FCAPA）</li><li>在轨可重构波束</li></ul>
-    <h3>4.5 智能反射面（RIS）增强覆盖</h3>
-    <ul><li>在信号盲区放置 RIS 表面</li><li>动态调整反射相位，将信号"拐"到盲区</li><li>低成本、低功耗</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.2 实际性能（原型系统）</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>原型 CAPA</th>
+<th>64T64R Massive MIMO</th>
+<th>比较</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元数</td>
+<td>~1000（等效）</td>
+<td>128</td>
+<td>~8×</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>25-30 dBi</td>
+<td>22-25 dBi</td>
+<td>+3-5dB</td>
+</tr>
+<tr>
+<td>波束数量</td>
+<td>10+</td>
+<td>4-8</td>
+<td>2-3×</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>相似</td>
+<td>相似</td>
+<td>相当</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 CAPA 性能指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标值</th></tr></thead>
-    <tbody>
-    <tr><td>等效单元数</td><td>连续表面可区分的独立控制点数量</td><td>> 1000</td></tr>
-    <tr><td>波束数量</td><td>可同时形成的独立波束数</td><td>> 10</td></tr>
-    <tr><td>波束形状自由度</td><td>可生成的独立波前数量</td><td>理论无限</td></tr>
-    <tr><td>相位分辨率</td><td>表面单元的最小相位调控步进</td><td>< 5.6°（6-bit）</td></tr>
-    <tr><td>响应时间</td><td>从指令到波束重构完成的时间</td><td>< 1ms</td></tr>
-    </tbody></table></div>
-    <h3>5.2 超表面指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>单元尺寸</td><td>超表面单个 meta-atom 的尺寸</td><td>λ/4 - λ/2</td></tr>
-    <tr><td>单元间距</td><td>相邻 meta-atom 的中心距</td><td>< λ/2</td></tr>
-    <tr><td>损耗</td><td>每个单元的插入损耗</td><td>< 0.5dB</td></tr>
-    <tr><td>带宽</td><td>有效工作带宽</td><td>5-20%</td></tr>
-    <tr><td>极化转换</td><td>可实现的极化变换范围</td><td>任意椭圆极化</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.3 成本对比</h2>
+    <table>
+<thead>
+<tr>
+<th>成本项</th>
+<th>离散 Massive MIMO</th>
+<th>CAPA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T/R 模块</td>
+<td>128-256 个</td>
+<td>0 个（被动表面）</td>
+</tr>
+<tr>
+<td>移相器</td>
+<td>128-256 个</td>
+<td>集成在表面中</td>
+</tr>
+<tr>
+<td>馈电网络</td>
+<td>复杂</td>
+<td>无（表面自馈电）</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>复杂</td>
+<td>简单（无有源器件）</td>
+</tr>
+<tr>
+<td>单位面积成本</td>
+<td>高</td>
+<td>低（材料+制造）</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 制造精度</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 6G 基站</h2>
+    <ul>
+<li>用一块 2m × 2m 的超表面替代传统 AAU</li>
+<li>同时服务数十个用户（每个用户一个独立波束）</li>
+<li>波束形状可动态调整（适应不同场景）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 室内覆盖</h2>
+    <ul>
+<li>天花板安装可编程电磁表面</li>
+<li>自动跟踪用户位置，形成"跟随波束"</li>
+<li>无需传统 AP/RRU</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 ISAC（通感一体化）</h2>
+    <ul>
+<li>同一块超表面同时完成通信和感知</li>
+<li>通信波束和感知波束在电磁域联合优化</li>
+<li>CAPA 的无限自由度可以最大化 ISAC 的 Pareto 最优区域</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 卫星通信</h2>
+    <ul>
+<li>轻量化、超薄型的 CAPA 天线</li>
+<li>可展开的柔性连续孔径（FCAPA）</li>
+<li>在轨可重构波束</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 智能反射面（RIS）增强覆盖</h2>
+    <ul>
+<li>在信号盲区放置 RIS 表面</li>
+<li>动态调整反射相位，将信号"拐"到盲区</li>
+<li>低成本、低功耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 CAPA 性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>等效单元数</td>
+<td>连续表面可区分的独立控制点数量</td>
+<td>&gt; 1000</td>
+</tr>
+<tr>
+<td>波束数量</td>
+<td>可同时形成的独立波束数</td>
+<td>&gt; 10</td>
+</tr>
+<tr>
+<td>波束形状自由度</td>
+<td>可生成的独立波前数量</td>
+<td>理论无限</td>
+</tr>
+<tr>
+<td>相位分辨率</td>
+<td>表面单元的最小相位调控步进</td>
+<td>&lt; 5.6°（6-bit）</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>从指令到波束重构完成的时间</td>
+<td>&lt; 1ms</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 超表面指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元尺寸</td>
+<td>超表面单个 meta-atom 的尺寸</td>
+<td>λ/4 - λ/2</td>
+</tr>
+<tr>
+<td>单元间距</td>
+<td>相邻 meta-atom 的中心距</td>
+<td>&lt; λ/2</td>
+</tr>
+<tr>
+<td>损耗</td>
+<td>每个单元的插入损耗</td>
+<td>&lt; 0.5dB</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>有效工作带宽</td>
+<td>5-20%</td>
+</tr>
+<tr>
+<td>极化转换</td>
+<td>可实现的极化变换范围</td>
+<td>任意椭圆极化</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 制造精度</h2>
     <p>CAPA 的表面单元尺寸通常在 λ/4 到 λ/2 之间：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>λ</th><th>单元尺寸</th><th>加工要求</th></tr></thead>
-    <tbody>
-    <tr><td>3.5GHz</td><td>86mm</td><td>20-43mm</td><td>标准 PCB</td></tr>
-    <tr><td>28GHz</td><td>10.7mm</td><td>2.7-5.4mm</td><td>精细 PCB</td></tr>
-    <tr><td>100GHz</td><td>3mm</td><td>0.75-1.5mm</td><td>MEMS / 光刻</td></tr>
-    <tr><td>300GHz</td><td>1mm</td><td>0.25-0.5mm</td><td>半导体工艺</td></tr>
-    </tbody></table></div>
-    <h3>6.2 控制复杂度</h3>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>λ</th>
+<th>单元尺寸</th>
+<th>加工要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5GHz</td>
+<td>86mm</td>
+<td>20-43mm</td>
+<td>标准 PCB</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>10.7mm</td>
+<td>2.7-5.4mm</td>
+<td>精细 PCB</td>
+</tr>
+<tr>
+<td>100GHz</td>
+<td>3mm</td>
+<td>0.75-1.5mm</td>
+<td>MEMS / 光刻</td>
+</tr>
+<tr>
+<td>300GHz</td>
+<td>1mm</td>
+<td>0.25-0.5mm</td>
+<td>半导体工艺</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 控制复杂度</h2>
     <p>N 个离散单元的波束赋形需要 N 个复数控制信号。CAPA 有"无限"个控制点——如何控制？</p>
-    <p><b>实际方案</b>：</p>
-    <ul><li>将连续表面离散化为 M 个控制单元（M >> N）</li><li>使用压缩感知/稀疏优化减少控制信号数量</li><li>AI 驱动的控制：神经网络直接从目标波前映射到控制信号</li></ul>
-    <h3>6.3 互耦效应</h3>
-    <p>在 CAPA 中，相邻单元之间的互耦不再是小扰动，而是<b>主导因素</b>：</p>
-    <ul><li>每个单元的响应都受到所有其他单元的影响</li><li>传统的"独立单元 + 阵列因子"模型失效</li><li>需要全电磁仿真 + 互耦矩阵补偿</li></ul>
-    <h3>6.4 校准</h3>
+<p><strong>实际方案</strong>：</p>
+<ul>
+<li>将连续表面离散化为 M 个控制单元（M &gt;&gt; N）</li>
+<li>使用压缩感知/稀疏优化减少控制信号数量</li>
+<li>AI 驱动的控制：神经网络直接从目标波前映射到控制信号</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 互耦效应</h2>
+    <p>在 CAPA 中，相邻单元之间的互耦不再是小扰动，而是<strong>主导因素</strong>：</p>
+<ul>
+<li>每个单元的响应都受到所有其他单元的影响</li>
+<li>传统的"独立单元 + 阵列因子"模型失效</li>
+<li>需要全电磁仿真 + 互耦矩阵补偿</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 校准</h2>
     <p>CAPA 的校准比离散阵列复杂得多：</p>
-    <ul><li>离散阵列：校准 N 个通道的幅相</li><li>CAPA：校准 M 个单元（M >> N）的幅相</li><li>校准时间：M 次测量 vs N 次测量</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>分组校准（将 M 个单元分成若干组）</li><li>在线自校准（利用通信信号）</li><li>AI 辅助校准（学习校准映射）</li></ul>
-    <h3>6.5 功耗</h3>
+<ul>
+<li>离散阵列：校准 N 个通道的幅相</li>
+<li>CAPA：校准 M 个单元（M &gt;&gt; N）的幅相</li>
+<li>校准时间：M 次测量 vs N 次测量</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>分组校准（将 M 个单元分成若干组）</li>
+<li>在线自校准（利用通信信号）</li>
+<li>AI 辅助校准（学习校准映射）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 功耗</h2>
     <p>虽然 CAPA 本身（被动超表面）功耗极低，但其控制系统（FPGA/ASIC）的功耗可能不低：</p>
-    <ul><li>M 个单元的实时相位控制需要 M 个 DAC</li><li>M = 1000 时，DAC 功耗可能超过传统 Massive MIMO</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>事件驱动控制（只激活活跃的单元）</li><li>低功耗 MEMS 移相器</li><li>模拟域波束赋形（避免数字域的大规模运算）</li></ul>
+<ul>
+<li>M 个单元的实时相位控制需要 M 个 DAC</li>
+<li>M = 1000 时，DAC 功耗可能超过传统 Massive MIMO</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>事件驱动控制（只激活活跃的单元）</li>
+<li>低功耗 MEMS 移相器</li>
+<li>模拟域波束赋形（避免数字域的大规模运算）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>2010s 初</b>：超表面（Metasurface）概念在电磁学领域兴起</li><li><b>2014年</b>：Holographic MIMO 理论首次提出（Elizabeth Woo 等）</li><li><b>2018年</b>：智能反射面（RIS）在无线通信领域兴起</li><li><b>2020年</b>：连续孔径阵列（CAPA）作为 6G 关键技术被提出</li><li><b>2021-2022年</b>：CAPA 信道模型和容量理论建立</li><li><b>2023年</b>：模式分割复用（PDM）提出</li><li><b>2024年</b>：CAPA 用于 ISAC 系统的 Pareto 最优分析</li><li><b>2025年</b>：柔性连续孔径阵列（FCAPA）提出</li><li><b>2025-2026年</b>：CAPA 原型系统验证中</li></ul>
+    <ul>
+<li><strong>2010s 初</strong>：超表面（Metasurface）概念在电磁学领域兴起</li>
+<li><strong>2014年</strong>：Holographic MIMO 理论首次提出（Elizabeth Woo 等）</li>
+<li><strong>2018年</strong>：智能反射面（RIS）在无线通信领域兴起</li>
+<li><strong>2020年</strong>：连续孔径阵列（CAPA）作为 6G 关键技术被提出</li>
+<li><strong>2021-2022年</strong>：CAPA 信道模型和容量理论建立</li>
+<li><strong>2023年</strong>：模式分割复用（PDM）提出</li>
+<li><strong>2024年</strong>：CAPA 用于 ISAC 系统的 Pareto 最优分析</li>
+<li><strong>2025年</strong>：柔性连续孔径阵列（FCAPA）提出</li>
+<li><strong>2025-2026年</strong>：CAPA 原型系统验证中</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：学术研究 → 原型验证</li><li><b>说明</b>：CAPA 理论框架已建立（2020-2025 年大量 IEEE JSAC/TWC 论文），原型系统正在开发中。预计 2030 年左右随 6G 标准开始小规模商用。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>CAPA 信道模型标准化（3GPP）</li><li>AI 驱动的 CAPA 波束赋形算法</li><li>原型系统性能验证</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 标准纳入 CAPA</li><li>超表面大规模量产工艺建立</li><li>CAPA + ISAC 联合优化</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO 取代 Massive MIMO</li><li>可编程物质天线：表面可以"生长"和"变形"</li><li>量子 CAPA：利用量子效应实现超灵敏波前控制</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>CAPA 信道模型标准化（3GPP）</li>
+<li>AI 驱动的 CAPA 波束赋形算法</li>
+<li>
+<p>原型系统性能验证</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 标准纳入 CAPA</li>
+<li>超表面大规模量产工艺建立</li>
+<li>
+<p>CAPA + ISAC 联合优化</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO 取代 Massive MIMO</li>
+<li>可编程物质天线：表面可以"生长"和"变形"</li>
+<li>量子 CAPA：利用量子效应实现超灵敏波前控制</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>全息 MIMO / CAPA 是天线的"相变"——从离散的、有界的、有限自由度的天线阵列，转变为连续的、无限的、理论上可以生成任意波前的电磁表面。它不是 Massive MIMO 的简单扩展，而是一种全新的天线范式：当你不再数"有多少个天线单元"，而是问"这个表面能产生什么样的波前"时，你就进入了 6G 的世界。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -316,39 +757,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

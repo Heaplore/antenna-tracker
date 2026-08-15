@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AAU 节能技术 · 知识卡片</title>
+<title>AAU节能技术符号关断通道关断深度休眠 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">AAU 节能技术 <span class="en">AAU</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">AAU节能技术符号关断通道关断深度休眠</h1>
   <p class="lede">5G AAU 功耗是 4G 的 2.5-3 倍（单站 600-800W vs 200-300W），运营商电费压力巨大。节能技术分三层：符号关断（毫秒级，省电 5-10%）、通道关断（秒级，省电 20-40%）、深度休眠（分钟级，省电 50-70%），配合 AI 预测流量动态调整。</p>
+  
 </header>
 
 <main>
@@ -99,145 +101,213 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>AAU 节能就像办公室下班关灯——</p>
-    <ul><li>符号关断：没人说话时关掉麦克风（毫秒级）</li><li>通道关断：人少了关掉一半工位（秒级）</li><li>深度休眠：整层楼关灯锁门，有人来时再开（分钟级）</li></ul>
-  </article>
 
-  <article class="card">
-    <h2>一、5G AAU 功耗构成</h2>
-    <h3>1.1 功耗分布</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 功耗分布</h2>
     <pre><code>AAU 总功耗：600-800W（64T64R, 3.5GHz）
+
+功耗分布：
+  ┌─────────────────────────────────────┐
+  │ 功率放大器 PA       │  450-550W  │ 60-70%  │
+  │ 数字处理 Board      │   80-120W  │ 15-20%  │
+  │ 射频前端（移相器等） │   30-50W   │  5-8%   │
+  │ 散热系统            │   20-40W   │  3-5%   │
+  │ 其他（电源/控制）    │   30-50W   │  5-8%   │
+  └─────────────────────────────────────┘
+
+关键：PA 占 60-70%，是节能主战场
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    功耗分布：
-      ┌─────────────────────────────────────┐
-      │ 功率放大器 PA       │  450-550W  │ 60-70%  │
-      │ 数字处理 Board      │   80-120W  │ 15-20%  │
-      │ 射频前端（移相器等） │   30-50W   │  5-8%   │
-      │ 散热系统            │   20-40W   │  3-5%   │
-      │ 其他（电源/控制）    │   30-50W   │  5-8%   │
-      └─────────────────────────────────────┘
-    
-    关键：PA 占 60-70%，是节能主战场</code></pre>
-    <h3>1.2 为什么 5G 更耗电？</h3>
+    <h2>1.2 为什么 5G 更耗电？</h2>
     <pre><code>1. 天线数多：64T/128T vs 4G 2T/4T → 射频链路多 16-64 倍
-    2. 带宽大：100MHz vs 20MHz → 数据处理量大 5 倍
-    3. 功放效率低：Doherty PA 平均效率 25-35% → 65-75% 变成热量
-    4. 散热需求：AAU 密闭腔体 → 需要风扇/液冷</code></pre>
+2. 带宽大：100MHz vs 20MHz → 数据处理量大 5 倍
+3. 功放效率低：Doherty PA 平均效率 25-35% → 65-75% 变成热量
+4. 散热需求：AAU 密闭腔体 → 需要风扇/液冷
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、三层节能技术</h2>
-    <h3>2.1 符号级关断（Symbol Shutdown）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 符号级关断（Symbol Shutdown）</h2>
     <pre><code>原理：
-      5G OFDM 帧中，空闲时隙没有数据传输
-      → 关闭 PA 和射频链路供电
-      → 下一个时隙再快速唤醒
-      
-    时间尺度：
-      OFDM 符号周期：~30μs（15kHz 子载波间隔）
-      唤醒延迟：&lt; 1μs
-      
-    省电效果：
-      轻载时（&lt; 20% 利用率）：省电 5-10%
-      
-    实现方式：
-      - PA 偏置电压快速调节
-      - DAC/ADC 时钟门控
-      - 射频开关快速切断
-      
-    挑战：
-      - 唤醒瞬态会产生瞬态干扰
-      - 需要精确的定时控制
-      - PA 偏置电路响应速度要求高</code></pre>
-    <h3>2.2 通道级关断（Channel/Element Shutdown）</h3>
-    <pre><code>原理：
-      用户少时，关闭部分天线通道
-      → 从 64T 降到 32T/16T/8T
-      → 波束变宽，覆盖范围缩小，但省电
-      
-    时间尺度：
-      秒级到分钟级（基于负载均衡）
-      
-    省电效果：
-      64T → 32T：省电 20-30%
-      64T → 16T：省电 40-50%
-      
-    实现方式：
-      - 数字预编码矩阵降秩
-      - 关闭部分 RF 链路的 DAC/PA
-      - 调整波束宽度补偿覆盖
-      
-    关键：覆盖补偿
-      通道减少后波束变宽 → 边缘用户信号变弱
-      → 需要调整天线倾角/功率补偿
-      
-    3GPP 方案：
-      - Deep Sleep Mode：部分通道休眠
-      - Dynamic MIMO Power Saving：NR Rel-16 引入</code></pre>
-    <h3>2.3 深度休眠（Deep Sleep）</h3>
-    <pre><code>原理：
-      夜间/低峰期，整扇区休眠
-      → 只保留最低功耗的监控通道
-      → 用户来了快速唤醒
-      
-    时间尺度：
-      分钟级到小时级
-      
-    省电效果：
-      相比常开：省电 50-70%
-      
-    实现方式：
-      - 关闭 PA、大部分射频链路
-      - 保留同步信号和唤醒检测
-      - 唤醒时间：&lt; 10ms（NR Rel-16 要求）
-      
-    挑战：
-      - 唤醒延迟影响用户体验
-      - 频繁开关加速器件老化
-      - 需要精准的流量预测</code></pre>
+  5G OFDM 帧中，空闲时隙没有数据传输
+  → 关闭 PA 和射频链路供电
+  → 下一个时隙再快速唤醒
+
+时间尺度：
+  OFDM 符号周期：~30μs（15kHz 子载波间隔）
+  唤醒延迟：&lt; 1μs
+
+省电效果：
+  轻载时（&lt; 20% 利用率）：省电 5-10%
+
+实现方式：
+  - PA 偏置电压快速调节
+  - DAC/ADC 时钟门控
+  - 射频开关快速切断
+
+挑战：
+  - 唤醒瞬态会产生瞬态干扰
+  - 需要精确的定时控制
+  - PA 偏置电路响应速度要求高
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、AI 节能</h2>
-    <h3>3.1 流量预测</h3>
+  
+  <article class="card ">
+    
+    <h2>2.2 通道级关断（Channel/Element Shutdown）</h2>
+    <pre><code>原理：
+  用户少时，关闭部分天线通道
+  → 从 64T 降到 32T/16T/8T
+  → 波束变宽，覆盖范围缩小，但省电
+
+时间尺度：
+  秒级到分钟级（基于负载均衡）
+
+省电效果：
+  64T → 32T：省电 20-30%
+  64T → 16T：省电 40-50%
+
+实现方式：
+  - 数字预编码矩阵降秩
+  - 关闭部分 RF 链路的 DAC/PA
+  - 调整波束宽度补偿覆盖
+
+关键：覆盖补偿
+  通道减少后波束变宽 → 边缘用户信号变弱
+  → 需要调整天线倾角/功率补偿
+
+3GPP 方案：
+  - Deep Sleep Mode：部分通道休眠
+  - Dynamic MIMO Power Saving：NR Rel-16 引入
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 深度休眠（Deep Sleep）</h2>
+    <pre><code>原理：
+  夜间/低峰期，整扇区休眠
+  → 只保留最低功耗的监控通道
+  → 用户来了快速唤醒
+
+时间尺度：
+  分钟级到小时级
+
+省电效果：
+  相比常开：省电 50-70%
+
+实现方式：
+  - 关闭 PA、大部分射频链路
+  - 保留同步信号和唤醒检测
+  - 唤醒时间：&lt; 10ms（NR Rel-16 要求）
+
+挑战：
+  - 唤醒延迟影响用户体验
+  - 频繁开关加速器件老化
+  - 需要精准的流量预测
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 流量预测</h2>
     <pre><code>基于历史数据的 AI 预测：
-      - LSTM/Transformer 预测未来 15min-2h 流量
-      - 准确率 &gt; 90%（城市宏站）
-      - 提前调整节能策略
-      
-    应用场景：
-      1. 白天高峰：全通道开启，最大化容量
-      2. 午间低谷：通道级关断
-      3. 深夜：深度休眠 + 符号关断
-      4. 突发流量：AI 预测到即将高峰，提前唤醒</code></pre>
-    <h3>3.2 智能波束调整</h3>
+  - LSTM/Transformer 预测未来 15min-2h 流量
+  - 准确率 &gt; 90%（城市宏站）
+  - 提前调整节能策略
+
+应用场景：
+  1. 白天高峰：全通道开启，最大化容量
+  2. 午间低谷：通道级关断
+  3. 深夜：深度休眠 + 符号关断
+  4. 突发流量：AI 预测到即将高峰，提前唤醒
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 智能波束调整</h2>
     <pre><code>AI 优化波束指向：
-      - 根据用户分布动态调整波束
-      - 关闭无人方向的波束
-      - 集中能量到有用户的方向
-      
-    省电效果：
-      相比固定波束：额外省电 10-15%</code></pre>
-  </article>
+  - 根据用户分布动态调整波束
+  - 关闭无人方向的波束
+  - 集中能量到有用户的方向
 
-  <article class="card">
+省电效果：
+  相比固定波束：额外省电 10-15%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、节能效果对比</h2>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>时间尺度</th><th>省电效果</th><th>唤醒延迟</th><th>质量影响</th></tr></thead>
-    <tbody>
-    <tr><td>符号关断</td><td>μs-ms</td><td>5-10%</td><td>< 1μs</td><td>无</td></tr>
-    <tr><td>通道关断</td><td>s-min</td><td>20-40%</td><td>< 10ms</td><td>轻微（覆盖缩小）</td></tr>
-    <tr><td>深度休眠</td><td>min-hour</td><td>50-70%</td><td>10-100ms</td><td>中（需要重新建立连接）</td></tr>
-    <tr><td>AI 预测节能</td><td>hour-day</td><td>额外 10-15%</td><td>无</td><td>无</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>时间尺度</th>
+<th>省电效果</th>
+<th>唤醒延迟</th>
+<th>质量影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>符号关断</td>
+<td>μs-ms</td>
+<td>5-10%</td>
+<td>&lt; 1μs</td>
+<td>无</td>
+</tr>
+<tr>
+<td>通道关断</td>
+<td>s-min</td>
+<td>20-40%</td>
+<td>&lt; 10ms</td>
+<td>轻微（覆盖缩小）</td>
+</tr>
+<tr>
+<td>深度休眠</td>
+<td>min-hour</td>
+<td>50-70%</td>
+<td>10-100ms</td>
+<td>中（需要重新建立连接）</td>
+</tr>
+<tr>
+<td>AI 预测节能</td>
+<td>hour-day</td>
+<td>额外 10-15%</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>5G AAU 节能是"三层防御"：符号关断保毫秒级响应，通道关断应对小时级波动，深度休眠覆盖夜间低谷。AI 预测让节能更精准——不是简单粗暴地"关灯"，而是"知道什么时候该开灯"。记住：节能不是牺牲覆盖，而是在保证 QoS 的前提下，让每一度电都花在刀刃上。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -257,39 +327,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

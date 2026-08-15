@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线阵列（Antenna Array） · 知识卡片</title>
+<title>天线阵列Antenna-Array · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线阵列 <span class="en">Antenna Array</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线阵列Antenna-Array</h1>
   <p class="lede">天线阵列是将多个独立天线单元按一定几何排列组合，通过控制各单元的幅度和相位，使辐射方向图按需求成形和指向的综合性天线系统。它是现代通信、雷达、卫星导航等领域几乎所有高级天线技术的基础。</p>
+  
 </header>
 
 <main>
@@ -99,144 +101,436 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一群人站在广场上各自喊话——如果每个人都随意喊，声音杂乱无章；但如果大家按指挥的节奏同时开口，声波就能叠加成一个方向的声音，让对面的人听得特别清楚。这就是天线阵列的原理：每个天线单元"喊"一个电磁波，通过精确控制它们的相位关系，让波在需要的方向"叠加增强"，在不需要方向"抵消减弱"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
-    <p>天线阵列（Antenna Array）是由两个或多个相同或不同的辐射单元按照一定的几何形状和排列方式组成的天线系统。阵列的核心思想是<b>空间信号处理</b>——利用多个天线单元的空间分布特性，通过幅度加权（Amplitude Weighting）和相位控制（Phase Control），实现对辐射方向图的灵活调控。</p>
-    <h3>2.2 基本原理：阵列因子理论</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
+    <p>天线阵列（Antenna Array）是由两个或多个相同或不同的辐射单元按照一定的几何形状和排列方式组成的天线系统。阵列的核心思想是<strong>空间信号处理</strong>——利用多个天线单元的空间分布特性，通过幅度加权（Amplitude Weighting）和相位控制（Phase Control），实现对辐射方向图的灵活调控。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 基本原理：阵列因子理论</h2>
     <p>天线阵列的总辐射方向图由两个部分组成：</p>
-    <pre><code>总方向图 = 单元方向图 × 阵列因子（Array Factor, AF）</code></pre>
-    <ul><li><b>单元方向图（Element Pattern）</b>：单个天线单元自身的辐射方向特性</li><li><b>阵列因子（AF）</b>：由多个单元的空间排列、激励幅度和相位决定的方向图</li></ul>
-    <p>阵列因子的数学表达式（均匀线性阵列）：</p>
-    <pre><code>AF(θ) = Σ(n=0 to N-1) [An · exp(j·n·ψ)]</code></pre>
-    <p>其中：</p>
-    <ul><li>N = 阵列单元数量</li><li>An = 第n个单元的激励幅度</li><li>ψ = kd·cos(θ) + α，k为波数（2π/λ），d为单元间距，α为相邻单元间的相位差</li></ul>
-    <p>这个公式揭示了天线阵列的本质：<b>它是一个空间采样系统</b>，单元间距d决定了空间采样率，相位差α决定了波束指向。</p>
-    <h3>1.3 核心物理机制</h3>
-    <ol><li><b>相长干涉</b>：当电磁波到达某方向时相位相同，信号叠加增强</li><li><b>相消干涉</b>：当电磁波到达某方向时相位相反，信号相互抵消</li><li><b>波束扫描</b>：通过改变馈电相位梯度，电子控制波束指向，无需机械转动</li></ol>
+<pre><code>总方向图 = 单元方向图 × 阵列因子（Array Factor, AF）
+</code></pre>
+<ul>
+<li><strong>单元方向图（Element Pattern）</strong>：单个天线单元自身的辐射方向特性</li>
+<li><strong>阵列因子（AF）</strong>：由多个单元的空间排列、激励幅度和相位决定的方向图</li>
+</ul>
+<p>阵列因子的数学表达式（均匀线性阵列）：</p>
+<pre><code>AF(θ) = Σ(n=0 to N-1) [An · exp(j·n·ψ)]
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>N = 阵列单元数量</li>
+<li>An = 第n个单元的激励幅度</li>
+<li>ψ = kd·cos(θ) + α，k为波数（2π/λ），d为单元间距，α为相邻单元间的相位差</li>
+</ul>
+<p>这个公式揭示了天线阵列的本质：<strong>它是一个空间采样系统</strong>，单元间距d决定了空间采样率，相位差α决定了波束指向。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 关键公式</h3>
-    <div class="tw"><table>
-    <thead><tr><th>公式</th><th>含义</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>波束指向角</td><td>θ₀ = arccos(-α / kd)</td><td>α为相邻单元相位差，d为单元间距</td></tr>
-    <tr><td>半功率波束宽度</td><td>HPBW ≈ 0.886·λ / (N·d·cosθ₀)</td><td>N为单元数，HPBW越小波束越窄</td></tr>
-    <tr><td>阵列增益</td><td>G ≈ N·Ge</td><td>理想情况下增益与单元数成正比（Ge为单元增益）</td></tr>
-    <tr><td>栅瓣条件</td><td>d/λ ≥ 1/(1+sinθₛ)</td><td>超过此间距会出现栅瓣（Grating Lobe）</td></tr>
-    <tr><td>第一零点波束宽度</td><td>FNBW ≈ 2λ / (Nd)</td><td>主瓣两侧第一个零点之间的角度</td></tr>
-    </tbody></table></div>
-    <h3>2.2 阵列权重函数（窗函数）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 核心物理机制</h2>
+    <ol>
+<li><strong>相长干涉</strong>：当电磁波到达某方向时相位相同，信号叠加增强</li>
+<li><strong>相消干涉</strong>：当电磁波到达某方向时相位相反，信号相互抵消</li>
+<li><strong>波束扫描</strong>：通过改变馈电相位梯度，电子控制波束指向，无需机械转动</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 关键公式</h2>
+    <table>
+<thead>
+<tr>
+<th>公式</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束指向角</td>
+<td>θ₀ = arccos(-α / kd)</td>
+<td>α为相邻单元相位差，d为单元间距</td>
+</tr>
+<tr>
+<td>半功率波束宽度</td>
+<td>HPBW ≈ 0.886·λ / (N·d·cosθ₀)</td>
+<td>N为单元数，HPBW越小波束越窄</td>
+</tr>
+<tr>
+<td>阵列增益</td>
+<td>G ≈ N·Ge</td>
+<td>理想情况下增益与单元数成正比（Ge为单元增益）</td>
+</tr>
+<tr>
+<td>栅瓣条件</td>
+<td>d/λ ≥ 1/(1+sinθₛ)</td>
+<td>超过此间距会出现栅瓣（Grating Lobe）</td>
+</tr>
+<tr>
+<td>第一零点波束宽度</td>
+<td>FNBW ≈ 2λ / (Nd)</td>
+<td>主瓣两侧第一个零点之间的角度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 阵列权重函数（窗函数）</h2>
     <p>与光学中的傅里叶变换类似，阵列单元的幅度分布决定了旁瓣电平：</p>
-    <ul><li><b>均匀分布</b>（所有单元等幅）：波束最窄，但旁瓣最高（-13.2 dB）</li><li><b>泰勒分布</b>（Taylor Weighting）：旁瓣可控（-20 至 -40 dB），波束稍宽</li><li><b>切比雪夫分布</b>（Chebyshev）：等旁瓣电平最优分布</li><li><b>汉宁/海明分布</b>（Hanning/Hamming）：旁瓣抑制好，但波束展宽明显</li></ul>
-    <h3>2.3 互耦效应（Mutual Coupling）</h3>
+<ul>
+<li><strong>均匀分布</strong>（所有单元等幅）：波束最窄，但旁瓣最高（-13.2 dB）</li>
+<li><strong>泰勒分布</strong>（Taylor Weighting）：旁瓣可控（-20 至 -40 dB），波束稍宽</li>
+<li><strong>切比雪夫分布</strong>（Chebyshev）：等旁瓣电平最优分布</li>
+<li><strong>汉宁/海明分布</strong>（Hanning/Hamming）：旁瓣抑制好，但波束展宽明显</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 互耦效应（Mutual Coupling）</h2>
     <p>阵列中相邻单元之间通过近场耦合相互影响，导致：</p>
-    <ul><li>单元输入阻抗随扫描角变化（Active Impedance Variation）</li><li>方向图畸变</li><li>增益下降</li></ul>
-    <p>互耦效应在密集阵列（d < 0.5λ）中尤为显著，是工程设计的核心挑战之一。</p>
+<ul>
+<li>单元输入阻抗随扫描角变化（Active Impedance Variation）</li>
+<li>方向图畸变</li>
+<li>增益下降</li>
+</ul>
+<p>互耦效应在密集阵列（d &lt; 0.5λ）中尤为显著，是工程设计的核心挑战之一。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、实现方式与分类</h2>
-    <h3>3.1 按几何排列分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>结构特征</th><th>典型应用</th></tr></thead>
-    <tbody>
-    <tr><td>线性阵列（Linear Array）</td><td>单元沿直线排列</td><td>基站扇区覆盖、雷达扫描</td></tr>
-    <tr><td>平面阵列（Planar Array）</td><td>单元在二维平面上排列</td><td>卫星通信、5G Massive MIMO</td></tr>
-    <tr><td>圆形阵列（Circular Array）</td><td>单元分布在圆周上</td><td>全向扫描、测向系统</td></tr>
-    <tr><td>球形阵列（Spherical Array）</td><td>单元分布在球面上</td><td>360°全覆盖、近场测量</td></tr>
-    <tr><td>共形阵列（Conformal Array）</td><td>贴合载体曲面</td><td>飞机/导弹外壳天线</td></tr>
-    </tbody></table></div>
-    <h3>3.2 按波束形成方式分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>原理</th><th>优缺点</th></tr></thead>
-    <tbody>
-    <tr><td>模拟波束赋形（Analog BF）</td><td>用移相器和功分器在RF域形成波束</td><td>硬件简单、成本低，但波束灵活性差</td></tr>
-    <tr><td>数字波束赋形（Digital BF）</td><td>每个单元配独立RF链，在基带数字域处理</td><td>波束灵活、可多波束，但成本高、功耗大</td></tr>
-    <tr><td>混合波束赋形（Hybrid BF）</td><td>模拟+数字两级处理，折中方案</td><td>5G mmWave主流方案，平衡成本和性能</td></tr>
-    </tbody></table></div>
-    <h3>3.3 按有源/无源分类</h3>
-    <ul><li><b>无源阵列（Passive Array）</b>：只有一个发射机/接收机，通过移相网络分配到各单元</li><li><b>有源阵列（Active Array / AESA）</b>：每个单元或子阵配有独立的发射/接收模块（T/R Module）</li><li>T/R模块通常采用GaAs或GaN工艺</li><li>支持真正的多波束同时工作</li><li>单点故障不影响整体性能（冗余设计）</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.1 按几何排列分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>结构特征</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性阵列（Linear Array）</td>
+<td>单元沿直线排列</td>
+<td>基站扇区覆盖、雷达扫描</td>
+</tr>
+<tr>
+<td>平面阵列（Planar Array）</td>
+<td>单元在二维平面上排列</td>
+<td>卫星通信、5G Massive MIMO</td>
+</tr>
+<tr>
+<td>圆形阵列（Circular Array）</td>
+<td>单元分布在圆周上</td>
+<td>全向扫描、测向系统</td>
+</tr>
+<tr>
+<td>球形阵列（Spherical Array）</td>
+<td>单元分布在球面上</td>
+<td>360°全覆盖、近场测量</td>
+</tr>
+<tr>
+<td>共形阵列（Conformal Array）</td>
+<td>贴合载体曲面</td>
+<td>飞机/导弹外壳天线</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>3.2 按波束形成方式分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>原理</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模拟波束赋形（Analog BF）</td>
+<td>用移相器和功分器在RF域形成波束</td>
+<td>硬件简单、成本低，但波束灵活性差</td>
+</tr>
+<tr>
+<td>数字波束赋形（Digital BF）</td>
+<td>每个单元配独立RF链，在基带数字域处理</td>
+<td>波束灵活、可多波束，但成本高、功耗大</td>
+</tr>
+<tr>
+<td>混合波束赋形（Hybrid BF）</td>
+<td>模拟+数字两级处理，折中方案</td>
+<td>5G mmWave主流方案，平衡成本和性能</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 按有源/无源分类</h2>
+    <ul>
+<li><strong>无源阵列（Passive Array）</strong>：只有一个发射机/接收机，通过移相网络分配到各单元</li>
+<li><strong>有源阵列（Active Array / AESA）</strong>：每个单元或子阵配有独立的发射/接收模块（T/R Module）</li>
+<li>T/R模块通常采用GaAs或GaN工艺</li>
+<li>支持真正的多波束同时工作</li>
+<li>单点故障不影响整体性能（冗余设计）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、应用场景</h2>
-    <div class="tw"><table>
-    <thead><tr><th>应用领域</th><th>具体场景</th><th>阵列规模</th></tr></thead>
-    <tbody>
-    <tr><td>5G/6G基站</td><td>Massive MIMO天线（如64T64R AAU）</td><td>数百至数千单元</td></tr>
-    <tr><td>卫星通信</td><td>相控阵终端（如Starlink用户端）</td><td>数十至数百单元</td></tr>
-    <tr><td>军事雷达</td><td>AESA火控雷达、预警雷达</td><td>数千至数万单元</td></tr>
-    <tr><td>汽车雷达</td><td>77GHz毫米波防撞/自动驾驶雷达</td><td>8-64单元</td></tr>
-    <tr><td>射电天文</td><td>FAST天眼、ALMA阵列</td><td>数万面反射面板</td></tr>
-    <tr><td>智能手机</td><td>5G MIMO天线（4T4R/8T8R）</td><td>4-8单元</td></tr>
-    <tr><td>Wi-Fi</td><td>MU-MIMO路由器天线</td><td>4-16单元</td></tr>
-    <tr><td>GPS/北斗</td><td>抗干扰阵列</td><td>4-8单元</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>应用领域</th>
+<th>具体场景</th>
+<th>阵列规模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G/6G基站</td>
+<td>Massive MIMO天线（如64T64R AAU）</td>
+<td>数百至数千单元</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>相控阵终端（如Starlink用户端）</td>
+<td>数十至数百单元</td>
+</tr>
+<tr>
+<td>军事雷达</td>
+<td>AESA火控雷达、预警雷达</td>
+<td>数千至数万单元</td>
+</tr>
+<tr>
+<td>汽车雷达</td>
+<td>77GHz毫米波防撞/自动驾驶雷达</td>
+<td>8-64单元</td>
+</tr>
+<tr>
+<td>射电天文</td>
+<td>FAST天眼、ALMA阵列</td>
+<td>数万面反射面板</td>
+</tr>
+<tr>
+<td>智能手机</td>
+<td>5G MIMO天线（4T4R/8T8R）</td>
+<td>4-8单元</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td>MU-MIMO路由器天线</td>
+<td>4-16单元</td>
+</tr>
+<tr>
+<td>GPS/北斗</td>
+<td>抗干扰阵列</td>
+<td>4-8单元</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>五、关键技术指标</h2>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型要求</th></tr></thead>
-    <tbody>
-    <tr><td>阵列增益（Array Gain）</td><td>相比单单元的定向增强倍数</td><td>每倍频程约+3dB</td></tr>
-    <tr><td>波束宽度（Beamwidth）</td><td>主瓣半功率点之间的角度</td><td>基站天线3-15°</td></tr>
-    <tr><td>旁瓣电平（SLL）</td><td>最大旁瓣与主瓣之比</td><td>通常<-15dB，雷达<-20dB</td></tr>
-    <tr><td>栅瓣（Grating Lobe）</td><td>除主瓣外出现的强方向瓣</td><td>需避免，d≤λ/2</td></tr>
-    <tr><td>扫描范围（Scan Angle）</td><td>波束可电子扫描的最大角度</td><td>±60°常见</td></tr>
-    <tr><td>极化隔离度</td><td>双极化阵列中两正交极化间的隔离</td><td>>25dB</td></tr>
-    <tr><td>端口隔离度</td><td>多端口阵列中相邻端口间的泄漏</td><td>>20dB</td></tr>
-    <tr><td>增益平坦度</td><td>扫描范围内增益的变化</td><td><3dB</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阵列增益（Array Gain）</td>
+<td>相比单单元的定向增强倍数</td>
+<td>每倍频程约+3dB</td>
+</tr>
+<tr>
+<td>波束宽度（Beamwidth）</td>
+<td>主瓣半功率点之间的角度</td>
+<td>基站天线3-15°</td>
+</tr>
+<tr>
+<td>旁瓣电平（SLL）</td>
+<td>最大旁瓣与主瓣之比</td>
+<td>通常&lt;-15dB，雷达&lt;-20dB</td>
+</tr>
+<tr>
+<td>栅瓣（Grating Lobe）</td>
+<td>除主瓣外出现的强方向瓣</td>
+<td>需避免，d≤λ/2</td>
+</tr>
+<tr>
+<td>扫描范围（Scan Angle）</td>
+<td>波束可电子扫描的最大角度</td>
+<td>±60°常见</td>
+</tr>
+<tr>
+<td>极化隔离度</td>
+<td>双极化阵列中两正交极化间的隔离</td>
+<td>&gt;25dB</td>
+</tr>
+<tr>
+<td>端口隔离度</td>
+<td>多端口阵列中相邻端口间的泄漏</td>
+<td>&gt;20dB</td>
+</tr>
+<tr>
+<td>增益平坦度</td>
+<td>扫描范围内增益的变化</td>
+<td>&lt;3dB</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 栅瓣（Grating Lobe）问题</h3>
-    <p>当单元间距 d > λ/2 时，在波束扫描过程中会出现与主瓣强度相当的"镜像瓣"，导致能量浪费和方向混淆。<b>工程铁律</b>：在最大扫描角θ_max处，需满足 d ≤ λ/(1+sinθ_max)。对于±60°扫描的阵列，间距需≤λ/2。</p>
-    <h3>6.2 互耦引起的阻抗失配</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 栅瓣（Grating Lobe）问题</h2>
+    <p>当单元间距 d &gt; λ/2 时，在波束扫描过程中会出现与主瓣强度相当的"镜像瓣"，导致能量浪费和方向混淆。<strong>工程铁律</strong>：在最大扫描角θ_max处，需满足 d ≤ λ/(1+sinθ_max)。对于±60°扫描的阵列，间距需≤λ/2。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 互耦引起的阻抗失配</h2>
     <p>阵列中单元越密，互耦越强，导致：</p>
-    <ul><li>单元输入阻抗偏离设计值（通常从50Ω漂移）</li><li>VSWR恶化，反射增大</li><li>实际增益低于理论值</li></ul>
-    <p><b>解决方案</b>：去耦结构设计（如defected ground structure、电磁带隙EBG结构）、单元间距优化。</p>
-    <h3>6.3 相位误差累积</h3>
+<ul>
+<li>单元输入阻抗偏离设计值（通常从50Ω漂移）</li>
+<li>VSWR恶化，反射增大</li>
+<li>实际增益低于理论值</li>
+</ul>
+<p><strong>解决方案</strong>：去耦结构设计（如defected ground structure、电磁带隙EBG结构）、单元间距优化。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 相位误差累积</h2>
     <p>实际系统中，每个T/R通道的相位和幅度不可能完全一致：</p>
-    <ul><li>电缆长度差异引入相位偏差</li><li>温度变化导致移相器漂移</li><li>ADC/DAC量化精度有限</li></ul>
-    <p>相位误差会导致波束指向偏移、旁瓣升高。<b>校准</b>是关键环节，通常在出厂时做一次全通道校准，运行中定期自校准。</p>
-    <h3>6.4 散热问题</h3>
+<ul>
+<li>电缆长度差异引入相位偏差</li>
+<li>温度变化导致移相器漂移</li>
+<li>ADC/DAC量化精度有限</li>
+</ul>
+<p>相位误差会导致波束指向偏移、旁瓣升高。<strong>校准</strong>是关键环节，通常在出厂时做一次全通道校准，运行中定期自校准。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 散热问题</h2>
     <p>有源阵列（尤其AESA）的T/R模块功耗巨大。一个64T64R的5G AAU，整机功耗可达数百瓦，散热设计直接影响可靠性和寿命。</p>
-    <h3>6.5 校准复杂度</h3>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 校准复杂度</h2>
     <p>大规模阵列的校准是一个"鸡生蛋"问题：要校准就需要知道真实方向图，但方向图本身又受校准精度影响。业界通常采用基于近场测量的迭代校准方案。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1905年</b>：K.F. Braun首次描述定向天线概念</li><li><b>1937年</b>：K. Küpfmüller首次提出通过相位控制实现波束扫描的理论</li><li><b>1944年</b>：德国Mammut雷达建成首批相控阵天线（3D防空雷达）</li><li><b>1956-1961年</b>：MIT林肯实验室开发AN/FPS-85（首批大型相控阵雷达），Hughes研发T/R模块概念</li><li><b>1970s-1980s</b>：AESA技术成熟，AN/APG-63成为首款量产战斗机AESA雷达；AN/SPY-1相控阵雷达装备宙斯盾战舰</li><li><b>1990s</b>：卫星通信相控阵终端商业化；自适应阵列（LMS算法）广泛用于抗干扰</li><li><b>2000s</b>：标准化T/R模块（SMTR®）出现，GaN技术大幅提升效率</li><li><b>2010s</b>：5G Massive MIMO兴起，相控阵从军事走向民用大规模商用</li><li><b>2016年</b>：诺基亚和爱立信推出首批5G相控阵基站</li><li><b>2019年</b>：SpaceX Starlink相控阵用户终端量产</li><li><b>2020s</b>：6G太赫兹阵列、AI辅助波束管理、智能超表面（RIS）与阵列融合</li><li><b>2025-2026年</b>：数字智能阵列、全平面覆盖天线、共享孔径技术成为研究热点</li></ul>
+    <ul>
+<li><strong>1905年</strong>：K.F. Braun首次描述定向天线概念</li>
+<li><strong>1937年</strong>：K. Küpfmüller首次提出通过相位控制实现波束扫描的理论</li>
+<li><strong>1944年</strong>：德国Mammut雷达建成首批相控阵天线（3D防空雷达）</li>
+<li><strong>1956-1961年</strong>：MIT林肯实验室开发AN/FPS-85（首批大型相控阵雷达），Hughes研发T/R模块概念</li>
+<li><strong>1970s-1980s</strong>：AESA技术成熟，AN/APG-63成为首款量产战斗机AESA雷达；AN/SPY-1相控阵雷达装备宙斯盾战舰</li>
+<li><strong>1990s</strong>：卫星通信相控阵终端商业化；自适应阵列（LMS算法）广泛用于抗干扰</li>
+<li><strong>2000s</strong>：标准化T/R模块（SMTR®）出现，GaN技术大幅提升效率</li>
+<li><strong>2010s</strong>：5G Massive MIMO兴起，相控阵从军事走向民用大规模商用</li>
+<li><strong>2016年</strong>：诺基亚和爱立信推出首批5G相控阵基站</li>
+<li><strong>2019年</strong>：SpaceX Starlink相控阵用户终端量产</li>
+<li><strong>2020s</strong>：6G太赫兹阵列、AI辅助波束管理、智能超表面（RIS）与阵列融合</li>
+<li><strong>2025-2026年</strong>：数字智能阵列、全平面覆盖天线、共享孔径技术成为研究热点</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：天线阵列技术本身已高度成熟（军事领域应用超过60年）。在5G基站Massive MIMO、卫星相控阵终端、汽车毫米波雷达等领域已进入大规模商用阶段。6G太赫兹阵列和AI辅助波束管理处于原型验证向小规模商用过渡阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced（Rel-18/19）推动更大规模Massive MIMO（256T256R）</li><li>6G太赫兹频段阵列设计成为研究重点</li><li>AI驱动的波束预测和管理在5G-6G中落地</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G标准确立，通感一体化（ISAC）阵列成为标配</li><li>共享孔径技术（同一组天线同时用于通信和 sensing）</li><li>封装阵列天线（Package-on-Antenna）集成到芯片封装中</li><li>智能超表面（RIS）与相控阵融合，实现低成本波束控制</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息阵列天线（Holographic MIMO）：连续孔径替代离散单元</li><li>量子阵列：利用量子纠缠实现超高灵敏度接收</li><li>可编程物质天线：通过材料属性动态变化实现波束控制</li><li>6G-7G太赫兹/光频段大规模集成阵列</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced（Rel-18/19）推动更大规模Massive MIMO（256T256R）</li>
+<li>6G太赫兹频段阵列设计成为研究重点</li>
+<li>
+<p>AI驱动的波束预测和管理在5G-6G中落地</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G标准确立，通感一体化（ISAC）阵列成为标配</li>
+<li>共享孔径技术（同一组天线同时用于通信和 sensing）</li>
+<li>封装阵列天线（Package-on-Antenna）集成到芯片封装中</li>
+<li>
+<p>智能超表面（RIS）与相控阵融合，实现低成本波束控制</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息阵列天线（Holographic MIMO）：连续孔径替代离散单元</li>
+<li>量子阵列：利用量子纠缠实现超高灵敏度接收</li>
+<li>可编程物质天线：通过材料属性动态变化实现波束控制</li>
+<li>6G-7G太赫兹/光频段大规模集成阵列</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>天线阵列是现代天线技术的"操作系统"——从5G Massive MIMO到Starlink相控阵终端，从战斗机AESA雷达到自动驾驶毫米波传感器，几乎所有高性能天线系统都建立在阵列理论之上。掌握阵列因子、波束赋形和互耦控制，就等于掌握了打开现代天线世界的钥匙。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -256,39 +550,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

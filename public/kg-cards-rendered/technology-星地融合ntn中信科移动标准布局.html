@@ -92,10 +92,6 @@
   <h1 class="title">星地融合NTN中信科移动标准布局</h1>
   <p class="lede">中信科移动从2016年起系统布局星地融合通信，已打通卫星互联网全产业链（星载基站→信关站→终端→核心网），牵头16项3GPP卫星NTN国际标准居全球首位，是名副其实的&#34;国家队&#34;。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">星地融合</span><span class="chip brand">NTN</span><span class="chip brand">中信科移动</span><span class="chip brand">卫星互联网</span><span class="chip brand">竞品对标</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>如果把卫星互联网比作一张网，华为和中兴是在网上织线的工匠，那中信科移动做的是——<strong>造整张网，从线到梭子全包</strong>。他们不只是做产品，而是从芯片级到星载基站、从地面信关站到测试仪表，全链条自主可控。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -311,7 +295,6 @@
   
 
 
-
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
@@ -330,39 +313,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

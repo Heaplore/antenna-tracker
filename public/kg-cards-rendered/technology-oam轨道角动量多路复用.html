@@ -92,10 +92,6 @@
   <h1 class="title">OAM轨道角动量多路复用</h1>
   <p class="lede">利用电磁波的螺旋相位面引入新维度——轨道角动量（OAM），使多个正交模式在同一频率、同一时间独立传输数据，为6G无线回传和空天地一体化提供超高速大容量通道。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">OAM</span><span class="chip brand">轨道角动量</span><span class="chip brand">涡旋电磁波</span><span class="chip brand">6G</span><span class="chip brand">无线回传</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>想象一条高速公路：传统MIMO是在同一条路上并排多开几条车道，而OAM是在这条路之外又建了一条"螺旋隧道"——每个隧道的螺旋方向不同，互不干扰，可以在同一个频率上跑多条独立的数据流。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -427,7 +411,6 @@
   
 
 
-
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
@@ -446,39 +429,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线AI设计预测-三星LG电子工程实践（AI） · 知识卡片</title>
+<title>天线AI设计预测-三星LG电子工程实践 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线AI设计预测-三星LG电子工程实践 <span class="en">AI</span></h1>
-  <p class="lede">"如果工程师能用清晰的设计目标和领域知识来控制AI流水线，它就能成为消除重复调谐和分析时间的战略性工程工具，加速关键设计决策。"</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线AI设计预测-三星LG电子工程实践</h1>
+  
+  
 </header>
 
 <main>
@@ -98,106 +100,169 @@
   <div class="masonry-col col-left"></div>
   <div class="masonry-col col-right"></div>
 </div>
-  <article class="card">
-<h3>背景</h3>
-<p>2026年6月11日，达索系统韩国分公司举办Simulia User Day大会，三星电子和LG电子工程师分享了AI在工程领域的实际应用案例。这两个案例对天线行业有直接的借鉴意义。</p>
+
+
+  
+  <article class="card ">
+    
+    <h2>背景</h2>
+    <p>2026年6月11日，达索系统韩国分公司举办Simulia User Day大会，三星电子和LG电子工程师分享了AI在工程领域的实际应用案例。这两个案例对天线行业有直接的借鉴意义。</p>
   </article>
-  <article class="card">
-<h3>三星电子：天线性能预测AI模型</h3>
-<h4>项目概述</h4>
-<p>三星电子产业合作团队的申容善（Yong-seon Shin）工程师，从事天线开发超过20年。他在大会上分享了天线性能预测技术的机器学习算法应用案例。</p>
-<h4>核心痛点</h4>
-<p>申工最初对AI在天线设计中的应用持怀疑态度，原因有三：</p>
-<ol>
-<li><b>天线性能受环境影响极大</b>：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响</li>
-</ol>
-<ol>
-<li><b>缺乏训练大数据</b>：天线领域没有像计算机视觉那样海量的标注数据</li>
-</ol>
-<ol>
-<li><b>非线性映射复杂</b>：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</li>
-</ol>
-<h4>突破路径</h4>
-<p>2025年3月，申工在达索系统协助下启动PoC项目，构建了虚拟空间中的分析自动化流程，直接验证AI在天线开发中的可行性。</p>
-<h4>关键成果</h4>
-<ul>
-<li><b>效率提升</b>：大幅减少了需要反复运行数百次的CST分析流程</li>
-</ul>
-<ul>
-<li><b>候选设计筛选</b>：在初始设计阶段即可筛选出高概率满足规格的设计候选方案</li>
-</ul>
-<ul>
-<li><b>开发周期缩短</b>：将开发lead time缩短了数十倍</li>
-</ul>
-<ul>
-<li><b>小数据集可行性</b>：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</li>
-</ul>
-<h4>未来规划</h4>
-<p>申工计划将应用范围从单一天线模块扩展到LTE和Wi-Fi复杂多频天线，并构建覆盖车身结构、玻璃、支架位置等形状变量的公司级标准设计验证基础设施。</p>
-<blockquote>"如果工程师能用清晰的设计目标和领域知识来控制AI流水线，它就能成为消除重复调谐和分析时间的战略性工程工具，加速关键设计决策。"</blockquote>
+  
+
+  
+  <article class="card ">
+    
+    <h2>项目概述</h2>
+    <p>三星电子产业合作团队的申容善（Yong-seon Shin）工程师，从事天线开发超过20年。他在大会上分享了天线性能预测技术的机器学习算法应用案例。</p>
   </article>
-  <article class="card">
-<h3>LG电子：SPDM CAE数据库AI Agent</h3>
-<h4>项目背景</h4>
-<p>LG电子自2019年底试点基于达索系统的SPDM（仿真流程与数据管理）平台，2022年4月完成总部部署。前2-3年面临的主要问题是各事业部的CAE组织分散，一线工程师不愿使用系统。</p>
-<h4>核心创新</h4>
-<p>将传统的"数据湖"（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：</p>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心痛点</h2>
+    <p>申工最初对AI在天线设计中的应用持怀疑态度，原因有三：</p>
+<ol>
+<li><strong>天线性能受环境影响极大</strong>：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响</li>
+<li><strong>缺乏训练大数据</strong>：天线领域没有像计算机视觉那样海量的标注数据</li>
+<li><strong>非线性映射复杂</strong>：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>突破路径</h2>
+    <p>2025年3月，申工在达索系统协助下启动PoC项目，构建了虚拟空间中的分析自动化流程，直接验证AI在天线开发中的可行性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键成果</h2>
+    <ul>
+<li><strong>效率提升</strong>：大幅减少了需要反复运行数百次的CST分析流程</li>
+<li><strong>候选设计筛选</strong>：在初始设计阶段即可筛选出高概率满足规格的设计候选方案</li>
+<li><strong>开发周期缩短</strong>：将开发lead time缩短了数十倍</li>
+<li><strong>小数据集可行性</strong>：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>未来规划</h2>
+    <p>申工计划将应用范围从单一天线模块扩展到LTE和Wi-Fi复杂多频天线，并构建覆盖车身结构、玻璃、支架位置等形状变量的公司级标准设计验证基础设施。</p>
+<blockquote>
+<p>"如果工程师能用清晰的设计目标和领域知识来控制AI流水线，它就能成为消除重复调谐和分析时间的战略性工程工具，加速关键设计决策。"</p>
+</blockquote>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>项目背景</h2>
+    <p>LG电子自2019年底试点基于达索系统的SPDM（仿真流程与数据管理）平台，2022年4月完成总部部署。前2-3年面临的主要问题是各事业部的CAE组织分散，一线工程师不愿使用系统。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心创新</h2>
+    <p>将传统的"数据湖"（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：</p>
 <ul>
 <li>工程师只需上传现有的PPT报告</li>
-</ul>
-<ul>
 <li>系统自动提取图表数据并转化为结构化数据库</li>
+<li>引入视觉语言模型 <strong>Qwen3-VL</strong> 处理PPT中复杂的表格和对象数据</li>
 </ul>
-<ul>
-<li>引入视觉语言模型 <b>Qwen3-VL</b> 处理PPT中复杂的表格和对象数据</li>
-</ul>
-<h4>四阶段数据提取流程</h4>
-<ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四阶段数据提取流程</h2>
+    <ol>
 <li>PPT报告上传（工程师零额外操作）</li>
-</ol>
-<ol>
 <li>Qwen3-VL视觉分析提取表格和数值</li>
-</ol>
-<ol>
 <li>数据清洗与结构化</li>
-</ol>
-<ol>
 <li>存入定量数据库</li>
 </ol>
-<h4>应用场景</h4>
-<ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>应用场景</h2>
+    <ul>
 <li>异常值分析（outlier analysis）</li>
-</ul>
-<ul>
 <li>设计模式分析（design pattern analysis）</li>
-</ul>
-<ul>
 <li>趋势分析（trend analysis）</li>
 </ul>
-<h4>关键成就</h4>
-<p>构建了不改变一线工程师工作方式的前提下，将非结构化报告数据自动转化为结构化资产的系统，为AI模型提供了高质量的数据管道基础。</p>
   </article>
-  <article class="card">
-<h3>对天线行业的启示</h3>
-<h4>1. 预测模型可以弥补小数据短板</h4>
-<p>三星案例证明，即使在天线这种数据稀缺领域，通过仿真数据（CST/FEM）生成训练集，配合合适的ML算法，也能构建可靠的预测元模型。这对我们QMS-BI系统的来料检验数据不足场景有直接参考价值。</p>
-<h4>2. 仿真自动化是AI落地的第一步</h4>
-<p>申工的PoC项目核心是先构建"分析自动化流程"，再用AI加速。这意味着我们不需要一步到位做端到端的AI系统，可以从仿真脚本自动化开始，逐步引入预测模型。</p>
-<h4>3. 数据管道比模型本身更重要</h4>
-<p>LG电子的案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告（PPT/Excel）自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</p>
-<h4>4. 工程师主导的AI pipeline是可持续的</h4>
-<p>两个案例都强调"工程师控制AI流水线"而非"AI取代工程师"。这与我们"QMS-BI辅助决策而非替代质检员"的理念一致。</p>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键成就</h2>
+    <p>构建了不改变一线工程师工作方式的前提下，将非结构化报告数据自动转化为结构化资产的系统，为AI模型提供了高质量的数据管道基础。</p>
   </article>
-  <article class="card">
-<h3>技术栈总结</h3>
-<div class="tw"><table>
-<thead><tr>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 预测模型可以弥补小数据短板</h2>
+    <p>三星案例证明，即使在天线这种数据稀缺领域，通过仿真数据（CST/FEM）生成训练集，配合合适的ML算法，也能构建可靠的预测元模型。这对我们QMS-BI系统的来料检验数据不足场景有直接参考价值。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 仿真自动化是AI落地的第一步</h2>
+    <p>申工的PoC项目核心是先构建"分析自动化流程"，再用AI加速。这意味着我们不需要一步到位做端到端的AI系统，可以从仿真脚本自动化开始，逐步引入预测模型。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 数据管道比模型本身更重要</h2>
+    <p>LG电子的案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告（PPT/Excel）自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 工程师主导的AI pipeline是可持续的</h2>
+    <p>两个案例都强调"工程师控制AI流水线"而非"AI取代工程师"。这与我们"QMS-BI辅助决策而非替代质检员"的理念一致。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术栈总结</h2>
+    <table>
+<thead>
+<tr>
 <th>组件</th>
 <th>三星电子</th>
 <th>LG电子</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>仿真工具</td>
 <td>CST Studio (达索)</td>
 <td>Simulia (达索)</td>
@@ -223,20 +288,25 @@
 <td>100%自主数据提取</td>
 </tr>
 </tbody>
-</table></div>
+</table>
   </article>
-  <article class="card">
-<h3>参考资料</h3>
-<ul>
-<li>[DigitalToday: Engineering AI applications spread from antenna design to CAE database building](https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building) (2026-06-11)</li>
-</ul>
-<ul>
-<li>[TEKsystems: Top Manufacturing Trends in 2026](https://www.teksystems.com/en/insights/article/manufacturing-trends-2026) (2026-05-08)</li>
-</ul>
-<ul>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><a href="https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building">DigitalToday: Engineering AI applications spread from antenna design to CAE database building</a> (2026-06-11)</li>
+<li><a href="https://www.teksystems.com/en/insights/article/manufacturing-trends-2026">TEKsystems: Top Manufacturing Trends in 2026</a> (2026-05-08)</li>
 <li>TU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas</li>
 </ul>
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -257,39 +327,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

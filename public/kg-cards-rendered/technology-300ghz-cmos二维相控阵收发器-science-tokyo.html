@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>300GHz CMOS二维相控阵收发器-Science Tokyo · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">300GHz CMOS二维相控阵收发器-Science Tokyo</h1>
+  <p class="lede">东京科学大学冈田健一教授团队在2026 IEEE/JSAP VLSI Circuits会议上发表世界首款300 GHz全CMOS二维4×4相控阵收发器IC，将16路双通道收发电路+片上天线集成在同一65nm芯片上，单素子功耗仅26mW、面积0.30mm²，实现±32°双向波束扫描，为6G太赫兹通信低成本量产铺平道路。</p>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是300 GHz CMOS相控阵收发器</h2>
+    <p>300 GHz频段属于太赫兹（Terahertz）带的下限区域（300 GHz–3 THz），是IEEE 802.15.3d标准定义的252–325 GHz频段的核心部分。该频段拥有超大带宽潜力（理论上可达100+ Gbps），但面临两个致命挑战：</p>
+<ol>
+<li><strong>自由空间路径损耗（FSPL）极大</strong>：300 GHz的波长λ≈1mm，路径损耗比2.4 GHz高出约40 dB</li>
+<li><strong>集成密度极限</strong>：半波长远小于1mm，天线与收发电路难以在同一芯片上紧凑排布</li>
+</ol>
+<p><strong>相控阵（Phased Array）</strong>通过多个天线单元的相位差控制，实现电子波束扫描，无需机械转动即可将能量定向发射，从而补偿巨大的路径损耗。</p>
+<p>本研究的突破性在于：用<strong>纯CMOS工艺</strong>（而非昂贵的GaAs/GaN化合物半导体）实现了全集成300 GHz二维相控阵收发器，且天线间距达到严格的半波长。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 核心难点：半波长间距集成</h2>
+    <p>300 GHz的波长约1mm，半波长仅约0.5mm。要在如此微小的空间内同时容纳：</p>
+<ul>
+<li>天线单元（偶极子+接地屏蔽+背腔）</li>
+<li>移相器（控制波束方向）</li>
+<li>逓倍器（频率合成）</li>
+<li>注入同步式逓倍器（LO生成）</li>
+<li>次谐波混频器（RX前端）</li>
+<li>射频走线和电源</li>
+</ul>
+<p>这相当于在一粒米的空间里塞进一个完整的无线电系统。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 东京科学大学的突破</h2>
+    <p>东京科学大学（Science Tokyo，2024年由东京工业大学和东京医科齿科大学合并）冈田健一教授团队采用65nm CMOS工艺，实现了：</p>
+<ul>
+<li><strong>2次元4×4アレイ</strong>：16系统的双向收发回路集成在1颗IC上</li>
+<li><strong>オンチップアンテナ</strong>：片上天线，无需外接</li>
+<li><strong>半波長間隔</strong>：天线单元精确按半波长（E面0.49λ / H面0.50λ）间距排列</li>
+<li><strong>バックサイド溝加工</strong>：基板背面开槽形成半独立腔体，抑制基板损耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 芯片架构</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工艺</td>
+<td>65nm CMOS</td>
+<td>标准硅CMOS，可大规模量产</td>
+</tr>
+<tr>
+<td>频段</td>
+<td>240–270 GHz</td>
+<td>覆盖IEEE 802.15.3d太赫兹频段</td>
+</tr>
+<tr>
+<td>阵列规模</td>
+<td>4×4（16单元）</td>
+<td>2D相控阵</td>
+</tr>
+<tr>
+<td>双向收发</td>
+<td>16系统</td>
+<td>TX/RX各独立通道</td>
+</tr>
+<tr>
+<td>核心面积</td>
+<td>0.30mm²/素子</td>
+<td>每单元极小</td>
+</tr>
+<tr>
+<td>单素子功耗</td>
+<td>26mW</td>
+<td>世界最低水平</td>
+</tr>
+<tr>
+<td>峰值EIRP</td>
+<td>-17.1dBm @ 256GHz</td>
+<td>数米通信距离足够</td>
+</tr>
+<tr>
+<td>波束扫描范围</td>
+<td>±32°（2D）</td>
+<td>二维覆盖，可追踪移动终端</td>
+</tr>
+<tr>
+<td>发射数据速率</td>
+<td>16 Gbaud QPSK</td>
+<td>验证链路通信</td>
+</tr>
+<tr>
+<td>接收数据速率</td>
+<td>26 Gbaud QPSK</td>
+<td>验证链路通信</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 各素子构成</h2>
+    <p>每单元包含：</p>
+<ol>
+<li><strong>移相器（Phase Shifter）</strong>：控制波束扫描角度</li>
+<li><strong>逓倍器（Frequency Multiplier）</strong>：将本振频率倍频到300 GHz</li>
+<li><strong>注入同步式逓倍器（Injection-Synchronized Multiplier）</strong>：低相位噪声LO源</li>
+<li><strong>次谐波混频器（Sub-Harmonic Mixer）</strong>：接收前端，降低LO需求</li>
+<li><strong>オンチップ・ダイポールアンテナ（片上天线偶极子）</strong>：辐射元件</li>
+</ol>
+<p>关键电路架构：</p>
+<ul>
+<li><strong>发射端</strong>：移相器 → 倍频器 → 注入锁定三倍频器（ILT）</li>
+<li><strong>接收端</strong>：次谐波混频器（mixer-first架构）</li>
+<li><strong>双通道设计</strong>：TX/RX共用同一套天线，无需开关切换</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 天线创新：背腔结构</h2>
+    <pre><code>┌─────────────────────┐
+│   正面（元件层）     │  ← CMOS电路+移相器+逓倍器等
+│   [天线辐射体]       │
+├─────────────────────┤
+│   グラウンドシールド │  ← 隔离相邻素子干扰
+├─────────────────────┤
+│   基板               │
+│   ▽▽▽ 溝加工 ▽▽▽   │  ← 背面开槽形成腔体
+├─────────────────────┤
+│   半独立キャビティ    │  ← 束缚电磁波，减少基板损耗
+└─────────────────────┘
+         ↓ 放射方向
+</code></pre>
+<p>背腔结构使天线增益平均提升4 dB，是解决300 GHz基板损耗的关键创新。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三、实现方式与分类</h2>
+    <p>按工艺路线，300 GHz相控阵主要有三条技术路径：</p>
+<table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>优势</th>
+<th>劣势</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CMOS（本成果）</strong></td>
+<td>成本低、可大规模量产、易集成控制电路</td>
+<td>高频性能有限、输出功率较低</td>
+<td>Science Tokyo系列（2021 ISSCC → 2026 VLSI）</td>
+</tr>
+<tr>
+<td><strong>GaAs/GaN</strong></td>
+<td>高频性能好、输出功率高</td>
+<td>成本高、难集成、良率挑战</td>
+<td>卫星通信、雷达应用</td>
+</tr>
+<tr>
+<td><strong>InP</strong></td>
+<td>300 GHz性能最优</td>
+<td>极昂贵、与CMOS不兼容、需混合封装</td>
+<td>东工大+NTT 2023 IMS混合方案</td>
+</tr>
+<tr>
+<td><strong>SiGe BiCMOS</strong></td>
+<td>噪声性能优，适合接收端</td>
+<td>频率上限低于InP</td>
+<td>Intel 257 GHz 64Rx/16Tx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么坚持CMOS而非化合物半导体</strong>：6G要普及，CMOS是唯一可能的量产路径。东京科学大学的突破正是证明了<strong>即使CMOS高频性能有限，通过架构创新（2D相控阵+功率合成+高增益天线）也能实现实用通信</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、技术演进脉络</h2>
+    <table>
+<thead>
+<tr>
+<th>时间</th>
+<th>里程碑</th>
+<th>团队</th>
+<th>关键突破</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2017</td>
+<td>105 Gb/s 300 GHz CMOS TX</td>
+<td>东工大+NTT</td>
+<td>ISSCC，首次CMOS太赫兹超100G</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>80 Gb/s 300 GHz全芯片收发器</td>
+<td>东工大+松下</td>
+<td>JSSC，TX+RX完整集成</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>300 GHz双向相控阵(4素子1D)</td>
+<td>东工大+NTT</td>
+<td>ISSCC，Outphasing+Hartley架构</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>300 GHz CMOS+InP混合4素子相控阵</td>
+<td>东工大+NTT</td>
+<td>IMS，世界首次300 GHz波束赋形高速传输30 Gbps@50cm</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>240-270 GHz 4×4双向CMOS相控阵</td>
+<td>东工大(冈田)</td>
+<td>VLSI，半波长间距2D阵列雏形</td>
+</tr>
+<tr>
+<td><strong>2026</strong></td>
+<td><strong>300 GHz 4×4全CMOS片上天线2D相控阵</strong></td>
+<td><strong>东京科学大学(冈田)</strong></td>
+<td><strong>VLSI 2026，世界首个300 GHz全CMOS 2D相控阵，背腔天线+26mW</strong></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>适用性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>室内Femtocell</td>
+<td>★★★★★</td>
+<td>数米距离，EIRP足够，2D扫描覆盖全房间</td>
+</tr>
+<tr>
+<td>机房互联</td>
+<td>★★★★☆</td>
+<td>视距传输，TB级速率，低功耗优势明显</td>
+</tr>
+<tr>
+<td>无人机/移动终端</td>
+<td>★★★★☆</td>
+<td>低功耗+小体积适合便携设备</td>
+</tr>
+<tr>
+<td>室外宏站</td>
+<td>★★★☆☆</td>
+<td>传播损耗过大，需更大阵列+更高EIRP</td>
+</tr>
+<tr>
+<td>卫星终端</td>
+<td>★★☆☆☆</td>
+<td>需更远射程，目前EIRP不足</td>
+</tr>
+<tr>
+<td>6G太赫兹固定接入(FWA)</td>
+<td>★★★★☆</td>
+<td>点对点100+ Gbps回传，中期目标</td>
+</tr>
+<tr>
+<td>机器人/工厂内无线</td>
+<td>★★★★☆</td>
+<td>短距超高带宽无线替代线缆，近期试点</td>
+</tr>
+<tr>
+<td>高精度成像雷达</td>
+<td>★★★☆☆</td>
+<td>300 GHz波长~1mm，分辨率极高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 EIRP -17.1 dBm意味着什么</h2>
+    <p>-17.1 dBm的峰值EIRP看似不高（约0.02 mW等效全向辐射），但考虑到：</p>
+<ul>
+<li>300 GHz频段路径损耗极大（自由空间损耗≈40log(d)+20log(f)+92.4≈114 dB@1m）</li>
+<li>16素子功率合成后仍能达到此水平</li>
+<li>数米范围内通信绰绰有余</li>
+<li>对于Femtocell/室内场景完全够用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 26 mW/素子的意义</h2>
+    <p>对比业界同类300 GHz CMOS收发器：</p>
+<ul>
+<li>传统方案：每素子100-200 mW</li>
+<li>东京科学大学：<strong>26 mW（世界最低）</strong></li>
+<li>这意味着16素子总功耗仅约400 mW，可以用电池供电，适合终端设备</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 为什么半波长间距至关重要</h2>
+    <p>300 GHz波长λ≈1 mm，半波长≈0.5 mm。天线间距如果超过半波长，会出现<strong>栅瓣（grating lobe）</strong>——波束分裂成多个方向，失去定向性。东京科学大学实现了E面0.49λ、H面0.50λ的严格半波长间距，有效抑制了栅瓣。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 相邻素子干扰</h2>
+    <p>300 GHz波长仅1 mm，16个素子挤在几mm²内，互耦（Mutual Coupling）极其严重。解决方案：</p>
+<ul>
+<li>グラウンドシールド（接地屏蔽）隔离相邻素子</li>
+<li>背腔结构将辐射方向改为基板背面，减少正面互耦</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 基板损耗</h2>
+    <p>硅基板在300 GHz的损耗角正切高达0.01-0.1，电磁波在基板内传播损耗极大。解决方案：</p>
+<ul>
+<li>背面沟槽加工（grooving）形成半独立腔体</li>
+<li>将辐射能量束缚在腔体内，减少基板模式激发</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 热管理</h2>
+    <p>虽然单素子仅26 mW，但16素子+控制电路集中在0.3 mm²区域，热密度极高。65 nm CMOS的散热能力有限，大规模集成时需要：</p>
+<ul>
+<li>考虑Flip-chip倒装焊到高热导率基板</li>
+<li>可能需要集成微型热电冷却器（TEC）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.4 2D波束扫描的局限性</h2>
+    <p>±32°的扫描范围对于室内Femtocell够用，但如果要覆盖更广角度（如室外宏站），需要：</p>
+<ul>
+<li>更大阵列（8×8或16×16）</li>
+<li>更多移相器精度</li>
+<li>更复杂的波束控制算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.1 日本阵营</h2>
+    <table>
+<thead>
+<tr>
+<th>机构</th>
+<th>最新成果</th>
+<th>路线差异</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>东京科学大学（冈田）</strong></td>
+<td>2026 VLSI：65 nm CMOS 4×4 2D相控阵+片上天线</td>
+<td>全CMOS集成，低功耗，2D扫描</td>
+</tr>
+<tr>
+<td>东京工业大学（合并前）+ NTT</td>
+<td>2023 IMS：CMOS+InP混合4素子1D相控阵</td>
+<td>高性能InP PA，但非全CMOS</td>
+</tr>
+<tr>
+<td>NTT</td>
+<td>2024.2：300 GHz创新CMOS发射机</td>
+<td>侧重TX，非完整收发器</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.2 国际对比</h2>
+    <table>
+<thead>
+<tr>
+<th>机构/国家</th>
+<th>成果</th>
+<th>与东京科学大学对比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>伊利诺伊大学(Chicago)</td>
+<td>280 GHz 64-element CMOS相控阵</td>
+<td>频率较低(280 vs 300 GHz)，但阵列更大(64 vs 16)</td>
+</tr>
+<tr>
+<td>Samsung</td>
+<td>300 GHz CMOS TX模组</td>
+<td>偏工程化，学术深度不及</td>
+</tr>
+<tr>
+<td>Intel</td>
+<td>257 GHz 64Rx/16Tx SiGe BiCMOS</td>
+<td>用SiGe而非纯CMOS，性能更强但成本更高</td>
+</tr>
+<tr>
+<td>中国（中兴/华为）</td>
+<td>公开资料未见300 GHz CMOS相控阵</td>
+<td>重心在Sub-6 GHz和毫米波(24-100 GHz)</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.3 竞品对标：中兴视角</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>东京科学大学 300 GHz CMOS</th>
+<th>中兴 Pre6G 路线</th>
+<th>华为 U6G 路线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>240-270 GHz（太赫兹下限）</td>
+<td>聚焦Sub-6G + 部分毫米波</td>
+<td>28/39/66/79 GHz + U6G探索</td>
+</tr>
+<tr>
+<td>集成方式</td>
+<td>全CMOS片上集成</td>
+<td>外部AAU模组+大规模阵列</td>
+<td>256T256R AAU</td>
+</tr>
+<tr>
+<td>技术阶段</td>
+<td>芯片级原型</td>
+<td>系统级原型/外场试验</td>
+<td>产品级部署</td>
+</tr>
+<tr>
+<td>与中兴关联</td>
+<td>可作为未来6G太赫兹AAU的前端芯片参考</td>
+<td>中兴GigaMIMO/Pre6G体系可能向下兼容太赫兹频段</td>
+<td>华为也在布局太赫兹，但侧重系统级</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>十、趋势判断</h2>
+    <ol>
+<li><strong>CMOS是太赫兹量产的唯一路径</strong>：GaN/GaAs性能更好但成本太高，65 nm CMOS在300 GHz已能实现实用性能，28 nm及以下节点将进一步突破频率上限</li>
+<li><strong>从4×4到更大规模是必然</strong>：当前4×4只是验证芯片级集成可行性，未来16×16甚至64×64的片上相控阵将成为基站AAU的核心前端</li>
+<li><strong>三维堆叠+片上天线是必由之路</strong>：2024年的64单元3D堆叠方案和2026年的片上天线方案表明，传统PCB布线在300 GHz已不可行，必须走向3D IC集成和片上辐射</li>
+<li><strong>与RIS可能融合</strong>：东京科学大学的CMOS相控阵+首尔大学的STARE晶圆级RIS，两条路线可能在6G太赫兹系统中融合——相控阵做主波束，RIS做辅助反射面</li>
+<li><strong>台积电28nm/16nm节点有望进一步将频率上限推至400-500 GHz</strong></li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.1 GigaMIMO技术栈延伸</h2>
+    <p>老大参与的中兴GigaMIMO项目聚焦亚6G/U6G频段，300 GHz太赫兹是GigaMIMO的自然延伸——从亚6G到UWB再到太赫兹，天线规模从千级向万级演进。中兴在毫米波专利布局上已有深厚积累，300 GHz方向值得提前卡位。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.2 半导体级天线趋势</h2>
+    <p>这篇笔记是继STARE晶圆级RIS之后的又一半导体级天线突破。老大的天线知识库已覆盖：</p>
+<ul>
+<li><strong>系统级</strong>：中兴GigaMIMO、华为U6 GHz AAU、MWC26低空通感</li>
+<li><strong>RIS级</strong>：STARE晶圆级RIS、清华SC-RIS、有源ORIS</li>
+<li><strong>芯片级</strong>：本篇300 GHz CMOS相控阵</li>
+</ul>
+<p>三条路线正在收敛——<strong>半导体工艺进步让天线从"外挂模块"变成"片上集成"</strong>，这对中兴的6G研发方向有直接参考价值。建议后续追踪中兴是否有太赫兹频段的内部预研项目。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>11.3 对中兴的启示</h2>
+    <p>中兴目前的Pre6G重心在GigaMIMO（Sub-6G空域重构）和低空通感（毫米波AAU），300 GHz太赫兹属于更后期的技术储备。但CMOS相控阵芯片是终端侧和基站侧的共同基础元件，东京科学大学的成果证明了<strong>CMOS在太赫兹频段的量产可行性</strong>，这对中兴未来布局6G太赫兹终端芯片具有参考价值。中兴在3GPP NTN和6G标准中非常活跃，300 GHz CMOS相控阵是6G标准的前置技术，建议提前储备。</p>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

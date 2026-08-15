@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线自动化测试设备（ATS） · 知识卡片</title>
+<title>天线自动化测试设备ATS暗室探头 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线自动化测试设备 <span class="en">ATS</span></h1>
-  <p class="lede">天线自动化测试系统（ATS）= 暗室/转台/探头/软件 组成的"天线体检中心"。5G Massive MIMO 时代，64 通道天线的人工测试不现实——必须用自动化系统，30 分钟内测完一个 AAU 的 200+ 项指标。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线自动化测试设备ATS暗室探头</h1>
+  <p class="lede">天线自动化测试系统（ATS）= 暗室/转台/探头/软件 组成的&#34;天线体检中心&#34;。5G Massive MIMO 时代，64 通道天线的人工测试不现实——必须用自动化系统，30 分钟内测完一个 AAU 的 200+ 项指标。</p>
+  
 </header>
 
 <main>
@@ -99,179 +101,258 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>ATS 就像"汽车排放检测线"——车开上去，机器自动测尾气、测动力、测噪音，出一本报告。天线进 ATS，机器自动测增益、方向图、PIM、隔离度、轴比……200 多项指标全自动。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、ATS 系统组成</h2>
-    <h3>1.1 核心硬件</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 核心硬件</h2>
     <pre><code>ATS 系统架构：
+
+┌─────────────────────────────────────────┐
+│  控制计算机                              │
+│  ┌───────────────────────────────────┐  │
+│  │  测试软件（Python/C++）            │  │
+│  │  - 测试流程控制                    │  │
+│  │  - 数据采集与分析                  │  │
+│  │  - 报告生成                        │  │
+│  └───────────────────────────────────┘  │
+│         │                              │
+│    VISA/GPIB/Ethernet                   │
+│         │                              │
+├─────────┼──────────────────────────────┤
+│         ▼                              │
+│  ┌──────────────┐  ┌──────────────┐   │
+│  │  网络分析仪   │  │  信号发生器  │   │
+│  │  (VNA)       │  │  (SG)        │   │
+│  │  S参数测量    │  │  发射测试     │   │
+│  └──────┬───────┘  └──────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴──────────────────┴───────┐   │
+│  │         射频电缆/波导            │   │
+│  └──────┬──────────────────┬───────┘   │
+│         │                  │            │
+│  ┌──────┴───────┐  ┌──────┴───────┐   │
+│  │  探头天线     │  │  转台/升降台  │   │
+│  │  (Rx)        │  │  (DUT 旋转)   │   │
+│  └──────────────┘  └──────────────┘   │
+│                                        │
+│  ┌────────────────────────────────┐   │
+│  │    暗室（Anechoic Chamber）     │   │
+│  │    吸波材料 + 隔振平台          │   │
+│  └────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    ┌─────────────────────────────────────────┐
-    │  控制计算机                              │
-    │  ┌───────────────────────────────────┐  │
-    │  │  测试软件（Python/C++）            │  │
-    │  │  - 测试流程控制                    │  │
-    │  │  - 数据采集与分析                  │  │
-    │  │  - 报告生成                        │  │
-    │  └───────────────────────────────────┘  │
-    │         │                              │
-    │    VISA/GPIB/Ethernet                   │
-    │         │                              │
-    ├─────────┼──────────────────────────────┤
-    │         ▼                              │
-    │  ┌──────────────┐  ┌──────────────┐   │
-    │  │  网络分析仪   │  │  信号发生器  │   │
-    │  │  (VNA)       │  │  (SG)        │   │
-    │  │  S参数测量    │  │  发射测试     │   │
-    │  └──────┬───────┘  └──────┬───────┘   │
-    │         │                  │            │
-    │  ┌──────┴──────────────────┴───────┐   │
-    │  │         射频电缆/波导            │   │
-    │  └──────┬──────────────────┬───────┘   │
-    │         │                  │            │
-    │  ┌──────┴───────┐  ┌──────┴───────┐   │
-    │  │  探头天线     │  │  转台/升降台  │   │
-    │  │  (Rx)        │  │  (DUT 旋转)   │   │
-    │  └──────────────┘  └──────────────┘   │
-    │                                        │
-    │  ┌────────────────────────────────┐   │
-    │  │    暗室（Anechoic Chamber）     │   │
-    │  │    吸波材料 + 隔振平台          │   │
-    │  └────────────────────────────────┘   │
-    └─────────────────────────────────────────┘</code></pre>
-    <h3>1.2 关键设备参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>设备</th><th>参数</th><th>5G AAU 要求</th></tr></thead>
-    <tbody>
-    <tr><td>VNA</td><td>频率范围</td><td>DC-6.5GHz（Sub-6GHz）</td></tr>
-    <tr><td>VNA</td><td>端口数</td><td>4-8 端口（多端口校准）</td></tr>
-    <tr><td>信号发生器</td><td>频率</td><td>DC-6.5GHz</td></tr>
-    <tr><td>信号发生器</td><td>通道数</td><td>≥ 64（Massive MIMO）</td></tr>
-    <tr><td>转台</td><td>精度</td><td>< 0.01°</td></tr>
-    <tr><td>转台</td><td>承重</td><td>> 100kg（AAU 很重）</td></tr>
-    <tr><td>探头天线</td><td>频率</td><td>多频段探头</td></tr>
-    <tr><td>探头天线</td><td>极化</td><td>±45° 可切换</td></tr>
-    <tr><td>暗室</td><td>截止频率</td><td>> 6.5GHz</td></tr>
-    <tr><td>暗室</td><td>尺寸</td><td>≥ 6m × 4m × 3m</td></tr>
-    </tbody></table></div>
+    <h2>1.2 关键设备参数</h2>
+    <table>
+<thead>
+<tr>
+<th>设备</th>
+<th>参数</th>
+<th>5G AAU 要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VNA</td>
+<td>频率范围</td>
+<td>DC-6.5GHz（Sub-6GHz）</td>
+</tr>
+<tr>
+<td>VNA</td>
+<td>端口数</td>
+<td>4-8 端口（多端口校准）</td>
+</tr>
+<tr>
+<td>信号发生器</td>
+<td>频率</td>
+<td>DC-6.5GHz</td>
+</tr>
+<tr>
+<td>信号发生器</td>
+<td>通道数</td>
+<td>≥ 64（Massive MIMO）</td>
+</tr>
+<tr>
+<td>转台</td>
+<td>精度</td>
+<td>&lt; 0.01°</td>
+</tr>
+<tr>
+<td>转台</td>
+<td>承重</td>
+<td>&gt; 100kg（AAU 很重）</td>
+</tr>
+<tr>
+<td>探头天线</td>
+<td>频率</td>
+<td>多频段探头</td>
+</tr>
+<tr>
+<td>探头天线</td>
+<td>极化</td>
+<td>±45° 可切换</td>
+</tr>
+<tr>
+<td>暗室</td>
+<td>截止频率</td>
+<td>&gt; 6.5GHz</td>
+</tr>
+<tr>
+<td>暗室</td>
+<td>尺寸</td>
+<td>≥ 6m × 4m × 3m</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>二、测试方法</h2>
-    <h3>2.1 远场 OTA 测试（主流）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 远场 OTA 测试（主流）</h2>
     <pre><code>原理：
-      DUT（待测天线）与探头天线距离 &gt; 2R²/λ
-      R = 天线最大尺寸
-      λ = 波长
-      
-    典型距离：
-      64T64R AAU（1.2m）@ 3.5GHz：
-      R_far = 2 × 1.2² / 0.086 = ~34m
-      
-      → 远场暗室需要 34m 以上！
-      → 实际用 15-20m + 近远场变换
-      
-    测试流程：
-      1. 安装 DUT 到转台
-      2. VNA/SG 连接 DUT 的 RF 端口
-      3. 探头天线接收/发射信号
-      4. 转台旋转（水平 0-360°）
-      5. 升降台移动（垂直 -90° to +90°）
-      6. 采集每个角度的 S 参数
-      7. 软件处理 → 方向图/增益/隔离度</code></pre>
-    <h3>2.2 近场测试</h3>
-    <pre><code>原理：
-      探头靠近 DUT（&lt; R_far）
-      测量近场 → 数学变换 → 远场
-      
-    优势：
-      - 暗室可以很小（3-5m）
-      - 适合实验室
-      
-    劣势：
-      - 变换算法复杂
-      - 精度略低
-      - 不适用于有源天线（需要激励所有通道）</code></pre>
-    <h3>2.3 混响室测试</h3>
-    <pre><code>原理：
-      金属腔体内搅拌电磁场
-      形成&quot;统计均匀&quot;的多径环境
-      
-    测量：
-      - TRP（总辐射功率）
-      - TIS（总接收灵敏度）
-      - MIMO 容量
-      
-    优势：
-      - 测试速度快（分钟级）
-      - 暗室小（2-3m）
-      - 适合产线批量测试
-      
-    劣势：
-      - 不能测方向图
-      - 不能测增益
-      - 只能测&quot;总量&quot;</code></pre>
+  DUT（待测天线）与探头天线距离 &gt; 2R²/λ
+  R = 天线最大尺寸
+  λ = 波长
+
+典型距离：
+  64T64R AAU（1.2m）@ 3.5GHz：
+  R_far = 2 × 1.2² / 0.086 = ~34m
+
+  → 远场暗室需要 34m 以上！
+  → 实际用 15-20m + 近远场变换
+
+测试流程：
+  1. 安装 DUT 到转台
+  2. VNA/SG 连接 DUT 的 RF 端口
+  3. 探头天线接收/发射信号
+  4. 转台旋转（水平 0-360°）
+  5. 升降台移动（垂直 -90° to +90°）
+  6. 采集每个角度的 S 参数
+  7. 软件处理 → 方向图/增益/隔离度
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、5G AAU 自动化测试</h2>
-    <h3>3.1 测试项目清单</h3>
+  
+  <article class="card ">
+    
+    <h2>2.2 近场测试</h2>
+    <pre><code>原理：
+  探头靠近 DUT（&lt; R_far）
+  测量近场 → 数学变换 → 远场
+
+优势：
+  - 暗室可以很小（3-5m）
+  - 适合实验室
+
+劣势：
+  - 变换算法复杂
+  - 精度略低
+  - 不适用于有源天线（需要激励所有通道）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 混响室测试</h2>
+    <pre><code>原理：
+  金属腔体内搅拌电磁场
+  形成&quot;统计均匀&quot;的多径环境
+
+测量：
+  - TRP（总辐射功率）
+  - TIS（总接收灵敏度）
+  - MIMO 容量
+
+优势：
+  - 测试速度快（分钟级）
+  - 暗室小（2-3m）
+  - 适合产线批量测试
+
+劣势：
+  - 不能测方向图
+  - 不能测增益
+  - 只能测&quot;总量&quot;
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 测试项目清单</h2>
     <pre><code>AAU 出厂测试（200+ 项）：
-    
-    1. S 参数测试（VNA）
-       - S11/S22（端口回波损耗）
-       - S12/S21（插入损耗）
-       - Sij（端口间隔离度）
-       
-    2. 有源测试（SG + 探头）
-       - 增益（Gain）
-       - 方向图（Pattern）
-       - 波束宽度（Beamwidth）
-       - 前后比（FBR）
-       - 旁瓣电平（SLL）
-       
-    3. MIMO 测试
-       - 通道间幅度一致性（&lt; 0.5dB）
-       - 通道间相位一致性（&lt; 5°）
-       - 空间流数验证
-       - 预编码矩阵验证
-       
-    4. PIM 测试
-       - 双三载波 PIM
-       - 要求：&lt; -150dBc
-       
-    5. 极化测试
-       - 交叉极化隔离度（&gt; 25dB）
-       - 轴比（如适用）
-       
-    6. 温度循环测试
-       - -40°C to +85°C
-       - 各温度点复测关键指标</code></pre>
-    <h3>3.2 测试时间</h3>
-    <pre><code>单台 64T64R AAU 测试时间：
-    
-      安装定位：5min
-      S 参数测试：10min
-      有源测试（全方向图）：15min
-      MIMO 测试：10min
-      PIM 测试：5min
-      极化测试：5min
-      数据分析和报告：5min
-      
-      总计：~55min
-      
-    产线节拍：
-      目标：2 台/小时
-      → 需要 2 套 ATS 并行</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>5G AAU 自动化测试的核心挑战是"64 通道 × 200+ 项指标 × 30 分钟极限"——必须高度自动化。远场 OTA 是主流方法，近场和混响室作为补充。记住：测试设备的精度直接决定产品质量——转台精度 0.01°、VNA 校准精度 0.01dB，这些指标差一点都不行。</p>
+1. S 参数测试（VNA）
+   - S11/S22（端口回波损耗）
+   - S12/S21（插入损耗）
+   - Sij（端口间隔离度）
+
+2. 有源测试（SG + 探头）
+   - 增益（Gain）
+   - 方向图（Pattern）
+   - 波束宽度（Beamwidth）
+   - 前后比（FBR）
+   - 旁瓣电平（SLL）
+
+3. MIMO 测试
+   - 通道间幅度一致性（&lt; 0.5dB）
+   - 通道间相位一致性（&lt; 5°）
+   - 空间流数验证
+   - 预编码矩阵验证
+
+4. PIM 测试
+   - 双三载波 PIM
+   - 要求：&lt; -150dBc
+
+5. 极化测试
+   - 交叉极化隔离度（&gt; 25dB）
+   - 轴比（如适用）
+
+6. 温度循环测试
+   - -40°C to +85°C
+   - 各温度点复测关键指标
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 测试时间</h2>
+    <pre><code>单台 64T64R AAU 测试时间：
+
+  安装定位：5min
+  S 参数测试：10min
+  有源测试（全方向图）：15min
+  MIMO 测试：10min
+  PIM 测试：5min
+  极化测试：5min
+  数据分析和报告：5min
+
+  总计：~55min
+
+产线节拍：
+  目标：2 台/小时
+  → 需要 2 套 ATS 并行
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -291,39 +372,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

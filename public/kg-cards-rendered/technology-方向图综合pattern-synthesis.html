@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线方向图综合（Pattern Synthesis） · 知识卡片</title>
+<title>方向图综合Pattern-Synthesis · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线方向图综合 <span class="en">Pattern Synthesis</span></h1>
-  <p class="lede">方向图综合是通过数学方法计算阵列各单元的激励幅度和相位，使阵列辐射方向图满足特定要求（如低旁瓣、平顶波束、零陷放置等）的系统化设计方法。它是相控阵天线从"能指向"到"指得好"的关键桥梁。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">方向图综合Pattern-Synthesis</h1>
+  <p class="lede">方向图综合是通过数学方法计算阵列各单元的激励幅度和相位，使阵列辐射方向图满足特定要求（如低旁瓣、平顶波束、零陷放置等）的系统化设计方法。它是相控阵天线从&#34;能指向&#34;到&#34;指得好&#34;的关键桥梁。</p>
+  
 </header>
 
 <main>
@@ -99,228 +101,653 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>方向图综合就像是为交响乐团写乐谱——你有一群乐手（阵列单元），你需要告诉他们每个人应该"多大声音"（幅度加权）和"何时发声"（相位加权），才能让最终的"音乐"（辐射方向图）听起来符合要求：主歌响亮（主瓣够高），背景安静（旁瓣够低），某些方向完全听不到（零陷对准干扰源）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
     <p>方向图综合（Pattern Synthesis）是指给定目标方向图（或方向图约束条件），求解阵列单元的复数激励系数（幅度 + 相位），使得实际方向图尽可能逼近目标方向图的过程。</p>
-    <p>核心思想基于以下事实：</p>
-    <pre><code>阵列方向图 AF(θ) = Σ(n=0 to N-1) [I_n · exp(j·n·kd·sinθ)]</code></pre>
-    <p>其中 I_n = |I_n| · exp(j·φ_n) 是第 n 个单元的复数激励系数。方向图综合就是求解这一组 I_n。</p>
-    <h3>1.2 方向图综合的分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>分类维度</th><th>类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>按自由度</td><td>等间距阵列综合</td><td>单元间距固定，只调激励</td></tr>
-    <tr><td></td><td>非等间距阵列综合</td><td>间距可调，可消除栅瓣</td></tr>
-    <tr><td>按目标</td><td>笔形波束（Pattern Synthesis）</td><td>单一主瓣，低旁瓣</td></tr>
-    <tr><td></td><td>扇形波束</td><td>某一角度范围内均匀照射</td></tr>
-    <tr><td></td><td>平顶波束（Flat-top）</td><td>主瓣顶部平坦</td></tr>
-    <tr><td></td><td>零陷波束</td><td>特定方向放置零点对准干扰</td></tr>
-    <tr><td>按方法</td><td>解析法</td><td>闭式解，如 Chebyshev、Taylor</td></tr>
-    <tr><td></td><td>数值优化法</td><td>迭代求解，如凸优化、遗传算法</td></tr>
-    <tr><td></td><td>傅里叶法</td><td>窗函数法，简单直观</td></tr>
-    </tbody></table></div>
-    <h3>1.3 基本 trade-off：旁瓣 vs 波束宽度</h3>
+<p>核心思想基于以下事实：</p>
+<pre><code>阵列方向图 AF(θ) = Σ(n=0 to N-1) [I_n · exp(j·n·kd·sinθ)]
+</code></pre>
+<p>其中 I_n = |I_n| · exp(j·φ_n) 是第 n 个单元的复数激励系数。方向图综合就是求解这一组 I_n。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 方向图综合的分类</h2>
+    <table>
+<thead>
+<tr>
+<th>分类维度</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按自由度</td>
+<td>等间距阵列综合</td>
+<td>单元间距固定，只调激励</td>
+</tr>
+<tr>
+<td></td>
+<td>非等间距阵列综合</td>
+<td>间距可调，可消除栅瓣</td>
+</tr>
+<tr>
+<td>按目标</td>
+<td>笔形波束（Pattern Synthesis）</td>
+<td>单一主瓣，低旁瓣</td>
+</tr>
+<tr>
+<td></td>
+<td>扇形波束</td>
+<td>某一角度范围内均匀照射</td>
+</tr>
+<tr>
+<td></td>
+<td>平顶波束（Flat-top）</td>
+<td>主瓣顶部平坦</td>
+</tr>
+<tr>
+<td></td>
+<td>零陷波束</td>
+<td>特定方向放置零点对准干扰</td>
+</tr>
+<tr>
+<td>按方法</td>
+<td>解析法</td>
+<td>闭式解，如 Chebyshev、Taylor</td>
+</tr>
+<tr>
+<td></td>
+<td>数值优化法</td>
+<td>迭代求解，如凸优化、遗传算法</td>
+</tr>
+<tr>
+<td></td>
+<td>傅里叶法</td>
+<td>窗函数法，简单直观</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 基本 trade-off：旁瓣 vs 波束宽度</h2>
     <p>方向图综合中最基本的权衡是：</p>
-    <p><b>旁瓣电平（SLL）越低 → 波束宽度（HPBW）越宽 → 增益越低</b></p>
-    <p>这是一个不可逾越的物理限制。具体来说：</p>
-    <ul><li>均匀激励：SLL = -13.2 dB，HPBW 最窄，增益最高</li><li>-20 dB 泰勒分布：SLL = -20 dB，HPBW 增大约 20%，增益下降约 0.8 dB</li><li>-30 dB 切比雪夫：SLL = -30 dB，HPBW 增大约 40%，增益下降约 1.5 dB</li><li>-40 dB：SLL = -40 dB，HPBW 增大约 60%，增益下降约 2.5 dB</li></ul>
+<p><strong>旁瓣电平（SLL）越低 → 波束宽度（HPBW）越宽 → 增益越低</strong></p>
+<p>这是一个不可逾越的物理限制。具体来说：</p>
+<ul>
+<li>均匀激励：SLL = -13.2 dB，HPBW 最窄，增益最高</li>
+<li>-20 dB 泰勒分布：SLL = -20 dB，HPBW 增大约 20%，增益下降约 0.8 dB</li>
+<li>-30 dB 切比雪夫：SLL = -30 dB，HPBW 增大约 40%，增益下降约 1.5 dB</li>
+<li>-40 dB：SLL = -40 dB，HPBW 增大约 60%，增益下降约 2.5 dB</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、经典综合方法</h2>
-    <h3>2.1 傅里叶变换法（Fourier Transform Method）</h3>
-    <p><b>原理</b>：均匀激励线性阵列的方向图 AF(θ) 是激励分布 I_n 的离散傅里叶变换（DFT）：</p>
-    <pre><code>AF(ψ) = Σ I_n · exp(j·n·ψ)</code></pre>
-    <p>反过来，给定目标方向图 F(ψ)，可以通过逆傅里叶变换求得激励：</p>
-    <pre><code>I_n = IDT[F(ψ)]</code></pre>
-    <p><b>优点</b>：</p>
-    <ul><li>物理直观，计算简单</li><li>可以设计任意形状的方向图</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>得到的激励可能是复数（需要同时控制幅度和相位）</li><li>截断效应（有限 N）导致 Gibbs 振荡</li><li>不适合低旁瓣设计</li></ul>
-    <p><b>适用场景</b>：扇形波束、平顶波束的快速初始设计。</p>
-    <h3>2.2 Dolph-Chebyshev 法</h3>
-    <p><b>原理</b>：使用切比雪夫多项式构造激励分布，使得在给定主瓣宽度的条件下，旁瓣电平最低（最优解）。</p>
-    <p>切比雪夫多项式定义：</p>
-    <pre><code>T_M(x) = cos(M · arccos(x)), |x| ≤ 1
-    T_M(x) = cosh(M · arccosh(x)), |x| &gt; 1</code></pre>
-    <p>通过选择合适的变量替换，可以将阵列因子表示为切比雪夫多项式，从而保证所有旁瓣等高（等旁瓣分布）。</p>
-    <p><b>关键公式</b>：</p>
-    <pre><code>AF(θ) = T_{N-1}[z₀ · cos(π·d/λ · sinθ)]</code></pre>
-    <p>其中 z₀ 由要求的旁瓣比 R（线性值）决定：</p>
-    <pre><code>z₀ = cosh[(1/(N-1)) · arccosh(R)]</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li><b>等旁瓣</b>：所有旁瓣高度一致</li><li><b>给定 SLL 下波束最窄</b>：数学上已证明是最优的</li><li><b>解析解</b>：可以直接计算激励系数</li></ul>
-    <p><b>典型结果</b>（N = 10 单元，d = λ/2）：</p>
-    <div class="tw"><table>
-    <thead><tr><th>目标 SLL</th><th>z₀</th><th>激励分布（对称）</th><th>HPBW 相对值</th></tr></thead>
-    <tbody>
-    <tr><td>-13.2 dB（均匀）</td><td>1.0</td><td>1 : 1 : 1 : 1 : ...</td><td>1.0×</td></tr>
-    <tr><td>-20 dB</td><td>1.35</td><td>0.5 : 0.7 : 1.0 : 1.0 : ...</td><td>1.2×</td></tr>
-    <tr><td>-26 dB</td><td>1.75</td><td>0.3 : 0.5 : 0.8 : 1.0 : ...</td><td>1.4×</td></tr>
-    <tr><td>-30 dB</td><td>2.15</td><td>0.2 : 0.4 : 0.6 : 0.9 : 1.0</td><td>1.6×</td></tr>
-    <tr><td>-40 dB</td><td>3.65</td><td>0.05 : 0.15 : 0.35 : 0.6 : 1.0</td><td>2.0×</td></tr>
-    </tbody></table></div>
-    <p><b>局限性</b>：</p>
-    <ul><li>只适用于等间距阵列</li><li>旁瓣全部等高，可能在某些方向不需要这么低的旁瓣</li><li>N 很大时，边缘单元的激励非常小，信噪比差</li></ul>
-    <h3>2.3 Taylor 分布法</h3>
-    <p><b>原理</b>：由 Richard Taylor 于 1960 年提出，通过在复平面上放置"虚零点"（Barren Zeros）来控制旁瓣分布。</p>
-    <p>Taylor 分布的特点：</p>
-    <ul><li><b>主瓣附近旁瓣低</b>，远处旁瓣逐渐升高</li><li>旁瓣高度由参数 <b>n_bar</b>（barren zeros 的数量）和 <b>SLL_target</b> 决定</li><li>更适合实际应用，因为远处旁瓣通常不重要（被大气衰减或地面遮挡）</li></ul>
-    <p><b>关键参数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>含义</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>SLL_target</td><td>目标旁瓣电平</td><td>-20 至 -30 dB</td></tr>
-    <tr><td>n_bar</td><td>虚零点数量</td><td>N/2 到 N-3</td></tr>
-    <tr><td>σ</td><td>过渡参数</td><td>由 SLL 和 n_bar 决定</td></tr>
-    </tbody></table></div>
-    <p><b>与 Chebyshev 的对比</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>Chebyshev</th><th>Taylor</th></tr></thead>
-    <tbody>
-    <tr><td>旁瓣分布</td><td>全部等高</td><td>近旁瓣低，远旁瓣渐升</td></tr>
-    <tr><td>最优性</td><td>给定 SLL 下波束最窄</td><td>给定 SLL 下波束稍宽</td></tr>
-    <tr><td>实用性</td><td>理论最优</td><td>工程更常用</td></tr>
-    <tr><td>计算复杂度</td><td>简单</td><td>中等</td></tr>
-    </tbody></table></div>
-    <p><b>典型结果</b>（N = 20，SLL = -26dB）：</p>
-    <ul><li>近旁瓣（前 5 个）：-26 dB</li><li>远旁瓣（第 10 个以后）：-20 至 -15 dB（逐渐升高）</li><li>HPBW 比 Chebyshev 宽约 5-10%</li></ul>
-    <h3>2.4 Bayliss 分布法</h3>
-    <p><b>原理</b>：Bayliss 在 Taylor 的基础上改进，用连续分布的虚零点替代离散零点，使得方向图在所有角度（包括旁瓣区）都能更好地逼近目标。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>旁瓣在整个角度范围内更均匀</li><li>避免了 Taylor 分布中远旁瓣升高的问题</li><li>计算复杂度高于 Taylor</li></ul>
-    <p><b>适用场景</b>：需要全角度低旁瓣的应用，如射电望远镜、卫星通信。</p>
-    <h3>2.5 非均匀间距阵列（Non-uniform Spacing）</h3>
-    <p><b>原理</b>：通过随机化或优化单元间距，打破周期性，从而抑制栅瓣和旁瓣。</p>
-    <p><b>方法</b>：</p>
-    <ul><li><b>Yagi-Uda 法</b>：基于傅里叶法的非均匀间距推广</li><li><b>随机阵列</b>：单元位置随机分布，旁瓣"基底"抬高但无栅瓣</li><li><b>对数螺旋阵列</b>：单元间距按对数规律递增</li></ul>
-    <p><b>优点</b>：</p>
-    <ul><li>可以完全消除栅瓣（即使 d > λ/2）</li><li>适合宽带应用</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>激励幅度可能非常大（边缘单元需要极大功率）</li><li>方向图不对称</li><li>校准复杂</li></ul>
+  
+  <article class="card ">
+    
+    <h2>2.1 傅里叶变换法（Fourier Transform Method）</h2>
+    <p><strong>原理</strong>：均匀激励线性阵列的方向图 AF(θ) 是激励分布 I_n 的离散傅里叶变换（DFT）：</p>
+<pre><code>AF(ψ) = Σ I_n · exp(j·n·ψ)
+</code></pre>
+<p>反过来，给定目标方向图 F(ψ)，可以通过逆傅里叶变换求得激励：</p>
+<pre><code>I_n = IDT[F(ψ)]
+</code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>物理直观，计算简单</li>
+<li>可以设计任意形状的方向图</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>得到的激励可能是复数（需要同时控制幅度和相位）</li>
+<li>截断效应（有限 N）导致 Gibbs 振荡</li>
+<li>不适合低旁瓣设计</li>
+</ul>
+<p><strong>适用场景</strong>：扇形波束、平顶波束的快速初始设计。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、现代综合方法</h2>
-    <h3>3.1 凸优化方法</h3>
+  
+  <article class="card ">
+    
+    <h2>2.2 Dolph-Chebyshev 法</h2>
+    <p><strong>原理</strong>：使用切比雪夫多项式构造激励分布，使得在给定主瓣宽度的条件下，旁瓣电平最低（最优解）。</p>
+<p>切比雪夫多项式定义：</p>
+<pre><code>T_M(x) = cos(M · arccos(x)), |x| ≤ 1
+T_M(x) = cosh(M · arccosh(x)), |x| &gt; 1
+</code></pre>
+<p>通过选择合适的变量替换，可以将阵列因子表示为切比雪夫多项式，从而保证所有旁瓣等高（等旁瓣分布）。</p>
+<p><strong>关键公式</strong>：</p>
+<pre><code>AF(θ) = T_{N-1}[z₀ · cos(π·d/λ · sinθ)]
+</code></pre>
+<p>其中 z₀ 由要求的旁瓣比 R（线性值）决定：</p>
+<pre><code>z₀ = cosh[(1/(N-1)) · arccosh(R)]
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>等旁瓣</strong>：所有旁瓣高度一致</li>
+<li><strong>给定 SLL 下波束最窄</strong>：数学上已证明是最优的</li>
+<li><strong>解析解</strong>：可以直接计算激励系数</li>
+</ul>
+<p><strong>典型结果</strong>（N = 10 单元，d = λ/2）：</p>
+<table>
+<thead>
+<tr>
+<th>目标 SLL</th>
+<th>z₀</th>
+<th>激励分布（对称）</th>
+<th>HPBW 相对值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-13.2 dB（均匀）</td>
+<td>1.0</td>
+<td>1 : 1 : 1 : 1 : ...</td>
+<td>1.0×</td>
+</tr>
+<tr>
+<td>-20 dB</td>
+<td>1.35</td>
+<td>0.5 : 0.7 : 1.0 : 1.0 : ...</td>
+<td>1.2×</td>
+</tr>
+<tr>
+<td>-26 dB</td>
+<td>1.75</td>
+<td>0.3 : 0.5 : 0.8 : 1.0 : ...</td>
+<td>1.4×</td>
+</tr>
+<tr>
+<td>-30 dB</td>
+<td>2.15</td>
+<td>0.2 : 0.4 : 0.6 : 0.9 : 1.0</td>
+<td>1.6×</td>
+</tr>
+<tr>
+<td>-40 dB</td>
+<td>3.65</td>
+<td>0.05 : 0.15 : 0.35 : 0.6 : 1.0</td>
+<td>2.0×</td>
+</tr>
+</tbody>
+</table>
+<p><strong>局限性</strong>：</p>
+<ul>
+<li>只适用于等间距阵列</li>
+<li>旁瓣全部等高，可能在某些方向不需要这么低的旁瓣</li>
+<li>N 很大时，边缘单元的激励非常小，信噪比差</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 Taylor 分布法</h2>
+    <p><strong>原理</strong>：由 Richard Taylor 于 1960 年提出，通过在复平面上放置"虚零点"（Barren Zeros）来控制旁瓣分布。</p>
+<p>Taylor 分布的特点：</p>
+<ul>
+<li><strong>主瓣附近旁瓣低</strong>，远处旁瓣逐渐升高</li>
+<li>旁瓣高度由参数 <strong>n_bar</strong>（barren zeros 的数量）和 <strong>SLL_target</strong> 决定</li>
+<li>更适合实际应用，因为远处旁瓣通常不重要（被大气衰减或地面遮挡）</li>
+</ul>
+<p><strong>关键参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SLL_target</td>
+<td>目标旁瓣电平</td>
+<td>-20 至 -30 dB</td>
+</tr>
+<tr>
+<td>n_bar</td>
+<td>虚零点数量</td>
+<td>N/2 到 N-3</td>
+</tr>
+<tr>
+<td>σ</td>
+<td>过渡参数</td>
+<td>由 SLL 和 n_bar 决定</td>
+</tr>
+</tbody>
+</table>
+<p><strong>与 Chebyshev 的对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Chebyshev</th>
+<th>Taylor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旁瓣分布</td>
+<td>全部等高</td>
+<td>近旁瓣低，远旁瓣渐升</td>
+</tr>
+<tr>
+<td>最优性</td>
+<td>给定 SLL 下波束最窄</td>
+<td>给定 SLL 下波束稍宽</td>
+</tr>
+<tr>
+<td>实用性</td>
+<td>理论最优</td>
+<td>工程更常用</td>
+</tr>
+<tr>
+<td>计算复杂度</td>
+<td>简单</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<p><strong>典型结果</strong>（N = 20，SLL = -26dB）：</p>
+<ul>
+<li>近旁瓣（前 5 个）：-26 dB</li>
+<li>远旁瓣（第 10 个以后）：-20 至 -15 dB（逐渐升高）</li>
+<li>HPBW 比 Chebyshev 宽约 5-10%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 Bayliss 分布法</h2>
+    <p><strong>原理</strong>：Bayliss 在 Taylor 的基础上改进，用连续分布的虚零点替代离散零点，使得方向图在所有角度（包括旁瓣区）都能更好地逼近目标。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>旁瓣在整个角度范围内更均匀</li>
+<li>避免了 Taylor 分布中远旁瓣升高的问题</li>
+<li>计算复杂度高于 Taylor</li>
+</ul>
+<p><strong>适用场景</strong>：需要全角度低旁瓣的应用，如射电望远镜、卫星通信。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 非均匀间距阵列（Non-uniform Spacing）</h2>
+    <p><strong>原理</strong>：通过随机化或优化单元间距，打破周期性，从而抑制栅瓣和旁瓣。</p>
+<p><strong>方法</strong>：</p>
+<ul>
+<li><strong>Yagi-Uda 法</strong>：基于傅里叶法的非均匀间距推广</li>
+<li><strong>随机阵列</strong>：单元位置随机分布，旁瓣"基底"抬高但无栅瓣</li>
+<li><strong>对数螺旋阵列</strong>：单元间距按对数规律递增</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以完全消除栅瓣（即使 d &gt; λ/2）</li>
+<li>适合宽带应用</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>激励幅度可能非常大（边缘单元需要极大功率）</li>
+<li>方向图不对称</li>
+<li>校准复杂</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 凸优化方法</h2>
     <p>将方向图综合问题表述为凸优化问题：</p>
-    <pre><code>minimize    w^H · w  （最小化激励功率）
-    subject to  |AF(θ)| ≤ SLL_target,  θ ∈ 旁瓣区
-                |AF(θ) - 1| ≤ δ,      θ ∈ 主瓣区
-                AF(θ_null) = 0,        θ ∈ 零陷区</code></pre>
-    <p>其中 w 是复数激励向量，(·)^H 是 Hermitian 转置。</p>
-    <p><b>求解器</b>：CVX、MOSEK、SDPT3</p>
-    <p><b>优点</b>：</p>
-    <ul><li>可以找到全局最优解</li><li>灵活处理多种约束（旁瓣、零陷、平顶等）</li><li>适合大规模阵列（100+ 单元）</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>计算量大（但现代求解器可在秒级完成）</li><li>需要专业知识设置优化问题</li></ul>
-    <h3>3.2 零点放置法（Zero Placement Technique）</h3>
-    <p><b>原理</b>：阵列因子可以表示为零点的多项式：</p>
-    <pre><code>AF(u) = Π(n=1 to N-1) (u - u_n)</code></pre>
-    <p>其中 u_n 是复平面上的零点位置。通过直接操控零点位置来综合方向图。</p>
-    <p><b>Flat-top 零點放置法（ZPFT）</b>：</p>
-    <ul><li>在主瓣区域放置两个实轴零点来"压平"顶部</li><li>其余零点按 Chebyshev 分布</li><li>可同时控制平顶宽度和旁瓣电平</li></ul>
-    <h3>3.3 迭代傅里叶算法（Iterative Fourier Transform Algorithm, IFTA）</h3>
-    <p><b>原理</b>：</p>
-    <ol><li>给定目标方向图（幅度和相位）</li><li>逆傅里叶变换得到激励系数</li><li>强制激励系数满足约束（如幅度为正实数）</li><li>傅里叶变换得到新的方向图</li><li>重复直到收敛</li></ol>
-    <p><b>优点</b>：</p>
-    <ul><li>可以综合任意形状的方向图</li><li>可以同时优化幅度和相位</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>可能陷入局部最优</li><li>收敛速度慢</li></ul>
-    <h3>3.4 AI/机器学习方法</h3>
+<pre><code>minimize    w^H · w  （最小化激励功率）
+subject to  |AF(θ)| ≤ SLL_target,  θ ∈ 旁瓣区
+            |AF(θ) - 1| ≤ δ,      θ ∈ 主瓣区
+            AF(θ_null) = 0,        θ ∈ 零陷区
+</code></pre>
+<p>其中 w 是复数激励向量，(·)^H 是 Hermitian 转置。</p>
+<p><strong>求解器</strong>：CVX、MOSEK、SDPT3</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以找到全局最优解</li>
+<li>灵活处理多种约束（旁瓣、零陷、平顶等）</li>
+<li>适合大规模阵列（100+ 单元）</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>计算量大（但现代求解器可在秒级完成）</li>
+<li>需要专业知识设置优化问题</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 零点放置法（Zero Placement Technique）</h2>
+    <p><strong>原理</strong>：阵列因子可以表示为零点的多项式：</p>
+<pre><code>AF(u) = Π(n=1 to N-1) (u - u_n)
+</code></pre>
+<p>其中 u_n 是复平面上的零点位置。通过直接操控零点位置来综合方向图。</p>
+<p><strong>Flat-top 零點放置法（ZPFT）</strong>：</p>
+<ul>
+<li>在主瓣区域放置两个实轴零点来"压平"顶部</li>
+<li>其余零点按 Chebyshev 分布</li>
+<li>可同时控制平顶宽度和旁瓣电平</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 迭代傅里叶算法（Iterative Fourier Transform Algorithm, IFTA）</h2>
+    <p><strong>原理</strong>：</p>
+<ol>
+<li>给定目标方向图（幅度和相位）</li>
+<li>逆傅里叶变换得到激励系数</li>
+<li>强制激励系数满足约束（如幅度为正实数）</li>
+<li>傅里叶变换得到新的方向图</li>
+<li>重复直到收敛</li>
+</ol>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以综合任意形状的方向图</li>
+<li>可以同时优化幅度和相位</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>可能陷入局部最优</li>
+<li>收敛速度慢</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 AI/机器学习方法</h2>
     <p>近年来，深度学习被用于方向图综合：</p>
-    <ul><li><b>监督学习</b>：训练神经网络直接从目标方向图映射到激励系数</li><li><b>强化学习</b>：通过试错优化激励分布</li><li><b>生成对抗网络（GAN）</b>：生成满足约束的方向图</li></ul>
-    <p><b>优势</b>：一旦训练完成，推理速度极快（毫秒级），适合实时波束成形。</p>
+<ul>
+<li><strong>监督学习</strong>：训练神经网络直接从目标方向图映射到激励系数</li>
+<li><strong>强化学习</strong>：通过试错优化激励分布</li>
+<li><strong>生成对抗网络（GAN）</strong>：生成满足约束的方向图</li>
+</ul>
+<p><strong>优势</strong>：一旦训练完成，推理速度极快（毫秒级），适合实时波束成形。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、关键应用场景</h2>
-    <h3>4.1 雷达低旁瓣设计</h3>
-    <ul><li><b>目标</b>：SLL < -25 dB（避免杂波和虚假目标）</li><li><b>方法</b>：Taylor 或 Bayliss 分布</li><li><b>典型阵列</b>：64-256 单元</li></ul>
-    <h3>4.2 卫星通信笔形波束</h3>
-    <ul><li><b>目标</b>：主瓣覆盖特定地球区域，旁瓣 < -20 dB</li><li><b>方法</b>：Dolph-Chebyshev 或凸优化</li><li><b>典型阵列</b>：16-64 单元</li></ul>
-    <h3>4.3 5G Massive MIMO 扇区覆盖</h3>
-    <ul><li><b>目标</b>：扇形波束（覆盖 60° 或 120° 扇区）</li><li><b>方法</b>：傅里叶法 + 窗函数</li><li><b>典型阵列</b>：64-256 单元（平面阵列）</li></ul>
-    <h3>4.4 干扰抑制零陷</h3>
-    <ul><li><b>目标</b>：在干扰方向放置深度零陷（<-40 dB）</li><li><b>方法</b>：凸优化或自适应波束成形（MVDR）</li><li><b>典型阵列</b>：8-64 单元</li></ul>
-    <h3>4.5 射电望远镜均匀照射</h3>
-    <ul><li><b>目标</b>：口径照射分布均匀，旁瓣 < -30 dB</li><li><b>方法</b>：Taylor n_bar = N-3</li><li><b>典型阵列</b>：数百至数千单元</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.1 雷达低旁瓣设计</h2>
+    <ul>
+<li><strong>目标</strong>：SLL &lt; -25 dB（避免杂波和虚假目标）</li>
+<li><strong>方法</strong>：Taylor 或 Bayliss 分布</li>
+<li><strong>典型阵列</strong>：64-256 单元</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、技术指标</h2>
-    <h3>5.1 综合方向图的关键指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>典型要求</th></tr></thead>
-    <tbody>
-    <tr><td>旁瓣电平（SLL）</td><td>最大旁瓣与主瓣之比</td><td><-20 dB（通信）/<-30 dB（雷达）</td></tr>
-    <tr><td>波束宽度（HPBW）</td><td>半功率点之间的角度</td><td>根据覆盖需求确定</td></tr>
-    <tr><td>第一旁瓣抑制</td><td>第一个旁瓣与主瓣之比</td><td>比平均 SLL 高 2-3 dB</td></tr>
-    <tr><td>零陷深度</td><td>零陷方向的衰减</td><td><-40 dB（干扰抑制）</td></tr>
-    <tr><td>平顶波动</td><td>平顶区域内的增益变化</td><td>< ±0.5 dB</td></tr>
-    <tr><td>方向图对称性</td><td>主瓣左右对称程度</td><td>不对称度 < 1 dB</td></tr>
-    </tbody></table></div>
-    <h3>5.2 激励系数的工程约束</h3>
-    <div class="tw"><table>
-    <thead><tr><th>约束</th><th>说明</th><th>工程影响</th></tr></thead>
-    <tbody>
-    <tr><td>幅度范围比</td><td>最大/最小激励幅度</td><td>> 20:1 时边缘单元信噪比差</td></tr>
-    <tr><td>相位量化误差</td><td>移相器位数限制</td><td>6-bit → RMS 相位误差 ~1.6°</td></tr>
-    <tr><td>幅度量化误差</td><td>衰减器位数限制</td><td>6-bit → RMS 幅度误差 ~0.3dB</td></tr>
-    <tr><td>激励对称性</td><td>阵列对称时的激励对称</td><td>不对称 → 方向图畸变</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>4.2 卫星通信笔形波束</h2>
+    <ul>
+<li><strong>目标</strong>：主瓣覆盖特定地球区域，旁瓣 &lt; -20 dB</li>
+<li><strong>方法</strong>：Dolph-Chebyshev 或凸优化</li>
+<li><strong>典型阵列</strong>：16-64 单元</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 激励幅度范围过大</h3>
+  
+  <article class="card ">
+    
+    <h2>4.3 5G Massive MIMO 扇区覆盖</h2>
+    <ul>
+<li><strong>目标</strong>：扇形波束（覆盖 60° 或 120° 扇区）</li>
+<li><strong>方法</strong>：傅里叶法 + 窗函数</li>
+<li><strong>典型阵列</strong>：64-256 单元（平面阵列）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 干扰抑制零陷</h2>
+    <ul>
+<li><strong>目标</strong>：在干扰方向放置深度零陷（&lt;-40 dB）</li>
+<li><strong>方法</strong>：凸优化或自适应波束成形（MVDR）</li>
+<li><strong>典型阵列</strong>：8-64 单元</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 射电望远镜均匀照射</h2>
+    <ul>
+<li><strong>目标</strong>：口径照射分布均匀，旁瓣 &lt; -30 dB</li>
+<li><strong>方法</strong>：Taylor n_bar = N-3</li>
+<li><strong>典型阵列</strong>：数百至数千单元</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 综合方向图的关键指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>典型要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>旁瓣电平（SLL）</td>
+<td>最大旁瓣与主瓣之比</td>
+<td>&lt;-20 dB（通信）/&lt;-30 dB（雷达）</td>
+</tr>
+<tr>
+<td>波束宽度（HPBW）</td>
+<td>半功率点之间的角度</td>
+<td>根据覆盖需求确定</td>
+</tr>
+<tr>
+<td>第一旁瓣抑制</td>
+<td>第一个旁瓣与主瓣之比</td>
+<td>比平均 SLL 高 2-3 dB</td>
+</tr>
+<tr>
+<td>零陷深度</td>
+<td>零陷方向的衰减</td>
+<td>&lt;-40 dB（干扰抑制）</td>
+</tr>
+<tr>
+<td>平顶波动</td>
+<td>平顶区域内的增益变化</td>
+<td>&lt; ±0.5 dB</td>
+</tr>
+<tr>
+<td>方向图对称性</td>
+<td>主瓣左右对称程度</td>
+<td>不对称度 &lt; 1 dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 激励系数的工程约束</h2>
+    <table>
+<thead>
+<tr>
+<th>约束</th>
+<th>说明</th>
+<th>工程影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>幅度范围比</td>
+<td>最大/最小激励幅度</td>
+<td>&gt; 20:1 时边缘单元信噪比差</td>
+</tr>
+<tr>
+<td>相位量化误差</td>
+<td>移相器位数限制</td>
+<td>6-bit → RMS 相位误差 ~1.6°</td>
+</tr>
+<tr>
+<td>幅度量化误差</td>
+<td>衰减器位数限制</td>
+<td>6-bit → RMS 幅度误差 ~0.3dB</td>
+</tr>
+<tr>
+<td>激励对称性</td>
+<td>阵列对称时的激励对称</td>
+<td>不对称 → 方向图畸变</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 激励幅度范围过大</h2>
     <p>Chebyshev 和 Taylor 分布在追求极低旁瓣时，边缘单元的激励可能只有中心单元的 1-5%：</p>
-    <ul><li>边缘单元的信噪比极差</li><li>T/R 模块在小信号时的非线性更严重</li><li>实际实现的旁瓣可能比理论值高 5-10 dB</li></ul>
-    <p><b>对策</b>：设置最小激励阈值（如 -20dB 截断），超出部分重新分配。</p>
-    <h3>6.2 相位量化效应</h3>
+<ul>
+<li>边缘单元的信噪比极差</li>
+<li>T/R 模块在小信号时的非线性更严重</li>
+<li>实际实现的旁瓣可能比理论值高 5-10 dB</li>
+</ul>
+<p><strong>对策</strong>：设置最小激励阈值（如 -20dB 截断），超出部分重新分配。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 相位量化效应</h2>
     <p>BFIC 的移相器位数有限（通常 6-bit），量化误差会导致：</p>
-    <ul><li>实际旁瓣比理论值高 2-5 dB</li><li>波束指向偏移</li></ul>
-    <p><b>经验公式</b>：N 单元 6-bit 移相器阵列的旁瓣抬升约为：</p>
-    <pre><code>ΔSLL ≈ 2.4 / √N dB</code></pre>
-    <p>对于 N = 64，ΔSLL ≈ 0.3 dB；对于 N = 256，ΔSLL ≈ 0.15 dB。</p>
-    <h3>6.3 幅相误差的累积</h3>
+<ul>
+<li>实际旁瓣比理论值高 2-5 dB</li>
+<li>波束指向偏移</li>
+</ul>
+<p><strong>经验公式</strong>：N 单元 6-bit 移相器阵列的旁瓣抬升约为：</p>
+<pre><code>ΔSLL ≈ 2.4 / √N dB
+</code></pre>
+<p>对于 N = 64，ΔSLL ≈ 0.3 dB；对于 N = 256，ΔSLL ≈ 0.15 dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 幅相误差的累积</h2>
     <p>实际阵列中，每个 T/R 通道的幅度和相位都存在误差：</p>
-    <ul><li>幅度误差：±0.5 dB（出厂校准后）</li><li>相位误差：±3°（出厂校准后）</li><li>温度漂移：±1°/°C</li></ul>
-    <p>这些误差会使理论综合的方向图在实际中退化。</p>
-    <p><b>对策</b>：在线自校准 + 鲁棒综合设计（在综合时预留误差裕量）。</p>
-    <h3>6.4 边缘效应</h3>
+<ul>
+<li>幅度误差：±0.5 dB（出厂校准后）</li>
+<li>相位误差：±3°（出厂校准后）</li>
+<li>温度漂移：±1°/°C</li>
+</ul>
+<p>这些误差会使理论综合的方向图在实际中退化。</p>
+<p><strong>对策</strong>：在线自校准 + 鲁棒综合设计（在综合时预留误差裕量）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 边缘效应</h2>
     <p>有限尺寸阵列的边缘单元与中心单元的 AEP 不同，导致：</p>
-    <ul><li>综合出的理想激励在实际边缘单元上无法实现</li><li>方向图不对称，一侧旁瓣低，另一侧高</li></ul>
-    <p><b>对策</b>：在综合时考虑边缘效应，或使用有限阵列综合算法。</p>
+<ul>
+<li>综合出的理想激励在实际边缘单元上无法实现</li>
+<li>方向图不对称，一侧旁瓣低，另一侧高</li>
+</ul>
+<p><strong>对策</strong>：在综合时考虑边缘效应，或使用有限阵列综合算法。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1940s</b>：傅里叶变换法首次用于阵列方向图综合</li><li><b>1946年</b>：Dolph 首次提出 Chebyshev 阵列综合方法</li><li><b>1960年</b>：Taylor 分布提出，成为雷达和卫星通信标准</li><li><b>1970s</b>：Bayliss 分布提出，改进 Taylor 的远旁瓣问题</li><li><b>1980s</b>：非均匀间距阵列（Yagi-Uda 法）发展</li><li><b>1990s</b>：凸优化方法引入方向图综合</li><li><b>2000s</b>：迭代傅里叶算法（IFTA）成为通用工具</li><li><b>2010s</b>：5G Massive MIMO 推动大规模阵列方向图综合</li><li><b>2020s</b>：AI/深度学习用于实时方向图综合</li><li><b>2025-2026年</b>：6G UM-MIMO 推动数千单元尺度的方向图综合</li></ul>
+    <ul>
+<li><strong>1940s</strong>：傅里叶变换法首次用于阵列方向图综合</li>
+<li><strong>1946年</strong>：Dolph 首次提出 Chebyshev 阵列综合方法</li>
+<li><strong>1960年</strong>：Taylor 分布提出，成为雷达和卫星通信标准</li>
+<li><strong>1970s</strong>：Bayliss 分布提出，改进 Taylor 的远旁瓣问题</li>
+<li><strong>1980s</strong>：非均匀间距阵列（Yagi-Uda 法）发展</li>
+<li><strong>1990s</strong>：凸优化方法引入方向图综合</li>
+<li><strong>2000s</strong>：迭代傅里叶算法（IFTA）成为通用工具</li>
+<li><strong>2010s</strong>：5G Massive MIMO 推动大规模阵列方向图综合</li>
+<li><strong>2020s</strong>：AI/深度学习用于实时方向图综合</li>
+<li><strong>2025-2026年</strong>：6G UM-MIMO 推动数千单元尺度的方向图综合</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：Dolph-Chebyshev 和 Taylor 分布等方法已应用超过 60 年，是雷达和卫星通信的标准设计工具。凸优化和 AI 辅助方法在近 20 年快速发展，在 5G Massive MIMO 中已工程化应用。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>AI 辅助方向图综合在 5G-Advanced 基站中部署</li><li>实时自适应方向图综合（在线更新激励系数）</li><li>6G UM-MIMO 的大规模方向图综合算法</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>智能超表面（RIS）的方向图综合：可重构表面的相位调控</li><li>通感一体化（ISAC）的方向图综合：同时优化通信和 sensing 方向图</li><li>全息 MIMO 的方向图综合：连续孔径下的新理论</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>量子阵列的方向图综合</li><li>可编程物质天线的实时方向图调控</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>AI 辅助方向图综合在 5G-Advanced 基站中部署</li>
+<li>实时自适应方向图综合（在线更新激励系数）</li>
+<li>
+<p>6G UM-MIMO 的大规模方向图综合算法</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>智能超表面（RIS）的方向图综合：可重构表面的相位调控</li>
+<li>通感一体化（ISAC）的方向图综合：同时优化通信和 sensing 方向图</li>
+<li>
+<p>全息 MIMO 的方向图综合：连续孔径下的新理论</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>量子阵列的方向图综合</li>
+<li>可编程物质天线的实时方向图调控</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>方向图综合是相控阵天线的"作曲术"——它告诉每个单元"你应该多大声音、何时发声"，才能让整个阵列"演奏"出符合要求的电磁方向图。从 Dolph-Chebyshev 的等旁瓣最优解到 AI 驱动的实时综合，方向图综合始终是相控阵天线从"能用"到"好用"的核心技术。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -340,39 +767,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

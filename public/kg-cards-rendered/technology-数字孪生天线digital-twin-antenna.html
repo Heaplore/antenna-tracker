@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数字孪生天线（Digital Twin Antenna） · 知识卡片</title>
+<title>数字孪生天线Digital-Twin-Antenna · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">数字孪生天线 <span class="en">Digital Twin Antenna</span></h1>
-  <p class="lede">数字孪生天线是将物理天线（包括其几何结构、材料属性、环境状态、温度变形等）在数字空间中构建高保真实时镜像，通过电磁仿真引擎 + 机器学习模型的混合加速，实现天线性能的实时预测、闭环优化和自适应控制——它是 6G 天线从"静态设计"走向"动态智能"的核心使能技术。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">数字孪生天线Digital-Twin-Antenna</h1>
+  <p class="lede">数字孪生天线是将物理天线（包括其几何结构、材料属性、环境状态、温度变形等）在数字空间中构建高保真实时镜像，通过电磁仿真引擎 + 机器学习模型的混合加速，实现天线性能的实时预测、闭环优化和自适应控制——它是 6G 天线从&#34;静态设计&#34;走向&#34;动态智能&#34;的核心使能技术。</p>
+  
 </header>
 
 <main>
@@ -99,191 +101,453 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象你在玩《模拟城市》——你可以在虚拟世界里建造一座城市，然后实时看到交通流量、电力消耗、人口分布的变化。数字孪生天线就是给物理天线建了一个"虚拟双胞胎"：你转动一下真实天线，虚拟天线也跟着转；真实天线因为太阳晒得温度升高性能下降了，虚拟天线通过传感器数据实时反映这个变化，并告诉你"该调整波束了"。它不是离线仿真（像 HFSS 那样跑几小时），而是毫秒级的实时镜像。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、数字孪生的三层架构</h2>
-    <h3>1.1 从离线仿真到实时孪生</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 从离线仿真到实时孪生</h2>
     <pre><code>传统流程：
-    设计 → HFSS 仿真（数小时） → 制造 → 测试 → 发现问题 → 重来
+设计 → HFSS 仿真（数小时） → 制造 → 测试 → 发现问题 → 重来
+
+数字孪生流程：
+物理天线 + 传感器 → 实时数据 → 孪生模型（毫秒级） → 预测 + 优化 → 闭环控制
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    数字孪生流程：
-    物理天线 + 传感器 → 实时数据 → 孪生模型（毫秒级） → 预测 + 优化 → 闭环控制</code></pre>
-    <h3>1.2 三层架构</h3>
+    <h2>1.2 三层架构</h2>
     <pre><code>┌─────────────────────────────────────┐
-    │  应用层（Control Layer）              │
-    │  - 波束管理优化                      │
-    │  - 自适应校准                        │
-    │  - 故障预测与诊断                    │
-    ├─────────────────────────────────────┤
-    │  模型层（Model Layer）               │
-    │  - 降阶模型（ROM）                    │
-    │  - 机器学习代理模型                   │
-    │  - 电磁仿真引擎（GPU加速）            │
-    ├─────────────────────────────────────┤
-    │  数据层（Data Layer）                │
-    │  - 传感器数据（温度、振动、应力）      │
-    │  - 射频数据（S参数、辐射方向图）       │
-    │  - 环境数据（风速、湿度、温度）        │
-    │  - 运行数据（功率、频率、波束指向）    │
-    └─────────────────────────────────────┘</code></pre>
-    <h3>1.3 电磁孪生空间（Electromagnetic Twin Space, ETS）</h3>
+│  应用层（Control Layer）              │
+│  - 波束管理优化                      │
+│  - 自适应校准                        │
+│  - 故障预测与诊断                    │
+├─────────────────────────────────────┤
+│  模型层（Model Layer）               │
+│  - 降阶模型（ROM）                    │
+│  - 机器学习代理模型                   │
+│  - 电磁仿真引擎（GPU加速）            │
+├─────────────────────────────────────┤
+│  数据层（Data Layer）                │
+│  - 传感器数据（温度、振动、应力）      │
+│  - 射频数据（S参数、辐射方向图）       │
+│  - 环境数据（风速、湿度、温度）        │
+│  - 运行数据（功率、频率、波束指向）    │
+└─────────────────────────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 电磁孪生空间（Electromagnetic Twin Space, ETS）</h2>
     <p>2025 年提出的新概念：</p>
-    <pre><code>ET = Electromagnetic Twin
-    ETSpace = 所有可能电磁环境的孪生集合
-    
-    ETSpace = { (E_field(r,t), H_field(r,t), material_props, geometry) | ∀ r ∈ Ω }</code></pre>
-    <p><b>核心价值</b>：将物理世界的电磁传播环境完整映射到数字空间，使得：</p>
-    <ul><li>可以在数字空间中进行"假设分析"（what-if analysis）</li><li>可以在数字空间中训练和优化波束赋形策略</li><li>可以将训练好的策略回传到物理系统执行</li></ul>
-  </article>
+<pre><code>ET = Electromagnetic Twin
+ETSpace = 所有可能电磁环境的孪生集合
 
-  <article class="card">
-    <h2>二、关键技术</h2>
-    <h3>2.1 降阶模型（Reduced-Order Model, ROM）</h3>
+ETSpace = { (E_field(r,t), H_field(r,t), material_props, geometry) | ∀ r ∈ Ω }
+</code></pre>
+<p><strong>核心价值</strong>：将物理世界的电磁传播环境完整映射到数字空间，使得：</p>
+<ul>
+<li>可以在数字空间中进行"假设分析"（what-if analysis）</li>
+<li>可以在数字空间中训练和优化波束赋形策略</li>
+<li>可以将训练好的策略回传到物理系统执行</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 降阶模型（Reduced-Order Model, ROM）</h2>
     <p>传统全波仿真（FDTD/FE/MoM）的计算复杂度是 O(N²) 到 O(N³)，N 是网格数。对于大规模阵列（数千单元），单次仿真可能需要数小时甚至数天。</p>
-    <p><b>ROM 的核心思想</b>：找到低维子空间，用少量基函数近似高维电磁场：</p>
-    <pre><code>E(r,ω) ≈ Σᵢ αᵢ(ω) · φᵢ(r)</code></pre>
-    <p>其中 φᵢ 是降阶基函数（通过 Proper Orthogonal Decomposition 或 Krylov 子空间方法得到），αᵢ 是系数（随频率变化）。</p>
-    <p><b>加速比</b>：</p>
-    <ul><li>全波仿真：1000 秒</li><li>ROM 近似：1 毫秒</li><li><b>加速比：10⁶ 倍</b></li></ul>
-    <h3>2.2 机器学习代理模型</h3>
-    <p>用神经网络替代电磁仿真引擎：</p>
-    <pre><code>输入：天线几何参数 + 材料属性 + 环境条件
-    输出：S 参数 + 辐射方向图 + 增益 + 效率</code></pre>
-    <p><b>常用架构</b>：</p>
-    <ul><li>CNN：处理方向图数据（2D 极坐标图像）</li><li>GNN：处理天线结构（图结构）</li><li>Transformer：处理频域数据（序列建模）</li><li>U-Net：超分辨率重建方向图</li></ul>
-    <p><b>训练数据生成</b>：</p>
-    <ol><li>用 HFSS/CST 生成数万组仿真样本</li><li>训练神经网络代理模型</li><li>代理模型推理速度比全波仿真快 10⁴-10⁶ 倍</li></ol>
-    <h3>2.3 传感器融合</h3>
-    <p>物理天线部署多种传感器采集实时数据：</p>
-    <div class="tw"><table>
-    <thead><tr><th>传感器类型</th><th>监测参数</th><th>采样率</th><th>用途</th></tr></thead>
-    <tbody>
-    <tr><td>温度传感器</td><td>天线表面温度</td><td>10Hz</td><td>热变形补偿</td></tr>
-    <tr><td>应变计</td><td>结构应力/形变</td><td>100Hz</td><td>几何误差校正</td></tr>
-    <tr><td>加速度计</td><td>振动/风载荷</td><td>1kHz</td><td>动态性能评估</td></tr>
-    <tr><td>VNA 模块</td><td>S 参数</td><td>10Hz</td><td>阻抗匹配监测</td></tr>
-    <tr><td>环行器+检波器</td><td>反射功率</td><td>100Hz</td><td>驻波比监测</td></tr>
-    </tbody></table></div>
-    <h3>2.4 GPU 加速电磁仿真</h3>
-    <p>传统 CPU 仿真 → GPU 并行化：</p>
-    <pre><code>FDTD 算法天然适合 GPU：
-    - 每个网格点的更新相互独立（除边界）
-    - CUDA/OpenCL 并行加速
-    - 加速比：10-50x（取决于问题规模）</code></pre>
-    <p><b>NVIDIA Sionna</b>：专为无线通信设计的 GPU 加速电磁仿真框架：</p>
-    <ul><li>支持射线追踪（Ray Tracing）</li><li>支持波导/天线仿真</li><li>Python API，易于集成</li></ul>
-    <h3>2.5 闭环控制</h3>
-    <p>数字孪生不只是"看"，还要"控"：</p>
-    <pre><code>物理世界 ←→ 数字孪生 ←→ 控制决策
+<p><strong>ROM 的核心思想</strong>：找到低维子空间，用少量基函数近似高维电磁场：</p>
+<pre><code>E(r,ω) ≈ Σᵢ αᵢ(ω) · φᵢ(r)
+</code></pre>
+<p>其中 φᵢ 是降阶基函数（通过 Proper Orthogonal Decomposition 或 Krylov 子空间方法得到），αᵢ 是系数（随频率变化）。</p>
+<p><strong>加速比</strong>：</p>
+<ul>
+<li>全波仿真：1000 秒</li>
+<li>ROM 近似：1 毫秒</li>
+<li><strong>加速比：10⁶ 倍</strong></li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    1. 传感器数据采集 → 孪生模型更新
-    2. 孪生模型预测 → 性能评估
-    3. 优化算法计算 → 最优参数
-    4. 参数下发 → 物理天线执行
-    5. 验证效果 → 反馈修正</code></pre>
-    <p><b>ISAC 系统中的闭环数字孪生</b>（2025 年最新研究）：</p>
-    <ol><li>通过 ISAC 测量获取散射体信息和天线阵列几何</li><li>使用高斯置信传播（GaBP）算法进行联合重建</li><li>重建的数字孪生用于码本预选择和下行波束赋形</li><li>降低空中训练开销，实现延迟约束的闭环控制</li></ol>
+    <h2>2.2 机器学习代理模型</h2>
+    <p>用神经网络替代电磁仿真引擎：</p>
+<pre><code>输入：天线几何参数 + 材料属性 + 环境条件
+输出：S 参数 + 辐射方向图 + 增益 + 效率
+</code></pre>
+<p><strong>常用架构</strong>：</p>
+<ul>
+<li>CNN：处理方向图数据（2D 极坐标图像）</li>
+<li>GNN：处理天线结构（图结构）</li>
+<li>Transformer：处理频域数据（序列建模）</li>
+<li>U-Net：超分辨率重建方向图</li>
+</ul>
+<p><strong>训练数据生成</strong>：</p>
+<ol>
+<li>用 HFSS/CST 生成数万组仿真样本</li>
+<li>训练神经网络代理模型</li>
+<li>代理模型推理速度比全波仿真快 10⁴-10⁶ 倍</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>三、数字孪生天线的核心应用</h2>
-    <h3>3.1 实时波束管理</h3>
+  
+  <article class="card ">
+    
+    <h2>2.3 传感器融合</h2>
+    <p>物理天线部署多种传感器采集实时数据：</p>
+<table>
+<thead>
+<tr>
+<th>传感器类型</th>
+<th>监测参数</th>
+<th>采样率</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>温度传感器</td>
+<td>天线表面温度</td>
+<td>10Hz</td>
+<td>热变形补偿</td>
+</tr>
+<tr>
+<td>应变计</td>
+<td>结构应力/形变</td>
+<td>100Hz</td>
+<td>几何误差校正</td>
+</tr>
+<tr>
+<td>加速度计</td>
+<td>振动/风载荷</td>
+<td>1kHz</td>
+<td>动态性能评估</td>
+</tr>
+<tr>
+<td>VNA 模块</td>
+<td>S 参数</td>
+<td>10Hz</td>
+<td>阻抗匹配监测</td>
+</tr>
+<tr>
+<td>环行器+检波器</td>
+<td>反射功率</td>
+<td>100Hz</td>
+<td>驻波比监测</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 GPU 加速电磁仿真</h2>
+    <p>传统 CPU 仿真 → GPU 并行化：</p>
+<pre><code>FDTD 算法天然适合 GPU：
+
+- 每个网格点的更新相互独立（除边界）
+- CUDA/OpenCL 并行加速
+- 加速比：10-50x（取决于问题规模）
+</code></pre>
+<p><strong>NVIDIA Sionna</strong>：专为无线通信设计的 GPU 加速电磁仿真框架：</p>
+<ul>
+<li>支持射线追踪（Ray Tracing）</li>
+<li>支持波导/天线仿真</li>
+<li>Python API，易于集成</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 闭环控制</h2>
+    <p>数字孪生不只是"看"，还要"控"：</p>
+<pre><code>物理世界 ←→ 数字孪生 ←→ 控制决策
+
+1. 传感器数据采集 → 孪生模型更新
+2. 孪生模型预测 → 性能评估
+3. 优化算法计算 → 最优参数
+4. 参数下发 → 物理天线执行
+5. 验证效果 → 反馈修正
+</code></pre>
+<p><strong>ISAC 系统中的闭环数字孪生</strong>（2025 年最新研究）：</p>
+<ol>
+<li>通过 ISAC 测量获取散射体信息和天线阵列几何</li>
+<li>使用高斯置信传播（GaBP）算法进行联合重建</li>
+<li>重建的数字孪生用于码本预选择和下行波束赋形</li>
+<li>降低空中训练开销，实现延迟约束的闭环控制</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 实时波束管理</h2>
     <p>毫米波/太赫兹天线的波束管理是数字孪生最成熟的应用：</p>
-    <p><b>传统波束管理</b>：</p>
-    <ol><li>全空间扫描（穷举所有波束组合）</li><li>选择最佳波束</li><li>用户移动 → 链路质量下降 → 重新扫描</li></ol>
-    <p><b>数字孪生辅助的波束管理</b>：</p>
-    <ol><li>孪生模型预计算所有可能波束的性能</li><li>根据用户位置和运动轨迹预测最优波束</li><li>只需在候选波束中微调（减少 90% 以上训练开销）</li></ol>
-    <p><b>效果</b>：</p>
-    <ul><li>波束训练开销降低 10-100 倍</li><li>波束切换延迟从毫秒级降到微秒级</li><li>切换成功率提升 30-50%</li></ul>
-    <h3>3.2 自适应校准</h3>
+<p><strong>传统波束管理</strong>：</p>
+<ol>
+<li>全空间扫描（穷举所有波束组合）</li>
+<li>选择最佳波束</li>
+<li>用户移动 → 链路质量下降 → 重新扫描</li>
+</ol>
+<p><strong>数字孪生辅助的波束管理</strong>：</p>
+<ol>
+<li>孪生模型预计算所有可能波束的性能</li>
+<li>根据用户位置和运动轨迹预测最优波束</li>
+<li>只需在候选波束中微调（减少 90% 以上训练开销）</li>
+</ol>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>波束训练开销降低 10-100 倍</li>
+<li>波束切换延迟从毫秒级降到微秒级</li>
+<li>切换成功率提升 30-50%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 自适应校准</h2>
     <p>大规模天线阵列的通道一致性随温度和老化漂移：</p>
-    <pre><code>物理天线漂移 → 传感器检测 → 孪生模型预测偏差 → 校准参数下发</code></pre>
-    <p><b>校准流程</b>：</p>
-    <ol><li>温度传感器检测到天线升温 10°C</li><li>孪生模型预测：增益下降 0.5dB，波束偏移 0.3°</li><li>优化算法计算：调整移相器相位 +2.1°，增益补偿 +0.5dB</li><li>下发校准参数 → 性能恢复</li></ol>
-    <h3>3.3 故障预测与诊断</h3>
+<pre><code>物理天线漂移 → 传感器检测 → 孪生模型预测偏差 → 校准参数下发
+</code></pre>
+<p><strong>校准流程</strong>：</p>
+<ol>
+<li>温度传感器检测到天线升温 10°C</li>
+<li>孪生模型预测：增益下降 0.5dB，波束偏移 0.3°</li>
+<li>优化算法计算：调整移相器相位 +2.1°，增益补偿 +0.5dB</li>
+<li>下发校准参数 → 性能恢复</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 故障预测与诊断</h2>
     <pre><code>S11 参数漂移 → 孪生模型分析 → 疑似连接器松动
-    辐射方向图畸变 → 孪生模型分析 → 疑似单元失效
-    温度异常升高 → 孪生模型分析 → 疑似功放退化</code></pre>
-    <p><b>预测性维护</b>：</p>
-    <ul><li>提前 7-30 天预测潜在故障</li><li>减少非计划停机时间 50-80%</li><li>降低运维成本 30-50%</li></ul>
-    <h3>3.4 环境感知</h3>
+辐射方向图畸变 → 孪生模型分析 → 疑似单元失效
+温度异常升高 → 孪生模型分析 → 疑似功放退化
+</code></pre>
+<p><strong>预测性维护</strong>：</p>
+<ul>
+<li>提前 7-30 天预测潜在故障</li>
+<li>减少非计划停机时间 50-80%</li>
+<li>降低运维成本 30-50%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 环境感知</h2>
     <p>数字孪生天线可以反过来感知周围环境：</p>
-    <pre><code>天线接收信号 → 孪生模型逆向推理 → 环境散射体分布</code></pre>
-    <p><b>应用场景</b>：</p>
-    <ul><li>自动驾驶：感知周围车辆、行人、建筑物</li><li>安防监控：检测非法入侵</li><li>气象监测：降雨、雾气对信号的影响</li></ul>
-    <h3>3.5 天线设计优化</h3>
+<pre><code>天线接收信号 → 孪生模型逆向推理 → 环境散射体分布
+</code></pre>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>自动驾驶：感知周围车辆、行人、建筑物</li>
+<li>安防监控：检测非法入侵</li>
+<li>气象监测：降雨、雾气对信号的影响</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 天线设计优化</h2>
     <p>传统天线设计是"试错法"：设计 → 仿真 → 修改 → 再仿真。数字孪生可以实现：</p>
-    <pre><code>目标性能 → 孪生模型逆向优化 → 最优几何参数 → 直接制造</code></pre>
-    <p><b>优化方法</b>：</p>
-    <ul><li>贝叶斯优化</li><li>遗传算法</li><li>强化学习</li><li>梯度下降（可微分电磁仿真）</li></ul>
+<pre><code>目标性能 → 孪生模型逆向优化 → 最优几何参数 → 直接制造
+</code></pre>
+<p><strong>优化方法</strong>：</p>
+<ul>
+<li>贝叶斯优化</li>
+<li>遗传算法</li>
+<li>强化学习</li>
+<li>梯度下降（可微分电磁仿真）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>四、数字孪生 vs 传统仿真</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>传统仿真（HFSS/CST）</th><th>数字孪生</th></tr></thead>
-    <tbody>
-    <tr><td>计算速度</td><td>分钟-小时级</td><td>毫秒-微秒级</td></tr>
-    <tr><td>实时性</td><td>离线</td><td>在线实时更新</td></tr>
-    <tr><td>数据输入</td><td>固定几何参数</td><td>传感器实时数据</td></tr>
-    <tr><td>输出</td><td>静态结果</td><td>动态预测 + 控制建议</td></tr>
-    <tr><td>应用场景</td><td>设计阶段</td><td>设计 + 运行全生命周期</td></tr>
-    <tr><td>闭环能力</td><td>无</td><td>有（预测 → 控制 → 验证）</td></tr>
-    <tr><td>模型复杂度</td><td>全波精确</td><td>ROM/ML 近似（精度略降）</td></tr>
-    <tr><td>硬件依赖</td><td>高性能工作站</td><td>边缘计算/GPU</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>传统仿真（HFSS/CST）</th>
+<th>数字孪生</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算速度</td>
+<td>分钟-小时级</td>
+<td>毫秒-微秒级</td>
+</tr>
+<tr>
+<td>实时性</td>
+<td>离线</td>
+<td>在线实时更新</td>
+</tr>
+<tr>
+<td>数据输入</td>
+<td>固定几何参数</td>
+<td>传感器实时数据</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>静态结果</td>
+<td>动态预测 + 控制建议</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>设计阶段</td>
+<td>设计 + 运行全生命周期</td>
+</tr>
+<tr>
+<td>闭环能力</td>
+<td>无</td>
+<td>有（预测 → 控制 → 验证）</td>
+</tr>
+<tr>
+<td>模型复杂度</td>
+<td>全波精确</td>
+<td>ROM/ML 近似（精度略降）</td>
+</tr>
+<tr>
+<td>硬件依赖</td>
+<td>高性能工作站</td>
+<td>边缘计算/GPU</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、技术挑战</h2>
-    <h3>5.1 精度 vs 速度的权衡</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 精度 vs 速度的权衡</h2>
     <pre><code>全波仿真：精度 99%，速度 1x
-    ROM：精度 95%，速度 10⁶x
-    ML 代理：精度 90%，速度 10⁸x</code></pre>
-    <p><b>如何平衡</b>：</p>
-    <ul><li>日常运行用 ML 代理（速度快，精度够用）</li><li>关键决策用 ROM（精度更高）</li><li>定期用全波仿真校准孪生模型（"真值回归"）</li></ul>
-    <h3>5.2 模型泛化能力</h3>
+ROM：精度 95%，速度 10⁶x
+ML 代理：精度 90%，速度 10⁸x
+</code></pre>
+<p><strong>如何平衡</strong>：</p>
+<ul>
+<li>日常运行用 ML 代理（速度快，精度够用）</li>
+<li>关键决策用 ROM（精度更高）</li>
+<li>定期用全波仿真校准孪生模型（"真值回归"）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 模型泛化能力</h2>
     <p>孪生模型在训练数据覆盖范围内表现良好，但遇到未见过的场景（极端天气、罕见障碍物）时性能下降。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>主动学习：在性能下降时自动触发全波仿真，扩充训练集</li><li>物理信息神经网络（PINN）：将麦克斯韦方程作为约束嵌入网络</li><li>混合建模：物理模型 + 数据驱动的残差修正</li></ul>
-    <h3>5.3 实时性保障</h3>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>主动学习：在性能下降时自动触发全波仿真，扩充训练集</li>
+<li>物理信息神经网络（PINN）：将麦克斯韦方程作为约束嵌入网络</li>
+<li>混合建模：物理模型 + 数据驱动的残差修正</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 实时性保障</h2>
     <pre><code>端到端延迟预算：
-    传感器采集 → 数据传输：1ms
-    孪生模型推理：1ms
-    优化计算：1ms
-    控制指令下发：1ms
-    总计：≤ 4ms（5G URLLC 要求）</code></pre>
-    <p><b>保障手段</b>：</p>
-    <ul><li>边缘计算（在基站侧部署孪生模型）</li><li>GPU/TPU 加速推理</li><li>模型量化（FP32 → INT8，精度损失 < 1%）</li></ul>
-    <h3>5.4 数据安全与隐私</h3>
+传感器采集 → 数据传输：1ms
+孪生模型推理：1ms
+优化计算：1ms
+控制指令下发：1ms
+总计：≤ 4ms（5G URLLC 要求）
+</code></pre>
+<p><strong>保障手段</strong>：</p>
+<ul>
+<li>边缘计算（在基站侧部署孪生模型）</li>
+<li>GPU/TPU 加速推理</li>
+<li>模型量化（FP32 → INT8，精度损失 &lt; 1%）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 数据安全与隐私</h2>
     <p>数字孪生需要持续获取物理天线的运行数据，这些数据可能包含敏感信息（如军事雷达的工作频率、波束指向）。</p>
-    <p><b>安全措施</b>：</p>
-    <ul><li>数据加密传输</li><li>本地化处理（不上传云端）</li><li>差分隐私（添加噪声保护原始数据）</li></ul>
+<p><strong>安全措施</strong>：</p>
+<ul>
+<li>数据加密传输</li>
+<li>本地化处理（不上传云端）</li>
+<li>差分隐私（添加噪声保护原始数据）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、行业进展</h2>
-    <h3>6.1 学术界</h3>
-    <ul><li><b>2023年</b>：电磁孪生空间（ETSpace）概念提出</li><li><b>2024年</b>：ROM + CNN 实现 APAA 实时性能预测（浙大）</li><li><b>2025年</b>：ISAC 闭环数字孪生波束管理（大阪大学 + 北邮 + 浙大）</li><li><b>2026年</b>：GPU 加速数字孪生天线优化（IEEE MILCOM）</li></ul>
-    <h3>6.2 工业界</h3>
-    <ul><li><b>华为</b>：数字孪生基站天线运维系统（2024 试点）</li><li><b>中兴</b>：AAU 数字孪生健康监测平台（2025 商用）</li><li><b>爱立信</b>：RIS 数字孪生设计工具（2025 发布）</li><li><b>NVIDIA</b>：Sionna 电磁仿真框架（开源，2023 发布）</li></ul>
-    <h3>6.3 标准化</h3>
-    <ul><li><b>3GPP R19</b>：数字孪生在 NR 中的初步研究</li><li><b>ITU-R M.2160</b>：6G 数字孪生网络框架建议</li><li><b>ETSI</b>：电磁孪生空间标准化（进行中）</li></ul>
+  
+  <article class="card ">
+    
+    <h2>6.1 学术界</h2>
+    <ul>
+<li><strong>2023年</strong>：电磁孪生空间（ETSpace）概念提出</li>
+<li><strong>2024年</strong>：ROM + CNN 实现 APAA 实时性能预测（浙大）</li>
+<li><strong>2025年</strong>：ISAC 闭环数字孪生波束管理（大阪大学 + 北邮 + 浙大）</li>
+<li><strong>2026年</strong>：GPU 加速数字孪生天线优化（IEEE MILCOM）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：早期商用 → 快速演进</li><li><b>说明</b>：数字孪生在通信网络层面已有小规模商用（华为、中兴）。但在天线层面的深度应用（实时电磁孪生、闭环波束控制）仍处于早期阶段。预计 2027-2028 年随着 6G 标准落地，数字孪生天线将进入规模化商用。</li></ul>
+  
+  <article class="card ">
+    
+    <h2>6.2 工业界</h2>
+    <ul>
+<li><strong>华为</strong>：数字孪生基站天线运维系统（2024 试点）</li>
+<li><strong>中兴</strong>：AAU 数字孪生健康监测平台（2025 商用）</li>
+<li><strong>爱立信</strong>：RIS 数字孪生设计工具（2025 发布）</li>
+<li><strong>NVIDIA</strong>：Sionna 电磁仿真框架（开源，2023 发布）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>数字孪生天线是天线技术的"元宇宙"——在数字世界里给每一根天线建一个实时镜像，让它不仅能预测未来性能，还能主动优化和控制。它不是要替代 HFSS 这样的全波仿真工具，而是要在"够用的精度"和"实时的速度"之间找到平衡，让天线从"设计完就定型"变成"永远在进化"。</p>
+  
+  <article class="card ">
+    
+    <h2>6.3 标准化</h2>
+    <ul>
+<li><strong>3GPP R19</strong>：数字孪生在 NR 中的初步研究</li>
+<li><strong>ITU-R M.2160</strong>：6G 数字孪生网络框架建议</li>
+<li><strong>ETSI</strong>：电磁孪生空间标准化（进行中）</li>
+</ul>
   </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -303,39 +567,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

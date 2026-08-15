@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线热管理（Thermal Management） · 知识卡片</title>
+<title>天线热管理Thermal-Management · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线热管理 <span class="en">Thermal Management</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线热管理Thermal-Management</h1>
   <p class="lede">5G AAU 功耗是 4G RRU 的 3-5 倍（200-500W vs 100W），热量集中在 30cm×14cm×6cm 的空间里，热管理是 AAU 设计中最容易被忽视但最致命的工程挑战——温度每升高 10°C，器件寿命减半。</p>
+  
 </header>
 
 <main>
@@ -99,174 +101,254 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>AAU 就像一个"微波炉"——64 个 PA 同时工作在高温高功率状态，但外面只有一块薄薄的铝板包裹。热管理就是在这个"微波炉"里建一条"高速公路"，把热量从 PA 快速搬运到外壳，再通过空气对流散出去。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、AAU 热源分布</h2>
-    <h3>1.1 功耗构成</h3>
-    <pre><code>5G 64T64R AAU @ 3.5GHz：
-      总功耗：300-500W
-      
-    功耗分布：
-      PA（功率放大器）：60-70% → 180-350W
-      T/R 模块（移相器/衰减器）：10-15% → 30-75W
-      BFIC（波束成形 IC）：5-10% → 15-50W
-      RCU/波控板：3-5% → 9-25W
-      其他（电源/风扇）：5-10% → 15-50W
-      
-    对比 4G 2T2R RRU：
-      总功耗：80-120W
-      PA 占比：80-90%</code></pre>
-    <h3>1.2 温度分布</h3>
-    <pre><code>AAU 内部温度梯度：
-      PA 结温：80-120°C（最高）
-      PA 散热片：60-80°C
-      导热垫：50-70°C
-      铝合金外壳：40-60°C
-      环境温度：-40°C to +65°C
-      
-    关键温度限制：
-      PA 结温 ≤ 125°C（GaAs）
-      PA 结温 ≤ 150°C（GaN）
-      移相器 ≤ 85°C
-      芯片 ≤ 105°C</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>二、热管理架构</h2>
-    <h3>2.1 散热路径</h3>
-    <pre><code>热源（PA Die）
-      ↓ 热传导（Conduction）
-      PA 散热焊盘（DPAK/QFN 底部）
-      ↓ 导热界面材料（TIM）
-      铝散热片 / 铜均热板
-      ↓ 热传导
-      AAU 铝合金外壳
-      ↓ 自然对流（Convection）+ 辐射（Radiation）
-      环境空气
-      
-    关键：热阻 R_th 越低，散热越好
-      
-    R_th 组成：
-      R_jc（结到壳）：0.5-2°C/W
-      R_ct（接触热阻）：0.5-3°C/W（TIM 决定）
-      R_ca（壳到环境）：1-5°C/W（外壳设计决定）
-      
-    总热阻：R_ja = R_jc + R_ct + R_ca
-      目标：R_ja &lt; 1°C/W（GaN PA）</code></pre>
-    <h3>2.2 散热方案对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方案</th><th>适用场景</th><th>散热能力</th><th>重量</th><th>成本</th><th>可靠性</th></tr></thead>
-    <tbody>
-    <tr><td>自然对流（无风扇）</td><td>Sub-6GHz AAU</td><td>200-500W</td><td>轻</td><td>低</td><td>高（无运动件）</td></tr>
-    <tr><td>风扇散热</td><td>毫米波 AAU</td><td>300-800W</td><td>中</td><td>中</td><td>中（风扇寿命）</td></tr>
-    <tr><td>液冷</td><td>未来 6G AAU</td><td>500-1500W</td><td>重</td><td>高</td><td>高</td></tr>
-    <tr><td>热管/VC</td><td>高密度 AAU</td><td>300-600W</td><td>中</td><td>中</td><td>高</td></tr>
-    </tbody></table></div>
-    <h3>2.3 自然对流散热设计</h3>
-    <pre><code>Sub-6GHz AAU 主流方案（无风扇）：
+  
+  <article class="card ">
     
-    外壳设计：
-      - 铝合金挤压型材（6063-T5）
-      - 外侧散热鳍片：20-40 片
-      - 鳍片间距：5-8mm（保证对流）
-      - 表面阳极氧化（增强辐射）
-      
-    内部设计：
-      - PA 直接焊接在铝基板上
-      - 铝基板贴导热垫到外壳内壁
-      - T/R 模块通过导热硅胶固定
-      
-    散热能力：
-      自然对流 + 辐射 ≈ 300-500W
-      满足 64T64R AAU 需求</code></pre>
-  </article>
+    <h2>1.1 功耗构成</h2>
+    <pre><code>5G 64T64R AAU @ 3.5GHz：
+  总功耗：300-500W
 
-  <article class="card">
-    <h2>三、关键热管理材料</h2>
-    <h3>3.1 导热界面材料（TIM）</h3>
+功耗分布：
+  PA（功率放大器）：60-70% → 180-350W
+  T/R 模块（移相器/衰减器）：10-15% → 30-75W
+  BFIC（波束成形 IC）：5-10% → 15-50W
+  RCU/波控板：3-5% → 9-25W
+  其他（电源/风扇）：5-10% → 15-50W
+
+对比 4G 2T2R RRU：
+  总功耗：80-120W
+  PA 占比：80-90%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 温度分布</h2>
+    <pre><code>AAU 内部温度梯度：
+  PA 结温：80-120°C（最高）
+  PA 散热片：60-80°C
+  导热垫：50-70°C
+  铝合金外壳：40-60°C
+  环境温度：-40°C to +65°C
+
+关键温度限制：
+  PA 结温 ≤ 125°C（GaAs）
+  PA 结温 ≤ 150°C（GaN）
+  移相器 ≤ 85°C
+  芯片 ≤ 105°C
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 散热路径</h2>
+    <pre><code>热源（PA Die）
+  ↓ 热传导（Conduction）
+  PA 散热焊盘（DPAK/QFN 底部）
+  ↓ 导热界面材料（TIM）
+  铝散热片 / 铜均热板
+  ↓ 热传导
+  AAU 铝合金外壳
+  ↓ 自然对流（Convection）+ 辐射（Radiation）
+  环境空气
+
+关键：热阻 R_th 越低，散热越好
+
+R_th 组成：
+  R_jc（结到壳）：0.5-2°C/W
+  R_ct（接触热阻）：0.5-3°C/W（TIM 决定）
+  R_ca（壳到环境）：1-5°C/W（外壳设计决定）
+
+总热阻：R_ja = R_jc + R_ct + R_ca
+  目标：R_ja &lt; 1°C/W（GaN PA）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 散热方案对比</h2>
+    <table>
+<thead>
+<tr>
+<th>方案</th>
+<th>适用场景</th>
+<th>散热能力</th>
+<th>重量</th>
+<th>成本</th>
+<th>可靠性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自然对流（无风扇）</td>
+<td>Sub-6GHz AAU</td>
+<td>200-500W</td>
+<td>轻</td>
+<td>低</td>
+<td>高（无运动件）</td>
+</tr>
+<tr>
+<td>风扇散热</td>
+<td>毫米波 AAU</td>
+<td>300-800W</td>
+<td>中</td>
+<td>中</td>
+<td>中（风扇寿命）</td>
+</tr>
+<tr>
+<td>液冷</td>
+<td>未来 6G AAU</td>
+<td>500-1500W</td>
+<td>重</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>热管/VC</td>
+<td>高密度 AAU</td>
+<td>300-600W</td>
+<td>中</td>
+<td>中</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 自然对流散热设计</h2>
+    <pre><code>Sub-6GHz AAU 主流方案（无风扇）：
+
+外壳设计：
+  - 铝合金挤压型材（6063-T5）
+  - 外侧散热鳍片：20-40 片
+  - 鳍片间距：5-8mm（保证对流）
+  - 表面阳极氧化（增强辐射）
+
+内部设计：
+  - PA 直接焊接在铝基板上
+  - 铝基板贴导热垫到外壳内壁
+  - T/R 模块通过导热硅胶固定
+
+散热能力：
+  自然对流 + 辐射 ≈ 300-500W
+  满足 64T64R AAU 需求
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 导热界面材料（TIM）</h2>
     <pre><code>TIM 类型对比：
-      1. 导热硅胶垫
-         - 热导率：1-6 W/m·K
-         - 厚度：0.5-3mm
-         - 压力：0.1-0.5MPa
-         - 适用：PA → 外壳
-         
-      2. 导热凝胶
-         - 热导率：2-8 W/m·K
-         - 无压力要求
-         - 适用：不规则表面
-         
-      3. 相变材料（PCM）
-         - 热导率：3-10 W/m·K
-         - 60-80°C 相变填充空隙
-         - 适用：高功率 PA
-         
-      4. 金属焊料
-         - 热导率：40-50 W/m·K
-         - 永久性连接
-         - 适用：GaN PA 直接键合</code></pre>
-    <h3>3.2 散热基板</h3>
+  1. 导热硅胶垫
+     - 热导率：1-6 W/m·K
+     - 厚度：0.5-3mm
+     - 压力：0.1-0.5MPa
+     - 适用：PA → 外壳
+
+  2. 导热凝胶
+     - 热导率：2-8 W/m·K
+     - 无压力要求
+     - 适用：不规则表面
+
+  3. 相变材料（PCM）
+     - 热导率：3-10 W/m·K
+     - 60-80°C 相变填充空隙
+     - 适用：高功率 PA
+
+  4. 金属焊料
+     - 热导率：40-50 W/m·K
+     - 永久性连接
+     - 适用：GaN PA 直接键合
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 散热基板</h2>
     <pre><code>基板材料对比：
-      1. FR4（普通 PCB）
-         - 热导率：0.3 W/m·K
-         - 适用：低功率电路
-         
-      2. 铝基板（MCPCB）
-         - 热导率：1-3 W/m·K
-         - 适用：Sub-6GHz PA
-         
-      3. 铜基板
-         - 热导率：3-5 W/m·K
-         - 适用：高功率 PA
-         
-      4. DBC（直接键合铜）
-         - 热导率：20-200 W/m·K（Al₂O₃）
-         - 适用：GaN PA
-          
-      5. AlN（氮化铝）DBC
-         - 热导率：170-200 W/m·K
-         - 适用：超高功率 PA
-          
-      6. 陶瓷（Si₃N₄）
-         - 热导率：25-30 W/m·K
-         - 适用：高可靠性场景</code></pre>
-  </article>
+  1. FR4（普通 PCB）
+     - 热导率：0.3 W/m·K
+     - 适用：低功率电路
 
-  <article class="card">
-    <h2>四、热设计方法</h2>
-    <h3>4.1 热仿真</h3>
+  2. 铝基板（MCPCB）
+     - 热导率：1-3 W/m·K
+     - 适用：Sub-6GHz PA
+
+  3. 铜基板
+     - 热导率：3-5 W/m·K
+     - 适用：高功率 PA
+
+  4. DBC（直接键合铜）
+     - 热导率：20-200 W/m·K（Al₂O₃）
+     - 适用：GaN PA
+
+  5. AlN（氮化铝）DBC
+     - 热导率：170-200 W/m·K
+     - 适用：超高功率 PA
+
+  6. 陶瓷（Si₃N₄）
+     - 热导率：25-30 W/m·K
+     - 适用：高可靠性场景
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 热仿真</h2>
     <pre><code>工具：
-      - ANSYS Icepak
-      - Flotherm
-      - COMSOL Multiphysics
-      
-    仿真步骤：
-      1. 建立 3D 热模型（几何+材料）
-      2. 设置热源功率（PA/IC）
-      3. 设置边界条件（环境温度/风速）
-      4. 求解稳态/瞬态温度场
-      5. 优化散热结构（鳍片间距/厚度）</code></pre>
-    <h3>4.2 热测试</h3>
-    <pre><code>测试项目：
-      1. 结温测试（Thermocouple/IR Camera）
-      2. 热阻测试（JEDEC JESD51）
-      3. 高低温循环（-40°C to +70°C）
-      4. 湿热测试（85°C/85%RH）
-      5. 热冲击测试（-40°C ↔ +85°C）
-      
-    标准：
-      - Telcordia GR-452（电信设备可靠性）
-      - IEC 60068-2（环境测试）</code></pre>
-  </article>
+  - ANSYS Icepak
+  - Flotherm
+  - COMSOL Multiphysics
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>AAU 热管理是"热量搬运工程"——PA 产生的 200-350W 热量需要通过 TIM→散热基板→外壳→空气的路径散出去。自然对流散热是 Sub-6GHz AAU 的主流方案（无风扇、高可靠）。记住：热设计不是"事后补救"，而是"从第一天就参与架构设计"——外壳散热鳍片的形状在 PCB 布局之前就要确定。</p>
+仿真步骤：
+  1. 建立 3D 热模型（几何+材料）
+  2. 设置热源功率（PA/IC）
+  3. 设置边界条件（环境温度/风速）
+  4. 求解稳态/瞬态温度场
+  5. 优化散热结构（鳍片间距/厚度）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 热测试</h2>
+    <pre><code>测试项目：
+  1. 结温测试（Thermocouple/IR Camera）
+  2. 热阻测试（JEDEC JESD51）
+  3. 高低温循环（-40°C to +70°C）
+  4. 湿热测试（85°C/85%RH）
+  5. 热冲击测试（-40°C ↔ +85°C）
+
+标准：
+  - Telcordia GR-452（电信设备可靠性）
+  - IEC 60068-2（环境测试）
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -286,39 +368,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

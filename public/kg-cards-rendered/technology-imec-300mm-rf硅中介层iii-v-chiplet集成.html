@@ -92,10 +92,6 @@
   <h1 class="title">imec-300mm-RF硅中介层III-V-chiplet集成</h1>
   <p class="lede">imec 将其 300mm RF硅中介层平台升级为系统级异构集成平台，通过高密度 MIM 电容 + 可缩放无源建模 + 激光辅助键合三大使能技术，实现 InP/GaAs/GaN III-V chiplet 与 Si-CMOS 的低损耗集成，支撑 mmWave 至 sub-THz（~300GHz）无线系统和高速数据中心应用。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">封装天线</span><span class="chip brand">异构集成</span><span class="chip brand">Chiplet</span><span class="chip brand">mmWave</span><span class="chip brand">sub-THz</span>
-  </div>
-  
 </header>
 
 <main>
@@ -107,14 +103,10 @@
 
 
   
-    
-  
-
-  
   <article class="card analogy">
     <div class="kicker">ANALOGY</div>
     <h2>类比入口</h2>
-    <p>想象你要造一台超级跑车：发动机（III-V chiplet，如 InP PA）提供最强动力，但体积大、成本高；底盘和电子控制系统（Si-CMOS）便宜、 scalable。传统做法是把发动机和底盘焊在一起，但高频信号在连接处会严重衰减。imec 的做法是发明了一种"超导桥梁"（RF硅中介层），让发动机的动力几乎无损地传到底盘，同时把原本塞在发动机里的电容、电感等"配件"挪到桥上来，让发动机本体变得更小更便宜。</p>
+    <p>想象你要造一台超级跑车：发动机（III-V chiplet，如 InP PA）提供最强动力，但体积大、成本高；底盘和电子控制系统（Si-CMOS）便宜、scalable。传统做法是把发动机和底盘焊在一起，但高频信号在连接处会严重衰减。imec 的做法是发明了一种"超导桥梁"（RF硅中介层），让发动机的动力几乎无损地传到底盘，同时把原本塞在发动机里的电容、电感等"配件"挪到桥上来，让发动机本体变得更小更便宜。</p>
   </article>
   
 
@@ -375,7 +367,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -393,39 +389,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

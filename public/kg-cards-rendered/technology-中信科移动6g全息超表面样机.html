@@ -92,10 +92,6 @@
   <h1 class="title">中信科移动6G全息超表面样机</h1>
   <p class="lede">将光学全息原理移植到微波频段，用超材料+低功耗动态元件重构天线阵面的电磁响应，实现超高增益和空间复用能力，同时大幅削减传统毫米波相控阵的成本、功耗和复杂度，为6G超大规模天线实用化提供可行路径。</p>
   
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">全息超表面</span><span class="chip brand">超维度天线</span><span class="chip brand">MWC26</span><span class="chip brand">中信科移动</span><span class="chip brand">竞品对标</span>
-  </div>
-  
 </header>
 
 <main>
@@ -105,18 +101,6 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-
-  
-    
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>想象一面镜子——传统相控阵是用几百上千个独立的微型反射镜各自调整角度来聚焦光线，而全息超表面是一整面连续的"智能镜面"，通过精确调控这面镜子上每个点的电磁特性，让微波像激光全息一样"雕刻"出想要的波束形状。少了很多独立的射频链路，但效果一样甚至更好。</p>
-  </article>
-  
 
   
   <article class="card ">
@@ -310,7 +294,11 @@
   
 
   
-  </main><script>
+    
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -328,39 +316,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

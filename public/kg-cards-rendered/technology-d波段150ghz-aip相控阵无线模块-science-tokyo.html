@@ -90,11 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">D波段150GHz AiP相控阵无线模块-Science Tokyo</h1>
-  <p class="lede">东京科学大学冈田健一团队在2025 VLSI提出、2026 JSSC发表的6G终端用150GHz AiP相控阵模块，采用65nm CMOS工艺+端面发射天线结构，实现56 Gbps传输速率和10.4 dBm/mm²超高功率密度，是首个面向手机等终端设备的亚THz AiP方案。</p>
-  
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">D波段</span><span class="chip brand">AiP</span><span class="chip brand">相控阵</span><span class="chip brand">6G</span>
-  </div>
+  <p class="lede">Science Tokyo 冈田健一团队在 JSSC 2026 发表的全球首个面向 6G 用户终端的 D 波段（142–164 GHz）8 元 AiP 相控阵收发模块，采用 65 nm CMOS 工艺，通过注入锁定倍频移相器、双有源亚谐波混频器和收发共用 PA 三大创新，将单元素 TX/RX 功耗分别降至 150/93 mW，模块尺寸仅 20×8.4 mm，EIRP 达 25.7 dBm，数据速率 56 Gbps。</p>
   
 </header>
 
@@ -111,304 +107,27 @@
   
 
   
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>如果把300GHz相控阵比作实验室里的巨型探照灯，那这个150GHz模块就是装进口袋的手电筒——功率密度提升了数倍，真正让亚THz通信从基站走向手机。</p>
+  <article class="card ">
+    
+    <h2>背景</h2>
+    <p>6G 移动通信目标数据速率超过 100 Gbps，远超 5G 能力。为实现这一目标，研究转向 sub-THz D 波段（110–170 GHz），以获得超宽带宽。但 D 波段面临两大挑战：</p>
+<ol>
+<li><strong>自由空间传播损耗大</strong>：需要高增益相控阵补偿</li>
+<li><strong>电路实现困难</strong>：放大器、开关等关键组件在 D 波段难以用 CMOS 实现高性能</li>
+</ol>
+<p>此前 D 波段收发器主要用于基站或回传应用，芯片面积大、天线模块笨重，无法集成到智能手机等用户终端（UE）中。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>是什么</h2>
-    <p>D波段（142-164 GHz）AiP相控阵无线模块，专为6G用户终端（UE）设计。由东京科学大学（Science Tokyo）工学院冈田健一教授团队主导，联合NICT、松下、新劲刚（Shinko Electric）共同开发。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>为什么重要</h2>
-    <ul>
-<li>此前D/Sub-THz相控阵几乎全部面向基站或回程链路，芯片面积大、功耗高，无法装入终端</li>
-<li>这是<strong>全球首个面向6G终端的150GHz AiP模块</strong>，将亚THz通信推向了手机/可穿戴设备层面</li>
-<li>功率密度10.4 dBm/mm²，比同类方案提升一个数量级级</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>发表信息</h2>
-    <ul>
-<li>会议：2025 VLSI Technology and Circuits（京都，2025.06）</li>
-<li>期刊：IEEE JSSC, 2026 (DOI: 10.1109/JSSC.2026.3665184)</li>
-<li>团队规模：40位作者，涵盖学术界（Science Tokyo/NICT）、产业界（松下/新劲刚）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.1 架构创新：端面发射 + 后壁波导</h2>
-    <p>传统AiP模块采用<strong>顶射型</strong>结构——天线在封装表面，信号从IC经基板传线路和过孔到顶部天线，传输距离长、损耗大。</p>
-<p>本次采用<strong>端射型（End-Fire）</strong>结构：</p>
-<ul>
-<li>在多层基板<strong>端面</strong>形成8元天线阵列</li>
-<li>使用<strong>后壁导波路（Post Wall Waveguide, PWW）</strong>替代传统微带线</li>
-<li>PWW = 在介质基板上规则排列金属柱，等效替换矩形波导的侧壁，兼具波导的低损耗特性和PCB的可制造性</li>
-<li>信号从IC直接到端面天线，传输距离最短化，插入损耗大幅降低</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.2 IC架构三大创新</h2>
-    <p><strong>① 注入锁定倍频相移器（ILTPS）</strong></p>
-<ul>
-<li>传统方案：LO链需要多级倍频+缓冲放大器+相移器，占用大量芯片面积和功耗</li>
-<li>ILTPS将<strong>频率三倍频</strong>和<strong>相移</strong>合并在单一电路中完成</li>
-<li>面积仅0.088 mm²，功耗15 mW</li>
-<li>直接连接到混频器，消除LO缓冲级</li>
-</ul>
-<p><strong>② 双有源次谐波混频器（BA-SHM）</strong></p>
-<ul>
-<li>工作在LO频率的一半，降低LO生成难度</li>
-<li>天然抑制本振泄漏（LO leakage）</li>
-<li>兼具TX/RX双向功能，减少电路面积</li>
-</ul>
-<p><strong>③ 无开关前端（Switchless Frontend）</strong></p>
-<ul>
-<li>将天线开关直接集成到PA匹配网络中</li>
-<li>消除开关寄生电容</li>
-<li>PA在TX/RX之间共享，进一步缩小面积</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.3 堆叠架构</h2>
-    <ul>
-<li>单个IC芯片集成4通道TX/RX电路</li>
-<li>2个IC驱动8元天线阵列 → 8×1线性阵列</li>
-<li>多模块堆叠可实现2D相控阵</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.1 应用场景</h2>
-    <table>
-<thead>
-<tr>
-<th>场景</th>
-<th>说明</th>
-<th>要求</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>6G手机终端</td>
-<td>150GHz超高速数据连接</td>
-<td>小型化、低功耗</td>
-</tr>
-<tr>
-<td>医疗XR</td>
-<td>手术室实时高清影像传输</td>
-<td>低延迟、高可靠</td>
-</tr>
-<tr>
-<td>可穿戴设备</td>
-<td>AR眼镜/智能手表数据同步</td>
-<td>极致紧凑</td>
-</tr>
-<tr>
-<td>近场回传</td>
-<td>设备间高速数据交换</td>
-<td>短距大容量</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.2 目标市场</h2>
-    <p>Okada教授明确提到<strong>医疗手术室中的XR应用</strong>——这意味着亚THz通信的杀手级应用可能首先出现在专业场景，而非消费级手机。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.1 Okada团队自身技术演进</h2>
-    <table>
-<thead>
-<tr>
-<th>时间</th>
-<th>成果</th>
-<th>频段</th>
-<th>工艺</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2023.12</td>
-<td>100 Gbps+ 亚THz相控阵</td>
-<td>211-275 GHz</td>
-<td>45nm SOI</td>
-<td>基站/回程</td>
-</tr>
-<tr>
-<td>2024.02</td>
-<td>300 GHz全CMOS收发器</td>
-<td>282-325 GHz</td>
-<td>45nm CMOS</td>
-<td>实验室芯片</td>
-</tr>
-<tr>
-<td>2024.06</td>
-<td>6G毫米波MIMO接收机</td>
-<td>28/38 GHz</td>
-<td>65nm CMOS</td>
-<td>基站</td>
-</tr>
-<tr>
-<td><strong>2025.06</strong></td>
-<td><strong>150 GHz AiP模块</strong></td>
-<td><strong>142-164 GHz</strong></td>
-<td><strong>65nm CMOS</strong></td>
-<td><strong>终端设备</strong></td>
-</tr>
-</tbody>
-</table>
-<p>这条技术路线清晰：<strong>从基站→从300GHz→向150GHz终端化</strong>，频率降低是为了工程可行性，工艺回归65nm（成熟节点）而非追求最先进节点。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.2 产业合作生态</h2>
-    <ul>
-<li><strong>松下</strong>：Hasaba、Takahashi等工程师参与，提供封装技术支持</li>
-<li><strong>新劲刚（Shinko Electric）</strong>：Taneda、Murayama等，提供coreless多层基板封装技术</li>
-<li><strong>NICT</strong>：渡边一作为6G研究核心机构参与</li>
-<li>这是一个典型的<strong>学术+封装厂+运营商</strong>三角合作模式</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.3 与其他方案对比</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>Science Tokyo 150GHz</th>
-<th>300GHz全CMOS(同期)</th>
-<th>三星X-MIMO 7GHz</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>频段</td>
-<td>142-164 GHz</td>
-<td>282-325 GHz</td>
-<td>~7 GHz</td>
-</tr>
-<tr>
-<td>工艺</td>
-<td>65nm CMOS</td>
-<td>45nm CMOS</td>
-<td>未知</td>
-</tr>
-<tr>
-<td>阵列</td>
-<td>8单元线性</td>
-<td>4单元2D</td>
-<td>128单元</td>
-</tr>
-<tr>
-<td>数据率</td>
-<td>56 Gbps</td>
-<td>未公开终端速率</td>
-<td>3 Gbps</td>
-</tr>
-<tr>
-<td>功耗/单元</td>
-<td>150mW(TX)/93mW(RX)</td>
-<td>较高</td>
-<td>较低</td>
-</tr>
-<tr>
-<td>目标</td>
-<td>终端UE</td>
-<td>基础研究</td>
-<td>商用基站</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.1 频率下探是终端化的必然路径</h2>
-    <p>300GHz在实验室里很酷，但终端设备需要考虑：</p>
-<ul>
-<li>传播损耗随频率升高急剧增加（Free Space Path Loss ∝ f²）</li>
-<li>器件成熟度（PA效率、LNA噪声系数）</li>
-<li>功耗约束（手机电池容量有限）</li>
-</ul>
-<p>150GHz是一个<strong>工程上更可行</strong>的折中点——带宽足够大（22 GHz），又不会让传播损耗失控。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.2 65nm CMOS是Sub-THz终端IC的最优解</h2>
-    <ul>
-<li>45nm虽然更快，但成本高、IP少</li>
-<li>65nm CMOS在射频领域有大量成熟IP和工艺优化经验</li>
-<li>松下/新劲刚的封装能力弥补了CMOS功率输出的不足</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.3 堆叠是实现2D相控阵的关键</h2>
-    <p>8×1线性阵列只是第一步，多模块堆叠成2D阵列才能覆盖全空间波束扫描。这对封装精度和热管理提出了挑战。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.1 对中兴天线的参考价值</h2>
-    <ol>
-<li><strong>GigaMIMO的Sub-THz延伸</strong>：老大之前学习的GigaMIMO是Massive MIMO的6G演进方向，这个150GHz AiP模块展示了GigaMIMO在亚THz频段的终端实现路径</li>
-<li><strong>AiP封装技术</strong>：新劲刚的coreless多层基板技术（8mm×20mm×&lt;1mm）对中兴的AAU小型化有借鉴意义</li>
-<li><strong>功率密度指标</strong>：10.4 dBm/mm²的EIRP密度是评估终端子阵设计的重要基准值</li>
-<li><strong>65nm CMOS工艺选择</strong>：说明Sub-THz不需要追最先进节点，成熟工艺的封装集成才是终端化的关键</li>
+    <h2>本方案核心思路</h2>
+    <p>将相控阵收发器与天线一体化封装（AiP），通过三项电路级创新大幅缩减面积和功耗：</p>
+<ol>
+<li><strong>注入锁定倍频移相器（ILTPS）</strong>：在一个电路中同时完成频率三倍化和相位偏移，省去多级 LO 缓冲级</li>
+<li><strong>双有源亚谐波混频器（BA-SHM）</strong>：以半 LO 频率工作，抵消 LO 泄漏，同时实现收发共用</li>
+<li><strong>收发共用功率放大器 + TDD 切换</strong>：PA/LNA 共享，天线开关直接集成到匹配网络中</li>
 </ol>
   </article>
   
@@ -416,10 +135,36 @@
   
   <article class="card ">
     
-    <h2>6.2 技术协同点</h2>
-    <ul>
-<li>中兴在Sub-6GHz Massive MIMO有深厚积累，150GHz终端模块的技术路径（ILTPS+BA-SHM+Switchless）可以作为未来高频段设计的参考架构</li>
-<li>与之前学的imec 300mm RF硅中介层III-V chiplet方案形成互补：imec走的是Chiplet异构集成路线，Science Tokyo走的是纯CMOS+封装集成路线</li>
+    <h2>1. 注入锁定倍频移相器（ILTPS）</h2>
+    <p><strong>解决的问题</strong>：传统 D 波段上变频需要多级 LO 生成电路（分频器→倍频器→缓冲放大器），占用大量芯片面积和功耗。</p>
+<p><strong>原理</strong>：利用注入锁定效应，直接将 LO 信号注入到倍频链的末级，使输出频率自动锁定为输入频率的三倍，同时通过控制注入信号的相位来实现移相功能。</p>
+<p><strong>关键参数</strong>：</p>
+<ul>
+<li>面积：0.088 mm²（极小）</li>
+<li>功耗：15 mW</li>
+<li>功能：频率三倍化 + 精确相位控制</li>
+<li>直接连接到混频器，最大化电压摆幅</li>
+</ul>
+<p><strong>与传统方案对比</strong>：传统多级 LO 链通常需要 0.5–1.0 mm² 以上面积，功耗 50–100 mW，ILTPS 将其压缩到 1/5–1/10。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 双有源亚谐波混频器（BA-SHM）</h2>
+    <p><strong>解决的问题</strong>：传统 mixer 需要全频 LO 驱动，产生 LO 泄漏问题（尤其 D 波段泄漏会干扰相邻频段），且收发需独立 mixer。</p>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>工作在 LO 频率的一半（亚谐波），降低 LO 生成复杂度</li>
+<li>双有源结构（两个晶体管对）天然抵消偶次谐波，包括 LO 泄漏分量</li>
+<li>同一 mixer 可同时用于 TX 和 RX 模式，通过 TDD 切换</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>抵消 LO 泄漏 → 无需额外滤波器</li>
+<li>收发共用 → 面积减半</li>
+<li>亚谐波驱动 → LO 生成电路频率要求降低一倍</li>
 </ul>
   </article>
   
@@ -427,68 +172,263 @@
   
   <article class="card ">
     
-    <h2>七、关键技术指标</h2>
+    <h2>3. 收发共用 PA + 集成天线开关</h2>
+    <p><strong>解决的问题</strong>：传统设计中天线开关是独立组件，引入寄生电容，增加插入损耗。</p>
+<p><strong>原理</strong>：将天线开关直接集成到 PA/LNA 的匹配网络中，利用 PA 器件本身作为 TDD 切换开关。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>消除独立开关的寄生电容</li>
+<li>PA/LNA 组件在 TX/RX 之间共享</li>
+<li>最小化信号路径损耗</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三、系统级规格</h2>
     <table>
 <thead>
 <tr>
 <th>参数</th>
 <th>数值</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>工作频段</td>
-<td>142-164 GHz (D-band)</td>
+<td>频段</td>
+<td>142–164 GHz</td>
+<td>D 波段，22 GHz 带宽</td>
+</tr>
+<tr>
+<td>阵列规模</td>
+<td>8 元</td>
+<td>2 颗收发 IC × 每颗 4 元</td>
 </tr>
 <tr>
 <td>工艺</td>
 <td>65 nm CMOS</td>
+<td>标准 CMOS，非 GaAs/GaN</td>
 </tr>
 <tr>
-<td>阵列配置</td>
-<td>8单元 (2 IC × 4通道)</td>
+<td>收发芯片面积</td>
+<td>8.5 mm²</td>
+<td>含 ILTPS + BA-SHM + PA/LNA</td>
 </tr>
 <tr>
-<td>最大数据速率</td>
-<td>56 Gbps (TX), 40 Gbps (RX) @30cm</td>
-</tr>
-<tr>
-<td>5m距离速率</td>
-<td>20 Gbps (QPSK)</td>
+<td>AiP 模块尺寸</td>
+<td>20 × 8.4 mm</td>
+<td>含天线和封装</td>
 </tr>
 <tr>
 <td>EIRP</td>
-<td>25.7 dBm @154 GHz</td>
+<td>25.7 dBm</td>
+<td>8 元合成输出功率</td>
 </tr>
 <tr>
-<td>功率密度</td>
-<td>10.4 dBm/mm²</td>
+<td>最大数据速率</td>
+<td>56 Gbps</td>
+<td>OTA 实测</td>
 </tr>
 <tr>
-<td>功耗/单元</td>
-<td>150 mW (TX), 93 mW (RX)</td>
+<td>TX 功耗/元素</td>
+<td>150 mW (1 V)</td>
+<td>含 PA + ILTPS + mixer</td>
 </tr>
 <tr>
-<td>波束扫描范围</td>
-<td>±45°</td>
+<td>RX 功耗/元素</td>
+<td>93 mW (1 V)</td>
+<td>含 LNA + mixer</td>
 </tr>
 <tr>
-<td>旁瓣抑制</td>
-<td>~-10 dB</td>
-</tr>
-<tr>
-<td>IC尺寸</td>
-<td>8.5 mm² (含天线驱动)</td>
-</tr>
-<tr>
-<td>模块尺寸</td>
-<td>20 mm × 8.4 mm</td>
+<td>总功耗</td>
+<td>~1.2 W</td>
+<td>8 元阵列</td>
 </tr>
 </tbody>
 </table>
   </article>
   
 
+  
+  <article class="card ">
+    
+    <h2>1. 6G 用户终端</h2>
+    <p>这是该模块的首要应用场景。56 Gbps 的 OTA 数据速率足以支撑 6G 移动设备的超高带宽需求。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 医疗 VR/XR</h2>
+    <p>Okada 教授特别指出：该模块可支持医疗手术室中的高保真移动 VR/XR 应用，提供前所未有的真实感体验。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. pLEO 卫星终端</h2>
+    <p>类似 HoNi BAJR 反射阵列的应用场景，D 波段 AiP 也可用于低轨卫星终端的高速数据回传。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Science Tokyo 团队自身演进</h2>
+    <table>
+<thead>
+<tr>
+<th>时间</th>
+<th>成果</th>
+<th>频段</th>
+<th>工艺</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021 ISSCC</td>
+<td>300 GHz 双向 outphasing 收发器</td>
+<td>300 GHz</td>
+<td>65 nm CMOS</td>
+<td>首次实现双向 outphasing</td>
+</tr>
+<tr>
+<td>2022 JSSC</td>
+<td>300 GHz 双向收发器（LO 发射抵消）</td>
+<td>300 GHz</td>
+<td>65 nm CMOS</td>
+<td>改进 LO 泄漏抑制</td>
+</tr>
+<tr>
+<td>2023 CICC</td>
+<td>Sub-THz CMOS 相控阵设计指南</td>
+<td>200–300 GHz</td>
+<td>65 nm CMOS</td>
+<td>系统性总结</td>
+</tr>
+<tr>
+<td>2024 VLSI</td>
+<td>142–164 GHz 8 元 AiP 模块（会议版）</td>
+<td>142–164 GHz</td>
+<td>65 nm CMOS</td>
+<td>本文初版</td>
+</tr>
+<tr>
+<td>2026 JSSC</td>
+<td>142–164 GHz 8 元 AiP 模块（正式版）</td>
+<td>142–164 GHz</td>
+<td>65 nm CMOS</td>
+<td>本文，完善所有细节</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与其他团队的对比</h2>
+    <table>
+<thead>
+<tr>
+<th>团队</th>
+<th>频段</th>
+<th>工艺</th>
+<th>EIRP</th>
+<th>数据速率</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Science Tokyo (本文)</td>
+<td>142–164 GHz</td>
+<td>65 nm CMOS</td>
+<td>25.7 dBm</td>
+<td>56 Gbps</td>
+<td>面向 UE，超低功耗</td>
+</tr>
+<tr>
+<td>Samsung (300 GHz)</td>
+<td>300 GHz</td>
+<td>65 nm CMOS</td>
+<td>~20 dBm</td>
+<td>100+ Gbps</td>
+<td>更高频段，更高吞吐</td>
+</tr>
+<tr>
+<td>NICT/NTT (InP)</td>
+<td>300 GHz</td>
+<td>InP HEMT</td>
+<td>30+ dBm</td>
+<td>120 Gbps</td>
+<td>化合物半导体，高性能但高成本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键差异</strong>：Science Tokyo 方案是<strong>唯一</strong>明确面向用户终端（UE）的 D 波段 AiP 方案，功耗和面积是核心优化目标，而非单纯追求峰值性能。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. CMOS 在 sub-THz 领域的竞争力持续增强</h2>
+    <p>Okada 团队从 2021 年 300 GHz 到 2026 年 142 GHz 的演进路线表明：65 nm CMOS 在 sub-THz 频段的性能已经接近甚至超越部分化合物半导体方案，同时具备大规模量产的成本优势。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 电路架构创新比工艺节点推进更有效</h2>
+    <p>ILTPS 和 BA-SHM 两项创新均来自电路层面的巧妙设计，而非依赖更先进的 CMOS 工艺。这说明在 sub-THz 领域，<strong>架构创新的价值 &gt; 工艺迭代</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 6G UE 的 D 波段模块将在 2028–2030 进入原型验证阶段</h2>
+    <p>目前该模块仍在实验室阶段，但 56 Gbps 的 OTA 速率和 150 mW/元素的 TX 功耗表明技术可行性已得到验证。结合 3GPP Rel-21 对 6G 标准的研究进度，预计：</p>
+<ul>
+<li>2027–2028：多厂商原型验证</li>
+<li>2029–2030：早期标准化（可能纳入 Rel-21/22）</li>
+<li>2030+：首批商用部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对中兴工作的参考价值</h2>
+    <ol>
+<li>
+<p><strong>D 波段 UE 模块是 6G 竞争的关键赛道</strong>：华为、三星、NTT 都在布局，中兴需要在 D 波段 CMOS 收发器领域保持跟进。</p>
+</li>
+<li>
+<p><strong>ILTPS 架构值得深入研究</strong>：这种"一石二鸟"的电路设计思路（同时完成倍频和移相）可以迁移到其他频段和架构中，降低 LO 链复杂度。</p>
+</li>
+<li>
+<p><strong>AiP 封装集成是关键能力</strong>：该模块由 Shinko Electric Industries 提供 AiP 封装，说明日本封装厂商在 sub-THz AiP 领域已形成产业链。中兴需要评估国内封装合作伙伴的能力差距。</p>
+</li>
+<li>
+<p><strong>功耗指标参考</strong>：TX 150 mW/元素、RX 93 mW/元素是 6G UE D 波段模块的重要基准值，可作为中兴内部研发的目标参考。</p>
+</li>
+<li>
+<p><strong>与 HoNi BAJR 的协同思考</strong>：HoNi 解决的是 pLEO 卫星通信的抗干扰问题，而本模块解决的是地面 6G UE 的超高速连接问题。两者在 SATCOM 场景下可能形成互补（卫星回传 + 地面接入）。</p>
+</li>
+</ol>
+  </article>
+  
 
 
 </main><script>
@@ -509,39 +449,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

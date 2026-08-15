@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>6G信道建模范式转移-从统计拟合到数字孪生（ChannelLM） · 知识卡片</title>
+<title>6G信道建模范式转移-从统计拟合到数字孪生 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">6G信道建模范式转移-从统计拟合到数字孪生 <span class="en">ChannelLM</span></h1>
-  <p class="lede">6G 信道建模正经历一场深刻的范式转移：从传统的<b>统计信道建模</b>转向<b>数字孪生信道（Digital Twin Channel, DTC）</b>。这一转变的核心驱动力是 6G 对太比特级峰值速率（Tbps）、全域覆盖和 AI 原生空口的严苛要求。传统基于有限场景离线测量数据拟合统计分布的方法，已无法满足 6G 动态多样环境的在线信道获取需求。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">6G信道建模范式转移-从统计拟合到数字孪生</h1>
+  
+  
 </header>
 
 <main>
@@ -99,88 +101,346 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>核心内容</h2>
-    <h3>一、传统统计信道建模的瓶颈</h3>
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>6G 信道建模正经历一场深刻的范式转移：从传统的<strong>统计信道建模</strong>转向<strong>数字孪生信道（Digital Twin Channel, DTC）</strong>。这一转变的核心驱动力是 6G 对太比特级峰值速率（Tbps）、全域覆盖和 AI 原生空口的严苛要求。传统基于有限场景离线测量数据拟合统计分布的方法，已无法满足 6G 动态多样环境的在线信道获取需求。</p>
+<p>本文档深入研究了北京邮电大学蔡亦辰等人于 2026 年 4 月提出的 <strong>ChannelLM 驱动的数字孪生信道架构</strong>，以及 3GPP TR 38.901 v19 中对 FR3（6-24 GHz）近场传播和空间非平稳性的标准化进展。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>一、传统统计信道建模的瓶颈</h2>
     <p>传统信道建模（以 3GPP TR 38.901 为代表）的核心方法：</p>
-    <ul><li><b>基于典型场景</b>：UMa（城市宏覆盖）、UMi（城市微覆盖）、indoors 等有限预定义场景</li><li><b>离线测量驱动</b>：收集特定场景下的信道脉冲响应（CIR）数据</li><li><b>统计拟合</b>：拟合随机参数（时延、角度、功率）的统计分布</li><li><b>GBSMC 模型</b>：Geometry-Based Stochastic Multi-Cluster 模型</li></ul>
-    <p><b>根本局限</b>：环境泛化能力不足。当面临不同场景间的过渡、动态环境变化时，传统模型无法在线适应。</p>
-    <h3>二、数字孪生信道（DTC）新范式</h3>
+<ul>
+<li><strong>基于典型场景</strong>：UMa（城市宏覆盖）、UMi（城市微覆盖）、indoors 等有限预定义场景</li>
+<li><strong>离线测量驱动</strong>：收集特定场景下的信道脉冲响应（CIR）数据</li>
+<li><strong>统计拟合</strong>：拟合随机参数（时延、角度、功率）的统计分布</li>
+<li><strong>GBSMC 模型</strong>：Geometry-Based Stochastic Multi-Cluster 模型</li>
+</ul>
+<p><strong>根本局限</strong>：环境泛化能力不足。当面临不同场景间的过渡、动态环境变化时，传统模型无法在线适应。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>二、数字孪生信道（DTC）新范式</h2>
     <p>DTC 的核心思想：通过高保真环境感知构建物理环境的数字副本，利用 AI 模型实时预测对应信道。</p>
-    <h4>DTC 实现流水线</h4>
-    <pre><code>多模态环境感知数据采集 → 处理 → 特征提取 → 信道预测 → 通信优化</code></pre>
-    <p>相比传统方法的优势：</p>
-    <ol><li><b>突破典型场景约束</b>：适应更复杂多样的实际环境</li><li><b>在线更新机制</b>：基于实时环境感知，克服传统离线统计拟合的局限</li><li><b>端到端预测</b>：同时预测大尺度衰落（路径损耗）和小尺度信息（CSI）</li></ol>
-    <h3>三、ChannelLM 架构详解</h3>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>DTC 实现流水线</h2>
+    <pre><code>多模态环境感知数据采集 → 处理 → 特征提取 → 信道预测 → 通信优化
+</code></pre>
+<p>相比传统方法的优势：</p>
+<ol>
+<li><strong>突破典型场景约束</strong>：适应更复杂多样的实际环境</li>
+<li><strong>在线更新机制</strong>：基于实时环境感知，克服传统离线统计拟合的局限</li>
+<li><strong>端到端预测</strong>：同时预测大尺度衰落（路径损耗）和小尺度信息（CSI）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三、ChannelLM 架构详解</h2>
     <p>ChannelLM 是北京邮电大学团队提出的环境泛化信道大模型，包含三大核心模块：</p>
-    <h4>模块 1：多模态环境重建</h4>
-    <ul><li><b>传感器融合</b>：RGB-D 相机 + LiDAR</li><li><b>动态物体检测</b>：实时追踪环境中移动物体（车辆、行人）</li><li><b>低复杂度高精度重建</b>：在计算资源和精度之间取得平衡</li></ul>
-    <h4>模块 2：无线电传播引导的特征提取</h4>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块 1：多模态环境重建</h2>
+    <ul>
+<li><strong>传感器融合</strong>：RGB-D 相机 + LiDAR</li>
+<li><strong>动态物体检测</strong>：实时追踪环境中移动物体（车辆、行人）</li>
+<li><strong>低复杂度高精度重建</strong>：在计算资源和精度之间取得平衡</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块 2：无线电传播引导的特征提取</h2>
     <p>从重建的环境中提取可解释的无线电特征：</p>
-    <ul><li><b>基站/用户位置图</b>（BS/UT location maps）</li><li><b>散射体分布和高度图</b>（scatterer distribution and height maps）</li><li><b>穿透率图</b>（penetration ratio maps）</li><li><b>物理可解释性</b>：特征直接对应无线电传播机理</li></ul>
-    <h4>模块 3：ChannelLM 核心</h4>
-    <ul><li><b>环境泛化表示</b>：将提取的环境特征映射为广义环境表示</li><li><b>多任务信道预测</b>：同时预测 CSI、路径损耗、角度、时延等</li><li><b>端到端推理延迟</b>：实测 70 毫秒（真实世界）</li></ul>
-    <h3>四、关键性能指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>ChannelLM</th><th>传统小模型</th><th>提升幅度</th></tr></thead>
-    <tbody>
-    <tr><td>CSI 预测误差（未见环境）</td><td>降低 4.23 dB</td><td>基准</td><td>-4.23 dB</td></tr>
-    <tr><td>端到端推理延迟</td><td>70 ms</td><td>不适用</td><td>实时可用</td></tr>
-    <tr><td>环境泛化能力</td><td>强（大模型）</td><td>弱（场景绑定）</td><td>质的飞跃</td></tr>
-    </tbody></table></div>
-    <h3>五、3GPP TR 38.901 v19 近场信道建模</h3>
-    <p>3GPP Release 19 在 TR 38.901 v19.2.0 中首次引入了<b>近场信道模型</b>（Section 7.6.13），这是面向 FR3（6-24 GHz）和 XL-MIMO 的关键标准化进展。</p>
-    <h4>近场传播的核心特征</h4>
-    <ol><li><b>球面波前</b>（Spherical Wavefront）：</li><li>传统远场假设平面波前失效</li><li>天线阵列尺寸增大后，阵元级别的相位变化呈非线性</li></ol>
-    <ol><li><b>空间非平稳性</b>（Spatial Non-Stationarity, SNS）：</li><li>不完全散射导致的功率衰减</li><li>可见概率和可见区域建模</li><li>物理遮挡效应</li></ol>
-    <ol><li><b>XL-MIMO 的影响</b>：</li><li>超大孔径天线阵列使近场区域显著扩大</li><li>6-24 GHz 频段下，远场条件 $R > \frac{2D^2}{\lambda}$ 更难满足</li></ol>
-    <h4>3GPP 近场模型的关键创新</h4>
-    <ul><li><b>簇关联球面波源距离建模</b>：分别建模 BS 和 UT 到簇源的距离</li><li><b>阵元级别路径参数变化</b>：非线性相位和角度变化</li><li><b>可见性衰减因子</b>：从可见概率和可见区域建立功率衰减模型</li><li><b>射线追踪验证</b>：近场和 SNS 模型通过射线追踪仿真验证</li></ul>
-    <h3>六、6G 信道建模的交叉趋势</h3>
-    <h4>趋势 1：AI + 信道建模深度融合</h4>
-    <ul><li>ChannelLM 代表大模型在信道预测中的应用</li><li>NVIDIA Aerial OmniGraph Digital Twin 代表工业界数字孪生平台</li><li>Qualcomm MWC 2026 展示了 AI-native 6G 原型和传感enabled 数字孪生平台</li></ul>
-    <h4>趋势 2：通感一体化（ISAC）驱动</h4>
-    <ul><li>6G 系统原生支持 sensing，信道建模与感知数据共享</li><li>多模态传感器（相机、LiDAR、雷达）为信道预测提供环境先验</li><li>3GPP 已启动 ISAC 信道建模标准化研究</li></ul>
-    <h4>趋势 3：全域覆盖信道建模</h4>
-    <ul><li>6GPCM+（泛在信道模型）突破单一传输介质限制</li><li>支持声学波和电磁波（包括光波）的统一建模</li><li>覆盖短波、全光无线通信、水下声学、海底、地下等极端场景</li><li>支持海空天地一体化网络</li></ul>
-    <h4>趋势 4：近场通信关键技术</h4>
+<ul>
+<li><strong>基站/用户位置图</strong>（BS/UT location maps）</li>
+<li><strong>散射体分布和高度图</strong>（scatterer distribution and height maps）</li>
+<li><strong>穿透率图</strong>（penetration ratio maps）</li>
+<li><strong>物理可解释性</strong>：特征直接对应无线电传播机理</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>模块 3：ChannelLM 核心</h2>
+    <ul>
+<li><strong>环境泛化表示</strong>：将提取的环境特征映射为广义环境表示</li>
+<li><strong>多任务信道预测</strong>：同时预测 CSI、路径损耗、角度、时延等</li>
+<li><strong>端到端推理延迟</strong>：实测 70 毫秒（真实世界）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、关键性能指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>ChannelLM</th>
+<th>传统小模型</th>
+<th>提升幅度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSI 预测误差（未见环境）</td>
+<td>降低 4.23 dB</td>
+<td>基准</td>
+<td>-4.23 dB</td>
+</tr>
+<tr>
+<td>端到端推理延迟</td>
+<td>70 ms</td>
+<td>不适用</td>
+<td>实时可用</td>
+</tr>
+<tr>
+<td>环境泛化能力</td>
+<td>强（大模型）</td>
+<td>弱（场景绑定）</td>
+<td>质的飞跃</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、3GPP TR 38.901 v19 近场信道建模</h2>
+    <p>3GPP Release 19 在 TR 38.901 v19.2.0 中首次引入了<strong>近场信道模型</strong>（Section 7.6.13），这是面向 FR3（6-24 GHz）和 XL-MIMO 的关键标准化进展。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>近场传播的核心特征</h2>
+    <ol>
+<li><strong>球面波前</strong>（Spherical Wavefront）：</li>
+<li>传统远场假设平面波前失效</li>
+<li>
+<p>天线阵列尺寸增大后，阵元级别的相位变化呈非线性</p>
+</li>
+<li>
+<p><strong>空间非平稳性</strong>（Spatial Non-Stationarity, SNS）：</p>
+</li>
+<li>不完全散射导致的功率衰减</li>
+<li>可见概率和可见区域建模</li>
+<li>
+<p>物理遮挡效应</p>
+</li>
+<li>
+<p><strong>XL-MIMO 的影响</strong>：</p>
+</li>
+<li>超大孔径天线阵列使近场区域显著扩大</li>
+<li>6-24 GHz 频段下，远场条件 $R &gt; \frac{2D^2}{\lambda}$ 更难满足</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3GPP 近场模型的关键创新</h2>
+    <ul>
+<li><strong>簇关联球面波源距离建模</strong>：分别建模 BS 和 UT 到簇源的距离</li>
+<li><strong>阵元级别路径参数变化</strong>：非线性相位和角度变化</li>
+<li><strong>可见性衰减因子</strong>：从可见概率和可见区域建立功率衰减模型</li>
+<li><strong>射线追踪验证</strong>：近场和 SNS 模型通过射线追踪仿真验证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势 1：AI + 信道建模深度融合</h2>
+    <ul>
+<li>ChannelLM 代表大模型在信道预测中的应用</li>
+<li>NVIDIA Aerial OmniGraph Digital Twin 代表工业界数字孪生平台</li>
+<li>Qualcomm MWC 2026 展示了 AI-native 6G 原型和传感enabled 数字孪生平台</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势 2：通感一体化（ISAC）驱动</h2>
+    <ul>
+<li>6G 系统原生支持 sensing，信道建模与感知数据共享</li>
+<li>多模态传感器（相机、LiDAR、雷达）为信道预测提供环境先验</li>
+<li>3GPP 已启动 ISAC 信道建模标准化研究</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势 3：全域覆盖信道建模</h2>
+    <ul>
+<li>6GPCM+（泛在信道模型）突破单一传输介质限制</li>
+<li>支持声学波和电磁波（包括光波）的统一建模</li>
+<li>覆盖短波、全光无线通信、水下声学、海底、地下等极端场景</li>
+<li>支持海空天地一体化网络</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势 4：近场通信关键技术</h2>
     <p>IEEE Communications Theory 期刊提出 6G 近场通信十大关键问题：</p>
-    <ol><li>近场波束成形优化</li><li>近场定位与通信联合</li><li>近场 MIMO 容量分析</li><li>近场 RIS 辅助通信</li><li>近场信道估计</li><li>...（更多方向）</li></ol>
+<ol>
+<li>近场波束成形优化</li>
+<li>近场定位与通信联合</li>
+<li>近场 MIMO 容量分析</li>
+<li>近场 RIS 辅助通信</li>
+<li>近场信道估计</li>
+<li>...（更多方向）</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>关联延伸</h2>
-    <h3>与 GigaMIMO 技术的关联</h3>
+  
+  <article class="card ">
+    
+    <h2>与 GigaMIMO 技术的关联</h2>
     <p>GigaMIMO（大规模天线阵列）是近场信道建模的物理基础。天线阵列规模越大，近场区域越显著。3GPP 近场模型直接服务于 GigaMIMO 系统的性能评估和优化。</p>
-    <h3>与 U6G 频段的关联</h3>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与 U6G 频段的关联</h2>
     <p>U6G（FR3 6-24 GHz）是近场传播和空间非平稳性最显著的频段。该频段波长较短（1.25-5 cm），配合 XL-MIMO 天线阵列，近场效应尤为突出。</p>
-    <h3>数字孪生在天线行业的应用前景</h3>
-    <ul><li><b>基站设计</b>：通过数字孪生环境预测信道特性，优化天线位置和波束成形</li><li><b>室内覆盖规划</b>：建筑模型 + 无线电特征提取 = 精准室内覆盖预测</li><li><b>车联网</b>：动态环境感知 + 实时信道预测 = 低延迟可靠通信</li><li><b>低空经济</b>：无人机通信的信道预测和波束跟踪</li></ul>
   </article>
+  
 
-  <article class="card">
-    <h2>综合分析</h2>
-    <h3>范式转移的本质</h3>
-    <p>从"统计拟合"到"数字孪生"的转变，本质上是<b>从被动描述到主动预测</b>的跃迁：</p>
-    <ul><li>传统方法：收集数据 → 拟合分布 → 应用于相似场景（被动）</li><li>DTC 方法：感知环境 → 提取特征 → 实时预测（主动）</li></ul>
-    <h3>对天线行业的意义</h3>
-    <ol><li><b>天线设计维度扩展</b>：从传统的方向图/增益/波束宽度，扩展到近场聚焦/球面波前匹配</li><li><b>测试验证方式变革</b>：数字孪生环境可减少实地测试成本，加速天线迭代</li><li><b>AI + 天线融合</b>：ChannelLM 等大模型需要天线侧提供高质量环境特征</li></ol>
-    <h3>挑战与机遇</h3>
-    <ul><li><b>挑战</b>：多模态感知硬件成本、实时推理算力需求、环境动态变化的建模难度</li><li><b>机遇</b>：为近场天线、XL-MIMO、智能反射面（RIS）提供全新的设计和优化思路</li></ul>
+  
+  <article class="card ">
+    
+    <h2>数字孪生在天线行业的应用前景</h2>
+    <ul>
+<li><strong>基站设计</strong>：通过数字孪生环境预测信道特性，优化天线位置和波束成形</li>
+<li><strong>室内覆盖规划</strong>：建筑模型 + 无线电特征提取 = 精准室内覆盖预测</li>
+<li><strong>车联网</strong>：动态环境感知 + 实时信道预测 = 低延迟可靠通信</li>
+<li><strong>低空经济</strong>：无人机通信的信道预测和波束跟踪</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>实践价值</h2>
-    <h3>对天线技术质量岗位的参考价值</h3>
-    <ol><li><b>竞品技术追踪</b>：华为/爱立信/诺基亚均在 6G 信道建模方向加大投入</li><li><b>行业标准预判</b>：3GPP TR 38.901 v19 近场模型是重要的标准化信号</li><li><b>测试方法升级</b>：数字孪生信道预测可能改变未来的天线测试验证流程</li></ol>
-    <h3>值得关注的关联方向</h3>
-    <ol><li><b>近场天线设计</b>：球形波前匹配的天线阵列布局</li><li><b>RIS 辅助信道建模</b>：智能反射面对信道特性的增强作用</li><li><b>通感一体化天线</b>：同时支持通信和感知的多模态天线系统</li><li><b>6G 频段测试</b>：FR3 频段（6-24 GHz）的信道测量和验证</li></ol>
+  
+  <article class="card ">
+    
+    <h2>范式转移的本质</h2>
+    <p>从"统计拟合"到"数字孪生"的转变，本质上是<strong>从被动描述到主动预测</strong>的跃迁：</p>
+<ul>
+<li>传统方法：收集数据 → 拟合分布 → 应用于相似场景（被动）</li>
+<li>DTC 方法：感知环境 → 提取特征 → 实时预测（主动）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>对天线行业的意义</h2>
+    <ol>
+<li><strong>天线设计维度扩展</strong>：从传统的方向图/增益/波束宽度，扩展到近场聚焦/球面波前匹配</li>
+<li><strong>测试验证方式变革</strong>：数字孪生环境可减少实地测试成本，加速天线迭代</li>
+<li><strong>AI + 天线融合</strong>：ChannelLM 等大模型需要天线侧提供高质量环境特征</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战与机遇</h2>
+    <ul>
+<li><strong>挑战</strong>：多模态感知硬件成本、实时推理算力需求、环境动态变化的建模难度</li>
+<li><strong>机遇</strong>：为近场天线、XL-MIMO、智能反射面（RIS）提供全新的设计和优化思路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对天线技术质量岗位的参考价值</h2>
+    <ol>
+<li><strong>竞品技术追踪</strong>：华为/爱立信/诺基亚均在 6G 信道建模方向加大投入</li>
+<li><strong>行业标准预判</strong>：3GPP TR 38.901 v19 近场模型是重要的标准化信号</li>
+<li><strong>测试方法升级</strong>：数字孪生信道预测可能改变未来的天线测试验证流程</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>值得关注的关联方向</h2>
+    <ol>
+<li><strong>近场天线设计</strong>：球形波前匹配的天线阵列布局</li>
+<li><strong>RIS 辅助信道建模</strong>：智能反射面对信道特性的增强作用</li>
+<li><strong>通感一体化天线</strong>：同时支持通信和感知的多模态天线系统</li>
+<li><strong>6G 频段测试</strong>：FR3 频段（6-24 GHz）的信道测量和验证</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>延伸阅读</h2>
-    <ol><li>蔡亦辰等，《Paradigm Shift from Statistical Channel Modeling to Digital Twin Prediction: An Environment-Generalizable ChannelLM for 6G AI-enabled Air Interface》，arXiv:2604.18021，2026</li><li>3GPP TR 38.901 v19.2.0，《Study on channel model for frequencies from 0.5 to 100 GHz》，2025</li><li>《Near-Field Propagation and Spatial Non-Stationarity Channel Model for 6–24 GHz (FR3) Extremely Large-Scale MIMO: Adopted by 3GPP for 6G》，IEEE JSAC，2026</li><li>王承信团队，《An enhanced 6G pervasive channel model towards standardization》，Science China Information Sciences，2025</li><li>Keysight + NTT Docomo + NTT，《Advances in Realistic Channel Modeling and Wireless Simulation for 6G》，2026-06-01</li><li>《Near-Field Communications for 6G: Ten Key Issues》，IEEE Communications Theory，2025</li></ol>
+    <ol>
+<li>蔡亦辰等，《Paradigm Shift from Statistical Channel Modeling to Digital Twin Prediction: An Environment-Generalizable ChannelLM for 6G AI-enabled Air Interface》，arXiv:2604.18021，2026</li>
+<li>3GPP TR 38.901 v19.2.0，《Study on channel model for frequencies from 0.5 to 100 GHz》，2025</li>
+<li>《Near-Field Propagation and Spatial Non-Stationarity Channel Model for 6–24 GHz (FR3) Extremely Large-Scale MIMO: Adopted by 3GPP for 6G》，IEEE JSAC，2026</li>
+<li>王承信团队，《An enhanced 6G pervasive channel model towards standardization》，Science China Information Sciences，2025</li>
+<li>Keysight + NTT Docomo + NTT，《Advances in Realistic Channel Modeling and Wireless Simulation for 6G》，2026-06-01</li>
+<li>《Near-Field Communications for 6G: Ten Key Issues》，IEEE Communications Theory，2025</li>
+</ol>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -200,39 +460,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

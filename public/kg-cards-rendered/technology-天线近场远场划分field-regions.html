@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线近场/远场划分（Antenna Field Regions） · 知识卡片</title>
+<title>天线近场远场划分Field-Regions · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线近场/远场划分 <span class="en">Antenna Field Regions</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线近场远场划分Field-Regions</h1>
   <p class="lede">天线周围的电磁场可以划分为三个区域：反应式近场（储能为主）、辐射式近场（Fresnel 区，球面波）和远场（Fraunhofer 区，平面波）。划分的边界决定了天线测量的条件、波束赋形的方法和信道模型的选择。</p>
+  
 </header>
 
 <main>
@@ -99,197 +101,470 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一个喷泉：喷口附近的水花乱溅、方向不定（反应式近场）；稍微远一点，水柱开始成形但还没完全展开（辐射式近场/Fresnel 区）；再远一点，水柱变成稳定的直线射流（远场/Fraunhofer 区）。天线辐射的电磁场也是类似的——越远越"规矩"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、三个场区的定义</h2>
-    <h3>1.1 反应式近场（Reactive Near-Field）</h3>
-    <p><b>定义</b>：紧贴天线表面的区域，电磁场以储能为主（电场能和磁场能交替交换，不向外辐射）。</p>
-    <p><b>边界</b>：</p>
-    <pre><code>r &lt; 0.62·√(D³/λ)   （最严格的定义）
-    或
-    r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）</code></pre>
-    <p>其中 D 是天线的最大尺寸。</p>
-    <p><b>特征</b>：</p>
-    <ul><li>场强随距离快速衰减（1/r² 或 1/r³）</li><li>电场和磁场相位相差 90°（无功功率）</li><li>方向图不稳定，随距离变化剧烈</li><li>无法进行有意义的方向图测量</li></ul>
-    <p><b>工程意义</b>：</p>
-    <ul><li>天线与馈线之间的过渡区</li><li>近场天线耦合（如 NFC/RFID）</li><li>人体贴近天线时的 SAR（比吸收率）评估</li></ul>
-    <h3>1.2 辐射式近场 / Fresnel 区（Radiative Near-Field）</h3>
-    <p><b>定义</b>：波已经开始辐射但仍保持球面波前特性的区域。</p>
-    <p><b>边界</b>：</p>
-    <pre><code>0.62·√(D³/λ) &lt; r &lt; 2D²/λ</code></pre>
-    <p><b>特征</b>：</p>
-    <ul><li>场强随距离按 1/r 衰减（辐射场）</li><li>波前为球面（相位非线性）</li><li>方向图随距离变化（但未稳定）</li><li>可以进行波束聚焦（beamfocusing）</li></ul>
-    <p><b>子区域</b>（2024 年新研究补充）：</p>
-    <div class="tw"><table>
-    <thead><tr><th>子区域</th><th>距离范围</th><th>特征</th></tr></thead>
-    <tbody>
-    <tr><td>深度聚焦区</td><td>r < λ/(10·NA²)</td><td>径向波束聚焦可行</td></tr>
-    <tr><td>深度聚焦区以外</td><td>λ/(10·NA²) < r < 2D²/λ</td><td>角度波束赋形为主</td></tr>
-    </tbody></table></div>
-    <p>其中 NA = D/λ 是数值孔径。</p>
-    <p><b>工程意义</b>：</p>
-    <ul><li>6G XL-MIMO 的主要工作区</li><li>近场波束赋形、波束聚焦</li><li>近场天线测量</li></ul>
-    <h3>1.3 远场 / Fraunhofer 区（Far-Field）</h3>
-    <p><b>定义</b>：波前近似为平面、方向图稳定的区域。</p>
-    <p><b>边界</b>（Rayleigh 距离）：</p>
-    <pre><code>r &gt; 2D²/λ</code></pre>
-    <p><b>更严格的定义</b>（相位误差 < π/8）：</p>
-    <pre><code>r &gt; 2D²/λ</code></pre>
-    <p><b>相位误差更宽松的定义</b>（相位误差 < π/2）：</p>
-    <pre><code>r &gt; D²/(2λ)</code></pre>
-    <p><b>特征</b>：</p>
-    <ul><li>场强按 1/r 衰减</li><li>波前为平面（相位线性）</li><li>方向图稳定，不随距离变化</li><li>角度和幅度独立</li></ul>
-    <p><b>工程意义</b>：</p>
-    <ul><li>传统天线测量的标准条件</li><li>5G Massive MIMO 的典型工作区</li><li>卫星通信、雷达的远场目标</li></ul>
+  
+  <article class="card ">
+    
+    <h2>1.1 反应式近场（Reactive Near-Field）</h2>
+    <p><strong>定义</strong>：紧贴天线表面的区域，电磁场以储能为主（电场能和磁场能交替交换，不向外辐射）。</p>
+<p><strong>边界</strong>：</p>
+<pre><code>r &lt; 0.62·√(D³/λ)   （最严格的定义）
+或
+r &lt; λ/2π ≈ 0.16λ   （单极子/偶极子的简化定义）
+</code></pre>
+<p>其中 D 是天线的最大尺寸。</p>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强随距离快速衰减（1/r² 或 1/r³）</li>
+<li>电场和磁场相位相差 90°（无功功率）</li>
+<li>方向图不稳定，随距离变化剧烈</li>
+<li>无法进行有意义的方向图测量</li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>天线与馈线之间的过渡区</li>
+<li>近场天线耦合（如 NFC/RFID）</li>
+<li>人体贴近天线时的 SAR（比吸收率）评估</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、边界公式详解</h2>
-    <h3>2.1 Rayleigh 距离（Fraunhofer 距离）</h3>
-    <pre><code>R_F = 2D²/λ</code></pre>
-    <p><b>推导</b>：考虑孔径边缘和中心的最大路径差：</p>
-    <pre><code>Δr_max = √(r² + (D/2)²) - r ≈ D²/(8r)  （当 r &gt;&gt; D）</code></pre>
-    <p>要求 Δr_max < λ/16（相位误差 < π/8）：</p>
-    <pre><code>D²/(8r) &lt; λ/16  →  r &gt; 2D²/λ</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线</th><th>D</th><th>频率</th><th>λ</th><th>R_F</th></tr></thead>
-    <tbody>
-    <tr><td>5G AAU (64T)</td><td>1m</td><td>3.5GHz</td><td>0.086m</td><td>23m</td></tr>
-    <tr><td>6G XL-MIMO</td><td>10m</td><td>3.5GHz</td><td>0.086m</td><td>2.3km</td></tr>
-    <tr><td>6G XL-MIMO</td><td>20m</td><td>3.5GHz</td><td>0.086m</td><td>9.3km</td></tr>
-    <tr><td>卫星抛物面 (3m)</td><td>3m</td><td>12GHz</td><td>0.025m</td><td>288m</td></tr>
-    <tr><td>车载毫米波雷达</td><td>0.1m</td><td>77GHz</td><td>0.004m</td><td>5m</td></tr>
-    </tbody></table></div>
-    <h3>2.2 Fresnel 距离（Reactive/Radiative 边界）</h3>
-    <pre><code>R_Fresnel = 0.62·√(D³/λ)</code></pre>
-    <p><b>推导</b>：基于近场 reactive 和 radiative 功率的平衡点。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线</th><th>D</th><th>频率</th><th>λ</th><th>R_Fresnel</th></tr></thead>
-    <tbody>
-    <tr><td>5G AAU</td><td>1m</td><td>3.5GHz</td><td>0.086m</td><td>2.1m</td></tr>
-    <tr><td>6G XL-MIMO</td><td>10m</td><td>3.5GHz</td><td>0.086m</td><td>20m</td></tr>
-    <tr><td>卫星抛物面</td><td>3m</td><td>12GHz</td><td>0.025m</td><td>33m</td></tr>
-    </tbody></table></div>
-    <h3>2.3 非辐射距离（Non-Radiating Distance）</h3>
-    <pre><code>R_nr ≈ λ/(4π)</code></pre>
-    <p>在这个距离以内，无功功率（stored reactive power）大于有功功率（radiated power）。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频率</th><th>λ</th><th>R_nr</th></tr></thead>
-    <tbody>
-    <tr><td>3.5GHz</td><td>0.086m</td><td>6.8mm</td></tr>
-    <tr><td>28GHz</td><td>0.011m</td><td>0.8mm</td></tr>
-    <tr><td>100GHz</td><td>0.003m</td><td>0.2mm</td></tr>
-    </tbody></table></div>
-    <h3>2.4 径向聚焦距离（Radial-Focal Distance）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.2 辐射式近场 / Fresnel 区（Radiative Near-Field）</h2>
+    <p><strong>定义</strong>：波已经开始辐射但仍保持球面波前特性的区域。</p>
+<p><strong>边界</strong>：</p>
+<pre><code>0.62·√(D³/λ) &lt; r &lt; 2D²/λ
+</code></pre>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强随距离按 1/r 衰减（辐射场）</li>
+<li>波前为球面（相位非线性）</li>
+<li>方向图随距离变化（但未稳定）</li>
+<li>可以进行波束聚焦（beamfocusing）</li>
+</ul>
+<p><strong>子区域</strong>（2024 年新研究补充）：</p>
+<table>
+<thead>
+<tr>
+<th>子区域</th>
+<th>距离范围</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>深度聚焦区</td>
+<td>r &lt; λ/(10·NA²)</td>
+<td>径向波束聚焦可行</td>
+</tr>
+<tr>
+<td>深度聚焦区以外</td>
+<td>λ/(10·NA²) &lt; r &lt; 2D²/λ</td>
+<td>角度波束赋形为主</td>
+</tr>
+</tbody>
+</table>
+<p>其中 NA = D/λ 是数值孔径。</p>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>6G XL-MIMO 的主要工作区</li>
+<li>近场波束赋形、波束聚焦</li>
+<li>近场天线测量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 远场 / Fraunhofer 区（Far-Field）</h2>
+    <p><strong>定义</strong>：波前近似为平面、方向图稳定的区域。</p>
+<p><strong>边界</strong>（Rayleigh 距离）：</p>
+<pre><code>r &gt; 2D²/λ
+</code></pre>
+<p><strong>更严格的定义</strong>（相位误差 &lt; π/8）：</p>
+<pre><code>r &gt; 2D²/λ
+</code></pre>
+<p><strong>相位误差更宽松的定义</strong>（相位误差 &lt; π/2）：</p>
+<pre><code>r &gt; D²/(2λ)
+</code></pre>
+<p><strong>特征</strong>：</p>
+<ul>
+<li>场强按 1/r 衰减</li>
+<li>波前为平面（相位线性）</li>
+<li>方向图稳定，不随距离变化</li>
+<li>角度和幅度独立</li>
+</ul>
+<p><strong>工程意义</strong>：</p>
+<ul>
+<li>传统天线测量的标准条件</li>
+<li>5G Massive MIMO 的典型工作区</li>
+<li>卫星通信、雷达的远场目标</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 Rayleigh 距离（Fraunhofer 距离）</h2>
+    <pre><code>R_F = 2D²/λ
+</code></pre>
+<p><strong>推导</strong>：考虑孔径边缘和中心的最大路径差：</p>
+<pre><code>Δr_max = √(r² + (D/2)²) - r ≈ D²/(8r)  （当 r &gt;&gt; D）
+</code></pre>
+<p>要求 Δr_max &lt; λ/16（相位误差 &lt; π/8）：</p>
+<pre><code>D²/(8r) &lt; λ/16  →  r &gt; 2D²/λ
+</code></pre>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>天线</th>
+<th>D</th>
+<th>频率</th>
+<th>λ</th>
+<th>R_F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G AAU (64T)</td>
+<td>1m</td>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>23m</td>
+</tr>
+<tr>
+<td>6G XL-MIMO</td>
+<td>10m</td>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>2.3km</td>
+</tr>
+<tr>
+<td>6G XL-MIMO</td>
+<td>20m</td>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>9.3km</td>
+</tr>
+<tr>
+<td>卫星抛物面 (3m)</td>
+<td>3m</td>
+<td>12GHz</td>
+<td>0.025m</td>
+<td>288m</td>
+</tr>
+<tr>
+<td>车载毫米波雷达</td>
+<td>0.1m</td>
+<td>77GHz</td>
+<td>0.004m</td>
+<td>5m</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 Fresnel 距离（Reactive/Radiative 边界）</h2>
+    <pre><code>R_Fresnel = 0.62·√(D³/λ)
+</code></pre>
+<p><strong>推导</strong>：基于近场 reactive 和 radiative 功率的平衡点。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>天线</th>
+<th>D</th>
+<th>频率</th>
+<th>λ</th>
+<th>R_Fresnel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G AAU</td>
+<td>1m</td>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>2.1m</td>
+</tr>
+<tr>
+<td>6G XL-MIMO</td>
+<td>10m</td>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>20m</td>
+</tr>
+<tr>
+<td>卫星抛物面</td>
+<td>3m</td>
+<td>12GHz</td>
+<td>0.025m</td>
+<td>33m</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 非辐射距离（Non-Radiating Distance）</h2>
+    <pre><code>R_nr ≈ λ/(4π)
+</code></pre>
+<p>在这个距离以内，无功功率（stored reactive power）大于有功功率（radiated power）。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>频率</th>
+<th>λ</th>
+<th>R_nr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5GHz</td>
+<td>0.086m</td>
+<td>6.8mm</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>0.011m</td>
+<td>0.8mm</td>
+</tr>
+<tr>
+<td>100GHz</td>
+<td>0.003m</td>
+<td>0.2mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 径向聚焦距离（Radial-Focal Distance）</h2>
     <p>2024 年新提出的概念——近场波束聚焦可行的最大距离：</p>
-    <pre><code>R_rf ≈ D²/(4λ) = R_F/8</code></pre>
-    <p>在这个距离以内，可以使用径向波束聚焦（beamfocusing in the radial domain）。</p>
+<pre><code>R_rf ≈ D²/(4λ) = R_F/8
+</code></pre>
+<p>在这个距离以内，可以使用径向波束聚焦（beamfocusing in the radial domain）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、各场区的天线测量方法</h2>
-    <h3>3.1 远场测量</h3>
-    <p><b>条件</b>：r > 2D²/λ</p>
-    <p><b>方法</b>：</p>
-    <ul><li>室外开阔场（OATS）</li><li>室内暗室（anechoic chamber），满足 r > 2D²/λ</li><li>缩距暗室（利用透镜压缩等效距离）</li></ul>
-    <p><b>优点</b>：平面波近似成立，测量简单 <b>缺点</b>：需要很长的测量距离（XL-MIMO 需要数公里）</p>
-    <h3>3.2 近场测量</h3>
-    <p><b>条件</b>：R_Fresnel < r < R_F</p>
-    <p><b>方法</b>：</p>
-    <ul><li><b>平面近场</b>：在平面上扫描，通过傅里叶变换得到远场方向图</li><li><b>圆柱近场</b>：在圆柱面上扫描</li><li><b>球面近场</b>：在球面上扫描，最精确但最复杂</li></ul>
-    <p><b>原理</b>：</p>
-    <pre><code>E_FF(θ,φ) = FT[E_NF(x,y)]</code></pre>
-    <p>其中 FT 是傅里叶变换。</p>
-    <p><b>优点</b>：测量距离短（只需几米） <b>缺点</b>：数据处理复杂，需要精密扫描机构</p>
-    <h3>3.3 OTA 测量（Over-The-Air）</h3>
-    <p><b>条件</b>：适用于无法通过电缆连接的天线（如手机、IoT 设备）</p>
-    <p><b>方法</b>：</p>
-    <ul><li>DFF（Direct Far-Field）：在远场直接测量</li><li>缩距法：利用多探头阵列在近场合成远场</li></ul>
+  
+  <article class="card ">
+    
+    <h2>3.1 远场测量</h2>
+    <p><strong>条件</strong>：r &gt; 2D²/λ</p>
+<p><strong>方法</strong>：</p>
+<ul>
+<li>室外开阔场（OATS）</li>
+<li>室内暗室（anechoic chamber），满足 r &gt; 2D²/λ</li>
+<li>缩距暗室（利用透镜压缩等效距离）</li>
+</ul>
+<p><strong>优点</strong>：平面波近似成立，测量简单
+<strong>缺点</strong>：需要很长的测量距离（XL-MIMO 需要数公里）</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、场区划分对波束赋形的影响</h2>
-    <h3>4.1 远场波束赋形</h3>
-    <p><b>模型</b>：平面波</p>
-    <pre><code>w_FF(θ) = steer_vec_FF(θ) = [1, exp(j·ψ), ..., exp(j·(N-1)·ψ)]^T</code></pre>
-    <p><b>适用场景</b>：</p>
-    <ul><li>5G Massive MIMO（用户通常在远场）</li><li>卫星通信</li><li>雷达（目标通常在远场）</li></ul>
-    <h3>4.2 近场波束赋形</h3>
-    <p><b>模型</b>：球面波</p>
-    <pre><code>w_NF(r, θ) = steer_vec_NF(r, θ) = [1/r₁·exp(-jk·r₁), ...]^T</code></pre>
-    <p><b>适用场景</b>：</p>
-    <ul><li>6G XL-MIMO（大部分用户在近场）</li><li>近场成像</li><li>能量收集</li></ul>
-    <h3>4.3 混合场区波束赋形</h3>
+  
+  <article class="card ">
+    
+    <h2>3.2 近场测量</h2>
+    <p><strong>条件</strong>：R_Fresnel &lt; r &lt; R_F</p>
+<p><strong>方法</strong>：</p>
+<ul>
+<li><strong>平面近场</strong>：在平面上扫描，通过傅里叶变换得到远场方向图</li>
+<li><strong>圆柱近场</strong>：在圆柱面上扫描</li>
+<li><strong>球面近场</strong>：在球面上扫描，最精确但最复杂</li>
+</ul>
+<p><strong>原理</strong>：</p>
+<pre><code>E_FF(θ,φ) = FT[E_NF(x,y)]
+</code></pre>
+<p>其中 FT 是傅里叶变换。</p>
+<p><strong>优点</strong>：测量距离短（只需几米）
+<strong>缺点</strong>：数据处理复杂，需要精密扫描机构</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 OTA 测量（Over-The-Air）</h2>
+    <p><strong>条件</strong>：适用于无法通过电缆连接的天线（如手机、IoT 设备）</p>
+<p><strong>方法</strong>：</p>
+<ul>
+<li>DFF（Direct Far-Field）：在远场直接测量</li>
+<li>缩距法：利用多探头阵列在近场合成远场</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 远场波束赋形</h2>
+    <p><strong>模型</strong>：平面波</p>
+<pre><code>w_FF(θ) = steer_vec_FF(θ) = [1, exp(j·ψ), ..., exp(j·(N-1)·ψ)]^T
+</code></pre>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>5G Massive MIMO（用户通常在远场）</li>
+<li>卫星通信</li>
+<li>雷达（目标通常在远场）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 近场波束赋形</h2>
+    <p><strong>模型</strong>：球面波</p>
+<pre><code>w_NF(r, θ) = steer_vec_NF(r, θ) = [1/r₁·exp(-jk·r₁), ...]^T
+</code></pre>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>6G XL-MIMO（大部分用户在近场）</li>
+<li>近场成像</li>
+<li>能量收集</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 混合场区波束赋形</h2>
     <p>当阵列同时服务近场和远场用户时：</p>
-    <pre><code>w_hybrid = α·w_NF + (1-α)·w_FF</code></pre>
-    <p>其中 α 根据用户距离自适应调整。</p>
+<pre><code>w_hybrid = α·w_NF + (1-α)·w_FF
+</code></pre>
+<p>其中 α 根据用户距离自适应调整。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>五、场区划分对信道模型的影响</h2>
-    <h3>5.1 远场信道模型</h3>
-    <pre><code>h = Σ_l α_l · a_R(θ_l) · exp(-jk·r_l) · a_T(φ_l)</code></pre>
-    <p>其中 a_T 和 a_R 是远场导向矢量（平面波假设）。</p>
-    <h3>5.2 近场信道模型</h3>
-    <pre><code>h = Σ_l α_l · a_R(r_l, θ_l) · exp(-jk·r_l) / r_l · a_T(φ_l)</code></pre>
-    <p>其中 a_T 和 a_R 是近场导向矢量（球面波假设），多了 1/r_l 的幅度衰减项。</p>
-    <h3>5.3 3GPP 信道模型</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 远场信道模型</h2>
+    <pre><code>h = Σ_l α_l · a_R(θ_l) · exp(-jk·r_l) · a_T(φ_l)
+</code></pre>
+<p>其中 a_T 和 a_R 是远场导向矢量（平面波假设）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 近场信道模型</h2>
+    <pre><code>h = Σ_l α_l · a_R(r_l, θ_l) · exp(-jk·r_l) / r_l · a_T(φ_l)
+</code></pre>
+<p>其中 a_T 和 a_R 是近场导向矢量（球面波假设），多了 1/r_l 的幅度衰减项。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 3GPP 信道模型</h2>
     <p>3GPP TR 38.901 v19 新增了近场信道模型：</p>
-    <ul><li>远场：平面波模型（PWM）</li><li>近场：球面波模型（SWM）</li><li>边界：R_F = 2D²/λ</li></ul>
+<ul>
+<li>远场：平面波模型（PWM）</li>
+<li>近场：球面波模型（SWM）</li>
+<li>边界：R_F = 2D²/λ</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 测量距离不足</h3>
-    <p>在暗室中测量大孔径天线时，如果距离不够远（r < 2D²/λ），平面波近似不成立，测量结果会有系统性误差：</p>
-    <pre><code>相位误差 Δφ ≈ k·D²/(8r) = π·D²/(4λr)</code></pre>
-    <p>对于 D = 1m, λ = 0.086m, r = 10m：</p>
-    <pre><code>Δφ ≈ π·1/(4·0.086·10) ≈ 0.91 rad ≈ 52°</code></pre>
-    <p>52° 的相位误差会导致方向图严重失真。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>使用近场测量 + 傅里叶变换</li><li>使用缩距暗室（透镜）</li><li>增加测量距离</li></ul>
-    <h3>6.2 多径干扰</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 测量距离不足</h2>
+    <p>在暗室中测量大孔径天线时，如果距离不够远（r &lt; 2D²/λ），平面波近似不成立，测量结果会有系统性误差：</p>
+<pre><code>相位误差 Δφ ≈ k·D²/(8r) = π·D²/(4λr)
+</code></pre>
+<p>对于 D = 1m, λ = 0.086m, r = 10m：</p>
+<pre><code>Δφ ≈ π·1/(4·0.086·10) ≈ 0.91 rad ≈ 52°
+</code></pre>
+<p>52° 的相位误差会导致方向图严重失真。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用近场测量 + 傅里叶变换</li>
+<li>使用缩距暗室（透镜）</li>
+<li>增加测量距离</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 多径干扰</h2>
     <p>近场测量更容易受到反射和多径干扰的影响，因为反射波的路径差较小：</p>
-    <pre><code>Δτ_reflected ≈ 2·d_mirror / c</code></pre>
-    <p><b>对策</b>：</p>
-    <ul><li>高质量的吸波材料（反射损耗 > 40dB）</li><li>近场扫描时使用门控技术</li><li>多径消除算法</li></ul>
-    <h3>6.3 空气衰减</h3>
+<pre><code>Δτ_reflected ≈ 2·d_mirror / c
+</code></pre>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>高质量的吸波材料（反射损耗 &gt; 40dB）</li>
+<li>近场扫描时使用门控技术</li>
+<li>多径消除算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 空气衰减</h2>
     <p>在太赫兹频段，空气对水的吸收会导致近场测量的显著衰减：</p>
-    <pre><code>α_air ≈ 10-20 dB/km @ 200GHz</code></pre>
-    <p>对于近距离测量（< 100m），影响较小。但对于近场扫描（需要大范围移动），累积衰减可能不可忽视。</p>
-    <h3>6.4 6G XL-MIMO 的特殊挑战</h3>
+<pre><code>α_air ≈ 10-20 dB/km @ 200GHz
+</code></pre>
+<p>对于近距离测量（&lt; 100m），影响较小。但对于近场扫描（需要大范围移动），累积衰减可能不可忽视。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 6G XL-MIMO 的特殊挑战</h2>
     <p>XL-MIMO 的 R_F 可达数公里，这意味着：</p>
-    <ul><li>传统远场测量方法几乎不可行</li><li>近场测量成为唯一选择</li><li>需要新的测量标准和协议</li></ul>
+<ul>
+<li>传统远场测量方法几乎不可行</li>
+<li>近场测量成为唯一选择</li>
+<li>需要新的测量标准和协议</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1950s</b>：近场/远场划分的经典理论建立</li><li><b>1970s</b>：近场测量技术（平面/圆柱/球面）发展</li><li><b>2000s</b>：OTA 测量成为手机天线标准</li><li><b>2010s</b>：缩距暗室和 MIMO OTA 成熟</li><li><b>2020-2022年</b>：XL-MIMO 近场测量需求推动新技术</li><li><b>2023-2024年</b>：3GPP TR 38.901 v19 纳入近场信道模型</li><li><b>2025年</b>：径向聚焦距离概念正式提出</li><li><b>2025-2026年</b>：太赫兹近场测量标准制定中</li></ul>
+    <ul>
+<li><strong>1950s</strong>：近场/远场划分的经典理论建立</li>
+<li><strong>1970s</strong>：近场测量技术（平面/圆柱/球面）发展</li>
+<li><strong>2000s</strong>：OTA 测量成为手机天线标准</li>
+<li><strong>2010s</strong>：缩距暗室和 MIMO OTA 成熟</li>
+<li><strong>2020-2022年</strong>：XL-MIMO 近场测量需求推动新技术</li>
+<li><strong>2023-2024年</strong>：3GPP TR 38.901 v19 纳入近场信道模型</li>
+<li><strong>2025年</strong>：径向聚焦距离概念正式提出</li>
+<li><strong>2025-2026年</strong>：太赫兹近场测量标准制定中</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：远场测量成熟，近场测量快速发展</li><li><b>说明</b>：远场测量（开阔场、暗室）是成熟的标准方法。近场测量（平面/圆柱/球面扫描）也已商用，但针对 XL-MIMO 的近场测量标准和设备仍在发展中。</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>6G XL-MIMO 近场测量标准（3GPP/ITU）</li><li>自动化近场扫描系统</li><li>太赫兹近场测量设备</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>AI 辅助近场-远场变换</li><li>在线近场监测（无需断开天线）</li><li>近场测量与波束赋形联合优化</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>CAPA 的近场测量（连续孔径）</li><li>量子近场测量</li></ul>
-  </article>
-
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>天线场区划分是天线理论和工程的基础——远场是"规矩的世界"（平面波、稳定方向图），近场是"混沌的世界"（球面波、方向图随距离变化）。5G 时代大部分天线工作在远场，6G XL-MIMO 时代大部分用户将落入近场，这不仅是测量方法的改变，更是波束赋形和信道模型的范式转移。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -309,39 +584,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

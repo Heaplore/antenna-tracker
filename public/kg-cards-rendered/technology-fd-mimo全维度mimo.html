@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FD-MIMO 全维度 MIMO · 知识卡片</title>
+<title>FD-MIMO全维度MIMO · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">FD-MIMO 全维度 MIMO <span class="en">FD-MIMO</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">FD-MIMO全维度MIMO</h1>
   <p class="lede">FD-MIMO（Full Dimension MIMO）= 3D 波束赋形 = 在水平和垂直两个维度同时形成波束。传统 MIMO 只能控制水平方向，FD-MIMO 通过垂直阵列 + 双极化天线，可以同时区分不同楼层的用户，实现真正的三维空间复用。</p>
+  
 </header>
 
 <main>
@@ -99,160 +101,227 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统 MIMO 像"手电筒照水平面"——只能控制左右方向；FD-MIMO 像"探照灯"——既能控制左右，又能控制上下。在 20 层楼的小区里，传统 MIMO 让整栋楼收到同样强度的信号（浪费），FD-MIMO 可以把波束精确对准 5 楼和 15 楼，互不干扰。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、FD-MIMO 的核心创新</h2>
-    <h3>1.1 从 2D 到 3D</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 从 2D 到 3D</h2>
     <pre><code>传统 MIMO（2D）：
-      天线阵列：水平排列（如 2T2R, 4T4R）
-      波束控制：只能控制水平方向
-      空间复用：水平维度
-      
-    FD-MIMO（3D）：
-      天线阵列：水平 + 垂直排列（如 64T64R, 128T128R）
-      波束控制：水平 + 垂直双维度
-      空间复用：3D 空间维度
-      
-    关键差异：
-      垂直维度的引入 → 可以区分不同高度的用户
-      → 高层建筑覆盖质量大幅提升
-      → 小区容量提升 2-3 倍</code></pre>
-    <h3>1.2 天线阵列结构</h3>
+  天线阵列：水平排列（如 2T2R, 4T4R）
+  波束控制：只能控制水平方向
+  空间复用：水平维度
+
+FD-MIMO（3D）：
+  天线阵列：水平 + 垂直排列（如 64T64R, 128T128R）
+  波束控制：水平 + 垂直双维度
+  空间复用：3D 空间维度
+
+关键差异：
+  垂直维度的引入 → 可以区分不同高度的用户
+  → 高层建筑覆盖质量大幅提升
+  → 小区容量提升 2-3 倍
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 天线阵列结构</h2>
     <pre><code>FD-MIMO 典型阵列（64T64R）：
-      
-      垂直方向（8 行）× 水平方向（8 列）= 64 个端口
-      每个端口 = 双极化（±45°）× 2 = 实际 128 个辐射单元
-      
-      天线排列：
-      ┌───┬───┬───┬───┬───┬───┬───┬───┐
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 8 行（顶部）
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 7 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 6 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 5 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 4 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 3 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 2 行
-      ├───┼───┼───┼───┼───┼───┼───┼───┤
-      │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 1 行（底部）
-      └───┴───┴───┴───┴───┴───┴───┴───┘
-      
-      ↑ = +45° 极化
-      ↗ = -45° 极化
-      
-      垂直间距：~0.5λ（~43mm @3.5GHz）
-      水平间距：~0.5λ（~43mm @3.5GHz）</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>二、3D 波束赋形</h2>
-    <h3>2.1 垂直波束倾斜</h3>
+  垂直方向（8 行）× 水平方向（8 列）= 64 个端口
+  每个端口 = 双极化（±45°）× 2 = 实际 128 个辐射单元
+
+  天线排列：
+  ┌───┬───┬───┬───┬───┬───┬───┬───┐
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 8 行（顶部）
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 7 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 6 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 5 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 4 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 3 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 2 行
+  ├───┼───┼───┼───┼───┼───┼───┼───┤
+  │↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│↑↗│  ← 第 1 行（底部）
+  └───┴───┴───┴───┴───┴───┴───┴───┘
+
+  ↑ = +45° 极化
+  ↗ = -45° 极化
+
+  垂直间距：~0.5λ（~43mm @3.5GHz）
+  水平间距：~0.5λ（~43mm @3.5GHz）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 垂直波束倾斜</h2>
     <pre><code>传统电调倾角（RET）：
-      整个天线阵面作为一个整体倾斜
-      → 只能调整一个倾角
-      → 无法对不同高度用户差异化覆盖
-      
-    FD-MIMO 3D 波束赋形：
-      垂直维度每个单元独立控制相位
-      → 可以同时形成多个垂直波束
-      → 例如：一个波束对准 3-5 楼，一个对准 10-15 楼
-      
-    垂直波束宽度：
-      8 单元垂直阵列 → HPBW ≈ 70°/8 = ~9°
-      → 可以区分不同楼层
-      
-    波束赋形公式（3D）：
-      AF(θ,φ) = Σ_n Σ_m w_nm · e^(j·k·d_n·sin(θ)cos(φ)) · e^(j·k·d_m·sin(θ)sin(φ))
-      
-      其中：
-      θ = 俯仰角（垂直维度）
-      φ = 方位角（水平维度）
-      w_nm = 第 n 行第 m 列的复数权重</code></pre>
-    <h3>2.2 3D 波束赋形优势</h3>
+  整个天线阵面作为一个整体倾斜
+  → 只能调整一个倾角
+  → 无法对不同高度用户差异化覆盖
+
+FD-MIMO 3D 波束赋形：
+  垂直维度每个单元独立控制相位
+  → 可以同时形成多个垂直波束
+  → 例如：一个波束对准 3-5 楼，一个对准 10-15 楼
+
+垂直波束宽度：
+  8 单元垂直阵列 → HPBW ≈ 70°/8 = ~9°
+  → 可以区分不同楼层
+
+波束赋形公式（3D）：
+  AF(θ,φ) = Σ_n Σ_m w_nm · e^(j·k·d_n·sin(θ)cos(φ)) · e^(j·k·d_m·sin(θ)sin(φ))
+
+  其中：
+  θ = 俯仰角（垂直维度）
+  φ = 方位角（水平维度）
+  w_nm = 第 n 行第 m 列的复数权重
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 3D 波束赋形优势</h2>
     <pre><code>1. 垂直维度复用
-       同一频率，不同楼层 = 不同用户 = 空间复用
-       → 容量提升 2-3 倍
-       
-    2. 覆盖优化
-       高层建筑边缘用户信号改善 5-10dB
-       → 减少掉话率
-       
-    3. 干扰抑制
-       垂直方向零陷 → 减少小区间干扰
-       → 边缘用户 SINR 提升
-       
-    4. 动态调整
-       根据用户分布实时调整 3D 波束
-       → 白天写字楼（中高层密集）
-       → 晚上住宅区（高层密集）</code></pre>
-  </article>
+   同一频率，不同楼层 = 不同用户 = 空间复用
+   → 容量提升 2-3 倍
 
-  <article class="card">
-    <h2>三、FD-MIMO 在 3GPP 中的演进</h2>
-    <h3>3.1 Release 演进</h3>
+2. 覆盖优化
+   高层建筑边缘用户信号改善 5-10dB
+   → 减少掉话率
+
+3. 干扰抑制
+   垂直方向零陷 → 减少小区间干扰
+   → 边缘用户 SINR 提升
+
+4. 动态调整
+   根据用户分布实时调整 3D 波束
+   → 白天写字楼（中高层密集）
+   → 晚上住宅区（高层密集）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 Release 演进</h2>
     <pre><code>Rel-13（LTE-Advanced Pro）：
-      - 首次引入 FD-MIMO 概念
-      - 支持 8T8R 3D 波束赋形
-      - 垂直波束宽度可调
-      
-    Rel-15（5G NR）：
-      - 支持 64T64R Massive MIMO
-      - 全 3D 波束赋形
-      - 波束管理流程标准化
-      
-    Rel-16：
-      - 增强型波束管理
-      - AI 辅助波束预测
-      - 节能机制（通道关断）
-      
-    Rel-17/18（5G-A）：
-      - XL-MIMO（超大规模天线）
-      - 近场波束赋形
-      - 极化波束赋形</code></pre>
-    <h3>3.2 典型配置</h3>
-    <div class="tw"><table>
-    <thead><tr><th>配置</th><th>天线数</th><th>射频链路</th><th>垂直单元</th><th>水平单元</th><th>典型场景</th></tr></thead>
-    <tbody>
-    <tr><td>8T8R</td><td>16</td><td>8</td><td>2</td><td>4</td><td>热点覆盖</td></tr>
-    <tr><td>32T32R</td><td>64</td><td>32</td><td>4</td><td>4</td><td>城市宏站</td></tr>
-    <tr><td>64T64R</td><td>128</td><td>64</td><td>8</td><td>4</td><td>主流宏站</td></tr>
-    <tr><td>128T128R</td><td>256</td><td>128</td><td>16</td><td>8</td><td>容量热点</td></tr>
-    </tbody></table></div>
-  </article>
+  - 首次引入 FD-MIMO 概念
+  - 支持 8T8R 3D 波束赋形
+  - 垂直波束宽度可调
 
-  <article class="card">
+Rel-15（5G NR）：
+  - 支持 64T64R Massive MIMO
+  - 全 3D 波束赋形
+  - 波束管理流程标准化
+
+Rel-16：
+  - 增强型波束管理
+  - AI 辅助波束预测
+  - 节能机制（通道关断）
+
+Rel-17/18（5G-A）：
+  - XL-MIMO（超大规模天线）
+  - 近场波束赋形
+  - 极化波束赋形
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 典型配置</h2>
+    <table>
+<thead>
+<tr>
+<th>配置</th>
+<th>天线数</th>
+<th>射频链路</th>
+<th>垂直单元</th>
+<th>水平单元</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8T8R</td>
+<td>16</td>
+<td>8</td>
+<td>2</td>
+<td>4</td>
+<td>热点覆盖</td>
+</tr>
+<tr>
+<td>32T32R</td>
+<td>64</td>
+<td>32</td>
+<td>4</td>
+<td>4</td>
+<td>城市宏站</td>
+</tr>
+<tr>
+<td>64T64R</td>
+<td>128</td>
+<td>64</td>
+<td>8</td>
+<td>4</td>
+<td>主流宏站</td>
+</tr>
+<tr>
+<td>128T128R</td>
+<td>256</td>
+<td>128</td>
+<td>16</td>
+<td>8</td>
+<td>容量热点</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、FD-MIMO 与 Massive MIMO 的关系</h2>
     <pre><code>Massive MIMO：
-      广义概念 → 大规模天线阵列（&gt; 8T8R）
-      可以是 2D 也可以是 3D
-      
-    FD-MIMO：
-      狭义概念 → 特指 3D 波束赋形
-      强调垂直维度的引入
-      
-    关系：
-      FD-MIMO ⊂ Massive MIMO
-      所有 FD-MIMO 都是 Massive MIMO
-      但不是所有 Massive MIMO 都是 FD-MIMO
-      
-    5G 基站现状：
-      64T64R AAU 几乎都是 FD-MIMO（3D 波束赋形）
-      → 垂直+水平双维度波束控制</code></pre>
-  </article>
+  广义概念 → 大规模天线阵列（&gt; 8T8R）
+  可以是 2D 也可以是 3D
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>FD-MIMO 的核心价值是"把垂直维度纳入波束控制"——传统 MIMO 只能区分左右，FD-MIMO 还能区分上下。在高层建筑密集的城市，这意味着可以在同一频率下为不同楼层的用户提供服务，容量提升 2-3 倍。记住：FD-MIMO 不是全新的技术，而是 Massive MIMO + 3D 波束赋形的结合体，是 5G 基站从"平面覆盖"走向"立体覆盖"的关键。</p>
+FD-MIMO：
+  狭义概念 → 特指 3D 波束赋形
+  强调垂直维度的引入
+
+关系：
+  FD-MIMO ⊂ Massive MIMO
+  所有 FD-MIMO 都是 Massive MIMO
+  但不是所有 Massive MIMO 都是 FD-MIMO
+
+5G 基站现状：
+  64T64R AAU 几乎都是 FD-MIMO（3D 波束赋形）
+  → 垂直+水平双维度波束控制
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -272,39 +341,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

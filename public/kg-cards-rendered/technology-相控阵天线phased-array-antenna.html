@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>相控阵天线（Phased Array Antenna） · 知识卡片</title>
+<title>相控阵天线Phased-Array-Antenna · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">相控阵天线 <span class="en">Phased Array Antenna</span></h1>
-  <p class="lede"><b>相控阵就是"用软件控制波束方向"的天线阵列——不需要马达转动，靠改变每个单元的相位，波束就可以在毫秒级时间内扫过整个天空。5G 基站用它在空中"画"出指向每个用户的波束，战斗机雷达用它同时跟踪几十个目标，汽车毫米波雷达用它做 360° 环境监测。核心部件是 T/R 模块（含 PA/LNA/移相器），核心难题是栅瓣（grating lobe）和波束倾斜（beam squint）。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">相控阵天线Phased-Array-Antenna</h1>
+  
+  
 </header>
 
 <main>
@@ -99,224 +101,526 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、相控阵基本原理</h2>
-    <h3>1.1 阵列因子（Array Factor）</h3>
-    <p><b>N 元均匀线性阵列</b>：</p>
-    <pre><code>AF(θ) = Σ(n=0 to N-1) [I_n × exp(j×n×kd×sinθ)]</code></pre>
-    <p>其中：</p>
-    <ul><li>I_n = 第 n 个单元的激励（幅度/相位）</li><li>k = 2π/λ（波数）</li><li>d = 单元间距</li><li>θ = 观察角度</li></ul>
-    <p><b>波束指向角</b>（加电相位梯度时）：</p>
-    <pre><code>sin(θ₀) = -Δφ / (k×d) = -Δφ×λ / (2π×d)</code></pre>
-    <p>其中 Δφ 是相邻单元间的相位差。</p>
-    <p><b>关键洞察</b>：改变 Δφ → 波束指向 θ₀ 改变 → <b>电子扫描，无需机械转动</b>。</p>
-    <h3>1.2 扫描范围与栅瓣</h3>
-    <p><b>栅瓣条件</b>：</p>
-    <pre><code>当 d/λ &gt; 1/(1 + |sinθ_max|) 时，出现栅瓣</code></pre>
-    <p><b>无栅瓣扫描的最大间距</b>：</p>
-    <pre><code>d ≤ λ / (1 + |sinθ_max|)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>扫描范围</th><th>最大间距 d/λ</th></tr></thead>
-    <tbody>
-    <tr><td>±30°</td><td>≤ 0.868</td></tr>
-    <tr><td>±45°</td><td>≤ 0.707</td></tr>
-    <tr><td>±60°</td><td>≤ 0.5</td></tr>
-    <tr><td>全向（±90°）</td><td>≤ 0.333</td></tr>
-    </tbody></table></div>
-    <p><b>工程实践</b>：5G 基站相控阵通常取 d = 0.5λ（最安全，无栅瓣）。</p>
-    <h3>1.3 波束倾斜（Beam Squint）</h3>
-    <p><b>原因</b>：用相位移相器（而非真延时）做波束赋形时，不同频率的波束指向不同。</p>
-    <pre><code>Δθ_squint ∝ Δf / f₀ × tan(θ₀)</code></pre>
-    <p><b>影响</b>：</p>
-    <ul><li>宽带系统（如 FMCW 雷达）：不同频率成分指向不同方向 → 波束"散焦"</li><li>5G NR：子载波间隔不同 → 轻微 squint</li></ul>
-    <p><b>解决方案</b>：</p>
-    <ol><li><b>真延时单元（TTD）</b>：用传输线延迟代替相位偏移 → 无 squint</li><li><b>子阵列划分</b>：hybrid beamforming 中仅子阵列级受 squint 影响</li><li><b>数字波束赋形</b>：DSP 中实现 true time delay → 完美消除</li></ol>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、三种波束赋形架构</h2>
-    <h3>2.1 模拟波束赋形（Analog Beamforming）</h3>
-    <p><b>结构</b>：</p>
-    <pre><code>天线单元 → 移相器 → 功率合成 → 单 RF 链 → ADC/DAC</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>每个阵列单元配一个移相器</li><li>只有一个 RF 链（ADC/DAC）</li><li>同时只能形成一个波束</li><li>成本低、功耗低、结构简单</li></ul>
-    <p><b>局限</b>：</p>
-    <ul><li>不支持空间复用（只能服务一个用户）</li><li>波束形状固定（仅能控制指向）</li></ul>
-    <p><b>适用场景</b>：</p>
-    <ul><li>5G mmWave 终端（手机/ CPE）</li><li>室内 WiFi 6E/7</li><li>简单雷达</li></ul>
-    <h3>2.2 数字波束赋形（Digital Beamforming）</h3>
-    <p><b>结构</b>：</p>
-    <pre><code>天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
-    天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
-    ...
-    天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>每个单元配独立的 RF 链（ADC/DAC + Mixer + PA/LNA）</li><li>可在数字域独立控制每个单元的幅度和相位</li><li>同时形成多个独立波束 → 多用户 MIMO</li><li>支持 true time delay → 无 beam squint</li></ul>
-    <p><b>局限</b>：</p>
-    <ul><li>成本极高（N 个 RF 链 = N×ADC + N×DAC + N×Mixer）</li><li>功耗巨大（每个 ADC 消耗 100-500mW）</li><li>毫米波频段 PCB 布线空间不足</li></ul>
-    <p><b>适用场景</b>：</p>
-    <ul><li>Sub-6GHz 基站 Massive MIMO（64T64R）</li><li>高端雷达（AESA）</li><li>6G 太赫兹（未来）</li></ul>
-    <h3>2.3 混合波束赋形（Hybrid Beamforming）⭐</h3>
-    <p><b>结构</b>：</p>
-    <pre><code>天线单元 → 模拟子阵列 → RF 链 → 数字波束赋形 → 多数据流</code></pre>
-    <p><b>原理</b>：</p>
-    <ol><li>阵列分成若干子阵列（sub-array）</li><li>每个子阵列做模拟波束赋形（形成宽波束）</li><li>每个子阵列配一个 RF 链</li><li>数字域做精细波束赋形（在模拟波束内形成多个窄波束）</li></ol>
-    <p><b>Qorvo 白皮书图示</b>：</p>
-    <pre><code>       模拟子阵列波束（宽）
-          ╭──────────────╮
-         ╭╯              ╰╮
-        ╭╯                ╰╮
-       │  数字波束1  数字波束2  │  ← 在模拟波束内进一步分割
-       ╰──────────────────╯</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li><b>5G mmWave 基站的事实标准</b></li><li>成本/性能/功耗的折中</li><li>支持多流传输（空间复用）</li><li>子阵列级模拟波束有 squint，但子阵列波束宽 → 容忍度高</li></ul>
-    <p><b>典型配置</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>天线数</th><th>RF 链数</th><th>子阵列大小</th></tr></thead>
-    <tbody>
-    <tr><td>5G gNB (n257)</td><td>64</td><td>4-8</td><td>8-16</td></tr>
-    <tr><td>5G UE (mmWave)</td><td>8-16</td><td>1-2</td><td>8-16</td></tr>
-    <tr><td>汽车雷达</td><td>32-64</td><td>4</td><td>8-16</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.1 模拟波束赋形（Analog Beamforming）</h2>
+    <p><strong>结构</strong>：</p>
+<pre><code>天线单元 → 移相器 → 功率合成 → 单 RF 链 → ADC/DAC
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>每个阵列单元配一个移相器</li>
+<li>只有一个 RF 链（ADC/DAC）</li>
+<li>同时只能形成一个波束</li>
+<li>成本低、功耗低、结构简单</li>
+</ul>
+<p><strong>局限</strong>：</p>
+<ul>
+<li>不支持空间复用（只能服务一个用户）</li>
+<li>波束形状固定（仅能控制指向）</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>5G mmWave 终端（手机/ CPE）</li>
+<li>室内 WiFi 6E/7</li>
+<li>简单雷达</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、T/R 模块（Transmit/Receive Module）</h2>
-    <h3>3.1 T/R 模块的功能</h3>
-    <p><b>AESA 相控阵的核心部件</b>，集成：</p>
-    <ol><li><b>功率放大器（PA）</b>：发射路径，将信号放大到瓦级</li><li><b>低噪声放大器（LNA）</b>：接收路径，放大微弱信号</li><li><b>移相器（Phase Shifter）</b>：控制波束指向</li><li><b>衰减器（Attenuator）</b>：控制波束形状（旁瓣电平的"雕刻刀"）</li><li><b>T/R 开关（SPDT）</b>：切换收发</li><li><b>环行器/限幅器</b>：保护 LNA 免受 PA 损害</li></ol>
-    <h3>3.2 关键技术指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>增益</td><td>20-30dB</td><td>PA+LNA 总增益</td></tr>
-    <tr><td>P1dB</td><td>15-25dBm</td><td>1dB 压缩点（线性度）</td></tr>
-    <tr><td>PAE</td><td>15-35%</td><td>功率附加效率</td></tr>
-    <tr><td>相位精度</td><td>±2.25°（6-bit）</td><td>决定波束指向精度</td></tr>
-    <tr><td>幅度精度</td><td>±0.5dB</td><td>决定旁瓣电平</td></tr>
-    <tr><td>尺寸</td><td>5×5mm - 20×20mm</td><td>MMIC 芯片级</td></tr>
-    <tr><td>功耗</td><td>1-5W/模块</td><td>散热是关键挑战</td></tr>
-    </tbody></table></div>
-    <h3>3.3 2024-2025 前沿进展</h3>
-    <p><b>65nm CMOS 24-30GHz 8 元 TRX</b>（IOP 2024）：</p>
-    <ul><li>6-bit 360° 移相器</li><li>6-bit 31.5dB 增益调节</li><li>TX OP1dB = 20.8dBm</li><li>PAE = 21.1%</li><li>RX NF = 4.1dB</li><li>覆盖 n257/n258/n261</li></ul>
-    <p><b>65nm CMOS 142-164GHz D-band AiP</b>（IEEE JSSC 2026）：</p>
-    <ul><li><b>6G 太赫兹相控阵</b></li><li>注入锁定倍频移相器（ILTPS）：同时完成倍频和移相</li><li>单单元面积仅 0.088mm²，功耗 15mW</li><li>8 单元 AiP 模块：EIRP 25.7dBm，<b>56Gbps</b></li><li>发射功耗 150mW/单元，接收 93mW/单元</li></ul>
-    <h3>3.4 GaN vs CMOS vs SiGe</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>频率</th><th>功率</th><th>成本</th><th>适用</th></tr></thead>
-    <tbody>
-    <tr><td>GaN</td><td>Sub-6GHz/mmWave</td><td>高（>30dBm）</td><td>高</td><td>基站 PA、雷达</td></tr>
-    <tr><td>CMOS</td><td>mmWave/THz</td><td>中（15-25dBm）</td><td>低</td><td>终端、集成 TRX</td></tr>
-    <tr><td>SiGe</td><td>mmWave</td><td>中</td><td>中</td><td>汽车雷达</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.2 数字波束赋形（Digital Beamforming）</h2>
+    <p><strong>结构</strong>：</p>
+<pre><code>天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
+天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
+...
+天线单元 → RF 链(ADC) → 数字波束赋形 → 数据流
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>每个单元配独立的 RF 链（ADC/DAC + Mixer + PA/LNA）</li>
+<li>可在数字域独立控制每个单元的幅度和相位</li>
+<li>同时形成多个独立波束 → 多用户 MIMO</li>
+<li>支持 true time delay → 无 beam squint</li>
+</ul>
+<p><strong>局限</strong>：</p>
+<ul>
+<li>成本极高（N 个 RF 链 = N×ADC + N×DAC + N×Mixer）</li>
+<li>功耗巨大（每个 ADC 消耗 100-500mW）</li>
+<li>毫米波频段 PCB 布线空间不足</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>Sub-6GHz 基站 Massive MIMO（64T64R）</li>
+<li>高端雷达（AESA）</li>
+<li>6G 太赫兹（未来）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、相控阵的关键性能指标</h2>
-    <h3>4.1 波束宽度</h3>
-    <pre><code>HPBW ≈ 65° × λ / (N × d)  （线性阵列）</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>N（单元数）</th><th>d=λ/2</th><th>d=λ</th></tr></thead>
-    <tbody>
-    <tr><td>4</td><td>32.5°</td><td>16.3°</td></tr>
-    <tr><td>16</td><td>8.1°</td><td>4.1°</td></tr>
-    <tr><td>64</td><td>2.0°</td><td>1.0°</td></tr>
-    <tr><td>256</td><td>0.5°</td><td>0.25°</td></tr>
-    </tbody></table></div>
-    <p><b>5G AAU 典型值</b>：64 单元，HPBW ≈ 6-10°（水平）/ 3-6°（垂直）</p>
-    <h3>4.2 阵列增益</h3>
-    <pre><code>G_array = G_element + 10×log₁₀(N) + G_loss</code></pre>
-    <p>其中 G_loss 包括：</p>
-    <ul><li>馈电网络损耗（1-3dB）</li><li>T/R 模块损耗（0.5-1dB/级）</li><li>量化误差（0.2-0.5dB，取决于移相器位数）</li></ul>
-    <h3>4.3 旁瓣电平（SLL）</h3>
-    <p><b>控制方法</b>：</p>
-    <ul><li><b>幅度加权</b>（Taylor / Chebyshev / Hamming 分布）</li><li><b>稀疏阵列</b>（thinned array）→ 降低单元数但提高 SLL</li><li><b>栅瓣消除器</b>（grating lobe canceller）→ 2024 汽车雷达</li></ul>
-    <p><b>典型 SLL</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>加权方式</th><th>SLL (dB)</th></tr></thead>
-    <tbody>
-    <tr><td>均匀</td><td>-13.2</td></tr>
-    <tr><td>Taylor (n=4)</td><td>-25</td></tr>
-    <tr><td>Chebyshev</td><td>-20 to -40（可调）</td></tr>
-    <tr><td>Hamming</td><td>-43</td></tr>
-    </tbody></table></div>
-    <h3>4.4 扫描损失（Scan Loss）</h3>
-    <p><b>定义</b>：波束偏离法向时的增益下降。</p>
-    <pre><code>Scan_Loss(θ) ≈ -10×log₁₀(cosθ)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>扫描角</th><th>扫描损失</th></tr></thead>
-    <tbody>
-    <tr><td>0°</td><td>0dB</td></tr>
-    <tr><td>30°</td><td>0.5dB</td></tr>
-    <tr><td>45°</td><td>1.5dB</td></tr>
-    <tr><td>60°</td><td>3.0dB</td></tr>
-    <tr><td>70°</td><td>4.9dB</td></tr>
-    </tbody></table></div>
-    <h3>4.5 波束指向精度</h3>
-    <p><b>取决于移相器位数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>位数</th><th>步进角度</th><th>指向精度</th></tr></thead>
-    <tbody>
-    <tr><td>3-bit</td><td>45°</td><td>粗扫</td></tr>
-    <tr><td>5-bit</td><td>11.25°</td><td>中扫</td></tr>
-    <tr><td>6-bit</td><td>5.625°</td><td>精扫（5G 常用）</td></tr>
-    <tr><td>8-bit</td><td>1.406°</td><td>超精（雷达/AESA）</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.3 混合波束赋形（Hybrid Beamforming）⭐</h2>
+    <p><strong>结构</strong>：</p>
+<pre><code>天线单元 → 模拟子阵列 → RF 链 → 数字波束赋形 → 多数据流
+</code></pre>
+<p><strong>原理</strong>：</p>
+<ol>
+<li>阵列分成若干子阵列（sub-array）</li>
+<li>每个子阵列做模拟波束赋形（形成宽波束）</li>
+<li>每个子阵列配一个 RF 链</li>
+<li>数字域做精细波束赋形（在模拟波束内形成多个窄波束）</li>
+</ol>
+<p><strong>Qorvo 白皮书图示</strong>：</p>
+<pre><code>       模拟子阵列波束（宽）
+      ╭──────────────╮
+     ╭╯              ╰╮
+    ╭╯                ╰╮
+   │  数字波束1  数字波束2  │  ← 在模拟波束内进一步分割
+   ╰──────────────────╯
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>5G mmWave 基站的事实标准</strong></li>
+<li>成本/性能/功耗的折中</li>
+<li>支持多流传输（空间复用）</li>
+<li>子阵列级模拟波束有 squint，但子阵列波束宽 → 容忍度高</li>
+</ul>
+<p><strong>典型配置</strong>：
+| 场景 | 天线数 | RF 链数 | 子阵列大小 |
+|------|-------|--------|----------|
+| 5G gNB (n257) | 64 | 4-8 | 8-16 |
+| 5G UE (mmWave) | 8-16 | 1-2 | 8-16 |
+| 汽车雷达 | 32-64 | 4 | 8-16 |</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>五、相控阵的典型应用</h2>
-    <h3>5.1 5G 基站（Massive MIMO AAU）</h3>
-    <p><b>架构</b>：64T64R 或 128T128R 相控阵</p>
-    <ul><li>Sub-6GHz：GaN PA + 模拟/混合波束赋形</li><li>mmWave：CMOS TRX + 混合波束赋形</li><li>波束赋形 + 波束切换 + 波束恢复（RRC 连接重建时）</li></ul>
-    <h3>5.2 战斗机雷达（AESA）</h3>
-    <p><b>F-35 AN/APG-81</b>：</p>
-    <ul><li>约 2000-3000 个 T/R 模块</li><li>同时执行：搜索 + 跟踪 + EW（电子战）+ 通信</li><li>波束切换时间 < 1μs</li><li>LPI（低截获概率）：频率捷变 + 低旁瓣</li></ul>
-    <h3>5.3 汽车毫米波雷达（77GHz）</h3>
-    <p><b>2025 EUMC 突破</b>：</p>
-    <ul><li>76.5GHz 混合相控阵</li><li>无栅瓣阵列布局</li><li>FoV: ±60°（方位）/ ±25°（俯仰）</li><li>旁瓣/栅瓣 < -30dBc</li><li>角度分辨力 1° @ 100m</li><li>相位器数量减少 67%</li></ul>
-    <h3>5.4 卫星互联网（Starlink）</h3>
-    <p><b>相控阵终端</b>：</p>
-    <ul><li>数千个贴片单元</li><li>同时跟踪多颗卫星</li><li>波束切换时间 < 10ms</li><li>车载/船载/航空移动平台</li></ul>
-    <h3>5.5 6G 太赫兹通信</h3>
-    <p><b>2026 IEEE JSSC D-band AiP</b>：</p>
-    <ul><li>142-164GHz</li><li>ILTPS（注入锁定倍频移相器）</li><li>56Gbps 数据传输</li><li>单单元功耗 150mW（TX）/ 93mW（RX）</li></ul>
-    <h3>5.6 RIS（Reconfigurable Intelligent Surface）</h3>
-    <p><b>概念</b>：用低成本无源反射单元"智能"控制电磁波传播环境。</p>
-    <p><b>2024 arXiv 研究</b>：</p>
-    <ul><li>AP + RIS 协作波束跟踪</li><li>RNN + GNN 深度学习框架</li><li>利用 CSI 时序相关性自适应调整 RIS 反射系数</li><li>多用户干扰下的最优波束成形</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>3.1 T/R 模块的功能</h2>
+    <p><strong>AESA 相控阵的核心部件</strong>，集成：</p>
+<ol>
+<li><strong>功率放大器（PA）</strong>：发射路径，将信号放大到瓦级</li>
+<li><strong>低噪声放大器（LNA）</strong>：接收路径，放大微弱信号</li>
+<li><strong>移相器（Phase Shifter）</strong>：控制波束指向</li>
+<li><strong>衰减器（Attenuator）</strong>：控制波束形状（旁瓣电平的"雕刻刀"）</li>
+<li><strong>T/R 开关（SPDT）</strong>：切换收发</li>
+<li><strong>环行器/限幅器</strong>：保护 LNA 免受 PA 损害</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>六、相控阵的挑战与局限</h2>
-    <h3>6.1 互耦（Mutual Coupling）</h3>
-    <p><b>问题</b>：单元间电磁耦合 → 阻抗变化 + 方向图畸变 + 波束指向偏移。</p>
-    <p><b>缓解</b>：</p>
-    <ul><li>隔离柱/槽</li><li>EBG 结构</li><li>去耦网络</li></ul>
-    <h3>6.2 热管理</h3>
-    <p><b>64T AAU 功耗</b>：</p>
-    <ul><li>总功耗：200-400W</li><li>T/R 模块占 50-70%</li><li>需要液冷或高效风冷</li></ul>
-    <h3>6.3 校准</h3>
-    <p><b>TDD  reciprocity 校准</b>：</p>
-    <ul><li>利用上下行信道互易性</li><li>但 T/R 模块幅相不一致 → 需要逐模块校准</li><li>校准频率：开机 + 周期性（温度漂移导致）</li></ul>
-    <h3>6.4 成本</h3>
-    <p><b>64T AAU T/R 模块成本</b>：</p>
-    <ul><li>单个 GaN T/R 模块：$10-50</li><li>64T = 128 通道 → $8,000-$64,000（仅 T/R 模块）</li><li>占 AAU BOM 成本 40-60%</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>3.2 关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>20-30dB</td>
+<td>PA+LNA 总增益</td>
+</tr>
+<tr>
+<td>P1dB</td>
+<td>15-25dBm</td>
+<td>1dB 压缩点（线性度）</td>
+</tr>
+<tr>
+<td>PAE</td>
+<td>15-35%</td>
+<td>功率附加效率</td>
+</tr>
+<tr>
+<td>相位精度</td>
+<td>±2.25°（6-bit）</td>
+<td>决定波束指向精度</td>
+</tr>
+<tr>
+<td>幅度精度</td>
+<td>±0.5dB</td>
+<td>决定旁瓣电平</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>5×5mm - 20×20mm</td>
+<td>MMIC 芯片级</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>1-5W/模块</td>
+<td>散热是关键挑战</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>3.3 2024-2025 前沿进展</h2>
+    <p><strong>65nm CMOS 24-30GHz 8 元 TRX</strong>（IOP 2024）：</p>
+<ul>
+<li>6-bit 360° 移相器</li>
+<li>6-bit 31.5dB 增益调节</li>
+<li>TX OP1dB = 20.8dBm</li>
+<li>PAE = 21.1%</li>
+<li>RX NF = 4.1dB</li>
+<li>覆盖 n257/n258/n261</li>
+</ul>
+<p><strong>65nm CMOS 142-164GHz D-band AiP</strong>（IEEE JSSC 2026）：</p>
+<ul>
+<li><strong>6G 太赫兹相控阵</strong></li>
+<li>注入锁定倍频移相器（ILTPS）：同时完成倍频和移相</li>
+<li>单单元面积仅 0.088mm²，功耗 15mW</li>
+<li>8 单元 AiP 模块：EIRP 25.7dBm，<strong>56Gbps</strong></li>
+<li>发射功耗 150mW/单元，接收 93mW/单元</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 GaN vs CMOS vs SiGe</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>频率</th>
+<th>功率</th>
+<th>成本</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GaN</td>
+<td>Sub-6GHz/mmWave</td>
+<td>高（&gt;30dBm）</td>
+<td>高</td>
+<td>基站 PA、雷达</td>
+</tr>
+<tr>
+<td>CMOS</td>
+<td>mmWave/THz</td>
+<td>中（15-25dBm）</td>
+<td>低</td>
+<td>终端、集成 TRX</td>
+</tr>
+<tr>
+<td>SiGe</td>
+<td>mmWave</td>
+<td>中</td>
+<td>中</td>
+<td>汽车雷达</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 波束宽度</h2>
+    <pre><code>HPBW ≈ 65° × λ / (N × d)  （线性阵列）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>N（单元数）</th>
+<th>d=λ/2</th>
+<th>d=λ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>32.5°</td>
+<td>16.3°</td>
+</tr>
+<tr>
+<td>16</td>
+<td>8.1°</td>
+<td>4.1°</td>
+</tr>
+<tr>
+<td>64</td>
+<td>2.0°</td>
+<td>1.0°</td>
+</tr>
+<tr>
+<td>256</td>
+<td>0.5°</td>
+<td>0.25°</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5G AAU 典型值</strong>：64 单元，HPBW ≈ 6-10°（水平）/ 3-6°（垂直）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 阵列增益</h2>
+    <pre><code>G_array = G_element + 10×log₁₀(N) + G_loss
+</code></pre>
+<p>其中 G_loss 包括：</p>
+<ul>
+<li>馈电网络损耗（1-3dB）</li>
+<li>T/R 模块损耗（0.5-1dB/级）</li>
+<li>量化误差（0.2-0.5dB，取决于移相器位数）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 旁瓣电平（SLL）</h2>
+    <p><strong>控制方法</strong>：</p>
+<ul>
+<li><strong>幅度加权</strong>（Taylor / Chebyshev / Hamming 分布）</li>
+<li><strong>稀疏阵列</strong>（thinned array）→ 降低单元数但提高 SLL</li>
+<li><strong>栅瓣消除器</strong>（grating lobe canceller）→ 2024 汽车雷达</li>
+</ul>
+<p><strong>典型 SLL</strong>：
+| 加权方式 | SLL (dB) |
+|---------|---------|
+| 均匀 | -13.2 |
+| Taylor (n=4) | -25 |
+| Chebyshev | -20 to -40（可调） |
+| Hamming | -43 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 扫描损失（Scan Loss）</h2>
+    <p><strong>定义</strong>：波束偏离法向时的增益下降。</p>
+<pre><code>Scan_Loss(θ) ≈ -10×log₁₀(cosθ)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>扫描角</th>
+<th>扫描损失</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0°</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>30°</td>
+<td>0.5dB</td>
+</tr>
+<tr>
+<td>45°</td>
+<td>1.5dB</td>
+</tr>
+<tr>
+<td>60°</td>
+<td>3.0dB</td>
+</tr>
+<tr>
+<td>70°</td>
+<td>4.9dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 波束指向精度</h2>
+    <p><strong>取决于移相器位数</strong>：
+| 位数 | 步进角度 | 指向精度 |
+|------|---------|---------|
+| 3-bit | 45° | 粗扫 |
+| 5-bit | 11.25° | 中扫 |
+| 6-bit | 5.625° | 精扫（5G 常用） |
+| 8-bit | 1.406° | 超精（雷达/AESA） |</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 5G 基站（Massive MIMO AAU）</h2>
+    <p><strong>架构</strong>：64T64R 或 128T128R 相控阵
+- Sub-6GHz：GaN PA + 模拟/混合波束赋形
+- mmWave：CMOS TRX + 混合波束赋形
+- 波束赋形 + 波束切换 + 波束恢复（RRC 连接重建时）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 战斗机雷达（AESA）</h2>
+    <p><strong>F-35 AN/APG-81</strong>：</p>
+<ul>
+<li>约 2000-3000 个 T/R 模块</li>
+<li>同时执行：搜索 + 跟踪 + EW（电子战）+ 通信</li>
+<li>波束切换时间 &lt; 1μs</li>
+<li>LPI（低截获概率）：频率捷变 + 低旁瓣</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 汽车毫米波雷达（77GHz）</h2>
+    <p><strong>2025 EUMC 突破</strong>：</p>
+<ul>
+<li>76.5GHz 混合相控阵</li>
+<li>无栅瓣阵列布局</li>
+<li>FoV: ±60°（方位）/ ±25°（俯仰）</li>
+<li>旁瓣/栅瓣 &lt; -30dBc</li>
+<li>角度分辨力 1° @ 100m</li>
+<li>相位器数量减少 67%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 卫星互联网（Starlink）</h2>
+    <p><strong>相控阵终端</strong>：</p>
+<ul>
+<li>数千个贴片单元</li>
+<li>同时跟踪多颗卫星</li>
+<li>波束切换时间 &lt; 10ms</li>
+<li>车载/船载/航空移动平台</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.5 6G 太赫兹通信</h2>
+    <p><strong>2026 IEEE JSSC D-band AiP</strong>：</p>
+<ul>
+<li>142-164GHz</li>
+<li>ILTPS（注入锁定倍频移相器）</li>
+<li>56Gbps 数据传输</li>
+<li>单单元功耗 150mW（TX）/ 93mW（RX）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.6 RIS（Reconfigurable Intelligent Surface）</h2>
+    <p><strong>概念</strong>：用低成本无源反射单元"智能"控制电磁波传播环境。</p>
+<p><strong>2024 arXiv 研究</strong>：</p>
+<ul>
+<li>AP + RIS 协作波束跟踪</li>
+<li>RNN + GNN 深度学习框架</li>
+<li>利用 CSI 时序相关性自适应调整 RIS 反射系数</li>
+<li>多用户干扰下的最优波束成形</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 互耦（Mutual Coupling）</h2>
+    <p><strong>问题</strong>：单元间电磁耦合 → 阻抗变化 + 方向图畸变 + 波束指向偏移。</p>
+<p><strong>缓解</strong>：</p>
+<ul>
+<li>隔离柱/槽</li>
+<li>EBG 结构</li>
+<li>去耦网络</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 热管理</h2>
+    <p><strong>64T AAU 功耗</strong>：</p>
+<ul>
+<li>总功耗：200-400W</li>
+<li>T/R 模块占 50-70%</li>
+<li>需要液冷或高效风冷</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 校准</h2>
+    <p><strong>TDD  reciprocity 校准</strong>：</p>
+<ul>
+<li>利用上下行信道互易性</li>
+<li>但 T/R 模块幅相不一致 → 需要逐模块校准</li>
+<li>校准频率：开机 + 周期性（温度漂移导致）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 成本</h2>
+    <p><strong>64T AAU T/R 模块成本</strong>：</p>
+<ul>
+<li>单个 GaN T/R 模块：$10-50</li>
+<li>64T = 128 通道 → $8,000-$64,000（仅 T/R 模块）</li>
+<li>占 AAU BOM 成本 40-60%</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、给非专业读者的一句话总结</h2>
-    <div class="call"><b>相控阵天线的核心思想就一个：用软件代替马达。以前天线要转向，得装个电机慢慢转；现在通过控制几百上千个小天线的相位，波束在毫秒内就能从一个方向跳到另一个方向。战斗机雷达用它同时跟踪几十个目标，5G 基站用它给每个用户"画"一个专属波束，汽车雷达用它做 360° 环境监测。代价是贵——一个 64T 基站的 T/R 模块可能就值一辆宝马。但 6G 太赫兹时代，相控阵会更小更便宜（CMOS 工艺），功耗更低（ILTPS 技术），最终可能装进你的手机。</b></div>
-    <p><b>金句</b>：相控阵告诉你一个道理——<b>控制不是靠蛮力转动，而是靠精确协调每一个微小的个体</b>。</p>
-    <p>---</p>
+    <blockquote>
+<p><strong>相控阵天线的核心思想就一个：用软件代替马达。以前天线要转向，得装个电机慢慢转；现在通过控制几百上千个小天线的相位，波束在毫秒内就能从一个方向跳到另一个方向。战斗机雷达用它同时跟踪几十个目标，5G 基站用它给每个用户"画"一个专属波束，汽车雷达用它做 360° 环境监测。代价是贵——一个 64T 基站的 T/R 模块可能就值一辆宝马。但 6G 太赫兹时代，相控阵会更小更便宜（CMOS 工艺），功耗更低（ILTPS 技术），最终可能装进你的手机。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：相控阵告诉你一个道理——<strong>控制不是靠蛮力转动，而是靠精确协调每一个微小的个体</strong>。</p>
+<hr />
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -337,39 +641,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

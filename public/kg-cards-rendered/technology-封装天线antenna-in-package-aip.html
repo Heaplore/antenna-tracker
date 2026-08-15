@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>封装天线（Antenna-in-Package, AiP） · 知识卡片</title>
+<title>封装天线Antenna-in-Package-AiP · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">封装天线（Antenna-in-Package, AiP） <span class="en">Antenna-in-Package-AiP</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">封装天线Antenna-in-Package-AiP</h1>
   <p class="lede">封装天线（AiP/AoP）是将天线或天线阵列集成到芯片封装基板中的技术，使射频天线功能首次被引入封装领域。它是 5G 毫米波手机通信的标准解决方案，也是 6G 太赫兹集成天线的前瞻方向。</p>
+  
 </header>
 
 <main>
@@ -99,213 +101,726 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统天线就像一台独立的外设——插在电脑外面，通过一根长长的 USB 线连接到主板。AiP 则是把天线直接做在了芯片的"包装盒"里，相当于把 USB 口直接焊在了电路板上，线短了、信号损失小了、整体体积也小了。频率越高（毫米波），这根"线"的损失就越致命，所以 AiP 不是可选项，而是必选项。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
     <p>封装天线（Antenna-in-Package, AiP）是一种将辐射天线或天线阵列直接集成到集成电路封装基板中的先进封装技术。它将天线功能与传统的封装功能融合，使得射频信号在芯片封装内部就完成了辐射或接收，无需通过外部连接器或长线传输。</p>
-    <p><b>AiP 与 AoP 的区别</b>：</p>
-    <ul><li><b>AiP（Antenna-in-Package）</b>：天线嵌入在封装基板<b>内部</b>（多层基板中），天线导体被封装材料包裹</li><li><b>AoP（Antenna-on-Package）</b>：天线制作在封装基板<b>表面</b>（顶层），天线暴露在空气中</li></ul>
-    <p>两种方案各有优劣：AiP 保护性好、尺寸小；AoP 散热好、易于调试。实际应用中两者的界限越来越模糊，业界常统称为 "AiP/AoP"。</p>
-    <h3>1.2 为什么毫米波必须用 AiP？</h3>
+<p><strong>AiP 与 AoP 的区别</strong>：</p>
+<ul>
+<li><strong>AiP（Antenna-in-Package）</strong>：天线嵌入在封装基板<strong>内部</strong>（多层基板中），天线导体被封装材料包裹</li>
+<li><strong>AoP（Antenna-on-Package）</strong>：天线制作在封装基板<strong>表面</strong>（顶层），天线暴露在空气中</li>
+</ul>
+<p>两种方案各有优劣：AiP 保护性好、尺寸小；AoP 散热好、易于调试。实际应用中两者的界限越来越模糊，业界常统称为 "AiP/AoP"。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么毫米波必须用 AiP？</h2>
     <p>在低频段（Sub-6GHz），天线可以通过 PCB 上的微带线或 coaxial cable 连接到芯片，信号损失可以接受。但在毫米波频段（24-100GHz）：</p>
-    <ul><li><b>传输线损耗急剧增加</b>：FR4 基板在 28GHz 的损耗约为 1-2 dB/inch，在 60GHz 可达 5-10 dB/inch</li><li><b>连接器损耗</b>：SMA/IPEX 连接器在毫米波频段的插入损耗可达 2-3 dB</li><li><b>阻抗失配</b>：长传输线在毫米波频段表现为分布参数系统，任何不连续都会引起反射</li></ul>
-    <p><b>AiP 的核心价值</b>：将天线直接放在芯片旁边，信号传输路径从厘米级缩短到毫米级，传输损耗降低 3-10 dB——这在毫米波链路预算中可能是"能通信"和"不能通信"的区别。</p>
-    <h3>1.3 基本架构</h3>
+<ul>
+<li><strong>传输线损耗急剧增加</strong>：FR4 基板在 28GHz 的损耗约为 1-2 dB/inch，在 60GHz 可达 5-10 dB/inch</li>
+<li><strong>连接器损耗</strong>：SMA/IPEX 连接器在毫米波频段的插入损耗可达 2-3 dB</li>
+<li><strong>阻抗失配</strong>：长传输线在毫米波频段表现为分布参数系统，任何不连续都会引起反射</li>
+</ul>
+<p><strong>AiP 的核心价值</strong>：将天线直接放在芯片旁边，信号传输路径从厘米级缩短到毫米级，传输损耗降低 3-10 dB——这在毫米波链路预算中可能是"能通信"和"不能通信"的区别。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 基本架构</h2>
     <pre><code>                ┌─────────────────────────────┐
-                    │        封装基板 (Package)      │
-                    │  ┌───────────┐  ┌──────────┐ │
-                    │  │  RF Chip  │  │ Antenna  │ │
-                    │  │(Tx/Rx/BFIC)│  │ Elements │ │
-                    │  └─────┬─────┘  └────┬─────┘ │
-                    │        │             │        │
-                    │   ┌────▼────┐  ┌────▼────┐   │
-                    │   │ Bump/   │  │ Feed    │   │
-                    │   │ Flip-   │  │ Lines   │   │
-                    │   │ Chip    │  │ (mm级)   │   │
-                    │   └─────────┘  └─────────┘   │
-                    └─────────────────────────────┘
-                               │
-                        ┌──────▼──────┐
-                        │  PCB 主板    │
-                        └─────────────┘</code></pre>
+                │        封装基板 (Package)      │
+                │  ┌───────────┐  ┌──────────┐ │
+                │  │  RF Chip  │  │ Antenna  │ │
+                │  │(Tx/Rx/BFIC)│  │ Elements │ │
+                │  └─────┬─────┘  └────┬─────┘ │
+                │        │             │        │
+                │   ┌────▼────┐  ┌────▼────┐   │
+                │   │ Bump/   │  │ Feed    │   │
+                │   │ Flip-   │  │ Lines   │   │
+                │   │ Chip    │  │ (mm级)   │   │
+                │   └─────────┘  └─────────┘   │
+                └─────────────────────────────┘
+                           │
+                    ┌──────▼──────┐
+                    │  PCB 主板    │
+                    └─────────────┘
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 封装基板材料体系</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料类型</th><th>Dk (介电常数)</th><th>Df (损耗角正切)</th><th>频率范围</th><th>代表产品</th></tr></thead>
-    <tbody>
-    <tr><td>FR4 (传统 PCB)</td><td>4.3-4.5</td><td>0.02</td><td>< 10 GHz</td><td>不用于 AiP</td></tr>
-    <tr><td>改性 PTFE</td><td>2.2-2.5</td><td>0.001-0.003</td><td>28-60 GHz</td><td>Rogers RO4000</td></tr>
-    <tr><td>LCP (液晶聚合物)</td><td>2.9-3.0</td><td>0.002-0.005</td><td>28-100 GHz</td><td>手机 mmWave 主流</td></tr>
-    <tr><td>PI (聚酰亚胺)</td><td>3.1-3.5</td><td>0.002-0.004</td><td>28-60 GHz</td><td>柔性 AiP</td></tr>
-    <tr><td>BT (双氰胺树脂)</td><td>4.7-5.0</td><td>0.008-0.015</td><td>< 40 GHz</td><td>高密度封装</td></tr>
-    <tr><td>LTCC (低温共烧陶瓷)</td><td>5.9</td><td>0.002 (@60GHz)</td><td>28-140 GHz</td><td>基站/雷达</td></tr>
-    <tr><td>HTCC (高温共烧陶瓷)</td><td>9.5-10</td><td>0.0005</td><td>< 300 GHz</td><td>大功率/太空</td></tr>
-    <tr><td>硅 (Silicon)</td><td>11.7</td><td>0.008-0.01</td><td>60-300 GHz</td><td>片上天线</td></tr>
-    <tr><td>玻璃 (Glass)</td><td>3.7-7.8</td><td>0.0001-0.001</td><td>28-100 GHz</td><td>新兴方案</td></tr>
-    </tbody></table></div>
-    <p><b>LCP 成为手机毫米波主流材料的原因</b>：</p>
-    <ul><li>低吸湿性（< 0.02%）：不像 PI 那样吸水后 Dk 漂移</li><li>柔韧性好：适合手机弯曲场景</li><li>加工温度低（290°C）：兼容标准封装工艺</li><li>28GHz 下 Df 极低，传输损耗小</li></ul>
-    <h3>2.2 关键性能公式</h3>
-    <div class="tw"><table>
-    <thead><tr><th>公式</th><th>含义</th></tr></thead>
-    <tbody>
-    <tr><td>传输线损耗 α = √(πfμσ/2) + ω√(εr)·tanδ/2</td><td>毫米波传输线损耗与频率平方根成正比</td></tr>
-    <tr><td>天线效率 η = Pradiated / Pin</td><td>封装引入的损耗直接影响效率</td></tr>
-    <tr><td>realized_gain = directivity × η</td><td>封装天线的实增益 = 方向性 × 效率</td></tr>
-    <tr><td>链路预算余量 Link Margin = EIRP + G_rx - Path Loss - α_trace</td><td>AiP 缩短 α_trace 直接增加链路余量</td></tr>
-    <tr><td>阻抗带宽 BW = 2·(f_high - f_low)/(f_high + f_low)</td><td>低 Dk 材料通常提供更宽带宽</td></tr>
-    </tbody></table></div>
-    <h3>2.3 互连技术</h3>
-    <div class="tw"><table>
-    <thead><tr><th>互连方式</th><th>适用频率</th><th>插入损耗</th><th>工艺复杂度</th></tr></thead>
-    <tbody>
-    <tr><td>Flip-Chip Bump</td><td>< 40 GHz</td><td>0.1-0.3 dB</td><td>低</td></tr>
-    <tr><td>Wire Bond</td><td>< 20 GHz</td><td>0.5-1.0 dB</td><td>低</td></tr>
-    <tr><td>Solder Ball (BGA)</td><td>< 60 GHz</td><td>0.3-0.5 dB</td><td>中</td></tr>
-    <tr><td>Through-Silicon Via (TSV)</td><td>< 100 GHz</td><td>0.1-0.2 dB</td><td>高</td></tr>
-    <tr><td>Microvia</td><td>< 60 GHz</td><td>0.2-0.4 dB</td><td>中</td></tr>
-    </tbody></table></div>
-    <h3>2.4 天线类型选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>特点</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>微带贴片 (Patch)</td><td>易双极化、易集成</td><td>手机 28/39GHz</td></tr>
-    <tr><td>偶极子 (Dipole)</td><td>宽带宽、3dB波束宽</td><td>WiG 60GHz</td></tr>
-    <tr><td>缝隙 (Slot)</td><td>低剖面、易阵列</td><td>车载雷达 77GHz</td></tr>
-    <tr><td>磁电偶极子 (MED)</td><td>超宽带、高增益</td><td>5G 基站 AoP</td></tr>
-    <tr><td>喇叭 (Horn)</td><td>高增益、宽带</td><td>封装内集成硅透镜</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.1 封装基板材料体系</h2>
+    <table>
+<thead>
+<tr>
+<th>材料类型</th>
+<th>Dk (介电常数)</th>
+<th>Df (损耗角正切)</th>
+<th>频率范围</th>
+<th>代表产品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR4 (传统 PCB)</td>
+<td>4.3-4.5</td>
+<td>0.02</td>
+<td>&lt; 10 GHz</td>
+<td>不用于 AiP</td>
+</tr>
+<tr>
+<td>改性 PTFE</td>
+<td>2.2-2.5</td>
+<td>0.001-0.003</td>
+<td>28-60 GHz</td>
+<td>Rogers RO4000</td>
+</tr>
+<tr>
+<td>LCP (液晶聚合物)</td>
+<td>2.9-3.0</td>
+<td>0.002-0.005</td>
+<td>28-100 GHz</td>
+<td>手机 mmWave 主流</td>
+</tr>
+<tr>
+<td>PI (聚酰亚胺)</td>
+<td>3.1-3.5</td>
+<td>0.002-0.004</td>
+<td>28-60 GHz</td>
+<td>柔性 AiP</td>
+</tr>
+<tr>
+<td>BT (双氰胺树脂)</td>
+<td>4.7-5.0</td>
+<td>0.008-0.015</td>
+<td>&lt; 40 GHz</td>
+<td>高密度封装</td>
+</tr>
+<tr>
+<td>LTCC (低温共烧陶瓷)</td>
+<td>5.9</td>
+<td>0.002 (@60GHz)</td>
+<td>28-140 GHz</td>
+<td>基站/雷达</td>
+</tr>
+<tr>
+<td>HTCC (高温共烧陶瓷)</td>
+<td>9.5-10</td>
+<td>0.0005</td>
+<td>&lt; 300 GHz</td>
+<td>大功率/太空</td>
+</tr>
+<tr>
+<td>硅 (Silicon)</td>
+<td>11.7</td>
+<td>0.008-0.01</td>
+<td>60-300 GHz</td>
+<td>片上天线</td>
+</tr>
+<tr>
+<td>玻璃 (Glass)</td>
+<td>3.7-7.8</td>
+<td>0.0001-0.001</td>
+<td>28-100 GHz</td>
+<td>新兴方案</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LCP 成为手机毫米波主流材料的原因</strong>：</p>
+<ul>
+<li>低吸湿性（&lt; 0.02%）：不像 PI 那样吸水后 Dk 漂移</li>
+<li>柔韧性好：适合手机弯曲场景</li>
+<li>加工温度低（290°C）：兼容标准封装工艺</li>
+<li>28GHz 下 Df 极低，传输损耗小</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、实现方式与分类</h2>
-    <h3>3.1 按集成度分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>等级</th><th>描述</th><th>代表方案</th></tr></thead>
-    <tbody>
-    <tr><td>芯片级 AiP</td><td>天线直接在芯片封装内（单芯片）</td><td>手机 4-8 单元 AiP</td></tr>
-    <tr><td>模组级 AoP</td><td>天线在封装表面，含多芯片</td><td>基站 Massive MIMO 模组</td></tr>
-    <tr><td>系统级封装 (SiP-AiP)</td><td>天线 + T/R 模块 + 电源 + 散热集成</td><td>5G-Advanced 封装阵列</td></tr>
-    </tbody></table></div>
-    <h3>3.2 按制造工艺分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>特点</th><th>适用频率</th><th>代表厂商</th></tr></thead>
-    <tbody>
-    <tr><td>多层有机基板</td><td>标准 PCB 工艺，成本低</td><td>28-40 GHz</td><td>Amkor, SPIL, UTAC</td></tr>
-    <tr><td>LTCC 共烧陶瓷</td><td>多层布线，可靠性高</td><td>28-140 GHz</td><td>DuPont, Ferro</td></tr>
-    <tr><td>FOWLP (扇出型晶圆级封装)</td><td>无基板，尺寸最小</td><td>28-60 GHz</td><td>Intel, TSMC</td></tr>
-    <tr><td>玻璃基板</td><td>超低损耗，平整度高</td><td>60-100 GHz</td><td>Corning, Schott</td></tr>
-    <tr><td>硅中介层 (Silicon Interposer)</td><td>高精度线宽，适合太赫兹</td><td>100-300 GHz</td><td>TSMC, Intel</td></tr>
-    </tbody></table></div>
-    <h3>3.3 AiP vs 传统天线对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>传统 PCB 天线</th><th>AiP/AoP</th></tr></thead>
-    <tbody>
-    <tr><td>传输线损耗</td><td>高（cm级）</td><td>极低（mm级）</td></tr>
-    <tr><td>连接器损耗</td><td>有（2-3dB）</td><td>无</td></tr>
-    <tr><td>尺寸</td><td>大</td><td>小 30-50%</td></tr>
-    <tr><td>天线数量/设备</td><td>1-2</td><td>4-16+</td></tr>
-    <tr><td>组装复杂度</td><td>低</td><td>高</td></tr>
-    <tr><td>成本/单元</td><td>低</td><td>中（量大摊薄）</td></tr>
-    <tr><td>散热</td><td>好</td><td>需特殊设计</td></tr>
-    <tr><td>适用频段</td><td>Sub-6GHz</td><td>mmWave / 太赫兹</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.2 关键性能公式</h2>
+    <table>
+<thead>
+<tr>
+<th>公式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线损耗 α = √(πfμσ/2) + ω√(εr)·tanδ/2</td>
+<td>毫米波传输线损耗与频率平方根成正比</td>
+</tr>
+<tr>
+<td>天线效率 η = Pradiated / Pin</td>
+<td>封装引入的损耗直接影响效率</td>
+</tr>
+<tr>
+<td>realized_gain = directivity × η</td>
+<td>封装天线的实增益 = 方向性 × 效率</td>
+</tr>
+<tr>
+<td>链路预算余量 Link Margin = EIRP + G_rx - Path Loss - α_trace</td>
+<td>AiP 缩短 α_trace 直接增加链路余量</td>
+</tr>
+<tr>
+<td>阻抗带宽 BW = 2·(f_high - f_low)/(f_high + f_low)</td>
+<td>低 Dk 材料通常提供更宽带宽</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 5G 智能手机（最成熟市场）</h3>
-    <ul><li><b>频率</b>：28GHz (n257)、39GHz (n260)</li><li><b>典型配置</b>：每部手机 3-4 个 AiP 模组，覆盖前后左右</li><li><b>代表产品</b>：</li><li>高通 QTM565（第 5 代，Galaxy S24 Ultra 搭载）</li><li>苹果 iPhone 12-16 系列 mmWave 版（Murata/USI 封装）</li><li>三星自研 AiP 模组</li><li><b>芯片方案</b>：BFIC（波束成形 IC）+ AiP 天线模组一体化</li></ul>
-    <h3>4.2 5G 基站 Massive MIMO</h3>
-    <ul><li><b>频率</b>：28-39 GHz（FR2 频段）</li><li><b>配置</b>：每个 AAU 模组含 64-256 个 AiP 天线单元</li><li><b>特点</b>：高功率、高散热要求，AoP 方案更常见</li><li><b>代表产品</b>：三菱电机 16W GaN PAM + AoP 天线阵列</li></ul>
-    <h3>4.3 车载毫米波雷达</h3>
-    <ul><li><b>频率</b>：77/79 GHz</li><li><b>配置</b>：4-16 单元 AiP 阵列</li><li><b>特点</b>：车规级可靠性（-40°C 至 +125°C）</li><li><b>代表厂商</b>：Infineon、NXP、TI</li></ul>
-    <h3>4.4 WiG 60GHz / 6E</h3>
-    <ul><li><b>频率</b>：57-71 GHz (IEEE 802.11ad/ay)</li><li><b>配置</b>：2-4 单元 AiP</li><li><b>特点</b>：低成本、短距离高速传输</li><li><b>应用</b>：VR/AR 头显、无线 HDMI 替代</li></ul>
-    <h3>4.5 卫星互联网终端</h3>
-    <ul><li><b>频率</b>：Ku/Ka band (12-40 GHz)</li><li><b>配置</b>：数百至数千单元 AoP 相控阵</li><li><b>代表产品</b>：Starlink V1/V2 终端</li><li><b>特点</b>：低成本大批量制造是关键</li></ul>
+  
+  <article class="card ">
+    
+    <h2>2.3 互连技术</h2>
+    <table>
+<thead>
+<tr>
+<th>互连方式</th>
+<th>适用频率</th>
+<th>插入损耗</th>
+<th>工艺复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flip-Chip Bump</td>
+<td>&lt; 40 GHz</td>
+<td>0.1-0.3 dB</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Wire Bond</td>
+<td>&lt; 20 GHz</td>
+<td>0.5-1.0 dB</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Solder Ball (BGA)</td>
+<td>&lt; 60 GHz</td>
+<td>0.3-0.5 dB</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Through-Silicon Via (TSV)</td>
+<td>&lt; 100 GHz</td>
+<td>0.1-0.2 dB</td>
+<td>高</td>
+</tr>
+<tr>
+<td>Microvia</td>
+<td>&lt; 60 GHz</td>
+<td>0.2-0.4 dB</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 射频性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>天线增益</td><td>8-16 dBi（手机）/ 20-30 dBi（基站）</td><td>取决于单元数和阵列规模</td></tr>
-    <tr><td>阻抗带宽</td><td>10-20%（相对带宽）</td><td>LCP 基板典型值</td></tr>
-    <tr><td>端口隔离度</td><td>>20 dB</td><td>多端口 AiP 要求</td></tr>
-    <tr><td>极化隔离度</td><td>>25 dB</td><td>双极化 AiP</td></tr>
-    <tr><td>波束指向精度</td><td>±2°</td><td>封装精度决定</td></tr>
-    </tbody></table></div>
-    <h3>5.2 封装性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>封装尺寸</td><td>5mm×5mm（手机）/ 50mm×30mm（基站）</td><td>手机 AiP 约指甲盖大小</td></tr>
-    <tr><td>传输线损耗</td><td><0.5 dB/cm（28GHz, LCP）</td><td>比 FR4 低 5-10 倍</td></tr>
-    <tr><td>热阻</td><td>5-15°C/W</td><td>毫米波功耗不可忽视</td></tr>
-    <tr><td>CTE 匹配</td><td><15 ppm/°C</td><td>防止热循环开裂</td></tr>
-    </tbody></table></div>
-    <h3>5.3 可靠性</h3>
-    <div class="tw"><table>
-    <thead><tr><th>测试项目</th><th>条件</th><th>要求</th></tr></thead>
-    <tbody>
-    <tr><td>温度循环</td><td>-40°C 至 +125°C, 1000 次</td><td>无开裂、无分层</td></tr>
-    <tr><td>高温高湿</td><td>85°C/85%RH, 1000h</td><td>性能漂移 <1dB</td></tr>
-    <tr><td>振动</td><td>10-2000Hz, 3 轴向</td><td>结构完整</td></tr>
-    <tr><td>静电放电</td><td>±15kV Air / ±8kV Contact</td><td>不损坏</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.4 天线类型选择</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微带贴片 (Patch)</td>
+<td>易双极化、易集成</td>
+<td>手机 28/39GHz</td>
+</tr>
+<tr>
+<td>偶极子 (Dipole)</td>
+<td>宽带宽、3dB波束宽</td>
+<td>WiG 60GHz</td>
+</tr>
+<tr>
+<td>缝隙 (Slot)</td>
+<td>低剖面、易阵列</td>
+<td>车载雷达 77GHz</td>
+</tr>
+<tr>
+<td>磁电偶极子 (MED)</td>
+<td>超宽带、高增益</td>
+<td>5G 基站 AoP</td>
+</tr>
+<tr>
+<td>喇叭 (Horn)</td>
+<td>高增益、宽带</td>
+<td>封装内集成硅透镜</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 材料选择的两难</h3>
-    <ul><li><b>低 Dk/Df 材料</b>（如 LCP、PTFE）：射频性能好，但机械强度差、成本高</li><li><b>高 Dk 材料</b>（如 BT、硅）：尺寸小、工艺成熟，但传输损耗大</li><li><b>折中方案</b>：手机用 LCP（射频优先），基站用 HTCC（功率和散热优先）</li></ul>
-    <h3>6.2 散热——毫米波的隐形杀手</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 按集成度分类</h2>
+    <table>
+<thead>
+<tr>
+<th>等级</th>
+<th>描述</th>
+<th>代表方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>芯片级 AiP</td>
+<td>天线直接在芯片封装内（单芯片）</td>
+<td>手机 4-8 单元 AiP</td>
+</tr>
+<tr>
+<td>模组级 AoP</td>
+<td>天线在封装表面，含多芯片</td>
+<td>基站 Massive MIMO 模组</td>
+</tr>
+<tr>
+<td>系统级封装 (SiP-AiP)</td>
+<td>天线 + T/R 模块 + 电源 + 散热集成</td>
+<td>5G-Advanced 封装阵列</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按制造工艺分类</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>特点</th>
+<th>适用频率</th>
+<th>代表厂商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多层有机基板</td>
+<td>标准 PCB 工艺，成本低</td>
+<td>28-40 GHz</td>
+<td>Amkor, SPIL, UTAC</td>
+</tr>
+<tr>
+<td>LTCC 共烧陶瓷</td>
+<td>多层布线，可靠性高</td>
+<td>28-140 GHz</td>
+<td>DuPont, Ferro</td>
+</tr>
+<tr>
+<td>FOWLP (扇出型晶圆级封装)</td>
+<td>无基板，尺寸最小</td>
+<td>28-60 GHz</td>
+<td>Intel, TSMC</td>
+</tr>
+<tr>
+<td>玻璃基板</td>
+<td>超低损耗，平整度高</td>
+<td>60-100 GHz</td>
+<td>Corning, Schott</td>
+</tr>
+<tr>
+<td>硅中介层 (Silicon Interposer)</td>
+<td>高精度线宽，适合太赫兹</td>
+<td>100-300 GHz</td>
+<td>TSMC, Intel</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 AiP vs 传统天线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>传统 PCB 天线</th>
+<th>AiP/AoP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线损耗</td>
+<td>高（cm级）</td>
+<td>极低（mm级）</td>
+</tr>
+<tr>
+<td>连接器损耗</td>
+<td>有（2-3dB）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>大</td>
+<td>小 30-50%</td>
+</tr>
+<tr>
+<td>天线数量/设备</td>
+<td>1-2</td>
+<td>4-16+</td>
+</tr>
+<tr>
+<td>组装复杂度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>成本/单元</td>
+<td>低</td>
+<td>中（量大摊薄）</td>
+</tr>
+<tr>
+<td>散热</td>
+<td>好</td>
+<td>需特殊设计</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>Sub-6GHz</td>
+<td>mmWave / 太赫兹</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 5G 智能手机（最成熟市场）</h2>
+    <ul>
+<li><strong>频率</strong>：28GHz (n257)、39GHz (n260)</li>
+<li><strong>典型配置</strong>：每部手机 3-4 个 AiP 模组，覆盖前后左右</li>
+<li><strong>代表产品</strong>：</li>
+<li>高通 QTM565（第 5 代，Galaxy S24 Ultra 搭载）</li>
+<li>苹果 iPhone 12-16 系列 mmWave 版（Murata/USI 封装）</li>
+<li>三星自研 AiP 模组</li>
+<li><strong>芯片方案</strong>：BFIC（波束成形 IC）+ AiP 天线模组一体化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 5G 基站 Massive MIMO</h2>
+    <ul>
+<li><strong>频率</strong>：28-39 GHz（FR2 频段）</li>
+<li><strong>配置</strong>：每个 AAU 模组含 64-256 个 AiP 天线单元</li>
+<li><strong>特点</strong>：高功率、高散热要求，AoP 方案更常见</li>
+<li><strong>代表产品</strong>：三菱电机 16W GaN PAM + AoP 天线阵列</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 车载毫米波雷达</h2>
+    <ul>
+<li><strong>频率</strong>：77/79 GHz</li>
+<li><strong>配置</strong>：4-16 单元 AiP 阵列</li>
+<li><strong>特点</strong>：车规级可靠性（-40°C 至 +125°C）</li>
+<li><strong>代表厂商</strong>：Infineon、NXP、TI</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 WiG 60GHz / 6E</h2>
+    <ul>
+<li><strong>频率</strong>：57-71 GHz (IEEE 802.11ad/ay)</li>
+<li><strong>配置</strong>：2-4 单元 AiP</li>
+<li><strong>特点</strong>：低成本、短距离高速传输</li>
+<li><strong>应用</strong>：VR/AR 头显、无线 HDMI 替代</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 卫星互联网终端</h2>
+    <ul>
+<li><strong>频率</strong>：Ku/Ka band (12-40 GHz)</li>
+<li><strong>配置</strong>：数百至数千单元 AoP 相控阵</li>
+<li><strong>代表产品</strong>：Starlink V1/V2 终端</li>
+<li><strong>特点</strong>：低成本大批量制造是关键</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 射频性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线增益</td>
+<td>8-16 dBi（手机）/ 20-30 dBi（基站）</td>
+<td>取决于单元数和阵列规模</td>
+</tr>
+<tr>
+<td>阻抗带宽</td>
+<td>10-20%（相对带宽）</td>
+<td>LCP 基板典型值</td>
+</tr>
+<tr>
+<td>端口隔离度</td>
+<td>&gt;20 dB</td>
+<td>多端口 AiP 要求</td>
+</tr>
+<tr>
+<td>极化隔离度</td>
+<td>&gt;25 dB</td>
+<td>双极化 AiP</td>
+</tr>
+<tr>
+<td>波束指向精度</td>
+<td>±2°</td>
+<td>封装精度决定</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 封装性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>封装尺寸</td>
+<td>5mm×5mm（手机）/ 50mm×30mm（基站）</td>
+<td>手机 AiP 约指甲盖大小</td>
+</tr>
+<tr>
+<td>传输线损耗</td>
+<td>&lt;0.5 dB/cm（28GHz, LCP）</td>
+<td>比 FR4 低 5-10 倍</td>
+</tr>
+<tr>
+<td>热阻</td>
+<td>5-15°C/W</td>
+<td>毫米波功耗不可忽视</td>
+</tr>
+<tr>
+<td>CTE 匹配</td>
+<td>&lt;15 ppm/°C</td>
+<td>防止热循环开裂</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 可靠性</h2>
+    <table>
+<thead>
+<tr>
+<th>测试项目</th>
+<th>条件</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>温度循环</td>
+<td>-40°C 至 +125°C, 1000 次</td>
+<td>无开裂、无分层</td>
+</tr>
+<tr>
+<td>高温高湿</td>
+<td>85°C/85%RH, 1000h</td>
+<td>性能漂移 &lt;1dB</td>
+</tr>
+<tr>
+<td>振动</td>
+<td>10-2000Hz, 3 轴向</td>
+<td>结构完整</td>
+</tr>
+<tr>
+<td>静电放电</td>
+<td>±15kV Air / ±8kV Contact</td>
+<td>不损坏</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 材料选择的两难</h2>
+    <ul>
+<li><strong>低 Dk/Df 材料</strong>（如 LCP、PTFE）：射频性能好，但机械强度差、成本高</li>
+<li><strong>高 Dk 材料</strong>（如 BT、硅）：尺寸小、工艺成熟，但传输损耗大</li>
+<li><strong>折中方案</strong>：手机用 LCP（射频优先），基站用 HTCC（功率和散热优先）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 散热——毫米波的隐形杀手</h2>
     <p>毫米波 AiP 的功率密度极高（一个手机 AiP 模组内含 8-16 个 BFIC 通道，总功耗 2-5W），而封装材料（LCP/PI）的热导率远低于金属或陶瓷。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>在封装内集成热通孔（Thermal Via）</li><li>使用金属盖板（Metal Lid）传导散热</li><li>封装底部涂导热硅脂接触 PCB 散热</li><li>高阶方案：嵌入式散热层（Embedded Heat Spreader）</li></ul>
-    <h3>6.3 封装精度与波束指向</h3>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>在封装内集成热通孔（Thermal Via）</li>
+<li>使用金属盖板（Metal Lid）传导散热</li>
+<li>封装底部涂导热硅脂接触 PCB 散热</li>
+<li>高阶方案：嵌入式散热层（Embedded Heat Spreader）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 封装精度与波束指向</h2>
     <p>毫米波波长短（28GHz 波长约 10.7mm），封装制造的微小偏差就会显著影响波束指向：</p>
-    <ul><li>线宽偏差 ±5μm → 阻抗变化 → 反射增大</li><li>层叠对准偏差 ±10μm → 耦合变化 → 方向图畸变</li><li>基板翘曲 >0.5% → 天线谐振频率偏移</li></ul>
-    <p><b>工程要求</b>：毫米波 AiP 的封装精度通常需要控制在 ±5-10μm 以内。</p>
-    <h3>6.4 测试与校准复杂性</h3>
+<ul>
+<li>线宽偏差 ±5μm → 阻抗变化 → 反射增大</li>
+<li>层叠对准偏差 ±10μm → 耦合变化 → 方向图畸变</li>
+<li>基板翘曲 &gt;0.5% → 天线谐振频率偏移</li>
+</ul>
+<p><strong>工程要求</strong>：毫米波 AiP 的封装精度通常需要控制在 ±5-10μm 以内。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 测试与校准复杂性</h2>
     <p>AiP 天线的测试比传统天线困难得多：</p>
-    <ul><li>天线在封装内部，无法直接探头测量</li><li>需要专门的测试夹具（Test Fixture）</li><li>近场扫描 + 变换是主流方案</li><li>批量生产时需要快速测试（每个模组 < 30 秒）</li></ul>
-    <h3>6.5 供应链与成本</h3>
-    <ul><li>AiP 封装需要高度专业化的设备和工艺</li><li>全球主要 AiP 封测厂商：Amkor、SPIL（日月光）、UTAC、TSMC、Intel</li><li>手机 AiP 模组单价：$5-15（量大），基站 AiP 模组：$50-200</li><li>良率是关键——毫米波封装良率低于 80% 时成本急剧上升</li></ul>
+<ul>
+<li>天线在封装内部，无法直接探头测量</li>
+<li>需要专门的测试夹具（Test Fixture）</li>
+<li>近场扫描 + 变换是主流方案</li>
+<li>批量生产时需要快速测试（每个模组 &lt; 30 秒）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>6.5 供应链与成本</h2>
+    <ul>
+<li>AiP 封装需要高度专业化的设备和工艺</li>
+<li>全球主要 AiP 封测厂商：Amkor、SPIL（日月光）、UTAC、TSMC、Intel</li>
+<li>手机 AiP 模组单价：$5-15（量大），基站 AiP 模组：$50-200</li>
+<li>良率是关键——毫米波封装良率低于 80% 时成本急剧上升</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1990s</b>：AiP 概念首次提出，用于 60GHz 无线 LAN</li><li><b>2000s</b>：SiGe 和 CMOS 工艺推动 AiP 在车载雷达中的应用</li><li><b>2010s</b>：5G 标准制定，AiP 成为毫米波手机天线的必然选择</li><li><b>2018年</b>：iPhone 12 首次搭载 mmWave AiP（高通 QTM515），开启手机 AiP 时代</li><li><b>2019-2021年</b>：三星、华为、小米陆续推出 mmWave 机型，AiP 模组快速迭代</li><li><b>2022年</b>：高通 QTM565（第 5 代）支持 28/39GHz 双频段</li><li><b>2023-2024年</b>：AoP 方案在 5G 基站 Massive MIMO 中大规模部署</li><li><b>2024年</b>：玻璃基板 AiP 进入研究阶段，目标 6G 太赫兹频段</li><li><b>2025年</b>：三菱电机 7GHz GaN PAM + AoP 验证成功，5G-Advanced 推进</li><li><b>2025-2026年</b>：SiP-AiP（系统级封装 + 天线）成为 5G-Advanced 主流方案</li></ul>
+    <ul>
+<li><strong>1990s</strong>：AiP 概念首次提出，用于 60GHz 无线 LAN</li>
+<li><strong>2000s</strong>：SiGe 和 CMOS 工艺推动 AiP 在车载雷达中的应用</li>
+<li><strong>2010s</strong>：5G 标准制定，AiP 成为毫米波手机天线的必然选择</li>
+<li><strong>2018年</strong>：iPhone 12 首次搭载 mmWave AiP（高通 QTM515），开启手机 AiP 时代</li>
+<li><strong>2019-2021年</strong>：三星、华为、小米陆续推出 mmWave 机型，AiP 模组快速迭代</li>
+<li><strong>2022年</strong>：高通 QTM565（第 5 代）支持 28/39GHz 双频段</li>
+<li><strong>2023-2024年</strong>：AoP 方案在 5G 基站 Massive MIMO 中大规模部署</li>
+<li><strong>2024年</strong>：玻璃基板 AiP 进入研究阶段，目标 6G 太赫兹频段</li>
+<li><strong>2025年</strong>：三菱电机 7GHz GaN PAM + AoP 验证成功，5G-Advanced 推进</li>
+<li><strong>2025-2026年</strong>：SiP-AiP（系统级封装 + 天线）成为 5G-Advanced 主流方案</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用（手机）/ 快速成长期（基站）</li><li><b>说明</b>：手机 mmWave AiP 已大规模商用（iPhone 12 至今所有 mmWave 机型均采用），技术相对成熟。基站 AoP 和 6G 太赫兹 AiP 仍处于快速发展和标准化推进阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced（Rel-18/19）推动更大规模 AoP 阵列（128-256 单元）</li><li>玻璃基板 AiP 开始在 60GHz  WiG 和车载雷达中试点</li><li>FOWLP 扇出型封装用于更紧凑的 AiP</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 太赫兹频段（100-300GHz）AiP 成为研究重点</li><li>硅中介层（Silicon Interposer）AiP 实现 200GHz+ 工作频率</li><li>AiP 与 T/R 模块、电源管理、散热集成在一个 SiP 封装内</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO（Holographic MIMO）：连续孔径取代离散单元，AiP 定义被重新思考</li><li>可编程物质天线：封装内集成可调材料，实现动态波束控制</li><li>量子传感 AiP：利用量子效应实现超高灵敏度接收</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced（Rel-18/19）推动更大规模 AoP 阵列（128-256 单元）</li>
+<li>玻璃基板 AiP 开始在 60GHz  WiG 和车载雷达中试点</li>
+<li>
+<p>FOWLP 扇出型封装用于更紧凑的 AiP</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 太赫兹频段（100-300GHz）AiP 成为研究重点</li>
+<li>硅中介层（Silicon Interposer）AiP 实现 200GHz+ 工作频率</li>
+<li>
+<p>AiP 与 T/R 模块、电源管理、散热集成在一个 SiP 封装内</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO（Holographic MIMO）：连续孔径取代离散单元，AiP 定义被重新思考</li>
+<li>可编程物质天线：封装内集成可调材料，实现动态波束控制</li>
+<li>量子传感 AiP：利用量子效应实现超高灵敏度接收</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>封装天线（AiP/AoP）是毫米波时代的"必然选择"——当频率高到传输线的每一毫米都是损耗时，把天线直接做到芯片封装里是唯一合理的方案。从 iPhone 的 28GHz AiP 到 Starlink 的 Ka-band AoP 相控阵，再到未来的 6G 太赫兹集成天线，AiP 正在重新定义天线的边界：天线不再是一个独立的器件，而是封装的一部分。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -325,39 +840,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能反射面RIS深度解读 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">智能反射面RIS深度解读</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>2.1 基本架构</h2>
+    <p>RIS 由大量<strong>亚波长尺度的无源单元</strong>组成，排列成二维平面阵列。每个单元都可以独立调控入射电磁波的：</p>
+<table>
+<thead>
+<tr>
+<th>调控维度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>相位</strong></td>
+<td>改变反射信号的相位，实现波束指向控制</td>
+</tr>
+<tr>
+<td><strong>幅度</strong></td>
+<td>调节反射信号的强度</td>
+</tr>
+<tr>
+<td><strong>极化</strong></td>
+<td>转换电磁波的极化方向（如线极化↔圆极化）</td>
+</tr>
+<tr>
+<td><strong>频率</strong></td>
+<td>部分高级 RIS 还能调控反射频率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card analogy">
+    <div class="kicker">ANALOGY</div>
+    <h2>2.2 类比理解：从&#34;固定镜子&#34;到&#34;智能镜子&#34;</h2>
+    <p><strong>固定镜子（传统反射）</strong>：你把一面镜子固定在墙上，光线反射方向是固定的。想换个方向？得手动挪镜子。</p>
+<p><strong>智能镜子（RIS）</strong>：这面镜子由数百万个微型镜面组成，每个小镜面可以独立旋转。通过中央控制器协调，可以让所有小镜面同时转向某个方向，把光线集中反射到目标位置。RIS 对电磁波的调控就是这个道理。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 物理原理：电磁超材料</h2>
+    <p>RIS 的每个单元本质上是一个<strong>谐振结构</strong>（如贴片天线、开口谐振环等），其尺寸小于工作波长。当电磁波照射到这个单元上时：</p>
+<ol>
+<li>单元产生感应电流</li>
+<li>感应电流重新辐射电磁波</li>
+<li>通过改变单元的<strong>负载阻抗</strong>（通常用变容二极管或 MEMS 开关），可以实时调节感应电流的相位和幅度</li>
+<li>所有单元协同工作，形成可控的反射波前</li>
+</ol>
+<p>这个过程类似于<strong>受控的二次辐射</strong>，整个 RIS 表面就像一个巨大的"可编程天线阵列"，但它自己不发射信号，只是反射和调制已有的信号。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 STAR-RIS：透射+反射双模</h2>
+    <p>传统 RIS 只能在反射侧工作（信号从一侧来，反射到另一侧）。<strong>STAR-RIS</strong>（Simultaneously Transmitting and Reflecting RIS）实现了突破：</p>
+<ul>
+<li>同一块 RIS 面板，既能反射信号，也能透射信号</li>
+<li>相当于在信号路径上装了一个"智能分光镜"</li>
+<li>覆盖范围从 180° 扩展到 360°，彻底消除覆盖死角</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 典型部署场景</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>解决的问题</th>
+<th>RIS 的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>室内深度覆盖</strong></td>
+<td>写字楼、商场、地铁站信号盲区</td>
+<td>贴在墙壁/天花板上，将室外信号反射到室内</td>
+</tr>
+<tr>
+<td><strong>小区边缘增强</strong></td>
+<td>基站覆盖边缘信号弱</td>
+<td>部署在基站与边缘用户之间，增强反射信号</td>
+</tr>
+<tr>
+<td><strong>毫米波补盲</strong></td>
+<td>高频段穿透损耗大、绕射能力差</td>
+<td>替代传统中继器，低成本构建反射链路</td>
+</tr>
+<tr>
+<td><strong>车联网 V2X</strong></td>
+<td>转弯、高楼遮挡导致信号中断</td>
+<td>部署在路口，动态反射信号绕过障碍物</td>
+</tr>
+<tr>
+<td><strong>低空经济</strong></td>
+<td>无人机通信覆盖</td>
+<td>在地面部署 RIS，为低空无人机提供反射链路</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 实际验证案例</h2>
+    <p><strong>案例 1：辽宁联通 + 中兴通讯 RIS 2.0 外场验证（大连）</strong></p>
+<ul>
+<li>部署地点：大连国际会议中心</li>
+<li>方案：5G-A 基站 + RIS 2.0 面板协同部署</li>
+<li>效果：</li>
+<li>覆盖面积：近 1000 平方米</li>
+<li>平均 RSRP 提升：<strong>超过 15 dB</strong></li>
+<li>平均用户速率提升：<strong>300% 以上</strong></li>
+<li>RIS 面板尺寸：A4 纸大小</li>
+<li>意义：业界首个动态 RIS 2.0 外场验证，标志从实验室走向现网</li>
+</ul>
+<p><strong>案例 2：华为天罡 T1 太赫兹 6G 终端（MWC 2025）</strong></p>
+<ul>
+<li>集成超材料智能表面（Meta-RIS）</li>
+<li>0.1 THz 频段通信</li>
+<li>100 米距离实现 20 Gbps 稳定传输</li>
+<li>意义：RIS 在太赫兹频段的早期验证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 与 Massive MIMO 的对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Massive MIMO</th>
+<th>RIS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作原理</strong></td>
+<td>主动发射+波束赋形</td>
+<td>被动反射+环境调控</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>高（每根天线都有射频链）</td>
+<td>极低（仅需控制电路供电，约 1W）</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>高（大量射频芯片）</td>
+<td>低（无源元件为主）</td>
+</tr>
+<tr>
+<td><strong>部署灵活性</strong></td>
+<td>固定在天线塔/AAU</td>
+<td>可贴在墙面、天花板、路灯杆等</td>
+</tr>
+<tr>
+<td><strong>覆盖增强</strong></td>
+<td>通过波束指向优化</td>
+<td>通过反射路径创建</td>
+</tr>
+<tr>
+<td><strong>典型增益</strong></td>
+<td>10-20 dBi</td>
+<td>5-15 dB 覆盖增强</td>
+</tr>
+</tbody>
+</table>
+<p>简言之：<strong>Massive MIMO 是"主动出击"，RIS 是"借力打力"</strong>。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 中兴通讯（ZTE）—— 行业先行者</h2>
+    <p>中兴在 RIS 领域布局最早、进展最快：</p>
+<ul>
+<li><strong>2021 年</strong>：完成业界首个 5G 网络静态 RIS 外场验证</li>
+<li><strong>2022 年</strong>：联合成立智能超表面技术联盟（RISTA）</li>
+<li><strong>2023 年 6 月</strong>：MWC Shanghai 发布<strong>动态 RIS 2.0 原型机</strong>，规格、功耗大幅降低</li>
+<li><strong>2024 年</strong>：辽宁联通大连外场完成 RIS 2.0 验证，15 dB RSRP 提升</li>
+<li><strong>2025 年</strong>：RIS 2.0 持续优化，高增益、低功耗方向推进</li>
+<li><strong>牵头角色</strong>：RIS 白皮书主要牵头方，IMT-2030（6G）推进组 RIS 任务组核心成员</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 华为 —— 紧跟布局</h2>
+    <ul>
+<li><strong>MWC 2025</strong>：天罡 T1 太赫兹终端集成 Meta-RIS</li>
+<li>将 RIS 融入 5G 网络解决方案，提供端到端方案</li>
+<li>侧重超材料天线（Meta-surface antenna）与 RIS 的融合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 学术界与标准化</h2>
+    <ul>
+<li><strong>3GPP Rel-19</strong>：RIS 被排除在外（信道建模工作延期）</li>
+<li><strong>3GPP Rel-20（2025-2026）</strong>：计划启动 RIS 标准化研究</li>
+<li><strong>3GPP 6G SID（RP-251809）</strong>：RIS 被列为 6G 关键技术候选</li>
+<li><strong>CCSA（中国通信标准化协会）</strong>：2023 年 7 月立项 RIS 白皮书</li>
+<li><strong>RISTA 联盟</strong>：覆盖超材料、芯片、ICT、运营商、学术界全产业链</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 市场规模预测</h2>
+    <table>
+<thead>
+<tr>
+<th>机构</th>
+<th>预测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataIntel</td>
+<td>2025 年 $28 亿 → 2034 年 $286 亿</td>
+</tr>
+<tr>
+<td>WiseGuyReports</td>
+<td>CAGR 20.1%（2025-2035）</td>
+</tr>
+<tr>
+<td>ResearchAndMarkets</td>
+<td>6G RIS 可能成为最大的超材料市场</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 RIS 正在从&#34;概念验证&#34;走向&#34;现网试点&#34;</h2>
+    <p>过去几年 RIS 主要在实验室和论文中，但现在：</p>
+<ul>
+<li>中兴已完成外场验证，RSRP 提升 15 dB、速率提升 300%，数据非常扎实</li>
+<li>联通、移动、电信三大运营商均已参与</li>
+<li>3GPP 虽未在 Rel-19 纳入，但 Rel-20 和 6G 标准化已启动</li>
+</ul>
+<p><strong>判断</strong>：RIS 大概率在 2027-2028 年（5G-A 深化期）开始小规模商用，2030 年前后（6G 商用初期）进入规模化部署。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 从&#34;被动反射&#34;到&#34;智能环境&#34;</h2>
+    <p>RIS 的终极愿景不是单个面板，而是<strong>智能无线环境</strong>（Smart Radio Environment）：</p>
+<pre><code>单个 RIS 面板 → 多 RIS 协同 → 城市级智能反射网络
+</code></pre>
+<p>未来城市里，路灯杆、建筑物外墙、室内天花板都会嵌入 RIS 面板，形成一个可编程的电磁空间。基站不再需要"对着空气喊"，而是通过 RIS 网络精准引导信号到达每个用户。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 与 AI 的深度融合</h2>
+    <p>RIS 的相移配置是一个高维优化问题（N 个单元 × 3 个自由度 = 3N 维优化空间）。传统优化算法在大规模 RIS 面前算力不够用。<strong>AI 驱动的 RIS 控制</strong>是必然方向：</p>
+<ul>
+<li>深度学习预测最优相移配置</li>
+<li>强化学习实现动态环境下的实时调整</li>
+<li>大模型（如 ChannelLM）将 RIS 纳入数字孪生信道框架</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 挑战不容忽视</h2>
+    <ul>
+<li><strong>信道估计难</strong>：RIS 是无源的，无法像传统基站那样发送导频信号，级联信道估计复杂</li>
+<li><strong>硬件损伤</strong>：实际单元的相位/幅度调控精度有限，理想模型与现实有差距</li>
+<li><strong>标准化滞后</strong>：3GPP Rel-19 未纳入，标准节奏慢于产业预期</li>
+<li><strong>商业模式</strong>：谁买单？运营商？建筑商？设备商？目前还不清晰</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 对天线行业工作的直接影响</h2>
+    <ol>
+<li>
+<p><strong>RIS 本质上是一种新型天线系统</strong>：它由大量亚波长天线单元组成，通过相控阵原理实现波束控制。对老大来说，RIS 的天线设计、阵列布局、波束赋形等知识与传统天线技术一脉相承。</p>
+</li>
+<li>
+<p><strong>5G-A 现网优化的新工具</strong>：RIS 2.0 已经在大连现网验证成功，15 dB 的 RSRP 提升是非常可观的数据。如果老大所在的团队涉及 5G-A 网络优化或天线质量管控，RIS 可能很快成为实际部署的设备。</p>
+</li>
+<li>
+<p><strong>6G 天线技术储备</strong>：RIS 是 6G 标准的关键候选技术之一。提前理解 RIS 的原理和产业链动态，有助于在 6G 天线设计方向做好技术储备。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 竞品追踪价值</h2>
+    <ul>
+<li><strong>中兴通讯</strong>在 RIS 领域处于全球领先地位，这是 ZTE 在 6G 技术竞争中的一个差异化优势</li>
+<li>如果老大关注竞争对手动态，RIS 是一个值得持续追踪的方向</li>
+<li>华为也在布局，但公开信息相对较少</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 质量管理的潜在切入点</h2>
+    <p>RIS 作为新型设备，其<strong>质量控制、测试验证、性能评估</strong>体系都在建设中：</p>
+<ul>
+<li>单元级：每个反射单元的相移精度、损耗、一致性</li>
+<li>系统级：整体反射增益、波束指向精度、多用户调度能力</li>
+<li>现网级：部署后的实际覆盖增益、用户速率提升</li>
+</ul>
+<p>这些恰恰是质量管理岗位可以发挥价值的地方。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、关键术语速查</h2>
+    <table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>智能反射面</td>
+<td>RIS / IRS</td>
+<td>Reconfigurable Intelligent Surface，可编程超材料表面</td>
+</tr>
+<tr>
+<td>超材料</td>
+<td>Metamaterial</td>
+<td>人工设计的具有特殊电磁性质的材料</td>
+</tr>
+<tr>
+<td>亚波长单元</td>
+<td>Sub-wavelength Element</td>
+<td>尺寸小于波长的基本调控单元</td>
+</tr>
+<tr>
+<td>相移</td>
+<td>Phase Shift</td>
+<td>调控反射信号的相位，决定波束方向</td>
+</tr>
+<tr>
+<td>STAR-RIS</td>
+<td>STAR-RIS</td>
+<td>同时透射和反射的智能表面</td>
+</tr>
+<tr>
+<td>级联信道</td>
+<td>Cascaded Channel</td>
+<td>RIS 反射链路的等效信道模型</td>
+</tr>
+<tr>
+<td>波束赋形</td>
+<td>Beamforming</td>
+<td>通过相位控制形成定向波束</td>
+</tr>
+<tr>
+<td>无源反射</td>
+<td>Passive Reflection</td>
+<td>RIS 不放大信号，仅反射和调制</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、延伸阅读推荐</h2>
+    <ol>
+<li><strong>《面向未来网络的智能超表面白皮书》</strong>（RIS 任务组, 2025-12）—— 最全面的产业白皮书</li>
+<li><strong>中兴通讯动态 RIS 2.0 发布</strong>（MWC Shanghai 2023）—— 产业进展里程碑</li>
+<li><strong>辽宁联通 RIS 2.0 外场验证</strong>（大连国际会议中心）—— 首个动态 RIS 现网验证数据</li>
+<li><strong>arXiv:2506.19526</strong> Reconfigurable Intelligent Surfaces for 6G and Beyond —— 学术研究综述</li>
+<li><strong>中信建投研报</strong>《6G 标准化启航》（2026-06-13）—— 产业投资视角</li>
+</ol>
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

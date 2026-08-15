@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">天线口径效率分解</h1>
-  <p class="lede">天线增益 = 4πA_phys/λ² × η_total，而 η_total = η_illumination × η_spillover × η_obstruction × η_polarization × η_conduction × η_dielectric——口径效率不是单一数字，是 6 个效率因子的乘积，每个因子都揭示了一种"能量浪费"的方式。</p>
+  <p class="lede">天线增益 = 4πA_phys/λ² × η_total，而 η_total = η_illumination × η_spillover × η_obstruction × η_polarization × η_conduction × η_dielectric——口径效率不是单一数字，是 6 个效率因子的乘积，每个因子都揭示了一种&#34;能量浪费&#34;的方式。</p>
+  
 </header>
 
 <main>
@@ -99,145 +101,183 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>口径效率就像"水桶装水"——桶口面积是 A_phys，但水不一定能装满：照明不均匀（边缘少中间多）= 照明效率，水泼出去了 = 溢出效率，桶里有障碍物 = 遮挡效率，桶底漏水 = 导体效率。6 个效率因子乘起来，才是真正有用的效率。</p>
-  </article>
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>一、口径效率分解公式</h2>
     <pre><code>天线增益：
-      G = η_total × (4πA_phys/λ²)
-      
-    η_total = η_ill × η_spill × obs × η_pol × η_cond × η_diel
-    
-    各项典型值（64T64R AAU, 3.5GHz）：
-      ┌──────────────────────────────────────┐
-      │ 效率因子          │ 典型值  │ 说明    │
-      ├──────────────────────────────────────┤
-      │ 照明效率 η_ill    │ 0.70-0.85 │ Chebyshev 加权 │
-      │ 溢出效率 η_spill  │ 0.85-0.95 │ 波束对准探头   │
-      │ 遮挡效率 η_obs    │ 0.90-0.98 │ 馈电结构遮挡   │
-      │ 极化效率 η_pol    │ 0.90-0.98 │ 交叉极化抑制   │
-      │ 导体效率 η_cond   │ 0.95-0.99 │ 金属损耗      │
-      │ 介质效率 η_diel   │ 0.95-0.99 │ 基板/Radome   │
-      ├──────────────────────────────────────┤
-      │ 总效率 η_total    │ 0.50-0.70 │ 乘积          │
-      └──────────────────────────────────────┘
-    
-    结论：
-      即使每项都很高（0.95），乘起来也只有 0.77
-      → 天线效率很难超过 75%
-      → 设计时要逐项优化</code></pre>
-  </article>
+  G = η_total × (4πA_phys/λ²)
 
-  <article class="card">
-    <h2>二、各效率因子详解</h2>
-    <h3>2.1 照明效率（Illumination Efficiency）</h3>
-    <pre><code>定义：
-      口径上场强分布不均匀导致的增益损失
-      
-    原因：
-      天线边缘功率低、中间功率高（ tapering ）
-      → 波束变宽、旁瓣降低
-      → 但主瓣增益下降
-      
-    计算公式：
-      η_ill = |∫E(x,y)dA|² / (A × ∫|E(x,y)|²dA)
-      
-    典型值：
-      均匀照明：1.0（理论最优，但旁瓣高 -13dB）
-      Taylor 分布：0.85-0.90（旁瓣 -25dB）
-      Chebyshev：0.80-0.85（旁瓣 -30dB）
-      二项式：0.70-0.75（旁瓣 &lt;-40dB）
-      
-    设计 trade-off：
-      旁瓣越低 → 照明效率越低
-      → 需要根据场景选择</code></pre>
-    <h3>2.2 溢出效率（Spillover Efficiency）</h3>
-    <pre><code>定义：
-      馈源辐射能量超出反射面/天线口径导致的损失
-      
-    原因：
-      馈源波束不是完美的&quot;圆柱形&quot;
-      → 一部分能量洒到天线外面
-      
-    典型值：
-      抛物面天线：0.70-0.85
-      平面阵列：0.85-0.95（溢出少）
-      
-    改善方法：
-      - 优化馈源波束宽度
-      - 使用多馈源设计</code></pre>
-    <h3>2.3 遮挡效率（Obstruction Efficiency）</h3>
-    <pre><code>定义：
-      馈电结构/支撑结构遮挡口径导致的损失
-      
-    原因：
-      AAU 内部：
-      - 功分器/合路器遮挡
-      - 馈线/传输线遮挡
-      - 散热结构遮挡
-      
-    典型值：
-      平面阵列：0.90-0.98（遮挡小）
-      抛物面：0.70-0.85（遮挡大）
-      
-    改善方法：
-      - 优化馈电网络布局
-      - 使用低剖面传输线（微带/带状线）</code></pre>
-    <h3>2.4 极化效率（Polarization Efficiency）</h3>
-    <pre><code>定义：
-      交叉极化分量导致的有用极化信号损失
-      
-    原因：
-      - 天线结构不对称
-      - 入射波极化不匹配
-      
-    典型值：
-      ±45° 双极化天线：0.90-0.98
-      （交叉极化隔离度 20-30dB）
-      
-    改善方法：
-      - 对称结构设计
-      - 极化纯净的辐射单元</code></pre>
-    <h3>2.5 导体效率（Conduction Efficiency）</h3>
-    <pre><code>定义：
-      金属导体欧姆损耗导致的损失
-      
-    原因：
-      - 铜/铝的表面电阻
-      - 趋肤效应 → 电流只在表面流过
-      
-    典型值：
-      铜/铝：0.95-0.99（Sub-6GHz）
-      银镀层：0.98-0.995
-      
-    改善方法：
-      - 使用高导电材料（铜/银）
-      - 表面镀银</code></pre>
-    <h3>2.6 介质效率（Dielectric Efficiency）</h3>
-    <pre><code>定义：
-      介质材料（基板/天线罩）损耗导致的损失
-      
-    原因：
-      - 基板 Df（损耗角正切）
-      - Radome Df
-      
-    典型值：
-      RO4350B：0.97-0.99
-      PTFE：0.99-0.995
-      Radome（ASA）：0.95-0.98
-      
-    改善方法：
-      - 低 Df 材料
-      - 薄型 Radome</code></pre>
-  </article>
+η_total = η_ill × η_spill × obs × η_pol × η_cond × η_diel
 
-  <article class="card">
-    <h2>三、一句话总结</h2>
-    <p>口径效率 = 6 个效率因子乘积，每项 0.95 看起来很高，但乘起来只剩 0.73。设计天线时要逐项分析哪个因子是瓶颈——通常是照明效率和遮挡效率。记住：天线增益不是"越大越好"，而是"在满足旁瓣/波束宽度要求的前提下，最大化总效率"。</p>
+各项典型值（64T64R AAU, 3.5GHz）：
+  ┌──────────────────────────────────────┐
+  │ 效率因子          │ 典型值  │ 说明    │
+  ├──────────────────────────────────────┤
+  │ 照明效率 η_ill    │ 0.70-0.85 │ Chebyshev 加权 │
+  │ 溢出效率 η_spill  │ 0.85-0.95 │ 波束对准探头   │
+  │ 遮挡效率 η_obs    │ 0.90-0.98 │ 馈电结构遮挡   │
+  │ 极化效率 η_pol    │ 0.90-0.98 │ 交叉极化抑制   │
+  │ 导体效率 η_cond   │ 0.95-0.99 │ 金属损耗      │
+  │ 介质效率 η_diel   │ 0.95-0.99 │ 基板/Radome   │
+  ├──────────────────────────────────────┤
+  │ 总效率 η_total    │ 0.50-0.70 │ 乘积          │
+  └──────────────────────────────────────┘
+
+结论：
+  即使每项都很高（0.95），乘起来也只有 0.77
+  → 天线效率很难超过 75%
+  → 设计时要逐项优化
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 照明效率（Illumination Efficiency）</h2>
+    <pre><code>定义：
+  口径上场强分布不均匀导致的增益损失
+
+原因：
+  天线边缘功率低、中间功率高（ tapering ）
+  → 波束变宽、旁瓣降低
+  → 但主瓣增益下降
+
+计算公式：
+  η_ill = |∫E(x,y)dA|² / (A × ∫|E(x,y)|²dA)
+
+典型值：
+  均匀照明：1.0（理论最优，但旁瓣高 -13dB）
+  Taylor 分布：0.85-0.90（旁瓣 -25dB）
+  Chebyshev：0.80-0.85（旁瓣 -30dB）
+  二项式：0.70-0.75（旁瓣 &lt;-40dB）
+
+设计 trade-off：
+  旁瓣越低 → 照明效率越低
+  → 需要根据场景选择
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 溢出效率（Spillover Efficiency）</h2>
+    <pre><code>定义：
+  馈源辐射能量超出反射面/天线口径导致的损失
+
+原因：
+  馈源波束不是完美的&quot;圆柱形&quot;
+  → 一部分能量洒到天线外面
+
+典型值：
+  抛物面天线：0.70-0.85
+  平面阵列：0.85-0.95（溢出少）
+
+改善方法：
+  - 优化馈源波束宽度
+  - 使用多馈源设计
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 遮挡效率（Obstruction Efficiency）</h2>
+    <pre><code>定义：
+  馈电结构/支撑结构遮挡口径导致的损失
+
+原因：
+  AAU 内部：
+  - 功分器/合路器遮挡
+  - 馈线/传输线遮挡
+  - 散热结构遮挡
+
+典型值：
+  平面阵列：0.90-0.98（遮挡小）
+  抛物面：0.70-0.85（遮挡大）
+
+改善方法：
+  - 优化馈电网络布局
+  - 使用低剖面传输线（微带/带状线）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 极化效率（Polarization Efficiency）</h2>
+    <pre><code>定义：
+  交叉极化分量导致的有用极化信号损失
+
+原因：
+  - 天线结构不对称
+  - 入射波极化不匹配
+
+典型值：
+  ±45° 双极化天线：0.90-0.98
+  （交叉极化隔离度 20-30dB）
+
+改善方法：
+  - 对称结构设计
+  - 极化纯净的辐射单元
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 导体效率（Conduction Efficiency）</h2>
+    <pre><code>定义：
+  金属导体欧姆损耗导致的损失
+
+原因：
+  - 铜/铝的表面电阻
+  - 趋肤效应 → 电流只在表面流过
+
+典型值：
+  铜/铝：0.95-0.99（Sub-6GHz）
+  银镀层：0.98-0.995
+
+改善方法：
+  - 使用高导电材料（铜/银）
+  - 表面镀银
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.6 介质效率（Dielectric Efficiency）</h2>
+    <pre><code>定义：
+  介质材料（基板/天线罩）损耗导致的损失
+
+原因：
+  - 基板 Df（损耗角正切）
+  - Radome Df
+
+典型值：
+  RO4350B：0.97-0.99
+  PTFE：0.99-0.995
+  Radome（ASA）：0.95-0.98
+
+改善方法：
+  - 低 Df 材料
+  - 薄型 Radome
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -257,39 +297,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

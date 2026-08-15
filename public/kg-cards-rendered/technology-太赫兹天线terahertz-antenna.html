@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>太赫兹天线（Terahertz Antenna） · 知识卡片</title>
+<title>太赫兹天线Terahertz-Antenna · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">太赫兹天线 <span class="en">Terahertz Antenna</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">太赫兹天线Terahertz-Antenna</h1>
   <p class="lede">太赫兹天线工作在 100-300GHz（甚至更高）频段，是 6G 通信的核心使能技术。由于波长极短（1-3mm），太赫兹天线可以在芯片上直接集成，但也面临着极高的传输损耗、极窄的带宽和极难的加工精度等全新挑战。</p>
+  
 </header>
 
 <main>
@@ -99,182 +101,587 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>在 3.5GHz（5G）下，波长约 8.6cm——天线有手掌那么大。到了 200GHz（太赫兹），波长只有 1.5mm——天线比米粒还小！你可以把天线直接做在芯片上，但这同时也意味着：电路上的一个 10μm 加工误差就是波长的 0.7%；空气中的水蒸气会把信号吸收殆尽；你需要一个"放大镜"（硅透镜）才能让信号传得远。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 太赫兹频段的定义</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段名称</th><th>频率范围</th><th>波长</th><th>5G/6G 对应</th></tr></thead>
-    <tbody>
-    <tr><td>Sub-THz（亚太赫兹）</td><td>100-200 GHz</td><td>1.5-3mm</td><td>6G 初期</td></tr>
-    <tr><td>太赫兹（THz）</td><td>200-300 GHz</td><td>1-1.5mm</td><td>6G 中期</td></tr>
-    <tr><td>近太赫兹</td><td>300-1000 GHz</td><td>0.3-1mm</td><td>6G 后期/7G</td></tr>
-    </tbody></table></div>
-    <h3>1.2 为什么太赫兹需要特殊天线？</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 太赫兹频段的定义</h2>
+    <table>
+<thead>
+<tr>
+<th>频段名称</th>
+<th>频率范围</th>
+<th>波长</th>
+<th>5G/6G 对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sub-THz（亚太赫兹）</td>
+<td>100-200 GHz</td>
+<td>1.5-3mm</td>
+<td>6G 初期</td>
+</tr>
+<tr>
+<td>太赫兹（THz）</td>
+<td>200-300 GHz</td>
+<td>1-1.5mm</td>
+<td>6G 中期</td>
+</tr>
+<tr>
+<td>近太赫兹</td>
+<td>300-1000 GHz</td>
+<td>0.3-1mm</td>
+<td>6G 后期/7G</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么太赫兹需要特殊天线？</h2>
     <p>在 Sub-6GHz 和 mmWave（24-40GHz）频段，天线可以通过封装（AiP）或 PCB 实现。但到了太赫兹频段：</p>
-    <ul><li><b>波长太短</b>：传统传输线（微带线）的损耗极高（> 10dB/cm），信号在到达天线之前就已经衰减完了</li><li><b>解决方案</b>：天线必须<b>直接做在芯片上</b>（On-Chip Antenna, AoC），或者通过极短的互连（< 1mm）连接</li><li><b>尺寸优势</b>：200GHz 下 λ/2 天线只有 0.75mm，可以集成在芯片封装内</li></ul>
-    <h3>1.3 太赫兹传播的独特挑战</h3>
-    <div class="tw"><table>
-    <thead><tr><th>挑战</th><th>原因</th><th>影响</th></tr></thead>
-    <tbody>
-    <tr><td>大气吸收</td><td>水蒸气和氧气在 THz 频段有强吸收峰</td><td>200GHz 附近大气损耗约 10-20dB/km</td></tr>
-    <tr><td>路径损耗</td><td>自由空间损耗 ∝ f²</td><td>200GHz 比 3.5GHz 多损耗 31dB</td></tr>
-    <tr><td>穿透能力差</td><td>THz 波无法穿透墙壁和树叶</td><td>只能视距（LoS）通信</td></tr>
-    <tr><td>散射严重</td><td>物体尺寸 >> 波长</td><td>多径效应弱，主要依赖 LoS</td></tr>
-    </tbody></table></div>
+<ul>
+<li><strong>波长太短</strong>：传统传输线（微带线）的损耗极高（&gt; 10dB/cm），信号在到达天线之前就已经衰减完了</li>
+<li><strong>解决方案</strong>：天线必须<strong>直接做在芯片上</strong>（On-Chip Antenna, AoC），或者通过极短的互连（&lt; 1mm）连接</li>
+<li><strong>尺寸优势</strong>：200GHz 下 λ/2 天线只有 0.75mm，可以集成在芯片封装内</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、太赫兹天线的主要类型</h2>
-    <h3>2.1 芯片天线（On-Chip Antenna, AoC）</h3>
-    <p><b>原理</b>：天线直接集成在半导体芯片（硅或 GaAs）上。</p>
-    <p><b>常见类型</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>增益</th><th>效率</th><th>带宽</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>微带贴片</td><td>1-3 dBi</td><td>20-30%</td><td>~2.5%</td><td>最简单，但效率极低</td></tr>
-    <tr><td>偶极子</td><td>5-8 dBi</td><td>10-15%</td><td>~15%</td><td>带宽较好，但效率更低</td></tr>
-    <tr><td>SIW 贴片</td><td>4-6 dBi</td><td>45-55%</td><td>~5%</td><td>效率最高（芯片级）</td></tr>
-    <tr><td>透镜耦合</td><td>12-15 dBi</td><td>50-65%</td><td>~10%</td><td>需外加硅透镜</td></tr>
-    </tbody></table></div>
-    <p><b>芯片天线的核心问题</b>：</p>
-    <ul><li><b>硅衬底损耗</b>：普通硅的电阻率低，会吸收大量辐射能量</li><li><b>解决方案</b>：使用高阻硅（High-Resistivity Silicon, ρ > 10kΩ·cm）</li><li><b>金属损耗</b>：THz 下趋肤深度极小（~1μm），表面粗糙度影响巨大</li></ul>
-    <h3>2.2 封装天线（Package-Level THz Antenna）</h3>
-    <p><b>原理</b>：天线做在封装基板（LTCC/有机基板/玻璃）上，通过极短互连连接到芯片。</p>
-    <p><b>优势</b>：</p>
-    <ul><li>可以使用更复杂的结构（阵列、波导）</li><li>封装基板损耗低于硅衬底</li><li>兼容标准封装工艺</li></ul>
-    <p><b>典型方案</b>：</p>
-    <ul><li>LTCC SIW 天线：10 dBi @ 210GHz</li><li>玻璃基板天线：12-15 dBi @ 200-300GHz</li><li>FOWLP（扇出型晶圆级封装）天线：8-10 dBi</li></ul>
-    <h3>2.3 硅透镜耦合天线（Silicon Lens-Coupled Antenna）</h3>
-    <p><b>原理</b>：在芯片天线上方放置一个半球形或共形硅透镜，将芯片天线的宽波束"聚焦"成窄波束，提高增益。</p>
-    <p><b>增益提升公式</b>：</p>
-    <pre><code>G_lens ≈ G_chip × (n_si)²</code></pre>
-    <p>其中 n_si ≈ 3.4 是硅的折射率。理论上增益可以提升 ~11dB！</p>
-    <p><b>实际效果</b>：</p>
-    <ul><li>无透镜芯片天线：2-3 dBi</li><li>加硅透镜：12-15 dBi</li><li>效率：50-65%</li></ul>
-    <p><b>关键设计参数</b>：</p>
-    <ul><li>透镜形状：半球形、超半球形、高斯形</li><li>天线-透镜间距：必须精确对准焦点（误差 < 10μm）</li><li>抗反射涂层：减少硅-空气界面的反射（可提升 2-3dB）</li></ul>
-    <h3>2.4 太赫兹波导天线（THz Waveguide Antenna）</h3>
-    <p><b>原理</b>：使用金属波导（矩形波导、圆波导）传输 THz 能量，末端开口辐射。</p>
-    <p><b>典型类型</b>：</p>
-    <ul><li><b>角锥喇叭（Pyramidal Horn）</b>：10-15 dBi，带宽 20-30%</li><li><b>锥面喇叭（Conical Horn）</b>：12-18 dBi，波束对称性好</li><li><b>缝隙天线（Slot Antenna）</b>：集成在波导壁上</li></ul>
-    <p><b>优势</b>：</p>
-    <ul><li>损耗极低（金属波导在 THz 下仍有很好的导电性）</li><li>增益高（15-25 dBi）</li><li>波束对称性好</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>体积大（相对于芯片尺寸）</li><li>加工精度要求极高（线宽 < 10μm）</li><li>与芯片的耦合效率低</li></ul>
-    <h3>2.5 太赫兹 SIW 阵列天线</h3>
-    <p><b>原理</b>：使用 SIW（基片集成波导）技术构建太赫兹频段的多单元阵列。</p>
-    <p><b>SIW 在太赫兹的优势</b>：</p>
-    <ul><li>金属壁提供低损耗传输（相比微带线）</li><li>与平面工艺兼容</li><li>可以实现复杂的馈电网络</li></ul>
-    <p><b>典型性能</b>：</p>
-    <ul><li>频率：200-300GHz</li><li>单元数：16-64</li><li>增益：15-22 dBi</li><li>效率：30-50%</li></ul>
-    <h3>2.6 太赫兹超表面天线（Metasurface THz Antenna）</h3>
-    <p><b>原理</b>：使用超材料/超表面结构控制 THz 波的辐射方向和波束形状。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>超低剖面（厚度 << λ）</li><li>可动态调谐（通过相变材料或 MEMS）</li><li>增益 8-15 dBi</li><li>带宽窄（5-10%）</li></ul>
-    <p><b>应用</b>：可重构 THz 天线、波束扫描天线</p>
+  
+  <article class="card ">
+    
+    <h2>1.3 太赫兹传播的独特挑战</h2>
+    <table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>原因</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大气吸收</td>
+<td>水蒸气和氧气在 THz 频段有强吸收峰</td>
+<td>200GHz 附近大气损耗约 10-20dB/km</td>
+</tr>
+<tr>
+<td>路径损耗</td>
+<td>自由空间损耗 ∝ f²</td>
+<td>200GHz 比 3.5GHz 多损耗 31dB</td>
+</tr>
+<tr>
+<td>穿透能力差</td>
+<td>THz 波无法穿透墙壁和树叶</td>
+<td>只能视距（LoS）通信</td>
+</tr>
+<tr>
+<td>散射严重</td>
+<td>物体尺寸 &gt;&gt; 波长</td>
+<td>多径效应弱，主要依赖 LoS</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、太赫兹天线的关键技术指标</h2>
-    <h3>3.1 核心射频指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>芯片天线</th><th>透镜耦合</th><th>波导喇叭</th><th>SIW 阵列</th></tr></thead>
-    <tbody>
-    <tr><td>增益</td><td>1-8 dBi</td><td>12-15 dBi</td><td>15-25 dBi</td><td>15-22 dBi</td></tr>
-    <tr><td>辐射效率</td><td>10-55%</td><td>50-65%</td><td>60-80%</td><td>30-50%</td></tr>
-    <tr><td>带宽</td><td>2-15%</td><td>5-15%</td><td>20-40%</td><td>5-15%</td></tr>
-    <tr><td>波束宽度</td><td>60-120°</td><td>10-30°</td><td>10-20°</td><td>5-15°</td></tr>
-    </tbody></table></div>
-    <h3>3.2 加工精度要求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>200GHz</th><th>300GHz</th><th>500GHz</th></tr></thead>
-    <tbody>
-    <tr><td>波长</td><td>1.5mm</td><td>1mm</td><td>0.6mm</td></tr>
-    <tr><td>线宽公差</td><td>±2μm</td><td>±1μm</td><td>±0.5μm</td></tr>
-    <tr><td>表面粗糙度</td><td>< 0.5μm</td><td>< 0.2μm</td><td>< 0.1μm</td></tr>
-    <tr><td>层对准精度</td><td>±5μm</td><td>±2μm</td><td>±1μm</td></tr>
-    </tbody></table></div>
-    <p><b>对比</b>：5G mmWave（28GHz）的线宽公差通常只需 ±10μm。太赫兹的要求提高了 5-20 倍。</p>
-    <h3>3.3 材料要求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>适用频率</th><th>Df (200GHz)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>高阻硅（> 10kΩ·cm）</td><td>< 1THz</td><td>0.008-0.01</td><td>芯片天线首选</td></tr>
-    <tr><td>LTCC</td><td>< 500GHz</td><td>0.002</td><td>封装天线</td></tr>
-    <tr><td>玻璃</td><td>< 1THz</td><td>0.0001</td><td>超低损耗</td></tr>
-    <tr><td>Polyimide</td><td>< 300GHz</td><td>0.008</td><td>低成本柔性</td></tr>
-    <tr><td>Rogers</td><td>< 200GHz</td><td>0.002</td><td>亚太赫兹</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.1 芯片天线（On-Chip Antenna, AoC）</h2>
+    <p><strong>原理</strong>：天线直接集成在半导体芯片（硅或 GaAs）上。</p>
+<p><strong>常见类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>增益</th>
+<th>效率</th>
+<th>带宽</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微带贴片</td>
+<td>1-3 dBi</td>
+<td>20-30%</td>
+<td>~2.5%</td>
+<td>最简单，但效率极低</td>
+</tr>
+<tr>
+<td>偶极子</td>
+<td>5-8 dBi</td>
+<td>10-15%</td>
+<td>~15%</td>
+<td>带宽较好，但效率更低</td>
+</tr>
+<tr>
+<td>SIW 贴片</td>
+<td>4-6 dBi</td>
+<td>45-55%</td>
+<td>~5%</td>
+<td>效率最高（芯片级）</td>
+</tr>
+<tr>
+<td>透镜耦合</td>
+<td>12-15 dBi</td>
+<td>50-65%</td>
+<td>~10%</td>
+<td>需外加硅透镜</td>
+</tr>
+</tbody>
+</table>
+<p><strong>芯片天线的核心问题</strong>：</p>
+<ul>
+<li><strong>硅衬底损耗</strong>：普通硅的电阻率低，会吸收大量辐射能量</li>
+<li><strong>解决方案</strong>：使用高阻硅（High-Resistivity Silicon, ρ &gt; 10kΩ·cm）</li>
+<li><strong>金属损耗</strong>：THz 下趋肤深度极小（~1μm），表面粗糙度影响巨大</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 6G 短距离高速通信</h3>
-    <ul><li><b>距离</b>：10-100m</li><li><b>速率</b>：100Gbps - 1Tbps</li><li><b>天线方案</b>：硅透镜耦合天线 + 波束赋形</li><li><b>典型场景</b>：数据中心互联、无线回程</li></ul>
-    <h3>4.2 太赫兹无线 LAN</h3>
-    <ul><li><b>距离</b>：< 10m</li><li><b>速率</b>：10-100Gbps</li><li><b>天线方案</b>：芯片天线或封装天线</li><li><b>典型场景</b>：VR/AR、无线坞站</li></ul>
-    <h3>4.3 太赫兹成像与传感</h3>
-    <ul><li><b>频率</b>：0.1-1THz</li><li><b>分辨率</b>：亚毫米级</li><li><b>天线方案</b>：扫描波导喇叭或阵列</li><li><b>应用</b>：安检、医疗成像、材料检测</li></ul>
-    <h3>4.4 卫星间太赫兹链路</h3>
-    <ul><li><b>距离</b>：数百公里（LEO 卫星之间）</li><li><b>速率</b>：100Gbps+</li><li><b>天线方案</b>：高增益波导喇叭 + 精确波束跟踪</li><li><b>优势</b>：频谱资源丰富，带宽可达 100GHz+</li></ul>
+  
+  <article class="card ">
+    
+    <h2>2.2 封装天线（Package-Level THz Antenna）</h2>
+    <p><strong>原理</strong>：天线做在封装基板（LTCC/有机基板/玻璃）上，通过极短互连连接到芯片。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>可以使用更复杂的结构（阵列、波导）</li>
+<li>封装基板损耗低于硅衬底</li>
+<li>兼容标准封装工艺</li>
+</ul>
+<p><strong>典型方案</strong>：</p>
+<ul>
+<li>LTCC SIW 天线：10 dBi @ 210GHz</li>
+<li>玻璃基板天线：12-15 dBi @ 200-300GHz</li>
+<li>FOWLP（扇出型晶圆级封装）天线：8-10 dBi</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、工程挑战与坑</h2>
-    <h3>5.1 加工精度——微米级的噩梦</h3>
+  
+  <article class="card ">
+    
+    <h2>2.3 硅透镜耦合天线（Silicon Lens-Coupled Antenna）</h2>
+    <p><strong>原理</strong>：在芯片天线上方放置一个半球形或共形硅透镜，将芯片天线的宽波束"聚焦"成窄波束，提高增益。</p>
+<p><strong>增益提升公式</strong>：</p>
+<pre><code>G_lens ≈ G_chip × (n_si)²
+</code></pre>
+<p>其中 n_si ≈ 3.4 是硅的折射率。理论上增益可以提升 ~11dB！</p>
+<p><strong>实际效果</strong>：</p>
+<ul>
+<li>无透镜芯片天线：2-3 dBi</li>
+<li>加硅透镜：12-15 dBi</li>
+<li>效率：50-65%</li>
+</ul>
+<p><strong>关键设计参数</strong>：</p>
+<ul>
+<li>透镜形状：半球形、超半球形、高斯形</li>
+<li>天线-透镜间距：必须精确对准焦点（误差 &lt; 10μm）</li>
+<li>抗反射涂层：减少硅-空气界面的反射（可提升 2-3dB）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 太赫兹波导天线（THz Waveguide Antenna）</h2>
+    <p><strong>原理</strong>：使用金属波导（矩形波导、圆波导）传输 THz 能量，末端开口辐射。</p>
+<p><strong>典型类型</strong>：</p>
+<ul>
+<li><strong>角锥喇叭（Pyramidal Horn）</strong>：10-15 dBi，带宽 20-30%</li>
+<li><strong>锥面喇叭（Conical Horn）</strong>：12-18 dBi，波束对称性好</li>
+<li><strong>缝隙天线（Slot Antenna）</strong>：集成在波导壁上</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>损耗极低（金属波导在 THz 下仍有很好的导电性）</li>
+<li>增益高（15-25 dBi）</li>
+<li>波束对称性好</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>体积大（相对于芯片尺寸）</li>
+<li>加工精度要求极高（线宽 &lt; 10μm）</li>
+<li>与芯片的耦合效率低</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 太赫兹 SIW 阵列天线</h2>
+    <p><strong>原理</strong>：使用 SIW（基片集成波导）技术构建太赫兹频段的多单元阵列。</p>
+<p><strong>SIW 在太赫兹的优势</strong>：</p>
+<ul>
+<li>金属壁提供低损耗传输（相比微带线）</li>
+<li>与平面工艺兼容</li>
+<li>可以实现复杂的馈电网络</li>
+</ul>
+<p><strong>典型性能</strong>：</p>
+<ul>
+<li>频率：200-300GHz</li>
+<li>单元数：16-64</li>
+<li>增益：15-22 dBi</li>
+<li>效率：30-50%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.6 太赫兹超表面天线（Metasurface THz Antenna）</h2>
+    <p><strong>原理</strong>：使用超材料/超表面结构控制 THz 波的辐射方向和波束形状。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超低剖面（厚度 &lt;&lt; λ）</li>
+<li>可动态调谐（通过相变材料或 MEMS）</li>
+<li>增益 8-15 dBi</li>
+<li>带宽窄（5-10%）</li>
+</ul>
+<p><strong>应用</strong>：可重构 THz 天线、波束扫描天线</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 核心射频指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>芯片天线</th>
+<th>透镜耦合</th>
+<th>波导喇叭</th>
+<th>SIW 阵列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>1-8 dBi</td>
+<td>12-15 dBi</td>
+<td>15-25 dBi</td>
+<td>15-22 dBi</td>
+</tr>
+<tr>
+<td>辐射效率</td>
+<td>10-55%</td>
+<td>50-65%</td>
+<td>60-80%</td>
+<td>30-50%</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>2-15%</td>
+<td>5-15%</td>
+<td>20-40%</td>
+<td>5-15%</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>60-120°</td>
+<td>10-30°</td>
+<td>10-20°</td>
+<td>5-15°</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 加工精度要求</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>200GHz</th>
+<th>300GHz</th>
+<th>500GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波长</td>
+<td>1.5mm</td>
+<td>1mm</td>
+<td>0.6mm</td>
+</tr>
+<tr>
+<td>线宽公差</td>
+<td>±2μm</td>
+<td>±1μm</td>
+<td>±0.5μm</td>
+</tr>
+<tr>
+<td>表面粗糙度</td>
+<td>&lt; 0.5μm</td>
+<td>&lt; 0.2μm</td>
+<td>&lt; 0.1μm</td>
+</tr>
+<tr>
+<td>层对准精度</td>
+<td>±5μm</td>
+<td>±2μm</td>
+<td>±1μm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>对比</strong>：5G mmWave（28GHz）的线宽公差通常只需 ±10μm。太赫兹的要求提高了 5-20 倍。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 材料要求</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>适用频率</th>
+<th>Df (200GHz)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高阻硅（&gt; 10kΩ·cm）</td>
+<td>&lt; 1THz</td>
+<td>0.008-0.01</td>
+<td>芯片天线首选</td>
+</tr>
+<tr>
+<td>LTCC</td>
+<td>&lt; 500GHz</td>
+<td>0.002</td>
+<td>封装天线</td>
+</tr>
+<tr>
+<td>玻璃</td>
+<td>&lt; 1THz</td>
+<td>0.0001</td>
+<td>超低损耗</td>
+</tr>
+<tr>
+<td>Polyimide</td>
+<td>&lt; 300GHz</td>
+<td>0.008</td>
+<td>低成本柔性</td>
+</tr>
+<tr>
+<td>Rogers</td>
+<td>&lt; 200GHz</td>
+<td>0.002</td>
+<td>亚太赫兹</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 6G 短距离高速通信</h2>
+    <ul>
+<li><strong>距离</strong>：10-100m</li>
+<li><strong>速率</strong>：100Gbps - 1Tbps</li>
+<li><strong>天线方案</strong>：硅透镜耦合天线 + 波束赋形</li>
+<li><strong>典型场景</strong>：数据中心互联、无线回程</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 太赫兹无线 LAN</h2>
+    <ul>
+<li><strong>距离</strong>：&lt; 10m</li>
+<li><strong>速率</strong>：10-100Gbps</li>
+<li><strong>天线方案</strong>：芯片天线或封装天线</li>
+<li><strong>典型场景</strong>：VR/AR、无线坞站</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 太赫兹成像与传感</h2>
+    <ul>
+<li><strong>频率</strong>：0.1-1THz</li>
+<li><strong>分辨率</strong>：亚毫米级</li>
+<li><strong>天线方案</strong>：扫描波导喇叭或阵列</li>
+<li><strong>应用</strong>：安检、医疗成像、材料检测</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 卫星间太赫兹链路</h2>
+    <ul>
+<li><strong>距离</strong>：数百公里（LEO 卫星之间）</li>
+<li><strong>速率</strong>：100Gbps+</li>
+<li><strong>天线方案</strong>：高增益波导喇叭 + 精确波束跟踪</li>
+<li><strong>优势</strong>：频谱资源丰富，带宽可达 100GHz+</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 加工精度——微米级的噩梦</h2>
     <p>在 200GHz 下，波长仅 1.5mm。一个 10μm 的加工误差就是波长的 0.67%，足以导致：</p>
-    <ul><li>谐振频率偏移 5-10GHz</li><li>增益下降 3-5dB</li><li>波束指向偏移 2-5°</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>使用 MEMS 加工工艺（线宽精度 < 1μm）</li><li>电子束光刻（E-beam Lithography）</li><li>聚焦离子束（FIB）加工</li></ul>
-    <h3>5.2 表面粗糙度——趋肤效应的放大</h3>
-    <p>THz 下的趋肤深度 δ ≈ 0.1-0.3μm。如果金属表面粗糙度 > δ，导体损耗会急剧增加：</p>
-    <pre><code>R_ac ≈ R_dc · (1 + 2·σ_rms / δ)</code></pre>
-    <p>其中 σ_rms 是表面粗糙度的 RMS 值。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>电镀金（粗糙度 < 0.1μm）</li><li>化学抛光</li><li>使用超导材料（低温下）</li></ul>
-    <h3>5.3 天线-透镜对准——微米级精度</h3>
+<ul>
+<li>谐振频率偏移 5-10GHz</li>
+<li>增益下降 3-5dB</li>
+<li>波束指向偏移 2-5°</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>使用 MEMS 加工工艺（线宽精度 &lt; 1μm）</li>
+<li>电子束光刻（E-beam Lithography）</li>
+<li>聚焦离子束（FIB）加工</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 表面粗糙度——趋肤效应的放大</h2>
+    <p>THz 下的趋肤深度 δ ≈ 0.1-0.3μm。如果金属表面粗糙度 &gt; δ，导体损耗会急剧增加：</p>
+<pre><code>R_ac ≈ R_dc · (1 + 2·σ_rms / δ)
+</code></pre>
+<p>其中 σ_rms 是表面粗糙度的 RMS 值。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>电镀金（粗糙度 &lt; 0.1μm）</li>
+<li>化学抛光</li>
+<li>使用超导材料（低温下）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 天线-透镜对准——微米级精度</h2>
     <p>硅透镜耦合天线要求天线精确位于透镜的焦点位置：</p>
-    <pre><code>焦点位置误差 &lt; λ/10 = 150μm @ 200GHz</code></pre>
-    <p>实际上，由于透镜的折射率均匀性误差和加工公差，对准精度需要达到 ±5-10μm。</p>
-    <p><b>对策</b>：</p>
-    <ul><li>晶圆级对准（Wafer-Level Alignment）</li><li>自对准封装结构</li><li>主动对准 + 胶水固化</li></ul>
-    <h3>5.4 热管理——功率密度极高</h3>
-    <p>THz 芯片天线的功率密度极高（天线尺寸 < 1mm²，功率 10-100mW），局部温升可达 50-100°C。</p>
-    <p><b>影响</b>：</p>
-    <ul><li>硅的电阻率随温度变化 → 天线效率下降</li><li>透镜的热膨胀导致对准偏移</li><li>可靠性问题</li></ul>
-    <p><b>对策</b>：</p>
-    <ul><li>芯片级散热通道（Through-Silicon Thermal Via）</li><li>高热导率封装材料</li><li>功率限制</li></ul>
-    <h3>5.5 测试困难——THz 仪器稀缺</h3>
+<pre><code>焦点位置误差 &lt; λ/10 = 150μm @ 200GHz
+</code></pre>
+<p>实际上，由于透镜的折射率均匀性误差和加工公差，对准精度需要达到 ±5-10μm。</p>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>晶圆级对准（Wafer-Level Alignment）</li>
+<li>自对准封装结构</li>
+<li>主动对准 + 胶水固化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 热管理——功率密度极高</h2>
+    <p>THz 芯片天线的功率密度极高（天线尺寸 &lt; 1mm²，功率 10-100mW），局部温升可达 50-100°C。</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>硅的电阻率随温度变化 → 天线效率下降</li>
+<li>透镜的热膨胀导致对准偏移</li>
+<li>可靠性问题</li>
+</ul>
+<p><strong>对策</strong>：</p>
+<ul>
+<li>芯片级散热通道（Through-Silicon Thermal Via）</li>
+<li>高热导率封装材料</li>
+<li>功率限制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.5 测试困难——THz 仪器稀缺</h2>
     <p>200GHz 以上的 VNA、信号发生器和天线标准增益喇叭都非常昂贵且稀缺：</p>
-    <ul><li>200GHz VNA：$500K-$1M+</li><li>标准增益喇叭：需要定制加工</li><li>OTA 测试：需要专门的 THz 暗室</li></ul>
+<ul>
+<li>200GHz VNA：$500K-$1M+</li>
+<li>标准增益喇叭：需要定制加工</li>
+<li>OTA 测试：需要专门的 THz 暗室</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>六、技术演进</h2>
-    <ul><li><b>1990s</b>：THz 天线概念提出，主要用于光谱学和成像</li><li><b>2000s</b>：芯片天线（On-Chip Antenna）在 300GHz 频段验证</li><li><b>2010s</b>：硅透镜耦合天线实现 10+ dBi 增益</li><li><b>2015-2018年</b>：SIW 技术在 THz 频段的应用研究</li><li><b>2019-2022年</b>：6G 太赫兹通信推动 THz 天线研究热潮</li><li><b>2023-2024年</b>：200-300GHz 封装天线进入原型验证</li><li><b>2025年</b>：Aalto University 实现 220-320GHz 透镜耦合天线商用原型</li><li><b>2025-2026年</b>：THz 超表面可重构天线进入研究阶段</li></ul>
+    <ul>
+<li><strong>1990s</strong>：THz 天线概念提出，主要用于光谱学和成像</li>
+<li><strong>2000s</strong>：芯片天线（On-Chip Antenna）在 300GHz 频段验证</li>
+<li><strong>2010s</strong>：硅透镜耦合天线实现 10+ dBi 增益</li>
+<li><strong>2015-2018年</strong>：SIW 技术在 THz 频段的应用研究</li>
+<li><strong>2019-2022年</strong>：6G 太赫兹通信推动 THz 天线研究热潮</li>
+<li><strong>2023-2024年</strong>：200-300GHz 封装天线进入原型验证</li>
+<li><strong>2025年</strong>：Aalto University 实现 220-320GHz 透镜耦合天线商用原型</li>
+<li><strong>2025-2026年</strong>：THz 超表面可重构天线进入研究阶段</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：原型验证 → 小规模商用过渡</li><li><b>说明</b>：芯片天线和硅透镜耦合天线已在实验室验证了 200-300GHz 的可行性，但尚未大规模商用。SIW 太赫兹天线和超表面天线仍处于研究阶段。预计 2028-2030 年随 6G 标准商用。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>八、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>200-300GHz 芯片天线在数据中心互联中试点</li><li>THz 超表面可重构天线原型</li><li>晶圆级 THz 天线自动化测试方法建立</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 标准纳入 THz 频段（100-300GHz）</li><li>THz 天线与 RFIC 单片集成（Monolithic THz Transceiver）</li><li>太赫兹 RIS（可重构智能表面）</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>光学频段天线（Nanobeam Antenna）</li><li>量子 THz 天线</li><li>全息 THz MIMO</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>200-300GHz 芯片天线在数据中心互联中试点</li>
+<li>THz 超表面可重构天线原型</li>
+<li>
+<p>晶圆级 THz 天线自动化测试方法建立</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 标准纳入 THz 频段（100-300GHz）</li>
+<li>THz 天线与 RFIC 单片集成（Monolithic THz Transceiver）</li>
+<li>
+<p>太赫兹 RIS（可重构智能表面）</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>光学频段天线（Nanobeam Antenna）</li>
+<li>量子 THz 天线</li>
+<li>全息 THz MIMO</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>九、一句话总结</h2>
-    <p>太赫兹天线是 6G 的"前沿阵地"——当波长缩短到 1-3mm 时，天线可以从 PCB 上走到芯片上，这既是机遇（集成度极高）也是挑战（加工精度要求微米级、传输损耗极高）。硅透镜耦合天线是目前最成熟的方案（12-15 dBi），但 SIW 阵列和超表面天线代表了未来的方向。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -294,39 +701,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

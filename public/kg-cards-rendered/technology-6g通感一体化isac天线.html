@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>6G 通感一体化天线（ISAC Antenna） · 知识卡片</title>
+<title>6G通感一体化ISAC天线 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">6G 通感一体化天线 <span class="en">ISAC Antenna</span></h1>
-  <p class="lede">通感一体化（Integrated Sensing and Communication, ISAC）是让同一套天线阵列、同一套射频链路、甚至同一个波形同时完成通信和雷达感知功能的 6G 核心技术。它不是"通信加雷达"的简单叠加，而是从信号设计、波束成形到天线架构的全面融合。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">6G通感一体化ISAC天线</h1>
+  <p class="lede">通感一体化（Integrated Sensing and Communication, ISAC）是让同一套天线阵列、同一套射频链路、甚至同一个波形同时完成通信和雷达感知功能的 6G 核心技术。它不是&#34;通信加雷达&#34;的简单叠加，而是从信号设计、波束成形到天线架构的全面融合。</p>
+  
 </header>
 
 <main>
@@ -99,205 +101,624 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统方式是"各干各的"——通信基站负责传数据，雷达负责探测目标，两套天线、两套设备、两套频谱，资源浪费严重。ISAC 就像是让一个人同时"说话"和"听回声"——他用同一张嘴说话（通信），同时通过声音的回来判断房间里有没有人和物体的位置（感知）。这就是 ISAC 的核心思想：一机两用，资源共享。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 什么是 ISAC？</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是 ISAC？</h2>
     <p>通感一体化（ISAC）是将无线通信和雷达感知功能集成在同一系统中的技术范式。其核心特征是：</p>
-    <ul><li><b>共享硬件</b>：共用天线阵列、射频链路、基带处理</li><li><b>共享频谱</b>：通信和感知使用同一频段</li><li><b>共享波形</b>：通信信号同时用作感知信号（或反之）</li><li><b>共享处理</b>：通信和感知的信号处理在统一框架下优化</li></ul>
-    <h3>1.2 ISAC 的三种实现架构</h3>
-    <div class="tw"><table>
-    <thead><tr><th>架构</th><th>描述</th><th>优点</th><th>缺点</th></tr></thead>
-    <tbody>
-    <tr><td>共址 ISAC（Co-located）</td><td>同一基站同时服务通信用户和感知目标</td><td>硬件共享最大化</td><td>波形设计复杂</td></tr>
-    <tr><td>协作 ISAC（Collaborative）</td><td>通信基站和雷达基站协同工作</td><td>可分别优化</td><td>硬件共享有限</td></tr>
-    <tr><td>网络 ISAC（Network）</td><td>多个 ISAC 基站组网，联合通信和感知</td><td>覆盖范围广</td><td>系统复杂度高</td></tr>
-    </tbody></table></div>
-    <h3>1.3 为什么 ISAC 是 6G 的核心？</h3>
+<ul>
+<li><strong>共享硬件</strong>：共用天线阵列、射频链路、基带处理</li>
+<li><strong>共享频谱</strong>：通信和感知使用同一频段</li>
+<li><strong>共享波形</strong>：通信信号同时用作感知信号（或反之）</li>
+<li><strong>共享处理</strong>：通信和感知的信号处理在统一框架下优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 ISAC 的三种实现架构</h2>
+    <table>
+<thead>
+<tr>
+<th>架构</th>
+<th>描述</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>共址 ISAC（Co-located）</td>
+<td>同一基站同时服务通信用户和感知目标</td>
+<td>硬件共享最大化</td>
+<td>波形设计复杂</td>
+</tr>
+<tr>
+<td>协作 ISAC（Collaborative）</td>
+<td>通信基站和雷达基站协同工作</td>
+<td>可分别优化</td>
+<td>硬件共享有限</td>
+</tr>
+<tr>
+<td>网络 ISAC（Network）</td>
+<td>多个 ISAC 基站组网，联合通信和感知</td>
+<td>覆盖范围广</td>
+<td>系统复杂度高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 为什么 ISAC 是 6G 的核心？</h2>
     <p>6G 的目标不仅仅是更快的网速，还包括：</p>
-    <ul><li>高精度定位（厘米级）</li><li>环境感知（数字孪生）</li><li>无人机通信与控制</li><li>自动驾驶 V2X</li><li>智慧工厂/智慧城市</li></ul>
-    <p>这些应用都需要"感知"能力，而 ISAC 可以让现有的通信基础设施"顺便"提供感知服务，边际成本极低。</p>
-    <h3>1.4 ISAC 天线的特殊性</h3>
+<ul>
+<li>高精度定位（厘米级）</li>
+<li>环境感知（数字孪生）</li>
+<li>无人机通信与控制</li>
+<li>自动驾驶 V2X</li>
+<li>智慧工厂/智慧城市</li>
+</ul>
+<p>这些应用都需要"感知"能力，而 ISAC 可以让现有的通信基础设施"顺便"提供感知服务，边际成本极低。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.4 ISAC 天线的特殊性</h2>
     <p>传统通信天线只关心：</p>
-    <ul><li>增益</li><li>波束宽度</li><li>旁瓣电平</li></ul>
-    <p>ISAC 天线还需要关心：</p>
-    <ul><li><b>感知 CRB（Cramer-Rao Bound）</b>：参数估计的理论下限</li><li><b>自干扰抑制</b>：发射信号对自身接收机的干扰</li><li><b>波形-方向图联合优化</b>：通信波束和感知波束的协调</li></ul>
+<ul>
+<li>增益</li>
+<li>波束宽度</li>
+<li>旁瓣电平</li>
+</ul>
+<p>ISAC 天线还需要关心：</p>
+<ul>
+<li><strong>感知 CRB（Cramer-Rao Bound）</strong>：参数估计的理论下限</li>
+<li><strong>自干扰抑制</strong>：发射信号对自身接收机的干扰</li>
+<li><strong>波形-方向图联合优化</strong>：通信波束和感知波束的协调</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心技术与公式</h2>
-    <h3>2.1 通信-感知性能权衡（Trade-off）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 通信-感知性能权衡（Trade-off）</h2>
     <p>ISAC 的核心挑战是在通信速率和感知精度之间找到最优平衡：</p>
-    <pre><code>最大化：R_comm（通信速率）
-    约束：CRB_sensing ≤ γ（感知精度下限）</code></pre>
-    <p>或反过来：</p>
-    <pre><code>最大化：CRB_sensing（感知精度，越小越好）
-    约束：R_comm ≥ R_min（最低通信速率）</code></pre>
-    <p>这两个目标是<b>冲突的</b>——优化通信的波束可能不利于感知，反之亦然。</p>
-    <h3>2.2 感知性能指标：CRB</h3>
+<pre><code>最大化：R_comm（通信速率）
+约束：CRB_sensing ≤ γ（感知精度下限）
+</code></pre>
+<p>或反过来：</p>
+<pre><code>最大化：CRB_sensing（感知精度，越小越好）
+约束：R_comm ≥ R_min（最低通信速率）
+</code></pre>
+<p>这两个目标是<strong>冲突的</strong>——优化通信的波束可能不利于感知，反之亦然。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 感知性能指标：CRB</h2>
     <p>Cramer-Rao Bound 是参数估计精度的理论下限。对于 ISAC 系统，主要估计的参数包括：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>CRB 公式</th><th>物理意义</th></tr></thead>
-    <tbody>
-    <tr><td>距离 R</td><td>CRB_R ∝ λ² / (BW² · SNR)</td><td>测距精度</td></tr>
-    <tr><td>角度 θ</td><td>CRB_θ ∝ λ / (D · √SNR)</td><td>测角精度</td></tr>
-    <tr><td>速度 v</td><td>CRB_v ∝ λ / (T_coherent · √SNR)</td><td>测速精度</td></tr>
-    </tbody></table></div>
-    <p>其中：</p>
-    <ul><li>BW 是信号带宽</li><li>D 是阵列孔径</li><li>T_coherent 是相干处理时间</li><li>SNR 是信噪比</li></ul>
-    <h3>2.3 通信性能指标：速率</h3>
-    <pre><code>R_comm = B · log₂(1 + SNR_comm)</code></pre>
-    <p>其中 B 是通信带宽，SNR_comm 是通信信道的信噪比。</p>
-    <h3>2.4 波形设计的关键权衡</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>CRB 公式</th>
+<th>物理意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>距离 R</td>
+<td>CRB_R ∝ λ² / (BW² · SNR)</td>
+<td>测距精度</td>
+</tr>
+<tr>
+<td>角度 θ</td>
+<td>CRB_θ ∝ λ / (D · √SNR)</td>
+<td>测角精度</td>
+</tr>
+<tr>
+<td>速度 v</td>
+<td>CRB_v ∝ λ / (T_coherent · √SNR)</td>
+<td>测速精度</td>
+</tr>
+</tbody>
+</table>
+<p>其中：</p>
+<ul>
+<li>BW 是信号带宽</li>
+<li>D 是阵列孔径</li>
+<li>T_coherent 是相干处理时间</li>
+<li>SNR 是信噪比</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 通信性能指标：速率</h2>
+    <pre><code>R_comm = B · log₂(1 + SNR_comm)
+</code></pre>
+<p>其中 B 是通信带宽，SNR_comm 是通信信道的信噪比。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 波形设计的关键权衡</h2>
     <p>OFDM 波形在 ISAC 中的双重角色：</p>
-    <p><b>通信优化</b>：</p>
-    <ul><li>水填充功率分配（Water-filling）：中心频点功率大，边缘小</li><li>结果：通信速率最大化</li></ul>
-    <p><b>感知优化</b>：</p>
-    <ul><li>均匀功率分配：各子载波功率相等</li><li>结果：CRB 最小化（测距/测角精度最优）</li></ul>
-    <p><b>折中方案</b>：</p>
-    <ul><li>边缘子载波功率略高（兼顾感知带宽需求）</li><li>中心子载波功率略低（保留一些通信容量）</li></ul>
-    <h3>2.5 空间分割 ISAC（SD-ISAC）</h3>
+<p><strong>通信优化</strong>：</p>
+<ul>
+<li>水填充功率分配（Water-filling）：中心频点功率大，边缘小</li>
+<li>结果：通信速率最大化</li>
+</ul>
+<p><strong>感知优化</strong>：</p>
+<ul>
+<li>均匀功率分配：各子载波功率相等</li>
+<li>结果：CRB 最小化（测距/测角精度最优）</li>
+</ul>
+<p><strong>折中方案</strong>：</p>
+<ul>
+<li>边缘子载波功率略高（兼顾感知带宽需求）</li>
+<li>中心子载波功率略低（保留一些通信容量）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 空间分割 ISAC（SD-ISAC）</h2>
     <p>2024-2026 年的主流方案——利用通信信道的零空间（Null Space）叠加感知信号：</p>
-    <pre><code>X_total = X_comm + X_perp</code></pre>
-    <p>其中 X_perp 位于通信信道 H 的零空间中（H · X_perp = 0），因此不会对通信用户造成干扰。</p>
-    <p><b>优点</b>：</p>
-    <ul><li>通信和感知波形可以独立设计</li><li>兼容现有通信标准</li><li>计算复杂度低</li></ul>
-    <p><b>缺点</b>：</p>
-    <ul><li>感知自由度受限于 N_t - K（发射天线数 - 通信用户数）</li><li>通信用户越多，感知自由度越少</li></ul>
-    <h3>2.6 模式分割 ISAC（PD-ISAC）</h3>
+<pre><code>X_total = X_comm + X_perp
+</code></pre>
+<p>其中 X_perp 位于通信信道 H 的零空间中（H · X_perp = 0），因此不会对通信用户造成干扰。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>通信和感知波形可以独立设计</li>
+<li>兼容现有通信标准</li>
+<li>计算复杂度低</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>感知自由度受限于 N_t - K（发射天线数 - 通信用户数）</li>
+<li>通信用户越多，感知自由度越少</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.6 模式分割 ISAC（PD-ISAC）</h2>
     <p>利用不同波束模式同时服务通信和感知：</p>
-    <ul><li>主波束 → 通信用户</li><li>旁瓣/零陷方向 → 感知目标</li></ul>
-    <p><b>关键公式</b>：</p>
-    <pre><code>AF_total(θ) = AF_comm(θ) + α · AF_sense(θ)</code></pre>
-    <p>其中 α 是感知波束的权重系数，需要在通信干扰和感知增益之间权衡。</p>
+<ul>
+<li>主波束 → 通信用户</li>
+<li>旁瓣/零陷方向 → 感知目标</li>
+</ul>
+<p><strong>关键公式</strong>：</p>
+<pre><code>AF_total(θ) = AF_comm(θ) + α · AF_sense(θ)
+</code></pre>
+<p>其中 α 是感知波束的权重系数，需要在通信干扰和感知增益之间权衡。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、ISAC 天线设计</h2>
-    <h3>3.1 大规模 MIMO 天线用于 ISAC</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 大规模 MIMO 天线用于 ISAC</h2>
     <p>64T64R 或 256T256R Massive MIMO 天线天然适合 ISAC：</p>
-    <ul><li>高增益波束 → 高 SNR → 好感知精度</li><li>多波束能力 → 同时服务多个通信用户 + 多个感知目标</li><li>数字波束成形 → 灵活的通信/感知波束切换</li></ul>
-    <p><b>关键设计参数</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>通信优化</th><th>感知优化</th><th>折中</th></tr></thead>
-    <tbody>
-    <tr><td>波束宽度</td><td>窄（聚焦用户）</td><td>窄（高分辨率）</td><td>中等</td></tr>
-    <tr><td>旁瓣电平</td><td><-15dB</td><td><-25dB</td><td><-20dB</td></tr>
-    <tr><td>波束切换速度</td><td>慢（稳定）</td><td>快（实时更新）</td><td>中等</td></tr>
-    <tr><td>极化方式</td><td>双极化</td><td>单极化（简化）</td><td>双极化</td></tr>
-    </tbody></table></div>
-    <h3>3.2 XL-MIMO（超大规模 MIMO）用于 ISAC</h3>
+<ul>
+<li>高增益波束 → 高 SNR → 好感知精度</li>
+<li>多波束能力 → 同时服务多个通信用户 + 多个感知目标</li>
+<li>数字波束成形 → 灵活的通信/感知波束切换</li>
+</ul>
+<p><strong>关键设计参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>通信优化</th>
+<th>感知优化</th>
+<th>折中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束宽度</td>
+<td>窄（聚焦用户）</td>
+<td>窄（高分辨率）</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>旁瓣电平</td>
+<td>&lt;-15dB</td>
+<td>&lt;-25dB</td>
+<td>&lt;-20dB</td>
+</tr>
+<tr>
+<td>波束切换速度</td>
+<td>慢（稳定）</td>
+<td>快（实时更新）</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>极化方式</td>
+<td>双极化</td>
+<td>单极化（简化）</td>
+<td>双极化</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 XL-MIMO（超大规模 MIMO）用于 ISAC</h2>
     <p>6G 的 XL-MIMO（数百至数千天线单元）提供了前所未有的感知能力：</p>
-    <ul><li><b>近场感知</b>：XL-MIMO 的 Fresnel 区可达数百米，可以在近场进行高精度感知</li><li><b>三维波束</b>：不仅可以控制方位角，还可以控制俯仰角和距离</li><li><b>全息 MIMO</b>：连续孔径天线提供无限的波束自由度</li></ul>
-    <h3>3.3 RIS（智能超表面）辅助 ISAC</h3>
+<ul>
+<li><strong>近场感知</strong>：XL-MIMO 的 Fresnel 区可达数百米，可以在近场进行高精度感知</li>
+<li><strong>三维波束</strong>：不仅可以控制方位角，还可以控制俯仰角和距离</li>
+<li><strong>全息 MIMO</strong>：连续孔径天线提供无限的波束自由度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 RIS（智能超表面）辅助 ISAC</h2>
     <p>RIS 可以作为 ISAC 的"反射放大器"：</p>
-    <ul><li>RIS 反射通信信号 → 增强覆盖</li><li>RIS 反射感知信号 → 增强目标回波</li><li>RIS 的可重构性 → 动态优化通信/感知波束</li></ul>
-    <p><b>RIS-ISAC 的优势</b>：</p>
-    <ul><li>低成本（无源器件）</li><li>低功耗</li><li>可部署在建筑物表面</li></ul>
-    <h3>3.4 共享孔径天线（Shared Aperture）</h3>
+<ul>
+<li>RIS 反射通信信号 → 增强覆盖</li>
+<li>RIS 反射感知信号 → 增强目标回波</li>
+<li>RIS 的可重构性 → 动态优化通信/感知波束</li>
+</ul>
+<p><strong>RIS-ISAC 的优势</strong>：</p>
+<ul>
+<li>低成本（无源器件）</li>
+<li>低功耗</li>
+<li>可部署在建筑物表面</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 共享孔径天线（Shared Aperture）</h2>
     <p>传统方案：通信天线和雷达天线分开安装，占用不同空间。</p>
-    <p>ISAC 方案：同一副天线同时用于通信和感知。</p>
-    <p><b>实现方式</b>：</p>
-    <ul><li>极化分割：通信用 ±45° 极化，感知用圆极化</li><li>频率分割：通信用低频段，感知用高频段</li><li>波束分割：不同波束服务于通信和感知</li></ul>
+<p>ISAC 方案：同一副天线同时用于通信和感知。</p>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>极化分割：通信用 ±45° 极化，感知用圆极化</li>
+<li>频率分割：通信用低频段，感知用高频段</li>
+<li>波束分割：不同波束服务于通信和感知</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 智能交通</h3>
-    <ul><li>路边通信基站同时感知车辆位置和速度</li><li>精度：位置 < 10cm，速度 < 0.1m/s</li><li>应用：自动驾驶 V2X、交通事故预警</li></ul>
-    <h3>4.2 无人机通信与控制</h3>
-    <ul><li>基站同时为无人机提供通信服务和感知服务</li><li>感知目标：无人机的位置、速度、航向</li><li>通信目标：高清视频回传、控制指令</li></ul>
-    <h3>4.3 智慧工厂</h3>
-    <ul><li>工厂内的通信基站同时监测工人和设备的位置</li><li>应用：安全预警、生产效率优化、数字孪生</li></ul>
-    <h3>4.4 低空经济</h3>
-    <ul><li>6G 基站感知低空无人机轨迹</li><li>通信 + 感知 + 避障一体化</li></ul>
-    <h3>4.5 数字孪生</h3>
-    <ul><li>通过 ISAC 感知构建实时三维环境模型</li><li>通信信号本身充当"探照灯"，回波携带环境信息</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.1 智能交通</h2>
+    <ul>
+<li>路边通信基站同时感知车辆位置和速度</li>
+<li>精度：位置 &lt; 10cm，速度 &lt; 0.1m/s</li>
+<li>应用：自动驾驶 V2X、交通事故预警</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、关键技术指标</h2>
-    <h3>5.1 通信指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>目标值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>峰值速率</td><td>> 100 Gbps</td><td>6G 目标</td></tr>
-    <tr><td>频谱效率</td><td>> 30 bps/Hz</td><td>XL-MIMO + ISAC</td></tr>
-    <tr><td>连接密度</td><td>> 10⁷ devices/km²</td><td>IoT 场景</td></tr>
-    </tbody></table></div>
-    <h3>5.2 感知指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>目标值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>测距精度</td><td>< 10cm</td><td>3GHz 频段</td></tr>
-    <tr><td>测角精度</td><td>< 0.1°</td><td>64T64R 阵列</td></tr>
-    <tr><td>测速精度</td><td>< 0.01 m/s</td><td>多普勒分辨</td></tr>
-    <tr><td>探测范围</td><td>> 500m</td><td>suburban 场景</td></tr>
-    <tr><td>目标分辨率</td><td>< 5cm</td><td>高分辨率成像</td></tr>
-    </tbody></table></div>
-    <h3>5.3 通信-感知联合指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>定义</th><th>目标</th></tr></thead>
-    <tbody>
-    <tr><td>CRB-Rate Region</td><td>通信速率和感知 CRB 的可行区域</td><td>最大化</td></tr>
-    <tr><td>Pareto 最优</td><td>无法在不损害一方的前提下改善另一方</td><td>达到</td></tr>
-    <tr><td>自干扰抑制</td><td>发射信号对自身接收机的抑制</td><td>> 100dB</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>4.2 无人机通信与控制</h2>
+    <ul>
+<li>基站同时为无人机提供通信服务和感知服务</li>
+<li>感知目标：无人机的位置、速度、航向</li>
+<li>通信目标：高清视频回传、控制指令</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程挑战与坑</h2>
-    <h3>6.1 自干扰（Self-Interference）</h3>
+  
+  <article class="card ">
+    
+    <h2>4.3 智慧工厂</h2>
+    <ul>
+<li>工厂内的通信基站同时监测工人和设备的位置</li>
+<li>应用：安全预警、生产效率优化、数字孪生</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 低空经济</h2>
+    <ul>
+<li>6G 基站感知低空无人机轨迹</li>
+<li>通信 + 感知 + 避障一体化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 数字孪生</h2>
+    <ul>
+<li>通过 ISAC 感知构建实时三维环境模型</li>
+<li>通信信号本身充当"探照灯"，回波携带环境信息</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 通信指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>目标值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值速率</td>
+<td>&gt; 100 Gbps</td>
+<td>6G 目标</td>
+</tr>
+<tr>
+<td>频谱效率</td>
+<td>&gt; 30 bps/Hz</td>
+<td>XL-MIMO + ISAC</td>
+</tr>
+<tr>
+<td>连接密度</td>
+<td>&gt; 10⁷ devices/km²</td>
+<td>IoT 场景</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 感知指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>目标值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测距精度</td>
+<td>&lt; 10cm</td>
+<td>3GHz 频段</td>
+</tr>
+<tr>
+<td>测角精度</td>
+<td>&lt; 0.1°</td>
+<td>64T64R 阵列</td>
+</tr>
+<tr>
+<td>测速精度</td>
+<td>&lt; 0.01 m/s</td>
+<td>多普勒分辨</td>
+</tr>
+<tr>
+<td>探测范围</td>
+<td>&gt; 500m</td>
+<td>suburban 场景</td>
+</tr>
+<tr>
+<td>目标分辨率</td>
+<td>&lt; 5cm</td>
+<td>高分辨率成像</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 通信-感知联合指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRB-Rate Region</td>
+<td>通信速率和感知 CRB 的可行区域</td>
+<td>最大化</td>
+</tr>
+<tr>
+<td>Pareto 最优</td>
+<td>无法在不损害一方的前提下改善另一方</td>
+<td>达到</td>
+</tr>
+<tr>
+<td>自干扰抑制</td>
+<td>发射信号对自身接收机的抑制</td>
+<td>&gt; 100dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 自干扰（Self-Interference）</h2>
     <p>ISAC 系统同时发射和接收——发射信号会直接耦合到接收机，形成自干扰：</p>
-    <pre><code>SI_power = P_TX - Isolation</code></pre>
-    <p>其中 Isolation 是发射-接收隔离度（包括天线隔离和模拟域自干扰消除）。</p>
-    <p><b>要求</b>：</p>
-    <ul><li>总隔离度 > 110dB（对于 P_TX = 30dBm，接收机灵敏度 -80dBm）</li><li>天线隔离：30-40dB（通过极化或空间分离）</li><li>模拟域消除：50-60dB</li><li>数字域消除：剩余自干扰的建模和消除</li></ul>
-    <h3>6.2 波形兼容性</h3>
+<pre><code>SI_power = P_TX - Isolation
+</code></pre>
+<p>其中 Isolation 是发射-接收隔离度（包括天线隔离和模拟域自干扰消除）。</p>
+<p><strong>要求</strong>：</p>
+<ul>
+<li>总隔离度 &gt; 110dB（对于 P_TX = 30dBm，接收机灵敏度 -80dBm）</li>
+<li>天线隔离：30-40dB（通过极化或空间分离）</li>
+<li>模拟域消除：50-60dB</li>
+<li>数字域消除：剩余自干扰的建模和消除</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 波形兼容性</h2>
     <p>通信波形（OFDM）和传统雷达波形（线性调频 Chirp）的特性不同：</p>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>OFDM</th><th>Chirp</th><th>ISAC 折中</th></tr></thead>
-    <tbody>
-    <tr><td>PAPR</td><td>高（6-8dB）</td><td>低（0dB）</td><td>降低 OFDM PAPR</td></tr>
-    <tr><td>频谱特性</td><td>带外泄漏大</td><td>频谱干净</td><td>加窗滤波</td></tr>
-    <tr><td>自相关</td><td>差（旁瓣高）</td><td>好（尖锐峰值）</td><td>优化子载波分配</td></tr>
-    <tr><td>互相关</td><td>N/A</td><td>好</td><td>正交子载波</td></tr>
-    </tbody></table></div>
-    <h3>6.3 波束管理的复杂性</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OFDM</th>
+<th>Chirp</th>
+<th>ISAC 折中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAPR</td>
+<td>高（6-8dB）</td>
+<td>低（0dB）</td>
+<td>降低 OFDM PAPR</td>
+</tr>
+<tr>
+<td>频谱特性</td>
+<td>带外泄漏大</td>
+<td>频谱干净</td>
+<td>加窗滤波</td>
+</tr>
+<tr>
+<td>自相关</td>
+<td>差（旁瓣高）</td>
+<td>好（尖锐峰值）</td>
+<td>优化子载波分配</td>
+</tr>
+<tr>
+<td>互相关</td>
+<td>N/A</td>
+<td>好</td>
+<td>正交子载波</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 波束管理的复杂性</h2>
     <p>ISAC 需要同时管理：</p>
-    <ul><li>通信波束（跟随用户移动）</li><li>感知波束（扫描目标区域）</li><li>两者之间的干扰协调</li></ul>
-    <p><b>挑战</b>：波束切换频率高时，通信和感知的性能都会下降。</p>
-    <h3>6.4 标准碎片化</h3>
+<ul>
+<li>通信波束（跟随用户移动）</li>
+<li>感知波束（扫描目标区域）</li>
+<li>两者之间的干扰协调</li>
+</ul>
+<p><strong>挑战</strong>：波束切换频率高时，通信和感知的性能都会下降。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 标准碎片化</h2>
     <p>3GPP Rel-18 开始研究 ISAC，但标准尚未统一：</p>
-    <ul><li>3GPP 侧重通信侧</li><li>IEEE 侧重雷达侧</li><li>ITU-R 定义 6G ISAC 愿景</li></ul>
-    <p><b>影响</b>：设备厂商面临多标准兼容的挑战。</p>
+<ul>
+<li>3GPP 侧重通信侧</li>
+<li>IEEE 侧重雷达侧</li>
+<li>ITU-R 定义 6G ISAC 愿景</li>
+</ul>
+<p><strong>影响</strong>：设备厂商面临多标准兼容的挑战。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>2017年</b>：ISAC 概念首次在学术界提出</li><li><b>2019-2021年</b>：5G-Advanced 开始研究 ISAC 可能性</li><li><b>2022年</b>：3GPP Rel-18 将 ISAC 列为研究议题</li><li><b>2023年</b>：IEEE 802.11bf（WiFi 感知）标准发布</li><li><b>2024年</b>：空间分割 ISAC（SD-ISAC）成为主流方案</li><li><b>2025年</b>：3GPP Rel-19 开始 ISAC 标准化工作</li><li><b>2025-2026年</b>：华为、爱立信、诺基亚展示 ISAC 原型系统</li><li><b>2027-2030年</b>：6G 标准确立，ISAC 成为必选项</li></ul>
+    <ul>
+<li><strong>2017年</strong>：ISAC 概念首次在学术界提出</li>
+<li><strong>2019-2021年</strong>：5G-Advanced 开始研究 ISAC 可能性</li>
+<li><strong>2022年</strong>：3GPP Rel-18 将 ISAC 列为研究议题</li>
+<li><strong>2023年</strong>：IEEE 802.11bf（WiFi 感知）标准发布</li>
+<li><strong>2024年</strong>：空间分割 ISAC（SD-ISAC）成为主流方案</li>
+<li><strong>2025年</strong>：3GPP Rel-19 开始 ISAC 标准化工作</li>
+<li><strong>2025-2026年</strong>：华为、爱立信、诺基亚展示 ISAC 原型系统</li>
+<li><strong>2027-2030年</strong>：6G 标准确立，ISAC 成为必选项</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：原型验证 → 小规模商用过渡</li><li><b>说明</b>：ISAC 的理论框架已建立，实验室原型已验证可行性。3GPP Rel-19 开始标准化工作，预计 2028-2030 年随 6G 标准正式商用。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>3GPP Rel-19/20 ISAC 标准化</li><li>5G-Advanced 基站增加 ISAC 演示功能</li><li>车联网 ISAC 试点部署</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 标准中 ISAC 成为必选功能</li><li>XL-MIMO + ISAC 实现近场高精度感知</li><li>RIS 辅助 ISAC 在室内场景商用</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>全息 MIMO + ISAC：连续孔径的无限波束自由度</li><li>太赫兹 ISAC：同时实现通信和高分辨率成像</li><li>量子 ISAC：利用量子纠缠实现超灵敏感知</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>3GPP Rel-19/20 ISAC 标准化</li>
+<li>5G-Advanced 基站增加 ISAC 演示功能</li>
+<li>
+<p>车联网 ISAC 试点部署</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 标准中 ISAC 成为必选功能</li>
+<li>XL-MIMO + ISAC 实现近场高精度感知</li>
+<li>
+<p>RIS 辅助 ISAC 在室内场景商用</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>全息 MIMO + ISAC：连续孔径的无限波束自由度</li>
+<li>太赫兹 ISAC：同时实现通信和高分辨率成像</li>
+<li>量子 ISAC：利用量子纠缠实现超灵敏感知</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>ISAC 是 6G 天线技术的"终极形态"之一——它让通信基站不再是单纯的"数据管道"，而是一个同时具备感知能力的"环境智能体"。通过共享天线、共享频谱、共享波形，ISAC 将通信和感知的边际成本趋近于零，为 6G 时代的数字孪生、自动驾驶和低空经济奠定了物理基础。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -317,39 +738,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

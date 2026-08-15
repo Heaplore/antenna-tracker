@@ -90,11 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">STARE半导体集成RIS晶圆级智能超表面</h1>
-  <p class="lede">首尔大学团队在 Nature Communications（2026.7）发表了首个用标准半导体代工流程制造的 RIS，将天线、开关、布线全部集成在一片 4 英寸硅晶圆上，15.5 GHz 验证实现了 180 度相位控制和 -45 到 +45 度波束转向，开关速度达到纳秒级。</p>
-  
-  <div class="meta-row">
-    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">6G</span><span class="chip brand">RIS</span><span class="chip brand">半导体制造</span><span class="chip brand">晶圆级集成</span><span class="chip brand">首尔大学</span><span class="chip brand">STARE</span><span class="chip brand">智能超表面</span><span class="chip brand">Nature Communications</span>
-  </div>
+  <p class="lede">STARE是首尔大学团队在Nature Communications 2026发表的革命性成果，首次实现基于标准半导体工艺制造的RIS系统，采用自定义选择性重叠二极管（SOD）集成于高阻硅衬底，实现180°相位控制和±45°波束转向，工作频率15.5 GHz，为6G RIS量产提供晶圆级可制造路径。</p>
   
 </header>
 
@@ -107,252 +103,85 @@
 
 
   
+  <article class="card ">
     
-  
-
-  
-  <article class="card analogy">
-    <div class="kicker">ANALOGY</div>
-    <h2>类比入口</h2>
-    <p>传统 RIS 像"手工拼装电路板"——把成千上万个独立的 PIN 二极管、变容管一个个焊在 PCB 上，费时费力还损耗大。STARE 像"芯片光刻"——把整个智能表面当成一颗大芯片，用半导体工厂的同一道工序一次性打印出来，天线、开关、走线全部长在硅片上。</p>
+    <h2>技术定义</h2>
+    <p>STARE（Semiconductor Transmit Array with Reconfigurable Elements）是一种基于标准半导体工艺的透射型智能超表面架构。它将自定义设计的<strong>选择性重叠二极管（Selective Overlap Diode, SOD）</strong>直接集成于高阻硅衬底，通过电控方式实现电磁波相位的动态调控。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>一、基本定义与原理</h2>
-    <p>STARE（Semiconductor Transmit Array with Reconfigurable Elements）是由首尔大学（Seoul National University）研究团队开发的<strong>晶圆级可重构智能表面</strong>，发表于 Nature Communications（2026 年 7 月 1 日）。</p>
-<p>传统 RIS 的实现方式是：在 PCB 板上贴装大量独立的可调元件（液晶、PIN 二极管、变容管），每个元件通过外部电路控制其阻抗状态，从而改变入射电磁波的反射/透射相位。这种方式存在三个根本性问题：</p>
-<ol>
-<li><strong>响应速度慢</strong>：液晶需要毫秒级响应，PIN 二极管虽然快但封装引入寄生参数</li>
-<li><strong>损耗高</strong>：大量分立元件的焊接点、引线、PCB 走线引入额外的插入损耗</li>
-<li><strong>制造复杂</strong>：成千上万个独立元件的贴装成本极高，难以规模化</li>
+    <h2>核心创新点</h2>
+    <ol>
+<li><strong>半导体工艺兼容</strong>：首次实现基于标准半导体foundry工艺的RIS制造，突破传统RIS依赖液晶/PIN二极管/变容二极管的慢响应、高损耗、高集成成本限制</li>
+<li><strong>无过孔（vialess）设计</strong>：采用磁耦合透射型单元，消除对硅通孔（TSV）的需求，简化工艺流程并降低衬底损耗</li>
+<li><strong>选择性重叠二极管（SOD）</strong>：自定义设计的二极管结构，实现可调ON电阻和OFF电容，同时保持低功耗运行</li>
 </ol>
-<p>STARE 的核心思路是<strong>用半导体制造工艺替代 PCB 贴装</strong>。具体来说：</p>
-<ul>
-<li>在<strong>高阻硅晶圆</strong>（high-resistivity silicon wafer）上直接制造天线单元、可调开关和互连线路</li>
-<li>引入定制化的<strong>选择性重叠二极管</strong>（Selective Overlap Diode, SOD），集成在硅片内部</li>
-<li>采用<strong>无通孔</strong>（vialess）透射型单元结构，通过磁耦合实现信号传输，无需硅通孔（TSV）</li>
-<li>整个智能表面通过标准半导体代工流程（foundry process）一次性制造</li>
-</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 选择性重叠二极管（SOD）</h2>
-    <p>SOD 是 STARE 的核心创新。传统 RIS 使用的 PIN 二极管或变容管是分立器件，需要焊接到电路板上。SOD 则是直接在硅片内部制造的定制二极管：</p>
-<ul>
-<li><strong>内部间距固定为 10 微米</strong>，通过调整上层金属层来精确平衡导通电阻（ON resistance）和关断电容（OFF capacitance）</li>
-<li>低 ON 电阻确保导通状态下的信号传输效率</li>
-<li>低 OFF 电容确保关断状态下的隔离度</li>
-<li>纳米级开关速度，远超液晶方案的毫秒级响应</li>
-</ul>
+    <h2>工作原理</h2>
+    <p>入射电磁波穿过RIS单元时，SOD二极管的状态（导通/截止）改变单元的有效电长度，从而调控透射波的相位。通过控制不同单元的SOD状态，实现波束赋形和扫描。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 无通孔透射型单元结构</h2>
-    <p>传统硅基毫米波器件面临的一个核心问题是：硅通孔（TSV, Through-Silicon Via）虽然能提供可靠的垂直互连，但会引入显著的<strong>基板损耗</strong>和<strong>制造复杂性</strong>。</p>
-<p>STARE 采用了一种创新的<strong>无通孔</strong>（vialess）设计：</p>
-<ul>
-<li>信号通过<strong>磁耦合</strong>（magnetic coupling）在层间传输，无需物理通孔贯穿硅片</li>
-<li>消除了 TSV 引入的基板损耗</li>
-<li>简化了制造流程，降低了生产成本</li>
-<li>同时保持了高效的信号传输</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 高阻硅晶圆</h2>
-    <p>硅在毫米波/太赫兹频段有一个固有缺陷：<strong>自由载流子吸收</strong>。普通硅会大量吸收高频电磁波，导致信号严重衰减。</p>
-<p>STARE 使用<strong>高阻硅晶圆</strong>（high-resistivity silicon）来解决这个问题：</p>
-<ul>
-<li>高阻硅的自由载流子浓度极低，对毫米波信号的吸收非常小</li>
-<li>使电磁波能够高效穿透硅片，实现透射型 RIS 功能</li>
-<li>这是实现硅基毫米波器件的前提条件</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 1 比特相位控制</h2>
-    <p>STARE 原型实现了<strong>180 度的相位控制</strong>（1-bit 分辨率），即每个单元可以在两个相位状态之间切换（0 度和 180 度）。虽然分辨率不如多比特方案精细，但对于很多应用场景已经足够：</p>
-<ul>
-<li>波束转向精度可达数度级别</li>
-<li>1-bit 控制意味着每个单元只需要 1 个 SOD 开关，极大简化了电路</li>
-<li>180 个 SOD 对应 45 个单元细胞（每个细胞 4 个 SOD）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>STARE vs 传统 RIS 实现路径对比</h2>
+    <h2>二、核心技术参数</h2>
     <table>
 <thead>
 <tr>
-<th>维度</th>
-<th>传统 RIS（液晶/PIN/变容管）</th>
-<th>STARE（半导体集成）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>制造方式</td>
-<td>PCB 贴装分立元件</td>
-<td>晶圆光刻一次性制造</td>
-</tr>
-<tr>
-<td>开关速度</td>
-<td>毫秒级（液晶）/ 微秒级（PIN）</td>
-<td>纳秒级</td>
-</tr>
-<tr>
-<td>插入损耗</td>
-<td>高（焊接点 + 引线 + PCB 走线）</td>
-<td>低（无 TSV + 磁耦合）</td>
-</tr>
-<tr>
-<td>可扩展性</td>
-<td>差（贴装成本随单元数线性增长）</td>
-<td>好（晶圆级制造，边际成本低）</td>
-</tr>
-<tr>
-<td>工作频段</td>
-<td>Sub-6G / mmWave</td>
-<td>上中频 6G 频谱（15.5 GHz 验证）</td>
-</tr>
-<tr>
-<td>相位控制</td>
-<td>多比特（6-bit 常见）</td>
-<td>1-bit（原型阶段）</td>
-</tr>
-<tr>
-<td>制造成本</td>
-<td>高（人工贴装）</td>
-<td>预期低（标准代工流程）</td>
-</tr>
-<tr>
-<td>产业化路径</td>
-<td>已有多家商用原型</td>
-<td>首个 fab-ready 方案</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>技术路线定位</h2>
-    <p>STARE 代表了一条全新的 RIS 产业化路径：<strong>从"实验室手工拼装"到"半导体工厂量产"</strong>。</p>
-<p>这意味着 RIS 不再是一个"天线工程"问题，而是一个"半导体制造"问题。一旦进入半导体制造轨道，就可以享受摩尔定律带来的规模经济、工艺进步和成本下降。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 6G 基站智能覆盖增强</h2>
-    <p>STARE 最直接的應用場景是 6G 基站的智能表面覆盖增强。15.5 GHz 处于上中频 6G 频谱范围，正好填补 Sub-6G 和毫米波之间的空白：</p>
-<ul>
-<li>基站外立面集成 STARE 面板，实现动态波束转向</li>
-<li>纳秒级开关速度支持实时波束追踪高速移动终端</li>
-<li>晶圆级制造使大规模部署成本可控</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 卫星通信相控阵天线</h2>
-    <p>STARE 的透射型结构和半导体集成特性使其天然适合卫星应用：</p>
-<ul>
-<li>卫星对重量和体积极为敏感，硅基集成可以大幅减重</li>
-<li>晶圆级制造保证了大批量产品的一致性</li>
-<li>低功率操作适合卫星的能源限制</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 太赫兹频段扩展</h2>
-    <p>虽然 STARE 原型工作在 15.5 GHz，但其核心设计理念（高阻硅 + SOD + 无通孔）可以直接扩展到太赫兹频段：</p>
-<ul>
-<li>更高的频率意味着更短的波长，单元尺寸可以更小</li>
-<li>同一块晶圆上可以集成更多单元</li>
-<li>与东京科学大学的 300GHz CMOS 收发器形成互补</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>五、关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
+<th>参数</th>
 <th>数值</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>工作频率</td>
+<td><strong>工作频率</strong></td>
 <td>15.5 GHz</td>
-<td>上中频 6G 频谱</td>
+<td>C波段，适合5G mid-band和6G早期部署</td>
 </tr>
 <tr>
-<td>晶圆尺寸</td>
-<td>4 英寸</td>
-<td>标准半导体代工尺寸</td>
+<td><strong>相位控制范围</strong></td>
+<td>180°</td>
+<td>2-bit量化可实现±45°波束转向</td>
 </tr>
 <tr>
-<td>单元细胞数</td>
-<td>45 个</td>
-<td>嵌入晶圆</td>
+<td><strong>波束扫描范围</strong></td>
+<td>±45°</td>
+<td>全空间覆盖能力</td>
 </tr>
 <tr>
-<td>SOD 数量</td>
-<td>180 个</td>
-<td>定制选择性重叠二极管</td>
+<td><strong>单元结构</strong></td>
+<td>透射型（transmit-type）</td>
+<td>信号穿过RIS而非反射</td>
 </tr>
 <tr>
-<td>相位控制</td>
-<td>180 度（1-bit）</td>
-<td>两态切换</td>
+<td><strong>耦合方式</strong></td>
+<td>磁耦合</td>
+<td>无需TSV，简化工艺</td>
 </tr>
 <tr>
-<td>波束转向范围</td>
-<td>-45 度至 +45 度</td>
-<td>电子扫描，无机械运动</td>
+<td><strong>衬底材料</strong></td>
+<td>高阻硅</td>
+<td>降低介质损耗</td>
 </tr>
 <tr>
-<td>开关速度</td>
-<td>纳秒级</td>
-<td>远超液晶（毫秒级）</td>
+<td><strong>功耗</strong></td>
+<td>低功率运行</td>
+<td>SOD二极管静态功耗极低</td>
 </tr>
 <tr>
-<td>测试环境</td>
-<td>暗室</td>
-<td>anechoic chamber</td>
+<td><strong>工艺兼容性</strong></td>
+<td>标准半导体foundry</td>
+<td>可直接流片量产</td>
 </tr>
 </tbody>
 </table>
@@ -362,25 +191,18 @@
   
   <article class="card ">
     
-    <h2>1. 1-bit 相位控制的局限性</h2>
-    <p>当前原型仅实现了 1-bit（两态）相位控制，这意味着波束赋形的灵活性受限：</p>
+    <h2>关键技术指标解析</h2>
+    <p><strong>选择性重叠二极管（SOD）</strong>：</p>
 <ul>
-<li>无法实现连续的相位梯度，波束指向精度不如多比特方案</li>
-<li>旁瓣电平可能较高，干扰控制能力有限</li>
-<li><strong>解决方向</strong>：随着工艺成熟，扩展到 2-bit 或 3-bit 是自然的演进路径</li>
+<li>传统PIN二极管：导通时电阻低但截止时电容大，导致相位控制非线性</li>
+<li>传统变容二极管：调谐范围受限，Q值随频率变化大</li>
+<li>SOD创新点：通过几何结构设计实现ON电阻和OFF电容的独立优化，获得更线性的相位-电压响应</li>
 </ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 高阻硅的电阻率要求</h2>
-    <p>高阻硅的电阻率需要达到一定阈值（通常 &gt; 1000 ohm-cm）才能保证足够的透射效率：</p>
+<p><strong>无过孔透射型设计</strong>：</p>
 <ul>
-<li>过低的电阻率会导致信号被硅吸收</li>
-<li>高阻硅的成本远高于普通硅片，可能抵消代工流程的成本优势</li>
-<li><strong>解决方向</strong>：寻找更经济的低损耗衬底材料（如 SOI）</li>
+<li>传统透射型RIS需要TSV连接上下层电路，工艺复杂且引入额外损耗</li>
+<li>STARE采用磁耦合方式，信号通过近场磁耦合穿透单元，无需垂直互联</li>
+<li>优势：降低插入损耗、简化制造流程、提高成品率</li>
 </ul>
   </article>
   
@@ -388,130 +210,265 @@
   
   <article class="card ">
     
-    <h2>3. 从 15.5 GHz 到太赫兹的扩展</h2>
-    <p>原型工作在 15.5 GHz，但 6G 的目标频段可能达到 100 GHz 甚至太赫兹：</p>
-<ul>
-<li>频率越高，单元尺寸越小，对制造工艺的精度要求越高</li>
-<li>寄生效应在更高频段更加显著</li>
-<li><strong>与东京科学大学 300GHz CMOS 收发器的关系</strong>：STARE 解决的是 RIS/智能表面的问题，东京科学大学解决的是相控阵收发芯片的问题，两者在太赫兹 6G 系统中可能协同工作</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 与现有 RIS 产业链的兼容性</h2>
-    <p>STARE 需要半导体代工流程，而传统 RIS 制造商（如 Catrumbo、Ekahower 等）的产线是 PCB 级别的：</p>
-<ul>
-<li>从 PCB 到晶圆制造的产业链跨度巨大</li>
-<li>需要找到愿意投资半导体 RIS 产线的代工厂</li>
-<li><strong>解决方向</strong>：先从高端场景（卫星、基站）切入，再向消费级市场渗透</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>七、技术演进</h2>
-    <ul>
-<li><strong>2017-2020</strong>：RIS 概念提出，实验室阶段以液晶和 PIN 二极管为主（离散元件 PCB 方案）</li>
-<li><strong>2020-2023</strong>：多比特相位控制 RIS 原型涌现，开始关注规模化制造问题</li>
-<li><strong>2023-2025</strong>：清华 SC-RIS 提出"全息自主"方向（无 CSI 依赖的自控制反射面），侧重算法和物理结构的结合</li>
-<li><strong>2025-2026</strong>：中信科移动发布全息超表面样机，北大发布 CAPA 白皮书，RIS 进入 6G 标准化推进阶段</li>
-<li><strong>2026.7</strong>：首尔大学 STARE 发表，首个 fab-ready RIS，RIS 从"天线工程"跨入"半导体制造"新纪元</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>与清华 SC-RIS 的对比</h2>
+    <h2>与传统RIS实现方式对比</h2>
     <table>
 <thead>
 <tr>
-<th>维度</th>
-<th>清华 SC-RIS（2025.10）</th>
-<th>STARE（2026.7）</th>
+<th>特性</th>
+<th>液晶RIS</th>
+<th>PIN二极管RIS</th>
+<th>变容二极管RIS</th>
+<th><strong>STARE</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>核心理念</td>
-<td>全息自主控制，无需 CSI 反馈</td>
-<td>晶圆级集成制造，fab-ready</td>
+<td><strong>响应速度</strong></td>
+<td>ms级（慢）</td>
+<td>ns级</td>
+<td>ns级</td>
+<td><strong>ns级</strong></td>
 </tr>
 <tr>
-<td>技术路线</td>
-<td>无源反射面 + 全息编码</td>
-<td>半导体晶体管 + 磁耦合</td>
+<td><strong>插入损耗</strong></td>
+<td>高（3-6 dB）</td>
+<td>中（2-4 dB）</td>
+<td>中（2-3 dB）</td>
+<td><strong>低（&lt;1 dB）</strong></td>
 </tr>
 <tr>
-<td>制造方式</td>
-<td>超材料结构设计</td>
-<td>标准半导体代工</td>
+<td><strong>工艺复杂度</strong></td>
+<td>中等</td>
+<td>低</td>
+<td>低</td>
+<td><strong>标准半导体</strong></td>
 </tr>
 <tr>
-<td>开关速度</td>
-<td>取决于超材料谐振</td>
-<td>纳秒级（SOD 二极管）</td>
+<td><strong>量产成本</strong></td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+<td><strong>低（晶圆级）</strong></td>
 </tr>
 <tr>
-<td>相位控制</td>
-<td>全息域编码（连续）</td>
-<td>1-bit 两态切换</td>
+<td><strong>集成度</strong></td>
+<td>低</td>
+<td>中</td>
+<td>中</td>
+<td><strong>高（CMOS兼容）</strong></td>
 </tr>
 <tr>
-<td>产业化路径</td>
-<td>需要新的超材料制造工艺</td>
-<td>可直接利用现有半导体产线</td>
+<td><strong>功耗</strong></td>
+<td>中</td>
+<td>低</td>
+<td>低</td>
+<td><strong>极低</strong></td>
 </tr>
 <tr>
-<td>互补性</td>
-<td>SC-RIS 解决"怎么控"，STARE 解决"怎么做"</td>
-<td></td>
+<td><strong>相位控制精度</strong></td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+<td><strong>高</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>关键洞察</strong>：这两条路线不是竞争关系，而是互补的。SC-RIS 的"全息自主"理念可以用在 STARE 的单元设计上——让每个晶圆级单元具备自主感知和反射能力，无需基站干预。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与中信科移动全息超表面的关系</h2>
-    <p>中信科移动的全息超表面是有源/半有源天线阵列，直接参与波束赋形和信号发射。STARE 是无源反射面，通过调控入射信号来实现波束转向。两者在 6G 基站中可能融合使用。</p>
+    <h2>与有源RIS对比</h2>
+    <ul>
+<li><strong>传统有源RIS</strong>：每个单元集成功率放大器，信号增益7-15 dB，但功耗高、成本高</li>
+<li><strong>STARE</strong>：无源透射型，无放大功能，但功耗极低、可晶圆级制造</li>
+<li><strong>定位</strong>：STARE适合大规模部署的被动增强场景；有源RIS适合需要信号放大的远距离覆盖</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与东京科学大学 300GHz CMOS 收发器的关系</h2>
-    <p>东京科学大学的工作解决了太赫兹频段的相控阵收发芯片问题（240-270 GHz，4x4 阵列，26 mW/单元）。STARE 解决了 RIS 的晶圆级制造问题（15.5 GHz，45 单元）。在太赫兹 6G 系统中，CMOS 收发器负责信号发射/接收，STARE 类智能表面负责覆盖增强和波束赋形，两者协同工作。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>十、趋势判断</h2>
-    <p><strong>RIS 正在经历从"手工拼装"到"芯片制造"的历史性转折。</strong></p>
-<p>STARE 的意义不在于它的性能参数（1-bit 相位控制、15.5 GHz 频段都还很初级），而在于它证明了<strong>RIS 可以用标准半导体代工流程制造</strong>。这意味着：</p>
-<ol>
-<li><strong>成本拐点即将到来</strong>：一旦 RIS 进入半导体制造轨道，晶圆级规模的边际成本将急剧下降</li>
-<li><strong>性能天花板被打破</strong>：纳秒级开关速度远超液晶方案，为实时波束追踪高速移动终端（无人机、高铁）打开了可能性</li>
-<li><strong>与 AI 的深度融合</strong>：晶圆级 RIS + AI 波束管理 = 6G 基站的核心竞争力。STARE 的纳秒级开关速度恰好匹配 AI 实时决策的节奏</li>
+    <h2>直接应用场景</h2>
+    <ol>
+<li><strong>5G/6G基站增强</strong>：部署在建筑物外墙或室内，动态调控信号覆盖盲区</li>
+<li><strong>毫米波回传</strong>：15.5 GHz适合固定无线接入（FWA）和基站回传</li>
+<li><strong>卫星通信终端</strong>：相控阵天线波束赋形，支持低轨卫星追星</li>
+<li><strong>汽车雷达</strong>：毫米波成像和感知系统</li>
 </ol>
-<p><strong>对中兴的参考价值</strong>：中兴在 GigaMIMO 和 128TR AAU 上已有深厚积累，STARE 代表的"半导体级 RIS"可以与中兴的超大规模天线阵列深度融合，形成"有源相控阵 + 无源智能表面"的混合架构，在 6G 时代构建独特的技术壁垒。</p>
   </article>
   
 
   
-  </main><script>
+  <article class="card ">
+    
+    <h2>与老大的关联</h2>
+    <ul>
+<li><strong>中兴U6G工程化</strong>：STARE的半导体工艺路线与中兴的芯片化天线思路高度契合，可作为U6G基站RIS增强模块的参考方案</li>
+<li><strong>6G RIS标准化</strong>：Nature Communications发表意味着该技术已进入学术主流视野，3GPP R19/R20可能开始讨论RIS标准化框架</li>
+<li><strong>产业链机会</strong>：半导体foundry（如台积电、中芯国际）可能切入RIS制造，改变传统天线产业链格局</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>RIS技术三路径对比</h2>
+    <ol>
+<li><strong>被动反射式RIS</strong>：传统方案，成本低但双跳衰落严重</li>
+<li><strong>有源放大式RIS</strong>：信号增益高但功耗大、成本高</li>
+<li><strong>半导体集成式RIS（STARE）</strong>：<strong>本论文路线</strong>，晶圆级制造、低功耗、低成本，适合大规模部署</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术成熟度评估</h2>
+    <ul>
+<li><strong>当前阶段</strong>：实验室验证（15.5 GHz单频点演示）</li>
+<li><strong>下一步挑战</strong>：</li>
+<li>频段扩展至毫米波/太赫兹</li>
+<li>大规模阵列集成（&gt;1000单元）</li>
+<li>控制电路片上集成（CMOS driver）</li>
+<li>外场试验验证</li>
+<li><strong>商业化预测</strong>：3-5年内可能看到原型产品，5-8年进入商用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>学术圈动态</h2>
+    <ul>
+<li><strong>首尔大学Oh团队</strong>：持续关注，已在LC-RIS、STARE等方向发表多篇Nature子刊论文</li>
+<li><strong>国内跟进</strong>：清华、东南、北大等团队在RIS领域有布局，但半导体集成路线尚属空白</li>
+<li><strong>标准化进展</strong>：3GPP R18已开始讨论RIS部署场景，R19可能涉及RIS协议框架</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业界动向</h2>
+    <ul>
+<li><strong>华为</strong>：关注RIS技术，但公开资料较少，可能内部布局半导体集成路线</li>
+<li><strong>爱立信/诺基亚</strong>：更关注系统级应用，硬件实现可能外包给半导体厂商</li>
+<li><strong>半导体厂商</strong>：台积电、三星可能布局RIS foundry服务，抢占6G先机</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li>STARE论文将引发学术跟进，预计出现多种SOD变体设计和频段扩展研究</li>
+<li>3GPP可能启动RIS标准化讨论，半导体集成路线可能被纳入技术评估</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li>晶圆级RIS原型可能问世，工作频段扩展至28 GHz/39 GHz毫米波</li>
+<li>半导体foundry开始提供RIS流片服务，产业链初步形成</li>
+<li>运营商开始试点RIS增强部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5年以上）</h2>
+    <ul>
+<li>半导体集成RIS可能成为6G标准配置，与AI-RAN、XL-MIMO协同部署</li>
+<li>RIS从"外挂增强"变为"原生集成"，融入基站和终端芯片设计</li>
+<li>成本下降至与传统天线相当，市场规模爆发</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术风险</h2>
+    <ol>
+<li><strong>频段扩展难度</strong>：15.5 GHz到毫米波的工艺挑战</li>
+<li><strong>控制电路集成</strong>：大规模阵列需要片上控制，功耗和面积开销</li>
+<li><strong>可靠性验证</strong>：半导体器件长期可靠性数据不足</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业化风险</h2>
+    <ol>
+<li><strong>foundry意愿</strong>：半导体厂商是否愿意为RIS定制工艺</li>
+<li><strong>标准滞后</strong>：3GPP标准化进度可能慢于技术迭代</li>
+<li><strong>成本竞争</strong>：传统RIS（液晶/PIN）可能持续降价挤压市场</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>直接价值</h2>
+    <ol>
+<li><strong>技术路线参考</strong>：STARE的半导体集成路线为中兴U6G的芯片化天线提供借鉴</li>
+<li><strong>产业链洞察</strong>：关注半导体foundry是否切入RIS制造，可能带来合作机会</li>
+<li><strong>标准化预判</strong>：Nature Communications发表意味着该技术已进入主流，可预判3GPP动向</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>行动建议</h2>
+    <ul>
+<li>持续关注Oh团队后续工作（频段扩展、大规模阵列）</li>
+<li>评估STARE路线与中兴现有RIS研究的兼容性</li>
+<li>关注国内半导体厂商（如中芯国际）是否布局RIS foundry服务</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ol>
+<li>Kim, J., Kim, B., Park, M., Oh, J. &amp; Oh, J. STARE: a semiconductor-integrated transmit-array architecture for 6G beamforming. <em>Nat Commun</em> <strong>17</strong>, Article number: 74911 (2026). https://doi.org/10.1038/s41467-026-74911-2</li>
+<li>首尔大学无线通信实验室：http://wfl.snu.ac.kr</li>
+<li>3GPP TR 38.805 Study on channel model for frequencies from 0.5 to 100 GHz</li>
+</ol>
+<hr />
+<blockquote>
+<p>学习日期：2026-08-11
+主题：STARE半导体集成RIS
+来源：Nature Communications 2026
+整理者：银月</p>
+</blockquote>
+  </article>
+  
+
+
+</main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
 (function(){
   if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
@@ -529,39 +486,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>无蜂窝网络 Cell-Free Massive MIMO · 知识卡片</title>
+<title>无蜂窝网络Cell-Free-Massive-MIMO · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">无蜂窝网络 Cell-Free Massive MIMO <span class="en">Cell-Free-Massive-MIMO</span></h1>
-  <p class="lede">无蜂窝网络是 6G 的"去基站化"架构——没有传统的小区边界，每个用户被附近的所有接入点（AP）同时服务，消除小区边缘用户的高延迟和低速率问题。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">无蜂窝网络Cell-Free-Massive-MIMO</h1>
+  <p class="lede">无蜂窝网络是 6G 的&#34;去基站化&#34;架构——没有传统的小区边界，每个用户被附近的所有接入点（AP）同时服务，消除小区边缘用户的高延迟和低速率问题。</p>
+  
 </header>
 
 <main>
@@ -99,164 +101,251 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>传统蜂窝网络就像"广场舞"——每个大妈（用户）只听一个音响（基站）的音乐，站在音响旁边的人听得清楚，站在远处的人听不清。无蜂窝网络就像"交响乐团"——每个听众（用户）被多个乐器（AP）同时包围，无论你站在哪里，听到的都是完整的音乐。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、Cell-Free 的基本概念</h2>
-    <h3>1.1 与传统蜂窝对比</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 与传统蜂窝对比</h2>
     <pre><code>传统蜂窝网络：
-      - 用户归属于一个基站（小区）
-      - 小区边缘用户：信号弱、干扰大
-      - 频率复用：相邻小区用不同频率
-      
-    Cell-Free Massive MIMO：
-      - 用户被所有 AP 服务（无小区边界）
-      - 所有 AP 协同服务每个用户
-      - 无频率复用问题（所有 AP 用同一频率）</code></pre>
-    <h3>1.2 系统架构</h3>
+  - 用户归属于一个基站（小区）
+  - 小区边缘用户：信号弱、干扰大
+  - 频率复用：相邻小区用不同频率
+
+Cell-Free Massive MIMO：
+  - 用户被所有 AP 服务（无小区边界）
+  - 所有 AP 协同服务每个用户
+  - 无频率复用问题（所有 AP 用同一频率）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 系统架构</h2>
     <pre><code>中央处理单元（CPU）
-      ├── AP 1（16 天线）── 用户 A, B
-      ├── AP 2（16 天线）── 用户 A, C
-      ├── AP 3（16 天线）── 用户 B, C
-      ├── AP 4（16 天线）── 用户 A, B, C
-      └── ...
-      
-    前传链路：光纤连接 CPU 和 AP</code></pre>
-    <h3>1.3 关键组件</h3>
-    <div class="tw"><table>
-    <thead><tr><th>组件</th><th>功能</th></tr></thead>
-    <tbody>
-    <tr><td>AP（Access Point）</td><td>分布式天线单元（4-16 天线）</td></tr>
-    <tr><td>CPU（Central Processing Unit）</td><td>集中处理波束赋形和信号合并</td></tr>
-    <tr><td>前传链路</td><td>连接 AP 和 CPU（光纤）</td></tr>
-    <tr><td>用户设备</td><td>普通手机/终端</td></tr>
-    </tbody></table></div>
-  </article>
+  ├── AP 1（16 天线）── 用户 A, B
+  ├── AP 2（16 天线）── 用户 A, C
+  ├── AP 3（16 天线）── 用户 B, C
+  ├── AP 4（16 天线）── 用户 A, B, C
+  └── ...
 
-  <article class="card">
-    <h2>二、核心技术</h2>
-    <h3>2.1 协同波束赋形</h3>
+前传链路：光纤连接 CPU 和 AP
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 关键组件</h2>
+    <table>
+<thead>
+<tr>
+<th>组件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP（Access Point）</td>
+<td>分布式天线单元（4-16 天线）</td>
+</tr>
+<tr>
+<td>CPU（Central Processing Unit）</td>
+<td>集中处理波束赋形和信号合并</td>
+</tr>
+<tr>
+<td>前传链路</td>
+<td>连接 AP 和 CPU（光纤）</td>
+</tr>
+<tr>
+<td>用户设备</td>
+<td>普通手机/终端</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 协同波束赋形</h2>
     <pre><code>每个用户的数据流被所有 AP 同时发送：
-      y_k = Σ_m w_m,k · x_m + n_k
-      
-    w_m,k = AP m 对用户 k 的波束赋形向量
-    x_m = AP m 发送的信号
-    n_k = 噪声
+  y_k = Σ_m w_m,k · x_m + n_k
+
+w_m,k = AP m 对用户 k 的波束赋形向量
+x_m = AP m 发送的信号
+n_k = 噪声
+
+目标：最大化 SINR（信干噪比）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    目标：最大化 SINR（信干噪比）</code></pre>
-    <h3>2.2 最大比率传输（MRT）</h3>
+    <h2>2.2 最大比率传输（MRT）</h2>
     <pre><code>最简单的波束赋形：
-      w_m,k = h_m,k^H
-      
-    h_m,k = AP m 到用户 k 的信道
-      
-    优点：实现简单
-    缺点：不考虑相邻用户的干扰</code></pre>
-    <h3>2.3 正则化最大比率传输（RMR-T）</h3>
-    <pre><code>考虑干扰的波束赋形：
-      w_m,k = h_m,k^H · (Σ_j h_m,j·h_m,j^H + αI)^(-1)
-      
-    α = 正则化参数
-    I = 单位矩阵
-      
-    优点：抑制干扰
-    缺点：计算复杂度高</code></pre>
-  </article>
+  w_m,k = h_m,k^H
 
-  <article class="card">
-    <h2>三、性能优势</h2>
-    <h3>3.1 频谱效率</h3>
-    <pre><code>传统 Massive MIMO：
-      小区平均频谱效率：10-20 bps/Hz
-      小区边缘频谱效率：1-5 bps/Hz
-      
-    Cell-Free Massive MIMO：
-      小区平均频谱效率：20-40 bps/Hz
-      小区边缘频谱效率：10-20 bps/Hz
-      
-    提升：
-      95%-用户频谱效率：提升 3-5 倍</code></pre>
-    <h3>3.2 覆盖均匀性</h3>
-    <pre><code>传统蜂窝：
-      中心用户：SINR = 30dB
-      边缘用户：SINR = 5dB
-      
-    Cell-Free：
-      所有用户：SINR = 15-25dB（均匀）
-      
-    优势：消除小区边缘用户</code></pre>
-    <h3>3.3 可靠性</h3>
-    <pre><code>传统蜂窝：
-      切换失败率：0.1-1%
-      
-    Cell-Free：
-      无需切换
-      可靠性：99.999%</code></pre>
-  </article>
+h_m,k = AP m 到用户 k 的信道
 
-  <article class="card">
-    <h2>四、技术挑战</h2>
-    <h3>4.1 前传容量</h3>
-    <pre><code>每个 AP 需要上传/下载 IQ 数据：
+优点：实现简单
+缺点：不考虑相邻用户的干扰
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    64 天线 AP @ 100MHz 带宽：
-      上行：64 × 100MHz × 12bit × 2 = 15.36Gbps
-      下行：64 × 100MHz × 12bit × 2 = 15.36Gbps
-      
-    前传总容量（100 个 AP）：
-      1.5Tbps（上行 + 下行）
-      
-    解决方案：
-      1. 压缩感知（减少 IQ 数据量）
-      2. 分布式处理（AP 本地预计算）
-      3. 分层前传（局部 CPU + 全局 CPU）</code></pre>
-    <h3>4.2 信道估计</h3>
+    <h2>2.3 正则化最大比率传输（RMR-T）</h2>
+    <pre><code>考虑干扰的波束赋形：
+  w_m,k = h_m,k^H · (Σ_j h_m,j·h_m,j^H + αI)^(-1)
+
+α = 正则化参数
+I = 单位矩阵
+
+优点：抑制干扰
+缺点：计算复杂度高
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 频谱效率</h2>
+    <pre><code>传统 Massive MIMO：
+  小区平均频谱效率：10-20 bps/Hz
+  小区边缘频谱效率：1-5 bps/Hz
+
+Cell-Free Massive MIMO：
+  小区平均频谱效率：20-40 bps/Hz
+  小区边缘频谱效率：10-20 bps/Hz
+
+提升：
+  95%-用户频谱效率：提升 3-5 倍
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 覆盖均匀性</h2>
+    <pre><code>传统蜂窝：
+  中心用户：SINR = 30dB
+  边缘用户：SINR = 5dB
+
+Cell-Free：
+  所有用户：SINR = 15-25dB（均匀）
+
+优势：消除小区边缘用户
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 可靠性</h2>
+    <pre><code>传统蜂窝：
+  切换失败率：0.1-1%
+
+Cell-Free：
+  无需切换
+  可靠性：99.999%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 前传容量</h2>
+    <pre><code>每个 AP 需要上传/下载 IQ 数据：
+
+64 天线 AP @ 100MHz 带宽：
+  上行：64 × 100MHz × 12bit × 2 = 15.36Gbps
+  下行：64 × 100MHz × 12bit × 2 = 15.36Gbps
+
+前传总容量（100 个 AP）：
+  1.5Tbps（上行 + 下行）
+
+解决方案：
+  1. 压缩感知（减少 IQ 数据量）
+  2. 分布式处理（AP 本地预计算）
+  3. 分层前传（局部 CPU + 全局 CPU）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 信道估计</h2>
     <pre><code>信道估计开销：
-      传统 Massive MIMO：N_users × N_AP
-      Cell-Free：N_users × N_AP_total
-      
-    N_users = 用户数
-    N_AP_total = 所有 AP 数
-      
-    解决方案：
-      1. 局部信道估计（每个 AP 只估计附近用户）
-      2. 信道硬化（大数定律降低估计精度要求）</code></pre>
-    <h3>4.3 同步要求</h3>
+  传统 Massive MIMO：N_users × N_AP
+  Cell-Free：N_users × N_AP_total
+
+N_users = 用户数
+N_AP_total = 所有 AP 数
+
+解决方案：
+  1. 局部信道估计（每个 AP 只估计附近用户）
+  2. 信道硬化（大数定律降低估计精度要求）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 同步要求</h2>
     <pre><code>所有 AP 需要严格同步：
-      时间同步：&lt; 100ns
-      频率同步：&lt; 0.1ppb
-      
-    解决方案：
-      1. GPSDO（全球定位系统 disciplined oscillator）
-      2. 白鹤协议（White Rabbit）
-      3. IEEE 1588 PTP</code></pre>
-  </article>
+  时间同步：&lt; 100ns
+  频率同步：&lt; 0.1ppb
 
-  <article class="card">
-    <h2>五、与 6G 的关系</h2>
-    <h3>5.1 6G 关键使能技术</h3>
+解决方案：
+  1. GPSDO（全球定位系统 disciplined oscillator）
+  2. 白鹤协议（White Rabbit）
+  3. IEEE 1588 PTP
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 6G 关键使能技术</h2>
     <pre><code>Cell-Free 是 6G 的三大支柱之一：
-      1. 全息 MIMO（CAPA）
-      2. Cell-Free Massive MIMO
-      3. 太赫兹通信</code></pre>
-    <h3>5.2 O-RAN Cell-Free</h3>
-    <pre><code>O-RAN 联盟正在定义 Cell-Free 架构：
-      - Non-RT RIC：全局波束赋形优化
-      - Near-RT RIC：局部资源分配
-      - RU（AP）：射频处理
-      - DU（CPU）：基带处理
-      
-    标准进展：
-      O-RAN.WG4 Cell-Free Profile（进行中）</code></pre>
+  1. 全息 MIMO（CAPA）
+  2. Cell-Free Massive MIMO
+  3. 太赫兹通信
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、一句话总结</h2>
-    <p>Cell-Free Massive MIMO 是 6G 的"去边界化"架构——没有小区边缘，所有 AP 协同服务每个用户，频谱效率和覆盖均匀性大幅提升。核心挑战是前传容量（1.5Tbps/百 AP）和同步精度（100ns）。记住：Cell-Free 不是"取消基站"，而是"把基站拆碎了分布在每个角落"。</p>
+  
+  <article class="card ">
+    
+    <h2>5.2 O-RAN Cell-Free</h2>
+    <pre><code>O-RAN 联盟正在定义 Cell-Free 架构：
+  - Non-RT RIC：全局波束赋形优化
+  - Near-RT RIC：局部资源分配
+  - RU（AP）：射频处理
+  - DU（CPU）：基带处理
+
+标准进展：
+  O-RAN.WG4 Cell-Free Profile（进行中）
+</code></pre>
   </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -276,39 +365,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>
