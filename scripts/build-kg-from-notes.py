@@ -59,7 +59,7 @@ from datetime import datetime
 
 # ===== 路径配置 =====
 NOTES_DIR = Path(r"E:/我的知识库/我的知识库/资料库/天线技术")
-OUTPUT_PATH = Path(r"E:/OH-workspace/antenna-tracker/app/_data/knowledge-graph.json")
+OUTPUT_PATH = Path(r"E:/hermes/antenna-tracker/app/_data/knowledge-graph.json")
 
 # 类型前缀 -> 类型英文 ID (前端常量)
 TYPE_PREFIX_MAP = [
