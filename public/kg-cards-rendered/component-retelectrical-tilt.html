@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RET（Remote Electrical Tilt）电调天线下倾 · 知识卡片</title>
+<title>RETElectrical-Tilt · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">RET电调天线下倾 <span class="en">Remote Electrical Tilt</span></h1>
-  <p class="lede">RET 让你坐在网管前就能改变天线波束的下倾角——不用爬塔拧螺丝。它通过控制 T/R 模块各通道的相位差，在电子层面"倾斜"波束，精度可达 0.1°，响应时间 < 100ms。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">RETElectrical-Tilt</h1>
+  <p class="lede">RET 让你坐在网管前就能改变天线波束的下倾角——不用爬塔拧螺丝。它通过控制 T/R 模块各通道的相位差，在电子层面&#34;倾斜&#34;波束，精度可达 0.1°，响应时间 &lt; 100ms。</p>
+  
 </header>
 
 <main>
@@ -99,191 +101,303 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>电调下倾就像投影仪的梯形校正——传统方式是你手动挪动投影仪（机械下倾），RET 是通过软件一键校正（电子下倾）。而且 RET 能远程操作，网管系统一点鼠标就行。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本原理</h2>
-    <h3>1.1 波束下倾的物理机制</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 波束下倾的物理机制</h2>
     <pre><code>天线阵列垂直方向：
-      N 个单元，间距 d
-      
-    下倾角 θ 由单元间的相位差 Δφ 决定：
-      
-      Δφ = -2π·d·sin(θ)/λ
-      
-    θ = 0° → Δφ = 0（波束垂直向上）
-    θ &gt; 0° → Δφ &lt; 0（波束向下倾斜）</code></pre>
-    <h3>1.2 电调下倾 vs 机械下倾</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>电调下倾（RET）</th><th>机械下倾</th></tr></thead>
-    <tbody>
-    <tr><td>原理</td><td>相位差控制</td><td>物理倾斜</td></tr>
-    <tr><td>调节范围</td><td>0-15°</td><td>固定 2-15°</td></tr>
-    <tr><td>调节精度</td><td>0.1°</td><td>1° 步进</td></tr>
-    <tr><td>对方向图影响</td><td>窄化主瓣，保持对称</td><td>主瓣偏移，可能畸变</td></tr>
-    <tr><td>远程调节</td><td>✅</td><td>❌</td></tr>
-    <tr><td>响应时间</td><td>< 100ms</td><td>需人工操作</td></tr>
-    <tr><td>寿命</td><td>中（电子器件老化）</td><td>高（无运动件）</td></tr>
-    <tr><td>成本</td><td>高（需 RET 控制器）</td><td>低</td></tr>
-    </tbody></table></div>
-    <h3>1.3 下倾角的两种类型</h3>
+  N 个单元，间距 d
+
+下倾角 θ 由单元间的相位差 Δφ 决定：
+
+  Δφ = -2π·d·sin(θ)/λ
+
+θ = 0° → Δφ = 0（波束垂直向上）
+θ &gt; 0° → Δφ &lt; 0（波束向下倾斜）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 电调下倾 vs 机械下倾</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>电调下倾（RET）</th>
+<th>机械下倾</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原理</td>
+<td>相位差控制</td>
+<td>物理倾斜</td>
+</tr>
+<tr>
+<td>调节范围</td>
+<td>0-15°</td>
+<td>固定 2-15°</td>
+</tr>
+<tr>
+<td>调节精度</td>
+<td>0.1°</td>
+<td>1° 步进</td>
+</tr>
+<tr>
+<td>对方向图影响</td>
+<td>窄化主瓣，保持对称</td>
+<td>主瓣偏移，可能畸变</td>
+</tr>
+<tr>
+<td>远程调节</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>&lt; 100ms</td>
+<td>需人工操作</td>
+</tr>
+<tr>
+<td>寿命</td>
+<td>中（电子器件老化）</td>
+<td>高（无运动件）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高（需 RET 控制器）</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 下倾角的两种类型</h2>
     <pre><code>电下倾（Electronic Tilt）：
-      - 通过相位差实现
-      - 只影响垂直面方向图
-      - 水平面方向图不变
-      - 5G AAU 标配
-      
-    机械下倾（Mechanical Tilt）：
-      - 物理倾斜天线
-      - 水平和垂直方向图同时变化
-      - 通常作为电下倾的补充
-      - 4G 基站仍广泛使用</code></pre>
-  </article>
+  - 通过相位差实现
+  - 只影响垂直面方向图
+  - 水平面方向图不变
+  - 5G AAU 标配
 
-  <article class="card">
-    <h2>二、3GPP RET 规范</h2>
-    <h3>2.1 RET Profile 2.0</h3>
+机械下倾（Mechanical Tilt）：
+  - 物理倾斜天线
+  - 水平和垂直方向图同时变化
+  - 通常作为电下倾的补充
+  - 4G 基站仍广泛使用
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 RET Profile 2.0</h2>
     <pre><code>3GPP TS 38.423 定义了 RET 接口规范：
+
+RET 角度范围：
+  电下倾：0° - 15°（步进 0.1°）
+  方位角：0° - 360°（步进 0.1°）
+  波束倾斜：±10°（步进 0.1°）
+
+RET 精度要求：
+  角度精度：±0.5°
+  角度重复性：±0.2°
+  响应时间：&lt; 200ms
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    RET 角度范围：
-      电下倾：0° - 15°（步进 0.1°）
-      方位角：0° - 360°（步进 0.1°）
-      波束倾斜：±10°（步进 0.1°）
-    
-    RET 精度要求：
-      角度精度：±0.5°
-      角度重复性：±0.2°
-      响应时间：&lt; 200ms</code></pre>
-    <h3>2.2 RET 通信协议</h3>
+    <h2>2.2 RET 通信协议</h2>
     <pre><code>RET 命令格式（RS485）：
-      [Header][Command][Angle][Checksum][Footer]
-      
-      Header: 0xAA 0x55
-      Command: 0x01（设置角度）
-      Angle: 2 bytes（0.1° 精度，0-150 表示 0.0-15.0°）
-      Checksum: CRC-16
-      
-    示例：设置下倾角 5.3°
-      AA 55 01 00 35 XX XX 55 AA</code></pre>
-    <h3>2.3 RET 状态反馈</h3>
-    <pre><code>SET → GET 双向通信：
-      1. RCU 下发 SET 命令
-      2. 电调板执行角度调整
-      3. 电调板返回 GET 状态
-      4. RCU 验证角度是否到位
-      
-    超时处理：
-      响应超时 &gt; 500ms → 告警
-      角度偏差 &gt; 1° → 告警</code></pre>
-  </article>
+  [Header][Command][Angle][Checksum][Footer]
 
-  <article class="card">
-    <h2>三、电调板（Tilt Board）</h2>
-    <h3>3.1 电调板的功能</h3>
-    <pre><code>电调板是 RET 系统的&quot;肌肉&quot;：
-      1. 接收 RCU 的角度指令
-      2. 控制移相器改变各通道相位
-      3. 反馈当前位置状态
-      
-    电调板组成：
-      ├── 通信接口（RS485/Ethernet）
-      ├── 移相器控制电路
-      ├── 角度编码器（反馈位置）
-      ├── MCU（执行控制算法）
-      └── 电源管理（5V/3.3V）</code></pre>
-    <h3>3.2 移相器类型</h3>
-    <pre><code>电调下倾使用的移相器：
-      1. 数字移相器（开关电容）
-         - 步进：5.6°（6-bit）
-         - 响应：&lt; 10μs
-         - 损耗：0.5-1dB
-         
-      2. 模拟移相器（变容管）
-         - 连续可调
-         - 响应：&lt; 1ms
-         - 损耗：1-2dB
-         
-      3. 相控阵移相器（MEMS）
-         - 超高精度（0.01°）
-         - 响应：1-10ms
-         - 损耗：&lt; 0.5dB</code></pre>
-  </article>
+  Header: 0xAA 0x55
+  Command: 0x01（设置角度）
+  Angle: 2 bytes（0.1° 精度，0-150 表示 0.0-15.0°）
+  Checksum: CRC-16
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 网络优化</h3>
-    <pre><code>场景 1：覆盖调整
-      问题：某小区覆盖过远，造成越区覆盖
-      解决：增大下倾角 1-2°
-      
-    场景 2：干扰消除
-      问题：邻区同频干扰
-      解决：减小下倾角，收缩覆盖范围
-      
-    场景 3：容量调整
-      问题：热点区域用户过多
-      解决：减小下倾角，扩大覆盖</code></pre>
-    <h3>4.2 节能模式</h3>
-    <pre><code>夜间节能：
-      23:00 - 6:00 → 增大下倾角 3-5°
-      效果：
-        - 边缘用户切换到其他小区
-        - 中心区域覆盖不变
-        - AAU 可降低功率 30-50%
-        
-    恢复模式：
-      6:00 → 恢复正常下倾角
-      平滑过渡（15 分钟内逐步恢复）</code></pre>
-    <h3>4.3 多波束 RET</h3>
-    <pre><code>5G AAU 多波束场景：
-      波束 1（用户密集区）：下倾 3°
-      波束 2（用户稀疏区）：下倾 5°
-      波束 3（干扰规避区）：下倾 7°
-      
-    每个波束独立 RET 控制</code></pre>
+示例：设置下倾角 5.3°
+  AA 55 01 00 35 XX XX 55 AA
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、工程注意事项</h2>
-    <h3>5.1 RET 与机械下倾的配合</h3>
-    <pre><code>最佳实践：
-      1. 机械下倾设置基础角度（0-5°）
-      2. RET 精细调节（0-15°）
-      3. 总下倾 = 机械 + 电调
-      
-    示例：
-      机械下倾：3°
-      RET 设置：5.3°
-      实际下倾：3° + 5.3° = 8.3°</code></pre>
-    <h3>5.2 温度补偿</h3>
-    <pre><code>温度对 RET 精度的影响：
-      ΔT = 40°C → 角度偏差 ±0.3°
-      
-    补偿方法：
-      1. 温度传感器实时监测
-      2. 查找表补偿
-      3. 自动校准（开机时）</code></pre>
-    <h3>5.3 故障诊断</h3>
-    <pre><code>RET 常见故障：
-      1. 通信中断（RS485 线缆损坏）
-      2. 角度卡死（电机/移相器故障）
-      3. 精度超差（编码器漂移）
-      4. 响应超时（MCU 死机）
+  
+  <article class="card ">
     
-    排查步骤：
-      1. 检查 RET 状态（GET 命令）
-      2. 检查通信链路（RS485 电压）
-      3. 检查电源（5V/3.3V）
-      4. 重启 RCU</code></pre>
-  </article>
+    <h2>2.3 RET 状态反馈</h2>
+    <pre><code>SET → GET 双向通信：
+  1. RCU 下发 SET 命令
+  2. 电调板执行角度调整
+  3. 电调板返回 GET 状态
+  4. RCU 验证角度是否到位
 
-  <article class="card">
-    <h2>六、一句话总结</h2>
-    <p>RET 是基站天线的"远程遥控器"——通过控制各通道相位差实现波束下倾，精度 0.1°，响应 < 100ms。3GPP RET Profile 2.0 规定了角度范围 0-15° 和精度 ±0.5°。记住：RET 不替代机械下倾，而是与之配合；最佳实践是机械下倾设基础角度，RET 做精细调节。</p>
+超时处理：
+  响应超时 &gt; 500ms → 告警
+  角度偏差 &gt; 1° → 告警
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 电调板的功能</h2>
+    <pre><code>电调板是 RET 系统的&quot;肌肉&quot;：
+  1. 接收 RCU 的角度指令
+  2. 控制移相器改变各通道相位
+  3. 反馈当前位置状态
+
+电调板组成：
+  ├── 通信接口（RS485/Ethernet）
+  ├── 移相器控制电路
+  ├── 角度编码器（反馈位置）
+  ├── MCU（执行控制算法）
+  └── 电源管理（5V/3.3V）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 移相器类型</h2>
+    <pre><code>电调下倾使用的移相器：
+  1. 数字移相器（开关电容）
+     - 步进：5.6°（6-bit）
+     - 响应：&lt; 10μs
+     - 损耗：0.5-1dB
+
+  2. 模拟移相器（变容管）
+     - 连续可调
+     - 响应：&lt; 1ms
+     - 损耗：1-2dB
+
+  3. 相控阵移相器（MEMS）
+     - 超高精度（0.01°）
+     - 响应：1-10ms
+     - 损耗：&lt; 0.5dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 网络优化</h2>
+    <pre><code>场景 1：覆盖调整
+  问题：某小区覆盖过远，造成越区覆盖
+  解决：增大下倾角 1-2°
+
+场景 2：干扰消除
+  问题：邻区同频干扰
+  解决：减小下倾角，收缩覆盖范围
+
+场景 3：容量调整
+  问题：热点区域用户过多
+  解决：减小下倾角，扩大覆盖
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 节能模式</h2>
+    <pre><code>夜间节能：
+  23:00 - 6:00 → 增大下倾角 3-5°
+  效果：
+    - 边缘用户切换到其他小区
+    - 中心区域覆盖不变
+    - AAU 可降低功率 30-50%
+
+恢复模式：
+  6:00 → 恢复正常下倾角
+  平滑过渡（15 分钟内逐步恢复）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 多波束 RET</h2>
+    <pre><code>5G AAU 多波束场景：
+  波束 1（用户密集区）：下倾 3°
+  波束 2（用户稀疏区）：下倾 5°
+  波束 3（干扰规避区）：下倾 7°
+
+每个波束独立 RET 控制
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 RET 与机械下倾的配合</h2>
+    <pre><code>最佳实践：
+  1. 机械下倾设置基础角度（0-5°）
+  2. RET 精细调节（0-15°）
+  3. 总下倾 = 机械 + 电调
+
+示例：
+  机械下倾：3°
+  RET 设置：5.3°
+  实际下倾：3° + 5.3° = 8.3°
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 温度补偿</h2>
+    <pre><code>温度对 RET 精度的影响：
+  ΔT = 40°C → 角度偏差 ±0.3°
+
+补偿方法：
+  1. 温度传感器实时监测
+  2. 查找表补偿
+  3. 自动校准（开机时）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 故障诊断</h2>
+    <pre><code>RET 常见故障：
+  1. 通信中断（RS485 线缆损坏）
+  2. 角度卡死（电机/移相器故障）
+  3. 精度超差（编码器漂移）
+  4. 响应超时（MCU 死机）
+
+排查步骤：
+  1. 检查 RET 状态（GET 命令）
+  2. 检查通信链路（RS485 电压）
+  3. 检查电源（5V/3.3V）
+  4. 重启 RCU
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -303,39 +417,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

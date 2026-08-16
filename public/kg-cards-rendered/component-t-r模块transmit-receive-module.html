@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T/R 模块（Transmit-Receive Module） · 知识卡片</title>
+<title>T-R模块Transmit-Receive-Module · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">T/R 模块 <span class="en">Transmit-Receive Module</span></h1>
-  <p class="lede">T/R 模块是 AAU 的"最小作战单元"——每个模块包含 PA、LNA、移相器、衰减器、开关和耦合器，负责一根天线的收发切换、相位控制和信号放大。64T64R AAU 有 128 个 T/R 模块，是 AAU 成本最高的部分（占 BOM 40-50%）。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">T-R模块Transmit-Receive-Module</h1>
+  <p class="lede">T/R 模块是 AAU 的&#34;最小作战单元&#34;——每个模块包含 PA、LNA、移相器、衰减器、开关和耦合器，负责一根天线的收发切换、相位控制和信号放大。64T64R AAU 有 128 个 T/R 模块，是 AAU 成本最高的部分（占 BOM 40-50%）。</p>
+  
 </header>
 
 <main>
@@ -99,230 +101,503 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>T/R 模块就像士兵的"单兵作战系统"——每个士兵（天线单元）都有自己的武器（PA）、耳朵（LNA）、通信设备（移相器）和护甲（隔离器）。64T64R AAU 就是 128 个士兵组成的连队，指挥员（基带芯片）通过控制每个士兵的相位来实现"齐步走"（波束赋形）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 T/R 模块的组成</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 T/R 模块的组成</h2>
     <pre><code>TX 路径：
-    数字信号 → DAC → 混频器 → 可变衰减器 → PA → 移相器 → 天线
+数字信号 → DAC → 混频器 → 可变衰减器 → PA → 移相器 → 天线
+
+RX 路径：
+天线 → LNA → 移相器 → 可变衰减器 → 混频器 → ADC → 数字信号
+
+控制路径：
+基带芯片 → 控制总线 → 每个 T/R 模块的寄存器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    RX 路径：
-    天线 → LNA → 移相器 → 可变衰减器 → 混频器 → ADC → 数字信号
+    <h2>1.2 核心功能</h2>
+    <table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发射放大</td>
+<td>PA 将小信号放大到所需功率（0-25dBm）</td>
+</tr>
+<tr>
+<td>接收放大</td>
+<td>LNA 放大微弱信号，添加最小噪声</td>
+</tr>
+<tr>
+<td>相位控制</td>
+<td>移相器调节信号相位，实现波束赋形</td>
+</tr>
+<tr>
+<td>幅度控制</td>
+<td>可变衰减器调节信号幅度</td>
+</tr>
+<tr>
+<td>收发切换</td>
+<td>开关或环形器分离 TX/RX 路径</td>
+</tr>
+<tr>
+<td>校准</td>
+<td>内部环路校准，保证通道一致性</td>
+</tr>
+<tr>
+<td>功率监测</td>
+<td>耦合器 + 功率检波器反馈</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    控制路径：
-    基带芯片 → 控制总线 → 每个 T/R 模块的寄存器</code></pre>
-    <h3>1.2 核心功能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>功能</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>发射放大</td><td>PA 将小信号放大到所需功率（0-25dBm）</td></tr>
-    <tr><td>接收放大</td><td>LNA 放大微弱信号，添加最小噪声</td></tr>
-    <tr><td>相位控制</td><td>移相器调节信号相位，实现波束赋形</td></tr>
-    <tr><td>幅度控制</td><td>可变衰减器调节信号幅度</td></tr>
-    <tr><td>收发切换</td><td>开关或环形器分离 TX/RX 路径</td></tr>
-    <tr><td>校准</td><td>内部环路校准，保证通道一致性</td></tr>
-    <tr><td>功率监测</td><td>耦合器 + 功率检波器反馈</td></tr>
-    </tbody></table></div>
-    <h3>1.3 T/R 模块 vs 分立器件</h3>
+    <h2>1.3 T/R 模块 vs 分立器件</h2>
     <pre><code>分立方案：
-      PA + LNA + 移相器 + 开关 + 连接器
-      体积大、成本高、一致性差
-      
-    T/R 模块（MMIC 集成）：
-      所有功能集成在 2×2mm 芯片上
-      体积小、一致性高、适合大规模阵列</code></pre>
-  </article>
+  PA + LNA + 移相器 + 开关 + 连接器
+  体积大、成本高、一致性差
 
-  <article class="card">
-    <h2>二、关键指标</h2>
-    <h3>2.1 发射通道</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>输出功率</td><td>15-25dBm</td><td>Sub-6GHz 典型值</td></tr>
-    <tr><td>功率附加效率（PAE）</td><td>30-50%</td><td>毫米波 20-35%</td></tr>
-    <tr><td>三阶截点（IP3）</td><td>+25 to +35dBm</td><td>线性度指标</td></tr>
-    <tr><td>1dB 压缩点（P1dB）</td><td>+20 to +28dBm</td><td>非线性点</td></tr>
-    <tr><td>增益</td><td>15-25dB</td><td>可变增益</td></tr>
-    <tr><td>增益步进</td><td>0.5-1dB</td><td>幅度控制精度</td></tr>
-    </tbody></table></div>
-    <h3>2.2 接收通道</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>噪声系数（NF）</td><td>2-4dB</td><td>Sub-6GHz</td></tr>
-    <tr><td>噪声系数（NF）</td><td>3-6dB</td><td>毫米波</td></tr>
-    <tr><td>增益</td><td>20-30dB</td><td>可变增益</td></tr>
-    <tr><td>IP3</td><td>+15 to +25dBm</td><td>线性度</td></tr>
-    <tr><td>增益步进</td><td>0.5-1dB</td><td>幅度控制精度</td></tr>
-    </tbody></table></div>
-    <h3>2.3 相位控制</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>相位范围</td><td>360°</td><td>全覆盖</td></tr>
-    <tr><td>相位步进</td><td>5.6°（6-bit）</td><td>6-bit 最常见</td></tr>
-    <tr><td>相位精度</td><td>±5-10°</td><td>温度/频率变化</td></tr>
-    <tr><td>相位损耗</td><td>1-3dB</td><td>移相器引入</td></tr>
-    </tbody></table></div>
-    <h3>2.4 通道一致性</h3>
+T/R 模块（MMIC 集成）：
+  所有功能集成在 2×2mm 芯片上
+  体积小、一致性高、适合大规模阵列
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 发射通道</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出功率</td>
+<td>15-25dBm</td>
+<td>Sub-6GHz 典型值</td>
+</tr>
+<tr>
+<td>功率附加效率（PAE）</td>
+<td>30-50%</td>
+<td>毫米波 20-35%</td>
+</tr>
+<tr>
+<td>三阶截点（IP3）</td>
+<td>+25 to +35dBm</td>
+<td>线性度指标</td>
+</tr>
+<tr>
+<td>1dB 压缩点（P1dB）</td>
+<td>+20 to +28dBm</td>
+<td>非线性点</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>15-25dB</td>
+<td>可变增益</td>
+</tr>
+<tr>
+<td>增益步进</td>
+<td>0.5-1dB</td>
+<td>幅度控制精度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 接收通道</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>噪声系数（NF）</td>
+<td>2-4dB</td>
+<td>Sub-6GHz</td>
+</tr>
+<tr>
+<td>噪声系数（NF）</td>
+<td>3-6dB</td>
+<td>毫米波</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>20-30dB</td>
+<td>可变增益</td>
+</tr>
+<tr>
+<td>IP3</td>
+<td>+15 to +25dBm</td>
+<td>线性度</td>
+</tr>
+<tr>
+<td>增益步进</td>
+<td>0.5-1dB</td>
+<td>幅度控制精度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 相位控制</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相位范围</td>
+<td>360°</td>
+<td>全覆盖</td>
+</tr>
+<tr>
+<td>相位步进</td>
+<td>5.6°（6-bit）</td>
+<td>6-bit 最常见</td>
+</tr>
+<tr>
+<td>相位精度</td>
+<td>±5-10°</td>
+<td>温度/频率变化</td>
+</tr>
+<tr>
+<td>相位损耗</td>
+<td>1-3dB</td>
+<td>移相器引入</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 通道一致性</h2>
     <pre><code>幅度一致性：±0.5dB（出厂校准后）
-    相位一致性：±3°（出厂校准后）
-    
-    温度漂移：
-      幅度：±0.1dB/°C
-      相位：±0.5°/°C</code></pre>
-  </article>
+相位一致性：±3°（出厂校准后）
 
-  <article class="card">
-    <h2>三、5G Sub-6GHz vs 毫米波 T/R 模块</h2>
-    <h3>3.1 Sub-6GHz T/R 模块</h3>
+温度漂移：
+  幅度：±0.1dB/°C
+  相位：±0.5°/°C
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 Sub-6GHz T/R 模块</h2>
     <pre><code>工艺：GaAs pHEMT（主流）/ SiGe（低成本）
-    集成度：PA + LNA + 移相器 + 衰减器 + 开关
-    尺寸：2×2mm - 4×4mm（MMIC）
-    成本：$2-5/片（量产）
+集成度：PA + LNA + 移相器 + 衰减器 + 开关
+尺寸：2×2mm - 4×4mm（MMIC）
+成本：$2-5/片（量产）
+
+代表厂商：Qorvo、Skyworks、Murata、卓胜微
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>Sub-6GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率</td>
+<td>600MHz - 6GHz</td>
+</tr>
+<tr>
+<td>功率</td>
+<td>15-25dBm</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>2-3dB</td>
+</tr>
+<tr>
+<td>工艺</td>
+<td>GaAs / SiGe</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>2-5W/通道</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    代表厂商：Qorvo、Skyworks、Murata、卓胜微</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>Sub-6GHz</th></tr></thead>
-    <tbody>
-    <tr><td>频率</td><td>600MHz - 6GHz</td></tr>
-    <tr><td>功率</td><td>15-25dBm</td></tr>
-    <tr><td>NF</td><td>2-3dB</td></tr>
-    <tr><td>工艺</td><td>GaAs / SiGe</td></tr>
-    <tr><td>功耗</td><td>2-5W/通道</td></tr>
-    </tbody></table></div>
-    <h3>3.2 毫米波 T/R 模块</h3>
+    <h2>3.2 毫米波 T/R 模块</h2>
     <pre><code>工艺：GaN（高功率）/ SiGe（低成本）/ BFIC（集成）
-    集成度：PA/LNA + 移相器 + 天线（AiP）
-    尺寸：0.5×0.5mm - 2×2mm（SiP 封装）
-    成本：$5-15/片（量产）
-    
-    代表厂商：Qorvo、NXP、Intel、高通、三星</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>毫米波（28GHz）</th></tr></thead>
-    <tbody>
-    <tr><td>频率</td><td>24-40GHz</td></tr>
-    <tr><td>功率</td><td>10-17dBm</td></tr>
-    <tr><td>NF</td><td>3-5dB</td></tr>
-    <tr><td>工艺</td><td>GaN / SiGe / BiCMOS</td></tr>
-    <tr><td>功耗</td><td>1-3W/通道</td></tr>
-    </tbody></table></div>
-    <h3>3.3 技术路线对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方案</th><th>优点</th><th>缺点</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>分立 GaAs</td><td>成熟、低成本</td><td>体积大</td><td>Sub-6GHz 基站</td></tr>
-    <tr><td>SiP 集成</td><td>体积小、一致性好</td><td>成本高</td><td>毫米波 AAU</td></tr>
-    <tr><td>AiP（天线在封装内）</td><td>最小体积、最低损耗</td><td>散热难</td><td>手机/小型基站</td></tr>
-    <tr><td>BFIC（波束赋形 IC）</td><td>全集成、数字控制</td><td>功率低</td><td>毫米波大规模阵列</td></tr>
-    </tbody></table></div>
-  </article>
+集成度：PA/LNA + 移相器 + 天线（AiP）
+尺寸：0.5×0.5mm - 2×2mm（SiP 封装）
+成本：$5-15/片（量产）
 
-  <article class="card">
-    <h2>四、AAU 中的 T/R 模块部署</h2>
-    <h3>4.1 64T64R AAU</h3>
+代表厂商：Qorvo、NXP、Intel、高通、三星
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>毫米波（28GHz）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率</td>
+<td>24-40GHz</td>
+</tr>
+<tr>
+<td>功率</td>
+<td>10-17dBm</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>3-5dB</td>
+</tr>
+<tr>
+<td>工艺</td>
+<td>GaN / SiGe / BiCMOS</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>1-3W/通道</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 技术路线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分立 GaAs</td>
+<td>成熟、低成本</td>
+<td>体积大</td>
+<td>Sub-6GHz 基站</td>
+</tr>
+<tr>
+<td>SiP 集成</td>
+<td>体积小、一致性好</td>
+<td>成本高</td>
+<td>毫米波 AAU</td>
+</tr>
+<tr>
+<td>AiP（天线在封装内）</td>
+<td>最小体积、最低损耗</td>
+<td>散热难</td>
+<td>手机/小型基站</td>
+</tr>
+<tr>
+<td>BFIC（波束赋形 IC）</td>
+<td>全集成、数字控制</td>
+<td>功率低</td>
+<td>毫米波大规模阵列</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 64T64R AAU</h2>
     <pre><code>64 发射通道 × 64 接收通道 = 128 个 T/R 模块
+
+每个 T/R 模块驱动 1 个天线单元（贴片）
+天线阵列：8 列 × 16 行 = 128 个单元
+
+总功耗：
+  发射：128 × 3W = 384W
+  接收：128 × 1W = 128W
+  合计：~500W（不含基带）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    每个 T/R 模块驱动 1 个天线单元（贴片）
-    天线阵列：8 列 × 16 行 = 128 个单元
-    
-    总功耗：
-      发射：128 × 3W = 384W
-      接收：128 × 1W = 128W
-      合计：~500W（不含基带）</code></pre>
-    <h3>4.2 成本结构</h3>
+    <h2>4.2 成本结构</h2>
     <pre><code>AAU BOM 成本分配：
-      T/R 模块：40-50%
-      天线阵列：10-15%
-      散热系统：10-15%
-      基带芯片：10-15%
-      PCB/连接器：5-10%
-      其他：5-10%</code></pre>
-    <h3>4.3 散热挑战</h3>
+  T/R 模块：40-50%
+  天线阵列：10-15%
+  散热系统：10-15%
+  基带芯片：10-15%
+  PCB/连接器：5-10%
+  其他：5-10%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 散热挑战</h2>
     <pre><code>Sub-6GHz 64T：
-      单通道功耗：3-5W
-      总功耗：384-640W
-      散热方式：铝合金外壳 + 导热垫 + 风扇
-    
-    毫米波 64T：
-      单通道功耗：1-3W
-      总功耗：64-192W
-      散热方式：金属基板 + 导热过孔 + 自然对流</code></pre>
-  </article>
+  单通道功耗：3-5W
+  总功耗：384-640W
+  散热方式：铝合金外壳 + 导热垫 + 风扇
 
-  <article class="card">
-    <h2>五、T/R 模块校准</h2>
-    <h3>5.1 为什么需要校准</h3>
+毫米波 64T：
+  单通道功耗：1-3W
+  总功耗：64-192W
+  散热方式：金属基板 + 导热过孔 + 自然对流
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 为什么需要校准</h2>
     <pre><code>通道不一致的原因：
-      1. 器件公差（PA增益、LNA噪声差异）
-      2. 温度漂移（不同通道温升不同）
-      3. 频率响应（不同通道频率响应不同）
-      4. 老化（长期使用后性能退化）
+  1. 器件公差（PA增益、LNA噪声差异）
+  2. 温度漂移（不同通道温升不同）
+  3. 频率响应（不同通道频率响应不同）
+  4. 老化（长期使用后性能退化）
+
+不校准的后果：
+  - 波束指向偏差
+  - 旁瓣抬高
+  - MIMO 容量下降
+  - 干扰增加
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    不校准的后果：
-      - 波束指向偏差
-      - 旁瓣抬高
-      - MIMO 容量下降
-      - 干扰增加</code></pre>
-    <h3>5.2 校准方法</h3>
+    <h2>5.2 校准方法</h2>
     <pre><code>内部校准（推荐）：
-      1. 每个 T/R 模块有耦合器/环形器
-      2. 主通道 → 从通道采样
-      3. 基带计算幅度/相位误差
-      4. 更新移相器和衰减器
-      
-    外部校准（OTA）：
-      1. 暗室中用标准天线测量
-      2. 计算全通道误差矩阵
-      3. 下发校准系数</code></pre>
-    <h3>5.3 校准精度要求</h3>
-    <pre><code>幅度误差：&lt; 0.1dB
-    相位误差：&lt; 1°
-    校准周期：开机时 + 定期（如每 6 小时）</code></pre>
-  </article>
+  1. 每个 T/R 模块有耦合器/环形器
+  2. 主通道 → 从通道采样
+  3. 基带计算幅度/相位误差
+  4. 更新移相器和衰减器
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 热设计</h3>
-    <pre><code>T/R 模块是 AAU 的最大热源
-    散热设计要点：
-      1. MMIC 直接焊接在金属基板上
-      2. 导热过孔连接到外壳
-      3. 外壳与散热器紧密接触
-      4. 考虑风冷/液冷（大功率 AAU）</code></pre>
-    <h3>6.2 电磁兼容</h3>
-    <pre><code>TX 和 RX 通道之间的隔离：
-      Sub-6GHz：&gt; 60dB（环形器）
-      毫米波：&gt; 40dB（开关）
+外部校准（OTA）：
+  1. 暗室中用标准天线测量
+  2. 计算全通道误差矩阵
+  3. 下发校准系数
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    隔离不足的影响：
-      - TX 泄漏到 RX → 接收机饱和
-      - 通道间耦合 → 波束失真</code></pre>
-    <h3>6.3 可靠性</h3>
+    <h2>5.3 校准精度要求</h2>
+    <pre><code>幅度误差：&lt; 0.1dB
+相位误差：&lt; 1°
+校准周期：开机时 + 定期（如每 6 小时）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 热设计</h2>
+    <pre><code>T/R 模块是 AAU 的最大热源
+散热设计要点：
+  1. MMIC 直接焊接在金属基板上
+  2. 导热过孔连接到外壳
+  3. 外壳与散热器紧密接触
+  4. 考虑风冷/液冷（大功率 AAU）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 电磁兼容</h2>
+    <pre><code>TX 和 RX 通道之间的隔离：
+  Sub-6GHz：&gt; 60dB（环形器）
+  毫米波：&gt; 40dB（开关）
+
+隔离不足的影响：
+  - TX 泄漏到 RX → 接收机饱和
+  - 通道间耦合 → 波束失真
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 可靠性</h2>
     <pre><code>MTBF（平均无故障时间）：
-      Sub-6GHz T/R：&gt; 100,000 小时
-      毫米波 T/R：&gt; 50,000 小时
-      
-    环境要求：
-      温度：-40°C to +65°C
-      湿度：0-100% RH
-      振动：符合 Telcordia GR-452</code></pre>
-  </article>
+  Sub-6GHz T/R：&gt; 100,000 小时
+  毫米波 T/R：&gt; 50,000 小时
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：高度成熟（Sub-6GHz GaAs）→ 快速演进（毫米波 SiP/BFIC）</li><li><b>说明</b>：Sub-6GHz T/R 模块已大规模商用（4G/5G 基站），GaAs pHEMT 工艺成熟。毫米波 T/R 模块随 5G FR2 快速成熟，SiP 集成和 AiP 是主流方向。BFIC（波束赋形 IC）将移相器和天线集成，是未来趋势。</li></ul>
+环境要求：
+  温度：-40°C to +65°C
+  湿度：0-100% RH
+  振动：符合 Telcordia GR-452
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>T/R 模块是 AAU 的心脏——每个模块负责一根天线的收发，包含 PA、LNA、移相器、衰减器和开关。64T64R AAU 有 128 个 T/R 模块，占 BOM 成本 40-50%。Sub-6GHz 用 GaAs MMIC（$2-5/片），毫米波用 SiP/BFIC（$5-15/片）。记住：T/R 模块的一致性决定了波束赋形的精度，校准是保证一致性的关键。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -342,39 +617,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

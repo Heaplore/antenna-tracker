@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>移相器 Phase Shifter · 知识卡片</title>
+<title>移相器Phase-Shifter · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">移相器 Phase Shifter <span class="en">Phase-Shifter</span></h1>
-  <p class="lede">移相器是改变射频信号相位但不改变其幅度的无源或有源器件——它是相控阵天线的"方向盘"，通过精确控制每个天线单元的相位来改变波束指向。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">移相器Phase-Shifter</h1>
+  <p class="lede">移相器是改变射频信号相位但不改变其幅度的无源或有源器件——它是相控阵天线的&#34;方向盘&#34;，通过精确控制每个天线单元的相位来改变波束指向。</p>
+  
 </header>
 
 <main>
@@ -99,215 +101,621 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>移相器就像水管上的"阀门延时器"——水流（射频信号）的大小不变，但你可以通过调节阀门的开合时间来改变水流的"节奏"（相位）。在相控阵中，每个天线单元的移相器就像一排水龙头，你精确控制每个龙头的开启时间，所有水流汇聚到一起时就形成了一股定向的"水柱"（波束）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与作用</h2>
-    <h3>1.1 移相器的基本功能</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 移相器的基本功能</h2>
     <pre><code>输入信号：A·cos(ωt + φ_in)
-    输出信号：A·cos(ωt + φ_in + Δφ)</code></pre>
-    <p>其中 Δφ 是移相器引入的相移量。</p>
-    <h3>1.2 在相控阵中的作用</h3>
+输出信号：A·cos(ωt + φ_in + Δφ)
+</code></pre>
+<p>其中 Δφ 是移相器引入的相移量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 在相控阵中的作用</h2>
     <pre><code>波束指向角 θ₀ 由移相器相位决定：
-    Δφ_n = n · (2πd/λ) · sin(θ₀)</code></pre>
-    <p>其中 n 是单元序号，d 是单元间距。</p>
-    <p><b>举例</b>（64 单元阵列，θ₀ = 30°）：</p>
-    <ul><li>单元 0：Δφ = 0°</li><li>单元 1：Δφ = 5.6°</li><li>单元 32：Δφ = 179°</li><li>单元 63：Δφ = 353°</li></ul>
-    <h3>1.3 移相器的关键指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>说明</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>相移范围</td><td>可实现的总相移</td><td>0-360°（模拟）或 0-180°（数字）</td></tr>
-    <tr><td>相移精度</td><td>实际相移与目标相移的偏差</td><td>±2-5°</td></tr>
-    <tr><td>插入损耗</td><td>信号通过移相器的功率损失</td><td>0.5-3dB</td></tr>
-    <tr><td>工作频率</td><td>中心频率和带宽</td><td>1-40GHz</td></tr>
-    <tr><td>响应时间</td><td>相位切换速度</td><td>纳秒-微秒级</td></tr>
-    <tr><td>线性度</td><td>幅度随相位的波动</td><td>±0.5dB</td></tr>
-    <tr><td>功率容量</td><td>能承受的最大 RF 功率</td><td>1W-1kW</td></tr>
-    </tbody></table></div>
+Δφ_n = n · (2πd/λ) · sin(θ₀)
+</code></pre>
+<p>其中 n 是单元序号，d 是单元间距。</p>
+<p><strong>举例</strong>（64 单元阵列，θ₀ = 30°）：</p>
+<ul>
+<li>单元 0：Δφ = 0°</li>
+<li>单元 1：Δφ = 5.6°</li>
+<li>单元 32：Δφ = 179°</li>
+<li>单元 63：Δφ = 353°</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>二、移相器的主要类型</h2>
-    <h3>2.1 数字移相器（Binary Phase Shifter）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 移相器的关键指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相移范围</td>
+<td>可实现的总相移</td>
+<td>0-360°（模拟）或 0-180°（数字）</td>
+</tr>
+<tr>
+<td>相移精度</td>
+<td>实际相移与目标相移的偏差</td>
+<td>±2-5°</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>信号通过移相器的功率损失</td>
+<td>0.5-3dB</td>
+</tr>
+<tr>
+<td>工作频率</td>
+<td>中心频率和带宽</td>
+<td>1-40GHz</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>相位切换速度</td>
+<td>纳秒-微秒级</td>
+</tr>
+<tr>
+<td>线性度</td>
+<td>幅度随相位的波动</td>
+<td>±0.5dB</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>能承受的最大 RF 功率</td>
+<td>1W-1kW</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 数字移相器（Binary Phase Shifter）</h2>
     <p>用 N 位二进制控制相移量：</p>
-    <pre><code>N 位 → 2^N 个离散相位状态
-    3 bit → 8 个状态（0°, 45°, 90°, ..., 315°）
-    4 bit → 16 个状态（22.5° 步进）
-    5 bit → 32 个状态（11.25° 步进）
-    6 bit → 64 个状态（5.625° 步进）</code></pre>
-    <p><b>常见相位码</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>位</th><th>相位码</th><th>最小步进</th></tr></thead>
-    <tbody>
-    <tr><td>3 bit</td><td>180°, 90°, 45°</td><td>45°</td></tr>
-    <tr><td>4 bit</td><td>180°, 90°, 45°, 22.5°</td><td>22.5°</td></tr>
-    <tr><td>5 bit</td><td>180°, 90°, 45°, 22.5°, 11.25°</td><td>11.25°</td></tr>
-    <tr><td>6 bit</td><td>180°, 90°, 45°, 22.5°, 11.25°, 5.625°</td><td>5.625°</td></tr>
-    </tbody></table></div>
-    <p><b>优点</b>：简单、便宜、数字接口 <b>缺点</b>：量化误差、相移不连续</p>
-    <h3>2.2 模拟移相器（Analog/Continuous Phase Shifter）</h3>
+<pre><code>N 位 → 2^N 个离散相位状态
+3 bit → 8 个状态（0°, 45°, 90°, ..., 315°）
+4 bit → 16 个状态（22.5° 步进）
+5 bit → 32 个状态（11.25° 步进）
+6 bit → 64 个状态（5.625° 步进）
+</code></pre>
+<p><strong>常见相位码</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>相位码</th>
+<th>最小步进</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 bit</td>
+<td>180°, 90°, 45°</td>
+<td>45°</td>
+</tr>
+<tr>
+<td>4 bit</td>
+<td>180°, 90°, 45°, 22.5°</td>
+<td>22.5°</td>
+</tr>
+<tr>
+<td>5 bit</td>
+<td>180°, 90°, 45°, 22.5°, 11.25°</td>
+<td>11.25°</td>
+</tr>
+<tr>
+<td>6 bit</td>
+<td>180°, 90°, 45°, 22.5°, 11.25°, 5.625°</td>
+<td>5.625°</td>
+</tr>
+</tbody>
+</table>
+<p><strong>优点</strong>：简单、便宜、数字接口
+<strong>缺点</strong>：量化误差、相移不连续</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 模拟移相器（Analog/Continuous Phase Shifter）</h2>
     <p>连续可调相移：</p>
-    <pre><code>Δφ = 0° to 360°（连续可调）</code></pre>
-    <p><b>主要实现方式</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>原理</th><th>损耗</th><th>带宽</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>LC 移相器</td><td>电感电容组合</td><td>0.5-1dB</td><td>窄</td><td>低频</td></tr>
-    <tr><td>传输线移相器</td><td>改变电长度</td><td>0.3-0.8dB</td><td>宽</td><td>微波</td></tr>
-    <tr><td>混合耦合器型</td><td>90°+180°hybrid</td><td>1-2dB</td><td>宽</td><td>毫米波</td></tr>
-    <tr><td>MEMS 型</td><td>机械改变路径</td><td>< 0.5dB</td><td>宽</td><td>高性能</td></tr>
-    <tr><td>铁电型</td><td>BaSrTiO₃ 介电常数可调</td><td>1-3dB</td><td>中</td><td>低成本</td></tr>
-    </tbody></table></div>
-    <h3>2.3 反射型移相器（Reflection Type）</h3>
+<pre><code>Δφ = 0° to 360°（连续可调）
+</code></pre>
+<p><strong>主要实现方式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>原理</th>
+<th>损耗</th>
+<th>带宽</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LC 移相器</td>
+<td>电感电容组合</td>
+<td>0.5-1dB</td>
+<td>窄</td>
+<td>低频</td>
+</tr>
+<tr>
+<td>传输线移相器</td>
+<td>改变电长度</td>
+<td>0.3-0.8dB</td>
+<td>宽</td>
+<td>微波</td>
+</tr>
+<tr>
+<td>混合耦合器型</td>
+<td>90°+180°hybrid</td>
+<td>1-2dB</td>
+<td>宽</td>
+<td>毫米波</td>
+</tr>
+<tr>
+<td>MEMS 型</td>
+<td>机械改变路径</td>
+<td>&lt; 0.5dB</td>
+<td>宽</td>
+<td>高性能</td>
+</tr>
+<tr>
+<td>铁电型</td>
+<td>BaSrTiO₃ 介电常数可调</td>
+<td>1-3dB</td>
+<td>中</td>
+<td>低成本</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 反射型移相器（Reflection Type）</h2>
     <pre><code>        ┌───[可变反射负载]──┐
-    Input ──┤                   ├─── Output
-            └───[可变反射负载]──┘
-               90° Hybrid Coupler</code></pre>
-    <p>信号经 hybrid coupler 分成两路，各自被可变负载反射回来，在 coupler 处重新组合，相位差由两个负载的反射系数决定。</p>
-    <p><b>优点</b>：体积小、易于集成 <b>缺点</b>：隔离度有限</p>
-    <h3>2.4 传输线型移相器（Transmission Line Type）</h3>
+Input ──┤                   ├─── Output
+        └───[可变反射负载]──┘
+           90° Hybrid Coupler
+</code></pre>
+<p>信号经 hybrid coupler 分成两路，各自被可变负载反射回来，在 coupler 处重新组合，相位差由两个负载的反射系数决定。</p>
+<p><strong>优点</strong>：体积小、易于集成
+<strong>缺点</strong>：隔离度有限</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 传输线型移相器（Transmission Line Type）</h2>
     <p>通过改变传输线的电长度来实现相移：</p>
-    <pre><code>Δφ = β·Δl = (2π/λ)·Δl</code></pre>
-    <p>其中 Δl 是传输线长度的变化。</p>
-    <p><b>实现方式</b>：</p>
-    <ul><li>开关切换不同长度的传输线（数字式）</li><li>可变介质常数（模拟式）</li></ul>
-    <h3>2.5 PLL 型移相器（基于锁相环）</h3>
+<pre><code>Δφ = β·Δl = (2π/λ)·Δl
+</code></pre>
+<p>其中 Δl 是传输线长度的变化。</p>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>开关切换不同长度的传输线（数字式）</li>
+<li>可变介质常数（模拟式）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 PLL 型移相器（基于锁相环）</h2>
     <pre><code>VCO → Phase Detector → Loop Filter → VCO
-                  ↑
-              Reference Signal</code></pre>
-    <p><b>优点</b>：相位连续可调、精度高 <b>缺点</b>：复杂、功耗高</p>
+              ↑
+          Reference Signal
+</code></pre>
+<p><strong>优点</strong>：相位连续可调、精度高
+<strong>缺点</strong>：复杂、功耗高</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、关键技术参数</h2>
-    <h3>3.1 相位精度与量化误差</h3>
-    <p><b>量化误差</b>（数字移相器）：</p>
-    <pre><code>Δφ_quantization = 360° / 2^N</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>位数</th><th>量化误差</th><th>RMS 相位误差</th></tr></thead>
-    <tbody>
-    <tr><td>3 bit</td><td>45°</td><td>13°</td></tr>
-    <tr><td>4 bit</td><td>22.5°</td><td>6.5°</td></tr>
-    <tr><td>5 bit</td><td>11.25°</td><td>3.2°</td></tr>
-    <tr><td>6 bit</td><td>5.625°</td><td>1.6°</td></tr>
-    <tr><td>8 bit</td><td>1.4°</td><td>0.4°</td></tr>
-    </tbody></table></div>
-    <p><b>RMS 相位误差对阵列增益的影响</b>：</p>
-    <pre><code>G_loss(dB) ≈ -10·log₁₀(exp(-(σ_φ/57.3)²))</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>σ_φ (°)</th><th>增益损失 (dB)</th></tr></thead>
-    <tbody>
-    <tr><td>1</td><td>0.01</td></tr>
-    <tr><td>3</td><td>0.06</td></tr>
-    <tr><td>5</td><td>0.17</td></tr>
-    <tr><td>10</td><td>0.66</td></tr>
-    <tr><td>15</td><td>1.45</td></tr>
-    <tr><td>20</td><td>2.56</td></tr>
-    </tbody></table></div>
-    <p><b>结论</b>：要达到 0.1dB 以内的增益损失，RMS 相位误差必须 < 5°。</p>
-    <h3>3.2 插入损耗</h3>
-    <pre><code>IL_total = IL_phase_shifter + IL_switch + IL_connection</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>IL @ 10GHz</th><th>IL @ 28GHz</th></tr></thead>
-    <tbody>
-    <tr><td>PIN 二极管</td><td>0.5-1dB</td><td>1-2dB</td></tr>
-    <tr><td>MOSFET</td><td>0.8-1.5dB</td><td>1.5-3dB</td></tr>
-    <tr><td>MEMS</td><td>0.2-0.5dB</td><td>0.5-1dB</td></tr>
-    <tr><td>铁电 BST</td><td>1-2dB</td><td>2-4dB</td></tr>
-    <tr><td>传输线开关</td><td>0.3-0.8dB</td><td>0.5-1.5dB</td></tr>
-    </tbody></table></div>
-    <h3>3.3 功率容量</h3>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>连续波功率</th><th>脉冲功率</th></tr></thead>
-    <tbody>
-    <tr><td>PIN 二极管</td><td>1-10W</td><td>100W</td></tr>
-    <tr><td>MEMS</td><td>0.1-1W</td><td>10W</td></tr>
-    <tr><td>铁电 BST</td><td>0.5-5W</td><td>50W</td></tr>
-    <tr><td>传输线</td><td>10-100W</td><td>1kW+</td></tr>
-    </tbody></table></div>
-    <h3>3.4 切换速度</h3>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>切换时间</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>PIN 二极管</td><td>10-100ns</td><td>快速波束切换</td></tr>
-    <tr><td>MEMS</td><td>1-10μs</td><td>慢速扫描</td></tr>
-    <tr><td>铁电 BST</td><td>10-100ns</td><td>中等速度</td></tr>
-    <tr><td>传输线开关</td><td>10-100ns</td><td>快速切换</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 相位精度与量化误差</h2>
+    <p><strong>量化误差</strong>（数字移相器）：</p>
+<pre><code>Δφ_quantization = 360° / 2^N
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>位数</th>
+<th>量化误差</th>
+<th>RMS 相位误差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 bit</td>
+<td>45°</td>
+<td>13°</td>
+</tr>
+<tr>
+<td>4 bit</td>
+<td>22.5°</td>
+<td>6.5°</td>
+</tr>
+<tr>
+<td>5 bit</td>
+<td>11.25°</td>
+<td>3.2°</td>
+</tr>
+<tr>
+<td>6 bit</td>
+<td>5.625°</td>
+<td>1.6°</td>
+</tr>
+<tr>
+<td>8 bit</td>
+<td>1.4°</td>
+<td>0.4°</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RMS 相位误差对阵列增益的影响</strong>：</p>
+<pre><code>G_loss(dB) ≈ -10·log₁₀(exp(-(σ_φ/57.3)²))
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>σ_φ (°)</th>
+<th>增益损失 (dB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.06</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.17</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.66</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1.45</td>
+</tr>
+<tr>
+<td>20</td>
+<td>2.56</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：要达到 0.1dB 以内的增益损失，RMS 相位误差必须 &lt; 5°。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、制造工艺与材料</h2>
-    <h3>4.1 主流工艺技术</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>适用频段</th><th>特点</th><th>代表厂商</th></tr></thead>
-    <tbody>
-    <tr><td>GaAs MMIC</td><td>DC-40GHz</td><td>成熟、成本低</td><td>Qorvo、Macom</td></tr>
-    <tr><td>SiGe MMIC</td><td>DC-200GHz</td><td>高速、低成本</td><td>Infineon、TI</td></tr>
-    <tr><td>CMOS</td><td>DC-100GHz</td><td>最便宜、集成度高</td><td>Intel、Samsung</td></tr>
-    <tr><td>RF MEMS</td><td>DC-110GHz</td><td>超低损耗、高可靠性</td><td>Omnispace、Avalon</td></tr>
-    <tr><td>铁电薄膜</td><td>DC-20GHz</td><td>模拟连续可调</td><td>Skyworks、Murata</td></tr>
-    </tbody></table></div>
-    <h3>4.2 GaAs MMIC 移相器</h3>
+  
+  <article class="card ">
+    
+    <h2>3.2 插入损耗</h2>
+    <pre><code>IL_total = IL_phase_shifter + IL_switch + IL_connection
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>IL @ 10GHz</th>
+<th>IL @ 28GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PIN 二极管</td>
+<td>0.5-1dB</td>
+<td>1-2dB</td>
+</tr>
+<tr>
+<td>MOSFET</td>
+<td>0.8-1.5dB</td>
+<td>1.5-3dB</td>
+</tr>
+<tr>
+<td>MEMS</td>
+<td>0.2-0.5dB</td>
+<td>0.5-1dB</td>
+</tr>
+<tr>
+<td>铁电 BST</td>
+<td>1-2dB</td>
+<td>2-4dB</td>
+</tr>
+<tr>
+<td>传输线开关</td>
+<td>0.3-0.8dB</td>
+<td>0.5-1.5dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 功率容量</h2>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>连续波功率</th>
+<th>脉冲功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PIN 二极管</td>
+<td>1-10W</td>
+<td>100W</td>
+</tr>
+<tr>
+<td>MEMS</td>
+<td>0.1-1W</td>
+<td>10W</td>
+</tr>
+<tr>
+<td>铁电 BST</td>
+<td>0.5-5W</td>
+<td>50W</td>
+</tr>
+<tr>
+<td>传输线</td>
+<td>10-100W</td>
+<td>1kW+</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 切换速度</h2>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>切换时间</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PIN 二极管</td>
+<td>10-100ns</td>
+<td>快速波束切换</td>
+</tr>
+<tr>
+<td>MEMS</td>
+<td>1-10μs</td>
+<td>慢速扫描</td>
+</tr>
+<tr>
+<td>铁电 BST</td>
+<td>10-100ns</td>
+<td>中等速度</td>
+</tr>
+<tr>
+<td>传输线开关</td>
+<td>10-100ns</td>
+<td>快速切换</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 主流工艺技术</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>适用频段</th>
+<th>特点</th>
+<th>代表厂商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GaAs MMIC</td>
+<td>DC-40GHz</td>
+<td>成熟、成本低</td>
+<td>Qorvo、Macom</td>
+</tr>
+<tr>
+<td>SiGe MMIC</td>
+<td>DC-200GHz</td>
+<td>高速、低成本</td>
+<td>Infineon、TI</td>
+</tr>
+<tr>
+<td>CMOS</td>
+<td>DC-100GHz</td>
+<td>最便宜、集成度高</td>
+<td>Intel、Samsung</td>
+</tr>
+<tr>
+<td>RF MEMS</td>
+<td>DC-110GHz</td>
+<td>超低损耗、高可靠性</td>
+<td>Omnispace、Avalon</td>
+</tr>
+<tr>
+<td>铁电薄膜</td>
+<td>DC-20GHz</td>
+<td>模拟连续可调</td>
+<td>Skyworks、Murata</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 GaAs MMIC 移相器</h2>
     <pre><code>典型芯片：GT2050（Qorvo）
-    频段：20-40GHz
-    位数：5-bit
-    插入损耗：1.5dB（典型）
-    功耗：50mW
-    封装：1.5×1.5mm QFN</code></pre>
-    <h3>4.3 RF MEMS 移相器</h3>
+频段：20-40GHz
+位数：5-bit
+插入损耗：1.5dB（典型）
+功耗：50mW
+封装：1.5×1.5mm QFN
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 RF MEMS 移相器</h2>
     <pre><code>典型芯片：AS603（Avalon）
-    频段：DC-40GHz
-    插入损耗：0.3dB（超低）
-    切换时间：1-10μs
-    寿命：10¹¹ 次切换
-    功耗：0（保持状态不需要功率）</code></pre>
+频段：DC-40GHz
+插入损耗：0.3dB（超低）
+切换时间：1-10μs
+寿命：10¹¹ 次切换
+功耗：0（保持状态不需要功率）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、应用场景</h2>
-    <h3>5.1 相控阵雷达</h3>
-    <ul><li>每个天线单元配一个移相器</li><li>64 单元 = 64 个移相器</li><li>波束扫描速度：微秒级</li><li>相位精度要求：±2° RMS</li></ul>
-    <h3>5.2 5G 基站（Massive MIMO）</h3>
-    <ul><li>64T64R = 128 个移相器</li><li>模拟波束赋形：每通道 1 个移相器链</li><li>混合波束赋形：数字 + 模拟混合</li></ul>
-    <h3>5.3 卫星通信</h3>
-    <ul><li>馈电网络中的相位校准</li><li>多波束卫星的波束指向控制</li><li>相位精度要求：±5°</li></ul>
-    <h3>5.4 毫米波通信（28/39GHz）</h3>
-    <ul><li>BFIC 内置移相器（3-6 bit）</li><li>集成于封装内</li><li>插入损耗是关键指标</li></ul>
+  
+  <article class="card ">
+    
+    <h2>5.1 相控阵雷达</h2>
+    <ul>
+<li>每个天线单元配一个移相器</li>
+<li>64 单元 = 64 个移相器</li>
+<li>波束扫描速度：微秒级</li>
+<li>相位精度要求：±2° RMS</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 温度稳定性</h3>
-    <pre><code>Δφ/ΔT ≈ 0.1-1°/°C（典型值）</code></pre>
-    <p>对于 64 单元阵列，温度变化 30°C 可能导致波束偏移 2-5°。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>温度补偿电路</li><li>数字域自适应校准</li><li>使用温度稳定的材料（LTCC、SiGe）</li></ul>
-    <h3>6.2 相位-幅度耦合</h3>
+  
+  <article class="card ">
+    
+    <h2>5.2 5G 基站（Massive MIMO）</h2>
+    <ul>
+<li>64T64R = 128 个移相器</li>
+<li>模拟波束赋形：每通道 1 个移相器链</li>
+<li>混合波束赋形：数字 + 模拟混合</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 卫星通信</h2>
+    <ul>
+<li>馈电网络中的相位校准</li>
+<li>多波束卫星的波束指向控制</li>
+<li>相位精度要求：±5°</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 毫米波通信（28/39GHz）</h2>
+    <ul>
+<li>BFIC 内置移相器（3-6 bit）</li>
+<li>集成于封装内</li>
+<li>插入损耗是关键指标</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 温度稳定性</h2>
+    <pre><code>Δφ/ΔT ≈ 0.1-1°/°C（典型值）
+</code></pre>
+<p>对于 64 单元阵列，温度变化 30°C 可能导致波束偏移 2-5°。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>温度补偿电路</li>
+<li>数字域自适应校准</li>
+<li>使用温度稳定的材料（LTCC、SiGe）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 相位-幅度耦合</h2>
     <p>移相器在改变相位的同时，幅度也会波动：</p>
-    <pre><code>ΔA/Δφ ≈ 0.05-0.2 dB/°（典型值）</code></pre>
-    <p><b>解决方案</b>：</p>
-    <ul><li>选择幅度平坦度好的移相器</li><li>在数字域进行幅度补偿</li></ul>
-    <h3>6.3 互易性</h3>
+<pre><code>ΔA/Δφ ≈ 0.05-0.2 dB/°（典型值）
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>选择幅度平坦度好的移相器</li>
+<li>在数字域进行幅度补偿</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 互易性</h2>
     <p>TDD 系统中，移相器的上行和下行相位应该一致：</p>
-    <pre><code>φ_TX ≠ φ_RX → 波束指向偏差</code></pre>
-    <p><b>解决方案</b>：</p>
-    <ul><li>使用互易性好的移相器</li><li>定期校准</li></ul>
+<pre><code>φ_TX ≠ φ_RX → 波束指向偏差
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用互易性好的移相器</li>
+<li>定期校准</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：高度成熟</li><li><b>说明</b>：数字移相器（PIN/MOSFET）技术非常成熟，广泛用于雷达和通信。MEMS 移相器在高性能场景中成熟。CMOS 毫米波移相器随 5G BFIC 快速成熟。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>移相器是相控阵天线的"方向盘"——通过精确控制每个单元的相位来"拧"出想要的波束指向。核心指标就三个：相位精度（决定了波束准不准）、插入损耗（决定了信号剩多少）、切换速度（决定了波束转多快）。数字移相器便宜但量化误差大，模拟移相器连续可调但复杂，MEMS 损耗最低但速度慢。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -327,39 +735,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

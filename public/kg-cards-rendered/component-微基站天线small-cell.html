@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>微基站天线（Small Cell Antenna） · 知识卡片</title>
+<title>微基站天线Small-Cell · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">微基站天线 <span class="en">Small Cell Antenna</span></h1>
-  <p class="lede">微基站天线是"藏在路灯杆上的微型 AAU"——功率只有宏站的 1/100，覆盖半径 10-200m，但通过密集部署弥补容量。5G 微站天线正在从 PCB 天线走向 AiP（天线在封装内），毫米波微站更是 64-256 阵元的超密集阵列。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">微基站天线Small-Cell</h1>
+  <p class="lede">微基站天线是&#34;藏在路灯杆上的微型 AAU&#34;——功率只有宏站的 1/100，覆盖半径 10-200m，但通过密集部署弥补容量。5G 微站天线正在从 PCB 天线走向 AiP（天线在封装内），毫米波微站更是 64-256 阵元的超密集阵列。</p>
+  
 </header>
 
 <main>
@@ -99,124 +101,213 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>宏站天线是"广播电台"（覆盖几十公里），微基站天线是"便利店"（覆盖几百米）。宏站解决"有没有信号"，微站解决"信号够不够快"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、微基站分类</h2>
-    <h3>1.1 按功率分级</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>功率</th><th>覆盖半径</th><th>应用场景</th></tr></thead>
-    <tbody>
-    <tr><td>Femtocell（家庭基站）</td><td>< 100mW</td><td>10-30m</td><td>家庭/小办公室</td></tr>
-    <tr><td>Picocell（皮基站）</td><td>100mW-2W</td><td>30-200m</td><td>商场/会议室</td></tr>
-    <tr><td>Microcell（微基站）</td><td>2-5W</td><td>200-500m</td><td>街道/园区</td></tr>
-    </tbody></table></div>
-    <h3>1.2 按频段</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 按功率分级</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功率</th>
+<th>覆盖半径</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Femtocell（家庭基站）</td>
+<td>&lt; 100mW</td>
+<td>10-30m</td>
+<td>家庭/小办公室</td>
+</tr>
+<tr>
+<td>Picocell（皮基站）</td>
+<td>100mW-2W</td>
+<td>30-200m</td>
+<td>商场/会议室</td>
+</tr>
+<tr>
+<td>Microcell（微基站）</td>
+<td>2-5W</td>
+<td>200-500m</td>
+<td>街道/园区</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 按频段</h2>
     <pre><code>Sub-6GHz 微站：
-      频段：700MHz-3.5GHz
-      天线：PCB 贴片/偶极子
-      MIMO：2T2R/4T4R
-      
-    毫米波微站：
-      频段：24-40GHz
-      天线：AiP（封装内阵列）
-      MIMO：64T64R/256T256R</code></pre>
-  </article>
+  频段：700MHz-3.5GHz
+  天线：PCB 贴片/偶极子
+  MIMO：2T2R/4T4R
 
-  <article class="card">
-    <h2>二、微站天线技术</h2>
-    <h3>2.1 PCB 天线（Sub-6GHz）</h3>
-    <pre><code>结构：
-      天线直接印刷在 PCB 上
-      与射频芯片集成在同一板卡
-      
-    特点：
-      - 成本极低（$0.1-0.5/天线）
-      - 体积小（毫米级）
-      - 增益低（2-5dBi）
-      - 带宽窄（5-10%）
-      
-    典型应用：
-      - 家庭基站
-      - Wi-Fi 6/7 AP
-      - 室内微站</code></pre>
-    <h3>2.2 AiP 天线（毫米波）</h3>
-    <pre><code>结构：
-      天线阵列集成在芯片封装内
-      64-256 个辐射单元
-      
-    特点：
-      - 损耗极低（无馈线）
-      - 增益高（20-28dBi）
-      - 波束窄（3-5°）
-      - 需要波束赋形
-      
-    典型应用：
-      - 5G 毫米波宏站
-      - 毫米波微站
-      - 车载雷达</code></pre>
-    <h3>2.3 玻璃天线（Smart Glass Antenna）</h3>
-    <pre><code>结构：
-      ITO/金属网格印刷在玻璃上
-      
-    特点：
-      - 透明（不影响采光）
-      - 美观（融入建筑）
-      - 增益低（0-3dBi）
-      
-    典型应用：
-      - 写字楼玻璃幕墙
-      - 公交站台
-      - 景观要求高的区域</code></pre>
+毫米波微站：
+  频段：24-40GHz
+  天线：AiP（封装内阵列）
+  MIMO：64T64R/256T256R
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.1 PCB 天线（Sub-6GHz）</h2>
+    <pre><code>结构：
+  天线直接印刷在 PCB 上
+  与射频芯片集成在同一板卡
+
+特点：
+  - 成本极低（$0.1-0.5/天线）
+  - 体积小（毫米级）
+  - 增益低（2-5dBi）
+  - 带宽窄（5-10%）
+
+典型应用：
+  - 家庭基站
+  - Wi-Fi 6/7 AP
+  - 室内微站
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 AiP 天线（毫米波）</h2>
+    <pre><code>结构：
+  天线阵列集成在芯片封装内
+  64-256 个辐射单元
+
+特点：
+  - 损耗极低（无馈线）
+  - 增益高（20-28dBi）
+  - 波束窄（3-5°）
+  - 需要波束赋形
+
+典型应用：
+  - 5G 毫米波宏站
+  - 毫米波微站
+  - 车载雷达
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 玻璃天线（Smart Glass Antenna）</h2>
+    <pre><code>结构：
+  ITO/金属网格印刷在玻璃上
+
+特点：
+  - 透明（不影响采光）
+  - 美观（融入建筑）
+  - 增益低（0-3dBi）
+
+典型应用：
+  - 写字楼玻璃幕墙
+  - 公交站台
+  - 景观要求高的区域
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、微站天线 vs 宏站天线</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>微站天线</th><th>宏站天线</th></tr></thead>
-    <tbody>
-    <tr><td>功率</td><td>0.1-5W</td><td>100-500W</td></tr>
-    <tr><td>覆盖</td><td>10-500m</td><td>100m-5km</td></tr>
-    <tr><td>增益</td><td>2-28dBi</td><td>17-25dBi</td></tr>
-    <tr><td>天线形式</td><td>PCB/AiP/玻璃</td><td>平板/八木</td></tr>
-    <tr><td>MIMO</td><td>2T2R-64T64R</td><td>64T64R-256T256R</td></tr>
-    <tr><td>安装</td><td>路灯杆/墙面/天花板</td><td>铁塔/抱杆</td></tr>
-    <tr><td>成本</td><td>$10-100/台</td><td>$1000-5000/台</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>微站天线</th>
+<th>宏站天线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功率</td>
+<td>0.1-5W</td>
+<td>100-500W</td>
+</tr>
+<tr>
+<td>覆盖</td>
+<td>10-500m</td>
+<td>100m-5km</td>
+</tr>
+<tr>
+<td>增益</td>
+<td>2-28dBi</td>
+<td>17-25dBi</td>
+</tr>
+<tr>
+<td>天线形式</td>
+<td>PCB/AiP/玻璃</td>
+<td>平板/八木</td>
+</tr>
+<tr>
+<td>MIMO</td>
+<td>2T2R-64T64R</td>
+<td>64T64R-256T256R</td>
+</tr>
+<tr>
+<td>安装</td>
+<td>路灯杆/墙面/天花板</td>
+<td>铁塔/抱杆</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>$10-100/台</td>
+<td>$1000-5000/台</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、Wi-Fi 6/7 天线</h2>
-    <h3>4.1 Wi-Fi 天线特点</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 Wi-Fi 天线特点</h2>
     <pre><code>Wi-Fi 6（802.11ax）：
-      频段：2.4GHz + 5GHz + 6GHz
-      MIMO：4x4/8x8
-      天线：PCB 贴片/陶瓷
-      
-    Wi-Fi 7（802.11be）：
-      频段：2.4GHz + 5GHz + 6GHz
-      MIMO：16x16
-      天线：AiP（6GHz）
-      波束赋形：MU-MIMO</code></pre>
-    <h3>4.2 路由器天线</h3>
-    <pre><code>家用路由器：
-      4-8 根 PCB 天线
-      增益：3-5dBi/天线
-      总增益：10-15dBi（4T4R）
-      
-    企业级 AP：
-      8-16 根天线
-      支持 4x4 MU-MIMO
-      内置波束赋形</code></pre>
-  </article>
+  频段：2.4GHz + 5GHz + 6GHz
+  MIMO：4x4/8x8
+  天线：PCB 贴片/陶瓷
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>微站天线是"小而美"的代表——功率小、覆盖小，但通过密集部署实现高容量。Sub-6GHz 用 PCB 天线（便宜），毫米波用 AiP 天线（高性能）。记住：微站不是"缩小版的宏站"，而是"不同设计理念"——宏站追求覆盖，微站追求容量和密度。</p>
+Wi-Fi 7（802.11be）：
+  频段：2.4GHz + 5GHz + 6GHz
+  MIMO：16x16
+  天线：AiP（6GHz）
+  波束赋形：MU-MIMO
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 路由器天线</h2>
+    <pre><code>家用路由器：
+  4-8 根 PCB 天线
+  增益：3-5dBi/天线
+  总增益：10-15dBi（4T4R）
+
+企业级 AP：
+  8-16 根天线
+  支持 4x4 MU-MIMO
+  内置波束赋形
+</code></pre>
+  </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -236,39 +327,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

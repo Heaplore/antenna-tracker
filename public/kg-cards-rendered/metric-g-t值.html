@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>G/T 值（Figure of Merit） · 知识卡片</title>
+<title>G-T值 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">G/T 值 <span class="en">Figure of Merit</span></h1>
-  <p class="lede">G/T 值是接收系统的"综合性能指标"——它把天线增益 G 和系统噪声温度 T 压缩成一个数字，数字越高表示接收能力越强。它是卫星通信和雷达接收机性能的核心评判标准。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">G-T值</h1>
+  <p class="lede">G/T 值是接收系统的&#34;综合性能指标&#34;——它把天线增益 G 和系统噪声温度 T 压缩成一个数字，数字越高表示接收能力越强。它是卫星通信和雷达接收机性能的核心评判标准。</p>
+  
 </header>
 
 <main>
@@ -99,181 +101,457 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>G/T 就像汽车的"燃油经济性"——不是看发动机多大（G），也不是看油耗多低（T），而是把两者结合起来看"每升油能跑多远"。G 越高（天线越大越聚光），T 越低（噪声越小越安静），G/T 就越高，接收弱信号的能力就越强。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 G/T 值的定义</h3>
-    <pre><code>G/T = G_r / T_sys</code></pre>
-    <p>其中：</p>
-    <ul><li>G_r = 接收天线增益 [dBi 或线性]</li><li>T_sys = 接收系统总噪声温度 [K]</li></ul>
-    <h3>1.2 G/T 的 dB 表示</h3>
-    <pre><code>G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)</code></pre>
-    <p><b>注意</b>：G/T 的单位是 dB/K（分贝每开尔文），不是 dB。</p>
-    <h3>1.3 为什么 G/T 很重要？</h3>
-    <p>在卫星通信链路预算中：</p>
-    <pre><code>C/N₀ = EIRP + G/T - L_fs - L_other + 10·log₁₀(k)</code></pre>
-    <p>其中：</p>
-    <ul><li>C/N₀ = 载噪谱密度比 [dB-Hz]</li><li>EIRP = 发射端等效全向辐射功率</li><li>L_fs = 自由空间路径损耗</li><li>k = 玻尔兹曼常数</li></ul>
-    <p><b>核心洞察</b>：G/T 是唯一由<b>接收端</b>决定的链路参数。发射端靠 EIRP，接收端靠 G/T。要提高链路质量，要么加大发射功率/天线（EIRP↑），要么加大接收天线/降低噪声（G/T↑）。</p>
-  </article>
-
-  <article class="card">
-    <h2>二、G/T 的计算</h2>
-    <h3>2.1 系统噪声温度 T_sys</h3>
-    <pre><code>T_sys = T_ant + T_feeder + T_LNA/G_feeder + T_other/(G_feeder·G_LNA)</code></pre>
-    <h3>2.2 天线增益 G_r</h3>
-    <pre><code>G_r = η_a · (4π·A_e / λ²)</code></pre>
-    <p>其中 η_a 是天线效率。</p>
-    <h3>2.3 G/T 综合计算</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 G/T 值的定义</h2>
     <pre><code>G/T = G_r / T_sys
-    G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)</code></pre>
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>G_r = 接收天线增益 [dBi 或线性]</li>
+<li>T_sys = 接收系统总噪声温度 [K]</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型 G/T 值</h2>
-    <h3>3.1 不同接收系统</h3>
-    <div class="tw"><table>
-    <thead><tr><th>系统</th><th>G_r (dBi)</th><th>T_sys (K)</th><th>G/T (dB/K)</th></tr></thead>
-    <tbody>
-    <tr><td>手机（28GHz）</td><td>15</td><td>1000</td><td>15 - 30 = -15</td></tr>
-    <tr><td>5G 基站 AAU</td><td>28</td><td>500</td><td>28 - 27 = +1</td></tr>
-    <tr><td>VSAT 地面站（1.2m）</td><td>38</td><td>150</td><td>38 - 21.8 = +16.2</td></tr>
-    <tr><td>卫星通信（3.7m）</td><td>45</td><td>80</td><td>45 - 19 = +26</td></tr>
-    <tr><td>深空站（70m）</td><td>65</td><td>20</td><td>65 - 13 = +52</td></tr>
-    <tr><td>GPS 接收机</td><td>30</td><td>50</td><td>30 - 17 = +13</td></tr>
-    <tr><td>射电天文（Arecibo）</td><td>70</td><td>20</td><td>70 - 13 = +57</td></tr>
-    </tbody></table></div>
-    <h3>3.2 不同频段</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>典型 G/T 范围</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>L 波段（1-2GHz）</td><td>+15 到 +40 dB/K</td><td>卫星导航</td></tr>
-    <tr><td>C 波段（4-8GHz）</td><td>+10 到 +35 dB/K</td><td>卫星通信</td></tr>
-    <tr><td>Ku 波段（12-18GHz）</td><td>+5 到 +30 dB/K</td><td>卫星通信</td></tr>
-    <tr><td>Ka 波段（26-40GHz）</td><td>0 到 +25 dB/K</td><td>高通量卫星</td></tr>
-    <tr><td>5G 毫米波（28GHz）</td><td>-15 到 +5 dB/K</td><td>基站/手机</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>1.2 G/T 的 dB 表示</h2>
+    <pre><code>G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)
+</code></pre>
+<p><strong>注意</strong>：G/T 的单位是 dB/K（分贝每开尔文），不是 dB。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、G/T 优化</h2>
-    <h3>4.1 提高 G_r</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>增大天线直径</td><td>G ∝ D²</td><td>体积/重量/成本↑</td></tr>
-    <tr><td>提高口径效率</td><td>η: 50%→70%</td><td>加工精度↑</td></tr>
-    <tr><td>降低工作频率</td><td>λ↑ → G↑</td><td>天线尺寸↑</td></tr>
-    </tbody></table></div>
-    <p><b>抛物面天线增益公式</b>：</p>
-    <pre><code>G = η·(πD/λ)²
-    G(dBi) = 20·log₁₀(D/λ) + 10·log₁₀(η) + 9.5</code></pre>
-    <h3>4.2 降低 T_sys</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>使用低温 LNA</td><td>T_LNA: 100K→20K</td><td>冷却成本↑</td></tr>
-    <tr><td>缩短馈线</td><td>L_feeder↓</td><td>安装限制</td></tr>
-    <tr><td>低损耗馈线</td><td>波导替代同轴</td><td>成本/重量↑</td></tr>
-    <tr><td>优化天线指向</td><td>T_ant↓（避开地面）</td><td>跟踪系统</td></tr>
-    </tbody></table></div>
-    <h3>4.3 G/T 权衡</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 为什么 G/T 很重要？</h2>
+    <p>在卫星通信链路预算中：</p>
+<pre><code>C/N₀ = EIRP + G/T - L_fs - L_other + 10·log₁₀(k)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>C/N₀ = 载噪谱密度比 [dB-Hz]</li>
+<li>EIRP = 发射端等效全向辐射功率</li>
+<li>L_fs = 自由空间路径损耗</li>
+<li>k = 玻尔兹曼常数</li>
+</ul>
+<p><strong>核心洞察</strong>：G/T 是唯一由<strong>接收端</strong>决定的链路参数。发射端靠 EIRP，接收端靠 G/T。要提高链路质量，要么加大发射功率/天线（EIRP↑），要么加大接收天线/降低噪声（G/T↑）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 系统噪声温度 T_sys</h2>
+    <pre><code>T_sys = T_ant + T_feeder + T_LNA/G_feeder + T_other/(G_feeder·G_LNA)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 天线增益 G_r</h2>
+    <pre><code>G_r = η_a · (4π·A_e / λ²)
+</code></pre>
+<p>其中 η_a 是天线效率。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 G/T 综合计算</h2>
+    <pre><code>G/T = G_r / T_sys
+G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 不同接收系统</h2>
+    <table>
+<thead>
+<tr>
+<th>系统</th>
+<th>G_r (dBi)</th>
+<th>T_sys (K)</th>
+<th>G/T (dB/K)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机（28GHz）</td>
+<td>15</td>
+<td>1000</td>
+<td>15 - 30 = -15</td>
+</tr>
+<tr>
+<td>5G 基站 AAU</td>
+<td>28</td>
+<td>500</td>
+<td>28 - 27 = +1</td>
+</tr>
+<tr>
+<td>VSAT 地面站（1.2m）</td>
+<td>38</td>
+<td>150</td>
+<td>38 - 21.8 = +16.2</td>
+</tr>
+<tr>
+<td>卫星通信（3.7m）</td>
+<td>45</td>
+<td>80</td>
+<td>45 - 19 = +26</td>
+</tr>
+<tr>
+<td>深空站（70m）</td>
+<td>65</td>
+<td>20</td>
+<td>65 - 13 = +52</td>
+</tr>
+<tr>
+<td>GPS 接收机</td>
+<td>30</td>
+<td>50</td>
+<td>30 - 17 = +13</td>
+</tr>
+<tr>
+<td>射电天文（Arecibo）</td>
+<td>70</td>
+<td>20</td>
+<td>70 - 13 = +57</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 不同频段</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>典型 G/T 范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L 波段（1-2GHz）</td>
+<td>+15 到 +40 dB/K</td>
+<td>卫星导航</td>
+</tr>
+<tr>
+<td>C 波段（4-8GHz）</td>
+<td>+10 到 +35 dB/K</td>
+<td>卫星通信</td>
+</tr>
+<tr>
+<td>Ku 波段（12-18GHz）</td>
+<td>+5 到 +30 dB/K</td>
+<td>卫星通信</td>
+</tr>
+<tr>
+<td>Ka 波段（26-40GHz）</td>
+<td>0 到 +25 dB/K</td>
+<td>高通量卫星</td>
+</tr>
+<tr>
+<td>5G 毫米波（28GHz）</td>
+<td>-15 到 +5 dB/K</td>
+<td>基站/手机</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 提高 G_r</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增大天线直径</td>
+<td>G ∝ D²</td>
+<td>体积/重量/成本↑</td>
+</tr>
+<tr>
+<td>提高口径效率</td>
+<td>η: 50%→70%</td>
+<td>加工精度↑</td>
+</tr>
+<tr>
+<td>降低工作频率</td>
+<td>λ↑ → G↑</td>
+<td>天线尺寸↑</td>
+</tr>
+</tbody>
+</table>
+<p><strong>抛物面天线增益公式</strong>：</p>
+<pre><code>G = η·(πD/λ)²
+G(dBi) = 20·log₁₀(D/λ) + 10·log₁₀(η) + 9.5
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 降低 T_sys</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用低温 LNA</td>
+<td>T_LNA: 100K→20K</td>
+<td>冷却成本↑</td>
+</tr>
+<tr>
+<td>缩短馈线</td>
+<td>L_feeder↓</td>
+<td>安装限制</td>
+</tr>
+<tr>
+<td>低损耗馈线</td>
+<td>波导替代同轴</td>
+<td>成本/重量↑</td>
+</tr>
+<tr>
+<td>优化天线指向</td>
+<td>T_ant↓（避开地面）</td>
+<td>跟踪系统</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 G/T 权衡</h2>
     <pre><code>增大天线直径 D：
-    - G ∝ D² → G(dBi) ∝ 40·log₁₀(D)
-    - 但成本 ∝ D²，重量 ∝ D²
-    
-    所以 G/T 的增长是&quot;对数级&quot;的，而成本是&quot;平方级&quot;的。</code></pre>
-    <p><b>边际效益递减</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线直径</th><th>G (dBi)</th><th>T_sys (K)</th><th>G/T (dB/K)</th></tr></thead>
-    <tbody>
-    <tr><td>1m</td><td>33</td><td>100</td><td>+13</td></tr>
-    <tr><td>2m</td><td>39</td><td>100</td><td>+19</td></tr>
-    <tr><td>4m</td><td>45</td><td>100</td><td>+25</td></tr>
-    <tr><td>8m</td><td>51</td><td>100</td><td>+31</td></tr>
-    <tr><td>16m</td><td>57</td><td>100</td><td>+37</td></tr>
-    </tbody></table></div>
-    <p>直径翻 16 倍，G/T 只提高了 24dB（翻倍再翻倍）。</p>
-  </article>
 
-  <article class="card">
-    <h2>五、G/T 与链路性能</h2>
-    <h3>5.1 链路方程中的 G/T</h3>
-    <pre><code>C/N₀ = EIRP + G/T - L_psl - L_atm - 10·log₁₀(k)</code></pre>
-    <p><b>最小 G/T 要求</b>：</p>
-    <pre><code>G/T_min = C/N₀_required - EIRP + L_psl + L_atm + 10·log₁₀(k)</code></pre>
-    <h3>5.2 不同调制方式的 C/N₀ 要求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>调制方式</th><th>数据速率</th><th>C/N₀ (dB-Hz)</th><th>典型 G/T 要求</th></tr></thead>
-    <tbody>
-    <tr><td>BPSK</td><td>1kbps</td><td>-150</td><td>+5 dB/K</td></tr>
-    <tr><td>QPSK</td><td>1Mbps</td><td>-130</td><td>+10 dB/K</td></tr>
-    <tr><td>8PSK</td><td>10Mbps</td><td>-120</td><td>+15 dB/K</td></tr>
-    <tr><td>16QAM</td><td>20Mbps</td><td>-110</td><td>+20 dB/K</td></tr>
-    <tr><td>64QAM</td><td>50Mbps</td><td>-100</td><td>+25 dB/K</td></tr>
-    <tr><td>256QAM</td><td>100Mbps</td><td>-90</td><td>+30 dB/K</td></tr>
-    </tbody></table></div>
-    <h3>5.3 雨衰对 G/T 的影响</h3>
+- G ∝ D² → G(dBi) ∝ 40·log₁₀(D)
+- 但成本 ∝ D²，重量 ∝ D²
+
+所以 G/T 的增长是&quot;对数级&quot;的，而成本是&quot;平方级&quot;的。
+</code></pre>
+<p><strong>边际效益递减</strong>：
+| 天线直径 | G (dBi) | T_sys (K) | G/T (dB/K) |
+|---------|---------|----------|-----------|
+| 1m | 33 | 100 | +13 |
+| 2m | 39 | 100 | +19 |
+| 4m | 45 | 100 | +25 |
+| 8m | 51 | 100 | +31 |
+| 16m | 57 | 100 | +37 |</p>
+<p>直径翻 16 倍，G/T 只提高了 24dB（翻倍再翻倍）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 链路方程中的 G/T</h2>
+    <pre><code>C/N₀ = EIRP + G/T - L_psl - L_atm - 10·log₁₀(k)
+</code></pre>
+<p><strong>最小 G/T 要求</strong>：</p>
+<pre><code>G/T_min = C/N₀_required - EIRP + L_psl + L_atm + 10·log₁₀(k)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 不同调制方式的 C/N₀ 要求</h2>
+    <table>
+<thead>
+<tr>
+<th>调制方式</th>
+<th>数据速率</th>
+<th>C/N₀ (dB-Hz)</th>
+<th>典型 G/T 要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BPSK</td>
+<td>1kbps</td>
+<td>-150</td>
+<td>+5 dB/K</td>
+</tr>
+<tr>
+<td>QPSK</td>
+<td>1Mbps</td>
+<td>-130</td>
+<td>+10 dB/K</td>
+</tr>
+<tr>
+<td>8PSK</td>
+<td>10Mbps</td>
+<td>-120</td>
+<td>+15 dB/K</td>
+</tr>
+<tr>
+<td>16QAM</td>
+<td>20Mbps</td>
+<td>-110</td>
+<td>+20 dB/K</td>
+</tr>
+<tr>
+<td>64QAM</td>
+<td>50Mbps</td>
+<td>-100</td>
+<td>+25 dB/K</td>
+</tr>
+<tr>
+<td>256QAM</td>
+<td>100Mbps</td>
+<td>-90</td>
+<td>+30 dB/K</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 雨衰对 G/T 的影响</h2>
     <p>雨衰不仅降低 EIRP，还增加 T_ant：</p>
-    <pre><code>T_ant_rain = T_phys · (1 - e^(-τ_rain))
-    T_sys_rain = T_ant_rain + T_other
+<pre><code>T_ant_rain = T_phys · (1 - e^(-τ_rain))
+T_sys_rain = T_ant_rain + T_other
+
+G/T_rain = G_r / T_sys_rain &lt; G_r / T_sys_clear
+</code></pre>
+<p><strong>Ku 波段雨衰</strong>：
+| 降雨率 | L_rain | ΔT_ant | Δ(G/T) |
+|--------|--------|--------|--------|
+| 0mm/h | 0dB | 0K | 0dB |
+| 10mm/h | 0.5dB | +5K | -0.2dB |
+| 30mm/h | 2dB | +20K | -0.8dB |
+| 75mm/h | 5dB | +50K | -2dB |</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    G/T_rain = G_r / T_sys_rain &lt; G_r / T_sys_clear</code></pre>
-    <p><b>Ku 波段雨衰</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>降雨率</th><th>L_rain</th><th>ΔT_ant</th><th>Δ(G/T)</th></tr></thead>
-    <tbody>
-    <tr><td>0mm/h</td><td>0dB</td><td>0K</td><td>0dB</td></tr>
-    <tr><td>10mm/h</td><td>0.5dB</td><td>+5K</td><td>-0.2dB</td></tr>
-    <tr><td>30mm/h</td><td>2dB</td><td>+20K</td><td>-0.8dB</td></tr>
-    <tr><td>75mm/h</td><td>5dB</td><td>+50K</td><td>-2dB</td></tr>
-    </tbody></table></div>
-  </article>
+    <h2>6.1 两天线法（标准方法）</h2>
+    <pre><code>步骤：
 
-  <article class="card">
-    <h2>六、测量方法</h2>
-    <h3>6.1 两天线法（标准方法）</h3>
-    <pre><code>步骤：
-    1. 用已知 EIRP 的卫星信号
-    2. 测量接收功率 P_1
-    3. 换一个已知 EIRP 的不同卫星
-    4. 测量接收功率 P_2
-    5. 联立方程求解 G/T</code></pre>
-    <h3>6.2 Y 因子法（LNA 部分）</h3>
-    <pre><code>步骤：
-    1. 用冷热负载测量 LNA 的噪声温度 T_LNA
-    2. 测量天线增益 G_r
-    3. G/T = G_r / T_LNA（忽略其他噪声源）</code></pre>
-    <h3>6.3 噪声源注入法</h3>
-    <pre><code>步骤：
-    1. 在天线输入端注入已知 ENR 噪声源
-    2. 测量接收功率变化
-    3. 计算系统噪声温度 T_sys
-    4. 独立测量 G_r
-    5. G/T = G_r / T_sys</code></pre>
+1. 用已知 EIRP 的卫星信号
+2. 测量接收功率 P_1
+3. 换一个已知 EIRP 的不同卫星
+4. 测量接收功率 P_2
+5. 联立方程求解 G/T
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>6.2 Y 因子法（LNA 部分）</h2>
+    <pre><code>步骤：
+
+1. 用冷热负载测量 LNA 的噪声温度 T_LNA
+2. 测量天线增益 G_r
+3. G/T = G_r / T_LNA（忽略其他噪声源）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 噪声源注入法</h2>
+    <pre><code>步骤：
+
+1. 在天线输入端注入已知 ENR 噪声源
+2. 测量接收功率变化
+3. 计算系统噪声温度 T_sys
+4. 独立测量 G_r
+5. G/T = G_r / T_sys
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>EIRP</td><td>C/N₀ = EIRP + G/T - L</td><td>链路两端的核心参数</td></tr>
-    <tr><td>噪声温度 T_sys</td><td>G/T = G_r/T_sys</td><td>直接定义</td></tr>
-    <tr><td>天线增益 G_r</td><td>G/T = G_r/T_sys</td><td>直接定义</td></tr>
-    <tr><td>信噪比 SNR</td><td>SNR = C/N₀ - 10·log₁₀(B)</td><td>G/T 决定 C/N₀</td></tr>
-    <tr><td>接收灵敏度</td><td>Sensitivity ∝ G/T</td><td>G/T 越高，灵敏度越好</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>关联指标</th>
+<th>关系类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EIRP</td>
+<td>C/N₀ = EIRP + G/T - L</td>
+<td>链路两端的核心参数</td>
+</tr>
+<tr>
+<td>噪声温度 T_sys</td>
+<td>G/T = G_r/T_sys</td>
+<td>直接定义</td>
+</tr>
+<tr>
+<td>天线增益 G_r</td>
+<td>G/T = G_r/T_sys</td>
+<td>直接定义</td>
+</tr>
+<tr>
+<td>信噪比 SNR</td>
+<td>SNR = C/N₀ - 10·log₁₀(B)</td>
+<td>G/T 决定 C/N₀</td>
+</tr>
+<tr>
+<td>接收灵敏度</td>
+<td>Sensitivity ∝ G/T</td>
+<td>G/T 越高，灵敏度越好</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>G/T 是接收系统的"综合战斗力指数"——天线增益越高、系统噪声越低，G/T 就越高，能接收的信号就越弱。它是卫星通信链路预算中接收端的唯一代表，单位 dB/K。记住公式：G/T(dB/K) = G_r(dBi) - 10·log₁₀(T_sys[K])。深空站的 G/T 能达到 +50dB/K 以上，而手机 5G 接收的 G/T 只有 -15dB/K——差了 65dB，也就是 300 万倍。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -293,39 +571,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线效率（Antenna Efficiency） · 知识卡片</title>
+<title>天线效率Antenna-Efficiency · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线效率 <span class="en">Antenna Efficiency</span></h1>
-  <p class="lede"><b>天线效率是"有多少电能变成了无线电波"。辐射效率看材料损耗（导体发热/介质吸能），总效率还要算上反射损耗（VSWR）。5G 毫米波贴片天线辐射效率 70-85%，手机天线因为太小只有 30-50%——不是不想做好，是物理定律不允许又小又高效。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线效率Antenna-Efficiency</h1>
+  
+  
 </header>
 
 <main>
@@ -99,203 +101,339 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、三种效率的定义</h2>
-    <h3>1. 辐射效率（Radiation Efficiency, η_rad）</h3>
-    <p><b>定义</b>：实际辐射功率与输入到天线的净功率之比。</p>
-    <pre><code>η_rad = P_radiated / P_input = R_rad / (R_rad + R_loss)</code></pre>
-    <p>其中：</p>
-    <ul><li>R_rad = 辐射电阻（把能量变成电磁波的那部分"电阻"）</li><li>R_loss = 损耗电阻（导体损耗 + 介质损耗 + 其他损耗）</li></ul>
-    <p><b>物理意义</b>：辐射效率只关心"进入天线的功率有多少变成了电磁波"，不考虑反射。</p>
-    <h3>2. 匹配效率（Mismatch Efficiency, η_m）</h3>
-    <p><b>定义</b>：实际进入天线的功率与源端输出功率之比。</p>
-    <pre><code>η_m = 1 - |Γ|² = 1 - ((VSWR-1)/(VSWR+1))²</code></pre>
-    <p><b>与 VSWR 的关系</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>VSWR</th><th>匹配效率</th><th>反射功率%</th></tr></thead>
-    <tbody>
-    <tr><td>1.2</td><td>99.1%</td><td>0.9%</td></tr>
-    <tr><td>1.5</td><td>96.0%</td><td>4.0%</td></tr>
-    <tr><td>2.0</td><td>88.9%</td><td>11.1%</td></tr>
-    <tr><td>3.0</td><td>75.0%</td><td>25.0%</td></tr>
-    </tbody></table></div>
-    <h3>3. 总效率（Total Efficiency, η_total）</h3>
-    <p><b>定义</b>：辐射效率 × 匹配效率。</p>
-    <pre><code>η_total = η_rad × η_m = η_rad × (1 - |Γ|²)</code></pre>
-    <p><b>华为白皮书定义</b>：</p>
-    <pre><code>RF效率(dB) = G(dBi) - D(dB)
-               = -a_antenna
-    η_total = P_radiated / P_available</code></pre>
-    <p><b>关键区别</b>：</p>
-    <ul><li>辐射效率：材料决定的固有属性（铜有多纯、基板有多好）</li><li>匹配效率：设计决定的可变属性（调得好就高，调得差就低）</li><li>总效率：两者乘积，决定最终性能</li></ul>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、损耗来源详解</h2>
-    <h3>2.1 导体损耗（Ohmic/Conductor Loss）</h3>
-    <p><b>原理</b>：金属导体有电阻，电流流过时发热。</p>
-    <p><b>高频下的"皮肤效应"（Skin Effect）</b>：</p>
-    <pre><code>δ = √(2ρ / ωμ)</code></pre>
-    <p>其中 δ 是趋肤深度，ρ 是电阻率，ω 是角频率，μ 是磁导率。</p>
-    <p><b>典型趋肤深度</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频率</th><th>铜的趋肤深度</th></tr></thead>
-    <tbody>
-    <tr><td>1 MHz</td><td>66μm</td></tr>
-    <tr><td>100 MHz</td><td>6.6μm</td></tr>
-    <tr><td>1 GHz</td><td>2.1μm</td></tr>
-    <tr><td>10 GHz</td><td>0.66μm</td></tr>
-    <tr><td>28 GHz (5G mmWave)</td><td>0.39μm</td></tr>
-    <tr><td>350 GHz (6G)</td><td>0.11μm</td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：频率越高，趋肤深度越浅，电流只在表面极薄一层流动 → 导体损耗急剧增加。这就是毫米波天线效率远低于低频的原因。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>加厚镀层（银镀层 > 金镀层 > 铜镀层）</li><li>使用高导电率材料（OFHC 无氧铜）</li><li>降低表面粗糙度（抛光）</li></ul>
-    <h3>2.2 介质损耗（Dielectric Loss）</h3>
-    <p><b>原理</b>：绝缘材料在交变电场中极化滞后，能量转化为热。</p>
-    <p><b>介质损耗角正切（tan δ）</b>：</p>
-    <pre><code>P_dielectric ∝ f² × ε_r × tanδ × V_field</code></pre>
-    <p><b>常见基板材料的 tan δ</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>tan δ @ 10GHz</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>FR-4</td><td>0.02-0.03</td><td>低频（< 2GHz），便宜</td></tr>
-    <tr><td>Rogers RO4350B</td><td>0.0037</td><td>中高频（2-10GHz）</td></tr>
-    <tr><td>Rogers RO3003</td><td>0.0013</td><td>高频（10-30GHz）</td></tr>
-    <tr><td>PTFE (Teflon)</td><td>0.0002</td><td>超高频（>30GHz）</td></tr>
-    <tr><td>硅 (Si)</td><td>0.008-0.012</td><td>芯片天线</td></tr>
-    <tr><td>玻璃</td><td>0.005-0.015</td><td>透明天线盖板</td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：5G 毫米波如果用 FR-4 基板，介质损耗会让效率降到 50% 以下——必须用 Rogers 或 PTFE。</p>
-    <h3>2.3 表面波损耗（Surface Wave Loss）</h3>
-    <p><b>原理</b>：微带天线的一部分能量沿基板-空气界面传播，不辐射出去。</p>
-    <pre><code>P_surface_wave ∝ (ε_r - 1) / ε_r × (h/λ)²</code></pre>
-    <p>其中 h 是基板厚度。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>降低介电常数 ε_r</li><li>减小基板厚度 h</li><li>使用电磁带隙（EBG）结构抑制表面波</li><li>使用空气基板（air-gap）</li></ul>
-    <h3>2.4 辐射效率的其他损耗</h3>
-    <ul><li><b>沟道损耗</b>：馈电网络（功分器、移相器）的插入损耗</li><li><b>热辐射损耗</b>：天线自身发热辐射的红外线（可忽略）</li><li><b>散射损耗</b>：表面粗糙度导致的方向性散射</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.1 导体损耗（Ohmic/Conductor Loss）</h2>
+    <p><strong>原理</strong>：金属导体有电阻，电流流过时发热。</p>
+<p><strong>高频下的"皮肤效应"（Skin Effect）</strong>：</p>
+<pre><code>δ = √(2ρ / ωμ)
+</code></pre>
+<p>其中 δ 是趋肤深度，ρ 是电阻率，ω 是角频率，μ 是磁导率。</p>
+<p><strong>典型趋肤深度</strong>：
+| 频率 | 铜的趋肤深度 |
+|------|------------|
+| 1 MHz | 66μm |
+| 100 MHz | 6.6μm |
+| 1 GHz | 2.1μm |
+| 10 GHz | 0.66μm |
+| 28 GHz (5G mmWave) | 0.39μm |
+| 350 GHz (6G) | 0.11μm |</p>
+<p><strong>关键洞察</strong>：频率越高，趋肤深度越浅，电流只在表面极薄一层流动 → 导体损耗急剧增加。这就是毫米波天线效率远低于低频的原因。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>加厚镀层（银镀层 &gt; 金镀层 &gt; 铜镀层）</li>
+<li>使用高导电率材料（OFHC 无氧铜）</li>
+<li>降低表面粗糙度（抛光）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、效率与增益的关系</h2>
-    <h3>增益 = 方向性 × 效率</h3>
+  
+  <article class="card ">
+    
+    <h2>2.2 介质损耗（Dielectric Loss）</h2>
+    <p><strong>原理</strong>：绝缘材料在交变电场中极化滞后，能量转化为热。</p>
+<p><strong>介质损耗角正切（tan δ）</strong>：</p>
+<pre><code>P_dielectric ∝ f² × ε_r × tanδ × V_field
+</code></pre>
+<p><strong>常见基板材料的 tan δ</strong>：
+| 材料 | tan δ @ 10GHz | 适用场景 |
+|------|--------------|---------|
+| FR-4 | 0.02-0.03 | 低频（&lt; 2GHz），便宜 |
+| Rogers RO4350B | 0.0037 | 中高频（2-10GHz） |
+| Rogers RO3003 | 0.0013 | 高频（10-30GHz） |
+| PTFE (Teflon) | 0.0002 | 超高频（&gt;30GHz） |
+| 硅 (Si) | 0.008-0.012 | 芯片天线 |
+| 玻璃 | 0.005-0.015 | 透明天线盖板 |</p>
+<p><strong>关键洞察</strong>：5G 毫米波如果用 FR-4 基板，介质损耗会让效率降到 50% 以下——必须用 Rogers 或 PTFE。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 表面波损耗（Surface Wave Loss）</h2>
+    <p><strong>原理</strong>：微带天线的一部分能量沿基板-空气界面传播，不辐射出去。</p>
+<pre><code>P_surface_wave ∝ (ε_r - 1) / ε_r × (h/λ)²
+</code></pre>
+<p>其中 h 是基板厚度。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>降低介电常数 ε_r</li>
+<li>减小基板厚度 h</li>
+<li>使用电磁带隙（EBG）结构抑制表面波</li>
+<li>使用空气基板（air-gap）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 辐射效率的其他损耗</h2>
+    <ul>
+<li><strong>沟道损耗</strong>：馈电网络（功分器、移相器）的插入损耗</li>
+<li><strong>热辐射损耗</strong>：天线自身发热辐射的红外线（可忽略）</li>
+<li><strong>散射损耗</strong>：表面粗糙度导致的方向性散射</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>增益 = 方向性 × 效率</h2>
     <pre><code>G = η_total × D
-    G_dBi = D_dBi + 10×log₁₀(η_total)</code></pre>
-    <p><b>关键洞察</b>：增益已经包含了效率因素。如果两个天线方向性相同，效率高的那个增益更高。</p>
-    <h3>效率与方向性的权衡</h3>
+G_dBi = D_dBi + 10×log₁₀(η_total)
+</code></pre>
+<p><strong>关键洞察</strong>：增益已经包含了效率因素。如果两个天线方向性相同，效率高的那个增益更高。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>效率与方向性的权衡</h2>
     <pre><code>D ∝ A_e / λ² = (η_aperture × A_physical) / λ²
-    G = η_total × D</code></pre>
-    <p><b>天线设计中的"效率-方向性"权衡</b>：</p>
-    <ul><li>增加尺寸 → 方向性提高 → 但效率可能下降（更多导体/介质损耗）</li><li>减小尺寸 → 效率下降（Chu-Harrington 极限）→ 但方向性也可能下降</li></ul>
-    <p><b>典型案例</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线</th><th>尺寸</th><th>方向性</th><th>辐射效率</th><th>总效率</th><th>增益</th></tr></thead>
-    <tbody>
-    <tr><td>半波偶极子</td><td>λ/2</td><td>2.15dBi</td><td>95%</td><td>90%</td><td>2.0dBi</td></tr>
-    <tr><td>微带贴片 (10GHz)</td><td>λ/2×λ/2</td><td>8dBi</td><td>85%</td><td>80%</td><td>7.7dBi</td></tr>
-    <tr><td>手机天线 (800MHz)</td><td>λ/10</td><td>0dBi</td><td>40%</td><td>35%</td><td>-4.6dBi</td></tr>
-    <tr><td>64T AAU (3.5GHz)</td><td>0.5m×0.2m</td><td>25dBi</td><td>85%</td><td>80%</td><td>24dBi</td></tr>
-    <tr><td>毫米波贴片阵列 (28GHz)</td><td>5cm×5cm</td><td>20dBi</td><td>70%</td><td>65%</td><td>18.6dBi</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+G = η_total × D
+</code></pre>
+<p><strong>天线设计中的"效率-方向性"权衡</strong>：</p>
+<ul>
+<li>增加尺寸 → 方向性提高 → 但效率可能下降（更多导体/介质损耗）</li>
+<li>减小尺寸 → 效率下降（Chu-Harrington 极限）→ 但方向性也可能下降</li>
+</ul>
+<p><strong>典型案例</strong>：
+| 天线 | 尺寸 | 方向性 | 辐射效率 | 总效率 | 增益 |
+|------|------|-------|---------|-------|------|
+| 半波偶极子 | λ/2 | 2.15dBi | 95% | 90% | 2.0dBi |
+| 微带贴片 (10GHz) | λ/2×λ/2 | 8dBi | 85% | 80% | 7.7dBi |
+| 手机天线 (800MHz) | λ/10 | 0dBi | 40% | 35% | -4.6dBi |
+| 64T AAU (3.5GHz) | 0.5m×0.2m | 25dBi | 85% | 80% | 24dBi |
+| 毫米波贴片阵列 (28GHz) | 5cm×5cm | 20dBi | 70% | 65% | 18.6dBi |</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>四、5G 毫米波天线的效率挑战</h2>
-    <h3>为什么毫米波效率低？</h3>
-    <ol><li><b>趋肤效应加剧</b>：28GHz 趋肤深度仅 0.39μm，电流集中在极表层</li><li><b>介质损耗增大</b>：tan δ 引起的损耗与 f² 成正比</li><li><b>加工精度要求高</b>：0.39μm 的趋肤深度意味着表面粗糙度必须 << 0.39μm</li><li><b>焊点/连接器损耗</b>：每个 solder joint 在毫米波频段都是损耗点</li></ol>
-    <h3>效率数据</h3>
-    <div class="tw"><table>
-    <thead><tr><th>组件</th><th>典型效率 @28GHz</th></tr></thead>
-    <tbody>
-    <tr><td>铜导体（抛光）</td><td>95%</td></tr>
-    <tr><td>铜导体（粗糙）</td><td>70%</td></tr>
-    <tr><td>Rogers 基板</td><td>90%</td></tr>
-    <tr><td>FR-4 基板</td><td>50%</td></tr>
-    <tr><td>单个焊点</td><td>98%</td></tr>
-    <tr><td>连接器</td><td>95%</td></tr>
-    <tr><td>馈电网络（64路）</td><td>70%</td></tr>
-    <tr><td>完整天线阵列</td><td>65-80%</td></tr>
-    </tbody></table></div>
-    <p><b>华为 2025 白皮书数据</b>：</p>
-    <ul><li>Sub-6GHz AAU 辐射效率：85-92%</li><li>毫米波 AAU 辐射效率：70-85%</li><li>手机天线辐射效率：30-50%（受限于尺寸）</li></ul>
-    <h3>解决方案</h3>
-    <ul><li><b>银镀层</b>：替代铜，导电率更高</li><li><b>LDS（激光直接成型）</b>：在塑料上直接形成天线结构，减少连接器损耗</li><li><b>封装内天线（AiP）</b>：将天线集成到芯片封装内，缩短馈电距离</li><li><b>透明天线</b>：使用 ITO（氧化铟锡）或金属网格，效率 60-70%</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>为什么毫米波效率低？</h2>
+    <ol>
+<li><strong>趋肤效应加剧</strong>：28GHz 趋肤深度仅 0.39μm，电流集中在极表层</li>
+<li><strong>介质损耗增大</strong>：tan δ 引起的损耗与 f² 成正比</li>
+<li><strong>加工精度要求高</strong>：0.39μm 的趋肤深度意味着表面粗糙度必须 &lt;&lt; 0.39μm</li>
+<li><strong>焊点/连接器损耗</strong>：每个 solder joint 在毫米波频段都是损耗点</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>五、效率测量方法</h2>
-    <h3>5.1 Wheeler Cap 法</h3>
-    <p><b>原理</b>：用短路帽罩住天线，比较自由空间和短路状态下的输入阻抗。</p>
-    <p><b>Johnston 广义公式</b>（2025 年最新改进）：</p>
-    <pre><code>η_rad = (|Γ_FS|² - |Γ_WC|²) / (1 - |Γ_FS|² × |Γ_WC|²)</code></pre>
-    <p>其中 Γ_FS 是自由空间反射系数，Γ_WC 是短路帽下的反射系数。</p>
-    <p><b>优势</b>：</p>
-    <ul><li>快速、低成本</li><li>不需要消声室</li><li>适合小天线（电尺寸 ka < 1）</li></ul>
-    <p><b>局限</b>（2025 IEEE OJAP 论文警告）：</p>
-    <ul><li>仅适用于低损耗、电尺寸小的天线</li><li>对大型天线或多端口天线不适用</li><li>测量误差可能高达 ±5%</li></ul>
-    <h3>5.2 两天线法（Two-Antenna Method）</h3>
-    <p><b>原理</b>：用两个相同天线，测量它们之间的传输系数。</p>
-    <pre><code>G = (4πR/λ)² × (P_r/P_t)
-    η = G/D  （D 由方向图计算）</code></pre>
-    <p><b>精度</b>：±0.3dB</p>
-    <h3>5.3 方向图积分法</h3>
-    <p><b>原理</b>：测量完整三维方向图，积分得到总辐射功率。</p>
-    <pre><code>η_rad = P_rad / (P_rad + P_loss)
-    P_rad = ∫∫ U(θ,φ) sin(θ) dθ dφ</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>不需要参考天线</li><li>精度最高（±0.1dB）</li></ul>
-    <p><b>局限</b>：</p>
-    <ul><li>需要大型消声室</li><li>测量时间长（3D 扫描）</li></ul>
-    <h3>5.4 OTA/TRP 法（3GPP 标准）</h3>
-    <p><b>原理</b>：在消声室或混响室中测量总辐射功率（TRP），与输入功率比较。</p>
-    <pre><code>η_total = TRP / P_tx</code></pre>
-    <p><b>3GPP TR 37.902 规定</b>：</p>
-    <ul><li>消声室：球面采样，15° 步长</li><li>混响室：≥ 100 个独立瑞利衰落样本</li><li>精度要求：±0.5dB</li></ul>
-    <p><b>IMS 2026 最新进展</b>：Antennex 在混响室中首次实现 EVM + TRP 联合测量，单次测量即可得到效率、失真、邻道泄漏比。</p>
-    <h3>5.5 DAR（Decoupled Active Reflection）法</h3>
-    <p><b>原理</b>：在 MIMO 阵列中，考虑互耦后的有效效率。</p>
-    <pre><code>DAR = |b_incident|² / |a_input|²
-    η_active = η_rad × (1 - |DAR|²)</code></pre>
-    <p><b>适用场景</b>：Massive MIMO 阵列，需要考虑端口间互耦。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>效率数据</h2>
+    <table>
+<thead>
+<tr>
+<th>组件</th>
+<th>典型效率 @28GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>铜导体（抛光）</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>铜导体（粗糙）</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>Rogers 基板</td>
+<td>90%</td>
+</tr>
+<tr>
+<td>FR-4 基板</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>单个焊点</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>连接器</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>馈电网络（64路）</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>完整天线阵列</td>
+<td>65-80%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>华为 2025 白皮书数据</strong>：</p>
+<ul>
+<li>Sub-6GHz AAU 辐射效率：85-92%</li>
+<li>毫米波 AAU 辐射效率：70-85%</li>
+<li>手机天线辐射效率：30-50%（受限于尺寸）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、效率与系统链路预算</h2>
-    <h3>链路方程中的效率</h3>
-    <pre><code>P_r = P_t × η_t × η_r × G_t × G_r × (λ/4πR)²</code></pre>
-    <p>其中 η_t 和 η_r 分别是收发天线的总效率。</p>
-    <p><b>实际案例</b>：5G 下行链路</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>数值</th></tr></thead>
-    <tbody>
-    <tr><td>基站发射功率</td><td>200W (53dBm)</td></tr>
-    <tr><td>基站天线效率</td><td>80% (-0.97dB)</td></tr>
-    <tr><td>基站天线增益</td><td>24dBi</td></tr>
-    <tr><td>手机接收功率</td><td>-95dBm</td></tr>
-    <tr><td>手机天线效率</td><td>40% (-4.0dB)</td></tr>
-    <tr><td>手机天线增益</td><td>0dBi</td></tr>
-    <tr><td>路径损耗 (3.5GHz, 500m)</td><td>120dB</td></tr>
-    <tr><td><b>实际接收功率</b></td><td><b>-95.97dBm</b></td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：手机天线效率 40% 意味着 60% 的功率被浪费在发热上——这就是为什么手机信号差的时候电池掉得快。</p>
-    <h3>效率对覆盖范围的影响</h3>
-    <pre><code>R_max ∝ √(η_t × η_r)</code></pre>
-    <p><b>效率减半 → 覆盖范围缩小 30%</b>。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>解决方案</h2>
+    <ul>
+<li><strong>银镀层</strong>：替代铜，导电率更高</li>
+<li><strong>LDS（激光直接成型）</strong>：在塑料上直接形成天线结构，减少连接器损耗</li>
+<li><strong>封装内天线（AiP）</strong>：将天线集成到芯片封装内，缩短馈电距离</li>
+<li><strong>透明天线</strong>：使用 ITO（氧化铟锡）或金属网格，效率 60-70%</li>
+</ul>
+<hr />
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>5.1 Wheeler Cap 法</h2>
+    <p><strong>原理</strong>：用短路帽罩住天线，比较自由空间和短路状态下的输入阻抗。</p>
+<p><strong>Johnston 广义公式</strong>（2025 年最新改进）：</p>
+<pre><code>η_rad = (|Γ_FS|² - |Γ_WC|²) / (1 - |Γ_FS|² × |Γ_WC|²)
+</code></pre>
+<p>其中 Γ_FS 是自由空间反射系数，Γ_WC 是短路帽下的反射系数。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>快速、低成本</li>
+<li>不需要消声室</li>
+<li>适合小天线（电尺寸 ka &lt; 1）</li>
+</ul>
+<p><strong>局限</strong>（2025 IEEE OJAP 论文警告）：</p>
+<ul>
+<li>仅适用于低损耗、电尺寸小的天线</li>
+<li>对大型天线或多端口天线不适用</li>
+<li>测量误差可能高达 ±5%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 两天线法（Two-Antenna Method）</h2>
+    <p><strong>原理</strong>：用两个相同天线，测量它们之间的传输系数。</p>
+<pre><code>G = (4πR/λ)² × (P_r/P_t)
+η = G/D  （D 由方向图计算）
+</code></pre>
+<p><strong>精度</strong>：±0.3dB</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 方向图积分法</h2>
+    <p><strong>原理</strong>：测量完整三维方向图，积分得到总辐射功率。</p>
+<pre><code>η_rad = P_rad / (P_rad + P_loss)
+P_rad = ∫∫ U(θ,φ) sin(θ) dθ dφ
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>不需要参考天线</li>
+<li>精度最高（±0.1dB）</li>
+</ul>
+<p><strong>局限</strong>：</p>
+<ul>
+<li>需要大型消声室</li>
+<li>测量时间长（3D 扫描）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 OTA/TRP 法（3GPP 标准）</h2>
+    <p><strong>原理</strong>：在消声室或混响室中测量总辐射功率（TRP），与输入功率比较。</p>
+<pre><code>η_total = TRP / P_tx
+</code></pre>
+<p><strong>3GPP TR 37.902 规定</strong>：</p>
+<ul>
+<li>消声室：球面采样，15° 步长</li>
+<li>混响室：≥ 100 个独立瑞利衰落样本</li>
+<li>精度要求：±0.5dB</li>
+</ul>
+<p><strong>IMS 2026 最新进展</strong>：Antennex 在混响室中首次实现 EVM + TRP 联合测量，单次测量即可得到效率、失真、邻道泄漏比。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.5 DAR（Decoupled Active Reflection）法</h2>
+    <p><strong>原理</strong>：在 MIMO 阵列中，考虑互耦后的有效效率。</p>
+<pre><code>DAR = |b_incident|² / |a_input|²
+η_active = η_rad × (1 - |DAR|²)
+</code></pre>
+<p><strong>适用场景</strong>：Massive MIMO 阵列，需要考虑端口间互耦。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>链路方程中的效率</h2>
+    <pre><code>P_r = P_t × η_t × η_r × G_t × G_r × (λ/4πR)²
+</code></pre>
+<p>其中 η_t 和 η_r 分别是收发天线的总效率。</p>
+<p><strong>实际案例</strong>：5G 下行链路
+| 参数 | 数值 |
+|------|------|
+| 基站发射功率 | 200W (53dBm) |
+| 基站天线效率 | 80% (-0.97dB) |
+| 基站天线增益 | 24dBi |
+| 手机接收功率 | -95dBm |
+| 手机天线效率 | 40% (-4.0dB) |
+| 手机天线增益 | 0dBi |
+| 路径损耗 (3.5GHz, 500m) | 120dB |
+| <strong>实际接收功率</strong> | <strong>-95.97dBm</strong> |</p>
+<p><strong>关键洞察</strong>：手机天线效率 40% 意味着 60% 的功率被浪费在发热上——这就是为什么手机信号差的时候电池掉得快。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>效率对覆盖范围的影响</h2>
+    <pre><code>R_max ∝ √(η_t × η_r)
+</code></pre>
+<p><strong>效率减半 → 覆盖范围缩小 30%</strong>。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、给非专业读者的一句话总结</h2>
-    <div class="call"><b>天线效率就是"电能变光能的转化率"——LED 灯泡 40% 变光、60% 变热，天线也一样。5G 基站天线效率高（80%+），因为体积大、用料足；手机天线效率低（30-50%），因为塞不进好材料。但效率不是越低越好，效率低 = 发热多 = 电池跑得快 = 信号差。</b></div>
-    <p><b>金句</b>：效率告诉你一个道理——<b>省下的不是钱，是能量</b>。天线效率每提升 10%，基站能耗可降低 5-8%，一年省下的电费够买一台新车。</p>
-    <p>---</p>
+    <blockquote>
+<p><strong>天线效率就是"电能变光能的转化率"——LED 灯泡 40% 变光、60% 变热，天线也一样。5G 基站天线效率高（80%+），因为体积大、用料足；手机天线效率低（30-50%），因为塞不进好材料。但效率不是越低越好，效率低 = 发热多 = 电池跑得快 = 信号差。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：效率告诉你一个道理——<strong>省下的不是钱，是能量</strong>。天线效率每提升 10%，基站能耗可降低 5-8%，一年省下的电费够买一台新车。</p>
+<hr />
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -316,39 +454,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

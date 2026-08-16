@@ -9,11 +9,12 @@ build-kg-from-notes.py
 数据源:
   E:/我的知识库/我的知识库/资料库/天线技术/*.md
 
-4 类 (按文件名前缀):
+5 类 (按文件名前缀):
   技术概念-xxx.md   -> technology
   指标术语-xxx.md   -> metric
   零部件-xxx.md     -> component
   材料-xxx.md       -> material
+  报告-xxx.md       -> report
 
 输出:
   E:/OH-workspace/antenna-tracker/app/_data/knowledge-graph.json
@@ -67,6 +68,7 @@ TYPE_PREFIX_MAP = [
     ("指标术语-", "metric"),
     ("零部件-",  "component"),
     ("材料-",    "material"),
+    ("报告-",    "report"),
 ]
 
 SKIP_FILES = {"README.md"}
@@ -388,7 +390,7 @@ def main():
                         break
 
     # ===== 统计 =====
-    stats = {"technology": 0, "metric": 0, "component": 0, "material": 0}
+    stats = {"technology": 0, "metric": 0, "component": 0, "material": 0, "report": 0}
     for n in nodes:
         stats[n["type"]] += 1
 

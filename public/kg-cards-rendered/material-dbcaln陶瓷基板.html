@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DBC/AlN 陶瓷基板 · 知识卡片</title>
+<title>DBCALN陶瓷基板 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">DBC/AlN 陶瓷基板 <span class="en">DBCALN</span></h1>
-  <p class="lede">DBC（Direct Bonded Copper）和 AlN（Aluminum Nitride，氮化铝）是 AAU 里 GaN PA 的"散热底座"——它们既是电气绝缘体（隔离高压），又是高热导率材料（把热量从 GaN 芯片传到外壳），热导率比 FR4 高 100-500 倍。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">DBCALN陶瓷基板</h1>
+  <p class="lede">DBC（Direct Bonded Copper）和 AlN（Aluminum Nitride，氮化铝）是 AAU 里 GaN PA 的&#34;散热底座&#34;——它们既是电气绝缘体（隔离高压），又是高热导率材料（把热量从 GaN 芯片传到外壳），热导率比 FR4 高 100-500 倍。</p>
+  
 </header>
 
 <main>
@@ -99,121 +101,178 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>GaN PA 芯片就像"烧红的铁块"，直接贴在 PCB 上会把 PCB 烧穿。DBC/AlN 基板就像"散热锅的锅底"——上面贴芯片（导热），下面贴外壳（散热），中间绝缘（安全）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、DBC 陶瓷基板</h2>
-    <h3>1.1 DBC 结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 DBC 结构</h2>
     <pre><code>DBC 结构：
-      铜（35-100μm）← 顶层电极
-      ──────────────
-      陶瓷介质 ← Al₂O₃（96%氧化铝）
-      ──────────────
-      铜（35-100μm）← 底层电极
-      
-    制造工艺：
-      1. 铜箔贴在氧化铝陶瓷两面
-      2. 1060°C 真空烧结
-      3. 铜与氧化铝直接键合（无中间层）
-      4. 光刻/蚀刻形成电路</code></pre>
-    <h3>1.2 Al₂O₃ DBC 参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>96% Al₂O₃</th><th>99.6% Al₂O₃</th></tr></thead>
-    <tbody>
-    <tr><td>热导率</td><td>20-25 W/m·K</td><td>25-30 W/m·K</td></tr>
-    <tr><td>Dk（@1MHz）</td><td>9.8</td><td>9.8</td></tr>
-    <tr><td>击穿电压</td><td>10-15 kV/mm</td><td>15-20 kV/mm</td></tr>
-    <tr><td>CTE（匹配 Cu）</td><td>7.8 ppm/°C</td><td>7.2 ppm/°C</td></tr>
-    <tr><td>成本</td><td>低</td><td>中</td></tr>
-    </tbody></table></div>
-    <h3>1.3 AlN DBC 参数</h3>
+  铜（35-100μm）← 顶层电极
+  ──────────────
+  陶瓷介质 ← Al₂O₃（96%氧化铝）
+  ──────────────
+  铜（35-100μm）← 底层电极
+
+制造工艺：
+  1. 铜箔贴在氧化铝陶瓷两面
+  2. 1060°C 真空烧结
+  3. 铜与氧化铝直接键合（无中间层）
+  4. 光刻/蚀刻形成电路
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 Al₂O₃ DBC 参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>96% Al₂O₃</th>
+<th>99.6% Al₂O₃</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>热导率</td>
+<td>20-25 W/m·K</td>
+<td>25-30 W/m·K</td>
+</tr>
+<tr>
+<td>Dk（@1MHz）</td>
+<td>9.8</td>
+<td>9.8</td>
+</tr>
+<tr>
+<td>击穿电压</td>
+<td>10-15 kV/mm</td>
+<td>15-20 kV/mm</td>
+</tr>
+<tr>
+<td>CTE（匹配 Cu）</td>
+<td>7.8 ppm/°C</td>
+<td>7.2 ppm/°C</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 AlN DBC 参数</h2>
     <pre><code>AlN（氮化铝）DBC：
-      热导率：170-200 W/m·K（Al₂O₃ 的 8 倍！）
-      Dk：8.8-9.2
-      击穿电压：15-25 kV/mm
-      CTE：4.5 ppm/°C（更接近 Si/GaN）
-      成本：Al₂O₃ 的 3-5 倍
-      
-    适用场景：
-      - 高功率 GaN PA（&gt;100W）
-      - 毫米波 PA（热密度更高）
-      - 6G AAU（功率密度持续上升）</code></pre>
-  </article>
+  热导率：170-200 W/m·K（Al₂O₃ 的 8 倍！）
+  Dk：8.8-9.2
+  击穿电压：15-25 kV/mm
+  CTE：4.5 ppm/°C（更接近 Si/GaN）
+  成本：Al₂O₃ 的 3-5 倍
 
-  <article class="card">
-    <h2>二、DBA（活性金属钎焊）</h2>
-    <pre><code>DBA（Diffusion Brazed Aluminum）：
-      铜 + AlN + 铜（活性金属钎料）
-      
-    优势：
-      - 热导率 180-220 W/m·K
-      - 键合强度高于 DBC
-      - 适合超高温应用
-      
-    劣势：
-      - 工艺复杂
-      - 成本更高</code></pre>
+适用场景：
+  - 高功率 GaN PA（&gt;100W）
+  - 毫米波 PA（热密度更高）
+  - 6G AAU（功率密度持续上升）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、MTS（金属化陶瓷基板）</h2>
-    <pre><code>MTS（Metalized Thermally Conductive Substrate）：
-      铜 + AlN + 铜（DAB 工艺）
-      
-    特点：
-      - 双面金属化
-      - 热导率 150-180 W/m·K
-      - 适合双面散热设计</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>四、在 AAU 中的应用</h2>
-    <h3>4.1 GaN PA 封装</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 GaN PA 封装</h2>
     <pre><code>AAU 中 GaN PA 的热路径：
-      
-    GaN Die（120°C）
-      ↓ R_jc = 0.5°C/W
-    AlN DBC（80°C）
-      ↓ R_ct = 1°C/W（TIM）
-    铝合金外壳（50°C）
-      ↓ R_ca = 2°C/W（对流+辐射）
-    环境空气（40°C）
-      
-    关键：AlN DBC 的热导率 170-200 W/m·K
-      → 大幅降低 R_ct（接触热阻）</code></pre>
-    <h3>4.2 对比：FR4 vs DBC vs AlN</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>热导率</th><th>适用 PA 功率</th><th>成本</th></tr></thead>
-    <tbody>
-    <tr><td>FR4</td><td>0.3 W/m·K</td><td>< 5W</td><td>极低</td></tr>
-    <tr><td>铝基板</td><td>1-3 W/m·K</td><td>5-20W</td><td>低</td></tr>
-    <tr><td>Al₂O₃ DBC</td><td>25 W/m·K</td><td>20-100W</td><td>中</td></tr>
-    <tr><td>AlN DBC</td><td>170-200 W/m·K</td><td>100-500W</td><td>高</td></tr>
-    </tbody></table></div>
-    <h3>4.3 5G AAU 热设计实例</h3>
-    <pre><code>64T64R AAU @ 3.5GHz：
-      64 个 GaN PA 模块
-      每个 PA：5-10W（射频输出）
-      总 PA 功耗：300-400W
-      
-    散热设计：
-      - GaN Die → AlN DBC（200 W/m·K）
-      - AlN DBC → 导热垫 → 铝合金外壳
-      - 外壳散热鳍片：30 片，自然对流
-      
-    温度控制：
-      - PA 结温：&lt; 125°C
-      - 外壳表面：&lt; 70°C（安全）
-      - 环境温度：-40°C to +65°C</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>DBC/AlN 是 GaN PA 的"散热底座"——Al₂O₃ DBC 热导率 25 W/m·K（中等功率），AlN DBC 热导率 170-200 W/m·K（高功率）。记住：AAU 里 GaN PA 的寿命和性能，70% 取决于散热设计，而散热设计 70% 取决于 DBC/AlN 基板的质量。</p>
+GaN Die（120°C）
+  ↓ R_jc = 0.5°C/W
+AlN DBC（80°C）
+  ↓ R_ct = 1°C/W（TIM）
+铝合金外壳（50°C）
+  ↓ R_ca = 2°C/W（对流+辐射）
+环境空气（40°C）
+
+关键：AlN DBC 的热导率 170-200 W/m·K
+  → 大幅降低 R_ct（接触热阻）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 对比：FR4 vs DBC vs AlN</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>热导率</th>
+<th>适用 PA 功率</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR4</td>
+<td>0.3 W/m·K</td>
+<td>&lt; 5W</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>铝基板</td>
+<td>1-3 W/m·K</td>
+<td>5-20W</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Al₂O₃ DBC</td>
+<td>25 W/m·K</td>
+<td>20-100W</td>
+<td>中</td>
+</tr>
+<tr>
+<td>AlN DBC</td>
+<td>170-200 W/m·K</td>
+<td>100-500W</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 5G AAU 热设计实例</h2>
+    <pre><code>64T64R AAU @ 3.5GHz：
+  64 个 GaN PA 模块
+  每个 PA：5-10W（射频输出）
+  总 PA 功耗：300-400W
+
+散热设计：
+  - GaN Die → AlN DBC（200 W/m·K）
+  - AlN DBC → 导热垫 → 铝合金外壳
+  - 外壳散热鳍片：30 片，自然对流
+
+温度控制：
+  - PA 结温：&lt; 125°C
+  - 外壳表面：&lt; 70°C（安全）
+  - 环境温度：-40°C to +65°C
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -233,39 +292,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

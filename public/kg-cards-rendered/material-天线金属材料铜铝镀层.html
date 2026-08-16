@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线金属材料（铜/铝/镀层） · 知识卡片</title>
+<title>天线金属材料铜铝镀层 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线金属材料（铜/铝/镀层）</h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线金属材料铜铝镀层</h1>
   <p class="lede">天线辐射体和反射板的核心材料是铜和铝——铜导电最好（但重），铝轻但导电差一点，高端天线在铜表面镀银（利用趋肤效应，信号只在表面微米级薄层流过）。反射板则多用铝合金板或复合材料。</p>
+  
 </header>
 
 <main>
@@ -99,194 +101,323 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>趋肤效应就像"高速公路只在路面表层"——5G 信号在 3.5GHz 时，电流只在金属表面 1μm 深处流过。所以天线振子不需要整根铜棒，只要在塑料表面镀一层 0.01mm 的铜就够了——表面才是"车行道"，内部只是"路基"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、导电金属在天线中的应用</h2>
-    <h3>1.1 核心金属对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>金属</th><th>电导率 (MS/m)</th><th>电阻率 (nΩ·m)</th><th>密度 (g/cm³)</th><th>成本</th><th>天线应用</th></tr></thead>
-    <tbody>
-    <tr><td>银（Ag）</td><td>61.7</td><td>16</td><td>10.5</td><td>最高</td><td>高端镀层</td></tr>
-    <tr><td>铜（Cu）</td><td>58.0</td><td>17</td><td>8.96</td><td>高</td><td>振子/馈线</td></tr>
-    <tr><td>金（Au）</td><td>45.2</td><td>22</td><td>19.3</td><td>最高</td><td>连接器镀层</td></tr>
-    <tr><td>铝（Al）</td><td>35.5</td><td>28</td><td>2.7</td><td>最低</td><td>反射板/振子</td></tr>
-    <tr><td>钢（Fe）</td><td>10.0</td><td>100</td><td>7.85</td><td>最低</td><td>结构件</td></tr>
-    </tbody></table></div>
-    <p><b>关键指标：电导率</b></p>
-    <ul><li>电导率越高 → 欧姆损耗越低 → 天线效率越高</li><li>银是冠军，但太贵</li><li>铜是性价比之王</li><li>铝最轻最便宜，但导电只有铜的 61%</li></ul>
-    <h3>1.2 趋肤效应（Skin Effect）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 核心金属对比</h2>
+    <table>
+<thead>
+<tr>
+<th>金属</th>
+<th>电导率 (MS/m)</th>
+<th>电阻率 (nΩ·m)</th>
+<th>密度 (g/cm³)</th>
+<th>成本</th>
+<th>天线应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>银（Ag）</td>
+<td>61.7</td>
+<td>16</td>
+<td>10.5</td>
+<td>最高</td>
+<td>高端镀层</td>
+</tr>
+<tr>
+<td>铜（Cu）</td>
+<td>58.0</td>
+<td>17</td>
+<td>8.96</td>
+<td>高</td>
+<td>振子/馈线</td>
+</tr>
+<tr>
+<td>金（Au）</td>
+<td>45.2</td>
+<td>22</td>
+<td>19.3</td>
+<td>最高</td>
+<td>连接器镀层</td>
+</tr>
+<tr>
+<td>铝（Al）</td>
+<td>35.5</td>
+<td>28</td>
+<td>2.7</td>
+<td>最低</td>
+<td>反射板/振子</td>
+</tr>
+<tr>
+<td>钢（Fe）</td>
+<td>10.0</td>
+<td>100</td>
+<td>7.85</td>
+<td>最低</td>
+<td>结构件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键指标：电导率</strong>
+- 电导率越高 → 欧姆损耗越低 → 天线效率越高
+- 银是冠军，但太贵
+- 铜是性价比之王
+- 铝最轻最便宜，但导电只有铜的 61%</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 趋肤效应（Skin Effect）</h2>
     <pre><code>趋肤深度公式：
-      δ = √(2ρ / ωμ)
-      
-    其中：
-      ρ = 电阻率
-      ω = 2πf（角频率）
-      μ = 磁导率（铜 ≈ μ₀ = 4π×10⁻⁷）
-    
-    趋肤深度计算：
-    
-      700MHz（低频段）：
-        铜 δ ≈ 2.5μm
-        铝 δ ≈ 3.2μm
-        
-      2.6GHz（中频段）：
-        铜 δ ≈ 1.3μm
-        铝 δ ≈ 1.7μm
-        
-      3.5GHz（5G 主力）：
-        铜 δ ≈ 1.1μm
-        铝 δ ≈ 1.4μm
-        
-      6.5GHz（U6G）：
-        铜 δ ≈ 0.8μm
-        铝 δ ≈ 1.0μm
-        
-      28GHz（毫米波）：
-        铜 δ ≈ 0.4μm
-        铝 δ ≈ 0.5μm
-    
-    结论：
-      频率越高，趋肤深度越浅
-      28GHz 时电流只在表面 0.4μm 流过
-      → 镀层厚度只需 &gt; 3×δ 即可
-      → 3.5GHz 镀银层 10μm 绰绰有余</code></pre>
-  </article>
+  δ = √(2ρ / ωμ)
 
-  <article class="card">
-    <h2>二、天线振子材料</h2>
-    <h3>2.1 传统金属振子</h3>
+其中：
+  ρ = 电阻率
+  ω = 2πf（角频率）
+  μ = 磁导率（铜 ≈ μ₀ = 4π×10⁻⁷）
+
+趋肤深度计算：
+
+  700MHz（低频段）：
+    铜 δ ≈ 2.5μm
+    铝 δ ≈ 3.2μm
+
+  2.6GHz（中频段）：
+    铜 δ ≈ 1.3μm
+    铝 δ ≈ 1.7μm
+
+  3.5GHz（5G 主力）：
+    铜 δ ≈ 1.1μm
+    铝 δ ≈ 1.4μm
+
+  6.5GHz（U6G）：
+    铜 δ ≈ 0.8μm
+    铝 δ ≈ 1.0μm
+
+  28GHz（毫米波）：
+    铜 δ ≈ 0.4μm
+    铝 δ ≈ 0.5μm
+
+结论：
+  频率越高，趋肤深度越浅
+  28GHz 时电流只在表面 0.4μm 流过
+  → 镀层厚度只需 &gt; 3×δ 即可
+  → 3.5GHz 镀银层 10μm 绰绰有余
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 传统金属振子</h2>
     <pre><code>铜振子：
-      材料：H70 黄铜 / T2 紫铜
-      工艺：冲压/压铸/蚀刻
-      优点：导电最好，PIM 低
-      缺点：重（密度 8.96）
-      
-    铝振子：
-      材料：1060/5052 铝合金
-      工艺：冲压/挤压
-      优点：轻（密度 2.7），便宜
-      缺点：导电差，焊接难
-      
-    黄铜振子（主流）：
-      材料：H70（70%Cu+30%Zn）
-      工艺：高频感应钎焊
-      优点：强度好，易加工
-      缺点：导电不如纯铜</code></pre>
-    <h3>2.2 电镀振子（新兴方案）</h3>
-    <pre><code>结构：
-      塑料本体（ABS/PP/PA）
-      + 金属电镀层（铜/镍/银）
-      
-    电镀层厚度：
-      铜镀层：&gt; 0.0023mm（3.5GHz 趋肤深度 3 倍以上）
-      银镀层：&gt; 0.002μm
-      
-    优势：
-      - 重量减轻 60-80%
-      - 成本降低（塑料注塑比金属冲压便宜）
-      - 耐腐蚀性好
-      - 抗风性能提升
-      
-    挑战：
-      - 电镀层附着力
-      - PIM 控制（电镀层表面粗糙度）
-      - 长期可靠性（温度循环后镀层是否脱落）</code></pre>
-    <h3>2.3 PCB 振子（5G AAU 主流）</h3>
-    <pre><code>结构：
-      Rogers/RO4350B 基板
-      + 铜箔蚀刻（35μm/70μm）
-      
-    优势：
-      - 精度高（±0.02mm）
-      - 适合大规模生产
-      - 与馈电网络一体化
-      - 适合密集阵列（64T64R）
-      
-    铜箔类型：
-      RA（轧制箔）：粗糙度低，适合高频
-      EP（电解箔）：粗糙度高，成本低
-      
-    5G AAU 选择：
-      3.5GHz → EP 铜箔（35μm，1oz）即可
-      毫米波 → RA 铜箔（17μm，0.5oz）</code></pre>
-  </article>
+  材料：H70 黄铜 / T2 紫铜
+  工艺：冲压/压铸/蚀刻
+  优点：导电最好，PIM 低
+  缺点：重（密度 8.96）
 
-  <article class="card">
-    <h2>三、反射板材料</h2>
-    <h3>3.1 铝合金板（传统主流）</h3>
-    <pre><code>材料：5052/6063 铝合金
-    厚度：0.8-1.5mm
-    工艺：CNC 加工/冲压
+铝振子：
+  材料：1060/5052 铝合金
+  工艺：冲压/挤压
+  优点：轻（密度 2.7），便宜
+  缺点：导电差，焊接难
+
+黄铜振子（主流）：
+  材料：H70（70%Cu+30%Zn）
+  工艺：高频感应钎焊
+  优点：强度好，易加工
+  缺点：导电不如纯铜
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    优点：
-      - 轻质（密度 2.7）
-      - 耐腐蚀（阳极氧化处理）
-      - 易加工
-      - 成本低
-      
-    缺点：
-      - 反射率不如纯铝
-      - 大型天线需要加强筋</code></pre>
-    <h3>3.2 复合材料反射板</h3>
+    <h2>2.2 电镀振子（新兴方案）</h2>
+    <pre><code>结构：
+  塑料本体（ABS/PP/PA）
+  + 金属电镀层（铜/镍/银）
+
+电镀层厚度：
+  铜镀层：&gt; 0.0023mm（3.5GHz 趋肤深度 3 倍以上）
+  银镀层：&gt; 0.002μm
+
+优势：
+  - 重量减轻 60-80%
+  - 成本降低（塑料注塑比金属冲压便宜）
+  - 耐腐蚀性好
+  - 抗风性能提升
+
+挑战：
+  - 电镀层附着力
+  - PIM 控制（电镀层表面粗糙度）
+  - 长期可靠性（温度循环后镀层是否脱落）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 PCB 振子（5G AAU 主流）</h2>
+    <pre><code>结构：
+  Rogers/RO4350B 基板
+  + 铜箔蚀刻（35μm/70μm）
+
+优势：
+  - 精度高（±0.02mm）
+  - 适合大规模生产
+  - 与馈电网络一体化
+  - 适合密集阵列（64T64R）
+
+铜箔类型：
+  RA（轧制箔）：粗糙度低，适合高频
+  EP（电解箔）：粗糙度高，成本低
+
+5G AAU 选择：
+  3.5GHz → EP 铜箔（35μm，1oz）即可
+  毫米波 → RA 铜箔（17μm，0.5oz）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 铝合金板（传统主流）</h2>
+    <pre><code>材料：5052/6063 铝合金
+厚度：0.8-1.5mm
+工艺：CNC 加工/冲压
+
+优点：
+  - 轻质（密度 2.7）
+  - 耐腐蚀（阳极氧化处理）
+  - 易加工
+  - 成本低
+
+缺点：
+  - 反射率不如纯铝
+  - 大型天线需要加强筋
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 复合材料反射板</h2>
     <pre><code>碳纤维增强复合材料（CFRP）：
-      密度：1.5 g/cm³（比铝轻 45%）
-      强度：比铝高 30%
-      紫外线耐受：优异
-      成本：铝的 3-5 倍
-      
-    金属化塑料反射板：
-      ABS/PP 塑料基底
-      + 真空镀膜（铝/银）
-      密度：1.1 g/cm³
-      成本：铝的 0.5-0.8 倍
-      适用：小尺寸单频天线</code></pre>
-    <h3>3.3 反射板对天线性能的影响</h3>
+  密度：1.5 g/cm³（比铝轻 45%）
+  强度：比铝高 30%
+  紫外线耐受：优异
+  成本：铝的 3-5 倍
+
+金属化塑料反射板：
+  ABS/PP 塑料基底
+  + 真空镀膜（铝/银）
+  密度：1.1 g/cm³
+  成本：铝的 0.5-0.8 倍
+  适用：小尺寸单频天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 反射板对天线性能的影响</h2>
     <pre><code>反射板材质对前后比的影响：
-      铝合金板：前后比 &gt; 25dB
-      钢板：前后比 &gt; 20dB
-      金属化塑料：前后比 &gt; 18dB
-      
-    反射板表面精度要求：
-      表面粗糙度：&lt; λ/20（3.5GHz → &lt; 4mm）
-      平面度：&lt; 1mm（300mm 宽度）</code></pre>
-  </article>
+  铝合金板：前后比 &gt; 25dB
+  钢板：前后比 &gt; 20dB
+  金属化塑料：前后比 &gt; 18dB
 
-  <article class="card">
-    <h2>四、镀层工艺</h2>
-    <h3>4.1 常见镀层</h3>
-    <div class="tw"><table>
-    <thead><tr><th>镀层</th><th>目的</th><th>厚度</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>镀银</td><td>降低表面电阻</td><td>5-20μm</td><td>高端振子</td></tr>
-    <tr><td>镀锡</td><td>防氧化/可焊性</td><td>2-5μm</td><td>连接器/焊点</td></tr>
-    <tr><td>镀镍</td><td>底层/耐磨</td><td>3-8μm</td><td>镀银底层</td></tr>
-    <tr><td>镀铬</td><td>装饰/耐磨</td><td>1-3μm</td><td>外观件</td></tr>
-    <tr><td>纯铝</td><td>反射板</td><td>-</td><td>反射板/腔体</td></tr>
-    </tbody></table></div>
-    <h3>4.2 镀银 vs 不镀银</h3>
+反射板表面精度要求：
+  表面粗糙度：&lt; λ/20（3.5GHz → &lt; 4mm）
+  平面度：&lt; 1mm（300mm 宽度）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 常见镀层</h2>
+    <table>
+<thead>
+<tr>
+<th>镀层</th>
+<th>目的</th>
+<th>厚度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>镀银</td>
+<td>降低表面电阻</td>
+<td>5-20μm</td>
+<td>高端振子</td>
+</tr>
+<tr>
+<td>镀锡</td>
+<td>防氧化/可焊性</td>
+<td>2-5μm</td>
+<td>连接器/焊点</td>
+</tr>
+<tr>
+<td>镀镍</td>
+<td>底层/耐磨</td>
+<td>3-8μm</td>
+<td>镀银底层</td>
+</tr>
+<tr>
+<td>镀铬</td>
+<td>装饰/耐磨</td>
+<td>1-3μm</td>
+<td>外观件</td>
+</tr>
+<tr>
+<td>纯铝</td>
+<td>反射板</td>
+<td>-</td>
+<td>反射板/腔体</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 镀银 vs 不镀银</h2>
     <pre><code>镀银的好处：
-      1. 表面电阻降低 ~10%（银电导率比铜高 6%）
-      2. 抗氧化（铜暴露空气会氧化，氧化层电阻高 1000 倍）
-      3. PIM 改善（氧化铜是非线性材料，是 PIM 主要来源）
-      
-    镀银的成本：
-      - 工艺成本增加 5-10%
-      - 银价 ~6000 元/kg
-      
-    结论：
-      Sub-6GHz 天线：镀银性价比一般（PIM 改善有限）
-      多载波 5G：镀银有价值（PIM 是关键瓶颈）
-      毫米波：镀银有必要（趋肤深度仅 0.4μm，表面质量决定一切）</code></pre>
-  </article>
+  1. 表面电阻降低 ~10%（银电导率比铜高 6%）
+  2. 抗氧化（铜暴露空气会氧化，氧化层电阻高 1000 倍）
+  3. PIM 改善（氧化铜是非线性材料，是 PIM 主要来源）
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>天线金属材料的选择本质上是"导电性、重量、成本"的三角权衡——铜导电最好但重，铝轻但导电差，银最好但贵。5G AAU 时代，PCB 铜箔振子（RO4350B+35μm 铜箔）是 Sub-6GHz 主流，镀银在 PIM 敏感场景有价值。记住：趋肤效应决定了天线的"表面决定一切"——3.5GHz 时电流只在 1.1μm 深处流过，所以表面处理比本体材料更重要。</p>
+镀银的成本：
+  - 工艺成本增加 5-10%
+  - 银价 ~6000 元/kg
+
+结论：
+  Sub-6GHz 天线：镀银性价比一般（PIM 改善有限）
+  多载波 5G：镀银有价值（PIM 是关键瓶颈）
+  毫米波：镀银有必要（趋肤深度仅 0.4μm，表面质量决定一切）
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -306,39 +437,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

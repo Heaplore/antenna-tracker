@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阻抗匹配（Impedance Matching） · 知识卡片</title>
+<title>阻抗匹配Impedance-Matching · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">阻抗匹配 <span class="en">Impedance Matching</span></h1>
-  <p class="lede"><b>阻抗匹配就是"让信号不回头"——50Ω 源接 50Ω 负载，信号全传过去；如果负载是 100+j50Ω，一半功率会被反射。匹配网络（L/Pi/T/Stub）就是"翻译官"，把 100+j50Ω 翻译成 50Ω，让信号畅通无阻。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">阻抗匹配Impedance-Matching</h1>
+  
+  
 </header>
 
 <main>
@@ -99,200 +101,436 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、为什么要阻抗匹配？</h2>
-    <h3>最大功率传输定理</h3>
-    <pre><code>当 Z_source = Z_load*（共轭匹配）时，功率传输最大
-    当 Z_source = Z_load（实数相等）时，效率最高</code></pre>
-    <p><b>实际工程中</b>：射频系统统一用 50Ω（或 75Ω 视频系统），所以目标是让所有阻抗都变成 50Ω。</p>
-    <h3>不匹配的后果</h3>
-    <div class="tw"><table>
-    <thead><tr><th>问题</th><th>描述</th><th>影响</th></tr></thead>
-    <tbody>
-    <tr><td>反射功率</td><td>信号弹回源端</td><td>功率浪费、VSWR 升高</td></tr>
-    <tr><td>功放损坏</td><td>反射功率加热功放</td><td>热损伤、寿命缩短</td></tr>
-    <tr><td>信号失真</td><td>反射波与直达波叠加</td><td>误码率上升、EVM 恶化</td></tr>
-    <tr><td>互调产物</td><td>非线性器件产生杂散</td><td>邻道干扰</td></tr>
-    <tr><td>振荡</td><td>反射波引发正反馈</td><td>系统不稳定</td></tr>
-    </tbody></table></div>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、Smith Chart：阻抗匹配的&quot;导航地图&quot;</h2>
-    <h3>什么是 Smith Chart？</h3>
+  
+  <article class="card ">
+    
+    <h2>什么是 Smith Chart？</h2>
     <p>Smith Chart 是将复阻抗平面（R+jX）映射到单位圆内（反射系数 Γ 平面）的图形化工具。</p>
-    <p><b>核心变换</b>：</p>
-    <pre><code>z = Z/Z₀ = r + jx
-    Γ = (z - 1)/(z + 1) = (r-1+jx)/(r+1+jx)</code></pre>
-    <h3>Smith Chart 上的移动规则</h3>
-    <p><b>串联元件</b>（Series）：</p>
-    <ul><li>电感 → 沿等 R 圆顺时针移动（+jX 增加）</li><li>电容 → 沿等 R 圆逆时针移动（-jX 减少）</li></ul>
-    <p><b>并联元件</b>（Shunt）：</p>
-    <ul><li>电感 → 沿等 G 圆逆时针移动（-jB 增加）</li><li>电容 → 沿等 G 圆顺时针移动（+jB 减少）</li></ul>
-    <p><b>传输线</b>：</p>
-    <ul><li>向源方向移动 → 沿 VSWR 圆顺时针旋转</li><li>移动距离 λ/2 → 回到原点</li></ul>
-    <h3>Smith Chart 实战示例</h3>
-    <p><b>目标</b>：将 Z_L = 25 + j30Ω 匹配到 50Ω。</p>
-    <p><b>步骤</b>：</p>
-    <ol><li>归一化：z_L = 0.5 + j0.6</li><li>在 Smith Chart 上标出该点</li><li>沿等 VSWR 圆旋转到与 r=1 圆相交</li><li>在交点处添加并联电容抵消虚部</li><li>到达中心点（50Ω）→ 匹配完成！</li></ol>
-    <p>---</p>
+<p><strong>核心变换</strong>：</p>
+<pre><code>z = Z/Z₀ = r + jx
+Γ = (z - 1)/(z + 1) = (r-1+jx)/(r+1+jx)
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、匹配网络拓扑结构</h2>
-    <h3>3.1 L 型网络（最简洁）</h3>
-    <p><b>结构</b>：一个串联元件 + 一个并联元件。</p>
-    <p><b>两种构型</b>：</p>
-    <pre><code>构型 A: 并联C + 串联L    构型 B: 串联L + 并联C
-             ──┬──             ──L──┬──
-               C                    C
-               │                    │
-    输入 ──────┴──── 输出     输入 ──┴── 输出</code></pre>
-    <p><b>Q 值公式</b>：</p>
-    <pre><code>Q = √(R_high/R_low - 1)</code></pre>
-    <p>其中 R_high 是较大电阻，R_low 是较小电阻。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：最简单，两个元件</li><li>缺点：Q 值固定，带宽不可控</li><li>适用：窄带匹配（Q > 5）</li></ul>
-    <p><b>设计公式</b>（R_s → R_p，低到高）：</p>
-    <pre><code>X_series = Q × R_s
-    X_shunt = R_p / Q</code></pre>
-    <h3>3.2 Pi 型网络</h3>
-    <p><b>结构</b>：两个并联元件 + 一个串联元件。</p>
-    <pre><code>         ──C1──┬──L──┬──C2──
-                  │       │
-    输入 ─────────┴───────┴── 输出</code></pre>
-    <p><b>原理</b>：两个 L 型网络背靠背，中间通过虚拟电阻 R_v 连接。</p>
-    <p><b>Q 值可控</b>：</p>
-    <pre><code>Q_total = √(R_high/R_v) + √(R_v/R_low)</code></pre>
-    <p>通过选择 R_v 可以独立控制 Q 值和带宽。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：带宽可控，谐波抑制好</li><li>缺点：三个元件，设计稍复杂</li><li>适用：宽带匹配、谐波抑制</li></ul>
-    <h3>3.3 T 型网络</h3>
-    <p><b>结构</b>：两个串联元件 + 一个并联元件。</p>
-    <pre><code>输入 ──L1──┬──C──┬──L2── 输出
-                │     │
-               GND   GND</code></pre>
-    <p><b>原理</b>：与 Pi 型对称，两个 L 型网络串联。</p>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：适合高阻抗匹配</li><li>缺点：三个元件</li><li>适用：平衡传输线匹配</li></ul>
-    <h3>3.4 四分之一波长变换器（λ/4 Transformer）</h3>
-    <p><b>结构</b>：一段长度为 λ/4、特性阻抗为 Z_0 的传输线。</p>
-    <p><b>变换公式</b>：</p>
-    <pre><code>Z_in = Z_0² / Z_L</code></pre>
-    <p><b>设计</b>：</p>
-    <pre><code>Z_0 = √(Z_source × Z_load)</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：结构简单，易于微带线实现</li><li>缺点：窄带（仅在中心频率附近匹配）</li><li>适用：微带线阻抗变换</li></ul>
-    <p><b>多级 λ/4 变换器</b>：</p>
-    <pre><code>Z_in = Z_N² / (Z_{N-1}² / (... / (Z_1² / Z_L)...))</code></pre>
-    <p>通过多级级联可扩展带宽。</p>
-    <h3>3.5 单枝节匹配（Single Stub Matching）</h3>
-    <p><b>结构</b>：在主传输线上并联（或串联）一段短路/开路枝节。</p>
-    <p><b>设计步骤</b>：</p>
-    <ol><li>归一化负载阻抗 z_L</li><li>沿 VSWR 圆旋转到与 r=1 圆相交</li><li>在交点处添加并联枝节，抵消虚部</li><li>枝节长度由所需 susceptance 决定</li></ol>
-    <p><b>短路枝节</b>：</p>
-    <pre><code>Z_stub = jZ₀ tan(βl)
-    B_stub = -j/Y₀ tan(βl)</code></pre>
-    <p><b>开路枝节</b>：</p>
-    <pre><code>Z_stub = -jZ₀ cot(βl)
-    B_stub = j/Y₀ cot(βl)</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>优点：纯传输线实现，无需集总元件</li><li>缺点：枝节位置固定，可调性差</li><li>适用：微带线/带状线匹配</li></ul>
-    <h3>3.6 双枝节匹配（Double Stub Matching）</h3>
-    <p><b>结构</b>：两个并联枝节，间距固定（通常 λ/8）。</p>
-    <p><b>优势</b>：枝节位置固定，只需调节枝节长度。</p>
-    <p><b>局限</b>：并非所有负载阻抗都能匹配（存在"盲区"）。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>Smith Chart 上的移动规则</h2>
+    <p><strong>串联元件</strong>（Series）：</p>
+<ul>
+<li>电感 → 沿等 R 圆顺时针移动（+jX 增加）</li>
+<li>电容 → 沿等 R 圆逆时针移动（-jX 减少）</li>
+</ul>
+<p><strong>并联元件</strong>（Shunt）：</p>
+<ul>
+<li>电感 → 沿等 G 圆逆时针移动（-jB 增加）</li>
+<li>电容 → 沿等 G 圆顺时针移动（+jB 减少）</li>
+</ul>
+<p><strong>传输线</strong>：</p>
+<ul>
+<li>向源方向移动 → 沿 VSWR 圆顺时针旋转</li>
+<li>移动距离 λ/2 → 回到原点</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、匹配网络设计的关键参数</h2>
-    <h3>4.1 Q 值与带宽的关系</h3>
-    <pre><code>BW ≈ f_center / Q</code></pre>
-    <p><b>Q 值越低，带宽越宽</b>。</p>
-    <div class="tw"><table>
-    <thead><tr><th>网络类型</th><th>Q 值</th><th>相对带宽</th></tr></thead>
-    <tbody>
-    <tr><td>L 型</td><td>固定（由阻抗比决定）</td><td>窄（< 20%）</td></tr>
-    <tr><td>Pi 型</td><td>可调（通过 R_v）</td><td>中（20-50%）</td></tr>
-    <tr><td>T 型</td><td>可调</td><td>中（20-50%）</td></tr>
-    <tr><td>λ/4 变换器</td><td>高</td><td>很窄（< 10%）</td></tr>
-    <tr><td>多级 λ/4</td><td>高</td><td>窄到中</td></tr>
-    <tr><td>多节级联</td><td>可调</td><td>宽（> 50%）</td></tr>
-    </tbody></table></div>
-    <h3>4.2 阻抗比与匹配难度</h3>
-    <pre><code>阻抗比 = R_high / R_low</code></pre>
-    <p><b>经验法则</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>阻抗比</th><th>匹配难度</th><th>推荐方案</th></tr></thead>
-    <tbody>
-    <tr><td>< 2:1</td><td>容易</td><td>L 型</td></tr>
-    <tr><td>2:1 - 10:1</td><td>中等</td><td>Pi/T 型</td></tr>
-    <tr><td>10:1 - 50:1</td><td>困难</td><td>多级 λ/4 或分布式</td></tr>
-    <tr><td>> 50:1</td><td>极难</td><td>变压器 + 多级</td></tr>
-    </tbody></table></div>
-    <h3>4.3 频率依赖性</h3>
+  
+  <article class="card ">
+    
+    <h2>Smith Chart 实战示例</h2>
+    <p><strong>目标</strong>：将 Z_L = 25 + j30Ω 匹配到 50Ω。</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>归一化：z_L = 0.5 + j0.6</li>
+<li>在 Smith Chart 上标出该点</li>
+<li>沿等 VSWR 圆旋转到与 r=1 圆相交</li>
+<li>在交点处添加并联电容抵消虚部</li>
+<li>到达中心点（50Ω）→ 匹配完成！</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 L 型网络（最简洁）</h2>
+    <p><strong>结构</strong>：一个串联元件 + 一个并联元件。</p>
+<p><strong>两种构型</strong>：</p>
+<pre><code>构型 A: 并联C + 串联L    构型 B: 串联L + 并联C
+         ──┬──             ──L──┬──
+           C                    C
+           │                    │
+输入 ──────┴──── 输出     输入 ──┴── 输出
+</code></pre>
+<p><strong>Q 值公式</strong>：</p>
+<pre><code>Q = √(R_high/R_low - 1)
+</code></pre>
+<p>其中 R_high 是较大电阻，R_low 是较小电阻。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：最简单，两个元件</li>
+<li>缺点：Q 值固定，带宽不可控</li>
+<li>适用：窄带匹配（Q &gt; 5）</li>
+</ul>
+<p><strong>设计公式</strong>（R_s → R_p，低到高）：</p>
+<pre><code>X_series = Q × R_s
+X_shunt = R_p / Q
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 Pi 型网络</h2>
+    <p><strong>结构</strong>：两个并联元件 + 一个串联元件。</p>
+<pre><code>         ──C1──┬──L──┬──C2──
+              │       │
+输入 ─────────┴───────┴── 输出
+</code></pre>
+<p><strong>原理</strong>：两个 L 型网络背靠背，中间通过虚拟电阻 R_v 连接。</p>
+<p><strong>Q 值可控</strong>：</p>
+<pre><code>Q_total = √(R_high/R_v) + √(R_v/R_low)
+</code></pre>
+<p>通过选择 R_v 可以独立控制 Q 值和带宽。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：带宽可控，谐波抑制好</li>
+<li>缺点：三个元件，设计稍复杂</li>
+<li>适用：宽带匹配、谐波抑制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 T 型网络</h2>
+    <p><strong>结构</strong>：两个串联元件 + 一个并联元件。</p>
+<pre><code>输入 ──L1──┬──C──┬──L2── 输出
+            │     │
+           GND   GND
+</code></pre>
+<p><strong>原理</strong>：与 Pi 型对称，两个 L 型网络串联。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：适合高阻抗匹配</li>
+<li>缺点：三个元件</li>
+<li>适用：平衡传输线匹配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 四分之一波长变换器（λ/4 Transformer）</h2>
+    <p><strong>结构</strong>：一段长度为 λ/4、特性阻抗为 Z_0 的传输线。</p>
+<p><strong>变换公式</strong>：</p>
+<pre><code>Z_in = Z_0² / Z_L
+</code></pre>
+<p><strong>设计</strong>：</p>
+<pre><code>Z_0 = √(Z_source × Z_load)
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：结构简单，易于微带线实现</li>
+<li>缺点：窄带（仅在中心频率附近匹配）</li>
+<li>适用：微带线阻抗变换</li>
+</ul>
+<p><strong>多级 λ/4 变换器</strong>：</p>
+<pre><code>Z_in = Z_N² / (Z_{N-1}² / (... / (Z_1² / Z_L)...))
+</code></pre>
+<p>通过多级级联可扩展带宽。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 单枝节匹配（Single Stub Matching）</h2>
+    <p><strong>结构</strong>：在主传输线上并联（或串联）一段短路/开路枝节。</p>
+<p><strong>设计步骤</strong>：</p>
+<ol>
+<li>归一化负载阻抗 z_L</li>
+<li>沿 VSWR 圆旋转到与 r=1 圆相交</li>
+<li>在交点处添加并联枝节，抵消虚部</li>
+<li>枝节长度由所需 susceptance 决定</li>
+</ol>
+<p><strong>短路枝节</strong>：</p>
+<pre><code>Z_stub = jZ₀ tan(βl)
+B_stub = -j/Y₀ tan(βl)
+</code></pre>
+<p><strong>开路枝节</strong>：</p>
+<pre><code>Z_stub = -jZ₀ cot(βl)
+B_stub = j/Y₀ cot(βl)
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：纯传输线实现，无需集总元件</li>
+<li>缺点：枝节位置固定，可调性差</li>
+<li>适用：微带线/带状线匹配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.6 双枝节匹配（Double Stub Matching）</h2>
+    <p><strong>结构</strong>：两个并联枝节，间距固定（通常 λ/8）。</p>
+<p><strong>优势</strong>：枝节位置固定，只需调节枝节长度。</p>
+<p><strong>局限</strong>：并非所有负载阻抗都能匹配（存在"盲区"）。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 Q 值与带宽的关系</h2>
+    <pre><code>BW ≈ f_center / Q
+</code></pre>
+<p><strong>Q 值越低，带宽越宽</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>网络类型</th>
+<th>Q 值</th>
+<th>相对带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L 型</td>
+<td>固定（由阻抗比决定）</td>
+<td>窄（&lt; 20%）</td>
+</tr>
+<tr>
+<td>Pi 型</td>
+<td>可调（通过 R_v）</td>
+<td>中（20-50%）</td>
+</tr>
+<tr>
+<td>T 型</td>
+<td>可调</td>
+<td>中（20-50%）</td>
+</tr>
+<tr>
+<td>λ/4 变换器</td>
+<td>高</td>
+<td>很窄（&lt; 10%）</td>
+</tr>
+<tr>
+<td>多级 λ/4</td>
+<td>高</td>
+<td>窄到中</td>
+</tr>
+<tr>
+<td>多节级联</td>
+<td>可调</td>
+<td>宽（&gt; 50%）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 阻抗比与匹配难度</h2>
+    <pre><code>阻抗比 = R_high / R_low
+</code></pre>
+<p><strong>经验法则</strong>：
+| 阻抗比 | 匹配难度 | 推荐方案 |
+|--------|---------|---------|
+| &lt; 2:1 | 容易 | L 型 |
+| 2:1 - 10:1 | 中等 | Pi/T 型 |
+| 10:1 - 50:1 | 困难 | 多级 λ/4 或分布式 |
+| &gt; 50:1 | 极难 | 变压器 + 多级 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 频率依赖性</h2>
     <p>匹配网络的阻抗变换特性随频率变化：</p>
-    <pre><code>Z_L(f) = R + j2πfL - j/(2πfC)</code></pre>
-    <p><b>宽带匹配的挑战</b>：在一个频点上匹配完美，在另一个频点上可能完全失配。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>多节级联（Butterworth/Chebyshev 响应）</li><li>渐变线（Tapered Line）</li><li>使用有源匹配（自适应调谐）</li></ul>
-    <p>---</p>
+<pre><code>Z_L(f) = R + j2πfL - j/(2πfC)
+</code></pre>
+<p><strong>宽带匹配的挑战</strong>：在一个频点上匹配完美，在另一个频点上可能完全失配。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>多节级联（Butterworth/Chebyshev 响应）</li>
+<li>渐变线（Tapered Line）</li>
+<li>使用有源匹配（自适应调谐）</li>
+</ul>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>五、5G 毫米波的匹配挑战</h2>
-    <h3>5.1 高频下的寄生效应</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频率</th><th>寄生电感影响</th><th>寄生电容影响</th></tr></thead>
-    <tbody>
-    <tr><td>1 GHz</td><td>可忽略</td><td>可忽略</td></tr>
-    <tr><td>10 GHz</td><td>显著（1nH ≈ j63Ω）</td><td>显著（1pF ≈ -j16Ω）</td></tr>
-    <tr><td>28 GHz</td><td>严重（1nH ≈ j176Ω）</td><td>严重（1pF ≈ -j5.7Ω）</td></tr>
-    <tr><td>60 GHz</td><td>致命（1nH ≈ j377Ω）</td><td>致命（1pF ≈ -j2.6Ω）</td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：毫米波频段，一个 0402 封装电容的寄生电感（~0.5nH）就会让谐振频率从 28GHz 降到 10GHz。</p>
-    <h3>5.2 AiP（Antenna in Package）匹配</h3>
-    <p><b>架构</b>：</p>
-    <pre><code>RFIC → 封装内传输线 → 天线单元
-           ↑
-        匹配网络集成在封装内</code></pre>
-    <p><b>挑战</b>：</p>
-    <ul><li>封装内传输线损耗（金属薄、介电常数不稳定）</li><li>焊盘/过孔的寄生参数</li><li>热膨胀导致的尺寸变化</li></ul>
-    <p><b>解决方案</b>：</p>
-    <ul><li>使用硅基传输线（SIW）</li><li>嵌入式无源器件（EPD）</li><li>共封装光学（CPO）减少电信号路径</li></ul>
-    <h3>5.3 宽带匹配方案</h3>
-    <p><b>5G n77 频段（3.3-4.2GHz，FBW=25.4%）</b>：</p>
-    <ul><li>多节 Pi 型网络（3-5 节）</li><li>Chebyshev 响应（等纹带）</li><li>或 Butterworth 响应（最大平坦）</li></ul>
-    <p><b>5G n257（24.25-29.5GHz，FBW=19.6%）</b>：</p>
-    <ul><li>渐变微带线（exponential/tapered）</li><li>多枝节并联</li><li>有源调谐（MEMS/varactor）</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>5.1 高频下的寄生效应</h2>
+    <table>
+<thead>
+<tr>
+<th>频率</th>
+<th>寄生电感影响</th>
+<th>寄生电容影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 GHz</td>
+<td>可忽略</td>
+<td>可忽略</td>
+</tr>
+<tr>
+<td>10 GHz</td>
+<td>显著（1nH ≈ j63Ω）</td>
+<td>显著（1pF ≈ -j16Ω）</td>
+</tr>
+<tr>
+<td>28 GHz</td>
+<td>严重（1nH ≈ j176Ω）</td>
+<td>严重（1pF ≈ -j5.7Ω）</td>
+</tr>
+<tr>
+<td>60 GHz</td>
+<td>致命（1nH ≈ j377Ω）</td>
+<td>致命（1pF ≈ -j2.6Ω）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：毫米波频段，一个 0402 封装电容的寄生电感（~0.5nH）就会让谐振频率从 28GHz 降到 10GHz。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>六、匹配网络的实际设计流程</h2>
-    <h3>6.1 设计步骤</h3>
-    <ol><li><b>测量/仿真</b>：获取负载阻抗 Z_L（VNA 测量或 HFSS/CST 仿真）</li><li><b>归一化</b>：z_L = Z_L / Z₀</li><li><b>选择拓扑</b>：根据阻抗比和带宽要求选择 L/Pi/T/Stub</li><li><b>计算元件值</b>：使用 Smith Chart 或公式</li><li><b>仿真验证</b>：在 ADS/Momentum 中仿真 S11 和带宽</li><li><b>实物制作</b>：PCB 或微带线加工</li><li><b>实测调整</b>：VNA 测量，微调元件值</li></ol>
-    <h3>6.2 工具推荐</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工具</th><th>用途</th><th>特点</th></tr></thead>
-    <tbody>
-    <tr><td>Smith Chart Online</td><td>交互式 Smith Chart</td><td>免费，实时可视化</td></tr>
-    <tr><td>Next Antennas Solver</td><td>L/Pi/T 网络求解</td><td>自动计算元件值</td></tr>
-    <tr><td>MATLAB RF Toolbox</td><td>匹配网络设计</td><td>编程灵活，适合批量设计</td></tr>
-    <tr><td>ADS (Keysight)</td><td>完整 RF 设计</td><td>工业标准，仿真+布局</td></tr>
-    <tr><td>CST Studio</td><td>3D 电磁仿真</td><td>精确建模寄生效应</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>5.2 AiP（Antenna in Package）匹配</h2>
+    <p><strong>架构</strong>：</p>
+<pre><code>RFIC → 封装内传输线 → 天线单元
+       ↑
+    匹配网络集成在封装内
+</code></pre>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>封装内传输线损耗（金属薄、介电常数不稳定）</li>
+<li>焊盘/过孔的寄生参数</li>
+<li>热膨胀导致的尺寸变化</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用硅基传输线（SIW）</li>
+<li>嵌入式无源器件（EPD）</li>
+<li>共封装光学（CPO）减少电信号路径</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>5.3 宽带匹配方案</h2>
+    <p><strong>5G n77 频段（3.3-4.2GHz，FBW=25.4%）</strong>：</p>
+<ul>
+<li>多节 Pi 型网络（3-5 节）</li>
+<li>Chebyshev 响应（等纹带）</li>
+<li>或 Butterworth 响应（最大平坦）</li>
+</ul>
+<p><strong>5G n257（24.25-29.5GHz，FBW=19.6%）</strong>：</p>
+<ul>
+<li>渐变微带线（exponential/tapered）</li>
+<li>多枝节并联</li>
+<li>有源调谐（MEMS/varactor）</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 设计步骤</h2>
+    <ol>
+<li><strong>测量/仿真</strong>：获取负载阻抗 Z_L（VNA 测量或 HFSS/CST 仿真）</li>
+<li><strong>归一化</strong>：z_L = Z_L / Z₀</li>
+<li><strong>选择拓扑</strong>：根据阻抗比和带宽要求选择 L/Pi/T/Stub</li>
+<li><strong>计算元件值</strong>：使用 Smith Chart 或公式</li>
+<li><strong>仿真验证</strong>：在 ADS/Momentum 中仿真 S11 和带宽</li>
+<li><strong>实物制作</strong>：PCB 或微带线加工</li>
+<li><strong>实测调整</strong>：VNA 测量，微调元件值</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 工具推荐</h2>
+    <table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Smith Chart Online</td>
+<td>交互式 Smith Chart</td>
+<td>免费，实时可视化</td>
+</tr>
+<tr>
+<td>Next Antennas Solver</td>
+<td>L/Pi/T 网络求解</td>
+<td>自动计算元件值</td>
+</tr>
+<tr>
+<td>MATLAB RF Toolbox</td>
+<td>匹配网络设计</td>
+<td>编程灵活，适合批量设计</td>
+</tr>
+<tr>
+<td>ADS (Keysight)</td>
+<td>完整 RF 设计</td>
+<td>工业标准，仿真+布局</td>
+</tr>
+<tr>
+<td>CST Studio</td>
+<td>3D 电磁仿真</td>
+<td>精确建模寄生效应</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、给非专业读者的一句话总结</h2>
-    <div class="call"><b>阻抗匹配就是"电路版的转接头"——你的耳机是 32Ω，手机输出是 50Ω，中间加个"转换插头"（匹配网络）才能让声音最大、失真最小。5G 基站有 64 根天线，每根都要精确匹配到 50Ω，差 1Ω 就可能让信号质量下降。毫米波的匹配更难，因为连一根导线都有寄生电感——就像高速公路收费站，车流量大了，每个收费站都得精确计算通行速度，不然就堵车。</b></div>
-    <p><b>金句</b>：匹配告诉你一个道理——<b>最好的配合不是"完全一样"，而是"互补兼容"</b>。50Ω 和 100Ω 不一样，但通过匹配网络可以完美配合。</p>
-    <p>---</p>
+    <blockquote>
+<p><strong>阻抗匹配就是"电路版的转接头"——你的耳机是 32Ω，手机输出是 50Ω，中间加个"转换插头"（匹配网络）才能让声音最大、失真最小。5G 基站有 64 根天线，每根都要精确匹配到 50Ω，差 1Ω 就可能让信号质量下降。毫米波的匹配更难，因为连一根导线都有寄生电感——就像高速公路收费站，车流量大了，每个收费站都得精确计算通行速度，不然就堵车。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：匹配告诉你一个道理——<strong>最好的配合不是"完全一样"，而是"互补兼容"</strong>。50Ω 和 100Ω 不一样，但通过匹配网络可以完美配合。</p>
+<hr />
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -313,39 +551,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

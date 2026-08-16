@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>开关（Switch） · 知识卡片</title>
+<title>开关Switch · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">开关 <span class="en">Switch</span></h1>
-  <p class="lede">开关是射频电路的"十字路口"——控制信号走哪条路。在 T/R 模块中，收发切换开关（Tx/Rx Switch）是最关键的开关，它在发射时把 PA 连接到天线，在接收时把 LNA 连接到天线，切换速度需要 < 1μs。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">开关Switch</h1>
+  <p class="lede">开关是射频电路的&#34;十字路口&#34;——控制信号走哪条路。在 T/R 模块中，收发切换开关（Tx/Rx Switch）是最关键的开关，它在发射时把 PA 连接到天线，在接收时把 LNA 连接到天线，切换速度需要 &lt; 1μs。</p>
+  
 </header>
 
 <main>
@@ -99,134 +101,215 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>开关就像铁路道岔——火车（信号）来了，道岔往左扳就走左边轨道（PA→天线），往右扳就走右边轨道（天线→LNA）。5G TDD 系统每秒切换几千次，道岔必须又快又可靠。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、射频开关类型</h2>
-    <h3>1.1 FET 开关（主流）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 FET 开关（主流）</h2>
     <pre><code>原理：
-      利用 MOSFET/JFET/GaN HEMT 的开关特性
-      
-    工作状态：
-      导通（ON）：Vgs &gt; Vth → 低阻抗（~0.1Ω）
-      截止（OFF）：Vgs &lt; Vth → 高阻抗（~1kΩ）
-      
-    类型：
-      SPDT（单刀双掷）：1 输入，2 输出
-      SP4T（单刀四掷）：1 输入，4 输出
-      2×2/4×4 矩阵开关
-      
-    优势：
-      - 速度快（&lt; 10ns）
-      - 体积小
-      - 可集成
-      - 成本低
-      
-    劣势：
-      - 插入损耗较高（0.5-2dB）
-      - 功率容量有限（&lt; 1W）</code></pre>
-    <h3>1.2 MEMS 开关</h3>
-    <pre><code>原理：
-      微机电系统——静电驱动可动梁
-      
-    工作状态：
-      导通：静电吸合，金属接触
-      截止：释放，断开
-      
-    优势：
-      - 插入损耗极低（&lt; 0.1dB）
-      - 隔离度高（&gt; 60dB）
-      - 功率容量大（&gt; 1W）
-      - 适合毫米波
-      
-    劣势：
-      - 速度慢（1-10ms）
-      - 寿命有限（10^7-10^9 次）
-      - 成本高
-      - 需要高压驱动（50-100V）</code></pre>
-    <h3>1.3 继电器开关</h3>
-    <pre><code>原理：
-      电磁继电器——线圈驱动机械触点
-      
-    优势：
-      - 功率容量大（&gt; 10W）
-      - 插入损耗低（&lt; 0.1dB）
-      - 隔离度高（&gt; 80dB）
-      
-    劣势：
-      - 速度慢（1-10ms）
-      - 寿命短（10^5-10^6 次）
-      - 体积大
-      - 不适合 T/R 模块
-      
-    适用场景：
-      - 测试设备
-      - 天线切换（非 T/R 模块）</code></pre>
-  </article>
+  利用 MOSFET/JFET/GaN HEMT 的开关特性
 
-  <article class="card">
-    <h2>二、T/R 模块中的开关</h2>
-    <h3>2.1 收发切换开关（Tx/Rx Switch）</h3>
+工作状态：
+  导通（ON）：Vgs &gt; Vth → 低阻抗（~0.1Ω）
+  截止（OFF）：Vgs &lt; Vth → 高阻抗（~1kΩ）
+
+类型：
+  SPDT（单刀双掷）：1 输入，2 输出
+  SP4T（单刀四掷）：1 输入，4 输出
+  2×2/4×4 矩阵开关
+
+优势：
+  - 速度快（&lt; 10ns）
+  - 体积小
+  - 可集成
+  - 成本低
+
+劣势：
+  - 插入损耗较高（0.5-2dB）
+  - 功率容量有限（&lt; 1W）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 MEMS 开关</h2>
+    <pre><code>原理：
+  微机电系统——静电驱动可动梁
+
+工作状态：
+  导通：静电吸合，金属接触
+  截止：释放，断开
+
+优势：
+  - 插入损耗极低（&lt; 0.1dB）
+  - 隔离度高（&gt; 60dB）
+  - 功率容量大（&gt; 1W）
+  - 适合毫米波
+
+劣势：
+  - 速度慢（1-10ms）
+  - 寿命有限（10^7-10^9 次）
+  - 成本高
+  - 需要高压驱动（50-100V）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 继电器开关</h2>
+    <pre><code>原理：
+  电磁继电器——线圈驱动机械触点
+
+优势：
+  - 功率容量大（&gt; 10W）
+  - 插入损耗低（&lt; 0.1dB）
+  - 隔离度高（&gt; 80dB）
+
+劣势：
+  - 速度慢（1-10ms）
+  - 寿命短（10^5-10^6 次）
+  - 体积大
+  - 不适合 T/R 模块
+
+适用场景：
+  - 测试设备
+  - 天线切换（非 T/R 模块）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 收发切换开关（Tx/Rx Switch）</h2>
     <pre><code>TDD 系统中的收发切换：
-      发射时：PA → Tx/Rx Switch → 天线
-      接收时：天线 → Tx/Rx Switch → LNA
-      
-    切换时序（TDD）：
-      保护间隔（Guard Period）：~100ns
-      切换速度：&lt; 1μs（必须）
-      
-    关键指标：
-      插入损耗（TX）：&lt; 1dB
-      插入损耗（RX）：&lt; 0.5dB
-      隔离度（TX→RX）：&gt; 40dB
-      切换速度：&lt; 1μs
-      功率容量：&gt; 30dBm（PA 输出）</code></pre>
-    <h3>2.2 校准开关</h3>
+  发射时：PA → Tx/Rx Switch → 天线
+  接收时：天线 → Tx/Rx Switch → LNA
+
+切换时序（TDD）：
+  保护间隔（Guard Period）：~100ns
+  切换速度：&lt; 1μs（必须）
+
+关键指标：
+  插入损耗（TX）：&lt; 1dB
+  插入损耗（RX）：&lt; 0.5dB
+  隔离度（TX→RX）：&gt; 40dB
+  切换速度：&lt; 1μs
+  功率容量：&gt; 30dBm（PA 输出）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 校准开关</h2>
     <pre><code>内部校准中的开关：
-      校准模式时：
-        TX 采样 → 开关 → 耦合器 → 从通道 RX
-        从通道 TX → 开关 → 耦合器 → 主通道 RX
-      
-    开关要求：
-      低损耗（&lt; 0.5dB）
-      高隔离（&gt; 30dB）
-      快速切换（&lt; 10μs）
-      
-    实现：SP4T/SP8T 多路开关矩阵</code></pre>
-    <h3>2.3 通道选择开关</h3>
+  校准模式时：
+    TX 采样 → 开关 → 耦合器 → 从通道 RX
+    从通道 TX → 开关 → 耦合器 → 主通道 RX
+
+开关要求：
+  低损耗（&lt; 0.5dB）
+  高隔离（&gt; 30dB）
+  快速切换（&lt; 10μs）
+
+实现：SP4T/SP8T 多路开关矩阵
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 通道选择开关</h2>
     <pre><code>多通道 AAU 中的开关：
-      64T64R → 64 个 Tx/Rx 开关
-      每个开关控制 1 个通道的收发
-      
-    集成方案：
-      开关 + 衰减器 + 移相器 → 集成到 T/R 模块
-      减少外部开关数量
-      降低损耗和尺寸</code></pre>
-  </article>
+  64T64R → 64 个 Tx/Rx 开关
+  每个开关控制 1 个通道的收发
 
-  <article class="card">
+集成方案：
+  开关 + 衰减器 + 移相器 → 集成到 T/R 模块
+  减少外部开关数量
+  降低损耗和尺寸
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、关键指标</h2>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>FET 开关</th><th>MEMS 开关</th><th>继电器</th></tr></thead>
-    <tbody>
-    <tr><td>插入损耗</td><td>0.5-2dB</td><td>< 0.1dB</td><td>< 0.1dB</td></tr>
-    <tr><td>隔离度</td><td>20-40dB</td><td>> 60dB</td><td>> 80dB</td></tr>
-    <tr><td>切换速度</td><td>< 10ns</td><td>1-10ms</td><td>1-10ms</td></tr>
-    <tr><td>功率容量</td><td>< 1W</td><td>1-5W</td><td>> 10W</td></tr>
-    <tr><td>寿命</td><td>10^12 次</td><td>10^7-10^9 次</td><td>10^5-10^6 次</td></tr>
-    <tr><td>工作频率</td><td>DC-6.5GHz</td><td>DC-110GHz</td><td>DC-4GHz</td></tr>
-    <tr><td>驱动电压</td><td>3.3-5V</td><td>50-100V</td><td>5-12V</td></tr>
-    <tr><td>成本</td><td>低</td><td>高</td><td>中</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>FET 开关</th>
+<th>MEMS 开关</th>
+<th>继电器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入损耗</td>
+<td>0.5-2dB</td>
+<td>&lt; 0.1dB</td>
+<td>&lt; 0.1dB</td>
+</tr>
+<tr>
+<td>隔离度</td>
+<td>20-40dB</td>
+<td>&gt; 60dB</td>
+<td>&gt; 80dB</td>
+</tr>
+<tr>
+<td>切换速度</td>
+<td>&lt; 10ns</td>
+<td>1-10ms</td>
+<td>1-10ms</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>&lt; 1W</td>
+<td>1-5W</td>
+<td>&gt; 10W</td>
+</tr>
+<tr>
+<td>寿命</td>
+<td>10^12 次</td>
+<td>10^7-10^9 次</td>
+<td>10^5-10^6 次</td>
+</tr>
+<tr>
+<td>工作频率</td>
+<td>DC-6.5GHz</td>
+<td>DC-110GHz</td>
+<td>DC-4GHz</td>
+</tr>
+<tr>
+<td>驱动电压</td>
+<td>3.3-5V</td>
+<td>50-100V</td>
+<td>5-12V</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>高</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>开关是射频电路的"十字路口"——T/R 模块中最关键的是收发切换开关（Tx/Rx Switch），需要 < 1μs 切换速度和 > 40dB 隔离度。FET 开关是 Sub-6GHz 主流（快、便宜），MEMS 开关是毫米波趋势（低损耗、高隔离）。记住：开关的插入损耗直接贡献到系统噪声系数和发射功率预算，不能忽视。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -246,39 +329,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

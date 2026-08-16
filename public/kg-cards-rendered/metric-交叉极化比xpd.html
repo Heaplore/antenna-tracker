@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>交叉极化比 XPD（Cross-Polarization Discrimination） · 知识卡片</title>
+<title>交叉极化比XPD · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">交叉极化比 XPD <span class="en">Cross-Polarization Discrimination</span></h1>
-  <p class="lede">XPD 衡量天线辐射波中"期望极化"相对于"交叉极化"的纯净程度——定义为同极化增益与交叉极化增益之比，单位 dB。XPD 越高，极化越纯，极化复用带来的容量增益越大。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">交叉极化比XPD</h1>
+  <p class="lede">XPD 衡量天线辐射波中&#34;期望极化&#34;相对于&#34;交叉极化&#34;的纯净程度——定义为同极化增益与交叉极化增益之比，单位 dB。XPD 越高，极化越纯，极化复用带来的容量增益越大。</p>
+  
 </header>
 
 <main>
@@ -99,187 +101,461 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象两个人在不同频道说话：你在听 A 频道的广播（同极化），但背景里隐约能听到 B 频道的声音（交叉极化）。XPD 就是"你想听的音量"除以"背景噪音音量"的比值。XPD = 30dB 意味着背景噪音只有你想听的声音的千分之一——干净极了。XPD = 10dB 意味着背景噪音是主信号的三分之一——你会觉得吵。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 XPD 的数学定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 XPD 的数学定义</h2>
     <pre><code>XPD = G_co-pol / G_cross-pol
-    XPD(dB) = 10·log₁₀(G_co-pol / G_cross-pol)
-            = G_co-pol(dBi) - G_cross-pol(dBi)</code></pre>
-    <p>其中：</p>
-    <ul><li>G_co-pol：期望极化方向的增益（如 +45° 线极化）</li><li>G_cross-pol：正交极化方向的增益（如 -45° 线极化）</li></ul>
-    <p><b>关键</b>：两个增益必须在<b>同一方向</b>测量（通常是波束中心 θ = 0°）。</p>
-    <h3>1.2 XPD vs 端口隔离度（Port-to-Port Isolation）</h3>
+XPD(dB) = 10·log₁₀(G_co-pol / G_cross-pol)
+        = G_co-pol(dBi) - G_cross-pol(dBi)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>G_co-pol：期望极化方向的增益（如 +45° 线极化）</li>
+<li>G_cross-pol：正交极化方向的增益（如 -45° 线极化）</li>
+</ul>
+<p><strong>关键</strong>：两个增益必须在<strong>同一方向</strong>测量（通常是波束中心 θ = 0°）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 XPD vs 端口隔离度（Port-to-Port Isolation）</h2>
     <p>这是最容易混淆的两个概念：</p>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>XPD（交叉极化比）</th><th>端口隔离度</th></tr></thead>
-    <tbody>
-    <tr><td>测量位置</td><td>远场辐射方向图</td><td>端口 S 参数（VNA）</td></tr>
-    <tr><td>测量对象</td><td>辐射场的极化纯度</td><td>端口间的电气泄漏</td></tr>
-    <tr><td>典型值</td><td>20-40dB</td><td>25-45dB</td></tr>
-    <tr><td>影响因素</td><td>天线结构对称性、加工精度</td><td>馈电网络布局、屏蔽</td></tr>
-    <tr><td>关系</td><td>XPD 是端口隔离的"辐射表现"</td><td>端口隔离是 XPD 的"内部基础"</td></tr>
-    </tbody></table></div>
-    <p><b>关系</b>：端口隔离度好是 XPD 好的必要条件，但不是充分条件。即使端口隔离 40dB，如果天线结构不对称，远场 XPD 也可能只有 25dB。</p>
-    <h3>1.3 XPD 与极化类型的关系</h3>
-    <div class="tw"><table>
-    <thead><tr><th>极化类型</th><th>典型 XPD</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>±45° 线极化基站天线</td><td>20-35dB</td><td>最常用，XPD 要求不高</td></tr>
-    <tr><td>V/H 线极化卫星天线</td><td>30-40dB</td><td>要求更高（频率复用）</td></tr>
-    <tr><td>RHCP/LHCP 圆极化</td><td>25-35dB</td><td>圆极化 XPD 与轴比相关</td></tr>
-    <tr><td>高纯度线极化</td><td>> 35dB</td><td>特殊应用（射电天文）</td></tr>
-    </tbody></table></div>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>XPD（交叉极化比）</th>
+<th>端口隔离度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测量位置</td>
+<td>远场辐射方向图</td>
+<td>端口 S 参数（VNA）</td>
+</tr>
+<tr>
+<td>测量对象</td>
+<td>辐射场的极化纯度</td>
+<td>端口间的电气泄漏</td>
+</tr>
+<tr>
+<td>典型值</td>
+<td>20-40dB</td>
+<td>25-45dB</td>
+</tr>
+<tr>
+<td>影响因素</td>
+<td>天线结构对称性、加工精度</td>
+<td>馈电网络布局、屏蔽</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>XPD 是端口隔离的"辐射表现"</td>
+<td>端口隔离是 XPD 的"内部基础"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关系</strong>：端口隔离度好是 XPD 好的必要条件，但不是充分条件。即使端口隔离 40dB，如果天线结构不对称，远场 XPD 也可能只有 25dB。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、计算公式</h2>
-    <h3>2.1 从电场分量计算</h3>
+  
+  <article class="card ">
+    
+    <h2>1.3 XPD 与极化类型的关系</h2>
+    <table>
+<thead>
+<tr>
+<th>极化类型</th>
+<th>典型 XPD</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>±45° 线极化基站天线</td>
+<td>20-35dB</td>
+<td>最常用，XPD 要求不高</td>
+</tr>
+<tr>
+<td>V/H 线极化卫星天线</td>
+<td>30-40dB</td>
+<td>要求更高（频率复用）</td>
+</tr>
+<tr>
+<td>RHCP/LHCP 圆极化</td>
+<td>25-35dB</td>
+<td>圆极化 XPD 与轴比相关</td>
+</tr>
+<tr>
+<td>高纯度线极化</td>
+<td>&gt; 35dB</td>
+<td>特殊应用（射电天文）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 从电场分量计算</h2>
     <pre><code>E_co = 同极化电场分量
-    E_cross = 交叉极化电场分量
+E_cross = 交叉极化电场分量
+
+XPD = |E_co|² / |E_cross|² = (|E_co| / |E_cross|)²
+XPD(dB) = 20·log₁₀(|E_co| / |E_cross|)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    XPD = |E_co|² / |E_cross|² = (|E_co| / |E_cross|)²
-    XPD(dB) = 20·log₁₀(|E_co| / |E_cross|)</code></pre>
-    <h3>2.2 XPD 与轴比的关系（圆极化）</h3>
+    <h2>2.2 XPD 与轴比的关系（圆极化）</h2>
     <p>对于圆极化天线，XPD 与轴比 AR 直接相关：</p>
-    <pre><code>AR = √(G_RHCP / G_LHCP)
-    XPD = G_RHCP / G_LHCP = AR²
-    XPD(dB) = 20·log₁₀(AR) = AR(dB)</code></pre>
-    <p>即：圆极化天线的 XPD 等于其轴比（dB 值相同）。</p>
-    <p><b>举例</b>：</p>
-    <ul><li>AR = 1（0dB，理想圆极化）→ XPD = ∞（无穷大）</li><li>AR = 1.41（3dB）→ XPD = 3dB</li><li>AR = 3.16（10dB）→ XPD = 10dB</li></ul>
-    <h3>2.3 XPD 随角度变化</h3>
+<pre><code>AR = √(G_RHCP / G_LHCP)
+XPD = G_RHCP / G_LHCP = AR²
+XPD(dB) = 20·log₁₀(AR) = AR(dB)
+</code></pre>
+<p>即：圆极化天线的 XPD 等于其轴比（dB 值相同）。</p>
+<p><strong>举例</strong>：</p>
+<ul>
+<li>AR = 1（0dB，理想圆极化）→ XPD = ∞（无穷大）</li>
+<li>AR = 1.41（3dB）→ XPD = 3dB</li>
+<li>AR = 3.16（10dB）→ XPD = 10dB</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 XPD 随角度变化</h2>
     <p>XPD 不是常数——它随角度（θ, φ）变化：</p>
-    <pre><code>XPD(θ, φ) = G_co(θ,φ) / G_cross(θ,φ)</code></pre>
-    <p>通常：</p>
-    <ul><li>波束中心 XPD 最高</li><li>偏离中心后 XPD 下降</li><li>在旁瓣区域 XPD 可能降至 10dB 以下</li></ul>
+<pre><code>XPD(θ, φ) = G_co(θ,φ) / G_cross(θ,φ)
+</code></pre>
+<p>通常：</p>
+<ul>
+<li>波束中心 XPD 最高</li>
+<li>偏离中心后 XPD 下降</li>
+<li>在旁瓣区域 XPD 可能降至 10dB 以下</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型值范围</h2>
-    <h3>3.1 不同应用场景</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用场景</th><th>最小 XPD 要求</th><th>典型 XPD</th></tr></thead>
-    <tbody>
-    <tr><td>5G 基站（±45° 极化）</td><td>20dB</td><td>25-30dB</td></tr>
-    <tr><td>卫星通信（H/V 极化复用）</td><td>25dB</td><td>30-35dB</td></tr>
-    <tr><td>卫星通信（RHCP/LHCP 复用）</td><td>20dB</td><td>25-30dB</td></tr>
-    <tr><td>GPS 接收天线</td><td>15dB</td><td>20-25dB</td></tr>
-    <tr><td>6G XL-MIMO（极化复用）</td><td>25dB</td><td>30-35dB</td></tr>
-    <tr><td>毫米波 60GHz 极化 MIMO</td><td>30dB</td><td>35-36dB</td></tr>
-    <tr><td>射电天文</td><td>40dB</td><td>> 45dB</td></tr>
-    </tbody></table></div>
-    <h3>3.2 不同频段</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>典型 XPD</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>Sub-6GHz</td><td>25-35dB</td><td>结构尺寸大，加工精度高</td></tr>
-    <tr><td>28GHz 毫米波</td><td>20-30dB</td><td>加工公差影响大</td></tr>
-    <tr><td>60GHz 毫米波</td><td>15-25dB</td><td>更难保证对称性</td></tr>
-    <tr><td>77GHz 车载雷达</td><td>20-28dB</td><td>集成度高，限制多</td></tr>
-    <tr><td>太赫兹</td><td>10-20dB</td><td>目前最难控制</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 不同应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>最小 XPD 要求</th>
+<th>典型 XPD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G 基站（±45° 极化）</td>
+<td>20dB</td>
+<td>25-30dB</td>
+</tr>
+<tr>
+<td>卫星通信（H/V 极化复用）</td>
+<td>25dB</td>
+<td>30-35dB</td>
+</tr>
+<tr>
+<td>卫星通信（RHCP/LHCP 复用）</td>
+<td>20dB</td>
+<td>25-30dB</td>
+</tr>
+<tr>
+<td>GPS 接收天线</td>
+<td>15dB</td>
+<td>20-25dB</td>
+</tr>
+<tr>
+<td>6G XL-MIMO（极化复用）</td>
+<td>25dB</td>
+<td>30-35dB</td>
+</tr>
+<tr>
+<td>毫米波 60GHz 极化 MIMO</td>
+<td>30dB</td>
+<td>35-36dB</td>
+</tr>
+<tr>
+<td>射电天文</td>
+<td>40dB</td>
+<td>&gt; 45dB</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、测量方法</h2>
-    <h3>4.1 远场方向图测量法（标准方法）</h3>
-    <pre><code>设置：
-    - 消声室暗室
-    - 发射天线（可切换 ±45° 极化）
-    - 接收天线（AUT，固定在转台上）
-    - 距离：远场条件 2D²/λ
+  
+  <article class="card ">
     
-    步骤：
-    1. 发射天线设为 +45°，旋转 AUT 测量 E_+45(θ,φ)
-    2. 发射天线设为 -45°，旋转 AUT 测量 E_-45(θ,φ)
-    3. 在波束中心方向：
-       G_co = 最大同极化增益
-       G_cross = 正交极化增益
-    4. XPD = G_co - G_cross [dB]</code></pre>
-    <h3>4.2 交叉极化隔离度法（双天线法）</h3>
-    <pre><code>设置：
-    - 参考天线 A：+45° 极化（发射）
-    - AUT：+45° 极化（接收）
-    
-    步骤：
-    1. 测量 S21_co：A(+45°) → AUT(+45°)
-    2. 交换极化：A(-45°) → AUT(+45°)
-    3. 测量 S21_cross：A(-45°) → AUT(+45°)
-    4. XPD = S21_co - S21_cross [dB]</code></pre>
-    <h3>4.3 旋转极化参考天线法</h3>
-    <pre><code>设置：
-    - AUT：固定极化（如 +45°）
-    - 参考天线：可旋转极化的线极化天线
-    
-    步骤：
-    1. 旋转参考天线，找到功率最大位置（极化匹配）
-    2. 旋转 90°，找到功率最小位置（极化正交）
-    3. XPD = P_max - P_min [dB]</code></pre>
-    <h3>4.4 近场扫描法（高精度）</h3>
-    <pre><code>设置：
-    - 近场扫描系统（平面/圆柱面扫描）
-    - 二维探头（同时采集 co-pol 和 cross-pol）
-    
-    步骤：
-    1. 近场扫描获取完整电磁场分布
-    2. 傅里叶变换到远场
-    3. 直接提取 co-pol 和 cross-pol 方向图
-    4. 计算 XPD(θ,φ) 全空间分布
-    
-    优点：无需远场暗室，精度高
-    缺点：设备复杂，数据处理量大</code></pre>
+    <h2>3.2 不同频段</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>典型 XPD</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sub-6GHz</td>
+<td>25-35dB</td>
+<td>结构尺寸大，加工精度高</td>
+</tr>
+<tr>
+<td>28GHz 毫米波</td>
+<td>20-30dB</td>
+<td>加工公差影响大</td>
+</tr>
+<tr>
+<td>60GHz 毫米波</td>
+<td>15-25dB</td>
+<td>更难保证对称性</td>
+</tr>
+<tr>
+<td>77GHz 车载雷达</td>
+<td>20-28dB</td>
+<td>集成度高，限制多</td>
+</tr>
+<tr>
+<td>太赫兹</td>
+<td>10-20dB</td>
+<td>目前最难控制</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>4.1 远场方向图测量法（标准方法）</h2>
+    <pre><code>设置：
+
+- 消声室暗室
+- 发射天线（可切换 ±45° 极化）
+- 接收天线（AUT，固定在转台上）
+- 距离：远场条件 2D²/λ
+
+步骤：
+
+1. 发射天线设为 +45°，旋转 AUT 测量 E_+45(θ,φ)
+2. 发射天线设为 -45°，旋转 AUT 测量 E_-45(θ,φ)
+3. 在波束中心方向：
+   G_co = 最大同极化增益
+   G_cross = 正交极化增益
+4. XPD = G_co - G_cross [dB]
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 交叉极化隔离度法（双天线法）</h2>
+    <pre><code>设置：
+
+- 参考天线 A：+45° 极化（发射）
+- AUT：+45° 极化（接收）
+
+步骤：
+
+1. 测量 S21_co：A(+45°) → AUT(+45°)
+2. 交换极化：A(-45°) → AUT(+45°)
+3. 测量 S21_cross：A(-45°) → AUT(+45°)
+4. XPD = S21_co - S21_cross [dB]
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 旋转极化参考天线法</h2>
+    <pre><code>设置：
+
+- AUT：固定极化（如 +45°）
+- 参考天线：可旋转极化的线极化天线
+
+步骤：
+
+1. 旋转参考天线，找到功率最大位置（极化匹配）
+2. 旋转 90°，找到功率最小位置（极化正交）
+3. XPD = P_max - P_min [dB]
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 近场扫描法（高精度）</h2>
+    <pre><code>设置：
+
+- 近场扫描系统（平面/圆柱面扫描）
+- 二维探头（同时采集 co-pol 和 cross-pol）
+
+步骤：
+
+1. 近场扫描获取完整电磁场分布
+2. 傅里叶变换到远场
+3. 直接提取 co-pol 和 cross-pol 方向图
+4. 计算 XPD(θ,φ) 全空间分布
+
+优点：无需远场暗室，精度高
+缺点：设备复杂，数据处理量大
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>五、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>端口隔离度</td><td>正相关</td><td>端口隔离越好，XPD 通常越高</td></tr>
-    <tr><td>轴比 AR</td><td>直接相关（圆极化）</td><td>XPD(dB) = AR(dB)，圆极化时等价</td></tr>
-    <tr><td>天线增益</td><td>制约</td><td>XPD 过高可能导致增益略微下降（结构复杂化）</td></tr>
-    <tr><td>天线带宽</td><td>制约</td><td>宽频带内 XPD 可能恶化（高频段更难保持对称）</td></tr>
-    <tr><td>极化隔离度</td><td>正相关</td><td>高 XPD 意味着高极化隔离度</td></tr>
-    <tr><td>MIMO 信道相关性</td><td>负相关</td><td>XPD 越高 → 极化信道越独立 → MIMO 容量越高</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>关联指标</th>
+<th>关系类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口隔离度</td>
+<td>正相关</td>
+<td>端口隔离越好，XPD 通常越高</td>
+</tr>
+<tr>
+<td>轴比 AR</td>
+<td>直接相关（圆极化）</td>
+<td>XPD(dB) = AR(dB)，圆极化时等价</td>
+</tr>
+<tr>
+<td>天线增益</td>
+<td>制约</td>
+<td>XPD 过高可能导致增益略微下降（结构复杂化）</td>
+</tr>
+<tr>
+<td>天线带宽</td>
+<td>制约</td>
+<td>宽频带内 XPD 可能恶化（高频段更难保持对称）</td>
+</tr>
+<tr>
+<td>极化隔离度</td>
+<td>正相关</td>
+<td>高 XPD 意味着高极化隔离度</td>
+</tr>
+<tr>
+<td>MIMO 信道相关性</td>
+<td>负相关</td>
+<td>XPD 越高 → 极化信道越独立 → MIMO 容量越高</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 加工精度对 XPD 的影响</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 加工精度对 XPD 的影响</h2>
     <p>天线结构的不对称性是 XPD 恶化的头号杀手：</p>
-    <pre><code>尺寸偏差 Δ → XPD 下降 ≈ 20·log₁₀(1 + Δ/λ)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>λ</th><th>允许偏差</th><th>预期 XPD</th></tr></thead>
-    <tbody>
-    <tr><td>3.5GHz</td><td>86mm</td><td>±0.5mm</td><td>> 35dB</td></tr>
-    <tr><td>28GHz</td><td>10.7mm</td><td>±0.1mm</td><td>> 25dB</td></tr>
-    <tr><td>60GHz</td><td>5mm</td><td>±0.05mm</td><td>> 20dB</td></tr>
-    </tbody></table></div>
-    <h3>6.2 安装对准对 XPD 的影响</h3>
-    <p>基站天线安装时如果极化角偏差 α：</p>
-    <pre><code>XPD_effective ≈ XPD_intrinsic - 20·log₁₀(tan(45° + α))</code></pre>
-    <p>偏差 1° → XPD 下降约 0.17dB 偏差 3° → XPD 下降约 0.53dB 偏差 5° → XPD 下降约 0.9dB</p>
-    <h3>6.3 温度对 XPD 的影响</h3>
-    <p>温度变化导致结构膨胀/收缩，改变对称性：</p>
-    <pre><code>ΔXPD/ΔT ≈ -0.02 to -0.1 dB/°C</code></pre>
-    <p>对于室外基站（温差 -30°C 到 +60°C），XPD 可能下降 2-8dB。</p>
-    <h3>6.4 多径环境中的 XPD 恶化</h3>
-    <p>实际传播环境中，多径反射会改变极化状态：</p>
-    <pre><code>直射波：XPD = 30dB（天线固有）
-    多径叠加后：XPD_effective = 10-20dB（信道效应）</code></pre>
-    <p>这就是为什么 MIMO 在 rich scattering 环境中性能更好——多径虽然"污染"了极化，但也增加了信道独立性。</p>
+<pre><code>尺寸偏差 Δ → XPD 下降 ≈ 20·log₁₀(1 + Δ/λ)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>λ</th>
+<th>允许偏差</th>
+<th>预期 XPD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5GHz</td>
+<td>86mm</td>
+<td>±0.5mm</td>
+<td>&gt; 35dB</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>10.7mm</td>
+<td>±0.1mm</td>
+<td>&gt; 25dB</td>
+</tr>
+<tr>
+<td>60GHz</td>
+<td>5mm</td>
+<td>±0.05mm</td>
+<td>&gt; 20dB</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>XPD 是天线的"极化洁癖指数"——它告诉你天线辐射的波有多"纯"。XPD = 30dB 意味着交叉极化污染只有主极化的千分之一。在 5G 极化分集和 6G 极化复用中，XPD 直接决定了你能从极化维度榨出多少额外容量。记住：XPD 和端口隔离度是两回事——一个看远场辐射，一个看端口泄漏，但好 XPD 一定需要好端口隔离打底。</p>
+  
+  <article class="card ">
+    
+    <h2>6.2 安装对准对 XPD 的影响</h2>
+    <p>基站天线安装时如果极化角偏差 α：</p>
+<pre><code>XPD_effective ≈ XPD_intrinsic - 20·log₁₀(tan(45° + α))
+</code></pre>
+<p>偏差 1° → XPD 下降约 0.17dB
+偏差 3° → XPD 下降约 0.53dB
+偏差 5° → XPD 下降约 0.9dB</p>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 温度对 XPD 的影响</h2>
+    <p>温度变化导致结构膨胀/收缩，改变对称性：</p>
+<pre><code>ΔXPD/ΔT ≈ -0.02 to -0.1 dB/°C
+</code></pre>
+<p>对于室外基站（温差 -30°C 到 +60°C），XPD 可能下降 2-8dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 多径环境中的 XPD 恶化</h2>
+    <p>实际传播环境中，多径反射会改变极化状态：</p>
+<pre><code>直射波：XPD = 30dB（天线固有）
+多径叠加后：XPD_effective = 10-20dB（信道效应）
+</code></pre>
+<p>这就是为什么 MIMO 在 rich scattering 环境中性能更好——多径虽然"污染"了极化，但也增加了信道独立性。</p>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -299,39 +575,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

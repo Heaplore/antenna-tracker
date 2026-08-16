@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线口径效率（Aperture Efficiency） · 知识卡片</title>
+<title>口径效率Aperture-Efficiency · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线口径效率 <span class="en">Aperture Efficiency</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">口径效率Aperture-Efficiency</h1>
   <p class="lede">天线口径效率描述了天线的有效辐射面积与其物理面积之比，是连接天线物理尺寸与实际增益之间的核心桥梁。它综合了照射均匀性、溢出、极化、相位、损耗等多种效率因子的乘积，是评估任何孔径天线（反射面、阵列、喇叭）性能的终极指标。</p>
+  
 </header>
 
 <main>
@@ -99,265 +101,791 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象一个雨水收集器——一个直径 1 米的圆形水桶，理论上它的"开口面积"是 π×0.5² ≈ 0.785 平方米。但实际它能收集到多少雨水呢？如果桶口是斜的，有些雨水会溅出去；如果桶壁粗糙，有些雨水会粘在壁上流不走；如果桶底有裂缝，收集的雨水还会漏掉。口径效率就是这个"实际收集到的雨水"占"理论最大收集量"的比例。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 定义</h2>
     <p>天线口径效率（Aperture Efficiency, η_A）是天线的有效口径面积（A_e）与其物理口径面积（A_p）之比：</p>
-    <pre><code>η_A = A_e / A_p</code></pre>
-    <p>其中：</p>
-    <ul><li><b>有效口径面积（A_e）</b>：天线从入射电磁波中"捕获"功率的有效面积</li><li><b>物理口径面积（A_p）</b>：天线孔径的几何面积</li></ul>
-    <p>口径效率也可以通过增益来表示：</p>
-    <pre><code>η_A = (λ² / 4π) · (G / A_p)</code></pre>
-    <p>其中 G 是天线的增益（线性值，非 dB），λ 是工作波长。</p>
-    <h3>1.2 为什么口径效率重要？</h3>
+<pre><code>η_A = A_e / A_p
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><strong>有效口径面积（A_e）</strong>：天线从入射电磁波中"捕获"功率的有效面积</li>
+<li><strong>物理口径面积（A_p）</strong>：天线孔径的几何面积</li>
+</ul>
+<p>口径效率也可以通过增益来表示：</p>
+<pre><code>η_A = (λ² / 4π) · (G / A_p)
+</code></pre>
+<p>其中 G 是天线的增益（线性值，非 dB），λ 是工作波长。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么口径效率重要？</h2>
     <p>口径效率直接决定了"多大的天线能有多强的增益"：</p>
-    <ul><li>给定物理尺寸，口径效率越高 → 增益越高</li><li>给定目标增益，口径效率越高 → 天线可以做得越小</li><li>对于卫星天线、射电望远镜、雷达反射面等，口径效率直接关系到系统性能</li></ul>
-    <p><b>举例</b>：一个直径 1 米的抛物面天线在 10GHz（λ = 3cm）下：</p>
-    <ul><li>物理面积 A_p = π × 0.5² = 0.785 m²</li><li>理想最大增益（η_A = 100%）：G_max = 4π × A_p / λ² ≈ 34.6 dBi</li><li>实际典型增益（η_A = 55-70%）：G ≈ 32.9-33.6 dBi</li><li>差距：0.9-1.7 dB——这在卫星通信链路预算中可能就是"能通"和"不通"的区别</li></ul>
-    <h3>1.3 口径效率的分解</h3>
+<ul>
+<li>给定物理尺寸，口径效率越高 → 增益越高</li>
+<li>给定目标增益，口径效率越高 → 天线可以做得越小</li>
+<li>对于卫星天线、射电望远镜、雷达反射面等，口径效率直接关系到系统性能</li>
+</ul>
+<p><strong>举例</strong>：一个直径 1 米的抛物面天线在 10GHz（λ = 3cm）下：</p>
+<ul>
+<li>物理面积 A_p = π × 0.5² = 0.785 m²</li>
+<li>理想最大增益（η_A = 100%）：G_max = 4π × A_p / λ² ≈ 34.6 dBi</li>
+<li>实际典型增益（η_A = 55-70%）：G ≈ 32.9-33.6 dBi</li>
+<li>差距：0.9-1.7 dB——这在卫星通信链路预算中可能就是"能通"和"不通"的区别</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 口径效率的分解</h2>
     <p>口径效率可以分解为多个独立效率因子的乘积：</p>
-    <pre><code>η_A = η_illumination × η_spillover × η_phase × η_polarization × η_conduction × η_dielectric × η_surface_wave</code></pre>
-    <p>每个因子都 ≤ 1，所以总口径效率总是小于各个分因子的算术平均值。</p>
+<pre><code>η_A = η_illumination × η_spillover × η_phase × η_polarization × η_conduction × η_dielectric × η_surface_wave
+</code></pre>
+<p>每个因子都 ≤ 1，所以总口径效率总是小于各个分因子的算术平均值。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心效率因子详解</h2>
-    <h3>2.1 照射效率（Illumination Efficiency, η_i）</h3>
-    <p><b>定义</b>：由于孔径上场分布不均匀（通常中心强、边缘弱）导致的效率损失。</p>
-    <p><b>物理意义</b>：理想的均匀照射会产生最窄的波束和最高的增益。但实际的馈源辐射图案是中心强、边缘弱的，这种"锥削"（Taper）导致增益下降。</p>
-    <p><b>计算公式</b>（均匀矩形孔径）：</p>
-    <pre><code>η_i = |∫∫ E(x,y) dx dy|² / [A_p × ∫∫ |E(x,y)|² dx dy]</code></pre>
-    <p>其中 E(x,y) 是孔径上的场分布。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>照射分布</th><th>η_i</th><th>边缘场强</th><th>旁瓣电平</th></tr></thead>
-    <tbody>
-    <tr><td>均匀</td><td>100%</td><td>0 dB</td><td>-13.2 dB</td></tr>
-    <tr><td>平方余弦</td><td>81%</td><td>-3 dB</td><td>-18 dB</td></tr>
-    <tr><td>三次方余弦</td><td>67%</td><td>-6 dB</td><td>-24 dB</td></tr>
-    <tr><td>泰勒分布（-20dB）</td><td>85-90%</td><td>-10 dB</td><td>-20 dB</td></tr>
-    <tr><td>切比雪夫</td><td>80-85%</td><td>-20 dB</td><td>-20 dB</td></tr>
-    </tbody></table></div>
-    <p><b>工程启示</b>：照射效率和旁瓣电平之间存在 trade-off——想要低旁瓣就必须接受更低的照射效率（更陡的锥削）。</p>
-    <h3>2.2 溢出效率（Spillover Efficiency, η_s）</h3>
-    <p><b>定义</b>：馈源辐射的能量中，未被反射面/孔径捕获而"溢出"的部分。</p>
-    <p><b>物理意义</b>：馈源向全空间辐射，但只有照射到反射面上的能量被利用，其余能量"浪费"了。</p>
-    <p><b>计算公式</b>（抛物面反射器）：</p>
-    <pre><code>η_s = P_reflected / P_total = ∫_0^θ_max F(θ) sinθ dθ / ∫_0^π F(θ) sinθ dθ</code></pre>
-    <p>其中 F(θ) 是馈源的辐射方向图。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>馈源类型</th><th>η_s</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>偶极子馈源</td><td>60-70%</td><td>溢出较多</td></tr>
-    <tr><td>喇叭馈源</td><td>70-85%</td><td>方向性较强，溢出较少</td></tr>
-    <tr><td>角锥喇叭</td><td>75-88%</td><td>可调，最优设计可达 88%</td></tr>
-    <tr><td>波纹喇叭</td><td>80-90%</td><td>低旁瓣馈源，溢出效率高</td></tr>
-    </tbody></table></div>
-    <p><b>F/D 比的影响</b>：</p>
-    <pre><code>F/D 越小（反射面更&quot;深&quot;）→ 溢出效率越高，但照射效率越低
-    F/D 越大（反射面更&quot;浅&quot;）→ 照射效率越高，但溢出效率越低</code></pre>
-    <p>最优 F/D 比通常在 0.3-0.5 之间，此时总口径效率最高。</p>
-    <h3>2.3 相位效率（Phase Efficiency, η_p）</h3>
-    <p><b>定义</b>：由于孔径上场相位不均匀导致的效率损失。</p>
-    <p><b>物理意义</b>：理想的均匀相位分布会产生最集中的波束。但实际反射面表面的路径差异、馈源相位中心偏移、结构变形等都会导致相位误差。</p>
-    <p><b>Ruze 公式</b>（表面误差对效率的影响）：</p>
-    <pre><code>η_p = exp[-(4π·σ / λ)²]</code></pre>
-    <p>其中 σ 是孔径表面 RMS 误差。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>应用场景</th><th>σ/λ</th><th>η_p</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>射电望远镜（X波段）</td><td>0.005</td><td>99.8%</td><td>精密加工</td></tr>
-    <tr><td>卫星天线（Ku波段）</td><td>0.01</td><td>98.7%</td><td>一般加工</td></tr>
-    <tr><td>抛物面天线（Ka波段）</td><td>0.02</td><td>95%</td><td>中等精度</td></tr>
-    <tr><td>微带贴片阵列</td><td>0.03-0.05</td><td>85-93%</td><td>制造公差</td></tr>
-    <tr><td>大型柔性天线</td><td>0.05-0.1</td><td>67-85%</td><td>变形较大</td></tr>
-    <tr><td>太赫兹天线</td><td>0.1-0.2</td><td>37-67%</td><td>加工极限</td></tr>
-    </tbody></table></div>
-    <p><b>Ruze 公式的工程解读</b>：</p>
-    <ul><li>σ < λ/16 时，η_p > 90%（可接受的加工精度）</li><li>σ = λ/10 时，η_p ≈ 67%（效率大幅下降）</li><li>σ = λ/6 时，η_p ≈ 13%（几乎失效）</li></ul>
-    <h3>2.4 极化效率（Polarization Efficiency, η_pol）</h3>
-    <p><b>定义</b>：由于极化失配导致的效率损失。</p>
-    <p><b>物理意义</b>：如果入射波的极化与天线的极化不完全匹配，部分功率会被"浪费"。</p>
-    <pre><code>η_pol = |ρ̂_ant · ρ̂_inc|²</code></pre>
-    <p>其中 ρ̂ 是极化单位矢量。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>η_pol</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>极化完全匹配</td><td>100%</td><td>理想情况</td></tr>
-    <tr><td>极化正交</td><td>0%</td><td>完全失配（如水平 vs 垂直）</td></tr>
-    <tr><td>双极化天线（XPD = 25dB）</td><td>99.7%</td><td>交叉极化泄漏</td></tr>
-    <tr><td>圆极化损耗 3dB</td><td>50%</td><td>AXR = 3dB 时的效率</td></tr>
-    </tbody></table></div>
-    <h3>2.5 导体损耗效率（Conduction Efficiency, η_c）</h3>
-    <p><b>定义</b>：由于金属导体有限电导率导致的欧姆损耗。</p>
-    <pre><code>η_c = P_rad / (P_rad + P_loss_conductor)</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>频率</th><th>η_c</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>抛光铜</td><td>< 10GHz</td><td>99.5%+</td><td>极低损耗</td></tr>
-    <tr><td>铝</td><td>< 10GHz</td><td>99%+</td><td>略低于铜</td></tr>
-    <tr><td>铜（毫米波）</td><td>28-40GHz</td><td>97-99%</td><td>趋肤效应增强</td></tr>
-    <tr><td>铝（毫米波）</td><td>28-40GHz</td><td>95-98%</td><td></td></tr>
-    <tr><td>印刷铜（PCB）</td><td>28-40GHz</td><td>90-97%</td><td>粗糙度影响</td></tr>
-    <tr><td>银镀层</td><td>< 100GHz</td><td>98-99.5%</td><td>最佳选择</td></tr>
-    </tbody></table></div>
-    <h3>2.6 介质损耗效率（Dielectric Efficiency, η_d）</h3>
-    <p><b>定义</b>：由于介质基板损耗角正切导致的介电损耗。</p>
-    <pre><code>η_d = 1 / (1 + tanδ · Q_substrate)</code></pre>
-    <p>其中 tanδ 是介质的损耗角正切，Q_substrate 是介质腔体的品质因数。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>介质材料</th><th>tanδ (28GHz)</th><th>η_d</th></tr></thead>
-    <tbody>
-    <tr><td>LCP</td><td>0.003</td><td>97-99%</td></tr>
-    <tr><td>Rogers RO3003</td><td>0.0013</td><td>98-99.5%</td></tr>
-    <tr><td>RT/duroid 5880</td><td>0.0009</td><td>99%+</td></tr>
-    <tr><td>FR4</td><td>0.02+</td><td>70-85%（不用于毫米波）</td></tr>
-    <tr><td>硅</td><td>0.008-0.01</td><td>90-95%</td></tr>
-    </tbody></table></div>
-    <h3>2.7 表面波效率（Surface Wave Efficiency, η_sw）</h3>
-    <p><b>定义</b>：在介质基板中激发的表面波所消耗的能量比例。</p>
-    <p><b>物理意义</b>：微带天线的一部分能量会以表面波的形式在基板中传播，而不是辐射到自由空间。这部分能量最终被基板吸收或在边缘衍射，不会贡献有效增益。</p>
-    <pre><code>η_sw = 1 - P_surface_wave / P_input</code></pre>
-    <p><b>影响因素</b>：</p>
-    <ul><li>基板厚度 h/λ₀ 越大 → 表面波越多 → η_sw 越低</li><li>介电常数 ε_r 越高 → 表面波越强 → η_sw 越低</li><li>贴片尺寸越大 → 表面波激发越强 → η_sw 越低</li></ul>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>基板</th><th>ε_r</th><th>h/λ₀</th><th>η_sw</th></tr></thead>
-    <tbody>
-    <tr><td>LCP (50μm, 28GHz)</td><td>3.0</td><td>0.047</td><td>95-98%</td></tr>
-    <tr><td>RT/duroid (0.05", 10GHz)</td><td>2.2</td><td>0.04</td><td>97-99%</td></tr>
-    <tr><td>高 ε_r 基板 (ε_r=10)</td><td>10</td><td>0.05</td><td>80-90%</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.1 照射效率（Illumination Efficiency, η_i）</h2>
+    <p><strong>定义</strong>：由于孔径上场分布不均匀（通常中心强、边缘弱）导致的效率损失。</p>
+<p><strong>物理意义</strong>：理想的均匀照射会产生最窄的波束和最高的增益。但实际的馈源辐射图案是中心强、边缘弱的，这种"锥削"（Taper）导致增益下降。</p>
+<p><strong>计算公式</strong>（均匀矩形孔径）：</p>
+<pre><code>η_i = |∫∫ E(x,y) dx dy|² / [A_p × ∫∫ |E(x,y)|² dx dy]
+</code></pre>
+<p>其中 E(x,y) 是孔径上的场分布。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>照射分布</th>
+<th>η_i</th>
+<th>边缘场强</th>
+<th>旁瓣电平</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀</td>
+<td>100%</td>
+<td>0 dB</td>
+<td>-13.2 dB</td>
+</tr>
+<tr>
+<td>平方余弦</td>
+<td>81%</td>
+<td>-3 dB</td>
+<td>-18 dB</td>
+</tr>
+<tr>
+<td>三次方余弦</td>
+<td>67%</td>
+<td>-6 dB</td>
+<td>-24 dB</td>
+</tr>
+<tr>
+<td>泰勒分布（-20dB）</td>
+<td>85-90%</td>
+<td>-10 dB</td>
+<td>-20 dB</td>
+</tr>
+<tr>
+<td>切比雪夫</td>
+<td>80-85%</td>
+<td>-20 dB</td>
+<td>-20 dB</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工程启示</strong>：照射效率和旁瓣电平之间存在 trade-off——想要低旁瓣就必须接受更低的照射效率（更陡的锥削）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、不同类型天线的口径效率</h2>
-    <h3>3.1 抛物面反射器</h3>
-    <pre><code>η_A = η_i × η_s × η_p × η_pol</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>反射面类型</th><th>典型 η_A</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>前馈抛物面（最优设计）</td><td>55-70%</td><td>F/D ≈ 0.4-0.5，波纹喇叭馈源</td></tr>
-    <tr><td>卡塞格林反射面</td><td>50-65%</td><td>二次反射引入额外相位误差</td></tr>
-    <tr><td>格里高利反射面</td><td>50-60%</td><td>类似卡塞格林</td></tr>
-    <tr><td>偏馈抛物面</td><td>60-75%</td><td>无遮挡，溢出和照射效率都更高</td></tr>
-    <tr><td>小型卫星天线（F/D 小）</td><td>40-55%</td><td>溢出严重</td></tr>
-    </tbody></table></div>
-    <h3>3.2 微带贴片天线</h3>
-    <pre><code>η_A = η_c × η_d × η_sw × η_pol</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>贴片类型</th><th>典型 η_A</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>空气基板贴片</td><td>70-85%</td><td>无介质损耗和表面波</td></tr>
-    <tr><td>LCP 基板贴片</td><td>60-75%</td><td>低损耗介质</td></tr>
-    <tr><td>普通 FR4 贴片</td><td>30-50%</td><td>高损耗，不推荐</td></tr>
-    <tr><td>高 ε_r 基板贴片</td><td>40-60%</td><td>表面波损耗大</td></tr>
-    </tbody></table></div>
-    <h3>3.3 喇叭天线</h3>
-    <pre><code>η_A = η_i × η_p × η_pol</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>喇叭类型</th><th>典型 η_A</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>角锥喇叭（最优）</td><td>80-90%</td><td>良好的照射分布</td></tr>
-    <tr><td>波纹喇叭</td><td>85-95%</td><td>超低旁瓣，高纯度极化</td></tr>
-    <tr><td>圆锥喇叭</td><td>70-85%</td><td>结构简单</td></tr>
-    </tbody></table></div>
-    <h3>3.4 阵列天线</h3>
-    <pre><code>η_A = η_i × η_p × η_pol × η_c × η_d</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>阵列类型</th><th>典型 η_A</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>波导阵列</td><td>70-85%</td><td>低损耗，相位均匀性好</td></tr>
-    <tr><td>微带贴片阵列</td><td>50-70%</td><td>介质损耗和表面波</td></tr>
-    <tr><td>LCP AiP 阵列</td><td>55-75%</td><td>毫米波频段</td></tr>
-    <tr><td>大型 Massive MIMO</td><td>40-60%</td><td>互耦和相位误差累积</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.2 溢出效率（Spillover Efficiency, η_s）</h2>
+    <p><strong>定义</strong>：馈源辐射的能量中，未被反射面/孔径捕获而"溢出"的部分。</p>
+<p><strong>物理意义</strong>：馈源向全空间辐射，但只有照射到反射面上的能量被利用，其余能量"浪费"了。</p>
+<p><strong>计算公式</strong>（抛物面反射器）：</p>
+<pre><code>η_s = P_reflected / P_total = ∫_0^θ_max F(θ) sinθ dθ / ∫_0^π F(θ) sinθ dθ
+</code></pre>
+<p>其中 F(θ) 是馈源的辐射方向图。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>馈源类型</th>
+<th>η_s</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>偶极子馈源</td>
+<td>60-70%</td>
+<td>溢出较多</td>
+</tr>
+<tr>
+<td>喇叭馈源</td>
+<td>70-85%</td>
+<td>方向性较强，溢出较少</td>
+</tr>
+<tr>
+<td>角锥喇叭</td>
+<td>75-88%</td>
+<td>可调，最优设计可达 88%</td>
+</tr>
+<tr>
+<td>波纹喇叭</td>
+<td>80-90%</td>
+<td>低旁瓣馈源，溢出效率高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>F/D 比的影响</strong>：</p>
+<pre><code>F/D 越小（反射面更&quot;深&quot;）→ 溢出效率越高，但照射效率越低
+F/D 越大（反射面更&quot;浅&quot;）→ 照射效率越高，但溢出效率越低
+</code></pre>
+<p>最优 F/D 比通常在 0.3-0.5 之间，此时总口径效率最高。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、口径效率与增益的关系</h2>
-    <h3>4.1 增益计算公式</h3>
-    <pre><code>G = 4π · A_e / λ² = 4π · η_A · A_p / λ²</code></pre>
-    <p>或写成常用形式：</p>
-    <pre><code>G(dBi) = 10·log₁₀(η_A) + 20·log₁₀(π·D/λ)</code></pre>
-    <p>其中 D 是孔径直径（圆形）或等效直径。</p>
-    <h3>4.2 从增益反推口径效率</h3>
+  
+  <article class="card ">
+    
+    <h2>2.3 相位效率（Phase Efficiency, η_p）</h2>
+    <p><strong>定义</strong>：由于孔径上场相位不均匀导致的效率损失。</p>
+<p><strong>物理意义</strong>：理想的均匀相位分布会产生最集中的波束。但实际反射面表面的路径差异、馈源相位中心偏移、结构变形等都会导致相位误差。</p>
+<p><strong>Ruze 公式</strong>（表面误差对效率的影响）：</p>
+<pre><code>η_p = exp[-(4π·σ / λ)²]
+</code></pre>
+<p>其中 σ 是孔径表面 RMS 误差。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>σ/λ</th>
+<th>η_p</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>射电望远镜（X波段）</td>
+<td>0.005</td>
+<td>99.8%</td>
+<td>精密加工</td>
+</tr>
+<tr>
+<td>卫星天线（Ku波段）</td>
+<td>0.01</td>
+<td>98.7%</td>
+<td>一般加工</td>
+</tr>
+<tr>
+<td>抛物面天线（Ka波段）</td>
+<td>0.02</td>
+<td>95%</td>
+<td>中等精度</td>
+</tr>
+<tr>
+<td>微带贴片阵列</td>
+<td>0.03-0.05</td>
+<td>85-93%</td>
+<td>制造公差</td>
+</tr>
+<tr>
+<td>大型柔性天线</td>
+<td>0.05-0.1</td>
+<td>67-85%</td>
+<td>变形较大</td>
+</tr>
+<tr>
+<td>太赫兹天线</td>
+<td>0.1-0.2</td>
+<td>37-67%</td>
+<td>加工极限</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ruze 公式的工程解读</strong>：</p>
+<ul>
+<li>σ &lt; λ/16 时，η_p &gt; 90%（可接受的加工精度）</li>
+<li>σ = λ/10 时，η_p ≈ 67%（效率大幅下降）</li>
+<li>σ = λ/6 时，η_p ≈ 13%（几乎失效）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 极化效率（Polarization Efficiency, η_pol）</h2>
+    <p><strong>定义</strong>：由于极化失配导致的效率损失。</p>
+<p><strong>物理意义</strong>：如果入射波的极化与天线的极化不完全匹配，部分功率会被"浪费"。</p>
+<pre><code>η_pol = |ρ̂_ant · ρ̂_inc|²
+</code></pre>
+<p>其中 ρ̂ 是极化单位矢量。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>η_pol</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极化完全匹配</td>
+<td>100%</td>
+<td>理想情况</td>
+</tr>
+<tr>
+<td>极化正交</td>
+<td>0%</td>
+<td>完全失配（如水平 vs 垂直）</td>
+</tr>
+<tr>
+<td>双极化天线（XPD = 25dB）</td>
+<td>99.7%</td>
+<td>交叉极化泄漏</td>
+</tr>
+<tr>
+<td>圆极化损耗 3dB</td>
+<td>50%</td>
+<td>AXR = 3dB 时的效率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 导体损耗效率（Conduction Efficiency, η_c）</h2>
+    <p><strong>定义</strong>：由于金属导体有限电导率导致的欧姆损耗。</p>
+<pre><code>η_c = P_rad / (P_rad + P_loss_conductor)
+</code></pre>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>频率</th>
+<th>η_c</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抛光铜</td>
+<td>&lt; 10GHz</td>
+<td>99.5%+</td>
+<td>极低损耗</td>
+</tr>
+<tr>
+<td>铝</td>
+<td>&lt; 10GHz</td>
+<td>99%+</td>
+<td>略低于铜</td>
+</tr>
+<tr>
+<td>铜（毫米波）</td>
+<td>28-40GHz</td>
+<td>97-99%</td>
+<td>趋肤效应增强</td>
+</tr>
+<tr>
+<td>铝（毫米波）</td>
+<td>28-40GHz</td>
+<td>95-98%</td>
+<td></td>
+</tr>
+<tr>
+<td>印刷铜（PCB）</td>
+<td>28-40GHz</td>
+<td>90-97%</td>
+<td>粗糙度影响</td>
+</tr>
+<tr>
+<td>银镀层</td>
+<td>&lt; 100GHz</td>
+<td>98-99.5%</td>
+<td>最佳选择</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.6 介质损耗效率（Dielectric Efficiency, η_d）</h2>
+    <p><strong>定义</strong>：由于介质基板损耗角正切导致的介电损耗。</p>
+<pre><code>η_d = 1 / (1 + tanδ · Q_substrate)
+</code></pre>
+<p>其中 tanδ 是介质的损耗角正切，Q_substrate 是介质腔体的品质因数。</p>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>介质材料</th>
+<th>tanδ (28GHz)</th>
+<th>η_d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCP</td>
+<td>0.003</td>
+<td>97-99%</td>
+</tr>
+<tr>
+<td>Rogers RO3003</td>
+<td>0.0013</td>
+<td>98-99.5%</td>
+</tr>
+<tr>
+<td>RT/duroid 5880</td>
+<td>0.0009</td>
+<td>99%+</td>
+</tr>
+<tr>
+<td>FR4</td>
+<td>0.02+</td>
+<td>70-85%（不用于毫米波）</td>
+</tr>
+<tr>
+<td>硅</td>
+<td>0.008-0.01</td>
+<td>90-95%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.7 表面波效率（Surface Wave Efficiency, η_sw）</h2>
+    <p><strong>定义</strong>：在介质基板中激发的表面波所消耗的能量比例。</p>
+<p><strong>物理意义</strong>：微带天线的一部分能量会以表面波的形式在基板中传播，而不是辐射到自由空间。这部分能量最终被基板吸收或在边缘衍射，不会贡献有效增益。</p>
+<pre><code>η_sw = 1 - P_surface_wave / P_input
+</code></pre>
+<p><strong>影响因素</strong>：</p>
+<ul>
+<li>基板厚度 h/λ₀ 越大 → 表面波越多 → η_sw 越低</li>
+<li>介电常数 ε_r 越高 → 表面波越强 → η_sw 越低</li>
+<li>贴片尺寸越大 → 表面波激发越强 → η_sw 越低</li>
+</ul>
+<p><strong>典型值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>基板</th>
+<th>ε_r</th>
+<th>h/λ₀</th>
+<th>η_sw</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCP (50μm, 28GHz)</td>
+<td>3.0</td>
+<td>0.047</td>
+<td>95-98%</td>
+</tr>
+<tr>
+<td>RT/duroid (0.05", 10GHz)</td>
+<td>2.2</td>
+<td>0.04</td>
+<td>97-99%</td>
+</tr>
+<tr>
+<td>高 ε_r 基板 (ε_r=10)</td>
+<td>10</td>
+<td>0.05</td>
+<td>80-90%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 抛物面反射器</h2>
+    <pre><code>η_A = η_i × η_s × η_p × η_pol
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>反射面类型</th>
+<th>典型 η_A</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前馈抛物面（最优设计）</td>
+<td>55-70%</td>
+<td>F/D ≈ 0.4-0.5，波纹喇叭馈源</td>
+</tr>
+<tr>
+<td>卡塞格林反射面</td>
+<td>50-65%</td>
+<td>二次反射引入额外相位误差</td>
+</tr>
+<tr>
+<td>格里高利反射面</td>
+<td>50-60%</td>
+<td>类似卡塞格林</td>
+</tr>
+<tr>
+<td>偏馈抛物面</td>
+<td>60-75%</td>
+<td>无遮挡，溢出和照射效率都更高</td>
+</tr>
+<tr>
+<td>小型卫星天线（F/D 小）</td>
+<td>40-55%</td>
+<td>溢出严重</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 微带贴片天线</h2>
+    <pre><code>η_A = η_c × η_d × η_sw × η_pol
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>贴片类型</th>
+<th>典型 η_A</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空气基板贴片</td>
+<td>70-85%</td>
+<td>无介质损耗和表面波</td>
+</tr>
+<tr>
+<td>LCP 基板贴片</td>
+<td>60-75%</td>
+<td>低损耗介质</td>
+</tr>
+<tr>
+<td>普通 FR4 贴片</td>
+<td>30-50%</td>
+<td>高损耗，不推荐</td>
+</tr>
+<tr>
+<td>高 ε_r 基板贴片</td>
+<td>40-60%</td>
+<td>表面波损耗大</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 喇叭天线</h2>
+    <pre><code>η_A = η_i × η_p × η_pol
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>喇叭类型</th>
+<th>典型 η_A</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角锥喇叭（最优）</td>
+<td>80-90%</td>
+<td>良好的照射分布</td>
+</tr>
+<tr>
+<td>波纹喇叭</td>
+<td>85-95%</td>
+<td>超低旁瓣，高纯度极化</td>
+</tr>
+<tr>
+<td>圆锥喇叭</td>
+<td>70-85%</td>
+<td>结构简单</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 阵列天线</h2>
+    <pre><code>η_A = η_i × η_p × η_pol × η_c × η_d
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>阵列类型</th>
+<th>典型 η_A</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波导阵列</td>
+<td>70-85%</td>
+<td>低损耗，相位均匀性好</td>
+</tr>
+<tr>
+<td>微带贴片阵列</td>
+<td>50-70%</td>
+<td>介质损耗和表面波</td>
+</tr>
+<tr>
+<td>LCP AiP 阵列</td>
+<td>55-75%</td>
+<td>毫米波频段</td>
+</tr>
+<tr>
+<td>大型 Massive MIMO</td>
+<td>40-60%</td>
+<td>互耦和相位误差累积</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 增益计算公式</h2>
+    <pre><code>G = 4π · A_e / λ² = 4π · η_A · A_p / λ²
+</code></pre>
+<p>或写成常用形式：</p>
+<pre><code>G(dBi) = 10·log₁₀(η_A) + 20·log₁₀(π·D/λ)
+</code></pre>
+<p>其中 D 是孔径直径（圆形）或等效直径。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 从增益反推口径效率</h2>
     <p>已知增益 G 和物理尺寸 D，可以计算口径效率：</p>
-    <pre><code>η_A = G · λ² / (4π · A_p)</code></pre>
-    <p><b>举例</b>：一个直径 0.6m 的卫星天线在 12GHz（λ = 2.5cm）下测得增益 38 dBi：</p>
-    <ul><li>G(线性) = 10^(38/10) = 6310</li><li>A_p = π × 0.3² = 0.283 m²</li><li>η_A = 6310 × 0.025² / (4π × 0.283) = 0.44 = 44%</li></ul>
-    <p>这说明该天线的设计或加工质量还有提升空间（理想值应 > 55%）。</p>
+<pre><code>η_A = G · λ² / (4π · A_p)
+</code></pre>
+<p><strong>举例</strong>：一个直径 0.6m 的卫星天线在 12GHz（λ = 2.5cm）下测得增益 38 dBi：</p>
+<ul>
+<li>G(线性) = 10^(38/10) = 6310</li>
+<li>A_p = π × 0.3² = 0.283 m²</li>
+<li>η_A = 6310 × 0.025² / (4π × 0.283) = 0.44 = 44%</li>
+</ul>
+<p>这说明该天线的设计或加工质量还有提升空间（理想值应 &gt; 55%）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>五、提高口径效率的工程方法</h2>
-    <h3>5.1 反射面天线</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>优化 F/D 比</td><td>η_i × η_s 提升 5-10%</td><td>天线尺寸变化</td></tr>
-    <tr><td>使用波纹喇叭馈源</td><td>η_s 提升 5-8%</td><td>馈源成本高</td></tr>
-    <tr><td>表面精密加工（σ < λ/16）</td><td>η_p 提升 3-5%</td><td>加工成本高</td></tr>
-    <tr><td>表面镀银</td><td>η_c 提升 1-2%</td><td>成本增加</td></tr>
-    <tr><td>偏馈设计</td><td>消除遮挡，η 提升 3-5%</td><td>结构复杂</td></tr>
-    </tbody></table></div>
-    <h3>5.2 微带贴片/阵列</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>使用低 ε_r 薄基板</td><td>η_sw 提升 5-10%</td><td>天线尺寸增大</td></tr>
-    <tr><td>LCP/Rogers 替代 FR4</td><td>η_d 提升 10-20%</td><td>成本高 3-5 倍</td></tr>
-    <tr><td>银镀层替代电解铜</td><td>η_c 提升 1-3%</td><td>成本增加</td></tr>
-    <tr><td>SIW 腔体背腔</td><td>η_sw 提升 3-5%</td><td>工艺复杂</td></tr>
-    <tr><td>增大贴片电尺寸</td><td>η_sw 改善</td><td>阵列规模增大</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>5.1 反射面天线</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优化 F/D 比</td>
+<td>η_i × η_s 提升 5-10%</td>
+<td>天线尺寸变化</td>
+</tr>
+<tr>
+<td>使用波纹喇叭馈源</td>
+<td>η_s 提升 5-8%</td>
+<td>馈源成本高</td>
+</tr>
+<tr>
+<td>表面精密加工（σ &lt; λ/16）</td>
+<td>η_p 提升 3-5%</td>
+<td>加工成本高</td>
+</tr>
+<tr>
+<td>表面镀银</td>
+<td>η_c 提升 1-2%</td>
+<td>成本增加</td>
+</tr>
+<tr>
+<td>偏馈设计</td>
+<td>消除遮挡，η 提升 3-5%</td>
+<td>结构复杂</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、口径效率的测量</h2>
-    <h3>6.1 增益比较法</h3>
+  
+  <article class="card ">
+    
+    <h2>5.2 微带贴片/阵列</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用低 ε_r 薄基板</td>
+<td>η_sw 提升 5-10%</td>
+<td>天线尺寸增大</td>
+</tr>
+<tr>
+<td>LCP/Rogers 替代 FR4</td>
+<td>η_d 提升 10-20%</td>
+<td>成本高 3-5 倍</td>
+</tr>
+<tr>
+<td>银镀层替代电解铜</td>
+<td>η_c 提升 1-3%</td>
+<td>成本增加</td>
+</tr>
+<tr>
+<td>SIW 腔体背腔</td>
+<td>η_sw 提升 3-5%</td>
+<td>工艺复杂</td>
+</tr>
+<tr>
+<td>增大贴片电尺寸</td>
+<td>η_sw 改善</td>
+<td>阵列规模增大</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 增益比较法</h2>
     <p>在消声室中，将待测天线与已知增益的标准增益喇叭进行比较：</p>
-    <pre><code>η_A = G_DUT · λ² / (4π · A_p)</code></pre>
-    <p>这是最常用、最直接的方法。</p>
-    <h3>6. 远场测量法</h3>
+<pre><code>η_A = G_DUT · λ² / (4π · A_p)
+</code></pre>
+<p>这是最常用、最直接的方法。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6. 远场测量法</h2>
     <p>通过远场方向图测量获得增益，再结合物理面积计算口径效率。</p>
-    <h3>6.3 近场扫描法</h3>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 近场扫描法</h2>
     <p>通过近场扫描获得孔径上的幅度和相位分布，然后 FFT 变换到远场，直接计算口径效率的各个分量。</p>
-    <h3>6.4 腔体法（适用于贴片天线）</h3>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 腔体法（适用于贴片天线）</h2>
     <p>通过测量天线的 Q 值（品质因数），分离辐射 Q、介质 Q、导体 Q 和表面波 Q，从而计算各项效率分量。</p>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1949年</b>：Silver 首次系统分析抛物面天线的口径效率</li><li><b>1950s</b>：Ruze 公式建立，表面误差对效率的影响被量化</li><li><b>1960s-1970s</b>：射电望远镜时代，口径效率成为望远镜性能的核心指标</li><li><b>1980s-1990s</b>：卫星通信普及，口径效率优化成为工程标准</li><li><b>2000s</b>：微带阵列口径效率研究，表面波损耗被深入分析</li><li><b>2010s</b>：5G 毫米波 AiP 推动 LCP 基板口径效率优化</li><li><b>2020s</b>：6G 太赫兹天线口径效率研究，表面加工精度逼近物理极限</li><li><b>2025-2026年</b>：AI 辅助口径效率优化设计</li></ul>
+    <ul>
+<li><strong>1949年</strong>：Silver 首次系统分析抛物面天线的口径效率</li>
+<li><strong>1950s</strong>：Ruze 公式建立，表面误差对效率的影响被量化</li>
+<li><strong>1960s-1970s</strong>：射电望远镜时代，口径效率成为望远镜性能的核心指标</li>
+<li><strong>1980s-1990s</strong>：卫星通信普及，口径效率优化成为工程标准</li>
+<li><strong>2000s</strong>：微带阵列口径效率研究，表面波损耗被深入分析</li>
+<li><strong>2010s</strong>：5G 毫米波 AiP 推动 LCP 基板口径效率优化</li>
+<li><strong>2020s</strong>：6G 太赫兹天线口径效率研究，表面加工精度逼近物理极限</li>
+<li><strong>2025-2026年</strong>：AI 辅助口径效率优化设计</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用</li><li><b>说明</b>：口径效率理论和测量方法已非常成熟（超过 70 年历史），是天线工程的标准分析工具。各种提高效率的方法（优化 F/D、精密加工、低损耗材料）都已工程化。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>6G 太赫兹天线的口径效率优化成为研究重点</li><li>AI 辅助口径效率设计和优化</li><li>可展开卫星天线的口径效率动态评估</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>智能超表面（RIS）的口径效率分析</li><li>全息 MIMO 的口径效率重新定义</li><li>太赫兹封装天线（AiP）的口径效率极限探索</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>量子天线的口径效率理论</li><li>纳米级天线（Nanobeam）的口径效率</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>6G 太赫兹天线的口径效率优化成为研究重点</li>
+<li>AI 辅助口径效率设计和优化</li>
+<li>
+<p>可展开卫星天线的口径效率动态评估</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>智能超表面（RIS）的口径效率分析</li>
+<li>全息 MIMO 的口径效率重新定义</li>
+<li>
+<p>太赫兹封装天线（AiP）的口径效率极限探索</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>量子天线的口径效率理论</li>
+<li>纳米级天线（Nanobeam）的口径效率</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>口径效率是天线的"真实实力"与"账面实力"之间的比率——一个直径 3 米的天线如果口径效率只有 30%，它的实际性能可能还不如一个直径 2 米但口径效率 70% 的天线。理解并优化口径效率的每一个分量，是天线工程师的核心能力。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -377,39 +905,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

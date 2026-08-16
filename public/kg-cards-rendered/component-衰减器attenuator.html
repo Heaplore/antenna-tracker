@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>衰减器（Attenuator） · 知识卡片</title>
+<title>衰减器Attenuator · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">衰减器 <span class="en">Attenuator</span></h1>
-  <p class="lede">衰减器是射频电路的"音量旋钮"——精确控制信号功率大小。在 T/R 模块中，可变衰减器（VGA）与移相器并列，是实现波束赋形幅度控制的"另一半"（移相器控制相位，衰减器控制幅度）。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">衰减器Attenuator</h1>
+  <p class="lede">衰减器是射频电路的&#34;音量旋钮&#34;——精确控制信号功率大小。在 T/R 模块中，可变衰减器（VGA）与移相器并列，是实现波束赋形幅度控制的&#34;另一半&#34;（移相器控制相位，衰减器控制幅度）。</p>
+  
 </header>
 
 <main>
@@ -99,125 +101,220 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>衰减器就像水龙头——水流（信号功率）太大就关小一点，太小就开大一点。在 T/R 模块的 64 个通道中，每个通道都有一个"水龙头"（可变衰减器），配合"方向舵"（移相器），精确控制每个通道的波束指向。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、衰减器分类</h2>
-    <h3>1.1 固定衰减器</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 固定衰减器</h2>
     <pre><code>用途：功率匹配、阻抗匹配、保护前端
+
+典型值：1dB/3dB/6dB/10dB/20dB
+
+结构：
+  - 电阻片（薄膜/厚膜）
+  - 同轴结构（波导/微带）
+
+参数：
+  - 频率范围：DC-40GHz
+  - 功率容量：100mW-10W
+  - 精度：±0.1-0.5dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型值：1dB/3dB/6dB/10dB/20dB
-    
-    结构：
-      - 电阻片（薄膜/厚膜）
-      - 同轴结构（波导/微带）
-      
-    参数：
-      - 频率范围：DC-40GHz
-      - 功率容量：100mW-10W
-      - 精度：±0.1-0.5dB</code></pre>
-    <h3>1.2 可变衰减器（VGA）</h3>
+    <h2>1.2 可变衰减器（VGA）</h2>
     <pre><code>用途：T/R 模块幅度控制、功率控制、自动增益控制
-    
-    控制方式：
-      1. 电压控制（VCA）
-         - 变容管/电阻梯形
-         - 模拟电压 0-5V
-         - 分辨率：0.5-1dB
-         
-      2. 数字控制（SPI/I2C）
-         - 多位数字衰减器
-         - 步进：0.5dB/0.25dB/0.1dB
-         - 位数：5-bit（31.5dB）/ 6-bit（63dB）
-         
-      3. MEMS 控制
-         - 超低损耗
-         - 高速切换
-         - 毫米波适用</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>二、T/R 模块中的衰减器</h2>
-    <h3>2.1 波束赋形中的幅度控制</h3>
+控制方式：
+  1. 电压控制（VCA）
+     - 变容管/电阻梯形
+     - 模拟电压 0-5V
+     - 分辨率：0.5-1dB
+
+  2. 数字控制（SPI/I2C）
+     - 多位数字衰减器
+     - 步进：0.5dB/0.25dB/0.1dB
+     - 位数：5-bit（31.5dB）/ 6-bit（63dB）
+
+  3. MEMS 控制
+     - 超低损耗
+     - 高速切换
+     - 毫米波适用
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 波束赋形中的幅度控制</h2>
     <pre><code>3D 波束赋形 = 幅度控制 + 相位控制
+
+幅度控制（衰减器）：
+  - 控制每个通道的辐射功率
+  - 影响波束宽度和旁瓣电平
+  - 口径照明分布（Taper）由幅度控制决定
+
+相位控制（移相器）：
+  - 控制每个通道的相位
+  - 影响波束指向角
+  - 相位精度决定波束指向精度
+
+幅度+相位 = 完整的波束赋形权重
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    幅度控制（衰减器）：
-      - 控制每个通道的辐射功率
-      - 影响波束宽度和旁瓣电平
-      - 口径照明分布（Taper）由幅度控制决定
-      
-    相位控制（移相器）：
-      - 控制每个通道的相位
-      - 影响波束指向角
-      - 相位精度决定波束指向精度
-      
-    幅度+相位 = 完整的波束赋形权重</code></pre>
-    <h3>2.2 衰减器指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>衰减范围</td><td>0-31.5dB（5-bit）</td><td>T/R 模块常用</td></tr>
-    <tr><td>步进精度</td><td>0.5dB</td><td>5-bit 衰减器</td></tr>
-    <tr><td>插入损耗</td><td>0.5-2dB</td><td>0dB 衰减时的损耗</td></tr>
-    <tr><td>频率范围</td><td>DC-6.5GHz</td><td>Sub-6GHz</td></tr>
-    <tr><td>功率容量</td><td>1-5W（发射）</td><td>GaN PA 后端</td></tr>
-    <tr><td>控制接口</td><td>SPI/I2C</td><td>数字控制</td></tr>
-    <tr><td>切换时间</td><td>< 1μs</td><td>波束切换</td></tr>
-    </tbody></table></div>
-    <h3>2.3 衰减器拓扑</h3>
+    <h2>2.2 衰减器指标</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>衰减范围</td>
+<td>0-31.5dB（5-bit）</td>
+<td>T/R 模块常用</td>
+</tr>
+<tr>
+<td>步进精度</td>
+<td>0.5dB</td>
+<td>5-bit 衰减器</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>0.5-2dB</td>
+<td>0dB 衰减时的损耗</td>
+</tr>
+<tr>
+<td>频率范围</td>
+<td>DC-6.5GHz</td>
+<td>Sub-6GHz</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>1-5W（发射）</td>
+<td>GaN PA 后端</td>
+</tr>
+<tr>
+<td>控制接口</td>
+<td>SPI/I2C</td>
+<td>数字控制</td>
+</tr>
+<tr>
+<td>切换时间</td>
+<td>&lt; 1μs</td>
+<td>波束切换</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 衰减器拓扑</h2>
     <pre><code>电阻梯形衰减器（主流）：
-      
-      π 型：
-        R1（串联）
-        ──┬──
-          │
-         R2（并联）
-          │
-        ──┴──
-          │
-         R3（并联）
-         
-      T 型：
-        R1（串联）── R2（串联）
-        │              │
-       R4（并联）     R5（并联）
-       
-    5-bit 数字衰减器：
-      0.5dB（1 位）
-      1.0dB（1 位）
-      2.0dB（1 位）
-      4.0dB（1 位）
-      8.0dB（1 位）
-      总范围：0-15.5dB（步进 0.5dB）
-      
-    6-bit 数字衰减器：
-      0.25dB（1 位）
-      0.5/1.0/2.0/4.0/8.0dB
-      总范围：0-15.75dB（步进 0.25dB）</code></pre>
-  </article>
 
-  <article class="card">
+  π 型：
+    R1（串联）
+    ──┬──
+      │
+     R2（并联）
+      │
+    ──┴──
+      │
+     R3（并联）
+
+  T 型：
+    R1（串联）── R2（串联）
+    │              │
+   R4（并联）     R5（并联）
+
+5-bit 数字衰减器：
+  0.5dB（1 位）
+  1.0dB（1 位）
+  2.0dB（1 位）
+  4.0dB（1 位）
+  8.0dB（1 位）
+  总范围：0-15.5dB（步进 0.5dB）
+
+6-bit 数字衰减器：
+  0.25dB（1 位）
+  0.5/1.0/2.0/4.0/8.0dB
+  总范围：0-15.75dB（步进 0.25dB）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、衰减器 vs 移相器</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>衰减器</th><th>移相器</th></tr></thead>
-    <tbody>
-    <tr><td>控制量</td><td>幅度</td><td>相位</td></tr>
-    <tr><td>精度</td><td>±0.2dB</td><td>±2°</td></tr>
-    <tr><td>插入损耗</td><td>0.5-2dB</td><td>1-3dB</td></tr>
-    <tr><td>功耗</td><td>< 100mW</td><td>10-100mW</td></tr>
-    <tr><td>尺寸</td><td>小</td><td>中</td></tr>
-    <tr><td>成本</td><td>低</td><td>中</td></tr>
-    <tr><td>在 T/R 模块中的占比</td><td>~30%</td><td>~40%</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>衰减器</th>
+<th>移相器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>控制量</td>
+<td>幅度</td>
+<td>相位</td>
+</tr>
+<tr>
+<td>精度</td>
+<td>±0.2dB</td>
+<td>±2°</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>0.5-2dB</td>
+<td>1-3dB</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>&lt; 100mW</td>
+<td>10-100mW</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>小</td>
+<td>中</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>在 T/R 模块中的占比</td>
+<td>~30%</td>
+<td>~40%</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>衰减器是 T/R 模块中控制波束幅度的核心器件——5-bit 数字衰减器（步进 0.5dB）是主流。它与移相器配合，完成 3D 波束赋形的幅度+相位控制。记住：波束赋形不只是"调相位"，幅度控制同样重要——它决定了旁瓣电平和口径效率。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -237,39 +334,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

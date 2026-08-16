@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>射频连接器 RF Connector · 知识卡片</title>
+<title>连接器Connector · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">射频连接器 RF Connector <span class="en">Connector</span></h1>
-  <p class="lede">射频连接器是天线的"接口"——它把天线和馈线、天线和测试设备连接在一起。核心指标是工作频率、插入损耗、VSWR 和功率容量。频率越高，连接器越小（SMA → 2.92mm → 2.4mm → 1.85mm → 1.0mm）。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">连接器Connector</h1>
+  <p class="lede">射频连接器是天线的&#34;接口&#34;——它把天线和馈线、天线和测试设备连接在一起。核心指标是工作频率、插入损耗、VSWR 和功率容量。频率越高，连接器越小（SMA → 2.92mm → 2.4mm → 1.85mm → 1.0mm）。</p>
+  
 </header>
 
 <main>
@@ -99,212 +101,447 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>射频连接器就像 USB 接口——不同尺寸的 USB 插头对应不同的数据传输速度。射频连接器也一样：SMA 就像 USB 2.0（够用但有限），2.92mm 就像 USB 3.0（更快），1.0mm 就像 USB 4（极致速度但娇贵）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 射频连接器的作用</h3>
-    <pre><code>天线 ↔ 连接器 ↔ 馈线/电缆 ↔ 连接器 ↔ 测试设备/滤波器/LNA/PA</code></pre>
-    <p><b>核心功能</b>：</p>
-    <ol><li><b>电气连接</b>：传递射频信号</li><li><b>阻抗匹配</b>：保持 50Ω 连续</li><li><b>机械固定</b>：连接天线和电缆/设备</li><li><b>可拆卸</b>：方便维护和更换</li></ol>
-    <h3>1.2 连接器 vs 焊接</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 射频连接器的作用</h2>
+    <pre><code>天线 ↔ 连接器 ↔ 馈线/电缆 ↔ 连接器 ↔ 测试设备/滤波器/LNA/PA
+</code></pre>
+<p><strong>核心功能</strong>：</p>
+<ol>
+<li><strong>电气连接</strong>：传递射频信号</li>
+<li><strong>阻抗匹配</strong>：保持 50Ω 连续</li>
+<li><strong>机械固定</strong>：连接天线和电缆/设备</li>
+<li><strong>可拆卸</strong>：方便维护和更换</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 连接器 vs 焊接</h2>
     <pre><code>连接器：
-      优点：可拆卸、方便测试、可更换
-      缺点：增加损耗（+0.1-0.3dB）、可能松动
-      
-    焊接：
-      优点：损耗低、可靠
-      缺点：不可拆卸、维修困难</code></pre>
-  </article>
+  优点：可拆卸、方便测试、可更换
+  缺点：增加损耗（+0.1-0.3dB）、可能松动
 
-  <article class="card">
-    <h2>二、主要连接器类型</h2>
-    <h3>2.1 常见连接器对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>连接器</th><th>频率上限</th><th>VSWR</th><th>IL</th><th>功率</th><th>螺纹</th><th>尺寸</th></tr></thead>
-    <tbody>
-    <tr><td>N 型</td><td>11GHz</td><td>1.3</td><td>0.1dB</td><td>250W</td><td>螺纹</td><td>大</td></tr>
-    <tr><td>SMA</td><td>18GHz</td><td>1.2</td><td>0.1dB</td><td>50W</td><td>螺纹</td><td>中</td></tr>
-    <tr><td>3.5mm</td><td>26.5GHz</td><td>1.1</td><td>0.05dB</td><td>20W</td><td>螺纹</td><td>中</td></tr>
-    <tr><td>2.92mm（K 型）</td><td>40GHz</td><td>1.1</td><td>0.05dB</td><td>20W</td><td>螺纹</td><td>小</td></tr>
-    <tr><td>2.4mm</td><td>50GHz</td><td>1.08</td><td>0.03dB</td><td>10W</td><td>螺纹</td><td>小</td></tr>
-    <tr><td>1.85mm（V 型）</td><td>67GHz</td><td>1.06</td><td>0.02dB</td><td>5W</td><td>螺纹</td><td>极小</td></tr>
-    <tr><td>1.0mm</td><td>110GHz</td><td>1.05</td><td>0.01dB</td><td>1W</td><td>螺纹</td><td>极小</td></tr>
-    <tr><td>0.7mm</td><td>150GHz</td><td>1.05</td><td>0.01dB</td><td>0.5W</td><td>螺纹</td><td>微</td></tr>
-    </tbody></table></div>
-    <h3>2.2 螺纹 vs 推拉式</h3>
+焊接：
+  优点：损耗低、可靠
+  缺点：不可拆卸、维修困难
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 常见连接器对比</h2>
+    <table>
+<thead>
+<tr>
+<th>连接器</th>
+<th>频率上限</th>
+<th>VSWR</th>
+<th>IL</th>
+<th>功率</th>
+<th>螺纹</th>
+<th>尺寸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N 型</td>
+<td>11GHz</td>
+<td>1.3</td>
+<td>0.1dB</td>
+<td>250W</td>
+<td>螺纹</td>
+<td>大</td>
+</tr>
+<tr>
+<td>SMA</td>
+<td>18GHz</td>
+<td>1.2</td>
+<td>0.1dB</td>
+<td>50W</td>
+<td>螺纹</td>
+<td>中</td>
+</tr>
+<tr>
+<td>3.5mm</td>
+<td>26.5GHz</td>
+<td>1.1</td>
+<td>0.05dB</td>
+<td>20W</td>
+<td>螺纹</td>
+<td>中</td>
+</tr>
+<tr>
+<td>2.92mm（K 型）</td>
+<td>40GHz</td>
+<td>1.1</td>
+<td>0.05dB</td>
+<td>20W</td>
+<td>螺纹</td>
+<td>小</td>
+</tr>
+<tr>
+<td>2.4mm</td>
+<td>50GHz</td>
+<td>1.08</td>
+<td>0.03dB</td>
+<td>10W</td>
+<td>螺纹</td>
+<td>小</td>
+</tr>
+<tr>
+<td>1.85mm（V 型）</td>
+<td>67GHz</td>
+<td>1.06</td>
+<td>0.02dB</td>
+<td>5W</td>
+<td>螺纹</td>
+<td>极小</td>
+</tr>
+<tr>
+<td>1.0mm</td>
+<td>110GHz</td>
+<td>1.05</td>
+<td>0.01dB</td>
+<td>1W</td>
+<td>螺纹</td>
+<td>极小</td>
+</tr>
+<tr>
+<td>0.7mm</td>
+<td>150GHz</td>
+<td>1.05</td>
+<td>0.01dB</td>
+<td>0.5W</td>
+<td>螺纹</td>
+<td>微</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 螺纹 vs 推拉式</h2>
     <pre><code>螺纹连接器（SMA/N 型）：
-      优点：连接可靠、VSWR 好
-      缺点：拧螺丝麻烦、多次插拔后磨损
-      
-    推拉式连接器（Push-on SMA）：
-      优点：快速连接
-      缺点：可靠性稍差、不适合振动环境
-      
-    卡口式（BNC）：
-      优点：快速旋转锁定
-      缺点：频率上限低（&lt; 4GHz）</code></pre>
-    <h3>2.3 平板连接器（Board Mount）</h3>
+  优点：连接可靠、VSWR 好
+  缺点：拧螺丝麻烦、多次插拔后磨损
+
+推拉式连接器（Push-on SMA）：
+  优点：快速连接
+  缺点：可靠性稍差、不适合振动环境
+
+卡口式（BNC）：
+  优点：快速旋转锁定
+  缺点：频率上限低（&lt; 4GHz）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 平板连接器（Board Mount）</h2>
     <pre><code>适用于 PCB 直接焊接：
-      SMPM / SSMC：≤ 12GHz
-      2.4mm board mount：≤ 50GHz
-      1.85mm board mount：≤ 67GHz</code></pre>
-    <h3>2.4 无连接器设计（Wire Bond / Flip-Chip）</h3>
+  SMPM / SSMC：≤ 12GHz
+  2.4mm board mount：≤ 50GHz
+  1.85mm board mount：≤ 67GHz
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 无连接器设计（Wire Bond / Flip-Chip）</h2>
     <pre><code>毫米波 AiP 中常用：
-      天线直接 wire bond 到芯片引脚
-      省去连接器损耗（0.1-0.3dB）
-      但不可拆卸</code></pre>
+  天线直接 wire bond 到芯片引脚
+  省去连接器损耗（0.1-0.3dB）
+  但不可拆卸
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、关键指标</h2>
-    <h3>3.1 插入损耗（Insertion Loss）</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 插入损耗（Insertion Loss）</h2>
     <pre><code>IL = IL_conductor + IL_dielectric + IL_reflection
+
+典型值：
+  SMA：0.1-0.3dB（每对连接器）
+  2.92mm：0.05-0.15dB
+  1.85mm：0.03-0.08dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型值：
-      SMA：0.1-0.3dB（每对连接器）
-      2.92mm：0.05-0.15dB
-      1.85mm：0.03-0.08dB</code></pre>
-    <h3>3.2 电压驻波比（VSWR）</h3>
+    <h2>3.2 电压驻波比（VSWR）</h2>
     <pre><code>VSWR = (1+|Γ|)/(1-|Γ|)
-    Γ = (Z_L - Z_0)/(Z_L + Z_0)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>连接器</th><th>VSWR（典型）</th></tr></thead>
-    <tbody>
-    <tr><td>N 型</td><td>1.25-1.3</td></tr>
-    <tr><td>SMA</td><td>1.15-1.3</td></tr>
-    <tr><td>3.5mm</td><td>1.08-1.15</td></tr>
-    <tr><td>2.92mm</td><td>1.05-1.1</td></tr>
-    <tr><td>2.4mm</td><td>1.03-1.08</td></tr>
-    <tr><td>1.85mm</td><td>1.02-1.05</td></tr>
-    </tbody></table></div>
-    <h3>3.3 功率容量</h3>
-    <pre><code>连续波功率（CW）：
-      N 型：100-250W @ 1GHz
-      SMA：10-50W @ 1GHz
-      2.92mm：5-20W @ 10GHz
-      
-    峰值功率（脉冲）：
-      N 型：10-100kW
-      SMA：1-10kW</code></pre>
-    <h3>3.4 插拔寿命</h3>
-    <div class="tw"><table>
-    <thead><tr><th>连接器</th><th>插拔次数</th></tr></thead>
-    <tbody>
-    <tr><td>N 型</td><td>500-1000</td></tr>
-    <tr><td>SMA</td><td>500</td></tr>
-    <tr><td>3.5mm</td><td>500</td></tr>
-    <tr><td>2.92mm</td><td>500</td></tr>
-    <tr><td>2.4mm</td><td>200-500</td></tr>
-    <tr><td>1.85mm</td><td>100-200</td></tr>
-    </tbody></table></div>
-    <h3>3.5 频率上限的决定因素</h3>
-    <pre><code>频率上限主要由以下因素决定：
-      1. 高阶模激发（TE11 模）
-      2. 连接器公差累积
-      3. VSWR 恶化
-      4. 插入损耗增大</code></pre>
-    <p><b>高阶模截止频率</b>：</p>
-    <pre><code>同轴线的 TE11 模截止：
-    f_c ≈ 1.586 · c / (π · D · √ε_r)
+Γ = (Z_L - Z_0)/(Z_L + Z_0)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>连接器</th>
+<th>VSWR（典型）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N 型</td>
+<td>1.25-1.3</td>
+</tr>
+<tr>
+<td>SMA</td>
+<td>1.15-1.3</td>
+</tr>
+<tr>
+<td>3.5mm</td>
+<td>1.08-1.15</td>
+</tr>
+<tr>
+<td>2.92mm</td>
+<td>1.05-1.1</td>
+</tr>
+<tr>
+<td>2.4mm</td>
+<td>1.03-1.08</td>
+</tr>
+<tr>
+<td>1.85mm</td>
+<td>1.02-1.05</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    D = 外径
-    c = 光速
-    ε_r = 介质常数</code></pre>
-  </article>
+    <h2>3.3 功率容量</h2>
+    <pre><code>连续波功率（CW）：
+  N 型：100-250W @ 1GHz
+  SMA：10-50W @ 1GHz
+  2.92mm：5-20W @ 10GHz
 
-  <article class="card">
-    <h2>四、5G 连接器应用</h2>
-    <h3>4.1 基站 AAU 连接器</h3>
+峰值功率（脉冲）：
+  N 型：10-100kW
+  SMA：1-10kW
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 插拔寿命</h2>
+    <table>
+<thead>
+<tr>
+<th>连接器</th>
+<th>插拔次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N 型</td>
+<td>500-1000</td>
+</tr>
+<tr>
+<td>SMA</td>
+<td>500</td>
+</tr>
+<tr>
+<td>3.5mm</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2.92mm</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2.4mm</td>
+<td>200-500</td>
+</tr>
+<tr>
+<td>1.85mm</td>
+<td>100-200</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 频率上限的决定因素</h2>
+    <pre><code>频率上限主要由以下因素决定：
+  1. 高阶模激发（TE11 模）
+  2. 连接器公差累积
+  3. VSWR 恶化
+  4. 插入损耗增大
+</code></pre>
+<p><strong>高阶模截止频率</strong>：</p>
+<pre><code>同轴线的 TE11 模截止：
+f_c ≈ 1.586 · c / (π · D · √ε_r)
+
+D = 外径
+c = 光速
+ε_r = 介质常数
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 基站 AAU 连接器</h2>
     <pre><code>Sub-6GHz 基站：
-      N 型 / SMA 连接器
-      频率：700MHz - 6GHz
-      功率：10-100W
-      
-    毫米波基站：
-      2.92mm / 2.4mm 连接器
-      频率：24-40GHz
-      功率：0.1-1W
-      或无连接器设计（板载焊接）</code></pre>
-    <h3>4.2 手机天线连接器</h3>
+  N 型 / SMA 连接器
+  频率：700MHz - 6GHz
+  功率：10-100W
+
+毫米波基站：
+  2.92mm / 2.4mm 连接器
+  频率：24-40GHz
+  功率：0.1-1W
+  或无连接器设计（板载焊接）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 手机天线连接器</h2>
     <pre><code>手机内部：
-      IPEX / U.FL 连接器
-      频率：DC - 6GHz（Sub-6GHz）
-      尺寸：1.0×1.5mm（极小）
-      
-    毫米波手机（未来）：
-      板载焊盘 / flip-chip
-      频率：24-40GHz
-      无连接器（直接焊接到 PCB）</code></pre>
-    <h3>4.3 测试连接器</h3>
+  IPEX / U.FL 连接器
+  频率：DC - 6GHz（Sub-6GHz）
+  尺寸：1.0×1.5mm（极小）
+
+毫米波手机（未来）：
+  板载焊盘 / flip-chip
+  频率：24-40GHz
+  无连接器（直接焊接到 PCB）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 测试连接器</h2>
     <pre><code>5G 测试设备：
-      2.92mm（≤ 40GHz）
-      2.4mm（≤ 50GHz）
-      1.85mm（≤ 67GHz）
-      
-    关键要求：
-      - 低 VSWR（&lt; 1.05）
-      - 低 IL（&lt; 0.1dB）
-      - 高重复性（多次插拔后性能不变）</code></pre>
-  </article>
+  2.92mm（≤ 40GHz）
+  2.4mm（≤ 50GHz）
+  1.85mm（≤ 67GHz）
 
-  <article class="card">
-    <h2>五、连接器选择指南</h2>
-    <h3>5.1 按频率选择</h3>
+关键要求：
+  - 低 VSWR（&lt; 1.05）
+  - 低 IL（&lt; 0.1dB）
+  - 高重复性（多次插拔后性能不变）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 按频率选择</h2>
     <pre><code>f &lt; 3GHz → N 型 / SMA
-    3GHz &lt; f &lt; 18GHz → SMA / 3.5mm
-    18GHz &lt; f &lt; 40GHz → 2.92mm
-    40GHz &lt; f &lt; 67GHz → 2.4mm / 1.85mm
-    f &gt; 67GHz → 1.85mm / 1.0mm / 波导</code></pre>
-    <h3>5.2 按功率选择</h3>
+3GHz &lt; f &lt; 18GHz → SMA / 3.5mm
+18GHz &lt; f &lt; 40GHz → 2.92mm
+40GHz &lt; f &lt; 67GHz → 2.4mm / 1.85mm
+f &gt; 67GHz → 1.85mm / 1.0mm / 波导
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 按功率选择</h2>
     <pre><code>P &lt; 1W → 任何连接器
-    1W &lt; P &lt; 10W → SMA / 2.92mm
-    10W &lt; P &lt; 100W → N 型 / SMA（大尺寸）
-    P &gt; 100W → N 型 / 7/16 DIN</code></pre>
-    <h3>5.3 按环境选择</h3>
+1W &lt; P &lt; 10W → SMA / 2.92mm
+10W &lt; P &lt; 100W → N 型 / SMA（大尺寸）
+P &gt; 100W → N 型 / 7/16 DIN
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 按环境选择</h2>
     <pre><code>室内 → SMA / 2.92mm
-    室外 → N 型（防水密封）
-    振动环境 → 螺纹连接器（非推拉式）
-    洁净室 → 卡口式（BNC）</code></pre>
+室外 → N 型（防水密封）
+振动环境 → 螺纹连接器（非推拉式）
+洁净室 → 卡口式（BNC）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 连接器的维护</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 连接器的维护</h2>
     <pre><code>清洁：
-      使用无尘布 + 异丙醇清洁中心针和外导体
-      灰尘 → VSWR 恶化 → 信号反射
-      
-    扭矩：
-      SMA：2-5 in-lbs（过紧损坏螺纹）
-      N 型：15-20 in-lbs
-      使用扭矩扳手，不要凭手感！</code></pre>
-    <h3>6.2 转接器和延长线</h3>
-    <pre><code>每个转接头增加：
-      IL：0.02-0.1dB
-      VSWR 恶化：0.02-0.05
-      
-    5G 毫米波测试中：
-      尽量减少转接头数量
-      使用低损耗电缆（如 LMR-400）</code></pre>
-    <h3>6.3 连接器与 PCB 的过渡</h3>
-    <pre><code>SMA 板载连接器：
-      中心针 → 微带线过渡
-      外导体 → 接地平面
-      
-    关键设计：
-      - 过渡区域阻抗匹配
-      - 避免阶跃（step discontinuity）
-      - 足够的接地过孔</code></pre>
-  </article>
+  使用无尘布 + 异丙醇清洁中心针和外导体
+  灰尘 → VSWR 恶化 → 信号反射
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>射频连接器是天线的"接口"——SMA 是最通用的（≤ 18GHz），毫米波用 2.92mm/2.4mm/1.85mm（越来越小、越来越精密）。核心指标就四个：频率上限（决定用哪种）、VSWR（决定匹配好坏）、IL（决定损耗多少）、功率容量（决定能不能承受）。记住：连接器越多，损耗越大；毫米波连接器比 SMA 贵 10-100 倍，但不可替代。</p>
+扭矩：
+  SMA：2-5 in-lbs（过紧损坏螺纹）
+  N 型：15-20 in-lbs
+  使用扭矩扳手，不要凭手感！
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 转接器和延长线</h2>
+    <pre><code>每个转接头增加：
+  IL：0.02-0.1dB
+  VSWR 恶化：0.02-0.05
+
+5G 毫米波测试中：
+  尽量减少转接头数量
+  使用低损耗电缆（如 LMR-400）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 连接器与 PCB 的过渡</h2>
+    <pre><code>SMA 板载连接器：
+  中心针 → 微带线过渡
+  外导体 → 接地平面
+
+关键设计：
+  - 过渡区域阻抗匹配
+  - 避免阶跃（step discontinuity）
+  - 足够的接地过孔
+</code></pre>
+  </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -324,39 +561,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

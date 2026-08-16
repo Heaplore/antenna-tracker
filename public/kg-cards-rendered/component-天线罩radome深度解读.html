@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线罩Radome深度解读 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线罩Radome深度解读</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>2.1 材料核心参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>符号</th>
+<th>理想值</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相对介电常数</td>
+<td>ε_r / Dk</td>
+<td>1.0（空气）</td>
+<td>越低，反射越小</td>
+</tr>
+<tr>
+<td>损耗角正切</td>
+<td>tanδ / Df</td>
+<td>0.0</td>
+<td>越低，吸收越小</td>
+</tr>
+<tr>
+<td>密度</td>
+<td>ρ</td>
+<td>低</td>
+<td>越轻越好</td>
+</tr>
+<tr>
+<td>机械强度</td>
+<td>σ</td>
+<td>高</td>
+<td>抗风抗压</td>
+</tr>
+<tr>
+<td>耐温性</td>
+<td>T_max</td>
+<td>高</td>
+<td>户外/航空</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 常见材料对比</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>Dk</th>
+<th>Df</th>
+<th>密度(g/cm³)</th>
+<th>适用频段</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真空</td>
+<td>1.0</td>
+<td>0</td>
+<td>0</td>
+<td>所有</td>
+<td>理想但不现实</td>
+</tr>
+<tr>
+<td>空气</td>
+<td>1.0</td>
+<td>0</td>
+<td>0.0012</td>
+<td>所有</td>
+<td>最佳但无结构强度</td>
+</tr>
+<tr>
+<td>PTFE（特氟龙）</td>
+<td>2.1</td>
+<td>0.0002</td>
+<td>2.2</td>
+<td>Sub-6GHz</td>
+<td>经典材料，耐温好</td>
+</tr>
+<tr>
+<td>Rogers RO3003</td>
+<td>3.0</td>
+<td>0.0013</td>
+<td>1.92</td>
+<td>mmWave</td>
+<td>高频低损耗</td>
+</tr>
+<tr>
+<td>PBT（聚对苯二甲酸丁二醇酯）</td>
+<td>2.7-3.0</td>
+<td>0.002-0.005</td>
+<td>1.3-1.4</td>
+<td>Sub-6GHz/mmWave</td>
+<td>TI 推荐，成本低</td>
+</tr>
+<tr>
+<td>玻璃纤维/环氧树脂</td>
+<td>6.5</td>
+<td>0.02</td>
+<td>1.8-2.0</td>
+<td>&lt; 10GHz</td>
+<td>强度高，损耗大</td>
+</tr>
+<tr>
+<td>石英纤维/环氧树脂</td>
+<td>3.8</td>
+<td>0.005</td>
+<td>1.6</td>
+<td>mmWave</td>
+<td>航空雷达经典</td>
+</tr>
+<tr>
+<td>泡沫塑料（发泡 PBT）</td>
+<td>1.1-1.5</td>
+<td>0.001-0.003</td>
+<td>0.2-0.4</td>
+<td>mmWave/THz</td>
+<td><strong>5G 新宠</strong></td>
+</tr>
+<tr>
+<td>PTFE@PPS 纳米复合泡沫</td>
+<td>1.19</td>
+<td>0.000255</td>
+<td>&lt; 0.5</td>
+<td><strong>THz (6G)</strong></td>
+<td>2024 突破</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 2024 太赫兹材料突破</h2>
+    <p><strong>PTFE@PPS 纳米复合微孔泡沫</strong>（2024 材料科学论文）：</p>
+<ul>
+<li>Dk = 1.19（接近空气！）</li>
+<li>Df = 0.000255</li>
+<li>THz 透过率 ≥ 90%</li>
+<li>疏水性（接触角 135.4°）</li>
+<li><strong>应用效果</strong>：THz 贴片天线传输距离从 53.5m 提升到 456.1m（<strong>9 倍</strong>）</li>
+<li><strong>意义</strong>：为 6G 太赫兹通信提供了可行的天线罩材料方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 Furukawa SCB 发泡工程塑料</h2>
+    <p><strong>特点</strong>：</p>
+<ul>
+<li>通过发泡技术在塑料中分散气泡 → Dk 降至 1.1-1.5</li>
+<li>传统塑料难以发泡（SCB 技术突破）</li>
+<li>保持工程塑料的强度/耐候性/阻燃性</li>
+<li><strong>5G 基站天线罩首选材料之一</strong></li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 单层板天线罩（Monolithic Radome）</h2>
+    <p><strong>结构</strong>：单一材料平板。</p>
+<pre><code>    ┌─────────────┐
+    │   均匀厚度    │  ← 单一材料
+    └─────────────┘
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>最简单，成本最低</li>
+<li>仅适用于低频或小口径天线</li>
+<li>毫米波频段需要精确控制厚度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 A 型夹层天线罩（A-Sandwich Radome）</h2>
+    <p><strong>结构</strong>：两层薄表皮 + 一层厚泡沫芯。</p>
+<pre><code>    ┌─────┐  ← 外层表皮（高强度）
+    │ 芯材  │  ← 低 Dk 泡沫
+    └─────┘  ← 内层表皮
+</code></pre>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>两个内部介电界面各产生反射波</li>
+<li>芯材厚度 = λ_c / 2（芯材中的半波长）的整数倍</li>
+<li>两反射波相位差 180° → 相消干涉 → 反射抵消</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>5G 基站天线罩标准方案</strong></li>
+<li>兼顾机械强度和电磁性能</li>
+<li>适用于双频（低频"电薄"，高频优化）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 C 型夹层天线罩（C-Sandwich / Double A）</h2>
+    <p><strong>结构</strong>：两层表皮 + 两层芯材 + 中间刚性层。</p>
+<pre><code>    ┌─────┐  ← 外层表皮
+    │ 芯1  │
+    ├─────┤  ← 中间层
+    │ 芯2  │
+    └─────┘  ← 内层表皮
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>比 A 型更强的结构刚度</li>
+<li>可针对不同频段分别优化两层芯材</li>
+<li>成本高，用于大型/高性能场景</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 变厚度流线型天线罩（Variable-Thickness Streamlined）</h2>
+    <p><strong>结构</strong>：厚度随位置变化，呈流线型（如切线抛物线、正切卵形）。</p>
+<pre><code>         ╭─────╮
+       ╭─╯     ╰─╮
+     ╭─╯         ╰─╮
+    │               │
+     ╰─╮         ╭─╯
+       ╰─╮     ╭─╯
+         ╰─────╯
+</code></pre>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>飞机/导弹机头雷达罩</li>
+<li>需要满足空气动力学要求</li>
+</ul>
+<p><strong>设计挑战</strong>：</p>
+<ul>
+<li>厚度变化 → 相位畸变 → 波束指向误差（BSE）</li>
+<li>需用遗传算法（GA）+ 射线追踪（RT）优化厚度分布</li>
+<li>2021 IEEE TAP：渐变介电多层壁 + GA 优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 TI 毫米波雷达天线罩设计指南</h2>
+    <p><strong>德州仪器 2024 官方指南核心要点</strong>：</p>
+<ol>
+<li><strong>天线与天线罩间距 H</strong>：</li>
+<li>理想：H = m × λ₀/2（m 为正整数）</li>
+<li>推荐：H = 1λ₀ 或 1.5λ₀</li>
+<li>例：24GHz 毫米波雷达，λ₀/2 ≈ 6.25mm → 推荐 H = 12.5mm 或 18.75mm</li>
+<li>
+<p>受限情况下 H = λ₀/2 ≈ 6.25mm，误差控制在 ±1.25mm</p>
+</li>
+<li>
+<p><strong>天线罩厚度 D</strong>：</p>
+</li>
+<li>理想：D = m × λ_c/2（λ_c = λ₀/√ε_r，材料中的波长）</li>
+<li>无法满足半波长时：D ≤ λ_c/8</li>
+<li>
+<p>目的：保持前后阻抗一致，减少反射和穿透损耗</p>
+</li>
+<li>
+<p><strong>材料选择</strong>：</p>
+</li>
+<li>低 Dk（&lt; 3.0），低 Df（&lt; 0.005）</li>
+<li>PBT、发泡塑料优先</li>
+<li>
+<p>避免金属/导电涂层</p>
+</li>
+<li>
+<p><strong>结构设计</strong>：</p>
+</li>
+<li>表面平滑均匀，无突变</li>
+<li>涂层不含金属成分</li>
+<li>天线罩表面平行于天线平面</li>
+<li>视场（FOV）内避免多层介质或遮挡</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 插入损耗（Insertion Loss）</h2>
+    <p><strong>组成</strong>：</p>
+<pre><code>IL_total = IL_reflection + IL_absorption + IL_misalignment
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>损耗类型</th>
+<th>来源</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>反射损耗</td>
+<td>界面不连续</td>
+<td>0.1-0.5dB</td>
+</tr>
+<tr>
+<td>吸收损耗</td>
+<td>材料 tanδ</td>
+<td>0.05-0.3dB</td>
+</tr>
+<tr>
+<td>失配损耗</td>
+<td>波束偏移</td>
+<td>0.2-1.0dB</td>
+</tr>
+</tbody>
+</table>
+<p><strong>毫米波频段</strong>：由于频率高，同样的厚度会产生更大的相位偏移 → 插入损耗更大。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 波束指向误差（Boresight Error, BSE）</h2>
+    <p><strong>原因</strong>：天线罩厚度不均匀 → 不同入射角的相位延迟不同 → 波束偏移。</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>单脉冲雷达：差波零点偏移 → 测角误差</li>
+<li>相控阵：波束指向偏差 → 覆盖缺口</li>
+</ul>
+<p><strong>2019 Wiley 研究</strong>：</p>
+<ul>
+<li>插入相位延迟（IPD）校正方法</li>
+<li>基于平均入射角设计厚度分布</li>
+<li>IPD 对称校正 → BSE 降低 50%+</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 方向图畸变</h2>
+    <p><strong>现象</strong>：</p>
+<ul>
+<li>主瓣展宽或分裂</li>
+<li>旁瓣升高</li>
+<li>前后比下降</li>
+</ul>
+<p><strong>典型案例</strong>（IntechOpen 2010）：</p>
+<ul>
+<li>5mm 特氟龙天线罩 → 主瓣衰减 0.4dB，旁瓣从 -3.27dB 升至 -4.19dB</li>
+<li>加金属防护帽（DC=12mm）→ 额外衰减 1.1dB，旁瓣显著升高</li>
+<li>DC=18mm → 额外衰减 6.0dB</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 极化纯度下降</h2>
+    <p><strong>原因</strong>：天线罩应力双折射 → 线极化波获得椭圆分量。</p>
+<p><strong>影响</strong>：轴比恶化，圆极化纯度下降。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 高频 = 更薄的&#34;半波长&#34;</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>λ₀</th>
+<th>λ₀/2</th>
+<th>λ_c/2 (Dk=3.0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5GHz (n78)</td>
+<td>85.7mm</td>
+<td>42.9mm</td>
+<td>24.8mm</td>
+</tr>
+<tr>
+<td>28GHz</td>
+<td>10.7mm</td>
+<td>5.4mm</td>
+<td>3.1mm</td>
+</tr>
+<tr>
+<td>60GHz</td>
+<td>5.0mm</td>
+<td>2.5mm</td>
+<td>1.4mm</td>
+</tr>
+<tr>
+<td>140GHz (6G)</td>
+<td>2.1mm</td>
+<td>1.1mm</td>
+<td>0.6mm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：毫米波天线罩厚度容差只有<strong>几十微米</strong>！</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 多层介质的累积效应</h2>
+    <p><strong>2020 IEEE Access 研究</strong>：W 频段（75-110GHz）多层天线罩：</p>
+<ul>
+<li>表皮 + 胶合层 + 芯材 + 胶合层 + 内表皮</li>
+<li>胶合层和涂层在毫米波频段不可忽略</li>
+<li>需计算有效介电常数 ε_eff 来修正芯材尺寸</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 散热问题</h2>
+    <p><strong>5G AAU 功率密度高</strong>：</p>
+<ul>
+<li>天线罩内部温度可达 60-80°C</li>
+<li>高温 → 材料 Dk 变化 → 谐振频率偏移</li>
+<li>需要热-电磁协同设计</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 外观与城市融合</h2>
+    <p><strong>城市 5G 小基站天线罩</strong>：</p>
+<ul>
+<li>伪装成路灯/广告牌/建筑构件</li>
+<li>需要美观 + 电磁透明</li>
+<li>曲面 + 变色涂层</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 标准设计步骤</h2>
+    <ol>
+<li><strong>确定工作频段和带宽</strong></li>
+<li><strong>选择材料</strong>（Dk/Df/强度/成本权衡）</li>
+<li><strong>计算理论厚度</strong>（半波长法则）</li>
+<li><strong>结构设计</strong>（单层/夹层/变厚度）</li>
+<li><strong>电磁仿真</strong>（HFSS/CST 全波仿真）</li>
+<li><strong>优化</strong>（GA/RT 算法优化厚度分布）</li>
+<li><strong>原型制作与测试</strong>（VNA 测量 S11/S21）</li>
+<li><strong>环境测试</strong>（高低温/湿热/风载/冰雹）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 仿真工具</h2>
+    <table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HFSS</td>
+<td>全波电磁仿真</td>
+<td>精确，适合毫米波</td>
+</tr>
+<tr>
+<td>CST Studio</td>
+<td>3D 频域/时域</td>
+<td>适合复杂结构</td>
+</tr>
+<tr>
+<td>FEKO</td>
+<td>矩量法/物理光学</td>
+<td>适合大型天线罩</td>
+</tr>
+<tr>
+<td>MATLAB</td>
+<td>算法优化</td>
+<td>GA/IPD 校正</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、给非专业读者的一句话总结</h2>
+    <blockquote>
+<p><strong>天线罩就是天线的"透明盔甲"——它要扛得住台风冰雹，又要让无线电波毫无阻碍地穿过。在 5G 毫米波时代，这个"盔甲"的厚度必须精确到毫米甚至亚毫米级别，差一点点就会让信号质量下降。6G 太赫兹频段更夸张，新材料 Dk=1.19 的泡沫可以让信号传输距离提升 9 倍。天线罩告诉我们：最好的保护不是"挡在外面"，而是"让你感觉不到我的存在"。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：天线罩的最高境界——<strong>隐身于无形，护之于有形</strong>。</p>
+<hr />
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天线带宽Bandwidth深度解读 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线带宽Bandwidth深度解读</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>FR1（Sub-6GHz）</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>频率范围</th>
+<th>最大信道带宽</th>
+<th>FBW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n1</td>
+<td>2100-2170MHz</td>
+<td>100MHz</td>
+<td>3.3%</td>
+</tr>
+<tr>
+<td>n28</td>
+<td>703-748MHz</td>
+<td>20MHz</td>
+<td>6.4%</td>
+</tr>
+<tr>
+<td>n41</td>
+<td>2515-2675MHz</td>
+<td>100MHz</td>
+<td>6.3%</td>
+</tr>
+<tr>
+<td>n77</td>
+<td>3300-4200MHz</td>
+<td>100MHz</td>
+<td>25.4%</td>
+</tr>
+<tr>
+<td>n78</td>
+<td>3300-3800MHz</td>
+<td>100MHz</td>
+<td>14.3%</td>
+</tr>
+<tr>
+<td>n79</td>
+<td>4400-5000MHz</td>
+<td>100MHz</td>
+<td>13.0%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>n77 频段挑战</strong>：3.3-4.2GHz 跨度达 900MHz，FBW = 25.4%——这对天线设计是巨大挑战。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>FR2（毫米波）</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>频率范围</th>
+<th>最大信道带宽</th>
+<th>FBW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n257</td>
+<td>24.25-29.5GHz</td>
+<td>400MHz</td>
+<td>19.6%</td>
+</tr>
+<tr>
+<td>n258</td>
+<td>24.25-27.5GHz</td>
+<td>400MHz</td>
+<td>12.6%</td>
+</tr>
+<tr>
+<td>n260</td>
+<td>37-40GHz</td>
+<td>400MHz</td>
+<td>8.3%</td>
+</tr>
+<tr>
+<td>n261</td>
+<td>27.5-31.3GHz</td>
+<td>400MHz</td>
+<td>13.0%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：毫米波的"绝对带宽"很大（400MHz），但相对于中心频率的"相对带宽"（FBW）其实不大。400MHz @28GHz 的 FBW 仅 1.4%。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3GPP FBW 公式</h2>
+    <pre><code>FBW = 200 × (f_high - f_low) / (f_high + f_low)
+</code></pre>
+<p>注意：3GPP 的 FBW 公式是 200 倍而不是 100 倍，这是因为 3GPP 使用的是双边带定义。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>什么是 Chu-Harrington 极限？</h2>
+    <p>任何电尺寸小于 λ/2π 的天线，其带宽和质量因数 Q 之间存在根本性限制：</p>
+<pre><code>Q_min = 1 / (k³a³) + 1 / (ka)
+FBW_max ≈ 1 / Q_min
+</code></pre>
+<p>其中 k = 2π/λ，a 是天线的最小外接球半径。</p>
+<p><strong>物理意义</strong>：天线越小，带宽越窄。这是电磁学的 fundamental limit，不是工程问题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>实际影响</h2>
+    <table>
+<thead>
+<tr>
+<th>天线尺寸（相对波长）</th>
+<th>理论 FBW</th>
+<th>实际可达 FBW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ka = 0.1（极小）</td>
+<td>0.3%</td>
+<td>0.1-0.2%</td>
+</tr>
+<tr>
+<td>ka = 0.5（典型）</td>
+<td>20%</td>
+<td>5-15%</td>
+</tr>
+<tr>
+<td>ka = 1.0（较大）</td>
+<td>100%</td>
+<td>50-100%+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：手机天线（ka ≈ 0.1-0.3）天然窄带，要实现宽带必须牺牲效率或尺寸。基站天线（ka ≈ 1-5）可以做到很宽。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 多谐振结构</h2>
+    <p><strong>原理</strong>：让天线在多个频率点谐振，叠加后形成宽带响应。</p>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>多频贴片（多层不同尺寸）</li>
+<li>U 型槽 / U 型缝隙</li>
+<li>折叠偶极子</li>
+</ul>
+<p><strong>效果</strong>：FBW 从 0.8% 提升到 10-20%。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 渐变结构（Tapered）</h2>
+    <p><strong>原理</strong>：天线的物理尺寸沿传播方向渐变，使阻抗随频率缓慢变化。</p>
+<p><strong>经典案例</strong>：</p>
+<ul>
+<li><strong>Log-periodic dipole array（对数周期偶极子）</strong>：FBW &gt; 10:1（十倍频程）</li>
+<li><strong>Vivaldi 天线（缝隙天线）</strong>：FBW &gt; 10:1</li>
+<li><strong>螺旋天线</strong>：FBW &gt; 5:1</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 超表面（Metasurface）增强</h2>
+    <p><strong>2025-2026 前沿</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>研究</th>
+<th>方法</th>
+<th>带宽提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nature Sci Rep 2026</td>
+<td>超表面反射器 + 环形谐振器</td>
+<td>12.86GHz @27-40GHz</td>
+</tr>
+<tr>
+<td>IEEE LAP 2026</td>
+<td>透明双频超表面玻璃盖板</td>
+<td>24-27GHz 增益提升 0.5-2dB</td>
+</tr>
+<tr>
+<td>Springer 2025</td>
+<td>超表面 + FSS 混合</td>
+<td>26-50GHz，耦合 &lt; -33dB</td>
+</tr>
+<tr>
+<td>MDPI 2025</td>
+<td>相位梯度超表面</td>
+<td>阻抗匹配 + 增益 + 带宽三重提升</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心机制</strong>：</p>
+<ul>
+<li>超表面作为"超级基板"，改变天线的有效介电常数</li>
+<li>抑制表面波，增加辐射效率</li>
+<li>近场聚焦，改善阻抗匹配</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 介质谐振器天线（DRA）</h2>
+    <p><strong>原理</strong>：用高介电常数陶瓷谐振器代替金属辐射体，Q 值更低，带宽更宽。</p>
+<p><strong>典型性能</strong>：</p>
+<ul>
+<li>FBW：15-40%</li>
+<li>增益：6-10dBi</li>
+<li>效率：80-95%</li>
+</ul>
+<p><strong>5G 应用</strong>：6G 终端 DRA 天线（Springer 2025），26-50GHz 覆盖，峰值增益 10.35dBi。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、多频天线 vs 宽带天线</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>多频天线（Multiband）</th>
+<th>宽带天线（Wideband）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作方式</td>
+<td>在多个离散频段谐振</td>
+<td>在一个连续频段内工作</td>
+</tr>
+<tr>
+<td>典型 FBW</td>
+<td>每个频段 1-5%</td>
+<td>整体 10-100%+</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>手机（覆盖 LTE/WiFi/5G）</td>
+<td>基站（覆盖整段频谱）</td>
+</tr>
+<tr>
+<td>设计难度</td>
+<td>中等（多谐振叠加）</td>
+<td>高（渐变/匹配网络复杂）</td>
+</tr>
+<tr>
+<td>代表天线</td>
+<td>多频贴片、折叠偶极子</td>
+<td>Vivaldi、螺旋、DRA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5G 手机的现实</strong>：一部手机需要同时支持 Sub-6GHz（n1/n28/n41/n77/n78/n79）和毫米波（n257/n258/n260/n261），天线必须是多频 + 宽带组合。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>增益-带宽积（Gain-Bandwidth Product）</h2>
+    <pre><code>G × FBW ≤ Constant
+</code></pre>
+<p><strong>物理直觉</strong>：</p>
+<ul>
+<li>增益高 → 方向图窄 → 能量集中 → 频率选择性高 → 带宽窄</li>
+<li>增益低 → 方向图宽 → 能量分散 → 频率选择性低 → 带宽宽</li>
+</ul>
+<p><strong>典型天线对比</strong>：
+| 天线类型 | 增益 | FBW | G×FBW |
+|---------|------|-----|-------|
+| 微带贴片 | 6-8dBi | 0.8% | ~0.05 |
+| 偶极子 | 2.15dBi | 8% | ~0.17 |
+| 喇叭 | 15dBi | 100% | ~15 |
+| Vivaldi | 10dBi | 1000% | ~100 |</p>
+<p><strong>关键判断</strong>：高增益 + 宽带需要大孔径（喇叭、反射面），这是物理规律，无法突破。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 子阵列带宽一致性</h2>
+    <p>64T64R 基站天线由多个子阵列组成，每个子阵列的 S11 和增益必须在整个工作频带内保持一致。</p>
+<p><strong>问题</strong>：</p>
+<ul>
+<li>子阵列间互耦随频率变化</li>
+<li>馈电网络插损随频率变化</li>
+<li>波束指向角随频率漂移</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>宽带馈电网络（3dB 耦合器 / Wilkinso 功分器）</li>
+<li>子阵列间去耦结构（DGS / EMBC）</li>
+<li>频率不变的波束赋形算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 带内平坦度（In-band Flatness）</h2>
+    <p><strong>要求</strong>：在信道带宽内，增益波动 ≤ ±1dB。</p>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>5G 信道带宽 100MHz（FR1）/ 400MHz（FR2）</li>
+<li>相对中心频率的 FBW 虽小，但绝对带宽大</li>
+<li>天线在频带边缘的 S11 和增益恶化</li>
+</ul>
+<p><strong>典型案例</strong>：</p>
+<ul>
+<li>FR1 3.5GHz 天线：3.3-3.8GHz 范围内增益波动</li>
+<li>FR2 28GHz 天线：24.25-29.5GHz 范围内增益波动</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>UWB 的定义</h2>
+    <p><strong>FCC 定义</strong>：FBW &gt; 20% 或绝对带宽 &gt; 500MHz。</p>
+<p><strong>典型 UWB 天线</strong>：
+| 类型 | 带宽 | 增益 | 特点 |
+|------|------|------|------|
+| 微带 UWB | 3.1-10.6GHz | 4-6dBi | 低剖面，适合集成 |
+| Vivaldi | 1-40GHz | 8-12dBi | 极高带宽，体积大 |
+| 锥形偶极子 | 1-18GHz | 6-8dBi | 结构简单 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>UWB 在 6G 的应用</h2>
+    <ul>
+<li>6G 太赫兹通信（100GHz-10THz）天然需要超宽带天线</li>
+<li>成像和传感：UWB 脉冲可提供厘米级分辨率</li>
+<li>定位：TOA/TDOA 测距精度达厘米级</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、给非专业读者的一句话总结</h2>
+    <blockquote>
+<p><strong>天线带宽就是"天线能正常工作的频率范围有多宽"。5G 基站天线要覆盖 3.3-3.8GHz（14% 的相对带宽），手机天线要同时支持 LTE/WiFi/5G 十几个频段——带宽越宽，意味着天线能"听懂"的声音越多。但物理定律限制了"又小又宽又强"的天线不存在——你要宽带，就得接受低增益；你要高增益，就得接受窄带宽。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：天线带宽告诉你一个道理——<strong>什么都想要，往往什么都做不好</strong>。带宽、增益、尺寸，三者选其二，这是电磁学的"不可能三角"。</p>
+<hr />
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

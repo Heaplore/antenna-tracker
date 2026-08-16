@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>波束宽度 Beamwidth（HPBW / BW） · 知识卡片</title>
+<title>波束宽度Beamwidth · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">波束宽度 Beamwidth <span class="en">HPBW / BW</span></h1>
-  <p class="lede">波束宽度是天线主瓣在功率下降到峰值一半（-3dB）处的张角——它告诉你天线"指得有多准"，波束越窄，方向性越强，但扫描范围可能受限。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">波束宽度Beamwidth</h1>
+  <p class="lede">波束宽度是天线主瓣在功率下降到峰值一半（-3dB）处的张角——它告诉你天线&#34;指得有多准&#34;，波束越窄，方向性越强，但扫描范围可能受限。</p>
+  
 </header>
 
 <main>
@@ -99,191 +101,458 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>波束宽度就像手电筒的光斑角度——聚光模式（窄波束）照亮远处但范围小，泛光模式（宽波束）照亮近处但范围广。5G 毫米波基站用窄波束（5-10°）对准手机，就像用激光笔；而 WiFi 路由器用宽波束（60-90°）覆盖整个房间，就像用台灯。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 半功率波束宽度（HPBW）</h3>
-    <pre><code>HPBW = 两个功率下降到峰值一半（-3dB）的点之间的夹角</code></pre>
-    <p>在方向图中找到 E 面和 H 面：</p>
-    <pre><code>       ↑ 最大辐射方向（0°）
-          ╱╲
-         ╱  ╲
-        ╱    ╲
-       ╱      ╲
-    ──╱────────╲──
-      -θ/2    +θ/2
-          ↑
-       HPBW = θ</code></pre>
-    <h3>1.2 零点波束宽度（BWFN）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 半功率波束宽度（HPBW）</h2>
+    <pre><code>HPBW = 两个功率下降到峰值一半（-3dB）的点之间的夹角
+</code></pre>
+<p>在方向图中找到 E 面和 H 面：</p>
+<pre><code>       ↑ 最大辐射方向（0°）
+      ╱╲
+     ╱  ╲
+    ╱    ╲
+   ╱      ╲
+──╱────────╲──
+  -θ/2    +θ/2
+      ↑
+   HPBW = θ
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 零点波束宽度（BWFN）</h2>
     <pre><code>BWFN = 两个功率为零（或最小）的点之间的夹角
-    BWFN ≈ 2 × HPBW（近似）</code></pre>
-    <h3>1.3 波束宽度与方向性的关系</h3>
+BWFN ≈ 2 × HPBW（近似）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 波束宽度与方向性的关系</h2>
     <pre><code>D ≈ 4π / (θ_E · θ_H)
-    D(dBi) ≈ 10.5 + 10·log₁₀(3600 / (θ_E · θ_H))</code></pre>
-    <p>其中 θ_E 和 θ_H 分别是 E 面和 H 面的 HPBW（单位：度）。</p>
-    <p><b>简化公式</b>（圆形对称波束）：</p>
-    <pre><code>D(dBi) ≈ 10.5 + 20·log₁₀(360 / θ) - 10·log₁₀(θ²)
-    D(dBi) ≈ 10.5 + 20·log₁₀(360/θ) - 20·log₁₀(θ)</code></pre>
-    <p>更常用的近似：</p>
-    <pre><code>D(dBi) ≈ 10.5 + 10·log₁₀(41253 / (θ_E · θ_H))</code></pre>
-    <h3>1.4 波束宽度与天线尺寸的关系</h3>
-    <pre><code>θ ≈ k · λ / D</code></pre>
-    <p>其中 k 是常数（约 70° 对于均匀口径，约 50° 对于均匀照射），D 是天线口径尺寸。</p>
-    <p><b>典型值</b>：</p>
-    <pre><code>θ(度) ≈ 65 · λ / D（均匀照射）
-    θ(度) ≈ 70 · λ / D（均匀口径）
-    θ(度) ≈ 50 · λ / D（抛物面天线，高口径效率）</code></pre>
+D(dBi) ≈ 10.5 + 10·log₁₀(3600 / (θ_E · θ_H))
+</code></pre>
+<p>其中 θ_E 和 θ_H 分别是 E 面和 H 面的 HPBW（单位：度）。</p>
+<p><strong>简化公式</strong>（圆形对称波束）：</p>
+<pre><code>D(dBi) ≈ 10.5 + 20·log₁₀(360 / θ) - 10·log₁₀(θ²)
+D(dBi) ≈ 10.5 + 20·log₁₀(360/θ) - 20·log₁₀(θ)
+</code></pre>
+<p>更常用的近似：</p>
+<pre><code>D(dBi) ≈ 10.5 + 10·log₁₀(41253 / (θ_E · θ_H))
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、计算公式</h2>
-    <h3>2.1 阵列天线波束宽度</h3>
+  
+  <article class="card ">
+    
+    <h2>1.4 波束宽度与天线尺寸的关系</h2>
+    <pre><code>θ ≈ k · λ / D
+</code></pre>
+<p>其中 k 是常数（约 70° 对于均匀口径，约 50° 对于均匀照射），D 是天线口径尺寸。</p>
+<p><strong>典型值</strong>：</p>
+<pre><code>θ(度) ≈ 65 · λ / D（均匀照射）
+θ(度) ≈ 70 · λ / D（均匀口径）
+θ(度) ≈ 50 · λ / D（抛物面天线，高口径效率）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 阵列天线波束宽度</h2>
     <pre><code>N 元均匀线阵：
-    HPBW ≈ 0.886 · λ / (N · d · cosθ₀)（窄束近似）
+HPBW ≈ 0.886 · λ / (N · d · cosθ₀)（窄束近似）
+
+其中：
+  λ = 波长
+  d = 单元间距
+  θ₀ = 波束指向角
+  N = 单元数
+</code></pre>
+<p><strong>示例</strong>（64 单元，d = λ/2，θ₀ = 0°）：</p>
+<pre><code>HPBW ≈ 0.886 · λ / (64 · λ/2) = 0.886 / 32 = 0.0277 rad = 1.59°
+</code></pre>
+<p><strong>扫描到 60° 时</strong>：</p>
+<pre><code>HPBW(60°) = HPBW(0°) / cos(60°) = 1.59° / 0.5 = 3.18°
+波束展宽 2 倍！
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    其中：
-      λ = 波长
-      d = 单元间距
-      θ₀ = 波束指向角
-      N = 单元数</code></pre>
-    <p><b>示例</b>（64 单元，d = λ/2，θ₀ = 0°）：</p>
-    <pre><code>HPBW ≈ 0.886 · λ / (64 · λ/2) = 0.886 / 32 = 0.0277 rad = 1.59°</code></pre>
-    <p><b>扫描到 60° 时</b>：</p>
-    <pre><code>HPBW(60°) = HPBW(0°) / cos(60°) = 1.59° / 0.5 = 3.18°
-    波束展宽 2 倍！</code></pre>
-    <h3>2.2 扫描引起的波束展宽</h3>
-    <pre><code>θ_scan = θ_broadside / cos(θ₀)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>扫描角</th><th>cos(θ₀)</th><th>波束展宽因子</th></tr></thead>
-    <tbody>
-    <tr><td>0°</td><td>1.0</td><td>1.0×</td></tr>
-    <tr><td>30°</td><td>0.866</td><td>1.15×</td></tr>
-    <tr><td>45°</td><td>0.707</td><td>1.41×</td></tr>
-    <tr><td>60°</td><td>0.5</td><td>2.0×</td></tr>
-    <tr><td>70°</td><td>0.342</td><td>2.92×</td></tr>
-    </tbody></table></div>
-    <h3>2.3 口径照明分布对波束宽度的影响</h3>
-    <pre><code>θ ≈ k(illumination) · λ / D</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>照明分布</th><th>k 值</th><th>HPBW 倍数</th><th>旁瓣电平</th></tr></thead>
-    <tbody>
-    <tr><td>均匀</td><td>70°</td><td>1.0×</td><td>0dB</td></tr>
-    <tr><td>三角形</td><td>100°</td><td>1.43×</td><td>-23dB</td></tr>
-    <tr><td>二次方</td><td>120°</td><td>1.71×</td><td>-32dB</td></tr>
-    <tr><td>泰勒分布</td><td>80-90°</td><td>1.14-1.29×</td><td>-20-30dB</td></tr>
-    <tr><td>切比雪夫</td><td>75-85°</td><td>1.07-1.21×</td><td>-20-30dB</td></tr>
-    </tbody></table></div>
+    <h2>2.2 扫描引起的波束展宽</h2>
+    <pre><code>θ_scan = θ_broadside / cos(θ₀)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>扫描角</th>
+<th>cos(θ₀)</th>
+<th>波束展宽因子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0°</td>
+<td>1.0</td>
+<td>1.0×</td>
+</tr>
+<tr>
+<td>30°</td>
+<td>0.866</td>
+<td>1.15×</td>
+</tr>
+<tr>
+<td>45°</td>
+<td>0.707</td>
+<td>1.41×</td>
+</tr>
+<tr>
+<td>60°</td>
+<td>0.5</td>
+<td>2.0×</td>
+</tr>
+<tr>
+<td>70°</td>
+<td>0.342</td>
+<td>2.92×</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型值范围</h2>
-    <h3>3.1 不同天线的波束宽度</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>E 面 HPBW</th><th>H 面 HPBW</th><th>应用</th></tr></thead>
-    <tbody>
-    <tr><td>八木天线</td><td>20-40°</td><td>30-60°</td><td>TV 接收</td></tr>
-    <tr><td>抛物面（C 波段）</td><td>2-5°</td><td>2-5°</td><td>卫星通信</td></tr>
-    <tr><td>抛物面（Ku 波段）</td><td>1-3°</td><td>1-3°</td><td>卫星通信</td></tr>
-    <tr><td>5G AAU（3.5GHz）</td><td>6-10°</td><td>6-10°</td><td>宏基站</td></tr>
-    <tr><td>5G AAU（28GHz）</td><td>3-8°</td><td>3-8°</td><td>毫米波基站</td></tr>
-    <tr><td>WiFi 路由器</td><td>60-90°</td><td>30-45°</td><td>室内覆盖</td></tr>
-    <tr><td>手机终端</td><td>60-120°</td><td>60-120°</td><td>移动终端</td></tr>
-    <tr><td>GPS 天线</td><td>30-60°</td><td>30-60°</td><td>卫星导航</td></tr>
-    <tr><td>雷达（机载）</td><td>1-3°</td><td>1-3°</td><td>搜索雷达</td></tr>
-    </tbody></table></div>
-    <h3>3.2 5G AAU 波束宽度与通道数的关系</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>通道数</th><th>E 面 HPBW</th><th>H 面 HPBW</th><th>覆盖范围</th></tr></thead>
-    <tbody>
-    <tr><td>64T64R（3.5GHz）</td><td>64</td><td>6-8°</td><td>6-8°</td><td>1km</td></tr>
-    <tr><td>32T32R（3.5GHz）</td><td>32</td><td>8-10°</td><td>10-12°</td><td>1.5km</td></tr>
-    <tr><td>16T16R（3.5GHz）</td><td>16</td><td>12-15°</td><td>15-20°</td><td>2km</td></tr>
-    <tr><td>4T4R（2.4GHz）</td><td>4</td><td>60-90°</td><td>30-45°</td><td>300m</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.3 口径照明分布对波束宽度的影响</h2>
+    <pre><code>θ ≈ k(illumination) · λ / D
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>照明分布</th>
+<th>k 值</th>
+<th>HPBW 倍数</th>
+<th>旁瓣电平</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀</td>
+<td>70°</td>
+<td>1.0×</td>
+<td>0dB</td>
+</tr>
+<tr>
+<td>三角形</td>
+<td>100°</td>
+<td>1.43×</td>
+<td>-23dB</td>
+</tr>
+<tr>
+<td>二次方</td>
+<td>120°</td>
+<td>1.71×</td>
+<td>-32dB</td>
+</tr>
+<tr>
+<td>泰勒分布</td>
+<td>80-90°</td>
+<td>1.14-1.29×</td>
+<td>-20-30dB</td>
+</tr>
+<tr>
+<td>切比雪夫</td>
+<td>75-85°</td>
+<td>1.07-1.21×</td>
+<td>-20-30dB</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、测量方法</h2>
-    <h3>4.1 近场测量</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 不同天线的波束宽度</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>E 面 HPBW</th>
+<th>H 面 HPBW</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>八木天线</td>
+<td>20-40°</td>
+<td>30-60°</td>
+<td>TV 接收</td>
+</tr>
+<tr>
+<td>抛物面（C 波段）</td>
+<td>2-5°</td>
+<td>2-5°</td>
+<td>卫星通信</td>
+</tr>
+<tr>
+<td>抛物面（Ku 波段）</td>
+<td>1-3°</td>
+<td>1-3°</td>
+<td>卫星通信</td>
+</tr>
+<tr>
+<td>5G AAU（3.5GHz）</td>
+<td>6-10°</td>
+<td>6-10°</td>
+<td>宏基站</td>
+</tr>
+<tr>
+<td>5G AAU（28GHz）</td>
+<td>3-8°</td>
+<td>3-8°</td>
+<td>毫米波基站</td>
+</tr>
+<tr>
+<td>WiFi 路由器</td>
+<td>60-90°</td>
+<td>30-45°</td>
+<td>室内覆盖</td>
+</tr>
+<tr>
+<td>手机终端</td>
+<td>60-120°</td>
+<td>60-120°</td>
+<td>移动终端</td>
+</tr>
+<tr>
+<td>GPS 天线</td>
+<td>30-60°</td>
+<td>30-60°</td>
+<td>卫星导航</td>
+</tr>
+<tr>
+<td>雷达（机载）</td>
+<td>1-3°</td>
+<td>1-3°</td>
+<td>搜索雷达</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 5G AAU 波束宽度与通道数的关系</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>通道数</th>
+<th>E 面 HPBW</th>
+<th>H 面 HPBW</th>
+<th>覆盖范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64T64R（3.5GHz）</td>
+<td>64</td>
+<td>6-8°</td>
+<td>6-8°</td>
+<td>1km</td>
+</tr>
+<tr>
+<td>32T32R（3.5GHz）</td>
+<td>32</td>
+<td>8-10°</td>
+<td>10-12°</td>
+<td>1.5km</td>
+</tr>
+<tr>
+<td>16T16R（3.5GHz）</td>
+<td>16</td>
+<td>12-15°</td>
+<td>15-20°</td>
+<td>2km</td>
+</tr>
+<tr>
+<td>4T4R（2.4GHz）</td>
+<td>4</td>
+<td>60-90°</td>
+<td>30-45°</td>
+<td>300m</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 近场测量</h2>
     <pre><code>设备：近场扫描系统（平面/圆柱/球形）
-    方法：
-      1. 探头在距离天线 λ-2D²/λ 处扫描
-      2. 记录每个点的幅度和相位
-      3. 傅里叶变换到远场
-      4. 提取 HPBW
-    精度：±0.1°</code></pre>
-    <h3>4.2 远场测量</h3>
-    <pre><code>设备：转台 + 标准增益天线 + 矢量网络分析仪
-    方法：
-      1. 被测天线安装在转台上
-      2. 旋转转台，记录不同角度下的功率
-      3. 找到 -3dB 点
-      4. 计算两点夹角 = HPBW
-    精度：±0.5°
-    场地要求：d &gt; 2D²/λ</code></pre>
-    <h3>4.3 OTA 测量（5G 毫米波）</h3>
-    <pre><code>设备：暗室 + 多探头阵列 + 矢量网络分析仪
-    方法：
-      1. 被测天线放在暗室转台上
-      2. 多探头同时接收
-      3. 提取 HPBW
-    优势：无需线缆连接，适合终端天线</code></pre>
+方法：
+  1. 探头在距离天线 λ-2D²/λ 处扫描
+  2. 记录每个点的幅度和相位
+  3. 傅里叶变换到远场
+  4. 提取 HPBW
+精度：±0.1°
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>天线增益</td><td>反比</td><td>波束越窄 → 增益越高</td></tr>
-    <tr><td>旁瓣电平</td><td>制约</td><td>旁瓣越低 → 波束越宽（口径效率↓）</td></tr>
-    <tr><td>扫描范围</td><td>制约</td><td>扫描角越大 → 波束展宽越严重</td></tr>
-    <tr><td>前后比</td><td>间接</td><td>前后比高 → 主瓣更纯净 → HPBW 更准确</td></tr>
-    <tr><td>方向性系数</td><td>正比</td><td>方向性越高 → 波束越窄</td></tr>
-    <tr><td>口径效率</td><td>反比</td><td>效率越高（均匀照射）→ 波束越窄</td></tr>
-    </tbody></table></div>
-  </article>
-
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 波束宽度与覆盖范围的权衡</h3>
-    <pre><code>覆盖半径 R ≈ h · cot(θ/2)
-    其中 h 是天线高度，θ 是垂直波束宽度</code></pre>
-    <p><b>基站覆盖设计</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>垂直 HPBW</th><th>水平 HPBW</th><th>覆盖半径</th></tr></thead>
-    <tbody>
-    <tr><td>城市宏站</td><td>6-8°</td><td>65-70°</td><td>500m-1km</td></tr>
-    <tr><td>郊区宏站</td><td>3-6°</td><td>65-70°</td><td>1-3km</td></tr>
-    <tr><td>室内分布</td><td>30-60°</td><td>60-90°</td><td>30-100m</td></tr>
-    <tr><td>高铁覆盖</td><td>2-4°</td><td>15-30°</td><td>沿轨道</td></tr>
-    </tbody></table></div>
-    <h3>6.2 电调下倾（Mechanical/Electrical Tilt）</h3>
-    <pre><code>电调下倾 = 通过移相器改变波束垂直指向
-    机械下倾 = 物理倾斜天线
+  
+  <article class="card ">
     
-    电调下倾优势：
-      - 远程调整
-      - 每个扇区独立
-      - 不影响水平波束宽度
-    机械下倾优势：
-      - 便宜
-      - 不改变波束形状</code></pre>
-    <h3>6.3 波束宽度随频率变化</h3>
-    <pre><code>θ ∝ λ/D ∝ 1/f</code></pre>
-    <p>频率升高 2 倍 → 波束宽度缩小 2 倍。</p>
-    <p><b>影响</b>：</p>
-    <ul><li>宽带天线在不同频段的波束宽度不同</li><li>毫米波天线比 Sub-6GHz 窄得多</li><li>设计时需考虑频带内最坏情况</li></ul>
+    <h2>4.2 远场测量</h2>
+    <pre><code>设备：转台 + 标准增益天线 + 矢量网络分析仪
+方法：
+  1. 被测天线安装在转台上
+  2. 旋转转台，记录不同角度下的功率
+  3. 找到 -3dB 点
+  4. 计算两点夹角 = HPBW
+精度：±0.5°
+场地要求：d &gt; 2D²/λ
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>波束宽度是天线"指得有多准"的度量——HPBW 越小，方向性越强，增益越高，但覆盖范围越窄。记住三个关键：①波束宽度与天线尺寸成反比（天线越大波束越窄）②扫描时波束展宽（60° 扫描时展宽 2 倍）③波束宽度与增益是跷跷板关系（窄波束 = 高增益 = 小覆盖）。</p>
+  
+  <article class="card ">
+    
+    <h2>4.3 OTA 测量（5G 毫米波）</h2>
+    <pre><code>设备：暗室 + 多探头阵列 + 矢量网络分析仪
+方法：
+  1. 被测天线放在暗室转台上
+  2. 多探头同时接收
+  3. 提取 HPBW
+优势：无需线缆连接，适合终端天线
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、与其他指标的关系</h2>
+    <table>
+<thead>
+<tr>
+<th>关联指标</th>
+<th>关系类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线增益</td>
+<td>反比</td>
+<td>波束越窄 → 增益越高</td>
+</tr>
+<tr>
+<td>旁瓣电平</td>
+<td>制约</td>
+<td>旁瓣越低 → 波束越宽（口径效率↓）</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>制约</td>
+<td>扫描角越大 → 波束展宽越严重</td>
+</tr>
+<tr>
+<td>前后比</td>
+<td>间接</td>
+<td>前后比高 → 主瓣更纯净 → HPBW 更准确</td>
+</tr>
+<tr>
+<td>方向性系数</td>
+<td>正比</td>
+<td>方向性越高 → 波束越窄</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>反比</td>
+<td>效率越高（均匀照射）→ 波束越窄</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 波束宽度与覆盖范围的权衡</h2>
+    <pre><code>覆盖半径 R ≈ h · cot(θ/2)
+其中 h 是天线高度，θ 是垂直波束宽度
+</code></pre>
+<p><strong>基站覆盖设计</strong>：
+| 场景 | 垂直 HPBW | 水平 HPBW | 覆盖半径 |
+|------|----------|----------|---------|
+| 城市宏站 | 6-8° | 65-70° | 500m-1km |
+| 郊区宏站 | 3-6° | 65-70° | 1-3km |
+| 室内分布 | 30-60° | 60-90° | 30-100m |
+| 高铁覆盖 | 2-4° | 15-30° | 沿轨道 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 电调下倾（Mechanical/Electrical Tilt）</h2>
+    <pre><code>电调下倾 = 通过移相器改变波束垂直指向
+机械下倾 = 物理倾斜天线
+
+电调下倾优势：
+  - 远程调整
+  - 每个扇区独立
+  - 不影响水平波束宽度
+机械下倾优势：
+  - 便宜
+  - 不改变波束形状
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 波束宽度随频率变化</h2>
+    <pre><code>θ ∝ λ/D ∝ 1/f
+</code></pre>
+<p>频率升高 2 倍 → 波束宽度缩小 2 倍。</p>
+<p><strong>影响</strong>：</p>
+<ul>
+<li>宽带天线在不同频段的波束宽度不同</li>
+<li>毫米波天线比 Sub-6GHz 窄得多</li>
+<li>设计时需考虑频带内最坏情况</li>
+</ul>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -303,39 +572,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

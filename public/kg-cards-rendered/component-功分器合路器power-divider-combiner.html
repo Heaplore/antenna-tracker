@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>功分器/合路器 Power Divider / Combiner · 知识卡片</title>
+<title>功分器合路器Power-Divider-Combiner · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">功分器/合路器 Power Divider / Combiner <span class="en">Power-Divider-Combiner</span></h1>
-  <p class="lede">功分器把一路信号分成多路（等幅或不等幅），合路器把多路信号合成一路——它们是馈电网络、PA 阵列、LNA 阵列的"交通枢纽"。Wilkinson 是最经典的 2 路功分器，Rat-Race 是 3dB 电桥，Hybrid Coupler 提供 90° 或 180° 相位差。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">功分器合路器Power-Divider-Combiner</h1>
+  <p class="lede">功分器把一路信号分成多路（等幅或不等幅），合路器把多路信号合成一路——它们是馈电网络、PA 阵列、LNA 阵列的&#34;交通枢纽&#34;。Wilkinson 是最经典的 2 路功分器，Rat-Race 是 3dB 电桥，Hybrid Coupler 提供 90° 或 180° 相位差。</p>
+  
 </header>
 
 <main>
@@ -99,224 +101,492 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>功分器就像公路的分岔口——一辆车（信号）从主干道来，分成两条支路出去。合路器则是两条支路汇成主干道。Wilkinson 功分器的精妙之处在于它中间加了个"隔离桥"（电阻）——如果一条支路堵车（阻抗失配），车流不会倒灌回另一条支路。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 功分器（Power Divider / Splitter）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 功分器（Power Divider / Splitter）</h2>
     <pre><code>         ┌──→ Port 2（等幅同相）
-    Input ──→│
-             └──→ Port 3（等幅同相）
-             ↑
-          Port 1（隔离电阻）</code></pre>
-    <p><b>理想 2 路等分功分器</b>：</p>
-    <ul><li>输出功率：P_out = P_in / 2（理论）</li><li>功率损失：3dB（一半功率去了一路）</li><li>插入损耗：3dB + 导体损耗 ≈ 3.1-3.5dB</li><li>隔离度：> 20dB（Port 2 和 Port 3 之间）</li></ul>
-    <h3>1.2 合路器（Combiner）</h3>
+Input ──→│
+         └──→ Port 3（等幅同相）
+         ↑
+      Port 1（隔离电阻）
+</code></pre>
+<p><strong>理想 2 路等分功分器</strong>：</p>
+<ul>
+<li>输出功率：P_out = P_in / 2（理论）</li>
+<li>功率损失：3dB（一半功率去了一路）</li>
+<li>插入损耗：3dB + 导体损耗 ≈ 3.1-3.5dB</li>
+<li>隔离度：&gt; 20dB（Port 2 和 Port 3 之间）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 合路器（Combiner）</h2>
     <pre><code>Port 2 ──→ ──┐
-                  ├──→ Output（合成）
-    Port 3 ──→ ──┘</code></pre>
-    <p><b>理想合路器</b>：</p>
-    <ul><li>与功分器互为逆过程</li><li>插入损耗：3dB + 导体损耗</li><li>隔离度：> 20dB（两输入端口之间）</li></ul>
-    <h3>1.3 N 路功分器</h3>
+              ├──→ Output（合成）
+Port 3 ──→ ──┘
+</code></pre>
+<p><strong>理想合路器</strong>：</p>
+<ul>
+<li>与功分器互为逆过程</li>
+<li>插入损耗：3dB + 导体损耗</li>
+<li>隔离度：&gt; 20dB（两输入端口之间）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 N 路功分器</h2>
     <pre><code>2 路 → 1 级
-    4 路 → 2 级（2→4 = 2×2）
-    8 路 → 3 级
-    16 路 → 4 级
-    N 路 → log₂(N) 级</code></pre>
-    <p><b>级联损耗</b>：</p>
-    <pre><code>N 路总损耗 = 10·log₁₀(N) + IL_per_stage × log₂(N)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>N</th><th>级数</th><th>理论分配损耗</th><th>实际总损耗（含插入损耗）</th></tr></thead>
-    <tbody>
-    <tr><td>2</td><td>1</td><td>3.0dB</td><td>3.2-3.5dB</td></tr>
-    <tr><td>4</td><td>2</td><td>6.0dB</td><td>6.8-7.5dB</td></tr>
-    <tr><td>8</td><td>3</td><td>9.0dB</td><td>10.5-11.8dB</td></tr>
-    <tr><td>16</td><td>4</td><td>12.0dB</td><td>14.5-16.5dB</td></tr>
-    </tbody></table></div>
+4 路 → 2 级（2→4 = 2×2）
+8 路 → 3 级
+16 路 → 4 级
+N 路 → log₂(N) 级
+</code></pre>
+<p><strong>级联损耗</strong>：</p>
+<pre><code>N 路总损耗 = 10·log₁₀(N) + IL_per_stage × log₂(N)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>N</th>
+<th>级数</th>
+<th>理论分配损耗</th>
+<th>实际总损耗（含插入损耗）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>3.0dB</td>
+<td>3.2-3.5dB</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>6.0dB</td>
+<td>6.8-7.5dB</td>
+</tr>
+<tr>
+<td>8</td>
+<td>3</td>
+<td>9.0dB</td>
+<td>10.5-11.8dB</td>
+</tr>
+<tr>
+<td>16</td>
+<td>4</td>
+<td>12.0dB</td>
+<td>14.5-16.5dB</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>二、主要类型</h2>
-    <h3>2.1 Wilkinson 功分器（最经典）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 Wilkinson 功分器（最经典）</h2>
     <pre><code>        Z₀√2, λ/4
-    Port 1 ──┤╬├── Port 2
-             │R│
-             │ │    R = 2Z₀ = 100Ω（50Ω 系统）
-    Port 3 ──┤╬├── 
-            Z₀√2, λ/4</code></pre>
-    <p><b>原理</b>：</p>
-    <ul><li>两段 λ/4 阻抗变换线（Z = Z₀√2）</li><li>中心隔离电阻 R = 2Z₀</li><li>当两输出端都匹配时，电阻上无电流 → 不耗能</li><li>当一端失配时，电阻吸收反射 → 保护另一端</li></ul>
-    <p><b>性能</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>插入损耗</td><td>3.1-3.5dB</td></tr>
-    <tr><td>隔离度</td><td>20-30dB</td></tr>
-    <tr><td>VSWR</td><td>1.1-1.3</td></tr>
-    <tr><td>带宽</td><td>10-20%</td></tr>
-    <tr><td>幅度平衡</td><td>±0.5°</td></tr>
-    <tr><td>相位平衡</td><td>±0.1dB</td></tr>
-    </tbody></table></div>
-    <h3>2.2 T 结功分器（T-Junction）</h3>
+Port 1 ──┤╬├── Port 2
+         │R│
+         │ │    R = 2Z₀ = 100Ω（50Ω 系统）
+Port 3 ──┤╬├── 
+        Z₀√2, λ/4
+</code></pre>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>两段 λ/4 阻抗变换线（Z = Z₀√2）</li>
+<li>中心隔离电阻 R = 2Z₀</li>
+<li>当两输出端都匹配时，电阻上无电流 → 不耗能</li>
+<li>当一端失配时，电阻吸收反射 → 保护另一端</li>
+</ul>
+<p><strong>性能</strong>：
+| 参数 | 典型值 |
+|------|--------|
+| 插入损耗 | 3.1-3.5dB |
+| 隔离度 | 20-30dB |
+| VSWR | 1.1-1.3 |
+| 带宽 | 10-20% |
+| 幅度平衡 | ±0.5° |
+| 相位平衡 | ±0.1dB |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 T 结功分器（T-Junction）</h2>
     <p>最简单的结构：</p>
-    <pre><code>Port 1 ──┬── Port 2
-             └── Port 3</code></pre>
-    <p><b>性能</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>插入损耗</td><td>3.0dB（理论）+ 反射损耗</td></tr>
-    <tr><td>隔离度</td><td>-3dB（很差！）</td></tr>
-    <tr><td>VSWR</td><td>2.0-3.0</td></tr>
-    <tr><td>带宽</td><td>很宽（DC 到 GHz）</td></tr>
-    <tr><td>成本</td><td>最低</td></tr>
-    </tbody></table></div>
-    <p><b>适用场景</b>：对隔离度要求不高的场合</p>
-    <h3>2.3 Rat-Race 合路器（Race-Track Combiner）</h3>
+<pre><code>Port 1 ──┬── Port 2
+         └── Port 3
+</code></pre>
+<p><strong>性能</strong>：
+| 参数 | 典型值 |
+|------|--------|
+| 插入损耗 | 3.0dB（理论）+ 反射损耗 |
+| 隔离度 | -3dB（很差！） |
+| VSWR | 2.0-3.0 |
+| 带宽 | 很宽（DC 到 GHz） |
+| 成本 | 最低 |</p>
+<p><strong>适用场景</strong>：对隔离度要求不高的场合</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 Rat-Race 合路器（Race-Track Combiner）</h2>
     <pre><code>        Σ Port（求和）
-             │
-        ┌────┴────┐
-        │         │
-        │  λ/4   λ/2   λ/4
-        │         │
-        └────┬────┘
-             │
-            Δ Port（差值）</code></pre>
-    <p><b>特点</b>：</p>
-    <ul><li>3dB 合路/功分</li><li>90° 相位差（Σ 和 Δ 端口）</li><li>隔离度：Σ 和 Δ 端口之间隔离</li><li>带宽：10-20%</li></ul>
-    <h3>2.4 混合耦合器（Hybrid Coupler）</h3>
-    <h4>90° 混合耦合器（Branch-Line Coupler）</h4>
+         │
+    ┌────┴────┐
+    │         │
+    │  λ/4   λ/2   λ/4
+    │         │
+    └────┬────┘
+         │
+        Δ Port（差值）
+</code></pre>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>3dB 合路/功分</li>
+<li>90° 相位差（Σ 和 Δ 端口）</li>
+<li>隔离度：Σ 和 Δ 端口之间隔离</li>
+<li>带宽：10-20%</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>90° 混合耦合器（Branch-Line Coupler）</h2>
     <pre><code>Port 1 ──→ Port 2（0°）
-    Port 1 ──→ Port 3（-90°）
-    Port 1 ──→ Port 4（-180°，隔离）</code></pre>
-    <h4>180° 混合耦合器（Magic-T / Ring Hybrid）</h4>
+Port 1 ──→ Port 3（-90°）
+Port 1 ──→ Port 4（-180°，隔离）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>180° 混合耦合器（Magic-T / Ring Hybrid）</h2>
     <pre><code>Port 1 ──→ Port 2（0°）
-    Port 1 ──→ Port 3（-180°）
-    Port 1 ──→ Port 4（隔离）</code></pre>
-    <h3>2.5 定向耦合器（Directional Coupler）</h3>
+Port 1 ──→ Port 3（-180°）
+Port 1 ──→ Port 4（隔离）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 定向耦合器（Directional Coupler）</h2>
     <pre><code>Port 1 ──→ Port 2（直通，主信号）
-                  ↑
-             Port 3（耦合端口，取样信号）
-                  ↑
-             Port 4（隔离端口，端接）</code></pre>
-    <p><b>耦合度</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>耦合度</th><th>用途</th></tr></thead>
-    <tbody>
-    <tr><td>3dB</td><td>等分功分</td></tr>
-    <tr><td>6dB</td><td>不等分功分</td></tr>
-    <tr><td>10dB</td><td>功率监测</td></tr>
-    <tr><td>20dB</td><td>采样/检测</td></tr>
-    </tbody></table></div>
+              ↑
+         Port 3（耦合端口，取样信号）
+              ↑
+         Port 4（隔离端口，端接）
+</code></pre>
+<p><strong>耦合度</strong>：
+| 耦合度 | 用途 |
+|--------|------|
+| 3dB | 等分功分 |
+| 6dB | 不等分功分 |
+| 10dB | 功率监测 |
+| 20dB | 采样/检测 |</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、关键指标</h2>
-    <h3>3.1 插入损耗</h3>
-    <pre><code>IL = -10·log₁₀(P_out / P_in)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>IL（典型）</th></tr></thead>
-    <tbody>
-    <tr><td>Wilkinson</td><td>3.1-3.5dB</td></tr>
-    <tr><td>T-Junction</td><td>3.0dB + 反射</td></tr>
-    <tr><td>Rat-Race</td><td>3.5-4.0dB</td></tr>
-    <tr><td>90° Hybrid</td><td>3.5-4.5dB</td></tr>
-    <tr><td>定向耦合器</td><td>取决于耦合度</td></tr>
-    </tbody></table></div>
-    <h3>3.2 隔离度</h3>
-    <pre><code>ISO = -10·log₁₀(P_coupled / P_input)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>隔离度</th></tr></thead>
-    <tbody>
-    <tr><td>Wilkinson</td><td>20-30dB</td></tr>
-    <tr><td>T-Junction</td><td>-3dB（无隔离）</td></tr>
-    <tr><td>Rat-Race</td><td>20-25dB</td></tr>
-    <tr><td>90° Hybrid</td><td>20-30dB</td></tr>
-    </tbody></table></div>
-    <h3>3.3 幅度/相位平衡</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 插入损耗</h2>
+    <pre><code>IL = -10·log₁₀(P_out / P_in)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>IL（典型）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wilkinson</td>
+<td>3.1-3.5dB</td>
+</tr>
+<tr>
+<td>T-Junction</td>
+<td>3.0dB + 反射</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>3.5-4.0dB</td>
+</tr>
+<tr>
+<td>90° Hybrid</td>
+<td>3.5-4.5dB</td>
+</tr>
+<tr>
+<td>定向耦合器</td>
+<td>取决于耦合度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 隔离度</h2>
+    <pre><code>ISO = -10·log₁₀(P_coupled / P_input)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>隔离度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wilkinson</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>T-Junction</td>
+<td>-3dB（无隔离）</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>20-25dB</td>
+</tr>
+<tr>
+<td>90° Hybrid</td>
+<td>20-30dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 幅度/相位平衡</h2>
     <pre><code>幅度不平衡：ΔP = |P_out1 - P_out2| &lt; 0.5dB
-    相位不平衡：Δφ = |φ_out1 - φ_out2| &lt; 5°</code></pre>
-    <h3>3.4 带宽</h3>
-    <pre><code>BW = (f_max - f_min) / f_center</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>带宽</th></tr></thead>
-    <tbody>
-    <tr><td>Wilkinson</td><td>10-20%</td></tr>
-    <tr><td>T-Junction</td><td>> 100%（DC 到 GHz）</td></tr>
-    <tr><td>Rat-Race</td><td>10-15%</td></tr>
-    <tr><td>90° Hybrid</td><td>10-20%</td></tr>
-    <tr><td>多节 Wilkinson</td><td>> 50%</td></tr>
-    </tbody></table></div>
+相位不平衡：Δφ = |φ_out1 - φ_out2| &lt; 5°
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、多路扩展</h2>
-    <h3>4.1 树状扩展（Corporate Feed）</h3>
-    <pre><code>1→2 → 2→2 → 4→2 → 8→2 → 16 路</code></pre>
-    <p><b>优势</b>：设计简单 <b>劣势</b>：级数多时损耗大</p>
-    <h3>4.2 并行扩展（Bus Feed）</h3>
+  
+  <article class="card ">
+    
+    <h2>3.4 带宽</h2>
+    <pre><code>BW = (f_max - f_min) / f_center
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wilkinson</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>T-Junction</td>
+<td>&gt; 100%（DC 到 GHz）</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>10-15%</td>
+</tr>
+<tr>
+<td>90° Hybrid</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>多节 Wilkinson</td>
+<td>&gt; 50%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 树状扩展（Corporate Feed）</h2>
+    <pre><code>1→2 → 2→2 → 4→2 → 8→2 → 16 路
+</code></pre>
+<p><strong>优势</strong>：设计简单
+<strong>劣势</strong>：级数多时损耗大</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 并行扩展（Bus Feed）</h2>
     <pre><code>Input ──────────────────────
-            │     │     │     │
-          Unit 1 Unit 2 Unit 3 Unit 4</code></pre>
-    <p><b>优势</b>：结构简单 <b>劣势</b>：幅度不均匀（远端弱）</p>
-    <h3>4.3 多节阻抗变换（Broadband Wilkinson）</h3>
+        │     │     │     │
+      Unit 1 Unit 2 Unit 3 Unit 4
+</code></pre>
+<p><strong>优势</strong>：结构简单
+<strong>劣势</strong>：幅度不均匀（远端弱）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 多节阻抗变换（Broadband Wilkinson）</h2>
     <pre><code>1→2 宽频带设计：
-      使用多级 λ/4 变换线
-      每级阻抗不同
-      带宽可扩展到 &gt; 50%</code></pre>
+  使用多级 λ/4 变换线
+  每级阻抗不同
+  带宽可扩展到 &gt; 50%
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、应用场景</h2>
-    <h3>5.1 相控阵馈电网络</h3>
-    <pre><code>BFIC → 1→2 → 2→2 → 4→2 → 8→2 → 16→2 → 32→2 → 64 单元</code></pre>
-    <h3>5.2 PA 合路</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 相控阵馈电网络</h2>
+    <pre><code>BFIC → 1→2 → 2→2 → 4→2 → 8→2 → 16→2 → 32→2 → 64 单元
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 PA 合路</h2>
     <pre><code>PA1 → ┐
-    PA2 → ├→ Combiner → 天线
-    PA3 → │
-    ...  → ┘</code></pre>
-    <h3>5.3 LNA 合路（接收阵列）</h3>
+PA2 → ├→ Combiner → 天线
+PA3 → │
+...  → ┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 LNA 合路（接收阵列）</h2>
     <pre><code>天线1 → ┐
-    天线2 → ├→ Combiner → LNA → 接收机
-    天线3 → │
-    ...  → ┘</code></pre>
-    <h3>5.4 MIMO 天线馈电</h3>
+天线2 → ├→ Combiner → LNA → 接收机
+天线3 → │
+...  → ┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 MIMO 天线馈电</h2>
     <pre><code>Port 1 (+45°) → Antenna 1
-    Port 2 (-45°) → Antenna 2</code></pre>
+Port 2 (-45°) → Antenna 2
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 功率容量</h3>
-    <pre><code>高功率下电阻发热 → Wilkinson 的中心电阻是关键瓶颈</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>功率容量</th></tr></thead>
-    <tbody>
-    <tr><td>微带 Wilkinson</td><td>1-10W</td></tr>
-    <tr><td>波导 Wilkinson</td><td>100W-1kW</td></tr>
-    <tr><td>T-Junction</td><td>10-100W（无电阻，功率容量大）</td></tr>
-    </tbody></table></div>
-    <h3>6.2 温度稳定性</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 功率容量</h2>
+    <pre><code>高功率下电阻发热 → Wilkinson 的中心电阻是关键瓶颈
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功率容量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微带 Wilkinson</td>
+<td>1-10W</td>
+</tr>
+<tr>
+<td>波导 Wilkinson</td>
+<td>100W-1kW</td>
+</tr>
+<tr>
+<td>T-Junction</td>
+<td>10-100W（无电阻，功率容量大）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 温度稳定性</h2>
     <pre><code>电阻值随温度变化 → 隔离度变化
-    ΔR/R ≈ 0.01%/°C（金属膜电阻）</code></pre>
-    <h3>6.3 毫米波设计挑战</h3>
-    <div class="tw"><table>
-    <thead><tr><th>挑战</th><th>解决方案</th></tr></thead>
-    <tbody>
-    <tr><td>导体损耗增大</td><td>使用波导或厚铜</td></tr>
-    <tr><td>尺寸缩小</td><td>光刻/精密 CNC</td></tr>
-    <tr><td>加工公差敏感</td><td>仿真优化 + 容差分析</td></tr>
-    <tr><td>辐射损耗</td><td>屏蔽/接地</td></tr>
-    </tbody></table></div>
+ΔR/R ≈ 0.01%/°C（金属膜电阻）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>功分器/合路器是天线的"十字路口"——Wilkinson 是最经典的等分方案（加了隔离电阻所以好使），Rat-Race 和 Hybrid Coupler 提供相位关系（90°/180°），定向耦合器用于功率采样。N 路功分器通过 log₂(N) 级 2 路级联实现。记住：功分器的"分"不是免费的——2 路等分就有 3dB 理论损耗，16 路就是 12dB。</p>
+  
+  <article class="card ">
+    
+    <h2>6.3 毫米波设计挑战</h2>
+    <table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导体损耗增大</td>
+<td>使用波导或厚铜</td>
+</tr>
+<tr>
+<td>尺寸缩小</td>
+<td>光刻/精密 CNC</td>
+</tr>
+<tr>
+<td>加工公差敏感</td>
+<td>仿真优化 + 容差分析</td>
+</tr>
+<tr>
+<td>辐射损耗</td>
+<td>屏蔽/接地</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -336,39 +606,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

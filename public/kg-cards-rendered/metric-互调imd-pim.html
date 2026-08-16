@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>互调 Intermodulation（IMD / PIM） · 知识卡片</title>
+<title>互调IMD-PIM · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">互调 Intermodulation <span class="en">IMD / PIM</span></h1>
-  <p class="lede">互调是两个或多个频率的信号在天线系统中"碰撞"产生的寄生频率——三阶互调（IM3）最危险，因为它离有用信号最近。无源互调（PIM）是基站天线的核心指标，劣化的 PIM 会直接降低接收灵敏度、引发掉话。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">互调IMD-PIM</h1>
+  <p class="lede">互调是两个或多个频率的信号在天线系统中&#34;碰撞&#34;产生的寄生频率——三阶互调（IM3）最危险，因为它离有用信号最近。无源互调（PIM）是基站天线的核心指标，劣化的 PIM 会直接降低接收灵敏度、引发掉话。</p>
+  
 </header>
 
 <main>
@@ -99,180 +101,313 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>互调就像两个人在不同房间唱歌——理想情况下你应该只听到他们各自的声音。但如果墙壁有缺陷（非线性），你的耳朵会"听到"他们歌声的合成音（比如一个人唱 900MHz，另一个人唱 1800MHz，你会额外听到 100MHz 和 2700MHz 的"幽灵音"）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、互调的基本原理</h2>
-    <h3>1.1 互调产物</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 互调产物</h2>
     <pre><code>两个频率 f1 和 f2 通过非线性器件：
+
+输出包含：
+  f1（有用）
+  f2（有用）
+  2f1 - f2  ← 三阶互调（IM3，最危险）
+  2f2 - f1  ← 三阶互调（IM3）
+  3f1 - 2f2  ← 五阶互调
+  3f2 - 2f1  ← 五阶互调
+  ...
+
+IM3 离 f1/f2 最近，最难滤除
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    输出包含：
-      f1（有用）
-      f2（有用）
-      2f1 - f2  ← 三阶互调（IM3，最危险）
-      2f2 - f1  ← 三阶互调（IM3）
-      3f1 - 2f2  ← 五阶互调
-      3f2 - 2f1  ← 五阶互调
-      ...
-    
-    IM3 离 f1/f2 最近，最难滤除</code></pre>
-    <h3>1.2 三阶截点（IP3）</h3>
+    <h2>1.2 三阶截点（IP3）</h2>
     <pre><code>IP3 是衡量线性度的关键指标：
+
+输入 IP3（IIP3）：
+  IIP3 = Pout + ΔP
+  其中 ΔP = 输出功率与 IM3 产物的差值
+
+输出 IP3（OIP3）：
+  OIP3 = IIP3 + Gain
+
+IP3 越高 → 线性度越好 → IM3 越小
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>器件类型</th>
+<th>IIP3 典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优质 PA</td>
+<td>+30 to +40dBm</td>
+</tr>
+<tr>
+<td>一般 PA</td>
+<td>+20 to +30dBm</td>
+</tr>
+<tr>
+<td>低噪声放大器</td>
+<td>+20 to +30dBm</td>
+</tr>
+<tr>
+<td>连接器</td>
+<td>&gt; +100dBm（无源）</td>
+</tr>
+<tr>
+<td>劣质接头</td>
+<td>+50 to +80dBm PIM</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    输入 IP3（IIP3）：
-      IIP3 = Pout + ΔP
-      其中 ΔP = 输出功率与 IM3 产物的差值
-    
-    输出 IP3（OIP3）：
-      OIP3 = IIP3 + Gain
-    
-    IP3 越高 → 线性度越好 → IM3 越小</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>器件类型</th><th>IIP3 典型值</th></tr></thead>
-    <tbody>
-    <tr><td>优质 PA</td><td>+30 to +40dBm</td></tr>
-    <tr><td>一般 PA</td><td>+20 to +30dBm</td></tr>
-    <tr><td>低噪声放大器</td><td>+20 to +30dBm</td></tr>
-    <tr><td>连接器</td><td>> +100dBm（无源）</td></tr>
-    <tr><td>劣质接头</td><td>+50 to +80dBm PIM</td></tr>
-    </tbody></table></div>
-    <h3>1.3 无源互调（PIM）</h3>
+    <h2>1.3 无源互调（PIM）</h2>
     <pre><code>PIM 定义：
-      无源器件（天线、连接器、馈线）中的非线性效应
-      产生的互调产物
-    
-    PIM 单位：dBc（相对于载波）
-    
-    典型要求：
-      基站天线 PIM：≤ -150dBc（双载波 2×43dBm）
-      5G 多载波 PIM：≤ -167dBc</code></pre>
-  </article>
+  无源器件（天线、连接器、馈线）中的非线性效应
+  产生的互调产物
 
-  <article class="card">
-    <h2>二、PIM 的来源</h2>
-    <h3>2.1 主要来源</h3>
+PIM 单位：dBc（相对于载波）
+
+典型要求：
+  基站天线 PIM：≤ -150dBc（双载波 2×43dBm）
+  5G 多载波 PIM：≤ -167dBc
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 主要来源</h2>
     <pre><code>1. 连接器（最大来源）
-       - 不同金属接触面氧化
-       - 螺纹松动
-       - 清洁度差
-    
-    2. 天线辐射单元
-       - 金属表面氧化/污染
-       - 不同金属接触（Galvanic）
-    
-    3. 馈线/跳线
-       - 弯曲半径过小
-       - 接头不良
-    
-    4. 安装环境
-       - 生锈的铁丝/金属物靠近天线
-       - 螺栓松动</code></pre>
-    <h3>2.2 材料 PIM 敏感性</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>PIM 影响</th></tr></thead>
-    <tbody>
-    <tr><td>铜/镀锡铜</td><td>低（优秀）</td></tr>
-    <tr><td>不锈钢</td><td>中等</td></tr>
-    <tr><td>镀锌钢</td><td>较高</td></tr>
-    <tr><td>铁/碳钢</td><td>高（避免使用）</td></tr>
-    <tr><td>铝</td><td>中等（表面氧化后升高）</td></tr>
-    <tr><td>不同金属接触</td><td>高（Galvanic PIM）</td></tr>
-    </tbody></table></div>
-  </article>
+   - 不同金属接触面氧化
+   - 螺纹松动
+   - 清洁度差
 
-  <article class="card">
-    <h2>三、5G 多载波对 PIM 的要求</h2>
-    <h3>3.1 多载波叠加效应</h3>
+2. 天线辐射单元
+   - 金属表面氧化/污染
+   - 不同金属接触（Galvanic）
+
+3. 馈线/跳线
+   - 弯曲半径过小
+   - 接头不良
+
+4. 安装环境
+   - 生锈的铁丝/金属物靠近天线
+   - 螺栓松动
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 材料 PIM 敏感性</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>PIM 影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>铜/镀锡铜</td>
+<td>低（优秀）</td>
+</tr>
+<tr>
+<td>不锈钢</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>镀锌钢</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>铁/碳钢</td>
+<td>高（避免使用）</td>
+</tr>
+<tr>
+<td>铝</td>
+<td>中等（表面氧化后升高）</td>
+</tr>
+<tr>
+<td>不同金属接触</td>
+<td>高（Galvanic PIM）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 多载波叠加效应</h2>
     <pre><code>2G/3G 单载波：PIM 影响较小
-    4G CA（2载波）：PIM 要求 -150dBc
-    5G NSA（多载波）：PIM 要求 -167dBc
+4G CA（2载波）：PIM 要求 -150dBc
+5G NSA（多载波）：PIM 要求 -167dBc
+
+原因：
+  载波越多 → 互调产物越多
+  功率越高 → PIM 越大（PIM ∝ P²）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    原因：
-      载波越多 → 互调产物越多
-      功率越高 → PIM 越大（PIM ∝ P²）</code></pre>
-    <h3>3.2 5G 频段 PIM 挑战</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>典型功率</th><th>PIM 要求</th></tr></thead>
-    <tbody>
-    <tr><td>700MHz（n28）</td><td>43dBm</td><td>≤ -150dBc</td></tr>
-    <tr><td>1.8GHz（n3）</td><td>43dBm</td><td>≤ -150dBc</td></tr>
-    <tr><td>2.6GHz（n41）</td><td>41dBm</td><td>≤ -157dBc</td></tr>
-    <tr><td>3.5GHz（n78）</td><td>40dBm</td><td>≤ -167dBc</td></tr>
-    <tr><td>4.9GHz（n79）</td><td>38dBm</td><td>≤ -167dBc</td></tr>
-    </tbody></table></div>
-    <h3>3.3 PIM 与功率的关系</h3>
+    <h2>3.2 5G 频段 PIM 挑战</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>典型功率</th>
+<th>PIM 要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700MHz（n28）</td>
+<td>43dBm</td>
+<td>≤ -150dBc</td>
+</tr>
+<tr>
+<td>1.8GHz（n3）</td>
+<td>43dBm</td>
+<td>≤ -150dBc</td>
+</tr>
+<tr>
+<td>2.6GHz（n41）</td>
+<td>41dBm</td>
+<td>≤ -157dBc</td>
+</tr>
+<tr>
+<td>3.5GHz（n78）</td>
+<td>40dBm</td>
+<td>≤ -167dBc</td>
+</tr>
+<tr>
+<td>4.9GHz（n79）</td>
+<td>38dBm</td>
+<td>≤ -167dBc</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 PIM 与功率的关系</h2>
     <pre><code>PIM 功率增量：
-      输入功率 ↑ 3dB → PIM ↑ 6dB（二阶）
-      输入功率 ↑ 3dB → PIM ↑ 10dB（三阶）
-    
-    所以 PIM 是&quot;功率的倍数&quot;恶化</code></pre>
-  </article>
+  输入功率 ↑ 3dB → PIM ↑ 6dB（二阶）
+  输入功率 ↑ 3dB → PIM ↑ 10dB（三阶）
 
-  <article class="card">
-    <h2>四、PIM 测试与测量</h2>
-    <h3>4.1 双音 PIM 测试</h3>
+所以 PIM 是&quot;功率的倍数&quot;恶化
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 双音 PIM 测试</h2>
     <pre><code>测试方法：
-      1. 两个大功率信号 f1 和 f2（如 43dBm）
-      2. 通过 PIM 测试仪注入天线
-      3. 测量 f1、f2 产生的 PIM 产物
-      4. 报告最差 PIM 值
+  1. 两个大功率信号 f1 和 f2（如 43dBm）
+  2. 通过 PIM 测试仪注入天线
+  3. 测量 f1、f2 产生的 PIM 产物
+  4. 报告最差 PIM 值
+
+典型测试条件：
+  f1 = 930MHz, f2 = 960MHz（GSM 频段）
+  P1 = P2 = 43dBm（2×20W）
+  测量 IM3 = 2f1 - f2 和 2f2 - f1
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型测试条件：
-      f1 = 930MHz, f2 = 960MHz（GSM 频段）
-      P1 = P2 = 43dBm（2×20W）
-      测量 IM3 = 2f1 - f2 和 2f2 - f1</code></pre>
-    <h3>4.2 现场 PIM 测试</h3>
+    <h2>4.2 现场 PIM 测试</h2>
     <pre><code>现场测试步骤：
-      1. 断开天线与 RRU 连接
-      2. 连接 PIM 测试仪
-      3. 施加双音信号
-      4. 记录 PIM 值
-      5. 逐个测试馈线/接头
-    
-    PIM 告警阈值：
-      &gt; -150dBc：警告
-      &gt; -145dBc：严重
-      &gt; -140dBc：必须整改</code></pre>
-  </article>
+  1. 断开天线与 RRU 连接
+  2. 连接 PIM 测试仪
+  3. 施加双音信号
+  4. 记录 PIM 值
+  5. 逐个测试馈线/接头
 
-  <article class="card">
-    <h2>五、PIM 控制措施</h2>
-    <h3>5.1 天线设计</h3>
+PIM 告警阈值：
+  &gt; -150dBc：警告
+  &gt; -145dBc：严重
+  &gt; -140dBc：必须整改
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 天线设计</h2>
     <pre><code>低 PIM 天线设计要点：
-      1. 使用单一金属材料（优选铜或镀锡铜）
-      2. 避免不同金属接触
-      3. 辐射单元间隙 &gt; 0.5mm
-      4. 表面处理：镀锡/镀银
-      5. 结构对称，减少磁滞效应</code></pre>
-    <h3>5.2 连接器</h3>
-    <pre><code>低 PIM 连接器要求：
-      1. 扭矩扳手紧固（按规格值）
-      2. 清洁接触面
-      3. 使用防水胶泥
-      4. 避免过度弯曲馈线
-    
-    连接器 PIM 等级：
-      普通：-100 to -120dBc
-      低 PIM：-140 to -150dBc
-      超低 PIM：≤ -167dBc</code></pre>
-    <h3>5.3 安装规范</h3>
-    <pre><code>安装 PIM 禁忌：
-      ✗ 铁丝/扎带靠近天线
-      ✗ 生锈的金属物在 2m 范围内
-      ✗ 不同金属螺栓混用
-      ✗ 馈线弯曲半径 &lt; 10×外径
-      ✓ 使用非金属扎带
-      ✓ 保持天线周围清洁
-      ✓ 按扭矩规范紧固</code></pre>
+  1. 使用单一金属材料（优选铜或镀锡铜）
+  2. 避免不同金属接触
+  3. 辐射单元间隙 &gt; 0.5mm
+  4. 表面处理：镀锡/镀银
+  5. 结构对称，减少磁滞效应
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、一句话总结</h2>
-    <p>互调是多载波系统的"隐形杀手"——PIM 每恶化 10dB，接收灵敏度就下降 1dB。5G NSA 组网下，PIM 要求达到 -167dBc。记住三个关键点：① PIM 与功率平方成正比 ② 连接器是最大来源 ③ 安装规范比天线本身更重要——一根生锈的铁丝就能让 PIM 恶化 20dB。</p>
+  
+  <article class="card ">
+    
+    <h2>5.2 连接器</h2>
+    <pre><code>低 PIM 连接器要求：
+  1. 扭矩扳手紧固（按规格值）
+  2. 清洁接触面
+  3. 使用防水胶泥
+  4. 避免过度弯曲馈线
+
+连接器 PIM 等级：
+  普通：-100 to -120dBc
+  低 PIM：-140 to -150dBc
+  超低 PIM：≤ -167dBc
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 安装规范</h2>
+    <pre><code>安装 PIM 禁忌：
+  ✗ 铁丝/扎带靠近天线
+  ✗ 生锈的金属物在 2m 范围内
+  ✗ 不同金属螺栓混用
+  ✗ 馈线弯曲半径 &lt; 10×外径
+  ✓ 使用非金属扎带
+  ✓ 保持天线周围清洁
+  ✓ 按扭矩规范紧固
+</code></pre>
+  </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -292,39 +427,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

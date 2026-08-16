@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线测量（Antenna Measurement） · 知识卡片</title>
+<title>天线测量Antenna-Measurement · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线测量 <span class="en">Antenna Measurement</span></h1>
-  <p class="lede"><b>天线测量就是给天线"体检"——用矢量网络分析仪（VNA）测 S 参数（反射/传输），用消声室测方向图和增益，用 OTA 方法测总辐射功率（TRP）。5G 手机没有天线接口了，只能整个放在消声室里用探头"隔空"测量。毫米波频段更变态，VNA 能到 110GHz，但校准精度要求亚微米级。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线测量Antenna-Measurement</h1>
+  
+  
 </header>
 
 <main>
@@ -99,204 +101,421 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、天线测量的核心参数</h2>
-    <h3>1.1 S 参数（Scattering Parameters）</h3>
-    <p><b>用 VNA 直接测量</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>含义</th><th>理想值</th></tr></thead>
-    <tbody>
-    <tr><td>S11（Return Loss）</td><td>端口 1 的反射</td><td>≤ -10dB</td></tr>
-    <tr><td>S21（Insertion Loss）</td><td>端口 1→2 的传输</td><td>取决于设计</td></tr>
-    <tr><td>S12（Reverse Isolation）</td><td>端口 2→1 的隔离</td><td>越大越好</td></tr>
-    <tr><td>S22</td><td>端口 2 的反射</td><td>≤ -10dB</td></tr>
-    </tbody></table></div>
-    <p><b>S11 与 VSWR 的转换</b>：</p>
-    <pre><code>VSWR = (1 + |Γ|)/(1 - |Γ|)
-    Γ = S11（线性值，非 dB）</code></pre>
-    <h3>1.2 方向图（Radiation Pattern）</h3>
-    <p><b>三维方向图</b>：在球坐标系 (θ, φ) 上测量电场幅度。</p>
-    <p><b>关键参数</b>：</p>
-    <ul><li>HPBW（半功率波束宽度）</li><li>SLL（旁瓣电平）</li><li>FBR（前后比）</li><li>零点位置（Null Direction）</li></ul>
-    <h3>1.3 增益（Gain）</h3>
-    <p><b>测量方法</b>：</p>
-    <ol><li><b>比较法</b>：DUT 与标准增益天线（如偶极子/喇叭）比较</li><li><b>三点法</b>：已知两个标准天线，求第三个</li><li><b>增益公式</b>：G = η_total × D</li></ol>
-    <h3>1.4 效率（Efficiency）</h3>
-    <ul><li><b>辐射效率</b>：Wheeler Cap 法 / 两点法 / 方向图积分法</li><li><b>总效率</b>：OTA-TRP 法（3GPP 标准）</li></ul>
-    <h3>1.5 轴比（Axial Ratio）</h3>
-    <p><b>圆极化天线专用</b>：用旋转源法（Rotation Source Method）或三点法测量。</p>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、测量环境</h2>
-    <h3>2.1 远场区（Far-Field Region）</h3>
-    <p><b> Fraunhofer 距离 </b>：</p>
-    <pre><code>R_ff ≥ 2D²/λ</code></pre>
-    <p>其中 D 是天线的最大尺寸，λ 是波长。</p>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线尺寸</th><th>频率</th><th>R_ff</th></tr></thead>
-    <tbody>
-    <tr><td>0.1m</td><td>2.4GHz</td><td>8.3m</td></tr>
-    <tr><td>0.5m</td><td>3.5GHz</td><td>57m</td></tr>
-    <tr><td>2m</td><td>28GHz</td><td>57m</td></tr>
-    <tr><td>10m（雷达）</td><td>10GHz</td><td>2km</td></tr>
-    </tbody></table></div>
-    <p><b>关键洞察</b>：5G AAU（2m×1m）在 3.5GHz 需要 <b>57 米</b> 远场距离！大型消声室都未必够长。</p>
-    <h3>2.2 近场区（Near-Field Region）</h3>
-    <p><b>范围</b>：0.62√(D³/λ) < R < 2D²/λ</p>
-    <p><b>特点</b>：</p>
-    <ul><li>场结构复杂（辐射近场/菲涅尔区）</li><li>不能用远场公式</li><li>但可以通过傅里叶变换计算远场</li></ul>
-    <h3>2.3 电波暗室（Anechoic Chamber）</h3>
-    <p><b>结构</b>：</p>
-    <pre><code>    ╔══════════════════╗
-        ║  吸波材料（楔形海绵）║
-        ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
-        ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
-        ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
-        ║                  ║
-        ║  [DUT]    [Probe] ║
-        ║                  ║
-        ╚══════════════════╝</code></pre>
-    <p><b>吸波材料</b>：</p>
-    <ul><li>楔形碳海绵：低频（< 1GHz）长度 0.5-1m</li><li>铁氧体片：低频吸收</li><li>金属尖锥：高频（> 1GHz）</li></ul>
-    <p><b>安静区（Quiet Zone）</b>：</p>
-    <ul><li>直径 1-3m 的球形区域</li><li>场均匀性：±0.5dB（Sub-6GHz）/ ±1.0dB（mmWave）</li></ul>
-    <h3>2.4 近场扫描系统（Near-Field Scanner）</h3>
-    <p><b>原理</b>：在 DUT 附近的平面上扫描探测场分布 → 傅里叶变换 → 远场方向图。</p>
-    <p><b>类型</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>扫描面</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>平面近场</td><td>平面</td><td>高增益阵列（5G AAU）</td></tr>
-    <tr><td>圆柱近场</td><td>柱面</td><td>中等增益天线</td></tr>
-    <tr><td>球面近场</td><td>球面</td><td>全向天线</td></tr>
-    </tbody></table></div>
-    <p><b>优势</b>：</p>
-    <ul><li>只需几米距离（vs 远场几十米）</li><li>精度高（Anritsu 数据：3λ 处计划近场扫描）</li><li>数据处理快（FFT 算法）</li></ul>
-    <h3>2.5 缩尺暗室（Compact Range / CATR）</h3>
-    <p><b>原理</b>：用抛物面反射镜将馈源发出的球面波"变成"平面波。</p>
-    <pre><code>        ╭─────╮
-           ╭╯ 抛物面 ╰╮
-          │    反射镜    │
-           ╰─────╯
-              │
-           馈源天线
-              │
-           [DUT]</code></pre>
-    <p><b>优势</b>：</p>
-    <ul><li>在短距离内模拟远场条件</li><li>安静区大（直径可达天线尺寸的 3-5 倍）</li><li>适合大型天线（卫星通信、雷达）</li></ul>
-    <h3>2.6 混响室（Reverberation Chamber, RC）</h3>
-    <p><b>原理</b>：搅拌器（mode stirrer）改变边界条件 → 产生多个独立瑞利衰落样本 → 统计平均得到 TRP/TIS。</p>
-    <p><b>3GPP 规定</b>：</p>
-    <ul><li>≥ 100 个独立样本</li><li>可用于 > 3GHz 的 TRP/TRS 测试</li><li>需定期与消声室"黄金设备"比对校准</li></ul>
-    <p><b>优势</b>：</p>
-    <ul><li>体积小（3×3×3m 可测到 40GHz）</li><li>成本低（vs 消声室）</li><li>高通量（适合产线测试）</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.1 远场区（Far-Field Region）</h2>
+    <p>** Fraunhofer 距离 **：</p>
+<pre><code>R_ff ≥ 2D²/λ
+</code></pre>
+<p>其中 D 是天线的最大尺寸，λ 是波长。</p>
+<p><strong>典型值</strong>：
+| 天线尺寸 | 频率 | R_ff |
+|---------|------|------|
+| 0.1m | 2.4GHz | 8.3m |
+| 0.5m | 3.5GHz | 57m |
+| 2m | 28GHz | 57m |
+| 10m（雷达） | 10GHz | 2km |</p>
+<p><strong>关键洞察</strong>：5G AAU（2m×1m）在 3.5GHz 需要 <strong>57 米</strong> 远场距离！大型消声室都未必够长。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、OTA 测量（Over-The-Air）</h2>
-    <h3>3.1 为什么需要 OTA？</h3>
-    <p><b>5G 趋势</b>：</p>
-    <ul><li>天线集成到封装内（AiP）→ 无射频接口</li><li>多天线 MIMO → 接口数量爆炸</li><li>波束赋形 → 需要测量实际辐射方向图</li></ul>
-    <p><b>3GPP TR 38.810 定义三种 OTA 方法</b>：</p>
-    <ol><li><b>DFF（Direct Far-Field）</b>：直接远场法</li><li><b>IFF（Indirect Far-Field）</b>：间接远场法（近场→远场变换）</li><li><b>NFTF（Near-Field to Far-Field Transform）</b>：近场到远场变换</li></ol>
-    <h3>3.2 TRP（Total Radiated Power）</h3>
-    <p><b>定义</b>：天线在所有方向上的总辐射功率。</p>
-    <pre><code>TRP = ∫∫ U(θ,φ) sin(θ) dθ dφ</code></pre>
-    <p><b>测量方法</b>（CTIA 标准）：</p>
-    <ul><li>球面采样：每 15° 测一个点（θ 和 φ 轴）</li><li>总共 266 个点（每极化）</li><li>积分得到 TRP</li></ul>
-    <p><b>3GPP TS 38.561 Release 18</b>：</p>
-    <ul><li>消声室为参考方法</li><li>RC 为替代方法（> 3GHz 已 harmonized）</li><li>需定期用 golden UE 比对</li></ul>
-    <h3>3.3 TIS / TRS（Total Isotropic Sensitivity）</h3>
-    <p><b>TIS</b>（Transmitter）：全向灵敏度 <b>TRS</b>（Receiver）：全向接收灵敏度</p>
-    <p><b>测量</b>：DUT 作为发射机，探天线在所有方向接收 → 积分得到 TRP。 反过来，探天线发射，DUT 在所有方向接收 → 得到 TIS/TRS。</p>
-    <h3>3.4 EIRP（Effective Isotropic Radiated Power）</h3>
-    <pre><code>EIRP(θ,φ) = P_input × G(θ,φ)</code></pre>
-    <p><b>3GPP 新增要求</b>：测量方向性 EIRP（而非仅 TRP），用于波束赋形验证。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.2 近场区（Near-Field Region）</h2>
+    <p><strong>范围</strong>：0.62√(D³/λ) &lt; R &lt; 2D²/λ</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>场结构复杂（辐射近场/菲涅尔区）</li>
+<li>不能用远场公式</li>
+<li>但可以通过傅里叶变换计算远场</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>四、VNA 校准技术</h2>
-    <h3>4.1 SOLT 校准（Short-Open-Load-Thru）</h3>
-    <p><b>标准</b>：短路（S）、开路（O）、负载（L）、直通（T）</p>
-    <p><b>特点</b>：</p>
-    <ul><li>最常用，工业标准</li><li>标准件需要精确表征</li><li>无频率带宽限制</li><li>精度：±0.01dB / ±0.5°（高端 PNA）</li></ul>
-    <h3>4.2 TRL 校准（Thru-Reflect-Line）</h3>
-    <p><b>标准</b>：直通（T）、反射（R）、线（L）</p>
-    <p><b>特点</b>：</p>
-    <ul><li>"自校准"方法，标准件不需完全表征</li><li>精度高于 SOLT（多数情况）</li><li>线标准限制带宽（~8:1 频率比）</li><li>适用于波导/微带等非同轴接口</li><li><b>毫米波/太赫兹首选</b></li></ul>
-    <h3>4.3 ECal（电子校准）</h3>
-    <p><b>原理</b>：VNA 内置开关矩阵 + 已知校准件 → 一键校准</p>
-    <p><b>特点</b>：</p>
-    <ul><li>速度快（10 秒完成多端口校准）</li><li>可重复性好</li><li>精度略低于 TRL（±0.02dB / ±1°）</li><li>适合产线测试</li></ul>
-    <h3>4.4 校准方法对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>精度</th><th>速度</th><th>带宽限制</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>SOLT</td><td>高</td><td>中</td><td>无</td><td>通用</td></tr>
-    <tr><td>TRL</td><td>最高</td><td>慢</td><td>有（8:1）</td><td>毫米波/波导</td></tr>
-    <tr><td>SOLR</td><td>高</td><td>中</td><td>无</td><td>单侧已知反射</td></tr>
-    <tr><td>ECal</td><td>中高</td><td>最快</td><td>无</td><td>产线/多端口</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.3 电波暗室（Anechoic Chamber）</h2>
+    <p><strong>结构</strong>：</p>
+<pre><code>    ╔══════════════════╗
+    ║  吸波材料（楔形海绵）║
+    ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
+    ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
+    ║  ┃  ┃  ┃  ┃  ┃  ┃  ║
+    ║                  ║
+    ║  [DUT]    [Probe] ║
+    ║                  ║
+    ╚══════════════════╝
+</code></pre>
+<p><strong>吸波材料</strong>：</p>
+<ul>
+<li>楔形碳海绵：低频（&lt; 1GHz）长度 0.5-1m</li>
+<li>铁氧体片：低频吸收</li>
+<li>金属尖锥：高频（&gt; 1GHz）</li>
+</ul>
+<p><strong>安静区（Quiet Zone）</strong>：</p>
+<ul>
+<li>直径 1-3m 的球形区域</li>
+<li>场均匀性：±0.5dB（Sub-6GHz）/ ±1.0dB（mmWave）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、5G 毫米波天线测量特殊挑战</h2>
-    <h3>5.1 高频 VNA</h3>
-    <p><b>频率范围</b>：</p>
-    <ul><li>常规 VNA：Up to 50GHz（Keysight PNA-X）</li><li>扩展 VNA：Up to 110GHz（W 频段）</li><li>太赫兹：Up to 300GHz（用谐波混频器扩展）</li></ul>
-    <h3>5.2 波导接口</h3>
-    <p><b>毫米波频段</b>：同轴连接器损耗太大 → 改用波导（WR-15/WR-12）</p>
-    <p><b>波导类型</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>波导型号</th><th>尺寸</th></tr></thead>
-    <tbody>
-    <tr><td>28GHz</td><td>WR-42</td><td>10.67×4.32mm</td></tr>
-    <tr><td>39GHz</td><td>WR-28</td><td>7.11×3.40mm</td></tr>
-    <tr><td>75-110GHz</td><td>WR-10</td><td>2.29×1.02mm</td></tr>
-    </tbody></table></div>
-    <h3>5.3 阵列天线测量</h3>
-    <p><b>64T AAU 测量挑战</b>：</p>
-    <ul><li>8×8 或更多端口 → 多端口 VNA（8-16 端口）</li><li>波束赋形 → 需要动态扫描多个波束</li><li>功耗高 → 需要大功率负载和散热</li></ul>
-    <p><b>2026 IMS 进展</b>：Antennex 混响室 EVM+TRP 联合测量，单次测量同时得到效率、失真、邻道泄漏比。</p>
-    <h3>5.4 天线罩影响</h3>
-    <p><b>测量时需扣除天线罩损耗</b>：</p>
-    <pre><code>IL_radome = -10×log₁₀(T²)
-    T = 穿透率（通常 0.9-0.98）</code></pre>
-    <p><b>典型影响</b>：</p>
-    <ul><li>3mm PBT 罩 @28GHz：IL ≈ 0.1-0.3dB</li><li>5mm 特氟龙罩 @28GHz：IL ≈ 0.2-0.5dB</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.4 近场扫描系统（Near-Field Scanner）</h2>
+    <p><strong>原理</strong>：在 DUT 附近的平面上扫描探测场分布 → 傅里叶变换 → 远场方向图。</p>
+<p><strong>类型</strong>：
+| 类型 | 扫描面 | 适用场景 |
+|------|-------|---------|
+| 平面近场 | 平面 | 高增益阵列（5G AAU） |
+| 圆柱近场 | 柱面 | 中等增益天线 |
+| 球面近场 | 球面 | 全向天线 |</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>只需几米距离（vs 远场几十米）</li>
+<li>精度高（Anritsu 数据：3λ 处计划近场扫描）</li>
+<li>数据处理快（FFT 算法）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、测量不确定度</h2>
-    <h3>6.1 主要误差来源</h3>
-    <div class="tw"><table>
-    <thead><tr><th>误差源</th><th>典型贡献</th><th>控制方法</th></tr></thead>
-    <tbody>
-    <tr><td>VNA 校准残差</td><td>0.02dB / 1°</td><td>高精度 TRL 校准</td></tr>
-    <tr><td>暗室反射</td><td>0.1-0.5dB</td><td>优质吸波材料 + 安静区验证</td></tr>
-    <tr><td>对准误差</td><td>0.1-0.3dB</td><td>精密转台（±0.1°）</td></tr>
-    <tr><td>电缆/连接器损耗</td><td>0.05-0.2dB</td><td>低损耗电缆 + 定期校准</td></tr>
-    <tr><td>环境扰动</td><td>0.05-0.1dB</td><td>温度/湿度控制</td></tr>
-    <tr><td>近场采样间隔</td><td>0.1-0.5dB</td><td>Nyquist 采样准则</td></tr>
-    </tbody></table></div>
-    <h3>6.2 NIST 互比对</h3>
-    <p><b>关键原则</b>：测量不确定度描述必须基于与其他实验室的互比对结果。没有互比对的实验室，其测量结果是不完整的。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>2.5 缩尺暗室（Compact Range / CATR）</h2>
+    <p><strong>原理</strong>：用抛物面反射镜将馈源发出的球面波"变成"平面波。</p>
+<pre><code>        ╭─────╮
+       ╭╯ 抛物面 ╰╮
+      │    反射镜    │
+       ╰─────╯
+          │
+       馈源天线
+          │
+       [DUT]
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>在短距离内模拟远场条件</li>
+<li>安静区大（直径可达天线尺寸的 3-5 倍）</li>
+<li>适合大型天线（卫星通信、雷达）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>2.6 混响室（Reverberation Chamber, RC）</h2>
+    <p><strong>原理</strong>：搅拌器（mode stirrer）改变边界条件 → 产生多个独立瑞利衰落样本 → 统计平均得到 TRP/TIS。</p>
+<p><strong>3GPP 规定</strong>：</p>
+<ul>
+<li>≥ 100 个独立样本</li>
+<li>可用于 &gt; 3GHz 的 TRP/TRS 测试</li>
+<li>需定期与消声室"黄金设备"比对校准</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>体积小（3×3×3m 可测到 40GHz）</li>
+<li>成本低（vs 消声室）</li>
+<li>高通量（适合产线测试）</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 为什么需要 OTA？</h2>
+    <p><strong>5G 趋势</strong>：</p>
+<ul>
+<li>天线集成到封装内（AiP）→ 无射频接口</li>
+<li>多天线 MIMO → 接口数量爆炸</li>
+<li>波束赋形 → 需要测量实际辐射方向图</li>
+</ul>
+<p><strong>3GPP TR 38.810 定义三种 OTA 方法</strong>：</p>
+<ol>
+<li><strong>DFF（Direct Far-Field）</strong>：直接远场法</li>
+<li><strong>IFF（Indirect Far-Field）</strong>：间接远场法（近场→远场变换）</li>
+<li><strong>NFTF（Near-Field to Far-Field Transform）</strong>：近场到远场变换</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 TRP（Total Radiated Power）</h2>
+    <p><strong>定义</strong>：天线在所有方向上的总辐射功率。</p>
+<pre><code>TRP = ∫∫ U(θ,φ) sin(θ) dθ dφ
+</code></pre>
+<p><strong>测量方法</strong>（CTIA 标准）：</p>
+<ul>
+<li>球面采样：每 15° 测一个点（θ 和 φ 轴）</li>
+<li>总共 266 个点（每极化）</li>
+<li>积分得到 TRP</li>
+</ul>
+<p><strong>3GPP TS 38.561 Release 18</strong>：</p>
+<ul>
+<li>消声室为参考方法</li>
+<li>RC 为替代方法（&gt; 3GHz 已 harmonized）</li>
+<li>需定期用 golden UE 比对</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 TIS / TRS（Total Isotropic Sensitivity）</h2>
+    <p><strong>TIS</strong>（Transmitter）：全向灵敏度
+<strong>TRS</strong>（Receiver）：全向接收灵敏度</p>
+<p><strong>测量</strong>：DUT 作为发射机，探天线在所有方向接收 → 积分得到 TRP。
+反过来，探天线发射，DUT 在所有方向接收 → 得到 TIS/TRS。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 EIRP（Effective Isotropic Radiated Power）</h2>
+    <pre><code>EIRP(θ,φ) = P_input × G(θ,φ)
+</code></pre>
+<p><strong>3GPP 新增要求</strong>：测量方向性 EIRP（而非仅 TRP），用于波束赋形验证。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 SOLT 校准（Short-Open-Load-Thru）</h2>
+    <p><strong>标准</strong>：短路（S）、开路（O）、负载（L）、直通（T）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>最常用，工业标准</li>
+<li>标准件需要精确表征</li>
+<li>无频率带宽限制</li>
+<li>精度：±0.01dB / ±0.5°（高端 PNA）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 TRL 校准（Thru-Reflect-Line）</h2>
+    <p><strong>标准</strong>：直通（T）、反射（R）、线（L）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>"自校准"方法，标准件不需完全表征</li>
+<li>精度高于 SOLT（多数情况）</li>
+<li>线标准限制带宽（~8:1 频率比）</li>
+<li>适用于波导/微带等非同轴接口</li>
+<li><strong>毫米波/太赫兹首选</strong></li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 ECal（电子校准）</h2>
+    <p><strong>原理</strong>：VNA 内置开关矩阵 + 已知校准件 → 一键校准</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>速度快（10 秒完成多端口校准）</li>
+<li>可重复性好</li>
+<li>精度略低于 TRL（±0.02dB / ±1°）</li>
+<li>适合产线测试</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 校准方法对比</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>精度</th>
+<th>速度</th>
+<th>带宽限制</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SOLT</td>
+<td>高</td>
+<td>中</td>
+<td>无</td>
+<td>通用</td>
+</tr>
+<tr>
+<td>TRL</td>
+<td>最高</td>
+<td>慢</td>
+<td>有（8:1）</td>
+<td>毫米波/波导</td>
+</tr>
+<tr>
+<td>SOLR</td>
+<td>高</td>
+<td>中</td>
+<td>无</td>
+<td>单侧已知反射</td>
+</tr>
+<tr>
+<td>ECal</td>
+<td>中高</td>
+<td>最快</td>
+<td>无</td>
+<td>产线/多端口</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 高频 VNA</h2>
+    <p><strong>频率范围</strong>：</p>
+<ul>
+<li>常规 VNA：Up to 50GHz（Keysight PNA-X）</li>
+<li>扩展 VNA：Up to 110GHz（W 频段）</li>
+<li>太赫兹：Up to 300GHz（用谐波混频器扩展）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 波导接口</h2>
+    <p><strong>毫米波频段</strong>：同轴连接器损耗太大 → 改用波导（WR-15/WR-12）</p>
+<p><strong>波导类型</strong>：
+| 频段 | 波导型号 | 尺寸 |
+|------|---------|------|
+| 28GHz | WR-42 | 10.67×4.32mm |
+| 39GHz | WR-28 | 7.11×3.40mm |
+| 75-110GHz | WR-10 | 2.29×1.02mm |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 阵列天线测量</h2>
+    <p><strong>64T AAU 测量挑战</strong>：</p>
+<ul>
+<li>8×8 或更多端口 → 多端口 VNA（8-16 端口）</li>
+<li>波束赋形 → 需要动态扫描多个波束</li>
+<li>功耗高 → 需要大功率负载和散热</li>
+</ul>
+<p><strong>2026 IMS 进展</strong>：Antennex 混响室 EVM+TRP 联合测量，单次测量同时得到效率、失真、邻道泄漏比。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 天线罩影响</h2>
+    <p><strong>测量时需扣除天线罩损耗</strong>：</p>
+<pre><code>IL_radome = -10×log₁₀(T²)
+T = 穿透率（通常 0.9-0.98）
+</code></pre>
+<p><strong>典型影响</strong>：</p>
+<ul>
+<li>3mm PBT 罩 @28GHz：IL ≈ 0.1-0.3dB</li>
+<li>5mm 特氟龙罩 @28GHz：IL ≈ 0.2-0.5dB</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 主要误差来源</h2>
+    <table>
+<thead>
+<tr>
+<th>误差源</th>
+<th>典型贡献</th>
+<th>控制方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VNA 校准残差</td>
+<td>0.02dB / 1°</td>
+<td>高精度 TRL 校准</td>
+</tr>
+<tr>
+<td>暗室反射</td>
+<td>0.1-0.5dB</td>
+<td>优质吸波材料 + 安静区验证</td>
+</tr>
+<tr>
+<td>对准误差</td>
+<td>0.1-0.3dB</td>
+<td>精密转台（±0.1°）</td>
+</tr>
+<tr>
+<td>电缆/连接器损耗</td>
+<td>0.05-0.2dB</td>
+<td>低损耗电缆 + 定期校准</td>
+</tr>
+<tr>
+<td>环境扰动</td>
+<td>0.05-0.1dB</td>
+<td>温度/湿度控制</td>
+</tr>
+<tr>
+<td>近场采样间隔</td>
+<td>0.1-0.5dB</td>
+<td>Nyquist 采样准则</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 NIST 互比对</h2>
+    <p><strong>关键原则</strong>：测量不确定度描述必须基于与其他实验室的互比对结果。没有互比对的实验室，其测量结果是不完整的。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、给非专业读者的一句话总结</h2>
-    <div class="call"><b>天线测量就是给天线做"全身检查"。VNA 是听诊器（测反射和传输），消声室是 CT 机（看辐射方向图），TRP 测试是验血（看总辐射功率）。5G 毫米波时代，检查设备从 GHz 升级到 110GHz，检查精度从毫米级升级到微米级。最有趣的是 OTA 测试——手机没有天线接口了，只能整个泡在"射频消声室"里，用探头隔空测量，就像给人体做 MRI 一样。</b></div>
-    <p><b>金句</b>：测量告诉你一个道理——<b>看不见摸不着的东西，恰恰是最需要被精确量化的</b>。无线电波看不见，但我们可以用数学（傅里叶变换）和物理（VNA 误差模型）把它"抓"出来。</p>
-    <p>---</p>
+    <blockquote>
+<p><strong>天线测量就是给天线做"全身检查"。VNA 是听诊器（测反射和传输），消声室是 CT 机（看辐射方向图），TRP 测试是验血（看总辐射功率）。5G 毫米波时代，检查设备从 GHz 升级到 110GHz，检查精度从毫米级升级到微米级。最有趣的是 OTA 测试——手机没有天线接口了，只能整个泡在"射频消声室"里，用探头隔空测量，就像给人体做 MRI 一样。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：测量告诉你一个道理——<strong>看不见摸不着的东西，恰恰是最需要被精确量化的</strong>。无线电波看不见，但我们可以用数学（傅里叶变换）和物理（VNA 误差模型）把它"抓"出来。</p>
+<hr />
   </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -317,39 +536,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

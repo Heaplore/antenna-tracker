@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>微波铁氧体材料（Ferrite） · 知识卡片</title>
+<title>微波铁氧体Ferrite · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">微波铁氧体材料 <span class="en">Ferrite</span></h1>
-  <p class="lede">铁氧体是环形器/隔离器的"心脏"——利用旋磁效应实现信号的"单行道"传输。5G 基站每个环形器需要两片铁氧体薄片（厚度可薄至 0.15mm），全球 5G 基站对铁氧体的需求量近 10 亿片/年。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">微波铁氧体Ferrite</h1>
+  <p class="lede">铁氧体是环形器/隔离器的&#34;心脏&#34;——利用旋磁效应实现信号的&#34;单行道&#34;传输。5G 基站每个环形器需要两片铁氧体薄片（厚度可薄至 0.15mm），全球 5G 基站对铁氧体的需求量近 10 亿片/年。</p>
+  
 </header>
 
 <main>
@@ -99,178 +101,314 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>铁氧体就像电磁波的"单向阀门"——信号只能从 A→B→C 单向流动，反过来就被挡住。这个"单向"功能靠的不是电路，而是铁氧体材料本身的<b>旋磁效应</b>（外加磁场下，电磁波的偏振面会发生旋转）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、铁氧体材料基础</h2>
-    <h3>1.1 什么是铁氧体？</h3>
-    <pre><code>铁氧体（Ferrite）：
-      化学式：MFe₂O₄（M = Mn/Zn/Ni/Co/Mg/Fe 等）
-      类型：软磁铁氧体（低矫顽力，易磁化/退磁）
-      形态：陶瓷材料（烧结氧化物）
-      
-    核心特性：
-      - 旋磁效应：外加磁场下，微波频率的电磁波
-        在铁氧体中传播时，左右圆极化波的传播
-        常数不同 → 偏振面旋转
-      - 高电阻率：10⁶-10¹⁰ Ω·cm（比金属高 10⁸ 倍）
-        → 涡流损耗极低，适合高频
-      - 低介电常数：10-15
-        → 与微波电路阻抗匹配好</code></pre>
-    <h3>1.2 铁氧体的分类</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>化学组成</th><th>饱和磁化强度</th><th>共振线宽</th><th>适用频段</th><th>典型应用</th></tr></thead>
-    <tbody>
-    <tr><td>YIG（钇铁石榴石）</td><td>Y₃Fe₅O₁₂</td><td>1700G</td><td>0.2-0.5Oe</td><td>微波-毫米波</td><td>滤波器/谐振器</td></tr>
-    <tr><td>掺钒 YIG</td><td>Y₃VₓFe₅₋ₓO₁₂</td><td>可调</td><td>0.1-0.3Oe</td><td>毫米波</td><td>超低损耗器件</td></tr>
-    <tr><td>铝酸盐</td><td>MAl₂O₄</td><td>650-1900G</td><td>12-20Oe</td><td>Sub-6GHz</td><td>基站环形器</td></tr>
-    <tr><td>石榴石型</td><td>M₃Fe₅O₁₂</td><td>300-600G</td><td>5-15Oe</td><td>UHF-微波</td><td>隔离器</td></tr>
-    <tr><td>六角铁氧体</td><td>BaFe₁₂O₁₉</td><td>3800G</td><td>-</td><td>低频</td><td>永磁体</td></tr>
-    </tbody></table></div>
-    <h3>1.3 旋磁效应原理</h3>
-    <pre><code>外加静态磁场 H₀ → 铁氧体磁化
-        
-    微波磁场 h 在铁氧体中传播：
-      - 左旋圆极化波（LCP）：ω₀ + Δω
-      - 右旋圆极化波（RCP）：ω₀ - Δω
-      
-    两种极化波的传播常数不同 → 偏振面旋转
-      
-    法拉第旋转角：
-      θ = (ω₀/2c)·(μ₁-μ₂)·L
-      
-    其中 μ₁, μ₂ 是张量磁导率的非对角元
-    L 是铁氧体厚度</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>二、铁氧体在基站中的关键应用</h2>
-    <h3>2.1 环形器（Circulator）</h3>
-    <pre><code>结构：
-      铁氧体圆盘（2 片）+ 永磁体 + 微带线
-      
-    工作原理：
-      端口 1 → 端口 2（单向）
-      端口 2 → 端口 3（单向）
-      端口 3 → 端口 1（单向）
-      
-    在 TDD 系统中的应用：
-      PA 输出 → 端口 1
-      天线 → 端口 2
-      LNA 输入 → 端口 3
-      
-    作用：
-      - 发射时：PA 信号→天线（端口 1→2）
-      - 接收时：LNA 保护（端口 2→3，不回到 PA）
-      
-    指标：
-      - 插入损耗（1→2）：&lt; 0.2dB
-      - 隔离度（2→1）：&gt; 20dB
-      - VSWR：&lt; 1.3
-      - 工作频段：700MHz-6.5GHz</code></pre>
-    <h3>2.2 隔离器（Isolator）</h3>
-    <pre><code>结构：
-      环形器端口 3 接匹配负载 → 变成隔离器
-      
-    作用：
-      - 保护 PA 免受反射功率损害
-      - 稳定振荡器频率
-      - 减少系统互调
-      
-    类型：
-      - 波导隔离器（大功率，&gt; 10W）
-      - 微带隔离器（小功率，&lt; 1W）
-      - 共面波导隔离器（毫米波）</code></pre>
-    <h3>2.3 移相器中的铁氧体</h3>
-    <pre><code>铁氧体移相器：
-      利用铁氧体在磁场下的磁导率变化
-      改变微波信号的相位
-      
-    特点：
-      - 相位范围：0-360°
-      - 插入损耗：&lt; 1dB
-      - 切换速度：ms 级（较慢）
-      
-    适用场景：
-      - 4G 传统天线（已逐步被介质移相器替代）
-      - 大功率场景（铁氧体功率容量高）</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>三、5G 基站铁氧体材料要求</h2>
-    <h3>3.1 关键技术指标</h3>
-    <pre><code>5G 基站用铁氧体材料（航天科工集团成果）：
+  
+  <article class="card ">
     
-    1. 饱和磁化强度：650-1900 Gauss
-       → 决定工作频率范围和功率容量
-       
-    2. 共振线宽：12-20 Oe
-       → 线宽越窄，器件损耗越低
-       
-    3. 介电常数：最高 26
-       → 影响阻抗匹配
-       
-    4. 厚度：最薄 0.15mm
-       → 小型化需求
-       
-    5. 低互调（PIM）：
-       → &lt; -150dBc（三载波）
-       → 铁氧体表面必须极其平整
-       → 任何微观不平都会产生 PIM
-       
-    6. 温度稳定性：
-       → -40°C to +85°C
-       → 磁化强度温度系数 &lt; 0.05%/°C</code></pre>
-    <h3>3.2 低 PIM 铁氧体</h3>
+    <h2>1.1 什么是铁氧体？</h2>
+    <pre><code>铁氧体（Ferrite）：
+  化学式：MFe₂O₄（M = Mn/Zn/Ni/Co/Mg/Fe 等）
+  类型：软磁铁氧体（低矫顽力，易磁化/退磁）
+  形态：陶瓷材料（烧结氧化物）
+
+核心特性：
+  - 旋磁效应：外加磁场下，微波频率的电磁波
+    在铁氧体中传播时，左右圆极化波的传播
+    常数不同 → 偏振面旋转
+  - 高电阻率：10⁶-10¹⁰ Ω·cm（比金属高 10⁸ 倍）
+    → 涡流损耗极低，适合高频
+  - 低介电常数：10-15
+    → 与微波电路阻抗匹配好
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 铁氧体的分类</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>化学组成</th>
+<th>饱和磁化强度</th>
+<th>共振线宽</th>
+<th>适用频段</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YIG（钇铁石榴石）</td>
+<td>Y₃Fe₅O₁₂</td>
+<td>1700G</td>
+<td>0.2-0.5Oe</td>
+<td>微波-毫米波</td>
+<td>滤波器/谐振器</td>
+</tr>
+<tr>
+<td>掺钒 YIG</td>
+<td>Y₃VₓFe₅₋ₓO₁₂</td>
+<td>可调</td>
+<td>0.1-0.3Oe</td>
+<td>毫米波</td>
+<td>超低损耗器件</td>
+</tr>
+<tr>
+<td>铝酸盐</td>
+<td>MAl₂O₄</td>
+<td>650-1900G</td>
+<td>12-20Oe</td>
+<td>Sub-6GHz</td>
+<td>基站环形器</td>
+</tr>
+<tr>
+<td>石榴石型</td>
+<td>M₃Fe₅O₁₂</td>
+<td>300-600G</td>
+<td>5-15Oe</td>
+<td>UHF-微波</td>
+<td>隔离器</td>
+</tr>
+<tr>
+<td>六角铁氧体</td>
+<td>BaFe₁₂O₁₉</td>
+<td>3800G</td>
+<td>-</td>
+<td>低频</td>
+<td>永磁体</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 旋磁效应原理</h2>
+    <pre><code>外加静态磁场 H₀ → 铁氧体磁化
+
+微波磁场 h 在铁氧体中传播：
+  - 左旋圆极化波（LCP）：ω₀ + Δω
+  - 右旋圆极化波（RCP）：ω₀ - Δω
+
+两种极化波的传播常数不同 → 偏振面旋转
+
+法拉第旋转角：
+  θ = (ω₀/2c)·(μ₁-μ₂)·L
+
+其中 μ₁, μ₂ 是张量磁导率的非对角元
+L 是铁氧体厚度
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 环形器（Circulator）</h2>
+    <pre><code>结构：
+  铁氧体圆盘（2 片）+ 永磁体 + 微带线
+
+工作原理：
+  端口 1 → 端口 2（单向）
+  端口 2 → 端口 3（单向）
+  端口 3 → 端口 1（单向）
+
+在 TDD 系统中的应用：
+  PA 输出 → 端口 1
+  天线 → 端口 2
+  LNA 输入 → 端口 3
+
+作用：
+  - 发射时：PA 信号→天线（端口 1→2）
+  - 接收时：LNA 保护（端口 2→3，不回到 PA）
+
+指标：
+  - 插入损耗（1→2）：&lt; 0.2dB
+  - 隔离度（2→1）：&gt; 20dB
+  - VSWR：&lt; 1.3
+  - 工作频段：700MHz-6.5GHz
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 隔离器（Isolator）</h2>
+    <pre><code>结构：
+  环形器端口 3 接匹配负载 → 变成隔离器
+
+作用：
+  - 保护 PA 免受反射功率损害
+  - 稳定振荡器频率
+  - 减少系统互调
+
+类型：
+  - 波导隔离器（大功率，&gt; 10W）
+  - 微带隔离器（小功率，&lt; 1W）
+  - 共面波导隔离器（毫米波）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 移相器中的铁氧体</h2>
+    <pre><code>铁氧体移相器：
+  利用铁氧体在磁场下的磁导率变化
+  改变微波信号的相位
+
+特点：
+  - 相位范围：0-360°
+  - 插入损耗：&lt; 1dB
+  - 切换速度：ms 级（较慢）
+
+适用场景：
+  - 4G 传统天线（已逐步被介质移相器替代）
+  - 大功率场景（铁氧体功率容量高）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 关键技术指标</h2>
+    <pre><code>5G 基站用铁氧体材料（航天科工集团成果）：
+
+1. 饱和磁化强度：650-1900 Gauss
+   → 决定工作频率范围和功率容量
+
+2. 共振线宽：12-20 Oe
+   → 线宽越窄，器件损耗越低
+
+3. 介电常数：最高 26
+   → 影响阻抗匹配
+
+4. 厚度：最薄 0.15mm
+   → 小型化需求
+
+5. 低互调（PIM）：
+   → &lt; -150dBc（三载波）
+   → 铁氧体表面必须极其平整
+   → 任何微观不平都会产生 PIM
+
+6. 温度稳定性：
+   → -40°C to +85°C
+   → 磁化强度温度系数 &lt; 0.05%/°C
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 低 PIM 铁氧体</h2>
     <pre><code>PIM 来源：
-      1. 铁氧体表面粗糙度
-      2. 铁氧体与金属接触界面的非线性
-      3. 铁氧体材料本身的磁非线性
-      
-    解决方案：
-      - 表面抛光至 Ra &lt; 0.1μm
-      - 使用低 PIM 焊料（Sn-Ag-Cu）
-      - 优化铁氧体成分（减少杂质）
-      - 精密装配（控制接触压力）
-      
-    5G 要求：
-      - 双三载波 PIM &lt; -150dBc
-      - 这比 4G 的 -125dBc 严格了 25dB</code></pre>
-  </article>
+  1. 铁氧体表面粗糙度
+  2. 铁氧体与金属接触界面的非线性
+  3. 铁氧体材料本身的磁非线性
 
-  <article class="card">
-    <h2>四、铁氧体产业链</h2>
-    <h3>4.1 全球供应商</h3>
-    <div class="tw"><table>
-    <thead><tr><th>公司</th><th>国家</th><th>产品</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>TDK</td><td>日本</td><td>YIG/铝酸盐</td><td>全球最大铁氧体供应商</td></tr>
-    <tr><td>Hitachi Metals</td><td>日本</td><td>磁体/铁氧体</td><td>高端 YIG</td></tr>
-    <tr><td>Ferroxcube</td><td>荷兰</td><td>各种铁氧体</td><td>欧洲最大</td></tr>
-    <tr><td>TAIYO YUDEN</td><td>日本</td><td>微带隔离器</td><td>基站用</td></tr>
-    <tr><td>航天科工</td><td>中国</td><td>铝酸盐铁氧体</td><td>5G 基站专用，国际先进</td></tr>
-    <tr><td>中科三环</td><td>中国</td><td>磁体/铁氧体</td><td>稀土永磁</td></tr>
-    <tr><td>宁波韵升</td><td>中国</td><td>磁体</td><td>钕铁硼</td></tr>
-    </tbody></table></div>
-    <h3>4.2 市场规模</h3>
+解决方案：
+  - 表面抛光至 Ra &lt; 0.1μm
+  - 使用低 PIM 焊料（Sn-Ag-Cu）
+  - 优化铁氧体成分（减少杂质）
+  - 精密装配（控制接触压力）
+
+5G 要求：
+  - 双三载波 PIM &lt; -150dBc
+  - 这比 4G 的 -125dBc 严格了 25dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 全球供应商</h2>
+    <table>
+<thead>
+<tr>
+<th>公司</th>
+<th>国家</th>
+<th>产品</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TDK</td>
+<td>日本</td>
+<td>YIG/铝酸盐</td>
+<td>全球最大铁氧体供应商</td>
+</tr>
+<tr>
+<td>Hitachi Metals</td>
+<td>日本</td>
+<td>磁体/铁氧体</td>
+<td>高端 YIG</td>
+</tr>
+<tr>
+<td>Ferroxcube</td>
+<td>荷兰</td>
+<td>各种铁氧体</td>
+<td>欧洲最大</td>
+</tr>
+<tr>
+<td>TAIYO YUDEN</td>
+<td>日本</td>
+<td>微带隔离器</td>
+<td>基站用</td>
+</tr>
+<tr>
+<td>航天科工</td>
+<td>中国</td>
+<td>铝酸盐铁氧体</td>
+<td>5G 基站专用，国际先进</td>
+</tr>
+<tr>
+<td>中科三环</td>
+<td>中国</td>
+<td>磁体/铁氧体</td>
+<td>稀土永磁</td>
+</tr>
+<tr>
+<td>宁波韵升</td>
+<td>中国</td>
+<td>磁体</td>
+<td>钕铁硼</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 市场规模</h2>
     <pre><code>5G 基站铁氧体需求：
-      - 每个 64T64R AAU 需要 ~64 个环形器/隔离器
-      - 每个环形器需要 2 片铁氧体
-      - 全球 5G 基站数量：~300 万（2025）
-      - 铁氧体需求：300 万 × 64 × 2 = 3.84 亿片
-      
-    航天科工集团数据：
-      &quot;未来预期有近 10 亿片规模的需求&quot;
-      → 包括 4G 升级 5G + 新增基站</code></pre>
-  </article>
+  - 每个 64T64R AAU 需要 ~64 个环形器/隔离器
+  - 每个环形器需要 2 片铁氧体
+  - 全球 5G 基站数量：~300 万（2025）
+  - 铁氧体需求：300 万 × 64 × 2 = 3.84 亿片
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>铁氧体是环形器/隔离器的核心材料——没有它，就没有信号的"单向通行"。5G 基站对铁氧体的要求是：低 PIM（<-150dBc）、薄（0.15mm）、宽频（700MHz-6.5GHz）、温度稳定。全球 5G 基站铁氧体需求近 10 亿片/年，是中国航天科工集团等企业的重点突破方向。记住：铁氧体是"陶瓷里的明星"——看起来是脆脆的陶瓷，却是微波器件的灵魂。</p>
+航天科工集团数据：
+  &quot;未来预期有近 10 亿片规模的需求&quot;
+  → 包括 4G 升级 5G + 新增基站
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -290,39 +428,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

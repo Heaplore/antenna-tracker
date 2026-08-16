@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rogers 系列高频板材 · 知识卡片</title>
+<title>Rogers系列高频板材 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">Rogers 系列高频板材 <span class="en">Rogers</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Rogers系列高频板材</h1>
   <p class="lede">Rogers 是美国罗杰斯公司生产的高频微波基板品牌——Dk（介电常数）稳定在 2.2-10.2 之间，Df（损耗角正切）低至 0.0009，是 5G 基站天线、毫米波天线和卫星通信的核心材料。</p>
+  
 </header>
 
 <main>
@@ -99,134 +101,299 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>Rogers 板材就像"航空级铝合金"——普通 PCB 用的 FR4 是"建筑钢材"，能用但性能一般；Rogers 是"航空铝"，贵但轻、强、稳定。在 3.5GHz 以上，FR4 的损耗会让信号"跑不动"，Rogers 能让信号"高速公路"畅通无阻。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、Rogers 材料体系</h2>
-    <h3>1.1 主要产品线</h3>
-    <div class="tw"><table>
-    <thead><tr><th>产品</th><th>Dk（@10GHz）</th><th>Df（@10GHz）</th><th>适用频段</th><th>典型应用</th></tr></thead>
-    <tbody>
-    <tr><td>RO3003</td><td>3.00</td><td>0.0013</td><td>Sub-6GHz</td><td>基站天线</td></tr>
-    <tr><td>RO3006</td><td>6.15</td><td>0.0016</td><td>Sub-6GHz</td><td>滤波器/耦合器</td></tr>
-    <tr><td>RO3010</td><td>10.2</td><td>0.0015</td><td>Sub-6GHz</td><td>高集成度电路</td></tr>
-    <tr><td>RO4000C</td><td>3.55</td><td>0.0027</td><td>Sub-6GHz</td><td>基站天线/馈电网络</td></tr>
-    <tr><td>RO4350B</td><td>3.48</td><td>0.0037</td><td>Sub-6GHz</td><td>基站天线（性价比）</td></tr>
-    <tr><td>RT/duroid 5880</td><td>2.20</td><td>0.0009</td><td>Sub-6GHz/毫米波</td><td>测试天线/雷达</td></tr>
-    <tr><td>RO3000 系列</td><td>3.0/6.2/10.2</td><td>0.001-0.002</td><td>Sub-6GHz</td><td>5G AAU</td></tr>
-    </tbody></table></div>
-    <h3>1.2 材料结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 主要产品线</h2>
+    <table>
+<thead>
+<tr>
+<th>产品</th>
+<th>Dk（@10GHz）</th>
+<th>Df（@10GHz）</th>
+<th>适用频段</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RO3003</td>
+<td>3.00</td>
+<td>0.0013</td>
+<td>Sub-6GHz</td>
+<td>基站天线</td>
+</tr>
+<tr>
+<td>RO3006</td>
+<td>6.15</td>
+<td>0.0016</td>
+<td>Sub-6GHz</td>
+<td>滤波器/耦合器</td>
+</tr>
+<tr>
+<td>RO3010</td>
+<td>10.2</td>
+<td>0.0015</td>
+<td>Sub-6GHz</td>
+<td>高集成度电路</td>
+</tr>
+<tr>
+<td>RO4000C</td>
+<td>3.55</td>
+<td>0.0027</td>
+<td>Sub-6GHz</td>
+<td>基站天线/馈电网络</td>
+</tr>
+<tr>
+<td>RO4350B</td>
+<td>3.48</td>
+<td>0.0037</td>
+<td>Sub-6GHz</td>
+<td>基站天线（性价比）</td>
+</tr>
+<tr>
+<td>RT/duroid 5880</td>
+<td>2.20</td>
+<td>0.0009</td>
+<td>Sub-6GHz/毫米波</td>
+<td>测试天线/雷达</td>
+</tr>
+<tr>
+<td>RO3000 系列</td>
+<td>3.0/6.2/10.2</td>
+<td>0.001-0.002</td>
+<td>Sub-6GHz</td>
+<td>5G AAU</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 材料结构</h2>
     <pre><code>Rogers 层压板结构：
-      ┌──────────────────┐ ← 铜箔（EP/RA）
-      ├──────────────────┤ ← 介质层（PTFE+陶瓷填料）
-      └──────────────────┘
-      
-    铜箔类型：
-      EP（Electroplated）：粗糙度 Ra=3-5μm
-      RA（Rolled Annealed）：粗糙度 Ra=1-2μm
-      
-    介质层：
-      PTFE（聚四氟乙烯）基体
-      + 陶瓷填料（控制 Dk）
-      + 玻璃纤维布（增强）</code></pre>
-  </article>
+  ┌──────────────────┐ ← 铜箔（EP/RA）
+  ├──────────────────┤ ← 介质层（PTFE+陶瓷填料）
+  └──────────────────┘
 
-  <article class="card">
-    <h2>二、关键参数详解</h2>
-    <h3>2.1 介电常数 Dk</h3>
+铜箔类型：
+  EP（Electroplated）：粗糙度 Ra=3-5μm
+  RA（Rolled Annealed）：粗糙度 Ra=1-2μm
+
+介质层：
+  PTFE（聚四氟乙烯）基体
+  + 陶瓷填料（控制 Dk）
+  + 玻璃纤维布（增强）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 介电常数 Dk</h2>
     <pre><code>Dk 定义：
-      Dk = ε_r = C_material / C_vacuum
-      
-    Dk 稳定性：
-      Rogers：ΔDk &lt; ±0.05（-40°C to +85°C）
-      FR4：ΔDk = ±0.5（温度敏感）
-      
-    Dk 对天线的影响：
-      λ_g = λ_0 / √Dk
-      Dk 越稳定 → 中心频率越稳定
-      Dk 漂移 → 天线谐振频率偏移</code></pre>
-    <h3>2.2 损耗角正切 Df</h3>
+  Dk = ε_r = C_material / C_vacuum
+
+Dk 稳定性：
+  Rogers：ΔDk &lt; ±0.05（-40°C to +85°C）
+  FR4：ΔDk = ±0.5（温度敏感）
+
+Dk 对天线的影响：
+  λ_g = λ_0 / √Dk
+  Dk 越稳定 → 中心频率越稳定
+  Dk 漂移 → 天线谐振频率偏移
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 损耗角正切 Df</h2>
     <pre><code>Df 定义：
-      Df = tanδ = 介质损耗 / 存储能量
-      
-    信号衰减：
-      α = (2πf/c)·√Dk·Df （Np/m）
-      
-    5GHz 时衰减对比（1m 微带线）：
-      FR4（Df=0.02）：~3dB
-      RO4350B（Df=0.0037）：~0.5dB
-      RO3003（Df=0.0013）：~0.2dB
-      RT5880（Df=0.0009）：~0.1dB</code></pre>
-    <h3>2.3 其他关键参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>RO4350B</th><th>RO3003</th><th>RT5880</th></tr></thead>
-    <tbody>
-    <tr><td>吸水率</td><td>0.1%</td><td>0.02%</td><td>0.02%</td></tr>
-    <tr><td>CTE（Z轴）</td><td>28ppm/°C</td><td>14ppm/°C</td><td>14ppm/°C</td></tr>
-    <tr><td>导热率</td><td>0.62 W/m·K</td><td>1.0 W/m·K</td><td>0.46 W/m·K</td></tr>
-    <tr><td>阻燃性</td><td>UL94 V-0</td><td>UL94 V-0</td><td>N/A</td></tr>
-    </tbody></table></div>
-  </article>
+  Df = tanδ = 介质损耗 / 存储能量
 
-  <article class="card">
-    <h2>三、Rogers 在天线中的应用</h2>
-    <h3>3.1 5G Sub-6GHz 天线</h3>
+信号衰减：
+  α = (2πf/c)·√Dk·Df （Np/m）
+
+5GHz 时衰减对比（1m 微带线）：
+  FR4（Df=0.02）：~3dB
+  RO4350B（Df=0.0037）：~0.5dB
+  RO3003（Df=0.0013）：~0.2dB
+  RT5880（Df=0.0009）：~0.1dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 其他关键参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>RO4350B</th>
+<th>RO3003</th>
+<th>RT5880</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>吸水率</td>
+<td>0.1%</td>
+<td>0.02%</td>
+<td>0.02%</td>
+</tr>
+<tr>
+<td>CTE（Z轴）</td>
+<td>28ppm/°C</td>
+<td>14ppm/°C</td>
+<td>14ppm/°C</td>
+</tr>
+<tr>
+<td>导热率</td>
+<td>0.62 W/m·K</td>
+<td>1.0 W/m·K</td>
+<td>0.46 W/m·K</td>
+</tr>
+<tr>
+<td>阻燃性</td>
+<td>UL94 V-0</td>
+<td>UL94 V-0</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 5G Sub-6GHz 天线</h2>
     <pre><code>RO4350B / RO3003 应用：
-      - 微带贴片天线阵列
-      - 馈电网络（Wilkinson/分支线）
-      - 巴伦（Balun）
-      
-    典型设计：
-      频段：3.5GHz（n78）
-      基板：RO4350B，厚度 0.8mm
-      铜厚：35μm（1oz）
-      天线：64 单元贴片阵列
-      增益：22-24dBi</code></pre>
-    <h3>3.2 毫米波天线</h3>
+  - 微带贴片天线阵列
+  - 馈电网络（Wilkinson/分支线）
+  - 巴伦（Balun）
+
+典型设计：
+  频段：3.5GHz（n78）
+  基板：RO4350B，厚度 0.8mm
+  铜厚：35μm（1oz）
+  天线：64 单元贴片阵列
+  增益：22-24dBi
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 毫米波天线</h2>
     <pre><code>RO3003 / RT5880 应用：
-      - 28GHz/39GHz 贴片阵列
-      - 波导缝隙天线
-      - AiP 封装基板
-      
-    典型设计：
-      频段：28GHz
-      基板：RO3003，厚度 0.254mm
-      铜厚：17μm（0.5oz）
-      天线：256 单元 AiP 阵列
-      增益：23-26dBi</code></pre>
-    <h3>3.3 馈电网络</h3>
+  - 28GHz/39GHz 贴片阵列
+  - 波导缝隙天线
+  - AiP 封装基板
+
+典型设计：
+  频段：28GHz
+  基板：RO3003，厚度 0.254mm
+  铜厚：17μm（0.5oz）
+  天线：256 单元 AiP 阵列
+  增益：23-26dBi
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 馈电网络</h2>
     <pre><code>RO4350B 馈电网络：
-      - Wilkinson 功分器
-      - 分支线耦合器
-      - 移相器
-      
-    优势：
-      - 低损耗（Df=0.0037）
-      - 相位稳定（Dk 温度系数小）
-      - 幅度平衡好（±0.2dB）</code></pre>
-  </article>
+  - Wilkinson 功分器
+  - 分支线耦合器
+  - 移相器
 
-  <article class="card">
+优势：
+  - 低损耗（Df=0.0037）
+  - 相位稳定（Dk 温度系数小）
+  - 幅度平衡好（±0.2dB）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>四、Rogers vs FR4 vs LCP</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>FR4</th><th>Rogers RO4350B</th><th>Rogers RO3003</th><th>LCP</th></tr></thead>
-    <tbody>
-    <tr><td>Dk</td><td>4.4</td><td>3.48</td><td>3.0</td><td>2.9-3.0</td></tr>
-    <tr><td>Df</td><td>0.02</td><td>0.0037</td><td>0.0013</td><td>0.001-0.004</td></tr>
-    <tr><td>成本</td><td>低</td><td>中</td><td>高</td><td>中高</td></tr>
-    <tr><td>加工性</td><td>好</td><td>好</td><td>中</td><td>差（吸湿）</td></tr>
-    <tr><td>适用频段</td><td><2GHz</td><td><6GHz</td><td><6GHz</td><td><6GHz</td></tr>
-    <tr><td>吸水率</td><td>0.8%</td><td>0.1%</td><td>0.02%</td><td>0.4%</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>FR4</th>
+<th>Rogers RO4350B</th>
+<th>Rogers RO3003</th>
+<th>LCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dk</td>
+<td>4.4</td>
+<td>3.48</td>
+<td>3.0</td>
+<td>2.9-3.0</td>
+</tr>
+<tr>
+<td>Df</td>
+<td>0.02</td>
+<td>0.0037</td>
+<td>0.0013</td>
+<td>0.001-0.004</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>加工性</td>
+<td>好</td>
+<td>好</td>
+<td>中</td>
+<td>差（吸湿）</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>&lt;2GHz</td>
+<td>&lt;6GHz</td>
+<td>&lt;6GHz</td>
+<td>&lt;6GHz</td>
+</tr>
+<tr>
+<td>吸水率</td>
+<td>0.8%</td>
+<td>0.1%</td>
+<td>0.02%</td>
+<td>0.4%</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>Rogers 是高频天线的"黄金材料"——RO4350B 性价比高（Sub-6GHz 基站主流），RO3003 性能更好（毫米波/AiP），RT5880 最低损耗（测试/雷达）。记住：3.5GHz 以上，FR4 的损耗会让信号"跑不动"，Rogers 是必选项。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -246,39 +413,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

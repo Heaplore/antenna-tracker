@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>室分天线（Indoor Distribution Antenna） · 知识卡片</title>
+<title>室分天线Indoor-Distribution · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">室分天线 <span class="en">Indoor Distribution Antenna</span></h1>
-  <p class="lede">室分天线是"藏在天花板里的信号放大器"——把宏站信号引入室内，覆盖商场、写字楼、地铁、隧道等封闭空间。5G 室内容量占全网 70%，室分天线是 5G 部署的关键环节。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">室分天线Indoor-Distribution</h1>
+  <p class="lede">室分天线是&#34;藏在天花板里的信号放大器&#34;——把宏站信号引入室内，覆盖商场、写字楼、地铁、隧道等封闭空间。5G 室内容量占全网 70%，室分天线是 5G 部署的关键环节。</p>
+  
 </header>
 
 <main>
@@ -99,148 +101,269 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>室分天线就像室内的"隐形广播喇叭"——你看不见它，但它把信号均匀地撒在每一个角落。宏站天线是"探照灯"（照得远但有死角），室分天线是"吸顶灯"（照亮整个房间）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、室分天线类型</h2>
-    <h3>1.1 吸顶天线（Ceiling Mount）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 吸顶天线（Ceiling Mount）</h2>
     <pre><code>最主流的室分天线
+
+结构：
+  - 圆盘形外壳（直径 100-200mm）
+  - 内置贴片/偶极子天线
+  - 吸顶安装
+
+参数：
+  增益：2-5dBi
+  波束宽度：全向（水平 360°）
+  极化：垂直极化
+  频段：700MHz-3.5GHz（多频段合一）
+  功率：5-20W
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    结构：
-      - 圆盘形外壳（直径 100-200mm）
-      - 内置贴片/偶极子天线
-      - 吸顶安装
-      
-    参数：
-      增益：2-5dBi
-      波束宽度：全向（水平 360°）
-      极化：垂直极化
-      频段：700MHz-3.5GHz（多频段合一）
-      功率：5-20W</code></pre>
-    <h3>1.2 壁挂天线（Wall Mount）</h3>
+    <h2>1.2 壁挂天线（Wall Mount）</h2>
     <pre><code>适用场景：走廊、大厅
+
+结构：
+  - 长方形外壳
+  - 壁挂安装
+
+参数：
+  增益：5-8dBi
+  波束宽度：60-120°
+  极化：±45°
+  频段：多频段
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    结构：
-      - 长方形外壳
-      - 壁挂安装
-      
-    参数：
-      增益：5-8dBi
-      波束宽度：60-120°
-      极化：±45°
-      频段：多频段</code></pre>
-    <h3>1.3 微型皮基站天线（Pico Cell）</h3>
+    <h2>1.3 微型皮基站天线（Pico Cell）</h2>
     <pre><code>适用场景：办公室、会议室
+
+结构：
+  - 小型盒子（100×100×30mm）
+  - 自带 PA+LNA+天线
+
+参数：
+  覆盖半径：10-50m
+  用户数：16-64
+  频段：Sub-6GHz + 毫米波
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    结构：
-      - 小型盒子（100×100×30mm）
-      - 自带 PA+LNA+天线
-      
-    参数：
-      覆盖半径：10-50m
-      用户数：16-64
-      频段：Sub-6GHz + 毫米波</code></pre>
-    <h3>1.4 泄漏电缆（Leaky Cable）</h3>
+    <h2>1.4 泄漏电缆（Leaky Cable）</h2>
     <pre><code>适用场景：地铁、隧道
-    
-    结构：
-      - 同轴电缆开槽
-      - 信号从槽中&quot;泄漏&quot;出来
-      
-    参数：
-      覆盖长度：无限（串联）
-      信号均匀度：±3dB
-      衰减：0.5-2dB/100m</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>二、室分系统架构</h2>
-    <h3>2.1 传统 DAS（分布式天线系统）</h3>
+结构：
+  - 同轴电缆开槽
+  - 信号从槽中&quot;泄漏&quot;出来
+
+参数：
+  覆盖长度：无限（串联）
+  信号均匀度：±3dB
+  衰减：0.5-2dB/100m
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 传统 DAS（分布式天线系统）</h2>
     <pre><code>信号源（BBU/RRU）
-      │
-      ├── 主单元（Coupler）
-      │     ├── 馈线 → 吸顶天线 1
-      │     ├── 馈线 → 吸顶天线 2
-      │     └── 馈线 → 吸顶天线 3
-      │
-      └── 功分器 → 更多天线</code></pre>
-    <h3>2.2 数字化室分（pRRU + 光纤）</h3>
-    <pre><code>BBU/DU
-      │
-      ├── 光纤 → pRRU 1 → 天线
-      ├── 光纤 → pRRU 2 → 天线
-      └── 光纤 → pRRU 3 → 天线
+  │
+  ├── 主单元（Coupler）
+  │     ├── 馈线 → 吸顶天线 1
+  │     ├── 馈线 → 吸顶天线 2
+  │     └── 馈线 → 吸顶天线 3
+  │
+  └── 功分器 → 更多天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    优势：
-      - 支持 MIMO
-      - 支持波束赋形
-      - 远程监控
-      - 灵活扩容</code></pre>
-    <h3>2.3 5G 室分 vs 4G 室分</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>4G 室分</th><th>5G 室分</th></tr></thead>
-    <tbody>
-    <tr><td>天线类型</td><td>偶极子</td><td>贴片/AiP</td></tr>
-    <tr><td>MIMO</td><td>2T2R</td><td>4T4R/8T8R</td></tr>
-    <tr><td>频段</td><td>1-2.6GHz</td><td>700MHz-3.5GHz</td></tr>
-    <tr><td>覆盖方式</td><td>全向</td><td>波束赋形</td></tr>
-    <tr><td>容量</td><td>低</td><td>高</td></tr>
-    </tbody></table></div>
-  </article>
+    <h2>2.2 数字化室分（pRRU + 光纤）</h2>
+    <pre><code>BBU/DU
+  │
+  ├── 光纤 → pRRU 1 → 天线
+  ├── 光纤 → pRRU 2 → 天线
+  └── 光纤 → pRRU 3 → 天线
 
-  <article class="card">
+优势：
+  - 支持 MIMO
+  - 支持波束赋形
+  - 远程监控
+  - 灵活扩容
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 5G 室分 vs 4G 室分</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>4G 室分</th>
+<th>5G 室分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线类型</td>
+<td>偶极子</td>
+<td>贴片/AiP</td>
+</tr>
+<tr>
+<td>MIMO</td>
+<td>2T2R</td>
+<td>4T4R/8T8R</td>
+</tr>
+<tr>
+<td>频段</td>
+<td>1-2.6GHz</td>
+<td>700MHz-3.5GHz</td>
+</tr>
+<tr>
+<td>覆盖方式</td>
+<td>全向</td>
+<td>波束赋形</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、关键指标</h2>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>吸顶天线</th><th>壁挂天线</th><th>泄漏电缆</th></tr></thead>
-    <tbody>
-    <tr><td>增益</td><td>2-5dBi</td><td>5-8dBi</td><td>N/A</td></tr>
-    <tr><td>波束宽度</td><td>360°</td><td>60-120°</td><td>沿缆方向</td></tr>
-    <tr><td>VSWR</td><td>< 2.0</td><td>< 1.5</td><td>< 1.5</td></tr>
-    <tr><td>PIM</td><td>≤ -150dBc</td><td>≤ -150dBc</td><td>≤ -155dBc</td></tr>
-    <tr><td>功率</td><td>5-20W</td><td>10-50W</td><td>10-100W</td></tr>
-    <tr><td>频段</td><td>700-3500MHz</td><td>700-3500MHz</td><td>450-2700MHz</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>吸顶天线</th>
+<th>壁挂天线</th>
+<th>泄漏电缆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>2-5dBi</td>
+<td>5-8dBi</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>360°</td>
+<td>60-120°</td>
+<td>沿缆方向</td>
+</tr>
+<tr>
+<td>VSWR</td>
+<td>&lt; 2.0</td>
+<td>&lt; 1.5</td>
+<td>&lt; 1.5</td>
+</tr>
+<tr>
+<td>PIM</td>
+<td>≤ -150dBc</td>
+<td>≤ -150dBc</td>
+<td>≤ -155dBc</td>
+</tr>
+<tr>
+<td>功率</td>
+<td>5-20W</td>
+<td>10-50W</td>
+<td>10-100W</td>
+</tr>
+<tr>
+<td>频段</td>
+<td>700-3500MHz</td>
+<td>700-3500MHz</td>
+<td>450-2700MHz</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、部署要点</h2>
-    <h3>4.1 天线间距</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 天线间距</h2>
     <pre><code>吸顶天线：
-      单层：间距 8-12m
-      多层：上下层错开安装
-      
-    泄漏电缆：
-      单缆：间距 15-25m
-      双缆：间距 50-100m（覆盖更长）</code></pre>
-    <h3>4.2 安装高度</h3>
+  单层：间距 8-12m
+  多层：上下层错开安装
+
+泄漏电缆：
+  单缆：间距 15-25m
+  双缆：间距 50-100m（覆盖更长）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 安装高度</h2>
     <pre><code>吸顶天线：
-      高度：2.5-3.5m（天花板）
-      避免遮挡（灯具、风管）
-      
-    壁挂天线：
-      高度：2.0-3.0m
-      朝向人流密集区</code></pre>
-    <h3>4.3 5G 室分挑战</h3>
+  高度：2.5-3.5m（天花板）
+  避免遮挡（灯具、风管）
+
+壁挂天线：
+  高度：2.0-3.0m
+  朝向人流密集区
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 5G 室分挑战</h2>
     <pre><code>1. 低频覆盖（700MHz）
-       - 波长 429mm → 天线尺寸大
-       - 需要多频段合一天线
-       
-    2. 高频容量（3.5GHz）
-       - 衰减大 → 天线密度增加
-       - 需要 MIMO（4T4R）
-       
-    3. 毫米波及物（28GHz）
-       - 穿透差 → 室内密集部署
-       - 波束窄 → 精准覆盖</code></pre>
-  </article>
+   - 波长 429mm → 天线尺寸大
+   - 需要多频段合一天线
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>室分天线是"室内信号的基础设施"——吸顶天线最常用（2-5dBi，全向），泄漏电缆用于地铁隧道。5G 室分的关键挑战是低频覆盖（700MHz 天线尺寸大）和高频容量（3.5GHz 需要 4T4R MIMO）。记住：5G 室内流量占全网 70%，室分不是"锦上添花"而是"刚需"。</p>
+2. 高频容量（3.5GHz）
+   - 衰减大 → 天线密度增加
+   - 需要 MIMO（4T4R）
+
+3. 毫米波及物（28GHz）
+   - 穿透差 → 室内密集部署
+   - 波束窄 → 精准覆盖
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -260,39 +383,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

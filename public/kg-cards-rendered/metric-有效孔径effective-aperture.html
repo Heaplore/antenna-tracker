@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>有效孔径 Effective Aperture（A_e） · 知识卡片</title>
+<title>有效孔径Effective-Aperture · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">有效孔径 Effective Aperture（A_e） <span class="en">Effective-Aperture</span></h1>
-  <p class="lede">有效孔径是天线的"捕光面积"——它表示天线从入射电磁波中"捕获"了多少功率，与物理尺寸不一定相等（通常更小），但与增益直接相关：A_e = G·λ²/(4π)。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">有效孔径Effective-Aperture</h1>
+  <p class="lede">有效孔径是天线的&#34;捕光面积&#34;——它表示天线从入射电磁波中&#34;捕获&#34;了多少功率，与物理尺寸不一定相等（通常更小），但与增益直接相关：A_e = G·λ²/(4π)。</p>
+  
 </header>
 
 <main>
@@ -99,160 +101,431 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象你在下雨天拿一个桶接雨水。桶口的物理面积是 100cm²，但因为你拿桶的手势不对（没有正对雨的方向），实际接到的雨量只相当于 60cm² 的面积。这 60cm² 就是你的"有效孔径"——它反映了天线"真正能用"的捕集能力，而不是它的物理大小。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 数学定义</h3>
-    <pre><code>A_e = P_received / S_incident</code></pre>
-    <p>其中：</p>
-    <ul><li>P_received = 天线接收到的功率 [W]</li><li>S_incident = 入射波的功率密度 [W/m²]</li></ul>
-    <h3>1.2 有效孔径与增益的关系</h3>
-    <p>这是最重要的公式：</p>
-    <pre><code>A_e = G · λ² / (4π)</code></pre>
-    <p>其中：</p>
-    <ul><li>G 是天线的增益（线性值，不是 dB）</li><li>λ 是波长</li></ul>
-    <p><b>推导</b>：</p>
-    <pre><code>P_received = S_incident · A_e
-    同时：P_received = (P_transmitted · G_t · G_r · λ²) / ((4π)² · d²)  （Friis 公式）
-    而 S_incident = P_transmitted / (4πd²)
+  
+  <article class="card ">
     
-    所以：A_e = G_r · λ² / (4π)</code></pre>
-    <h3>1.3 有效孔径 vs 物理孔径</h3>
-    <pre><code>口径效率 ε_a = A_e / A_phys</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>A_phys (m²)</th><th>A_e (m²)</th><th>ε_a</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>理想各向同性</td><td>N/A</td><td>λ²/(4π)</td><td>N/A</td><td>理论参考</td></tr>
-    <tr><td>半波偶极子</td><td>N/A</td><td>0.13λ²</td><td>100%</td><td>无物理口径</td></tr>
-    <tr><td>微带贴片</td><td>w·l ≈ λ²</td><td>0.5-0.7λ²</td><td>50-70%</td><td>边缘场泄漏</td></tr>
-    <tr><td>抛物面（均匀照射）</td><td>π(D/2)²</td><td>0.785·π(D/2)²</td><td>78.5%</td><td>理论最大值</td></tr>
-    <tr><td>抛物面（实际）</td><td>π(D/2)²</td><td>0.5-0.65·π(D/2)²</td><td>50-65%</td><td>遮挡/照射不均</td></tr>
-    <tr><td>喇叭天线</td><td>a·b</td><td>0.7-0.9·a·b</td><td>70-90%</td><td>口径场分布</td></tr>
-    <tr><td>螺旋天线</td><td>πr²</td><td>0.8-1.0·λ²</td><td>视尺寸</td><td>轴向模</td></tr>
-    </tbody></table></div>
-    <h3>1.4 有效孔径的方向性</h3>
+    <h2>1.1 数学定义</h2>
+    <pre><code>A_e = P_received / S_incident
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>P_received = 天线接收到的功率 [W]</li>
+<li>S_incident = 入射波的功率密度 [W/m²]</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 有效孔径与增益的关系</h2>
+    <p>这是最重要的公式：</p>
+<pre><code>A_e = G · λ² / (4π)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>G 是天线的增益（线性值，不是 dB）</li>
+<li>λ 是波长</li>
+</ul>
+<p><strong>推导</strong>：</p>
+<pre><code>P_received = S_incident · A_e
+同时：P_received = (P_transmitted · G_t · G_r · λ²) / ((4π)² · d²)  （Friis 公式）
+而 S_incident = P_transmitted / (4πd²)
+
+所以：A_e = G_r · λ² / (4π)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 有效孔径 vs 物理孔径</h2>
+    <pre><code>口径效率 ε_a = A_e / A_phys
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>A_phys (m²)</th>
+<th>A_e (m²)</th>
+<th>ε_a</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理想各向同性</td>
+<td>N/A</td>
+<td>λ²/(4π)</td>
+<td>N/A</td>
+<td>理论参考</td>
+</tr>
+<tr>
+<td>半波偶极子</td>
+<td>N/A</td>
+<td>0.13λ²</td>
+<td>100%</td>
+<td>无物理口径</td>
+</tr>
+<tr>
+<td>微带贴片</td>
+<td>w·l ≈ λ²</td>
+<td>0.5-0.7λ²</td>
+<td>50-70%</td>
+<td>边缘场泄漏</td>
+</tr>
+<tr>
+<td>抛物面（均匀照射）</td>
+<td>π(D/2)²</td>
+<td>0.785·π(D/2)²</td>
+<td>78.5%</td>
+<td>理论最大值</td>
+</tr>
+<tr>
+<td>抛物面（实际）</td>
+<td>π(D/2)²</td>
+<td>0.5-0.65·π(D/2)²</td>
+<td>50-65%</td>
+<td>遮挡/照射不均</td>
+</tr>
+<tr>
+<td>喇叭天线</td>
+<td>a·b</td>
+<td>0.7-0.9·a·b</td>
+<td>70-90%</td>
+<td>口径场分布</td>
+</tr>
+<tr>
+<td>螺旋天线</td>
+<td>πr²</td>
+<td>0.8-1.0·λ²</td>
+<td>视尺寸</td>
+<td>轴向模</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.4 有效孔径的方向性</h2>
     <p>A_e 不是常数——它随入射波的方向变化：</p>
-    <pre><code>A_e(θ, φ) = A_e,max · F(θ, φ) / F(θ_max, φ_max)</code></pre>
-    <p>其中 F(θ, φ) 是归一化方向图。</p>
-    <p><b>物理意义</b>：天线正对着信号源时"捕集"能力最强，偏离后减弱。</p>
+<pre><code>A_e(θ, φ) = A_e,max · F(θ, φ) / F(θ_max, φ_max)
+</code></pre>
+<p>其中 F(θ, φ) 是归一化方向图。</p>
+<p><strong>物理意义</strong>：天线正对着信号源时"捕集"能力最强，偏离后减弱。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、计算公式</h2>
-    <h3>2.1 从功率密度计算</h3>
-    <pre><code>A_e = P_r / (E² / (2η₀))</code></pre>
-    <p>其中：</p>
-    <ul><li>P_r = 接收功率</li><li>E = 入射电场幅值</li><li>η₀ = 自由空间阻抗 ≈ 377Ω</li></ul>
-    <h3>2.2 从增益计算</h3>
-    <pre><code>A_e = G · λ² / (4π)</code></pre>
-    <p><b>举例</b>（28GHz，G = 20dBi = 100）：</p>
-    <pre><code>λ = c/f = 3×10⁸ / 28×10⁹ = 10.7mm
-    A_e = 100 × (0.0107)² / (4π) = 0.0091 m² = 91 cm²</code></pre>
-    <h3>2.3 从口径场积分计算</h3>
-    <pre><code>A_e = |∫∫_A E_a(x,y) dx dy|² / (λ² ∫∫_A |E_a(x,y)|² dx dy)</code></pre>
-    <p>其中 E_a(x,y) 是口径上的电场分布。</p>
-    <p><b>简化理解</b>：分子是口径场的"相干叠加"，分母是口径场的"总能量"。口径场越均匀，A_e 越接近 A_phys。</p>
-    <h3>2.4 抛物面天线的有效孔径</h3>
-    <pre><code>A_e = ε_a · π(D/2)²</code></pre>
-    <p>其中 D 是抛物面直径，ε_a 是口径效率（通常 50-70%）。</p>
-    <p><b>口径效率分解</b>：</p>
-    <pre><code>ε_a = ε_tap · ε_spill · ε_phase · ε_pol · ε_obc</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>效率因子</th><th>符号</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>照射效率</td><td>ε_tap</td><td>0.7-0.9</td><td>馈源照射均匀度</td></tr>
-    <tr><td>溢出效率</td><td>ε_spill</td><td>0.8-0.95</td><td>能量不溢出抛物面边缘</td></tr>
-    <tr><td>相位效率</td><td>ε_phase</td><td>0.9-0.99</td><td>口径相位不均匀度</td></tr>
-    <tr><td>极化效率</td><td>ε_pol</td><td>0.95-0.99</td><td>极化匹配度</td></tr>
-    <tr><td>遮挡效率</td><td>ε_obc</td><td>0.85-0.95</td><td>副镜/馈源支撑遮挡</td></tr>
-    </tbody></table></div>
-    <h3>2.5 阵列天线的有效孔径</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 从功率密度计算</h2>
+    <pre><code>A_e = P_r / (E² / (2η₀))
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>P_r = 接收功率</li>
+<li>E = 入射电场幅值</li>
+<li>η₀ = 自由空间阻抗 ≈ 377Ω</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 从增益计算</h2>
+    <pre><code>A_e = G · λ² / (4π)
+</code></pre>
+<p><strong>举例</strong>（28GHz，G = 20dBi = 100）：</p>
+<pre><code>λ = c/f = 3×10⁸ / 28×10⁹ = 10.7mm
+A_e = 100 × (0.0107)² / (4π) = 0.0091 m² = 91 cm²
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 从口径场积分计算</h2>
+    <pre><code>A_e = |∫∫_A E_a(x,y) dx dy|² / (λ² ∫∫_A |E_a(x,y)|² dx dy)
+</code></pre>
+<p>其中 E_a(x,y) 是口径上的电场分布。</p>
+<p><strong>简化理解</strong>：分子是口径场的"相干叠加"，分母是口径场的"总能量"。口径场越均匀，A_e 越接近 A_phys。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 抛物面天线的有效孔径</h2>
+    <pre><code>A_e = ε_a · π(D/2)²
+</code></pre>
+<p>其中 D 是抛物面直径，ε_a 是口径效率（通常 50-70%）。</p>
+<p><strong>口径效率分解</strong>：</p>
+<pre><code>ε_a = ε_tap · ε_spill · ε_phase · ε_pol · ε_obc
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>效率因子</th>
+<th>符号</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>照射效率</td>
+<td>ε_tap</td>
+<td>0.7-0.9</td>
+<td>馈源照射均匀度</td>
+</tr>
+<tr>
+<td>溢出效率</td>
+<td>ε_spill</td>
+<td>0.8-0.95</td>
+<td>能量不溢出抛物面边缘</td>
+</tr>
+<tr>
+<td>相位效率</td>
+<td>ε_phase</td>
+<td>0.9-0.99</td>
+<td>口径相位不均匀度</td>
+</tr>
+<tr>
+<td>极化效率</td>
+<td>ε_pol</td>
+<td>0.95-0.99</td>
+<td>极化匹配度</td>
+</tr>
+<tr>
+<td>遮挡效率</td>
+<td>ε_obc</td>
+<td>0.85-0.95</td>
+<td>副镜/馈源支撑遮挡</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 阵列天线的有效孔径</h2>
     <p>N 元阵列：</p>
-    <pre><code>A_e,array = N · A_e,element · ε_coupling</code></pre>
-    <p>其中 ε_coupling 是互耦效率（0.7-0.95）。</p>
+<pre><code>A_e,array = N · A_e,element · ε_coupling
+</code></pre>
+<p>其中 ε_coupling 是互耦效率（0.7-0.95）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型值范围</h2>
-    <h3>3.1 不同频段同一尺寸天线的 A_e</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线物理尺寸</th><th>3.5GHz</th><th>28GHz</th><th>60GHz</th><th>140GHz</th></tr></thead>
-    <tbody>
-    <tr><td>10cm×10cm</td><td>A_e≈0.03m²</td><td>A_e≈0.002m²</td><td>A_e≈0.0005m²</td><td>A_e≈0.0001m²</td></tr>
-    <tr><td>λ 倍数</td><td>10.5λ</td><td>1.3λ</td><td>0.6λ</td><td>0.26λ</td></tr>
-    </tbody></table></div>
-    <p><b>规律</b>：频率越高，同一物理尺寸的 A_e 越小（因为 λ² 减小）。</p>
-    <h3>3.2 常见天线的 A_e/λ² 比值</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>A_e/λ²</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>半波偶极子</td><td>0.13</td><td>无物理口径</td></tr>
-    <tr><td>微带贴片</td><td>0.5-0.7</td><td>单单元</td></tr>
-    <tr><td>标准喇叭</td><td>5-15</td><td>取决于尺寸</td></tr>
-    <tr><td>抛物面（D=1m, 12GHz）</td><td>2000+</td><td>大口径</td></tr>
-    <tr><td>GPS 手机天线</td><td>0.01-0.1</td><td>极小</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 不同频段同一尺寸天线的 A_e</h2>
+    <table>
+<thead>
+<tr>
+<th>天线物理尺寸</th>
+<th>3.5GHz</th>
+<th>28GHz</th>
+<th>60GHz</th>
+<th>140GHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10cm×10cm</td>
+<td>A_e≈0.03m²</td>
+<td>A_e≈0.002m²</td>
+<td>A_e≈0.0005m²</td>
+<td>A_e≈0.0001m²</td>
+</tr>
+<tr>
+<td>λ 倍数</td>
+<td>10.5λ</td>
+<td>1.3λ</td>
+<td>0.6λ</td>
+<td>0.26λ</td>
+</tr>
+</tbody>
+</table>
+<p><strong>规律</strong>：频率越高，同一物理尺寸的 A_e 越小（因为 λ² 减小）。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、测量方法</h2>
-    <h3>4.1 已知发射天线法</h3>
-    <pre><code>步骤：
-    1. 用已知增益 G_t 的发射天线
-    2. 测量接收功率 P_r
-    3. 已知发射功率 P_t 和距离 d
-    4. 计算：A_e = P_r · (4πd²) / (P_t · G_t)</code></pre>
-    <h3>4.2 增益比较法</h3>
-    <pre><code>步骤：
-    1. 用标准增益天线测量参考功率 P_std
-    2. 换上 AUT 测量 P_AUT
-    3. 计算：A_e,std = G_std · λ²/(4π)
-    4. A_e,AUT = A_e,std · (P_AUT / P_std)</code></pre>
-    <h3>4.3 暗室方向图积分法</h3>
-    <pre><code>步骤：
-    1. 测量完整 3D 方向图
-    2. 计算波束立体角 Ω_A
-    3. D = 4π/Ω_A
-    4. A_e = D · λ²/(4π) · η</code></pre>
+  
+  <article class="card ">
+    
+    <h2>3.2 常见天线的 A_e/λ² 比值</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>A_e/λ²</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>半波偶极子</td>
+<td>0.13</td>
+<td>无物理口径</td>
+</tr>
+<tr>
+<td>微带贴片</td>
+<td>0.5-0.7</td>
+<td>单单元</td>
+</tr>
+<tr>
+<td>标准喇叭</td>
+<td>5-15</td>
+<td>取决于尺寸</td>
+</tr>
+<tr>
+<td>抛物面（D=1m, 12GHz）</td>
+<td>2000+</td>
+<td>大口径</td>
+</tr>
+<tr>
+<td>GPS 手机天线</td>
+<td>0.01-0.1</td>
+<td>极小</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>4.1 已知发射天线法</h2>
+    <pre><code>步骤：
+
+1. 用已知增益 G_t 的发射天线
+2. 测量接收功率 P_r
+3. 已知发射功率 P_t 和距离 d
+4. 计算：A_e = P_r · (4πd²) / (P_t · G_t)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 增益比较法</h2>
+    <pre><code>步骤：
+
+1. 用标准增益天线测量参考功率 P_std
+2. 换上 AUT 测量 P_AUT
+3. 计算：A_e,std = G_std · λ²/(4π)
+4. A_e,AUT = A_e,std · (P_AUT / P_std)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 暗室方向图积分法</h2>
+    <pre><code>步骤：
+
+1. 测量完整 3D 方向图
+2. 计算波束立体角 Ω_A
+3. D = 4π/Ω_A
+4. A_e = D · λ²/(4π) · η
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>五、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>天线增益 G</td><td>A_e = G·λ²/(4π)</td><td>正比关系，核心公式</td></tr>
-    <tr><td>方向性系数 D</td><td>A_e = D·λ²/(4π)·η</td><td>D 是 G 去掉效率后的值</td></tr>
-    <tr><td>物理面积 A_phys</td><td>ε_a = A_e/A_phys</td><td>口径效率</td></tr>
-    <tr><td>波长 λ</td><td>A_e ∝ λ²</td><td>频率越高，A_e 越小</td></tr>
-    <tr><td>带宽</td><td>宽频天线 A_e 变化大</td><td>不同频率 A_e 不同</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>关联指标</th>
+<th>关系类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线增益 G</td>
+<td>A_e = G·λ²/(4π)</td>
+<td>正比关系，核心公式</td>
+</tr>
+<tr>
+<td>方向性系数 D</td>
+<td>A_e = D·λ²/(4π)·η</td>
+<td>D 是 G 去掉效率后的值</td>
+</tr>
+<tr>
+<td>物理面积 A_phys</td>
+<td>ε_a = A_e/A_phys</td>
+<td>口径效率</td>
+</tr>
+<tr>
+<td>波长 λ</td>
+<td>A_e ∝ λ²</td>
+<td>频率越高，A_e 越小</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>宽频天线 A_e 变化大</td>
+<td>不同频率 A_e 不同</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 A_e 随频率变化</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 A_e 随频率变化</h2>
     <p>对于宽频天线（如喇叭、对数周期天线），A_e 随频率变化显著：</p>
-    <pre><code>A_e(f) = G(f) · c² / (4π · f²)</code></pre>
-    <p>设计宽频系统时，需要考虑 A_e 在整个频段内的变化。</p>
-    <h3>6.2 有效孔径与接收灵敏度</h3>
-    <pre><code>接收信噪比 SNR ∝ A_e · P_t / (k · T_sys · B)</code></pre>
-    <p>A_e 越大 → 接收灵敏度越高 → 可以接收更弱的信号。</p>
-    <p>这就是为什么射电望远镜要用巨大的口径——不是为了"放大"信号，而是为了"捕获"更多能量。</p>
-    <h3>6.3 MIMO 中的有效孔径</h3>
-    <p>MIMO 的空间分辨率取决于有效孔径的物理尺寸（不是单元数）：</p>
-    <pre><code>空间分辨率 Δθ ≈ λ / A_e_physical</code></pre>
-    <p>64 单元 MIMO 如果挤在小面积里，空间分辨率不如 8 单元但分布在大面积上的天线。</p>
+<pre><code>A_e(f) = G(f) · c² / (4π · f²)
+</code></pre>
+<p>设计宽频系统时，需要考虑 A_e 在整个频段内的变化。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>有效孔径是天线的"真实捕集面积"——它告诉你天线能从电磁波中"捞到多少功率"。核心公式 A_e = G·λ²/(4π) 把增益和有效孔径绑在一起：增益高的天线有效孔径大，但高频天线的 λ² 小，所以同样的增益下，高频天线的 A_e 反而更小。记住：A_e 不等于物理面积，它通常小于物理面积（口径效率 < 100%）。</p>
+  
+  <article class="card ">
+    
+    <h2>6.2 有效孔径与接收灵敏度</h2>
+    <pre><code>接收信噪比 SNR ∝ A_e · P_t / (k · T_sys · B)
+</code></pre>
+<p>A_e 越大 → 接收灵敏度越高 → 可以接收更弱的信号。</p>
+<p>这就是为什么射电望远镜要用巨大的口径——不是为了"放大"信号，而是为了"捕获"更多能量。</p>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 MIMO 中的有效孔径</h2>
+    <p>MIMO 的空间分辨率取决于有效孔径的物理尺寸（不是单元数）：</p>
+<pre><code>空间分辨率 Δθ ≈ λ / A_e_physical
+</code></pre>
+<p>64 单元 MIMO 如果挤在小面积里，空间分辨率不如 8 单元但分布在大面积上的天线。</p>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -272,39 +545,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

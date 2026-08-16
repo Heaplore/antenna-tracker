@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">高介电常数介质陶瓷</h1>
   <p class="lede">高介电常数陶瓷（Dk=20-1000+）是介质移相器和介质负载天线的核心材料——通过高 Dk 材料缩短电磁波波长，从而把天线尺寸缩小 3-10 倍，代价是带宽变窄和损耗增大。</p>
+  
 </header>
 
 <main>
@@ -99,163 +101,242 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>高 Dk 陶瓷就像"减速带"——电磁波穿过高介电常数材料时速度变慢（v=c/√Dk），波长缩短，同样的物理尺寸就能容纳更多个波长，从而实现更小的天线或更大的相位延迟。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、高介电常数陶瓷材料</h2>
-    <h3>1.1 钛酸钡（BaTiO₃）基陶瓷</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 钛酸钡（BaTiO₃）基陶瓷</h2>
     <pre><code>材料体系：
-      BaTiO₃ + 添加剂（MnO₂、SiO₂、B₂O₃ 等）
-      
-    参数：
-      Dk：50-1000（@1MHz，频率越高 Dk 越低）
-      Df：0.005-0.02（@1GHz）
-      温度系数：可调控（C0G/NP0 型接近零）
-      
-    特点：
-      - Dk 最高，尺寸缩小效果最明显
-      - 但频率色散严重（Dk 随频率下降）
-      - 适合 Sub-6GHz 移相器/负载天线
-      
-    典型应用：
-      - 介质移相器（RET 天线）
-      - 介质负载微带天线
-      - 介质谐振器天线（DRA）</code></pre>
-    <h3>1.2 钛酸锶钡（BST）</h3>
-    <pre><code>材料体系：
-      Ba₁₋ₓSrₓTiO₃
-      
-    参数：
-      Dk：100-500（@1GHz）
-      Df：0.01-0.05
-      电压可调：Dk 随外加电场变化
-      
-    特点：
-      - 电 tunable（电压控制 Dk）
-      - 适合可调谐天线/移相器
-      - 6G 可重构天线候选材料
-      
-    典型应用：
-      - 可调谐移相器
-      - 可重构天线
-      - 6G 智能反射面（RHS）</code></pre>
-    <h3>1.3 锆钛酸铅（PZT）</h3>
-    <pre><code>材料体系：
-      Pb(Zr,Ti)O₃
-      
-    参数：
-      Dk：300-5000（@1kHz）
-      Df：0.01-0.05
-      压电效应：强
-      
-    特点：
-      - Dk 极高
-      - 含铅（RoHS 限制）
-      - 主要用于压电器件
-      
-    典型应用：
-      - 压电换能器
-      - 超声传感器
-      - 不常用于天线（RoHS 问题）</code></pre>
-    <h3>1.4 低损耗高 Dk 陶瓷（钛酸铝镁等）</h3>
-    <pre><code>材料体系：
-      MgTiO₃-CaTiO₃ 等
-      
-    参数：
-      Dk：20-50（@1GHz）
-      Df：0.001-0.005
-      温度系数：接近零
-      
-    特点：
-      - 低损耗 + 中等 Dk
-      - 温度稳定性好
-      - 适合 5G 基站天线
-      
-    典型应用：
-      - 5G 基站介质滤波器
-      - 低损耗介质天线
-      - 温度稳定型移相器</code></pre>
-  </article>
+  BaTiO₃ + 添加剂（MnO₂、SiO₂、B₂O₃ 等）
 
-  <article class="card">
-    <h2>二、高 Dk 陶瓷在天线中的应用</h2>
-    <h3>2.1 介质移相器（Dielectric Phase Shifter）</h3>
+参数：
+  Dk：50-1000（@1MHz，频率越高 Dk 越低）
+  Df：0.005-0.02（@1GHz）
+  温度系数：可调控（C0G/NP0 型接近零）
+
+特点：
+  - Dk 最高，尺寸缩小效果最明显
+  - 但频率色散严重（Dk 随频率下降）
+  - 适合 Sub-6GHz 移相器/负载天线
+
+典型应用：
+  - 介质移相器（RET 天线）
+  - 介质负载微带天线
+  - 介质谐振器天线（DRA）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 钛酸锶钡（BST）</h2>
+    <pre><code>材料体系：
+  Ba₁₋ₓSrₓTiO₃
+
+参数：
+  Dk：100-500（@1GHz）
+  Df：0.01-0.05
+  电压可调：Dk 随外加电场变化
+
+特点：
+  - 电 tunable（电压控制 Dk）
+  - 适合可调谐天线/移相器
+  - 6G 可重构天线候选材料
+
+典型应用：
+  - 可调谐移相器
+  - 可重构天线
+  - 6G 智能反射面（RHS）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 锆钛酸铅（PZT）</h2>
+    <pre><code>材料体系：
+  Pb(Zr,Ti)O₃
+
+参数：
+  Dk：300-5000（@1kHz）
+  Df：0.01-0.05
+  压电效应：强
+
+特点：
+  - Dk 极高
+  - 含铅（RoHS 限制）
+  - 主要用于压电器件
+
+典型应用：
+  - 压电换能器
+  - 超声传感器
+  - 不常用于天线（RoHS 问题）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.4 低损耗高 Dk 陶瓷（钛酸铝镁等）</h2>
+    <pre><code>材料体系：
+  MgTiO₃-CaTiO₃ 等
+
+参数：
+  Dk：20-50（@1GHz）
+  Df：0.001-0.005
+  温度系数：接近零
+
+特点：
+  - 低损耗 + 中等 Dk
+  - 温度稳定性好
+  - 适合 5G 基站天线
+
+典型应用：
+  - 5G 基站介质滤波器
+  - 低损耗介质天线
+  - 温度稳定型移相器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 介质移相器（Dielectric Phase Shifter）</h2>
     <pre><code>原理：
-      电磁波在介质中传播速度 v = c/√Dk
-      相位延迟 φ = β·L = (2π/λ)·√Dk·L
-      
-    高 Dk 陶瓷的作用：
-      - 相同物理长度 L，相位延迟增大 √Dk 倍
-      - 例如：Dk=100 → 相位延迟增大 10 倍
-      - 实现小型化移相器
-      
-    在 RET 天线中的应用：
-      - 每个电调通道需要一个介质移相器
-      - 64T64R AAU 需要 64 个介质移相器
-      - 介质移相比电子移相器体积小 50%
-      
-    旭化成 XYRON™ 方案：
-      - PPE 树脂，Dk 可控（2.6-10.2）
-      - 用于 5G 基站介质移相器
-      - 低损耗（Df&lt;0.005）</code></pre>
-    <h3>2.2 介质负载天线（Dielectric Loaded Antenna）</h3>
-    <pre><code>结构：
-      金属辐射贴片 + 高 Dk 陶瓷负载
-      
-    原理：
-      高 Dk 陶瓷&quot;压缩&quot;电磁场分布
-      → 有效波长缩短
-      → 天线尺寸缩小
-      
-    尺寸缩小比例：
-      Dk=10 → 尺寸缩小 ~3 倍
-      Dk=100 → 尺寸缩小 ~10 倍
-      
-    代价：
-      - 带宽变窄（Q 值升高）
-      - 损耗增大（Df&gt;0.01）
-      - 效率降低
-      
-    典型应用：
-      - 手机内部天线（空间受限）
-      - IoT 设备天线
-      - 小型化卫星天线</code></pre>
-    <h3>2.3 介质谐振器天线（DRA）</h3>
-    <pre><code>结构：
-      高 Q 值介质谐振器（Dk=30-100）
-      + 馈电结构（微带线/同轴探针）
-      
-    特点：
-      - 高效率（无金属损耗）
-      - 宽频带（相比负载天线）
-      - 低交叉极化
-      
-    应用：
-      - 5G 基站天线（3.5GHz）
-      - 卫星通信
-      - 雷达</code></pre>
-  </article>
+  电磁波在介质中传播速度 v = c/√Dk
+  相位延迟 φ = β·L = (2π/λ)·√Dk·L
 
-  <article class="card">
+高 Dk 陶瓷的作用：
+  - 相同物理长度 L，相位延迟增大 √Dk 倍
+  - 例如：Dk=100 → 相位延迟增大 10 倍
+  - 实现小型化移相器
+
+在 RET 天线中的应用：
+  - 每个电调通道需要一个介质移相器
+  - 64T64R AAU 需要 64 个介质移相器
+  - 介质移相比电子移相器体积小 50%
+
+旭化成 XYRON™ 方案：
+  - PPE 树脂，Dk 可控（2.6-10.2）
+  - 用于 5G 基站介质移相器
+  - 低损耗（Df&lt;0.005）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 介质负载天线（Dielectric Loaded Antenna）</h2>
+    <pre><code>结构：
+  金属辐射贴片 + 高 Dk 陶瓷负载
+
+原理：
+  高 Dk 陶瓷&quot;压缩&quot;电磁场分布
+  → 有效波长缩短
+  → 天线尺寸缩小
+
+尺寸缩小比例：
+  Dk=10 → 尺寸缩小 ~3 倍
+  Dk=100 → 尺寸缩小 ~10 倍
+
+代价：
+  - 带宽变窄（Q 值升高）
+  - 损耗增大（Df&gt;0.01）
+  - 效率降低
+
+典型应用：
+  - 手机内部天线（空间受限）
+  - IoT 设备天线
+  - 小型化卫星天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 介质谐振器天线（DRA）</h2>
+    <pre><code>结构：
+  高 Q 值介质谐振器（Dk=30-100）
+  + 馈电结构（微带线/同轴探针）
+
+特点：
+  - 高效率（无金属损耗）
+  - 宽频带（相比负载天线）
+  - 低交叉极化
+
+应用：
+  - 5G 基站天线（3.5GHz）
+  - 卫星通信
+  - 雷达
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、材料选型指南</h2>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>推荐材料</th><th>Dk</th><th>Df</th><th>理由</th></tr></thead>
-    <tbody>
-    <tr><td>介质移相器</td><td>PPE 树脂</td><td>3-10</td><td>0.001-0.005</td><td>低损耗、Dk 可控</td></tr>
-    <tr><td>高缩小比天线</td><td>BaTiO₃ 陶瓷</td><td>100-500</td><td>0.01-0.05</td><td>极致尺寸缩小</td></tr>
-    <tr><td>可调谐天线</td><td>BST</td><td>100-500</td><td>0.01-0.05</td><td>电压可调 Dk</td></tr>
-    <tr><td>温度稳定天线</td><td>MgTiO₃-CaTiO₃</td><td>20-50</td><td>0.001-0.005</td><td>零温度系数</td></tr>
-    <tr><td>滤波器介质</td><td>Al₂O₃ 陶瓷</td><td>9-10</td><td>0.0002</td><td>极低损耗</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>应用</th>
+<th>推荐材料</th>
+<th>Dk</th>
+<th>Df</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>介质移相器</td>
+<td>PPE 树脂</td>
+<td>3-10</td>
+<td>0.001-0.005</td>
+<td>低损耗、Dk 可控</td>
+</tr>
+<tr>
+<td>高缩小比天线</td>
+<td>BaTiO₃ 陶瓷</td>
+<td>100-500</td>
+<td>0.01-0.05</td>
+<td>极致尺寸缩小</td>
+</tr>
+<tr>
+<td>可调谐天线</td>
+<td>BST</td>
+<td>100-500</td>
+<td>0.01-0.05</td>
+<td>电压可调 Dk</td>
+</tr>
+<tr>
+<td>温度稳定天线</td>
+<td>MgTiO₃-CaTiO₃</td>
+<td>20-50</td>
+<td>0.001-0.005</td>
+<td>零温度系数</td>
+</tr>
+<tr>
+<td>滤波器介质</td>
+<td>Al₂O₃ 陶瓷</td>
+<td>9-10</td>
+<td>0.0002</td>
+<td>极低损耗</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>高介电常数陶瓷是"尺寸缩小器"——Dk 越高，波长缩短越多，天线越小。但高 Dk 不是免费的午餐：带宽变窄、损耗增大、温度稳定性变差。5G 基站介质移相器主流选用 PPE 树脂（Dk=3-10，Df<0.005），在手机等空间受限场景才用高 Dk 陶瓷（Dk>100）。记住：天线小型化永远是在"尺寸、带宽、效率"三者之间做 trade-off。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -275,39 +356,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

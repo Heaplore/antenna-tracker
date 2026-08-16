@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线罩（Radome）材料 · 知识卡片</title>
+<title>天线罩Radome材料 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线罩材料 <span class="en">Radome</span></h1>
-  <p class="lede">天线罩是保护天线内部结构的"透明雨衣"——它必须同时满足两个矛盾的要求：机械上坚如磐石（抗风载、抗冰雹），电磁上近乎隐形（Dk≈2.5、Df<0.005）。天线罩材料从早期的玻璃钢（GFRP）发展到现在的 PVC/ASA/发泡 PPE，核心趋势是"越来越轻、越来越透"。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线罩Radome材料</h1>
+  <p class="lede">天线罩是保护天线内部结构的&#34;透明雨衣&#34;——它必须同时满足两个矛盾的要求：机械上坚如磐石（抗风载、抗冰雹），电磁上近乎隐形（Dk≈2.5、Df&lt;0.005）。天线罩材料从早期的玻璃钢（GFRP）发展到现在的 PVC/ASA/发泡 PPE，核心趋势是&#34;越来越轻、越来越透&#34;。</p>
+  
 </header>
 
 <main>
@@ -99,217 +101,317 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>天线罩就像飞机驾驶舱的"挡风玻璃"——既要扛住 300km/h 的风速和冰雹，又要让雷达波毫无阻碍地穿过去。如果天线罩的介电损耗太高，信号就像"隔着磨砂玻璃看灯"——能看见，但亮度大打折扣。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、天线罩的功能要求</h2>
-    <h3>1.1 双重矛盾需求</h3>
-    <pre><code>机械需求（硬）：
-      - 抗风载：150km/h 风速不变形
-      - 抗冰雹：φ25mm 冰雹不破裂
-      - 温度范围：-40°C to +70°C
-      - 寿命：15-20 年
-      
-    电磁需求（透）：
-      - Dk（介电常数）：2.0-3.0（越低越好）
-      - Df（损耗角正切）：&lt; 0.005（越低越好）
-      - 厚度均匀性：±0.1mm
-      - 入射角影响：0°-60° 范围内性能稳定</code></pre>
-    <h3>1.2 天线罩对信号的影响</h3>
-    <pre><code>信号穿透天线罩的损耗：
+  
+  <article class="card ">
     
-    单层天线罩损耗公式：
-      L_radome ≈ 20·log₁₀(e^(α·t))
-      其中 α = (2πf/c)·√Dk·Df
-      
-    典型损耗（3.5GHz，厚度 3mm）：
-      GFRP（Df=0.01）：~0.5dB（不可接受）
-      PVC（Df=0.003）：~0.15dB（勉强可用）
-      ASA（Df=0.002）：~0.1dB（可用）
-      发泡 PPE（Df=0.001）：~0.05dB（优秀）
-      
-    5G AAU 要求：
-      天线罩损耗 &lt; 0.1dB（3.5GHz）
-      这意味着 Df &lt; 0.003（3mm 厚度）</code></pre>
-  </article>
+    <h2>1.1 双重矛盾需求</h2>
+    <pre><code>机械需求（硬）：
+  - 抗风载：150km/h 风速不变形
+  - 抗冰雹：φ25mm 冰雹不破裂
+  - 温度范围：-40°C to +70°C
+  - 寿命：15-20 年
 
-  <article class="card">
-    <h2>二、天线罩材料类型</h2>
-    <h3>2.1 玻璃钢（GFRP）—— 第一代</h3>
-    <pre><code>结构：
-      树脂基体（不饱和聚酯/环氧树脂）
-      + 玻璃纤维增强（连续毡/编织布）
-      
-    参数：
-      Dk（2GHz）：3.5-4.5
-      Df（2GHz）：0.008-0.01
-      密度：1.8-2.0 g/cm³
-      拉伸强度：380-450 MPa
-      
-    优点：
-      - 强度高、刚度大
-      - 成本低
-      - 耐候性好
-      
-    缺点：
-      - 介电损耗大（Df=0.01）
-      - 重量大（密度 2.0）
-      - 不适合 5G 高频段
-      
-    适用场景：
-      - 4G 及以下频段（&lt; 2.6GHz）
-      - 低成本单频天线
-      - 多频/大尺寸天线（需要高强度）</code></pre>
-    <h3>2.2 PVC（改性硬质聚氯乙烯）—— 第二代</h3>
-    <pre><code>结构：
-      PVC 树脂基体
-      + 稳定剂/加工助剂/抗冲改性剂
-      + 紫外光屏蔽剂
-      
-    参数：
-      Dk（2GHz）：2.5-3.5
-      Df（2GHz）：0.001-0.005
-      密度：1.4-1.6 g/cm³
-      拉伸强度：40-60 MPa
-      工作温度：-40°C to +80°C
-      
-    优点：
-      - 介电性能优于 GFRP
-      - 成本低（三种材料最低）
-      - 可挤出成型，生产效率高
-      - 热塑性，可回收
-      
-    缺点：
-      - 强度低（不适合大尺寸天线）
-      - 耐热性差（HDT 70-85°C）
-      - 含氯，环保性差
-      - 紫外线照射后易变黄
-      
-    适用场景：
-      - 单频小尺寸天线
-      - Sub-6GHz 宏站天线
-      - 室内微站天线罩</code></pre>
-    <h3>2.3 ASA（丙烯腈-苯乙烯-丙烯酸酯）—— 第三代</h3>
-    <pre><code>结构：
-      ASA 三元共聚树脂基体
-      + 抗冲改性剂
-      + 紫外稳定剂
-      
-    参数：
-      Dk（2GHz）：2.2-2.8
-      Df（2GHz）：0.002-0.003
-      密度：1.0-1.2 g/cm³
-      拉伸强度：25-35 MPa
-      工作温度：-40°C to +90°C
-      阻燃等级：UL94 V-0
-      
-    优点：
-      - 介电性能优于 PVC
-      - 耐候性极佳（不含双键，不黄变）
-      - 重量轻（密度 1.1）
-      - 强度高（优于 PVC）
-      - 可电镀（集成放电条）
-      
-    缺点：
-      - 成本高于 PVC
-      - 强度低于 GFRP
-      - 合成工艺复杂
-      
-    适用场景：
-      - 5G Sub-6GHz 宏站天线罩（主流）
-      - 多频天线罩
-      - 户外高耐候场景</code></pre>
-    <h3>2.4 发泡 PPE（聚苯醚）—— 第四代</h3>
-    <pre><code>结构：
-      改性 PPE 树脂（旭化成 XYRON™）
-      + 发泡微珠（SunForce™）
-      
-    参数：
-      Dk（28GHz）：2.6-2.8
-      Df（28GHz）：0.001-0.004
-      密度：0.3-0.6 g/cm³（发泡后）
-      热变形温度：96-124°C
-      阻燃等级：UL94 V-0
-      
-    优点：
-      - 超低介电常数（Dk≈2.6）
-      - 超低损耗（Df≈0.001）
-      - 超轻（发泡后密度 0.4）
-      - 高刚性（夹层结构）
-      - 耐候性优异
-      - 可集成介电透镜功能
-      
-    缺点：
-      - 成本最高
-      - 工艺复杂（需要层压发泡芯材）
-      - 大规模应用经验较少
-      
-    适用场景：
-      - 5G AAU 天线罩（高端）
-      - 毫米波天线罩（28GHz+）
-      - 6G U6G 天线罩
-      - 卫星通信天线罩</code></pre>
+电磁需求（透）：
+  - Dk（介电常数）：2.0-3.0（越低越好）
+  - Df（损耗角正切）：&lt; 0.005（越低越好）
+  - 厚度均匀性：±0.1mm
+  - 入射角影响：0°-60° 范围内性能稳定
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>1.2 天线罩对信号的影响</h2>
+    <pre><code>信号穿透天线罩的损耗：
+
+单层天线罩损耗公式：
+  L_radome ≈ 20·log₁₀(e^(α·t))
+  其中 α = (2πf/c)·√Dk·Df
+
+典型损耗（3.5GHz，厚度 3mm）：
+  GFRP（Df=0.01）：~0.5dB（不可接受）
+  PVC（Df=0.003）：~0.15dB（勉强可用）
+  ASA（Df=0.002）：~0.1dB（可用）
+  发泡 PPE（Df=0.001）：~0.05dB（优秀）
+
+5G AAU 要求：
+  天线罩损耗 &lt; 0.1dB（3.5GHz）
+  这意味着 Df &lt; 0.003（3mm 厚度）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 玻璃钢（GFRP）—— 第一代</h2>
+    <pre><code>结构：
+  树脂基体（不饱和聚酯/环氧树脂）
+  + 玻璃纤维增强（连续毡/编织布）
+
+参数：
+  Dk（2GHz）：3.5-4.5
+  Df（2GHz）：0.008-0.01
+  密度：1.8-2.0 g/cm³
+  拉伸强度：380-450 MPa
+
+优点：
+  - 强度高、刚度大
+  - 成本低
+  - 耐候性好
+
+缺点：
+  - 介电损耗大（Df=0.01）
+  - 重量大（密度 2.0）
+  - 不适合 5G 高频段
+
+适用场景：
+  - 4G 及以下频段（&lt; 2.6GHz）
+  - 低成本单频天线
+  - 多频/大尺寸天线（需要高强度）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 PVC（改性硬质聚氯乙烯）—— 第二代</h2>
+    <pre><code>结构：
+  PVC 树脂基体
+  + 稳定剂/加工助剂/抗冲改性剂
+  + 紫外光屏蔽剂
+
+参数：
+  Dk（2GHz）：2.5-3.5
+  Df（2GHz）：0.001-0.005
+  密度：1.4-1.6 g/cm³
+  拉伸强度：40-60 MPa
+  工作温度：-40°C to +80°C
+
+优点：
+  - 介电性能优于 GFRP
+  - 成本低（三种材料最低）
+  - 可挤出成型，生产效率高
+  - 热塑性，可回收
+
+缺点：
+  - 强度低（不适合大尺寸天线）
+  - 耐热性差（HDT 70-85°C）
+  - 含氯，环保性差
+  - 紫外线照射后易变黄
+
+适用场景：
+  - 单频小尺寸天线
+  - Sub-6GHz 宏站天线
+  - 室内微站天线罩
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 ASA（丙烯腈-苯乙烯-丙烯酸酯）—— 第三代</h2>
+    <pre><code>结构：
+  ASA 三元共聚树脂基体
+  + 抗冲改性剂
+  + 紫外稳定剂
+
+参数：
+  Dk（2GHz）：2.2-2.8
+  Df（2GHz）：0.002-0.003
+  密度：1.0-1.2 g/cm³
+  拉伸强度：25-35 MPa
+  工作温度：-40°C to +90°C
+  阻燃等级：UL94 V-0
+
+优点：
+  - 介电性能优于 PVC
+  - 耐候性极佳（不含双键，不黄变）
+  - 重量轻（密度 1.1）
+  - 强度高（优于 PVC）
+  - 可电镀（集成放电条）
+
+缺点：
+  - 成本高于 PVC
+  - 强度低于 GFRP
+  - 合成工艺复杂
+
+适用场景：
+  - 5G Sub-6GHz 宏站天线罩（主流）
+  - 多频天线罩
+  - 户外高耐候场景
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 发泡 PPE（聚苯醚）—— 第四代</h2>
+    <pre><code>结构：
+  改性 PPE 树脂（旭化成 XYRON™）
+  + 发泡微珠（SunForce™）
+
+参数：
+  Dk（28GHz）：2.6-2.8
+  Df（28GHz）：0.001-0.004
+  密度：0.3-0.6 g/cm³（发泡后）
+  热变形温度：96-124°C
+  阻燃等级：UL94 V-0
+
+优点：
+  - 超低介电常数（Dk≈2.6）
+  - 超低损耗（Df≈0.001）
+  - 超轻（发泡后密度 0.4）
+  - 高刚性（夹层结构）
+  - 耐候性优异
+  - 可集成介电透镜功能
+
+缺点：
+  - 成本最高
+  - 工艺复杂（需要层压发泡芯材）
+  - 大规模应用经验较少
+
+适用场景：
+  - 5G AAU 天线罩（高端）
+  - 毫米波天线罩（28GHz+）
+  - 6G U6G 天线罩
+  - 卫星通信天线罩
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>三、材料对比总结</h2>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>GFRP</th><th>PVC</th><th>ASA</th><th>发泡 PPE</th></tr></thead>
-    <tbody>
-    <tr><td>Dk（2GHz）</td><td>3.5-4.5</td><td>2.5-3.5</td><td>2.2-2.8</td><td>2.4-2.8</td></tr>
-    <tr><td>Df（2GHz）</td><td>0.008-0.01</td><td>0.001-0.005</td><td>0.002-0.003</td><td>0.001-0.002</td></tr>
-    <tr><td>密度（g/cm³）</td><td>1.8-2.0</td><td>1.4-1.6</td><td>1.0-1.2</td><td>0.3-0.6</td></tr>
-    <tr><td>拉伸强度（MPa）</td><td>380-450</td><td>40-60</td><td>25-35</td><td>30-50</td></tr>
-    <tr><td>成本</td><td>低</td><td>最低</td><td>中</td><td>高</td></tr>
-    <tr><td>耐候性</td><td>良</td><td>差</td><td>优</td><td>优</td></tr>
-    <tr><td>适用频段</td><td><2.6GHz</td><td><2.6GHz</td><td><6GHz</td><td><40GHz</td></tr>
-    <tr><td>5G AAU 适用性</td><td>✗</td><td>△</td><td>✓</td><td>✓✓</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>GFRP</th>
+<th>PVC</th>
+<th>ASA</th>
+<th>发泡 PPE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dk（2GHz）</td>
+<td>3.5-4.5</td>
+<td>2.5-3.5</td>
+<td>2.2-2.8</td>
+<td>2.4-2.8</td>
+</tr>
+<tr>
+<td>Df（2GHz）</td>
+<td>0.008-0.01</td>
+<td>0.001-0.005</td>
+<td>0.002-0.003</td>
+<td>0.001-0.002</td>
+</tr>
+<tr>
+<td>密度（g/cm³）</td>
+<td>1.8-2.0</td>
+<td>1.4-1.6</td>
+<td>1.0-1.2</td>
+<td>0.3-0.6</td>
+</tr>
+<tr>
+<td>拉伸强度（MPa）</td>
+<td>380-450</td>
+<td>40-60</td>
+<td>25-35</td>
+<td>30-50</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+<td>最低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>耐候性</td>
+<td>良</td>
+<td>差</td>
+<td>优</td>
+<td>优</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>&lt;2.6GHz</td>
+<td>&lt;2.6GHz</td>
+<td>&lt;6GHz</td>
+<td>&lt;40GHz</td>
+</tr>
+<tr>
+<td>5G AAU 适用性</td>
+<td>✗</td>
+<td>△</td>
+<td>✓</td>
+<td>✓✓</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、天线罩结构设计</h2>
-    <h3>4.1 单层 vs 夹层</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 单层 vs 夹层</h2>
     <pre><code>单层天线罩：
-      材料：ASA/PVC 挤出成型
-      厚度：2-5mm
-      适用：小尺寸单频天线
-      
-    夹层天线罩（Sandwich）：
-      外层：ASA（耐候）
-      芯材：发泡 PPE（低 Dk/Df）
-      内层：ASA（保护）
-      厚度：5-15mm
-      适用：大尺寸多频/毫米波天线
-      
-    优势：
-      - 高刚性（夹层结构）
-      - 低损耗（发泡芯材）
-      - 轻量化（芯材密度 0.4）
-      - 广角透波（夹层减少反射）</code></pre>
-    <h3>4.2 一体化设计</h3>
-    <pre><code>新一代一体化天线罩：
-      XYRON™ 外壳 + SunForce™ 垫片 + 放电条
-      
-    功能整合：
-      1. 外壳：XYRON™（低介电耐候）
-      2. 垫片：SunForce™ 发泡（保持间距 + 低损耗）
-      3. 放电条：电镀铜（防雷击）
-      
-    优势：
-      - 减少零件数量
-      - 提高装配精度
-      - 降低生产工时
-      - 提高无线电透明度</code></pre>
-  </article>
+  材料：ASA/PVC 挤出成型
+  厚度：2-5mm
+  适用：小尺寸单频天线
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>天线罩材料经历了 GFRP→PVC→ASA→发泡 PPE 的四代演进，核心趋势是"低介电、低损耗、轻量化"。5G AAU 时代，ASA 是 Sub-6GHz 的主流选择，发泡 PPE 是毫米波/6G 的未来方向。记住：天线罩不是"随便一个塑料壳"——它的介电损耗会直接吃掉天线的增益，3mm 厚的 GFRP 就能吃掉 0.5dB 增益，这在 5G 里是不可接受的。</p>
+夹层天线罩（Sandwich）：
+  外层：ASA（耐候）
+  芯材：发泡 PPE（低 Dk/Df）
+  内层：ASA（保护）
+  厚度：5-15mm
+  适用：大尺寸多频/毫米波天线
+
+优势：
+  - 高刚性（夹层结构）
+  - 低损耗（发泡芯材）
+  - 轻量化（芯材密度 0.4）
+  - 广角透波（夹层减少反射）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 一体化设计</h2>
+    <pre><code>新一代一体化天线罩：
+  XYRON™ 外壳 + SunForce™ 垫片 + 放电条
+
+功能整合：
+  1. 外壳：XYRON™（低介电耐候）
+  2. 垫片：SunForce™ 发泡（保持间距 + 低损耗）
+  3. 放电条：电镀铜（防雷击）
+
+优势：
+  - 减少零件数量
+  - 提高装配精度
+  - 降低生产工时
+  - 提高无线电透明度
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -329,39 +431,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

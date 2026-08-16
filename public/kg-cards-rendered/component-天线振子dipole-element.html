@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线振子 Dipole Element（天线单元） · 知识卡片</title>
+<title>天线振子Dipole-Element · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线振子 Dipole Element（天线单元） <span class="en">Dipole-Element</span></h1>
-  <p class="lede">天线振子是天线辐射能量的最基本单元——半波偶极子是最经典的振子（增益 2.15dBi），贴片单元是毫米波最常用的振子（增益 6-8dBi）。所有天线阵列都是由这些基本单元"排列组合"出来的。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线振子Dipole-Element</h1>
+  <p class="lede">天线振子是天线辐射能量的最基本单元——半波偶极子是最经典的振子（增益 2.15dBi），贴片单元是毫米波最常用的振子（增益 6-8dBi）。所有天线阵列都是由这些基本单元&#34;排列组合&#34;出来的。</p>
+  
 </header>
 
 <main>
@@ -99,160 +101,370 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>天线振子就像乐高积木的基本块——单个积木块能力有限（增益只有 2-8dBi），但把它们按特定方式排列组合（阵列），就能搭出各种形状和功能的建筑（高增益相控阵天线）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 振子的角色</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 振子的角色</h2>
     <pre><code>振子 = 天线的&quot;最小辐射单元&quot;
-      - 接收：将电磁波转换为电信号
-      - 发射：将电信号转换为电磁波
-      
-    阵列 = N 个振子 + 馈电网络 + 移相器</code></pre>
-    <h3>1.2 常见振子类型</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>尺寸</th><th>增益</th><th>带宽</th><th>适用频段</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>半波偶极子</td><td>λ/2</td><td>2.15dBi</td><td>宽</td><td>DC-6GHz</td><td>经典</td></tr>
-    <tr><td>V 偶极子</td><td>λ/2×2</td><td>2-5dBi</td><td>宽</td><td>1-6GHz</td><td>基站常用</td></tr>
-    <tr><td>微带贴片</td><td>λ/2×λ/2</td><td>6-8dBi</td><td>窄</td><td>> 3GHz</td><td>5G 毫米波</td></tr>
-    <tr><td>折叠偶极子</td><td>λ/2</td><td>2-4dBi</td><td>宽</td><td>1-6GHz</td><td>WiFi/TV</td></tr>
-    <tr><td>螺旋振子</td><td>-</td><td>10-15dBi</td><td>中</td><td>> 1GHz</td><td>卫星</td></tr>
-    <tr><td>喇叭单元</td><td>-</td><td>10-15dBi</td><td>宽</td><td>> 10GHz</td><td>毫米波阵列</td></tr>
-    </tbody></table></div>
-  </article>
+  - 接收：将电磁波转换为电信号
+  - 发射：将电信号转换为电磁波
 
-  <article class="card">
-    <h2>二、半波偶极子（Half-Wave Dipole）</h2>
-    <h3>2.1 结构</h3>
+阵列 = N 个振子 + 馈电网络 + 移相器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 常见振子类型</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>尺寸</th>
+<th>增益</th>
+<th>带宽</th>
+<th>适用频段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>半波偶极子</td>
+<td>λ/2</td>
+<td>2.15dBi</td>
+<td>宽</td>
+<td>DC-6GHz</td>
+<td>经典</td>
+</tr>
+<tr>
+<td>V 偶极子</td>
+<td>λ/2×2</td>
+<td>2-5dBi</td>
+<td>宽</td>
+<td>1-6GHz</td>
+<td>基站常用</td>
+</tr>
+<tr>
+<td>微带贴片</td>
+<td>λ/2×λ/2</td>
+<td>6-8dBi</td>
+<td>窄</td>
+<td>&gt; 3GHz</td>
+<td>5G 毫米波</td>
+</tr>
+<tr>
+<td>折叠偶极子</td>
+<td>λ/2</td>
+<td>2-4dBi</td>
+<td>宽</td>
+<td>1-6GHz</td>
+<td>WiFi/TV</td>
+</tr>
+<tr>
+<td>螺旋振子</td>
+<td>-</td>
+<td>10-15dBi</td>
+<td>中</td>
+<td>&gt; 1GHz</td>
+<td>卫星</td>
+</tr>
+<tr>
+<td>喇叭单元</td>
+<td>-</td>
+<td>10-15dBi</td>
+<td>宽</td>
+<td>&gt; 10GHz</td>
+<td>毫米波阵列</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 结构</h2>
     <pre><code>        λ/4          λ/4
-        ───────●══════●───────
-               ↑      ↑
-             馈电点  开路端
-             
-    总长度 L = λ/2
-    馈电点：中心馈电（50Ω）</code></pre>
-    <h3>2.2 方向图</h3>
+    ───────●══════●───────
+           ↑      ↑
+         馈电点  开路端
+
+总长度 L = λ/2
+馈电点：中心馈电（50Ω）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 方向图</h2>
     <pre><code>E 面（垂直于振子）：
-        ╱╲
-       ╱  ╲
-      ╱    ╲
-     ╱      ╲
-    ──────────
-      8字形
+    ╱╲
+   ╱  ╲
+  ╱    ╲
+ ╱      ╲
+──────────
+  8字形
+
+H 面（平行于振子）：
+  圆形（全向）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    H 面（平行于振子）：
-      圆形（全向）</code></pre>
-    <h3>2.3 关键参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>增益</td><td>2.15dBi</td><td>经典值</td></tr>
-    <tr><td>输入阻抗</td><td>73+j42.5Ω</td><td>谐振时 ≈ 73Ω</td></tr>
-    <tr><td>带宽</td><td>~5-10%</td><td>取决于粗细</td></tr>
-    <tr><td>VSWR < 2:1 带宽</td><td>~8%</td><td>实用带宽</td></tr>
-    <tr><td>波束宽度</td><td>78°（E 面）</td><td>3dB 波束宽度</td></tr>
-    </tbody></table></div>
-    <h3>2.4 阻抗匹配</h3>
+    <h2>2.3 关键参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>2.15dBi</td>
+<td>经典值</td>
+</tr>
+<tr>
+<td>输入阻抗</td>
+<td>73+j42.5Ω</td>
+<td>谐振时 ≈ 73Ω</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>~5-10%</td>
+<td>取决于粗细</td>
+</tr>
+<tr>
+<td>VSWR &lt; 2:1 带宽</td>
+<td>~8%</td>
+<td>实用带宽</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>78°（E 面）</td>
+<td>3dB 波束宽度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 阻抗匹配</h2>
     <pre><code>偶极子阻抗 73Ω → 需要匹配到 50Ω
-    
-    匹配方法：
-      1. 折叠偶极子：阻抗 ≈ 300Ω → 用 4:1 巴伦
-      2. 加匹配网络：LC 匹配到 50Ω
-      3. 调整臂长：微调谐振频率</code></pre>
-  </article>
 
-  <article class="card">
-    <h2>三、微带贴片单元（Patch Element）</h2>
-    <h3>3.1 结构</h3>
+匹配方法：
+  1. 折叠偶极子：阻抗 ≈ 300Ω → 用 4:1 巴伦
+  2. 加匹配网络：LC 匹配到 50Ω
+  3. 调整臂长：微调谐振频率
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 结构</h2>
     <pre><code>    ┌──────────────────┐
-        │     金属贴片      │  ← 辐射体（宽 W，长 L ≈ λ/2）
-        ├──────────────────┤
-        │     介质基板      │  ← ε_r = 2.2-10
-        ├──────────────────┤
-        │     接地层        │  ← 金属地
-        └──────────────────┘</code></pre>
-    <h3>3.2 关键参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>增益</td><td>6-8dBi（单贴片）</td><td>比偶极子高</td></tr>
-    <tr><td>输入阻抗</td><td>可调（馈电位置）</td><td>30-200Ω</td></tr>
-    <tr><td>带宽</td><td>1-5%（窄！）</td><td>主要缺点</td></tr>
-    <tr><td>极化</td><td>线极化</td><td>取决于馈电</td></tr>
-    <tr><td>剖面</td><td>< λ/10（超薄）</td><td>主要优点</td></tr>
-    </tbody></table></div>
-    <h3>3.3 带宽提升方法</h3>
+    │     金属贴片      │  ← 辐射体（宽 W，长 L ≈ λ/2）
+    ├──────────────────┤
+    │     介质基板      │  ← ε_r = 2.2-10
+    ├──────────────────┤
+    │     接地层        │  ← 金属地
+    └──────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 关键参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>6-8dBi（单贴片）</td>
+<td>比偶极子高</td>
+</tr>
+<tr>
+<td>输入阻抗</td>
+<td>可调（馈电位置）</td>
+<td>30-200Ω</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>1-5%（窄！）</td>
+<td>主要缺点</td>
+</tr>
+<tr>
+<td>极化</td>
+<td>线极化</td>
+<td>取决于馈电</td>
+</tr>
+<tr>
+<td>剖面</td>
+<td>&lt; λ/10（超薄）</td>
+<td>主要优点</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 带宽提升方法</h2>
     <pre><code>单贴片带宽：1-3%
+
+提升方法：
+  1. 加厚基板 → 带宽 ↑，但可能出现表面波
+  2. 降低 ε_r → 带宽 ↑，但尺寸 ↑
+  3. 叠层贴片（stacked patch）→ 带宽 10-20%
+  4. 边缘馈电 + 探针 → 带宽 5-10%
+  5. 缝隙耦合 → 带宽 10-15%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    提升方法：
-      1. 加厚基板 → 带宽 ↑，但可能出现表面波
-      2. 降低 ε_r → 带宽 ↑，但尺寸 ↑
-      3. 叠层贴片（stacked patch）→ 带宽 10-20%
-      4. 边缘馈电 + 探针 → 带宽 5-10%
-      5. 缝隙耦合 → 带宽 10-15%</code></pre>
-    <h3>3.4 5G 毫米波贴片单元</h3>
+    <h2>3.4 5G 毫米波贴片单元</h2>
     <pre><code>28GHz 贴片单元：
-      尺寸：≈ 5.4mm × 5.4mm（λ = 10.7mm）
-      增益：7-9dBi（单贴片）
-      带宽：3-5%（足够 5G NR 的 400MHz 带宽）
-      基板：LCP，h = 0.1mm，ε_r = 3.0</code></pre>
+  尺寸：≈ 5.4mm × 5.4mm（λ = 10.7mm）
+  增益：7-9dBi（单贴片）
+  带宽：3-5%（足够 5G NR 的 400MHz 带宽）
+  基板：LCP，h = 0.1mm，ε_r = 3.0
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、振子在阵列中的应用</h2>
-    <h3>4.1 阵列中的单元间距</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 阵列中的单元间距</h2>
     <pre><code>d = λ/2（最常见）
-    d = 0.7λ（需要宽扫描）
-    d = 0.4λ（避免栅瓣，但互耦大）</code></pre>
-    <h3>4.2 有源单元方向图（AUP）</h3>
+d = 0.7λ（需要宽扫描）
+d = 0.4λ（避免栅瓣，但互耦大）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 有源单元方向图（AUP）</h2>
     <pre><code>单个振子孤立时的方向图 ≠ 阵列中的方向图
+
+原因：互耦效应
+  - 相邻振子反射功率
+  - 表面波
+  - 共同辐射阻抗
+
+AUP = 阵列中单个振子在有源环境下的方向图
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    原因：互耦效应
-      - 相邻振子反射功率
-      - 表面波
-      - 共同辐射阻抗
-    
-    AUP = 阵列中单个振子在有源环境下的方向图</code></pre>
-    <h3>4.3 单元增益 vs 阵列增益</h3>
+    <h2>4.3 单元增益 vs 阵列增益</h2>
     <pre><code>单个振子增益：G_elem
-    阵列增益：G_array = N × G_elem × η_array
-    
-    η_array = 阵列效率（馈电损耗、互耦、量化误差）
-    
-    64 单元阵列：
-      G_elem = 7dBi（贴片）
-      G_array = 7 + 10·log₁₀(64) + 损耗
-              = 7 + 18 - 2（馈电损耗）
-              = 23dBi（典型）</code></pre>
-  </article>
+阵列增益：G_array = N × G_elem × η_array
 
-  <article class="card">
-    <h2>五、振子选择指南</h2>
-    <h3>5.1 按频段选择</h3>
+η_array = 阵列效率（馈电损耗、互耦、量化误差）
+
+64 单元阵列：
+  G_elem = 7dBi（贴片）
+  G_array = 7 + 10·log₁₀(64) + 损耗
+          = 7 + 18 - 2（馈电损耗）
+          = 23dBi（典型）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 按频段选择</h2>
     <pre><code>f &lt; 1GHz → 偶极子/折叠偶极子（尺寸合理）
-    1-6GHz → 偶极子/V 偶极子/贴片
-    6-30GHz → 贴片/喇叭单元
-    &gt; 30GHz → 贴片/SIW 单元/AiP</code></pre>
-    <h3>5.2 按应用选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>推荐振子</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>5G 基站</td><td>贴片阵列</td><td>高增益、超薄、易集成</td></tr>
-    <tr><td>WiFi</td><td>偶极子/PCB 天线</td><td>低成本、宽带</td></tr>
-    <tr><td>卫星</td><td>螺旋/喇叭</td><td>高增益、圆极化</td></tr>
-    <tr><td>车载雷达</td><td>Vivaldi/贴片</td><td>宽带、低剖面</td></tr>
-    <tr><td>手机</td><td>贴片/LDS</td><td>超薄、小尺寸</td></tr>
-    </tbody></table></div>
+1-6GHz → 偶极子/V 偶极子/贴片
+6-30GHz → 贴片/喇叭单元
+&gt; 30GHz → 贴片/SIW 单元/AiP
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、一句话总结</h2>
-    <p>振子是天线的基本"砖块"——半波偶极子增益 2.15dBi、带宽宽，贴片单元增益 6-8dBi、超薄但带宽窄。5G 毫米波基站用贴片单元组成 64 元阵列，单单元增益 7dBi，阵列总增益 23-25dBi。记住：单个振子的性能决定了整个阵列的上限——再好的阵列算法也弥补不了差的单元。</p>
+  
+  <article class="card ">
+    
+    <h2>5.2 按应用选择</h2>
+    <table>
+<thead>
+<tr>
+<th>应用</th>
+<th>推荐振子</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G 基站</td>
+<td>贴片阵列</td>
+<td>高增益、超薄、易集成</td>
+</tr>
+<tr>
+<td>WiFi</td>
+<td>偶极子/PCB 天线</td>
+<td>低成本、宽带</td>
+</tr>
+<tr>
+<td>卫星</td>
+<td>螺旋/喇叭</td>
+<td>高增益、圆极化</td>
+</tr>
+<tr>
+<td>车载雷达</td>
+<td>Vivaldi/贴片</td>
+<td>宽带、低剖面</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>贴片/LDS</td>
+<td>超薄、小尺寸</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -272,39 +484,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

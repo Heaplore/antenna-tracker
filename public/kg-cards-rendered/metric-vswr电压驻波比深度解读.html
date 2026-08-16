@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSWR电压驻波比深度解读 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">VSWR电压驻波比深度解读</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>三个参数的等价换算</h2>
+    <pre><code>Γ = (VSWR - 1) / (VSWR + 1)
+Return Loss (dB) = -20 × log₁₀(|Γ|)
+VSWR = (1 + |Γ|) / (1 - |Γ|)
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>完整换算表</h2>
+    <table>
+<thead>
+<tr>
+<th>VSWR</th>
+<th>反射系数 Γ</th>
+<th>反射功率%</th>
+<th>回波损耗(dB)</th>
+<th>传输功率%</th>
+<th>失配损耗(dB)</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.00</td>
+<td>0.000</td>
+<td>0.0%</td>
+<td>∞</td>
+<td>100%</td>
+<td>0</td>
+<td>完美</td>
+</tr>
+<tr>
+<td>1.05</td>
+<td>0.024</td>
+<td>0.1%</td>
+<td>32.4</td>
+<td>99.9%</td>
+<td>0.004</td>
+<td>极佳</td>
+</tr>
+<tr>
+<td>1.10</td>
+<td>0.048</td>
+<td>0.2%</td>
+<td>26.4</td>
+<td>99.8%</td>
+<td>0.009</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>1.20</td>
+<td>0.091</td>
+<td>0.8%</td>
+<td>20.8</td>
+<td>99.2%</td>
+<td>0.035</td>
+<td>很好</td>
+</tr>
+<tr>
+<td>1.50</td>
+<td>0.200</td>
+<td>4.0%</td>
+<td>14.0</td>
+<td>96.0%</td>
+<td>0.183</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>2.00</td>
+<td>0.333</td>
+<td>11.1%</td>
+<td>9.5</td>
+<td>88.9%</td>
+<td>0.512</td>
+<td>合格</td>
+</tr>
+<tr>
+<td>3.00</td>
+<td>0.500</td>
+<td>25.0%</td>
+<td>6.0</td>
+<td>75.0%</td>
+<td>1.25</td>
+<td>较差</td>
+</tr>
+<tr>
+<td>5.00</td>
+<td>0.667</td>
+<td>44.4%</td>
+<td>3.5</td>
+<td>55.6%</td>
+<td>2.55</td>
+<td>很差</td>
+</tr>
+<tr>
+<td>6.00</td>
+<td>0.714</td>
+<td>51.0%</td>
+<td>2.9</td>
+<td>49.0%</td>
+<td>3.12</td>
+<td>不可接受</td>
+</tr>
+<tr>
+<td>∞</td>
+<td>1.000</td>
+<td>100%</td>
+<td>0</td>
+<td>0%</td>
+<td>∞</td>
+<td>开路/短路</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察</strong>：VSWR 从 1.5 升到 2.0，反射功率从 4% 跳到 11%——看似只差了 0.5，实际反射功率翻了近 3 倍！</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>什么是失配损耗？</h2>
+    <p>失配损耗是指由于阻抗不匹配导致的<strong>可用功率损失</strong>——不是功率被"消耗"了，而是被反射回去了，没有传送到天线。</p>
+<pre><code>Mismatch Loss (dB) = -10 × log₁₀(1 - |Γ|²)
+                     = -10 × log₁₀(1 - ((VSWR-1)/(VSWR+1))²)
+</code></pre>
+<p><strong>物理意义</strong>：</p>
+<ul>
+<li>失配损耗 = 0dB → 无反射，全部功率传输</li>
+<li>失配损耗 &gt; 0dB → 部分功率被反射</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>失配损耗 vs 插入损耗</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>插入损耗</th>
+<th>失配损耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因</td>
+<td>导体/介质发热消耗</td>
+<td>阻抗不匹配反射</td>
+</tr>
+<tr>
+<td>功率去向</td>
+<td>转化为热</td>
+<td>反射回源端</td>
+</tr>
+<tr>
+<td>可否消除</td>
+<td>材料决定</td>
+<td>可通过匹配网络消除</td>
+</tr>
+<tr>
+<td>计算公式</td>
+<td>测量 S21</td>
+<td>-10×log₁₀(1-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键判断</strong>：失配损耗不是"真正的损耗"，而是"没传出去的功率"。这部分功率可能在源端被吸收、被重反射、或损坏功放。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 功率效率下降</h2>
+    <pre><code>功率传输效率 = 1 - |Γ|² = 1 - ((VSWR-1)/(VSWR+1))²
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>VSWR</th>
+<th>传输效率</th>
+<th>100W 发射功率实际辐射</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5</td>
+<td>96%</td>
+<td>96W</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>89%</td>
+<td>89W</td>
+</tr>
+<tr>
+<td>3.0</td>
+<td>75%</td>
+<td>75W</td>
+</tr>
+<tr>
+<td>5.0</td>
+<td>56%</td>
+<td>56W</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5G AAU 场景</strong>：64 根天线，每根 VSWR = 2.0，意味着每根天线有 11% 的功率被反射。64 根加起来就是 64 × 11% = 7 根天线的功率白白浪费。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 功放损坏风险</h2>
+    <p>反射功率回到功放输出端，会导致：</p>
+<ul>
+<li><strong>热损伤</strong>：反射功率在功放输出级转化为热</li>
+<li><strong>电压击穿</strong>：驻波最大值处电压可能超过功放耐压</li>
+<li><strong>振荡</strong>：反射波与功放内部电路相互作用产生自激振荡</li>
+<li><strong>互调失真</strong>：非线性效应产生杂散信号</li>
+</ul>
+<p><strong>VSWR 保护机制</strong>：</p>
+<ul>
+<li>现代功放内置 VSWR 保护电路</li>
+<li>检测到高 VSWR 时自动降低输出功率（foldback）</li>
+<li>极端情况下完全关闭输出</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 信号质量劣化</h2>
+    <ul>
+<li><strong>多径效应</strong>：反射信号与直达信号叠加造成相位抵消</li>
+<li><strong>误码率上升</strong>：信号幅度波动导致解调困难</li>
+<li><strong>邻道干扰</strong>：互调产物落入相邻信道</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 测量误差</h2>
+    <p>VSWR 会影响 S 参数测量的准确性：</p>
+<ul>
+<li>源端匹配不良 → 入射波幅度不确定</li>
+<li>负载匹配不良 → 反射波幅度不确定</li>
+<li>多次反射 → 测量误差增大</li>
+</ul>
+<p><strong>解决方法</strong>：使用隔离器/环形器，或在 VNA 校准中使用误差修正模型。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>行业标准</h2>
+    <table>
+<thead>
+<tr>
+<th>设备类型</th>
+<th>VSWR 要求</th>
+<th>回波损耗要求</th>
+<th>反射功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4G 扇区天线</td>
+<td>≤ 2.0</td>
+<td>≥ 9.5dB</td>
+<td>≤ 11%</td>
+</tr>
+<tr>
+<td>5G AAU (Sub-6GHz)</td>
+<td>≤ 1.5</td>
+<td>≥ 14dB</td>
+<td>≤ 4%</td>
+</tr>
+<tr>
+<td>5G AAU (毫米波)</td>
+<td>≤ 1.5</td>
+<td>≥ 14dB</td>
+<td>≤ 4%</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>≤ 1.2</td>
+<td>≥ 20dB</td>
+<td>≤ 1%</td>
+</tr>
+<tr>
+<td>雷达系统</td>
+<td>≤ 1.1</td>
+<td>≥ 26dB</td>
+<td>≤ 0.8%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>为什么 5G AAU 要求更严？</h2>
+    <ol>
+<li><strong>功率更大</strong>：AAU 发射功率可达 200W+（4G RRU 通常 80-100W），反射功率 = 200W × 11% = 22W 的热损伤风险</li>
+<li><strong>集成度高</strong>：64 根天线紧密排列，互耦导致 VSWR 随波束指向变化</li>
+<li><strong>散热困难</strong>：AAU 内部空间紧凑，反射功率产生的热量难以散发</li>
+<li><strong>O-RAN 互操作性</strong>：多厂商设备对接要求统一的 VSWR 标准</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>波束指向对 VSWR 的影响</h2>
+    <p>Massive MIMO 的 VSWR 不是固定的——它随波束指向变化：</p>
+<pre><code>VSWR(θ, φ) = f(波束指向角 θ, φ)
+</code></pre>
+<p><strong>原因</strong>：</p>
+<ul>
+<li>波束赋形改变了天线的电流分布</li>
+<li>电流分布改变 → 输入阻抗变化 → VSWR 变化</li>
+<li>边缘波束的 VSWR 通常比中心波束差 0.3-0.5</li>
+</ul>
+<p><strong>工程对策</strong>：</p>
+<ul>
+<li>在设计阶段仿真所有波束指向的 VSWR</li>
+<li>设置波束相关的 VSWR 保护阈值</li>
+<li>边缘波束自动降低功率（power back-off）</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 矢量网络分析仪（VNA）</h2>
+    <p><strong>原理</strong>：直接测量 S11（反射系数），然后换算为 VSWR。</p>
+<pre><code>VSWR = (1 + |S11|) / (1 - |S11|)
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>同时获得幅度和相位信息</li>
+<li>全频段扫描（不是单频点）</li>
+<li>可通过 Smith Chart 直观看到阻抗位置</li>
+<li>误差修正后可达 ±0.01 VSWR 精度</li>
+</ul>
+<p><strong>典型流程</strong>：</p>
+<ol>
+<li>SOLT 校准（Short-Open-Load-Thru）</li>
+<li>设置频率范围（如 3.3-3.8GHz）</li>
+<li>扫描并记录 S11</li>
+<li>换算为 VSWR 曲线</li>
+<li>检查全频段 VSWR ≤ 1.5</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 定向耦合器 + 功率计</h2>
+    <p><strong>原理</strong>：分别测量正向功率和反射功率：</p>
+<pre><code>Γ = √(P_reflected / P_forward)
+VSWR = (1 + Γ) / (1 - Γ)
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>设备简单（定向耦合器 + 两个功率计）</li>
+<li>可在系统运行时实时监测</li>
+<li>适合现场安装验收</li>
+</ul>
+<p><strong>局限</strong>：</p>
+<ul>
+<li>只能测单频点</li>
+<li>精度低于 VNA</li>
+<li>需要精确校准定向耦合器</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 基站内置 VSWR 监测</h2>
+    <p><strong>LG 专利方法</strong>（LG Information &amp; Communications）：</p>
+<pre><code>Pd = PdB_REV - PdB_FWD  （反射功率与正向功率的差值）
+τ = 10^(Pd/20)            （反射系数）
+VSWR = (1 + τ) / (1 - τ)  （驻波比）
+</code></pre>
+<p><strong>工作原理</strong>：</p>
+<ol>
+<li>测量基站输出信号功率（P_FWD）</li>
+<li>测量天线反射回来的信号功率（P_REV）</li>
+<li>计算差值 Pd</li>
+<li>换算为 VSWR</li>
+</ol>
+<p><strong>优势</strong>：无需外部设备，基站自带监测功能，可实时告警。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 MAX2016 专用 VSWR 监测芯片</h2>
+    <p><strong>架构</strong>：</p>
+<pre><code>天线 → 环形器 → MAX2016（正向/反射功率检测）
+                        ↓
+                   MAX5402（数字电位器）
+                        ↓
+                   MAX1116/1117（ADC）
+                        ↓
+                   MCU（阈值比较 + 告警）
+</code></pre>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li>MAX2016 同时检测正向和反射功率</li>
+<li>输出两者的差值电压</li>
+<li>ADC 采样差值电压</li>
+<li>MCU 比较阈值，触发告警或降功率</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>电缆损耗的&#34;伪装效应&#34;</h2>
+    <p><strong>关键洞察</strong>：电缆损耗会"掩盖"天线的不良 VSWR。</p>
+<pre><code>在功放端测量的 VSWR ≠ 天线端的 VSWR
+</code></pre>
+<p><strong>原因</strong>：反射功率经过电缆两次（去一次、回一次），每次都有损耗。</p>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>天线端 VSWR = 10:1（很差）</li>
+<li>电缆损耗 = 6dB（往返 12dB）</li>
+<li>功放端测量 VSWR ≈ 1.5:1（看起来很好！）</li>
+</ul>
+<p><strong>结论</strong>：测量 VSWR 时，必须在天线连接器处测量，不能在功放端测量。否则会得到虚假的好结果。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>连接器的 VSWR</h2>
+    <p>每个连接器都会引入微小的阻抗不连续：</p>
+<table>
+<thead>
+<tr>
+<th>连接器类型</th>
+<th>典型 VSWR</th>
+<th>适用频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N-type</td>
+<td>1.1-1.3</td>
+<td>DC-11GHz</td>
+</tr>
+<tr>
+<td>7/16 DIN</td>
+<td>1.05-1.15</td>
+<td>DC-6GHz</td>
+</tr>
+<tr>
+<td>SMA</td>
+<td>1.1-1.3</td>
+<td>DC-18GHz</td>
+</tr>
+<tr>
+<td>2.92mm (K)</td>
+<td>1.05-1.1</td>
+<td>DC-40GHz</td>
+</tr>
+<tr>
+<td>1.85mm (V)</td>
+<td>1.03-1.07</td>
+<td>DC-67GHz</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5G 毫米波挑战</strong>：28GHz 以上必须使用 2.92mm 或 1.85mm 连接器，N 型连接器在毫米波频段 VSWR 会急剧恶化到 2.0 以上。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.1 阻抗匹配网络</h2>
+    <p><strong>L 型匹配</strong>：最简单，两个元件（L+C）
+<strong>Pi 型匹配</strong>：三个元件，带宽更宽
+<strong>T 型匹配</strong>：三个元件，Q 值可控
+<strong>Stub 匹配</strong>：微带线/同轴线常用</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.2 调整天线结构</h2>
+    <ul>
+<li>改变辐射体尺寸（调谐振频率）</li>
+<li>添加匹配枝节（stub）</li>
+<li>优化接地平面</li>
+<li>调整馈电点位置</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.3 使用隔离器/环形器</h2>
+    <p><strong>隔离器</strong>：只允许信号单向传输，反射功率被吸收在终端负载中。</p>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>即使天线 VSWR = ∞（开路），隔离器输出端看到的 VSWR = 隔离器自身 VSWR（通常 1.1-1.3）</li>
+<li>代价：插入损耗 0.3-0.5dB，且只能用于单通道</li>
+</ul>
+<p><strong>5G AAU 不使用隔离器的原因</strong>：</p>
+<ul>
+<li>64 通道 × 64 个隔离器 = 成本爆炸</li>
+<li>隔离器体积大，不利于 AAU 小型化</li>
+<li>隔离器是非互易器件，需要磁性材料，高温性能差</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.4 预失真技术</h2>
+    <p><strong>原理</strong>：在发射端预先对信号进行"反向扭曲"，抵消匹配不良引起的失真。</p>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>毫米波天线（VSWR 随频率变化大）</li>
+<li>宽带天线（VSWR 在频带边缘恶化）</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、给非专业读者的一句话总结</h2>
+    <blockquote>
+<p><strong>VSWR 就是"反射警报器"——VSWR = 1 表示 100% 功率传出去了，VSWR = 2 表示 11% 的功率弹回来了。5G 基站功率那么大，11% 的反射功率就是几十瓦的热量，能把功放烤熟。所以 5G AAU 要求 VSWR ≤ 1.5，把反射功率压到 4% 以下。电缆和连接器的每一个接头都会让 VSWR 变差——这就是为什么基站工程师最讨厌拧螺丝。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：VSWR 告诉你一个道理——<strong>最好的传输不是"拼命往前冲"，而是"不留任何回头路"</strong>。匹配好的系统，能量只进不出（反射为零）。</p>
+<hr />
+  </article>
+  
+
+  
+    
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

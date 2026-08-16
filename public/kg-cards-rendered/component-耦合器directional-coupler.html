@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>定向耦合器 Directional Coupler · 知识卡片</title>
+<title>耦合器Directional-Coupler · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">定向耦合器 Directional Coupler <span class="en">Directional-Coupler</span></h1>
-  <p class="lede">定向耦合器是 T/R 模块校准的"眼睛"——它从主信号路径中采样一小部分功率，供监测和校准使用。耦合度决定采样比例（通常 -10dB 到 -30dB），方向性决定它能区分正向和反向信号的能力。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">耦合器Directional-Coupler</h1>
+  <p class="lede">定向耦合器是 T/R 模块校准的&#34;眼睛&#34;——它从主信号路径中采样一小部分功率，供监测和校准使用。耦合度决定采样比例（通常 -10dB 到 -30dB），方向性决定它能区分正向和反向信号的能力。</p>
+  
 </header>
 
 <main>
@@ -99,206 +101,452 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>定向耦合器就像水管上的"取样阀"——主水管里水流很大，取样阀只取一点点用来检测水质（信号功率/相位），而且能区分水是往前流还是往后返（正向/反向）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 基本结构</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 基本结构</h2>
     <pre><code>Port 1（输入）───┬─── Port 2（直通/输出）
-                      │
-                   耦合区
-                      │
-    Port 4（隔离）────┴─── Port 3（耦合/采样）
-    
-    信号流向：
-      Port 1 → Port 2（主通路，低损耗）
-      Port 1 → Port 3（耦合端口，采样信号）
-      Port 2 → Port 1（反射信号到 Port 4）
-      Port 4（端接负载）</code></pre>
-    <h3>1.2 核心功能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>功能</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>功率采样</td><td>从主通路采样一小部分信号</td></tr>
-    <tr><td>方向性检测</td><td>区分正向和反向信号</td></tr>
-    <tr><td>VSWR 测量</td><td>通过正向/反向功率计算反射系数</td></tr>
-    <tr><td>通道校准</td><td>T/R 模块内部校准的参考信号</td></tr>
-    <tr><td>功率监测</td><td>实时监测发射功率</td></tr>
-    </tbody></table></div>
-  </article>
+                  │
+               耦合区
+                  │
+Port 4（隔离）────┴─── Port 3（耦合/采样）
 
-  <article class="card">
-    <h2>二、关键指标</h2>
-    <h3>2.1 耦合度（Coupling Factor）</h3>
-    <pre><code>C = -10·log₁₀(P_coupled / P_input) [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>耦合度</th><th>用途</th></tr></thead>
-    <tbody>
-    <tr><td>3dB</td><td>等分功率（合路器）</td></tr>
-    <tr><td>6dB</td><td>不等分功分</td></tr>
-    <tr><td>10dB</td><td>T/R 模块校准采样</td></tr>
-    <tr><td>20dB</td><td>功率监测</td></tr>
-    <tr><td>30dB</td><td>微弱采样（高功率系统）</td></tr>
-    </tbody></table></div>
-    <h3>2.2 方向性（Directivity）</h3>
-    <pre><code>D = C - ISO = 10·log₁₀(P_forward / P_reverse)</code></pre>
-    <p>方向性越高，正向和反向信号的区分能力越强。</p>
-    <div class="tw"><table>
-    <thead><tr><th>耦合器类型</th><th>方向性（典型）</th></tr></thead>
-    <tbody>
-    <tr><td>微带耦合器</td><td>15-25dB</td></tr>
-    <tr><td>带状线耦合器</td><td>20-30dB</td></tr>
-    <tr><td>波导耦合器</td><td>25-35dB</td></tr>
-    <tr><td>分支线耦合器</td><td>20-30dB</td></tr>
-    <tr><td>Lange 耦合器</td><td>20-25dB</td></tr>
-    </tbody></table></div>
-    <h3>2.3 插入损耗（Insertion Loss）</h3>
+信号流向：
+  Port 1 → Port 2（主通路，低损耗）
+  Port 1 → Port 3（耦合端口，采样信号）
+  Port 2 → Port 1（反射信号到 Port 4）
+  Port 4（端接负载）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 核心功能</h2>
+    <table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功率采样</td>
+<td>从主通路采样一小部分信号</td>
+</tr>
+<tr>
+<td>方向性检测</td>
+<td>区分正向和反向信号</td>
+</tr>
+<tr>
+<td>VSWR 测量</td>
+<td>通过正向/反向功率计算反射系数</td>
+</tr>
+<tr>
+<td>通道校准</td>
+<td>T/R 模块内部校准的参考信号</td>
+</tr>
+<tr>
+<td>功率监测</td>
+<td>实时监测发射功率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 耦合度（Coupling Factor）</h2>
+    <pre><code>C = -10·log₁₀(P_coupled / P_input) [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>耦合度</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3dB</td>
+<td>等分功率（合路器）</td>
+</tr>
+<tr>
+<td>6dB</td>
+<td>不等分功分</td>
+</tr>
+<tr>
+<td>10dB</td>
+<td>T/R 模块校准采样</td>
+</tr>
+<tr>
+<td>20dB</td>
+<td>功率监测</td>
+</tr>
+<tr>
+<td>30dB</td>
+<td>微弱采样（高功率系统）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 方向性（Directivity）</h2>
+    <pre><code>D = C - ISO = 10·log₁₀(P_forward / P_reverse)
+</code></pre>
+<p>方向性越高，正向和反向信号的区分能力越强。</p>
+<table>
+<thead>
+<tr>
+<th>耦合器类型</th>
+<th>方向性（典型）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微带耦合器</td>
+<td>15-25dB</td>
+</tr>
+<tr>
+<td>带状线耦合器</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>波导耦合器</td>
+<td>25-35dB</td>
+</tr>
+<tr>
+<td>分支线耦合器</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>Lange 耦合器</td>
+<td>20-25dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 插入损耗（Insertion Loss）</h2>
     <pre><code>IL = IL_coupling + IL_conductor + IL_dielectric
+
+理想 3dB 耦合器的最小损耗：3dB（耦合损耗）
+实际插入损耗：3.5-4.5dB（3dB 耦合器）
+              0.5-1.5dB（10dB 耦合器）
+              0.2-0.8dB（20dB 耦合器）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    理想 3dB 耦合器的最小损耗：3dB（耦合损耗）
-    实际插入损耗：3.5-4.5dB（3dB 耦合器）
-                  0.5-1.5dB（10dB 耦合器）
-                  0.2-0.8dB（20dB 耦合器）</code></pre>
-    <h3>2.4 隔离度（Isolation）</h3>
-    <pre><code>ISO = -10·log₁₀(P_isolated / P_input)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>Port 1 → Port 4（隔离端口）</td><td>> 25dB</td></tr>
-    <tr><td>Port 2 → Port 3（反向耦合）</td><td>> 25dB</td></tr>
-    <tr><td>Port 1 → Port 2（直通）</td><td>主通路，低损耗</td></tr>
-    </tbody></table></div>
-    <h3>2.5 带宽（Bandwidth）</h3>
-    <pre><code>BW = (f_high - f_low) / f_center</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>耦合器类型</th><th>带宽</th></tr></thead>
-    <tbody>
-    <tr><td>分支线</td><td>10-20%</td></tr>
-    <tr><td>Lange</td><td>20-40%</td></tr>
-    <tr><td>多节耦合</td><td>> 50%</td></tr>
-    <tr><td>波导</td><td>10-15%</td></tr>
-    </tbody></table></div>
+    <h2>2.4 隔离度（Isolation）</h2>
+    <pre><code>ISO = -10·log₁₀(P_isolated / P_input)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port 1 → Port 4（隔离端口）</td>
+<td>&gt; 25dB</td>
+</tr>
+<tr>
+<td>Port 2 → Port 3（反向耦合）</td>
+<td>&gt; 25dB</td>
+</tr>
+<tr>
+<td>Port 1 → Port 2（直通）</td>
+<td>主通路，低损耗</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、耦合器类型</h2>
-    <h3>3.1 分支线耦合器（Branch-Line Coupler）</h3>
-    <pre><code>结构：
-      4 条传输线组成矩形环
-      每条线长 λ/4
-      
-    特点：
-      - 90° 相位差（Quadrature）
-      - 耦合度：3-20dB
-      - 带宽：10-20%
-      - 易于集成（微带/带状线）</code></pre>
-    <h3>3.2 Lange 耦合器</h3>
-    <pre><code>结构：
-      4 条交错 interleaved 的细微带线
-      
-    特点：
-      - 紧密耦合（3dB）
-      - 带宽：20-40%
-      - 需要金线键合连接
-      - 毫米波常用</code></pre>
-    <h3>3.3 波导耦合器</h3>
-    <pre><code>结构：
-      波导壁上的耦合孔（单孔/多孔/Bethe耦合）
-      
-    特点：
-      - 极低损耗（0.1-0.3dB）
-      - 高方向性（25-35dB）
-      - 高功率容量
-      - 体积大、成本高</code></pre>
-    <h3>3.4 耦合线耦合器（Coupled-Line Coupler）</h3>
-    <pre><code>结构：
-      两条平行传输线，通过边缘场耦合
-      
-    特点：
-      - 反向耦合器（耦合端口在隔离侧）
-      - 带宽宽（30-50%）
-      - 微带/带状线均可</code></pre>
+  
+  <article class="card ">
+    
+    <h2>2.5 带宽（Bandwidth）</h2>
+    <pre><code>BW = (f_high - f_low) / f_center
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>耦合器类型</th>
+<th>带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分支线</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>Lange</td>
+<td>20-40%</td>
+</tr>
+<tr>
+<td>多节耦合</td>
+<td>&gt; 50%</td>
+</tr>
+<tr>
+<td>波导</td>
+<td>10-15%</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、在 T/R 模块中的应用</h2>
-    <h3>4.1 校准采样</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 分支线耦合器（Branch-Line Coupler）</h2>
+    <pre><code>结构：
+  4 条传输线组成矩形环
+  每条线长 λ/4
+
+特点：
+  - 90° 相位差（Quadrature）
+  - 耦合度：3-20dB
+  - 带宽：10-20%
+  - 易于集成（微带/带状线）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 Lange 耦合器</h2>
+    <pre><code>结构：
+  4 条交错 interleaved 的细微带线
+
+特点：
+  - 紧密耦合（3dB）
+  - 带宽：20-40%
+  - 需要金线键合连接
+  - 毫米波常用
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 波导耦合器</h2>
+    <pre><code>结构：
+  波导壁上的耦合孔（单孔/多孔/Bethe耦合）
+
+特点：
+  - 极低损耗（0.1-0.3dB）
+  - 高方向性（25-35dB）
+  - 高功率容量
+  - 体积大、成本高
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 耦合线耦合器（Coupled-Line Coupler）</h2>
+    <pre><code>结构：
+  两条平行传输线，通过边缘场耦合
+
+特点：
+  - 反向耦合器（耦合端口在隔离侧）
+  - 带宽宽（30-50%）
+  - 微带/带状线均可
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 校准采样</h2>
     <pre><code>T/R 模块内部校准链路：
-      PA 输出 → 耦合器（-10dB） → 校准接收机
-                                  → PA 主输出 → 天线
-      
-    LNA 输入 → 耦合器（-20dB） ← 校准信号源
-      ↑
-    从天线反向采样</code></pre>
-    <h3>4.2 VSWR 监测</h3>
+  PA 输出 → 耦合器（-10dB） → 校准接收机
+                              → PA 主输出 → 天线
+
+LNA 输入 → 耦合器（-20dB） ← 校准信号源
+  ↑
+从天线反向采样
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 VSWR 监测</h2>
     <pre><code>正向功率 P_fwd ← 耦合器 Port 3
-    反向功率 P_rev ← 耦合器 Port 4
+反向功率 P_rev ← 耦合器 Port 4
+
+Γ = √(P_rev / P_fwd)
+VSWR = (1 + Γ) / (1 - Γ)
+
+实时监控 → 过载保护
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    Γ = √(P_rev / P_fwd)
-    VSWR = (1 + Γ) / (1 - Γ)
-    
-    实时监控 → 过载保护</code></pre>
-    <h3>4.3 功率控制闭环</h3>
+    <h2>4.3 功率控制闭环</h2>
     <pre><code>目标功率 → DAC 设定 → PA 增益控制
-                        ↑
-                  耦合器采样 → 检波器 → ADC → 基带
-                                            ↓
-                                  PID 控制器 → 调整 PA 增益</code></pre>
+                    ↑
+              耦合器采样 → 检波器 → ADC → 基带
+                                        ↓
+                              PID 控制器 → 调整 PA 增益
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、典型产品</h2>
-    <h3>5.1 微带耦合器（Sub-6GHz）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>耦合度</th><th>带宽</th><th>方向性</th><th>频率范围</th></tr></thead>
-    <tbody>
-    <tr><td>AD5362</td><td>Analog Devices</td><td>6dB</td><td>20%</td><td>20dB</td><td>DC-2GHz</td></tr>
-    <tr><td>HMC965LP5CE</td><td>Analog Devices</td><td>10dB</td><td>30%</td><td>25dB</td><td>0.5-4GHz</td></tr>
-    </tbody></table></div>
-    <h3>5.2 毫米波耦合器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>耦合度</th><th>带宽</th><th>方向性</th><th>频率范围</th></tr></thead>
-    <tbody>
-    <tr><td>HMC832MS89G</td><td>Analog Devices</td><td>10dB</td><td>20%</td><td>20dB</td><td>24-30GHz</td></tr>
-    <tr><td>CGHS-022+</td><td>Minicircuits</td><td>3dB</td><td>40%</td><td>15dB</td><td>18-40GHz</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>5.1 微带耦合器（Sub-6GHz）</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>耦合度</th>
+<th>带宽</th>
+<th>方向性</th>
+<th>频率范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AD5362</td>
+<td>Analog Devices</td>
+<td>6dB</td>
+<td>20%</td>
+<td>20dB</td>
+<td>DC-2GHz</td>
+</tr>
+<tr>
+<td>HMC965LP5CE</td>
+<td>Analog Devices</td>
+<td>10dB</td>
+<td>30%</td>
+<td>25dB</td>
+<td>0.5-4GHz</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 功率容量</h3>
+  
+  <article class="card ">
+    
+    <h2>5.2 毫米波耦合器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>耦合度</th>
+<th>带宽</th>
+<th>方向性</th>
+<th>频率范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HMC832MS89G</td>
+<td>Analog Devices</td>
+<td>10dB</td>
+<td>20%</td>
+<td>20dB</td>
+<td>24-30GHz</td>
+</tr>
+<tr>
+<td>CGHS-022+</td>
+<td>Minicircuits</td>
+<td>3dB</td>
+<td>40%</td>
+<td>15dB</td>
+<td>18-40GHz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 功率容量</h2>
     <pre><code>耦合器额定功率：
-      微带：1-10W（Sub-6GHz）
-      波导：100W-1kW（基站）
-      
-    过载后果：
-      - 耦合端口烧毁
-      - 方向性恶化
-      - 永久性损伤</code></pre>
-    <h3>6.2 温度稳定性</h3>
-    <pre><code>耦合度温度漂移：
-      微带：±0.1dB/°C
-      波导：±0.02dB/°C
-      
-    方向性温度漂移：
-      微带：±0.5dB/°C
-      波导：±0.1dB/°C</code></pre>
-    <h3>6.3 集成化趋势</h3>
-    <pre><code>Sub-6GHz：
-      耦合器独立元件 → 集成到 T/R 模块 PCB
-      
-    毫米波：
-      耦合器集成到 SiP 封装内
-      与 PA/LNA 共用基板</code></pre>
-  </article>
+  微带：1-10W（Sub-6GHz）
+  波导：100W-1kW（基站）
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>定向耦合器是 T/R 模块校准和功率监测的关键组件——它从主信号路径中采样一小部分功率，同时区分正向和反向信号。耦合度决定采样比例（10-20dB 最常用），方向性决定正反向信号的区分能力（> 20dB 为佳）。记住：耦合器不是功分器——功分器把功率分成几路，耦合器只采样一小路，主通路几乎不受影响。</p>
+过载后果：
+  - 耦合端口烧毁
+  - 方向性恶化
+  - 永久性损伤
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 温度稳定性</h2>
+    <pre><code>耦合度温度漂移：
+  微带：±0.1dB/°C
+  波导：±0.02dB/°C
+
+方向性温度漂移：
+  微带：±0.5dB/°C
+  波导：±0.1dB/°C
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 集成化趋势</h2>
+    <pre><code>Sub-6GHz：
+  耦合器独立元件 → 集成到 T/R 模块 PCB
+
+毫米波：
+  耦合器集成到 SiP 封装内
+  与 PA/LNA 共用基板
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -318,39 +566,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

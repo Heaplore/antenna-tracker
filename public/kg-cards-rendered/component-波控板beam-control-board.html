@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>波控板（Beam Control Board） · 知识卡片</title>
+<title>波控板Beam-Control-Board · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">波控板 <span class="en">Beam Control Board</span></h1>
-  <p class="lede">波控板是 AAU 波束管理的"执行中枢"——它接收 DU/gNB 的波束赋形指令，将 64 个通道的幅度和相位权重下发到每个 T/R 模块，实现多波束并发和波束切换。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">波控板Beam-Control-Board</h1>
+  <p class="lede">波控板是 AAU 波束管理的&#34;执行中枢&#34;——它接收 DU/gNB 的波束赋形指令，将 64 个通道的幅度和相位权重下发到每个 T/R 模块，实现多波束并发和波束切换。</p>
+  
 </header>
 
 <main>
@@ -99,113 +101,164 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、波控板的功能</h2>
-    <h3>1.1 核心职责</h3>
+
+  
+  <article class="card ">
+    
+    <h2>1.1 核心职责</h2>
     <pre><code>波控板 = RCU + 波束权重管理 + T/R 模块协调
+
+职责：
+  1. 接收波束赋形权重（IQ 数据 + 波束参数）
+  2. 计算各通道移相器和衰减器设置
+  3. 下发权重到 T/R 模块
+  4. 管理多波束并发
+  5. 波束切换协调
+  6. 校准参数管理
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    职责：
-      1. 接收波束赋形权重（IQ 数据 + 波束参数）
-      2. 计算各通道移相器和衰减器设置
-      3. 下发权重到 T/R 模块
-      4. 管理多波束并发
-      5. 波束切换协调
-      6. 校准参数管理</code></pre>
-    <h3>1.2 波束管理流程</h3>
+    <h2>1.2 波束管理流程</h2>
     <pre><code>1. gNB 调度器决定当前波束配置
-    2. 波束权重计算（基带/DU）
-    3. 权重通过前传下发到 AAU
-    4. 波控板解析权重
-    5. 波控板更新 T/R 模块移相器/衰减器
-    6. 波束切换完成（&lt; 1ms）</code></pre>
+2. 波束权重计算（基带/DU）
+3. 权重通过前传下发到 AAU
+4. 波控板解析权重
+5. 波控板更新 T/R 模块移相器/衰减器
+6. 波束切换完成（&lt; 1ms）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、波束权重管理</h2>
-    <h3>2.1 权重格式</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 权重格式</h2>
     <pre><code>O-RAN O-RU 规范定义的权重格式：
+
+幅度：0-1（12-bit 精度，0.00024 步进）
+相位：0-360°（12-bit 精度，0.088° 步进）
+
+64T64R 示例：
+  波束 1：64 个通道的幅度和相位
+  波束 2：64 个通道的幅度和相位
+  ...
+  波束 8：64 个通道的幅度和相位
+
+总数据量：8 × 64 × (12+12) bits = 12.288Kbits
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    幅度：0-1（12-bit 精度，0.00024 步进）
-    相位：0-360°（12-bit 精度，0.088° 步进）
-    
-    64T64R 示例：
-      波束 1：64 个通道的幅度和相位
-      波束 2：64 个通道的幅度和相位
-      ...
-      波束 8：64 个通道的幅度和相位
-      
-    总数据量：8 × 64 × (12+12) bits = 12.288Kbits</code></pre>
-    <h3>2.2 多波束并发</h3>
+    <h2>2.2 多波束并发</h2>
     <pre><code>5G AAU 多波束场景：
-      波束 1 → 用户 A（中心区域）
-      波束 2 → 用户 B（边缘区域）
-      波束 3 → 用户 C（干扰规避方向）
-      
-    波束隔离度要求：
-      相邻波束：&gt; 15dB
-      非相邻波束：&gt; 20dB</code></pre>
-  </article>
+  波束 1 → 用户 A（中心区域）
+  波束 2 → 用户 B（边缘区域）
+  波束 3 → 用户 C（干扰规避方向）
 
-  <article class="card">
-    <h2>三、波束切换</h2>
-    <h3>3.1 切换机制</h3>
+波束隔离度要求：
+  相邻波束：&gt; 15dB
+  非相邻波束：&gt; 20dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 切换机制</h2>
     <pre><code>波束切换类型：
-      1. 快速切换（&lt; 1ms）
-         - CSI-RS 测量触发
-         - 预计算权重，快速切换
-         
-      2. 慢速切换（10-100ms）
-         - 用户移动触发
-         - 重新计算权重
-         
-      3. 节能切换
-         - 夜间减少波束数量
-         - 合并覆盖区域</code></pre>
-    <h3>3.2 切换延迟预算</h3>
+  1. 快速切换（&lt; 1ms）
+     - CSI-RS 测量触发
+     - 预计算权重，快速切换
+
+  2. 慢速切换（10-100ms）
+     - 用户移动触发
+     - 重新计算权重
+
+  3. 节能切换
+     - 夜间减少波束数量
+     - 合并覆盖区域
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 切换延迟预算</h2>
     <pre><code>总切换延迟：
-      权重下发：100μs
-      T/R 模块更新：50μs
-      稳定时间：500μs
-      总计：~700μs（&lt; 1ms 达标）</code></pre>
+  权重下发：100μs
+  T/R 模块更新：50μs
+  稳定时间：500μs
+  总计：~700μs（&lt; 1ms 达标）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、校准管理</h2>
-    <h3>4.1 校准参数存储</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 校准参数存储</h2>
     <pre><code>波控板存储：
-      1. 出厂校准系数（幅度/相位）
-      2. 温度补偿查找表
-      3. 频率补偿查找表
-      4. 最新校准结果</code></pre>
-    <h3>4.2 校准触发</h3>
+  1. 出厂校准系数（幅度/相位）
+  2. 温度补偿查找表
+  3. 频率补偿查找表
+  4. 最新校准结果
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 校准触发</h2>
     <pre><code>校准触发条件：
-      1. 开机时（全通道校准）
-      2. 温度变化 &gt; 5°C
-      3. 定时校准（每 6 小时）
-      4. 手动触发（网管命令）</code></pre>
+  1. 开机时（全通道校准）
+  2. 温度变化 &gt; 5°C
+  3. 定时校准（每 6 小时）
+  4. 手动触发（网管命令）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、O-RAN 兼容性</h2>
-    <h3>5.1 O-RU 接口</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 O-RU 接口</h2>
     <pre><code>O-RAN 规范要求：
-      1. 波束权重通过 F1-U 接口下发
-      2. 支持 O-RAN Beam Management Profile
-      3. 支持动态波束配置
-      4. 支持波束切换延迟 &lt; 1ms</code></pre>
-    <h3>5.2 波束管理 O-RAN Profile</h3>
-    <pre><code>Profile 要求：
-      - 最大波束数：8
-      - 波束切换延迟：&lt; 1ms
-      - 幅度精度：12-bit
-      - 相位精度：12-bit
-      - 波束隔离度：&gt; 15dB</code></pre>
+  1. 波束权重通过 F1-U 接口下发
+  2. 支持 O-RAN Beam Management Profile
+  3. 支持动态波束配置
+  4. 支持波束切换延迟 &lt; 1ms
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、一句话总结</h2>
-    <p>波控板是 AAU 波束管理的执行中枢——管理多波束并发、波束切换和校准参数。O-RAN 规范要求波束切换 < 1ms，幅度/相位精度 12-bit。记住：波控板不是简单的"转发器"，它需要协调 64 个 T/R 模块的同步更新，时序管理是关键。</p>
+  
+  <article class="card ">
+    
+    <h2>5.2 波束管理 O-RAN Profile</h2>
+    <pre><code>Profile 要求：
+  - 最大波束数：8
+  - 波束切换延迟：&lt; 1ms
+  - 幅度精度：12-bit
+  - 相位精度：12-bit
+  - 波束隔离度：&gt; 15dB
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -225,39 +278,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

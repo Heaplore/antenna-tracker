@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LCP 基板材料（Liquid Crystal Polymer） · 知识卡片</title>
+<title>LCP液晶聚合物基板 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">LCP 基板材料 <span class="en">Liquid Crystal Polymer</span></h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">LCP液晶聚合物基板</h1>
   <p class="lede">LCP（液晶聚合物）是一种具有超低介电常数和极低损耗角正切的特种工程塑料，因其出色的毫米波射频性能、极低吸湿性和优异的柔性，成为 5G 毫米波手机 AiP 天线模组的首选封装基板材料。</p>
+  
 </header>
 
 <main>
@@ -99,190 +101,702 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>如果把传统 FR4 电路板比作一张粗糙的砂纸——信号在上面跑起来磕磕绊绊、损耗巨大；那么 LCP 就是一块抛光的蓝宝石镜面——信号在上面跑得又快又稳。频率越高，这种"光滑"的重要性就越致命。在 28GHz 毫米波下，FR4 会让信号在几厘米内就"消失"，而 LCP 能让信号跑几十厘米还能保持 90% 以上的能量。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、基本定义与原理</h2>
-    <h3>1.1 什么是 LCP？</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 什么是 LCP？</h2>
     <p>LCP（Liquid Crystal Polymer，液晶聚合物）是一类在熔融状态下具有液晶有序结构的特种高分子材料。它的分子链在加工过程中会沿流动方向自发排列，形成高度有序的微观结构，这种结构赋予了 LCP 一系列独特的物理和电气性能。</p>
-    <p>LCP 属于<b>热塑性聚合物</b>（Thermoplastic），这意味着它可以像普通塑料一样加热熔化、冷却成型、再加热再成型——这与 PTFE（Rogers 基板的主要材料，热固性）形成了鲜明对比。</p>
-    <h3>1.2 LCP 的分子结构</h3>
+<p>LCP 属于<strong>热塑性聚合物</strong>（Thermoplastic），这意味着它可以像普通塑料一样加热熔化、冷却成型、再加热再成型——这与 PTFE（Rogers 基板的主要材料，热固性）形成了鲜明对比。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 LCP 的分子结构</h2>
     <p>LCP 分子由芳香族聚酯链组成，具有以下特征：</p>
-    <ul><li><b>主链刚性</b>：芳香环结构使分子链难以弯曲</li><li><b>侧链有序</b>：分子链在剪切力作用下沿特定方向排列</li><li><b>自增强</b>：有序排列的分子链本身就能提供一定的机械强度</li></ul>
-    <p>这种分子结构决定了 LCP 的两个核心特性：</p>
-    <ol><li><b>极低的分子极性</b> → 电磁波穿过时几乎没有偶极子翻转损耗 → Df 极低</li><li><b>紧密的分子堆积</b> → 水分子难以渗透 → 吸湿率极低</li></ol>
-    <h3>1.3 LCP 在射频领域的应用定位</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用领域</th><th>LCP 的角色</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>5G 手机 AiP</td><td>封装基板</td><td>28/39GHz 毫米波天线模组的核心材料</td></tr>
-    <tr><td>车载雷达</td><td>FPC 柔性电路</td><td>77GHz 雷达天线和馈线</td></tr>
-    <tr><td>WiG 60GHz</td><td>天线基板</td><td>802.11ad/ay 高频天线</td></tr>
-    <tr><td>卫星通信</td><td>柔性天线</td><td>可展开卫星太阳能板上的天线</td></tr>
-    <tr><td>太赫兹研究</td><td>100-300GHz 封装</td><td>6G 太赫兹频段的候选材料</td></tr>
-    </tbody></table></div>
+<ul>
+<li><strong>主链刚性</strong>：芳香环结构使分子链难以弯曲</li>
+<li><strong>侧链有序</strong>：分子链在剪切力作用下沿特定方向排列</li>
+<li><strong>自增强</strong>：有序排列的分子链本身就能提供一定的机械强度</li>
+</ul>
+<p>这种分子结构决定了 LCP 的两个核心特性：</p>
+<ol>
+<li><strong>极低的分子极性</strong> → 电磁波穿过时几乎没有偶极子翻转损耗 → Df 极低</li>
+<li><strong>紧密的分子堆积</strong> → 水分子难以渗透 → 吸湿率极低</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>二、核心性能参数</h2>
-    <h3>2.1 电气性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>频率范围</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>介电常数（Dk）</td><td>2.9 - 3.0</td><td>1MHz - 10GHz</td><td>最低档</td></tr>
-    <tr><td>介电常数（Dk）</td><td>3.0 - 3.2</td><td>28-40GHz</td><td>略有上升</td></tr>
-    <tr><td>介电常数（Dk）</td><td>3.2 - 3.5</td><td>60-100GHz</td><td>高频色散</td></tr>
-    <tr><td>损耗角正切（Df）</td><td>0.001 - 0.003</td><td>1MHz - 10GHz</td><td>极低损耗</td></tr>
-    <tr><td>损耗角正切（Df）</td><td>0.002 - 0.005</td><td>28-40GHz</td><td>毫米波仍很低</td></tr>
-    <tr><td>损耗角正切（Df）</td><td>0.005 - 0.01</td><td>60-100GHz</td><td>高频上升</td></tr>
-    <tr><td>温度系数 Dk（τ_Dk）</td><td>-42 ppm/°C</td><td>11-105GHz</td><td>极佳温度稳定性</td></tr>
-    </tbody></table></div>
-    <p><b>关键解读</b>：</p>
-    <ul><li>Dk 在 28GHz 下仍保持在 3.0-3.2，几乎无色散——这对宽带设计极为有利</li><li>Df 在 28GHz 下仅为 0.002-0.005，意味着传输线损耗极低</li><li>τ_Dk 为负值且绝对值小，说明温度变化对 Dk 的影响极小</li></ul>
-    <h3>2.2 机械性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>厚度范围</td><td>13μm - 100μm</td><td>超薄柔性，适合 AiP</td></tr>
-    <tr><td>拉伸强度</td><td>85-110 MPa</td><td>高于多数工程塑料</td></tr>
-    <tr><td>断裂伸长率</td><td>2-5%</td><td>低延展性，尺寸稳定</td></tr>
-    <tr><td>杨氏模量</td><td>2.5-3.5 GPa</td><td>刚性适中</td></tr>
-    <tr><td>热膨胀系数（CTE）</td><td>10-30 ppm/°C（X/Y方向）</td><td>极低各向异性</td></tr>
-    <tr><td>CTE（Z方向）</td><td>50-80 ppm/°C</td><td>垂直方向略高</td></tr>
-    </tbody></table></div>
-    <h3>2.3 热性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>熔点（Tm）</td><td>280-340°C</td><td>高温 LCP 可达 420°C</td></tr>
-    <tr><td>玻璃化转变温度（Tg）</td><td>无（半结晶）</td><td>不存在 Tg，耐热性好</td></tr>
-    <tr><td>连续使用温度</td><td>-55°C 至 +175°C</td><td>宽温域</td></tr>
-    <tr><td>热导率</td><td>0.11-0.15 W/mK</td><td>较低，散热需特殊设计</td></tr>
-    <tr><td>阻燃等级</td><td>UL94 V-0</td><td>自熄性</td></tr>
-    </tbody></table></div>
-    <h3>2.4 化学与环境性能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>吸湿率</td><td>< 0.02%</td><td>极低，毫米波性能不受湿度影响</td></tr>
-    <tr><td>耐化学性</td><td>优异</td><td>耐酸、耐碱、耐溶剂</td></tr>
-    <tr><td>透波性</td><td>优异</td><td>对电磁波几乎透明</td></tr>
-    </tbody></table></div>
-    <p><b>吸湿率 < 0.02%</b> 是 LCP 相比其他聚合物材料最大的竞争优势之一。对比：</p>
-    <ul><li>PI（聚酰亚胺）：吸湿率 3-4% → 毫米波下 Dk 漂移严重</li><li>PTFE：吸湿率 < 0.01% → 更低，但无法做成柔性薄膜</li><li>LCP：吸湿率 0.02% → 介于两者之间，但兼具柔性和可加工性</li></ul>
+  
+  <article class="card ">
+    
+    <h2>1.3 LCP 在射频领域的应用定位</h2>
+    <table>
+<thead>
+<tr>
+<th>应用领域</th>
+<th>LCP 的角色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G 手机 AiP</td>
+<td>封装基板</td>
+<td>28/39GHz 毫米波天线模组的核心材料</td>
+</tr>
+<tr>
+<td>车载雷达</td>
+<td>FPC 柔性电路</td>
+<td>77GHz 雷达天线和馈线</td>
+</tr>
+<tr>
+<td>WiG 60GHz</td>
+<td>天线基板</td>
+<td>802.11ad/ay 高频天线</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>柔性天线</td>
+<td>可展开卫星太阳能板上的天线</td>
+</tr>
+<tr>
+<td>太赫兹研究</td>
+<td>100-300GHz 封装</td>
+<td>6G 太赫兹频段的候选材料</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、LCP 与其他基板材料对比</h2>
-    <h3>3.1 全面对比表</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>LCP</th><th>Rogers PTFE</th><th>PI</th><th>FR4</th><th>玻璃</th><th>LTCC</th></tr></thead>
-    <tbody>
-    <tr><td>Dk (10GHz)</td><td>3.0</td><td>2.2-2.9</td><td>3.2</td><td>4.4</td><td>3.7-7.8</td><td>5.9</td></tr>
-    <tr><td>Df (28GHz)</td><td>0.003</td><td>0.001</td><td>0.004</td><td>0.02+</td><td>0.001</td><td>0.002</td></tr>
-    <tr><td>吸湿率</td><td>0.02%</td><td><0.01%</td><td>3-4%</td><td>0.5%</td><td><0.01%</td><td><0.1%</td></tr>
-    <tr><td>柔性</td><td>优</td><td>差(刚性)</td><td>优</td><td>差</td><td>差</td><td>差</td></tr>
-    <tr><td>可加工性</td><td>优</td><td>中</td><td>优</td><td>优</td><td>中</td><td>差</td></tr>
-    <tr><td>热导率</td><td>0.12</td><td>0.25</td><td>0.12</td><td>0.3</td><td>1.1</td><td>2-4</td></tr>
-    <tr><td>CTE (X/Y)</td><td>15</td><td>15-20</td><td>20</td><td>14-17</td><td>5-8</td><td>5-10</td></tr>
-    <tr><td>成本</td><td>中</td><td>高</td><td>低</td><td>极低</td><td>中高</td><td>高</td></tr>
-    <tr><td>适用频段</td><td><100GHz</td><td><60GHz</td><td><20GHz</td><td><10GHz</td><td><60GHz</td><td><140GHz</td></tr>
-    <tr><td>典型厚度</td><td>13-100μm</td><td>0.25-3.2mm</td><td>12-50μm</td><td>0.8-3.2mm</td><td>0.1-0.7mm</td><td>0.1-0.5mm</td></tr>
-    </tbody></table></div>
-    <h3>3.2 选型决策矩阵</h3>
-    <div class="tw"><table>
-    <thead><tr><th>需求优先级</th><th>推荐材料</th><th>理由</th></tr></thead>
-    <tbody>
-    <tr><td>极致低损耗</td><td>Rogers PTFE</td><td>Df 最低，但贵且不可弯</td></tr>
-    <tr><td>柔性 + 低损耗</td><td>LCP</td><td>毫米波柔性首选</td></tr>
-    <tr><td>低成本</td><td>PI</td><td>便宜，但吸湿严重</td></tr>
-    <tr><td>高频 + 刚性</td><td>玻璃基板</td><td>Df 低，平整度极好</td></tr>
-    <tr><td>大功率 + 高散热</td><td>LTCC/HTCC</td><td>热导率高，耐高温</td></tr>
-    <tr><td>Sub-6GHz</td><td>FR4 + 局部高频层</td><td>成本最优</td></tr>
-    </tbody></table></div>
-    <h3>3.3 LCP 的劣势</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 电气性能</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>频率范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>介电常数（Dk）</td>
+<td>2.9 - 3.0</td>
+<td>1MHz - 10GHz</td>
+<td>最低档</td>
+</tr>
+<tr>
+<td>介电常数（Dk）</td>
+<td>3.0 - 3.2</td>
+<td>28-40GHz</td>
+<td>略有上升</td>
+</tr>
+<tr>
+<td>介电常数（Dk）</td>
+<td>3.2 - 3.5</td>
+<td>60-100GHz</td>
+<td>高频色散</td>
+</tr>
+<tr>
+<td>损耗角正切（Df）</td>
+<td>0.001 - 0.003</td>
+<td>1MHz - 10GHz</td>
+<td>极低损耗</td>
+</tr>
+<tr>
+<td>损耗角正切（Df）</td>
+<td>0.002 - 0.005</td>
+<td>28-40GHz</td>
+<td>毫米波仍很低</td>
+</tr>
+<tr>
+<td>损耗角正切（Df）</td>
+<td>0.005 - 0.01</td>
+<td>60-100GHz</td>
+<td>高频上升</td>
+</tr>
+<tr>
+<td>温度系数 Dk（τ_Dk）</td>
+<td>-42 ppm/°C</td>
+<td>11-105GHz</td>
+<td>极佳温度稳定性</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键解读</strong>：</p>
+<ul>
+<li>Dk 在 28GHz 下仍保持在 3.0-3.2，几乎无色散——这对宽带设计极为有利</li>
+<li>Df 在 28GHz 下仅为 0.002-0.005，意味着传输线损耗极低</li>
+<li>τ_Dk 为负值且绝对值小，说明温度变化对 Dk 的影响极小</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 机械性能</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>厚度范围</td>
+<td>13μm - 100μm</td>
+<td>超薄柔性，适合 AiP</td>
+</tr>
+<tr>
+<td>拉伸强度</td>
+<td>85-110 MPa</td>
+<td>高于多数工程塑料</td>
+</tr>
+<tr>
+<td>断裂伸长率</td>
+<td>2-5%</td>
+<td>低延展性，尺寸稳定</td>
+</tr>
+<tr>
+<td>杨氏模量</td>
+<td>2.5-3.5 GPa</td>
+<td>刚性适中</td>
+</tr>
+<tr>
+<td>热膨胀系数（CTE）</td>
+<td>10-30 ppm/°C（X/Y方向）</td>
+<td>极低各向异性</td>
+</tr>
+<tr>
+<td>CTE（Z方向）</td>
+<td>50-80 ppm/°C</td>
+<td>垂直方向略高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 热性能</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>熔点（Tm）</td>
+<td>280-340°C</td>
+<td>高温 LCP 可达 420°C</td>
+</tr>
+<tr>
+<td>玻璃化转变温度（Tg）</td>
+<td>无（半结晶）</td>
+<td>不存在 Tg，耐热性好</td>
+</tr>
+<tr>
+<td>连续使用温度</td>
+<td>-55°C 至 +175°C</td>
+<td>宽温域</td>
+</tr>
+<tr>
+<td>热导率</td>
+<td>0.11-0.15 W/mK</td>
+<td>较低，散热需特殊设计</td>
+</tr>
+<tr>
+<td>阻燃等级</td>
+<td>UL94 V-0</td>
+<td>自熄性</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 化学与环境性能</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>吸湿率</td>
+<td>&lt; 0.02%</td>
+<td>极低，毫米波性能不受湿度影响</td>
+</tr>
+<tr>
+<td>耐化学性</td>
+<td>优异</td>
+<td>耐酸、耐碱、耐溶剂</td>
+</tr>
+<tr>
+<td>透波性</td>
+<td>优异</td>
+<td>对电磁波几乎透明</td>
+</tr>
+</tbody>
+</table>
+<p><strong>吸湿率 &lt; 0.02%</strong> 是 LCP 相比其他聚合物材料最大的竞争优势之一。对比：</p>
+<ul>
+<li>PI（聚酰亚胺）：吸湿率 3-4% → 毫米波下 Dk 漂移严重</li>
+<li>PTFE：吸湿率 &lt; 0.01% → 更低，但无法做成柔性薄膜</li>
+<li>LCP：吸湿率 0.02% → 介于两者之间，但兼具柔性和可加工性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 全面对比表</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>LCP</th>
+<th>Rogers PTFE</th>
+<th>PI</th>
+<th>FR4</th>
+<th>玻璃</th>
+<th>LTCC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dk (10GHz)</td>
+<td>3.0</td>
+<td>2.2-2.9</td>
+<td>3.2</td>
+<td>4.4</td>
+<td>3.7-7.8</td>
+<td>5.9</td>
+</tr>
+<tr>
+<td>Df (28GHz)</td>
+<td>0.003</td>
+<td>0.001</td>
+<td>0.004</td>
+<td>0.02+</td>
+<td>0.001</td>
+<td>0.002</td>
+</tr>
+<tr>
+<td>吸湿率</td>
+<td>0.02%</td>
+<td>&lt;0.01%</td>
+<td>3-4%</td>
+<td>0.5%</td>
+<td>&lt;0.01%</td>
+<td>&lt;0.1%</td>
+</tr>
+<tr>
+<td>柔性</td>
+<td>优</td>
+<td>差(刚性)</td>
+<td>优</td>
+<td>差</td>
+<td>差</td>
+<td>差</td>
+</tr>
+<tr>
+<td>可加工性</td>
+<td>优</td>
+<td>中</td>
+<td>优</td>
+<td>优</td>
+<td>中</td>
+<td>差</td>
+</tr>
+<tr>
+<td>热导率</td>
+<td>0.12</td>
+<td>0.25</td>
+<td>0.12</td>
+<td>0.3</td>
+<td>1.1</td>
+<td>2-4</td>
+</tr>
+<tr>
+<td>CTE (X/Y)</td>
+<td>15</td>
+<td>15-20</td>
+<td>20</td>
+<td>14-17</td>
+<td>5-8</td>
+<td>5-10</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>中</td>
+<td>高</td>
+<td>低</td>
+<td>极低</td>
+<td>中高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>&lt;100GHz</td>
+<td>&lt;60GHz</td>
+<td>&lt;20GHz</td>
+<td>&lt;10GHz</td>
+<td>&lt;60GHz</td>
+<td>&lt;140GHz</td>
+</tr>
+<tr>
+<td>典型厚度</td>
+<td>13-100μm</td>
+<td>0.25-3.2mm</td>
+<td>12-50μm</td>
+<td>0.8-3.2mm</td>
+<td>0.1-0.7mm</td>
+<td>0.1-0.5mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 选型决策矩阵</h2>
+    <table>
+<thead>
+<tr>
+<th>需求优先级</th>
+<th>推荐材料</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极致低损耗</td>
+<td>Rogers PTFE</td>
+<td>Df 最低，但贵且不可弯</td>
+</tr>
+<tr>
+<td>柔性 + 低损耗</td>
+<td>LCP</td>
+<td>毫米波柔性首选</td>
+</tr>
+<tr>
+<td>低成本</td>
+<td>PI</td>
+<td>便宜，但吸湿严重</td>
+</tr>
+<tr>
+<td>高频 + 刚性</td>
+<td>玻璃基板</td>
+<td>Df 低，平整度极好</td>
+</tr>
+<tr>
+<td>大功率 + 高散热</td>
+<td>LTCC/HTCC</td>
+<td>热导率高，耐高温</td>
+</tr>
+<tr>
+<td>Sub-6GHz</td>
+<td>FR4 + 局部高频层</td>
+<td>成本最优</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 LCP 的劣势</h2>
     <p>LCP 并非完美，它有以下几个明显的短板：</p>
-    <ol><li><b>热导率低（0.12 W/mK）</b>：散热能力差，高功率应用需要额外的散热设计</li><li><b>Z 方向 CTE 较高（50-80 ppm/°C）</b>：多层 LCP 层压时，Z 方向膨胀可能导致通孔开裂</li><li><b>加工窗口窄</b>：LCP 的熔点在 280-340°C，但超过 350°C 开始分解，SMT 回流焊需要精确控温</li><li><b>铜箔附着力较差</b>：需要使用粗糙化处理或特殊底漆来保证铜箔附着</li><li><b>成本高于 PI 和 FR4</b>：虽然低于 Rogers PTFE，但仍是高价材料</li></ol>
+<ol>
+<li><strong>热导率低（0.12 W/mK）</strong>：散热能力差，高功率应用需要额外的散热设计</li>
+<li><strong>Z 方向 CTE 较高（50-80 ppm/°C）</strong>：多层 LCP 层压时，Z 方向膨胀可能导致通孔开裂</li>
+<li><strong>加工窗口窄</strong>：LCP 的熔点在 280-340°C，但超过 350°C 开始分解，SMT 回流焊需要精确控温</li>
+<li><strong>铜箔附着力较差</strong>：需要使用粗糙化处理或特殊底漆来保证铜箔附着</li>
+<li><strong>成本高于 PI 和 FR4</strong>：虽然低于 Rogers PTFE，但仍是高价材料</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>四、LCP 在 5G 毫米波中的关键应用</h2>
-    <h3>4.1 手机 AiP 天线模组</h3>
-    <ul><li><b>频率</b>：28GHz (n257) / 39GHz (n260)</li><li><b>LCP 厚度</b>：25-50μm（超薄 LCP 膜）</li><li><b>结构</b>：多层 LCP 层压，信号线在表层，接地层在中间层</li><li><b>代表产品</b>：</li><li>高通 QTM565（Galaxy S24 Ultra）：LCP AiP 模组</li><li>iPhone 12-16 mmWave 版：LCP/FPC 天线模组</li><li>三星自研 5G mmWave AiP</li><li><b>关键指标</b>：传输线损耗 < 0.5dB/cm（28GHz）</li></ul>
-    <h3>4.2 基站 Massive MIMO AoP</h3>
-    <ul><li><b>频率</b>：28-39 GHz</li><li><b>LCP 厚度</b>：100-200μm</li><li><b>结构</b>：LCP 基板 + 铜箔 + 天线阵列 + T/R 模块</li><li><b>特点</b>：需要更好的散热，通常在 LCP 中嵌入金属散热层</li><li><b>天线规模</b>：64-256 单元 AoP 阵列</li></ul>
-    <h3>4.3 车载毫米波雷达</h3>
-    <ul><li><b>频率</b>：77/79 GHz</li><li><b>LCP 厚度</b>：50-100μm</li><li><b>结构</b>：LCP FPC 柔性电路板，天线直接印刷在 FPC 上</li><li><b>车规要求</b>：-40°C 至 +125°C 工作温度，CTE 匹配</li></ul>
-    <h3>4.4 卫星互联网终端</h3>
-    <ul><li><b>频率</b>：Ku/Ka band (12-40 GHz)</li><li><b>LCP 厚度</b>：25-75μm</li><li><b>结构</b>：LCP 柔性基板 + 相控阵天线</li><li><b>特点</b>：需要可展开/可折叠设计，LCP 的柔性是天然优势</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.1 手机 AiP 天线模组</h2>
+    <ul>
+<li><strong>频率</strong>：28GHz (n257) / 39GHz (n260)</li>
+<li><strong>LCP 厚度</strong>：25-50μm（超薄 LCP 膜）</li>
+<li><strong>结构</strong>：多层 LCP 层压，信号线在表层，接地层在中间层</li>
+<li><strong>代表产品</strong>：</li>
+<li>高通 QTM565（Galaxy S24 Ultra）：LCP AiP 模组</li>
+<li>iPhone 12-16 mmWave 版：LCP/FPC 天线模组</li>
+<li>三星自研 5G mmWave AiP</li>
+<li><strong>关键指标</strong>：传输线损耗 &lt; 0.5dB/cm（28GHz）</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>五、LCP 的加工工艺</h2>
-    <h3>5.1 主要加工方式</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>描述</th><th>适用场景</th></tr></thead>
-    <tbody>
-    <tr><td>薄膜卷对卷（Roll-to-Roll）</td><td>LCP 树脂熔融挤出成薄膜</td><td>手机 AiP 超薄 LCP</td></tr>
-    <tr><td>多层层压（Lamination）</td><td>多层 LCP 膜 + 铜箔 + 中介层压</td><td>多层 AiP 基板</td></tr>
-    <tr><td>激光钻孔（Laser Drilling）</td><td>紫外/飞秒激光打微孔</td><td>BGA 通孔（< 50μm）</td></tr>
-    <tr><td>化学蚀刻（Etching）</td><td>光刻 + 蚀刻形成精细线路</td><td>毫米波传输线</td></tr>
-    <tr><td>直接成像（DI）</td><td>激光直接成像，无需光罩</td><td>高密度布线</td></tr>
-    <tr><td>SMT 贴片</td><td>回流焊（需精确控温 310-330°C）</td><td>芯片组装</td></tr>
-    </tbody></table></div>
-    <h3>5.2 关键工艺挑战</h3>
-    <p><b>挑战 1：回流焊温度控制</b></p>
-    <ul><li>LCP 熔点 ~340°C，但 SMT 锡膏熔点 ~217°C（无铅）</li><li>回流焊峰值温度需控制在 310-330°C</li><li>超过 350°C 会导致 LCP 分解（释放有毒气体）</li><li>需要专用高温锡膏和精确的炉温曲线</li></ul>
-    <p><b>挑战 2：微孔加工</b></p>
-    <ul><li>毫米波传输线线宽/线距 < 20μm</li><li>通孔直径 < 50μm（BGA 间距小）</li><li>传统机械钻孔无法满足，必须用激光钻孔</li><li>激光参数（波长、脉冲宽度、能量）需要精确优化</li></ul>
-    <p><b>挑战 3：铜箔附着力</b></p>
-    <ul><li>LCP 表面能低，铜箔附着力差</li><li>需要等离子处理或化学粗化</li><li>附着力测试：180° peel strength > 1.5 N/mm</li></ul>
-    <p><b>挑战 4：层间对准</b></p>
-    <ul><li>多层 LCP 层压时，各层对准精度需 < 10μm</li><li>CTE 不匹配可能导致层间错位</li><li>需要精密的对准标记（Alignment Mark）</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.2 基站 Massive MIMO AoP</h2>
+    <ul>
+<li><strong>频率</strong>：28-39 GHz</li>
+<li><strong>LCP 厚度</strong>：100-200μm</li>
+<li><strong>结构</strong>：LCP 基板 + 铜箔 + 天线阵列 + T/R 模块</li>
+<li><strong>特点</strong>：需要更好的散热，通常在 LCP 中嵌入金属散热层</li>
+<li><strong>天线规模</strong>：64-256 单元 AoP 阵列</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、LCP 产业链</h2>
-    <h3>6.1 主要供应商</h3>
-    <div class="tw"><table>
-    <thead><tr><th>环节</th><th>公司</th><th>国家</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>LCP 树脂</td><td>住友化学（Sumitomo）</td><td>日本</td><td>全球最大 LCP 树脂供应商</td></tr>
-    <tr><td>LCP 树脂</td><td>宝理塑料（Polyplastics）</td><td>日本</td><td>第二大供应商</td></tr>
-    <tr><td>LCP 树脂</td><td>赢创（Evonik）</td><td>德国</td><td>Vectra 品牌</td></tr>
-    <tr><td>LCP 薄膜</td><td>住友化学 / DuPont</td><td>日/美</td><td>超薄 LCP 膜（13-50μm）</td></tr>
-    <tr><td>LCP 基板</td><td>新光电气（Shinko）</td><td>日本</td><td>5G mmWave LCP 基板</td></tr>
-    <tr><td>LCP FPC</td><td>旗胜（Fujikura）</td><td>日本</td><td>LCP 柔性电路板</td></tr>
-    <tr><td>LCP 模组封装</td><td>Amkor / SPIL / UTAC</td><td>韩/台/中</td><td>AiP/AoP 封装</td></tr>
-    </tbody></table></div>
-    <h3>6.2 市场规模</h3>
-    <ul><li>2024 年全球 LCP 在电子领域市场规模：约 $5-8 亿</li><li>预计 2028 年达到 $15-20 亿（CAGR 20-25%）</li><li>主要驱动力：5G 手机 mmWave 渗透率提升、卫星互联网终端量产</li></ul>
+  
+  <article class="card ">
+    
+    <h2>4.3 车载毫米波雷达</h2>
+    <ul>
+<li><strong>频率</strong>：77/79 GHz</li>
+<li><strong>LCP 厚度</strong>：50-100μm</li>
+<li><strong>结构</strong>：LCP FPC 柔性电路板，天线直接印刷在 FPC 上</li>
+<li><strong>车规要求</strong>：-40°C 至 +125°C 工作温度，CTE 匹配</li>
+</ul>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>4.4 卫星互联网终端</h2>
+    <ul>
+<li><strong>频率</strong>：Ku/Ka band (12-40 GHz)</li>
+<li><strong>LCP 厚度</strong>：25-75μm</li>
+<li><strong>结构</strong>：LCP 柔性基板 + 相控阵天线</li>
+<li><strong>特点</strong>：需要可展开/可折叠设计，LCP 的柔性是天然优势</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 主要加工方式</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>描述</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>薄膜卷对卷（Roll-to-Roll）</td>
+<td>LCP 树脂熔融挤出成薄膜</td>
+<td>手机 AiP 超薄 LCP</td>
+</tr>
+<tr>
+<td>多层层压（Lamination）</td>
+<td>多层 LCP 膜 + 铜箔 + 中介层压</td>
+<td>多层 AiP 基板</td>
+</tr>
+<tr>
+<td>激光钻孔（Laser Drilling）</td>
+<td>紫外/飞秒激光打微孔</td>
+<td>BGA 通孔（&lt; 50μm）</td>
+</tr>
+<tr>
+<td>化学蚀刻（Etching）</td>
+<td>光刻 + 蚀刻形成精细线路</td>
+<td>毫米波传输线</td>
+</tr>
+<tr>
+<td>直接成像（DI）</td>
+<td>激光直接成像，无需光罩</td>
+<td>高密度布线</td>
+</tr>
+<tr>
+<td>SMT 贴片</td>
+<td>回流焊（需精确控温 310-330°C）</td>
+<td>芯片组装</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 关键工艺挑战</h2>
+    <p><strong>挑战 1：回流焊温度控制</strong>
+- LCP 熔点 ~340°C，但 SMT 锡膏熔点 ~217°C（无铅）
+- 回流焊峰值温度需控制在 310-330°C
+- 超过 350°C 会导致 LCP 分解（释放有毒气体）
+- 需要专用高温锡膏和精确的炉温曲线</p>
+<p><strong>挑战 2：微孔加工</strong>
+- 毫米波传输线线宽/线距 &lt; 20μm
+- 通孔直径 &lt; 50μm（BGA 间距小）
+- 传统机械钻孔无法满足，必须用激光钻孔
+- 激光参数（波长、脉冲宽度、能量）需要精确优化</p>
+<p><strong>挑战 3：铜箔附着力</strong>
+- LCP 表面能低，铜箔附着力差
+- 需要等离子处理或化学粗化
+- 附着力测试：180° peel strength &gt; 1.5 N/mm</p>
+<p><strong>挑战 4：层间对准</strong>
+- 多层 LCP 层压时，各层对准精度需 &lt; 10μm
+- CTE 不匹配可能导致层间错位
+- 需要精密的对准标记（Alignment Mark）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 主要供应商</h2>
+    <table>
+<thead>
+<tr>
+<th>环节</th>
+<th>公司</th>
+<th>国家</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCP 树脂</td>
+<td>住友化学（Sumitomo）</td>
+<td>日本</td>
+<td>全球最大 LCP 树脂供应商</td>
+</tr>
+<tr>
+<td>LCP 树脂</td>
+<td>宝理塑料（Polyplastics）</td>
+<td>日本</td>
+<td>第二大供应商</td>
+</tr>
+<tr>
+<td>LCP 树脂</td>
+<td>赢创（Evonik）</td>
+<td>德国</td>
+<td>Vectra 品牌</td>
+</tr>
+<tr>
+<td>LCP 薄膜</td>
+<td>住友化学 / DuPont</td>
+<td>日/美</td>
+<td>超薄 LCP 膜（13-50μm）</td>
+</tr>
+<tr>
+<td>LCP 基板</td>
+<td>新光电气（Shinko）</td>
+<td>日本</td>
+<td>5G mmWave LCP 基板</td>
+</tr>
+<tr>
+<td>LCP FPC</td>
+<td>旗胜（Fujikura）</td>
+<td>日本</td>
+<td>LCP 柔性电路板</td>
+</tr>
+<tr>
+<td>LCP 模组封装</td>
+<td>Amkor / SPIL / UTAC</td>
+<td>韩/台/中</td>
+<td>AiP/AoP 封装</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 市场规模</h2>
+    <ul>
+<li>2024 年全球 LCP 在电子领域市场规模：约 $5-8 亿</li>
+<li>预计 2028 年达到 $15-20 亿（CAGR 20-25%）</li>
+<li>主要驱动力：5G 手机 mmWave 渗透率提升、卫星互联网终端量产</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>七、技术演进</h2>
-    <ul><li><b>1980s</b>：LCP 材料由 DuPont 和 Kodak 开发，最初用于工程塑料（齿轮、轴承）</li><li><b>1990s</b>：发现 LCP 的低介电特性，开始用于高频电路板</li><li><b>2000s</b>：LCP FPC 用于手机柔性电路，替代 PI FPC</li><li><b>2010s</b>：5G 标准制定，LCP 被确认为毫米波 AiP 首选材料</li><li><b>2018年</b>：iPhone 12 首次搭载 LCP AiP 毫米波天线模组</li><li><b>2020-2022年</b>：LCP 超薄薄膜（13-25μm）量产，支撑 5G 手机 mmWave 普及</li><li><b>2023-2024年</b>：LCP 在 77GHz 车载雷达中大规模应用</li><li><b>2025-2026年</b>：LCP 在 60GHz WiG 和 100GHz+ 太赫兹研究中探索应用</li></ul>
+    <ul>
+<li><strong>1980s</strong>：LCP 材料由 DuPont 和 Kodak 开发，最初用于工程塑料（齿轮、轴承）</li>
+<li><strong>1990s</strong>：发现 LCP 的低介电特性，开始用于高频电路板</li>
+<li><strong>2000s</strong>：LCP FPC 用于手机柔性电路，替代 PI FPC</li>
+<li><strong>2010s</strong>：5G 标准制定，LCP 被确认为毫米波 AiP 首选材料</li>
+<li><strong>2018年</strong>：iPhone 12 首次搭载 LCP AiP 毫米波天线模组</li>
+<li><strong>2020-2022年</strong>：LCP 超薄薄膜（13-25μm）量产，支撑 5G 手机 mmWave 普及</li>
+<li><strong>2023-2024年</strong>：LCP 在 77GHz 车载雷达中大规模应用</li>
+<li><strong>2025-2026年</strong>：LCP 在 60GHz WiG 和 100GHz+ 太赫兹研究中探索应用</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：大规模商用（5G 手机）/ 快速成长期（车载雷达、基站）</li><li><b>说明</b>：LCP 作为 5G 毫米波 AiP 基板材料已大规模商用（iPhone、Galaxy 等旗舰机均已采用）。在车载雷达和基站场景中也已进入量产阶段。太赫兹频段应用仍处于研究阶段。</li></ul>
-  </article>
-
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>九、未来趋势</h2>
-    <ul><li><b>短期（1-2年）</b>：</li><li>5G-Advanced 推动更高频率（毫米波 + FR3 频段 6-7GHz）LCP 应用</li><li>LCP 热导率提升研究（添加导热填料）</li><li>可折叠手机中的 LCP FPC 需求增长</li></ul>
-    <ul><li><b>中期（3-5年）</b>：</li><li>6G 太赫兹频段（100-300GHz）LCP 介电特性研究和标准化</li><li>LCP + 玻璃基板混合封装，兼顾射频性能和散热</li><li>LCP 在卫星互联网终端（Starlink V2 等）中的大规模应用</li></ul>
-    <ul><li><b>长期（5年以上）</b>：</li><li>新型 LCP 复合材料：LCP + 石墨烯/碳纳米管导热增强</li><li>可生物降解 LCP：环保型高频材料</li><li>超薄膜 LCP（< 10μm）用于极端小型化 AiP</li></ul>
+    <ul>
+<li><strong>短期（1-2年）</strong>：</li>
+<li>5G-Advanced 推动更高频率（毫米波 + FR3 频段 6-7GHz）LCP 应用</li>
+<li>LCP 热导率提升研究（添加导热填料）</li>
+<li>
+<p>可折叠手机中的 LCP FPC 需求增长</p>
+</li>
+<li>
+<p><strong>中期（3-5年）</strong>：</p>
+</li>
+<li>6G 太赫兹频段（100-300GHz）LCP 介电特性研究和标准化</li>
+<li>LCP + 玻璃基板混合封装，兼顾射频性能和散热</li>
+<li>
+<p>LCP 在卫星互联网终端（Starlink V2 等）中的大规模应用</p>
+</li>
+<li>
+<p><strong>长期（5年以上）</strong>：</p>
+</li>
+<li>新型 LCP 复合材料：LCP + 石墨烯/碳纳米管导热增强</li>
+<li>可生物降解 LCP：环保型高频材料</li>
+<li>超薄膜 LCP（&lt; 10μm）用于极端小型化 AiP</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>十、一句话总结</h2>
-    <p>LCP 是毫米波时代的"黄金材料"——当频率高到连一根铜线的氧化层都会引入显著损耗时，LCP 凭借超低 Dk/Df、极低吸湿和优异柔性，成为了 5G 毫米波天线模组不可替代的基板材料。没有 LCP，就没有 iPhone 的 mmWave AiP，也没有 Starlink 的相控阵终端。</p>
-  </article>
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -302,39 +816,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>低噪声放大器 LNA（Low Noise Amplifier） · 知识卡片</title>
+<title>低噪声放大器LNA · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">低噪声放大器 LNA <span class="en">Low Noise Amplifier</span></h1>
-  <p class="lede">LNA 是接收链路的第一级放大器——它的任务是"在信号被噪声淹没之前，先把信号放大"。噪声系数（NF）和增益是两个最核心的指标，NF 越低越好，增益要足够高以压制后续级的噪声贡献。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">低噪声放大器LNA</h1>
+  <p class="lede">LNA 是接收链路的第一级放大器——它的任务是&#34;在信号被噪声淹没之前，先把信号放大&#34;。噪声系数（NF）和增益是两个最核心的指标，NF 越低越好，增益要足够高以压制后续级的噪声贡献。</p>
+  
 </header>
 
 <main>
@@ -99,210 +101,644 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>LNA 就像录音棚里的"前置放大器"——麦克风拾取的信号只有几微伏，LNA 要在不引入明显底噪的前提下把它放大到几百毫伏。如果前置放大器本身的底噪太大，录出来的声音就算再大也是"沙沙"的。LNA 就是射频世界的"高保真前置放大器"。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与作用</h2>
-    <h3>1.1 LNA 在接收链路中的位置</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 LNA 在接收链路中的位置</h2>
     <pre><code>天线 → 滤波器 → LNA → 混频器 → 滤波器 → VGA → ADC
-             ↑          ↑
-          抑制带外    第一级放大
-          干扰        （最关键！）</code></pre>
-    <p><b>Friis 噪声公式的启示</b>：</p>
-    <pre><code>T_sys = T_ant + T_LNA/G_feeder + T_mixer/(G_feeder·G_LNA) + ...</code></pre>
-    <p>LNA 的噪声温度 T_LNA 直接加到系统噪声中，而后面的混频器等被 G_LNA 除——所以 LNA 的噪声贡献最大，必须做到最低。</p>
-    <h3>1.2 LNA 的核心功能</h3>
-    <ol><li><b>放大微弱信号</b>：将 μV 级信号放大到 mV 级</li><li><b>低噪声</b>：自身引入的噪声尽可能小</li><li><b>阻抗匹配</b>：与天线/滤波器良好匹配（VSWR < 1.5）</li><li><b>线性度</b>：在强干扰下不失真</li><li><b>稳定性</b>：不会自激振荡</li></ol>
+         ↑          ↑
+      抑制带外    第一级放大
+      干扰        （最关键！）
+</code></pre>
+<p><strong>Friis 噪声公式的启示</strong>：</p>
+<pre><code>T_sys = T_ant + T_LNA/G_feeder + T_mixer/(G_feeder·G_LNA) + ...
+</code></pre>
+<p>LNA 的噪声温度 T_LNA 直接加到系统噪声中，而后面的混频器等被 G_LNA 除——所以 LNA 的噪声贡献最大，必须做到最低。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>二、关键指标</h2>
-    <h3>2.1 噪声系数（Noise Figure, NF）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.2 LNA 的核心功能</h2>
+    <ol>
+<li><strong>放大微弱信号</strong>：将 μV 级信号放大到 mV 级</li>
+<li><strong>低噪声</strong>：自身引入的噪声尽可能小</li>
+<li><strong>阻抗匹配</strong>：与天线/滤波器良好匹配（VSWR &lt; 1.5）</li>
+<li><strong>线性度</strong>：在强干扰下不失真</li>
+<li><strong>稳定性</strong>：不会自激振荡</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 噪声系数（Noise Figure, NF）</h2>
     <pre><code>NF = 10·log₁₀(F) = 10·log₁₀(T_sys/T_0)
-    T_sys = T_0·(F - 1) = 290·(10^(NF/10) - 1)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>NF (dB)</th><th>T_n (K)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>0.3</td><td>22</td><td>超低噪声（低温 HEMT）</td></tr>
-    <tr><td>0.5</td><td>36</td><td>高性能 HEMT LNA</td></tr>
-    <tr><td>1.0</td><td>72</td><td>优秀 LNA</td></tr>
-    <tr><td>1.5</td><td>107</td><td>典型 GaAs LNA</td></tr>
-    <tr><td>2.0</td><td>159</td><td>普通 LNA</td></tr>
-    <tr><td>3.0</td><td>253</td><td>入门级 LNA</td></tr>
-    <tr><td>5.0</td><td>466</td><td>消费级 LNA</td></tr>
-    </tbody></table></div>
-    <h3>2.2 增益（Gain, S21）</h3>
-    <pre><code>G(dB) = 10·log₁₀(P_out/P_in) = S21(dB)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>典型增益</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>Sub-6GHz LNA</td><td>15-25dB</td><td>适中增益</td></tr>
-    <tr><td>毫米波 LNA</td><td>20-30dB</td><td>需要高增益压制后续级</td></tr>
-    <tr><td>卫星接收 LNA</td><td>30-40dB</td><td>极低噪声要求</td></tr>
-    <tr><td>射电天文 LNA</td><td>40-50dB</td><td>极致性能</td></tr>
-    </tbody></table></div>
-    <p><b>增益选择原则</b>：</p>
-    <ul><li>太低 → 后续级噪声贡献大</li><li>太高 → 线性度下降、功耗增加、可能不稳定</li></ul>
-    <h3>2.3 1dB 压缩点（P1dB）</h3>
-    <pre><code>P1dB = 增益下降 1dB 时的输出功率</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>LNA 类型</th><th>P1dB (dBm)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>毫米波 CMOS</td><td>5-10</td><td>集成度高，功率低</td></tr>
-    <tr><td>GaAs MMIC</td><td>10-18</td><td>典型值</td></tr>
-    <tr><td>GaN MMIC</td><td>18-25</td><td>高功率</td></tr>
-    <tr><td>低温 HEMT</td><td>0-5</td><td>极致噪声，功率低</td></tr>
-    </tbody></table></div>
-    <h3>2.4 三阶截点（IP3）</h3>
+T_sys = T_0·(F - 1) = 290·(10^(NF/10) - 1)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>NF (dB)</th>
+<th>T_n (K)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.3</td>
+<td>22</td>
+<td>超低噪声（低温 HEMT）</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>36</td>
+<td>高性能 HEMT LNA</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>72</td>
+<td>优秀 LNA</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>107</td>
+<td>典型 GaAs LNA</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>159</td>
+<td>普通 LNA</td>
+</tr>
+<tr>
+<td>3.0</td>
+<td>253</td>
+<td>入门级 LNA</td>
+</tr>
+<tr>
+<td>5.0</td>
+<td>466</td>
+<td>消费级 LNA</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 增益（Gain, S21）</h2>
+    <pre><code>G(dB) = 10·log₁₀(P_out/P_in) = S21(dB)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>应用</th>
+<th>典型增益</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sub-6GHz LNA</td>
+<td>15-25dB</td>
+<td>适中增益</td>
+</tr>
+<tr>
+<td>毫米波 LNA</td>
+<td>20-30dB</td>
+<td>需要高增益压制后续级</td>
+</tr>
+<tr>
+<td>卫星接收 LNA</td>
+<td>30-40dB</td>
+<td>极低噪声要求</td>
+</tr>
+<tr>
+<td>射电天文 LNA</td>
+<td>40-50dB</td>
+<td>极致性能</td>
+</tr>
+</tbody>
+</table>
+<p><strong>增益选择原则</strong>：</p>
+<ul>
+<li>太低 → 后续级噪声贡献大</li>
+<li>太高 → 线性度下降、功耗增加、可能不稳定</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 1dB 压缩点（P1dB）</h2>
+    <pre><code>P1dB = 增益下降 1dB 时的输出功率
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>LNA 类型</th>
+<th>P1dB (dBm)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>毫米波 CMOS</td>
+<td>5-10</td>
+<td>集成度高，功率低</td>
+</tr>
+<tr>
+<td>GaAs MMIC</td>
+<td>10-18</td>
+<td>典型值</td>
+</tr>
+<tr>
+<td>GaN MMIC</td>
+<td>18-25</td>
+<td>高功率</td>
+</tr>
+<tr>
+<td>低温 HEMT</td>
+<td>0-5</td>
+<td>极致噪声，功率低</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 三阶截点（IP3）</h2>
     <pre><code>OIP3 = Output Third-Order Intercept Point
-    IIP3 = OIP3 - G</code></pre>
-    <p><b>重要性</b>：IP3 决定了 LNA 在多个信号同时存在时的线性度。</p>
-    <div class="tw"><table>
-    <thead><tr><th>LNA 类型</th><th>IIP3 (dBm)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>毫米波 CMOS</td><td>-5 to 5</td><td>线性度一般</td></tr>
-    <tr><td>GaAs MMIC</td><td>5-15</td><td>典型值</td></tr>
-    <tr><td>GaN MMIC</td><td>15-25</td><td>高线性度</td></tr>
-    </tbody></table></div>
-    <h3>2.5 输入/输出回波损耗（S11/S22）</h3>
+IIP3 = OIP3 - G
+</code></pre>
+<p><strong>重要性</strong>：IP3 决定了 LNA 在多个信号同时存在时的线性度。</p>
+<table>
+<thead>
+<tr>
+<th>LNA 类型</th>
+<th>IIP3 (dBm)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>毫米波 CMOS</td>
+<td>-5 to 5</td>
+<td>线性度一般</td>
+</tr>
+<tr>
+<td>GaAs MMIC</td>
+<td>5-15</td>
+<td>典型值</td>
+</tr>
+<tr>
+<td>GaN MMIC</td>
+<td>15-25</td>
+<td>高线性度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 输入/输出回波损耗（S11/S22）</h2>
     <pre><code>VSWR = (1+|Γ|)/(1-|Γ|)
-    S11(dB) = 20·log₁₀(|Γ|)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>要求</th></tr></thead>
-    <tbody>
-    <tr><td>S11</td><td>< -10dB（VSWR < 1.22）</td></tr>
-    <tr><td>S22</td><td>< -10dB</td></tr>
-    <tr><td>隔离度 S12</td><td>< -25dB（单向化）</td></tr>
-    </tbody></table></div>
-    <h3>2.6 稳定性因子（K-factor）</h3>
+S11(dB) = 20·log₁₀(|Γ|)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S11</td>
+<td>&lt; -10dB（VSWR &lt; 1.22）</td>
+</tr>
+<tr>
+<td>S22</td>
+<td>&lt; -10dB</td>
+</tr>
+<tr>
+<td>隔离度 S12</td>
+<td>&lt; -25dB（单向化）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.6 稳定性因子（K-factor）</h2>
     <pre><code>K = (1 - |S11|² - |S22|² + |Δ|²) / (2|S12·S21|)
-    Δ = S11·S22 - S12·S23</code></pre>
-    <p>要求 K > 1 且 |Δ| < 1 才能保证无条件稳定。</p>
+Δ = S11·S22 - S12·S23
+</code></pre>
+<p>要求 K &gt; 1 且 |Δ| &lt; 1 才能保证无条件稳定。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、LNA 的主要拓扑结构</h2>
-    <h3>3.1 共源/共发射极（Common Source/Gate）</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 共源/共发射极（Common Source/Gate）</h2>
     <p>最简单但噪声和增益都不够好：</p>
-    <pre><code>输入 → Gate/Base → Drain/Collector → 输出</code></pre>
-    <h3>3.2 共源共栅（Cascode）</h3>
+<pre><code>输入 → Gate/Base → Drain/Collector → 输出
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 共源共栅（Cascode）</h2>
     <p>最主流的 LNA 拓扑：</p>
-    <pre><code>M1 (共源) → 低噪声
-    M2 (共栅) → 高隔离度、高稳定性</code></pre>
-    <p><b>优点</b>：</p>
-    <ul><li>高增益（20-30dB）</li><li>高隔离度（S12 < -30dB）</li><li>高稳定性</li><li>良好的噪声性能</li></ul>
-    <h3>3.3 差分 LNA</h3>
+<pre><code>M1 (共源) → 低噪声
+M2 (共栅) → 高隔离度、高稳定性
+</code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>高增益（20-30dB）</li>
+<li>高隔离度（S12 &lt; -30dB）</li>
+<li>高稳定性</li>
+<li>良好的噪声性能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 差分 LNA</h2>
     <pre><code>Input+ → ┬→ M1 → Output+
-              │
-    Input- → ┴→ M2 → Output-</code></pre>
-    <p><b>优点</b>：</p>
-    <ul><li>抑制共模噪声</li><li>抑制偶次谐波</li><li>更好的线性度</li><li>适合直接下变频架构</li></ul>
-    <h3>3.4 多级 LNA</h3>
+          │
+Input- → ┴→ M2 → Output-
+</code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>抑制共模噪声</li>
+<li>抑制偶次谐波</li>
+<li>更好的线性度</li>
+<li>适合直接下变频架构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 多级 LNA</h2>
     <pre><code>Stage 1: 最低噪声（NF = 0.5dB, G = 15dB）
-    Stage 2: 中等噪声（NF = 1.5dB, G = 15dB）
-    Stage 3: 高增益（NF = 3dB, G = 10dB）</code></pre>
-    <p><b>Friis 级联</b>：</p>
-    <pre><code>T_total = T_1 + T_2/G_1 + T_3/(G_1·G_2)</code></pre>
-    <p>第一级最关键——它的噪声和增益决定了整体性能。</p>
+Stage 2: 中等噪声（NF = 1.5dB, G = 15dB）
+Stage 3: 高增益（NF = 3dB, G = 10dB）
+</code></pre>
+<p><strong>Friis 级联</strong>：</p>
+<pre><code>T_total = T_1 + T_2/G_1 + T_3/(G_1·G_2)
+</code></pre>
+<p>第一级最关键——它的噪声和增益决定了整体性能。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、工艺技术对比</h2>
-    <h3>4.1 半导体工艺</h3>
-    <div class="tw"><table>
-    <thead><tr><th>工艺</th><th>适用频段</th><th>NF</th><th>成本</th><th>集成度</th><th>典型应用</th></tr></thead>
-    <tbody>
-    <tr><td>GaAs pHEMT</td><td>DC-40GHz</td><td>0.3-1dB</td><td>中</td><td>低</td><td>卫星、基站</td></tr>
-    <tr><td>GaN HEMT</td><td>DC-100GHz</td><td>0.5-2dB</td><td>高</td><td>低</td><td>雷达、基站</td></tr>
-    <tr><td>SiGe HBT</td><td>DC-300GHz</td><td>0.5-2dB</td><td>中</td><td>中</td><td>5G、雷达</td></tr>
-    <tr><td>CMOS</td><td>DC-200GHz</td><td>1-3dB</td><td>低</td><td>高</td><td>手机、WiFi</td></tr>
-    <tr><td>FD-SOI</td><td>DC-110GHz</td><td>0.8-2dB</td><td>中</td><td>高</td><td>5G、IoT</td></tr>
-    </tbody></table></div>
-    <h3>4.2 工艺选择指南</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 半导体工艺</h2>
+    <table>
+<thead>
+<tr>
+<th>工艺</th>
+<th>适用频段</th>
+<th>NF</th>
+<th>成本</th>
+<th>集成度</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GaAs pHEMT</td>
+<td>DC-40GHz</td>
+<td>0.3-1dB</td>
+<td>中</td>
+<td>低</td>
+<td>卫星、基站</td>
+</tr>
+<tr>
+<td>GaN HEMT</td>
+<td>DC-100GHz</td>
+<td>0.5-2dB</td>
+<td>高</td>
+<td>低</td>
+<td>雷达、基站</td>
+</tr>
+<tr>
+<td>SiGe HBT</td>
+<td>DC-300GHz</td>
+<td>0.5-2dB</td>
+<td>中</td>
+<td>中</td>
+<td>5G、雷达</td>
+</tr>
+<tr>
+<td>CMOS</td>
+<td>DC-200GHz</td>
+<td>1-3dB</td>
+<td>低</td>
+<td>高</td>
+<td>手机、WiFi</td>
+</tr>
+<tr>
+<td>FD-SOI</td>
+<td>DC-110GHz</td>
+<td>0.8-2dB</td>
+<td>中</td>
+<td>高</td>
+<td>5G、IoT</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 工艺选择指南</h2>
     <pre><code>追求最低 NF → GaAs pHEMT / GaN
-    追求最高集成 → CMOS / FD-SOI
-    追求性价比 → SiGe
-    追求高频（&gt; 40GHz）→ GaN / SiGe
-    追求低成本量产 → CMOS</code></pre>
+追求最高集成 → CMOS / FD-SOI
+追求性价比 → SiGe
+追求高频（&gt; 40GHz）→ GaN / SiGe
+追求低成本量产 → CMOS
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、典型 LNA 芯片</h2>
-    <h3>5.1 GaAs MMIC</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>NF</th><th>Gain</th><th>P1dB</th></tr></thead>
-    <tbody>
-    <tr><td>CGY8</td><td>Qorvo</td><td>2-18GHz</td><td>1.5dB</td><td>25dB</td><td>15dBm</td></tr>
-    <tr><td>ATF-54143</td><td>Broadcom</td><td>0.1-6GHz</td><td>0.6dB</td><td>22dB</td><td>14dBm</td></tr>
-    <tr><td>NE72089</td><td>Murata</td><td>2-6GHz</td><td>1.2dB</td><td>20dB</td><td>13dBm</td></tr>
-    </tbody></table></div>
-    <h3>5.2 毫米波 LNA</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>NF</th><th>Gain</th><th>P1dB</th></tr></thead>
-    <tbody>
-    <tr><td>MGA-81563</td><td>Broadcom</td><td>2-8GHz</td><td>1.0dB</td><td>20dB</td><td>16dBm</td></tr>
-    <tr><td>HMC546</td><td>Analog Devices</td><td>0.5-8GHz</td><td>1.5dB</td><td>27dB</td><td>13dBm</td></tr>
-    <tr><td>GT5507</td><td>Qorvo</td><td>26-30GHz</td><td>2.0dB</td><td>22dB</td><td>10dBm</td></tr>
-    </tbody></table></div>
-    <h3>5.3 CMOS 集成 LNA（5G 毫米波）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>28nm CMOS</th><th>22nm FD-SOI</th></tr></thead>
-    <tbody>
-    <tr><td>频段</td><td>24-30GHz</td><td>20-40GHz</td></tr>
-    <tr><td>NF</td><td>3-5dB</td><td>1.5-2.5dB</td></tr>
-    <tr><td>Gain</td><td>15-20dB</td><td>20-25dB</td></tr>
-    <tr><td>P1dB</td><td>5-10dBm</td><td>8-12dBm</td></tr>
-    <tr><td>功耗</td><td>30-50mW</td><td>20-40mW</td></tr>
-    <tr><td>芯片面积</td><td>0.5mm²</td><td>0.3mm²</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>5.1 GaAs MMIC</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>NF</th>
+<th>Gain</th>
+<th>P1dB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CGY8</td>
+<td>Qorvo</td>
+<td>2-18GHz</td>
+<td>1.5dB</td>
+<td>25dB</td>
+<td>15dBm</td>
+</tr>
+<tr>
+<td>ATF-54143</td>
+<td>Broadcom</td>
+<td>0.1-6GHz</td>
+<td>0.6dB</td>
+<td>22dB</td>
+<td>14dBm</td>
+</tr>
+<tr>
+<td>NE72089</td>
+<td>Murata</td>
+<td>2-6GHz</td>
+<td>1.2dB</td>
+<td>20dB</td>
+<td>13dBm</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、应用场景</h2>
-    <h3>6.1 5G 基站</h3>
-    <ul><li>每个接收通道配一个 LNA</li><li>64T64R = 64 个 LNA</li><li>NF < 2dB, Gain > 20dB</li><li>通常集成在 T/R 模块中</li></ul>
-    <h3>6.2 卫星通信</h3>
-    <ul><li>室外 LNB 中的 LNA</li><li>NF < 0.5dB（低温 HEMT）</li><li>增益 30-40dB</li><li>工作在 -40°C 到 +70°C</li></ul>
-    <h3>6.3 GPS 接收机</h3>
-    <ul><li>NF < 1dB</li><li>增益 25-35dB</li><li>带宽 10-20MHz（L1 频段）</li><li>低功耗（< 20mW）</li></ul>
-    <h3>6.4 雷达接收</h3>
-    <ul><li>高线性度（IIP3 > 15dBm）</li><li>宽动态范围</li><li>高功率容量</li></ul>
+  
+  <article class="card ">
+    
+    <h2>5.2 毫米波 LNA</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>NF</th>
+<th>Gain</th>
+<th>P1dB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MGA-81563</td>
+<td>Broadcom</td>
+<td>2-8GHz</td>
+<td>1.0dB</td>
+<td>20dB</td>
+<td>16dBm</td>
+</tr>
+<tr>
+<td>HMC546</td>
+<td>Analog Devices</td>
+<td>0.5-8GHz</td>
+<td>1.5dB</td>
+<td>27dB</td>
+<td>13dBm</td>
+</tr>
+<tr>
+<td>GT5507</td>
+<td>Qorvo</td>
+<td>26-30GHz</td>
+<td>2.0dB</td>
+<td>22dB</td>
+<td>10dBm</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>七、工程注意事项</h2>
-    <h3>7.1 LNA 必须靠近天线</h3>
+  
+  <article class="card ">
+    
+    <h2>5.3 CMOS 集成 LNA（5G 毫米波）</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>28nm CMOS</th>
+<th>22nm FD-SOI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>24-30GHz</td>
+<td>20-40GHz</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>3-5dB</td>
+<td>1.5-2.5dB</td>
+</tr>
+<tr>
+<td>Gain</td>
+<td>15-20dB</td>
+<td>20-25dB</td>
+</tr>
+<tr>
+<td>P1dB</td>
+<td>5-10dBm</td>
+<td>8-12dBm</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>30-50mW</td>
+<td>20-40mW</td>
+</tr>
+<tr>
+<td>芯片面积</td>
+<td>0.5mm²</td>
+<td>0.3mm²</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 5G 基站</h2>
+    <ul>
+<li>每个接收通道配一个 LNA</li>
+<li>64T64R = 64 个 LNA</li>
+<li>NF &lt; 2dB, Gain &gt; 20dB</li>
+<li>通常集成在 T/R 模块中</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 卫星通信</h2>
+    <ul>
+<li>室外 LNB 中的 LNA</li>
+<li>NF &lt; 0.5dB（低温 HEMT）</li>
+<li>增益 30-40dB</li>
+<li>工作在 -40°C 到 +70°C</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 GPS 接收机</h2>
+    <ul>
+<li>NF &lt; 1dB</li>
+<li>增益 25-35dB</li>
+<li>带宽 10-20MHz（L1 频段）</li>
+<li>低功耗（&lt; 20mW）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 雷达接收</h2>
+    <ul>
+<li>高线性度（IIP3 &gt; 15dBm）</li>
+<li>宽动态范围</li>
+<li>高功率容量</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 LNA 必须靠近天线</h2>
     <pre><code>馈线损耗 1dB → LNA 的噪声贡献放大 2.5 倍
-    馈线损耗 3dB → LNA 的噪声贡献放大 5.6 倍</code></pre>
-    <p><b>规则</b>：LNA 越靠近天线越好，最好集成在天线罩内。</p>
-    <h3>7.2 输入匹配 vs 噪声匹配</h3>
-    <pre><code>S11 最佳匹配 ≠ NF 最小值</code></pre>
-    <p>设计 LNA 时需要在输入匹配和噪声匹配之间做权衡：</p>
-    <div class="tw"><table>
-    <thead><tr><th>优化目标</th><th>结果</th></tr></thead>
-    <tbody>
-    <tr><td>最佳 S11</td><td>VSWR 最小，但 NF 可能不是最低</td></tr>
-    <tr><td>最佳 NF</td><td>NF 最低，但 S11 可能较差</td></tr>
-    <tr><td>最佳噪声系数增益积 NGP</td><td>综合最优</td></tr>
-    </tbody></table></div>
-    <h3>7.3 电源噪声对 LNA 的影响</h3>
-    <pre><code>电源噪声 → 调制到 RF 信号 → 相位噪声恶化</code></pre>
-    <p><b>解决方案</b>：</p>
-    <ul><li>LDO 供电（而非 DC-DC）</li><li>去耦电容（0.1μF + 10μF）</li><li>屏蔽 LNA 芯片</li></ul>
+馈线损耗 3dB → LNA 的噪声贡献放大 5.6 倍
+</code></pre>
+<p><strong>规则</strong>：LNA 越靠近天线越好，最好集成在天线罩内。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>八、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：高度成熟</li><li><b>说明</b>：Sub-6GHz LNA 技术非常成熟（几十年积累）。毫米波 LNA 随 5G 快速成熟。CMOS 毫米波 LNA 已在 5G 手机和基站中大规模商用。</li></ul>
+  
+  <article class="card ">
+    
+    <h2>7.2 输入匹配 vs 噪声匹配</h2>
+    <pre><code>S11 最佳匹配 ≠ NF 最小值
+</code></pre>
+<p>设计 LNA 时需要在输入匹配和噪声匹配之间做权衡：</p>
+<table>
+<thead>
+<tr>
+<th>优化目标</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最佳 S11</td>
+<td>VSWR 最小，但 NF 可能不是最低</td>
+</tr>
+<tr>
+<td>最佳 NF</td>
+<td>NF 最低，但 S11 可能较差</td>
+</tr>
+<tr>
+<td>最佳噪声系数增益积 NGP</td>
+<td>综合最优</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>九、一句话总结</h2>
-    <p>LNA 是接收链路的"守门员"——它决定了整个系统能听到的最小信号有多小。核心指标就三个：NF（噪声越小越好）、Gain（足够高以压制后续级）、P1dB/IP3（线性度要好）。记住 Friis 公式的教诲：第一级的噪声贡献最大，所以 LNA 的 NF 是接收系统性能的天花板。</p>
+  
+  <article class="card ">
+    
+    <h2>7.3 电源噪声对 LNA 的影响</h2>
+    <pre><code>电源噪声 → 调制到 RF 信号 → 相位噪声恶化
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>LDO 供电（而非 DC-DC）</li>
+<li>去耦电容（0.1μF + 10μF）</li>
+<li>屏蔽 LNA 芯片</li>
+</ul>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -322,39 +758,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

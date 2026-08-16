@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线基板 Substrate · 知识卡片</title>
+<title>天线基板Substrate · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线基板 Substrate <span class="en">Substrate</span></h1>
-  <p class="lede">天线基板是承载天线辐射体和馈电网络的"画布"——它的介电常数（ε_r）、损耗角正切（tanδ）和厚度直接决定了天线的尺寸、效率和带宽。Sub-6GHz 常用 FR4/Rogers，毫米波常用 LCP/LTCC，封装级用 Si/GBS。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线基板Substrate</h1>
+  <p class="lede">天线基板是承载天线辐射体和馈电网络的&#34;画布&#34;——它的介电常数（ε_r）、损耗角正切（tanδ）和厚度直接决定了天线的尺寸、效率和带宽。Sub-6GHz 常用 FR4/Rogers，毫米波常用 LCP/LTCC，封装级用 Si/GBS。</p>
+  
 </header>
 
 <main>
@@ -99,199 +101,516 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>天线基板就像画家的画布——画布的质量决定了颜料（射频信号）能保留多少。便宜的画布（FR4）吸水（损耗大），贵的画布（Rogers）不吸水（损耗小）。毫米波频率越高，对画布的要求越苛刻——就像高清印刷需要更光滑的纸张。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 基板的角色</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 基板的角色</h2>
     <pre><code>基板承载：
-      1. 天线辐射体（patch、dipole、slot 等）
-      2. 馈电网络（microstrip、stripline 等）
-      3. 匹配电路（capacitor、inductor）
-      4. 接地层（ground plane）</code></pre>
-    <h3>1.2 基板的关键参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>符号</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>介电常数</td><td>ε_r / Dk</td><td>决定波长缩短和天线尺寸</td></tr>
-    <tr><td>损耗角正切</td><td>tanδ / Df</td><td>决定基板损耗</td></tr>
-    <tr><td>厚度</td><td>h</td><td>决定阻抗和带宽</td></tr>
-    <tr><td>热膨胀系数</td><td>CTE</td><td>决定温度稳定性</td></tr>
-    <tr><td>表面粗糙度</td><td>R_z</td><td>影响导体损耗（高频关键）</td></tr>
-    <tr><td>导热系数</td><td>k</td><td>散热能力</td></tr>
-    </tbody></table></div>
+  1. 天线辐射体（patch、dipole、slot 等）
+  2. 馈电网络（microstrip、stripline 等）
+  3. 匹配电路（capacitor、inductor）
+  4. 接地层（ground plane）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、基板材料分类</h2>
-    <h3>2.1 Sub-6GHz 基板</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>ε_r</th><th>tanδ</th><th>成本</th><th>适用频段</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>FR4</td><td>4.4-4.8</td><td>0.02</td><td>极低</td><td>< 3GHz</td><td>消费电子</td></tr>
-    <tr><td>Rogers RO4000</td><td>3.55/6.15</td><td>0.0027</td><td>中</td><td>< 10GHz</td><td>基站/汽车雷达</td></tr>
-    <tr><td>Taconic TLY</td><td>2.2</td><td>0.001</td><td>高</td><td>< 10GHz</td><td>高性能</td></tr>
-    <tr><td>PTFE</td><td>2.1-2.3</td><td>0.001</td><td>高</td><td>< 10GHz</td><td>雷达/卫星</td></tr>
-    </tbody></table></div>
-    <h3>2.2 毫米波基板</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>ε_r</th><th>tanδ</th><th>成本</th><th>适用频段</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>LCP</td><td>2.9-3.2</td><td>0.002-0.005</td><td>高</td><td>10-110GHz</td><td>5G 手机/AiP</td></tr>
-    <tr><td>LTCC</td><td>5.5-10</td><td>0.005</td><td>中高</td><td>< 40GHz</td><td>基站/卫星</td></tr>
-    <tr><td>Si（硅）</td><td>11.7</td><td>0.01-0.1</td><td>低</td><td>> 60GHz</td><td>CMOS 集成</td></tr>
-    <tr><td>GBS（玻璃基板）</td><td>3.7-4.0</td><td>0.001-0.003</td><td>中</td><td>24-100GHz</td><td>下一代</td></tr>
-    <tr><td>HDI（有机）</td><td>3.5-4.5</td><td>0.005-0.02</td><td>中</td><td>< 40GHz</td><td>手机</td></tr>
-    </tbody></table></div>
-    <h3>2.3 特殊基板</h3>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>ε_r</th><th>tanδ</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>AlN（氮化铝）</td><td>9.5</td><td>0.0003</td><td>高导热，散热基板</td></tr>
-    <tr><td>Al₂O₃（氧化铝）</td><td>9.8</td><td>0.0005</td><td>陶瓷基板</td></tr>
-    <tr><td>BeO（氧化铍）</td><td>6.8</td><td>0.0001</td><td>超高导热，有毒</td></tr>
-    <tr><td>SiC（碳化硅）</td><td>9.7</td><td>0.001</td><td>高导热 + 高强度</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>1.2 基板的关键参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>介电常数</td>
+<td>ε_r / Dk</td>
+<td>决定波长缩短和天线尺寸</td>
+</tr>
+<tr>
+<td>损耗角正切</td>
+<td>tanδ / Df</td>
+<td>决定基板损耗</td>
+</tr>
+<tr>
+<td>厚度</td>
+<td>h</td>
+<td>决定阻抗和带宽</td>
+</tr>
+<tr>
+<td>热膨胀系数</td>
+<td>CTE</td>
+<td>决定温度稳定性</td>
+</tr>
+<tr>
+<td>表面粗糙度</td>
+<td>R_z</td>
+<td>影响导体损耗（高频关键）</td>
+</tr>
+<tr>
+<td>导热系数</td>
+<td>k</td>
+<td>散热能力</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、介电常数和损耗</h2>
-    <h3>3.1 介电常数（ε_r）的影响</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 Sub-6GHz 基板</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>ε_r</th>
+<th>tanδ</th>
+<th>成本</th>
+<th>适用频段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR4</td>
+<td>4.4-4.8</td>
+<td>0.02</td>
+<td>极低</td>
+<td>&lt; 3GHz</td>
+<td>消费电子</td>
+</tr>
+<tr>
+<td>Rogers RO4000</td>
+<td>3.55/6.15</td>
+<td>0.0027</td>
+<td>中</td>
+<td>&lt; 10GHz</td>
+<td>基站/汽车雷达</td>
+</tr>
+<tr>
+<td>Taconic TLY</td>
+<td>2.2</td>
+<td>0.001</td>
+<td>高</td>
+<td>&lt; 10GHz</td>
+<td>高性能</td>
+</tr>
+<tr>
+<td>PTFE</td>
+<td>2.1-2.3</td>
+<td>0.001</td>
+<td>高</td>
+<td>&lt; 10GHz</td>
+<td>雷达/卫星</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 毫米波基板</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>ε_r</th>
+<th>tanδ</th>
+<th>成本</th>
+<th>适用频段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCP</td>
+<td>2.9-3.2</td>
+<td>0.002-0.005</td>
+<td>高</td>
+<td>10-110GHz</td>
+<td>5G 手机/AiP</td>
+</tr>
+<tr>
+<td>LTCC</td>
+<td>5.5-10</td>
+<td>0.005</td>
+<td>中高</td>
+<td>&lt; 40GHz</td>
+<td>基站/卫星</td>
+</tr>
+<tr>
+<td>Si（硅）</td>
+<td>11.7</td>
+<td>0.01-0.1</td>
+<td>低</td>
+<td>&gt; 60GHz</td>
+<td>CMOS 集成</td>
+</tr>
+<tr>
+<td>GBS（玻璃基板）</td>
+<td>3.7-4.0</td>
+<td>0.001-0.003</td>
+<td>中</td>
+<td>24-100GHz</td>
+<td>下一代</td>
+</tr>
+<tr>
+<td>HDI（有机）</td>
+<td>3.5-4.5</td>
+<td>0.005-0.02</td>
+<td>中</td>
+<td>&lt; 40GHz</td>
+<td>手机</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 特殊基板</h2>
+    <table>
+<thead>
+<tr>
+<th>材料</th>
+<th>ε_r</th>
+<th>tanδ</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AlN（氮化铝）</td>
+<td>9.5</td>
+<td>0.0003</td>
+<td>高导热，散热基板</td>
+</tr>
+<tr>
+<td>Al₂O₃（氧化铝）</td>
+<td>9.8</td>
+<td>0.0005</td>
+<td>陶瓷基板</td>
+</tr>
+<tr>
+<td>BeO（氧化铍）</td>
+<td>6.8</td>
+<td>0.0001</td>
+<td>超高导热，有毒</td>
+</tr>
+<tr>
+<td>SiC（碳化硅）</td>
+<td>9.7</td>
+<td>0.001</td>
+<td>高导热 + 高强度</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 介电常数（ε_r）的影响</h2>
     <pre><code>基板中的波长：λ_sub = λ_0 / √ε_r
+
+ε_r = 4 → λ_sub = λ_0 / 2（天线尺寸减半）
+ε_r = 10 → λ_sub = λ_0 / 3.16（天线尺寸大幅缩小）
+</code></pre>
+<p><strong>ε_r 的优缺点</strong>：</p>
+<pre><code>高 ε_r：天线尺寸小，但带宽窄、损耗大
+低 ε_r：带宽宽、损耗小，但天线尺寸大
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    ε_r = 4 → λ_sub = λ_0 / 2（天线尺寸减半）
-    ε_r = 10 → λ_sub = λ_0 / 3.16（天线尺寸大幅缩小）</code></pre>
-    <p><b>ε_r 的优缺点</b>：</p>
-    <pre><code>高 ε_r：天线尺寸小，但带宽窄、损耗大
-    低 ε_r：带宽宽、损耗小，但天线尺寸大</code></pre>
-    <h3>3.2 损耗角正切（tanδ）</h3>
+    <h2>3.2 损耗角正切（tanδ）</h2>
     <pre><code>基板损耗 = tanδ × f × 体积
+
+tanδ 越小，损耗越低
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>tanδ @ 10GHz</th>
+<th>10GHz 损耗/dB/inch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR4</td>
+<td>0.02</td>
+<td>0.5-1.0</td>
+</tr>
+<tr>
+<td>Rogers RO4350B</td>
+<td>0.0037</td>
+<td>0.1-0.2</td>
+</tr>
+<tr>
+<td>LCP</td>
+<td>0.004</td>
+<td>0.1-0.2</td>
+</tr>
+<tr>
+<td>PTFE</td>
+<td>0.001</td>
+<td>0.03-0.05</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    tanδ 越小，损耗越低</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>材料</th><th>tanδ @ 10GHz</th><th>10GHz 损耗/dB/inch</th></tr></thead>
-    <tbody>
-    <tr><td>FR4</td><td>0.02</td><td>0.5-1.0</td></tr>
-    <tr><td>Rogers RO4350B</td><td>0.0037</td><td>0.1-0.2</td></tr>
-    <tr><td>LCP</td><td>0.004</td><td>0.1-0.2</td></tr>
-    <tr><td>PTFE</td><td>0.001</td><td>0.03-0.05</td></tr>
-    </tbody></table></div>
-    <h3>3.3 频率对 ε_r 的影响</h3>
+    <h2>3.3 频率对 ε_r 的影响</h2>
     <pre><code>ε_r(f) = ε_r(0) - k · f²
-    
-    ε_r 随频率升高而降低（色散）</code></pre>
-    <p><b>Rogers RO4350B</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频率</th><th>ε_r</th></tr></thead>
-    <tbody>
-    <tr><td>10GHz</td><td>3.48</td></tr>
-    <tr><td>28GHz</td><td>3.43</td></tr>
-    <tr><td>60GHz</td><td>3.38</td></tr>
-    </tbody></table></div>
-    <p><b>LCP</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>频率</th><th>ε_r</th></tr></thead>
-    <tbody>
-    <tr><td>10GHz</td><td>3.0</td></tr>
-    <tr><td>28GHz</td><td>2.95</td></tr>
-    <tr><td>60GHz</td><td>2.85</td></tr>
-    </tbody></table></div>
-  </article>
 
-  <article class="card">
-    <h2>四、基板厚度与阻抗</h2>
-    <h3>4.1 微带线阻抗</h3>
+ε_r 随频率升高而降低（色散）
+</code></pre>
+<p><strong>Rogers RO4350B</strong>：
+| 频率 | ε_r |
+|------|-----|
+| 10GHz | 3.48 |
+| 28GHz | 3.43 |
+| 60GHz | 3.38 |</p>
+<p><strong>LCP</strong>：
+| 频率 | ε_r |
+|------|-----|
+| 10GHz | 3.0 |
+| 28GHz | 2.95 |
+| 60GHz | 2.85 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 微带线阻抗</h2>
     <pre><code>Z_0 ≈ (87/√(ε_r+1.4)) · ln(5.4h/w)
+
+w = 线宽
+h = 基板厚度
+ε_r = 介电常数
+</code></pre>
+<p><strong>50Ω 微带线设计</strong>：
+| h (mm) | ε_r | w (mm) @ 10GHz |
+|--------|-----|----------------|
+| 0.5 | 3.5 | 1.4 |
+| 0.8 | 3.5 | 2.3 |
+| 1.0 | 3.5 | 2.9 |
+| 0.5 | 10 | 0.6 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    w = 线宽
-    h = 基板厚度
-    ε_r = 介电常数</code></pre>
-    <p><b>50Ω 微带线设计</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>h (mm)</th><th>ε_r</th><th>w (mm) @ 10GHz</th></tr></thead>
-    <tbody>
-    <tr><td>0.5</td><td>3.5</td><td>1.4</td></tr>
-    <tr><td>0.8</td><td>3.5</td><td>2.3</td></tr>
-    <tr><td>1.0</td><td>3.5</td><td>2.9</td></tr>
-    <tr><td>0.5</td><td>10</td><td>0.6</td></tr>
-    </tbody></table></div>
-    <h3>4.2 厚度对带宽的影响</h3>
+    <h2>4.2 厚度对带宽的影响</h2>
     <pre><code>h/λ 越大 → 带宽越宽
-    h/λ 越小 → 带宽越窄
-    
-    薄基板（h &lt; 0.1mm）：适合毫米波，但制造困难
-    厚基板（h &gt; 1mm）：适合 Sub-6GHz，带宽好</code></pre>
-  </article>
+h/λ 越小 → 带宽越窄
 
-  <article class="card">
-    <h2>五、表面粗糙度</h2>
-    <h3>5.1 集肤效应（Skin Effect）</h3>
+薄基板（h &lt; 0.1mm）：适合毫米波，但制造困难
+厚基板（h &gt; 1mm）：适合 Sub-6GHz，带宽好
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 集肤效应（Skin Effect）</h2>
     <pre><code>高频电流只在导体表面流动：
-    δ_skin = √(2ρ / ωμ)
+δ_skin = √(2ρ / ωμ)
+
+f = 10GHz → δ_skin ≈ 0.66μm（铜）
+f = 60GHz → δ_skin ≈ 0.27μm（铜）
+</code></pre>
+<p><strong>关键</strong>：当表面粗糙度 R_z &gt; δ_skin 时，导体损耗显著增加。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    f = 10GHz → δ_skin ≈ 0.66μm（铜）
-    f = 60GHz → δ_skin ≈ 0.27μm（铜）</code></pre>
-    <p><b>关键</b>：当表面粗糙度 R_z > δ_skin 时，导体损耗显著增加。</p>
-    <h3>5.2 低轮廓铜箔（HVLP/RTF）</h3>
+    <h2>5.2 低轮廓铜箔（HVLP/RTF）</h2>
     <pre><code>标准铜箔 R_z ≈ 3-5μm → 不适合 &gt; 20GHz
-    HVLP 铜箔 R_z ≈ 1-2μm → 适合 28GHz
-    RTF 铜箔 R_z ≈ 0.5-1μm → 适合 60GHz+</code></pre>
+HVLP 铜箔 R_z ≈ 1-2μm → 适合 28GHz
+RTF 铜箔 R_z ≈ 0.5-1μm → 适合 60GHz+
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、基板选择指南</h2>
-    <h3>6.1 按频段选择</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 按频段选择</h2>
     <pre><code>f &lt; 3GHz → FR4（消费级）/ Rogers RO4000（高端）
-    3-10GHz → Rogers RO4350B / TLY
-    10-30GHz → LCP / Rogers RO3000
-    30-60GHz → LCP / GBS / Si
-    &gt; 60GHz → Si / GaAs / InP</code></pre>
-    <h3>6.2 按应用选择</h3>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>推荐基板</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>手机 5G</td><td>LCP / mSAP</td><td>超薄、柔性、适合 AiP</td></tr>
-    <tr><td>基站 AAU</td><td>Rogers RO4350B</td><td>低损耗、耐热</td></tr>
-    <tr><td>车载雷达</td><td>Rogers RO4000</td><td>宽带、温度稳定</td></tr>
-    <tr><td>WiFi 6E/7</td><td>FR4 / 高频 PCB</td><td>成本低</td></tr>
-    <tr><td>卫星</td><td>PTFE / AlN</td><td>高可靠性、散热好</td></tr>
-    <tr><td>毫米波 AiP</td><td>Si / GBS</td><td>集成度高</td></tr>
-    </tbody></table></div>
-    <h3>6.3 5G 毫米波基板对比</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>LCP</th><th>LTCC</th><th>GBS</th><th>Si</th></tr></thead>
-    <tbody>
-    <tr><td>ε_r</td><td>2.9-3.2</td><td>5.5-10</td><td>3.7-4.0</td><td>11.7</td></tr>
-    <tr><td>tanδ</td><td>0.002-0.005</td><td>0.005</td><td>0.001-0.003</td><td>0.01-0.1</td></tr>
-    <tr><td>厚度</td><td>0.05-0.2mm</td><td>0.1mm层</td><td>0.1-0.5mm</td><td>0.5mm</td></tr>
-    <tr><td>成本</td><td>高</td><td>中高</td><td>中</td><td>低</td></tr>
-    <tr><td>适用频段</td><td>24-100GHz</td><td>< 40GHz</td><td>24-110GHz</td><td>> 100GHz</td></tr>
-    <tr><td>柔性</td><td>好</td><td>差</td><td>差</td><td>差</td></tr>
-    </tbody></table></div>
+3-10GHz → Rogers RO4350B / TLY
+10-30GHz → LCP / Rogers RO3000
+30-60GHz → LCP / GBS / Si
+&gt; 60GHz → Si / GaAs / InP
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>七、工艺与制造</h2>
-    <h3>7.1 PCB 制造工艺</h3>
+  
+  <article class="card ">
+    
+    <h2>6.2 按应用选择</h2>
+    <table>
+<thead>
+<tr>
+<th>应用</th>
+<th>推荐基板</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手机 5G</td>
+<td>LCP / mSAP</td>
+<td>超薄、柔性、适合 AiP</td>
+</tr>
+<tr>
+<td>基站 AAU</td>
+<td>Rogers RO4350B</td>
+<td>低损耗、耐热</td>
+</tr>
+<tr>
+<td>车载雷达</td>
+<td>Rogers RO4000</td>
+<td>宽带、温度稳定</td>
+</tr>
+<tr>
+<td>WiFi 6E/7</td>
+<td>FR4 / 高频 PCB</td>
+<td>成本低</td>
+</tr>
+<tr>
+<td>卫星</td>
+<td>PTFE / AlN</td>
+<td>高可靠性、散热好</td>
+</tr>
+<tr>
+<td>毫米波 AiP</td>
+<td>Si / GBS</td>
+<td>集成度高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 5G 毫米波基板对比</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>LCP</th>
+<th>LTCC</th>
+<th>GBS</th>
+<th>Si</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ε_r</td>
+<td>2.9-3.2</td>
+<td>5.5-10</td>
+<td>3.7-4.0</td>
+<td>11.7</td>
+</tr>
+<tr>
+<td>tanδ</td>
+<td>0.002-0.005</td>
+<td>0.005</td>
+<td>0.001-0.003</td>
+<td>0.01-0.1</td>
+</tr>
+<tr>
+<td>厚度</td>
+<td>0.05-0.2mm</td>
+<td>0.1mm层</td>
+<td>0.1-0.5mm</td>
+<td>0.5mm</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高</td>
+<td>中高</td>
+<td>中</td>
+<td>低</td>
+</tr>
+<tr>
+<td>适用频段</td>
+<td>24-100GHz</td>
+<td>&lt; 40GHz</td>
+<td>24-110GHz</td>
+<td>&gt; 100GHz</td>
+</tr>
+<tr>
+<td>柔性</td>
+<td>好</td>
+<td>差</td>
+<td>差</td>
+<td>差</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 PCB 制造工艺</h2>
     <pre><code>FR4：标准 IPC 工艺（线宽/间距 ≥ 50μm）
-    Rogers：特殊工艺（需专用层压板）
-    LCP：精密蚀刻（线宽/间距 ≥ 10μm）
-    mSAP：半加成法（线宽/间距 ≥ 5μm）
-    AIP：晶圆级工艺（线宽/间距 ≥ 1μm）</code></pre>
-    <h3>7.2 层压工艺</h3>
-    <pre><code>Sub-6GHz：标准层压（100-150°C）
-    Rogers：专用层压（180-200°C，高压）
-    LCP：低温层压（200-250°C，需防潮）
-    LTCC：共烧（850°C，陶瓷生带）</code></pre>
+Rogers：特殊工艺（需专用层压板）
+LCP：精密蚀刻（线宽/间距 ≥ 10μm）
+mSAP：半加成法（线宽/间距 ≥ 5μm）
+AIP：晶圆级工艺（线宽/间距 ≥ 1μm）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>基板是天线的"地基"——ε_r 决定天线尺寸（越高越小），tanδ 决定损耗（越低越好），厚度决定阻抗和带宽。Sub-6GHz 用 FR4 或 Rogers，毫米波用 LCP 或 GBS，封装级用 Si。记住：高频下基板不再是"绝缘体"，而是射频电路的一部分——它的每一个参数都会影响天线性能。</p>
+  
+  <article class="card ">
+    
+    <h2>7.2 层压工艺</h2>
+    <pre><code>Sub-6GHz：标准层压（100-150°C）
+Rogers：专用层压（180-200°C，高压）
+LCP：低温层压（200-250°C，需防潮）
+LTCC：共烧（850°C，陶瓷生带）
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -311,39 +630,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

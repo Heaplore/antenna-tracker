@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>对数周期天线（Log-Periodic Dipole Array, LPDA） · 知识卡片</title>
+<title>对数周期天线Log-Periodic · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">对数周期天线（Log-Periodic Dipole Array, LPDA） <span class="en">Log-Periodic</span></h1>
-  <p class="lede">对数周期天线是"宽频定向天线之王"——通过一系列尺寸按比例缩放的偶极子，在 10:1 甚至更高的频带内保持稳定的增益和方向图，是天线测试和频谱监测的主力。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">对数周期天线Log-Periodic</h1>
+  <p class="lede">对数周期天线是&#34;宽频定向天线之王&#34;——通过一系列尺寸按比例缩放的偶极子，在 10:1 甚至更高的频带内保持稳定的增益和方向图，是天线测试和频谱监测的主力。</p>
+  
 </header>
 
 <main>
@@ -99,110 +101,146 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>对数周期天线就像一把"钢琴键盘"——每根偶极子对应一个音符（频率），但只有当前演奏的那个音符对应的偶极子在工作，其他偶极子只是"旁观者"。换频率时，工作的那根偶极子沿着天线移动。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、LPDA 的基本结构</h2>
-    <h3>1.1 单元排列</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 单元排列</h2>
     <pre><code>    ← 方向图主瓣 →
-        
-        ● ← 尖端（短偶极子，高频）
-       / \
-      ●   ●
-     /     \
-    ●       ●
-     \     /
-      ●   ●
-       \ /
-        ● ← 尾部（长偶极子，低频）
-        
-    单元间距：d_n = τ · d_{n+1}
-    单元长度：l_n = τ · l_{n+1}
-      
-    τ = 比例因子（通常 0.05-0.2）
-    σ = 馈电角（通常 10-30°）</code></pre>
-    <h3>1.2 工作原理</h3>
+
+    ● ← 尖端（短偶极子，高频）
+   / \
+  ●   ●
+ /     \
+●       ●
+ \     /
+  ●   ●
+   \ /
+    ● ← 尾部（长偶极子，低频）
+
+单元间距：d_n = τ · d_{n+1}
+单元长度：l_n = τ · l_{n+1}
+
+τ = 比例因子（通常 0.05-0.2）
+σ = 馈电角（通常 10-30°）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 工作原理</h2>
     <pre><code>每个频率只有一小部分单元&quot;活跃&quot;：
-      - 高频：靠近尖端的短单元工作
-      - 低频：靠近尾部的长单元工作
-      - 中间频率：中间单元工作
-      
-    &quot;活跃区&quot;宽度：约 2-3 个单元
-    其余单元处于&quot;静止&quot;状态（感应但不辐射）</code></pre>
-  </article>
+  - 高频：靠近尖端的短单元工作
+  - 低频：靠近尾部的长单元工作
+  - 中间频率：中间单元工作
 
-  <article class="card">
-    <h2>二、关键参数</h2>
-    <h3>2.1 带宽</h3>
+&quot;活跃区&quot;宽度：约 2-3 个单元
+其余单元处于&quot;静止&quot;状态（感应但不辐射）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 带宽</h2>
     <pre><code>LPDA 带宽：10:1 到 20:1
+
+举例：
+  30MHz - 3000MHz（100:1）
+  100MHz - 10GHz（100:1）
+  500MHz - 5GHz（10:1）
+
+对比：
+  八木天线：~20% 带宽
+  偶极子：~10% 带宽
+  LPDA：~1000% 带宽（王者）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    举例：
-      30MHz - 3000MHz（100:1）
-      100MHz - 10GHz（100:1）
-      500MHz - 5GHz（10:1）
-      
-    对比：
-      八木天线：~20% 带宽
-      偶极子：~10% 带宽
-      LPDA：~1000% 带宽（王者）</code></pre>
-    <h3>2.2 增益</h3>
+    <h2>2.2 增益</h2>
     <pre><code>LPDA 增益：6-14dBi
+
+典型值：
+  低频端：6-8dBi
+  中频段：8-10dBi
+  高频端：10-14dBi
+
+对比：
+  八木（3单元）：7dBi
+  八木（10单元）：13dBi
+  平板天线：17-19dBi
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型值：
-      低频端：6-8dBi
-      中频段：8-10dBi
-      高频端：10-14dBi
-      
-    对比：
-      八木（3单元）：7dBi
-      八木（10单元）：13dBi
-      平板天线：17-19dBi</code></pre>
-    <h3>2.3 方向图</h3>
+    <h2>2.3 方向图</h2>
     <pre><code>E 面：单向（沿轴向）
-    H 面：近似全向（略有方向性）
-    前后比：&gt; 20dB</code></pre>
+H 面：近似全向（略有方向性）
+前后比：&gt; 20dB
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、LPDA 的应用</h2>
-    <h3>3.1 天线测试</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 天线测试</h2>
     <pre><code>为什么用 LPDA 做测试天线？
-      1. 宽频（覆盖 30MHz-40GHz）
-      2. 增益稳定（6-10dBi）
-      3. 方向图稳定
-      4. 成本低（相比喇叭天线）
-      
-    典型测试频段：
-      30MHz-1GHz：大型 LPDA
-      1-18GHz：小型 LPDA
-      18-40GHz：波导 LPDA</code></pre>
-    <h3>3.2 频谱监测</h3>
-    <pre><code>应用场景：
-      - 无线电管理
-      - 电磁环境评估
-      - 干扰定位
-      
-    优势：
-      - 一台天线覆盖多个频段
-      - 无需频繁更换天线</code></pre>
-    <h3>3.3 TV/广播接收</h3>
-    <pre><code>经典应用：
-      VHF/UHF 电视天线
-      FM 广播天线
-      
-    特点：
-      - 便宜
-      - 宽频
-      - 增益适中（8-10dBi）</code></pre>
-  </article>
+  1. 宽频（覆盖 30MHz-40GHz）
+  2. 增益稳定（6-10dBi）
+  3. 方向图稳定
+  4. 成本低（相比喇叭天线）
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>LPDA 是"宽频定向天线的王者"——10:1 以上的带宽、稳定的增益和方向图，是天线测试和频谱监测的主力。记住：LPDA 不是"每根偶极子都工作"，而是"每根偶极子轮流工作"，这就是"对数周期"的含义。</p>
+典型测试频段：
+  30MHz-1GHz：大型 LPDA
+  1-18GHz：小型 LPDA
+  18-40GHz：波导 LPDA
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 频谱监测</h2>
+    <pre><code>应用场景：
+  - 无线电管理
+  - 电磁环境评估
+  - 干扰定位
+
+优势：
+  - 一台天线覆盖多个频段
+  - 无需频繁更换天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 TV/广播接收</h2>
+    <pre><code>经典应用：
+  VHF/UHF 电视天线
+  FM 广播天线
+
+特点：
+  - 便宜
+  - 宽频
+  - 增益适中（8-10dBi）
+</code></pre>
+  </article>
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -222,39 +260,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

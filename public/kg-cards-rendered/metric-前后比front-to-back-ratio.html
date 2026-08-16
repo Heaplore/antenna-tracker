@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前后比 Front-to-Back Ratio（FBR） · 知识卡片</title>
+<title>前后比Front-to-Back-Ratio · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">前后比 Front-to-Back Ratio <span class="en">FBR</span></h1>
-  <p class="lede">前后比是天线主瓣方向功率与背面方向功率之比——它衡量天线"指向前方时后面泄露了多少"，FBR 越高，天线的方向性越纯粹，对后方干扰的抑制能力越强。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">前后比Front-to-Back-Ratio</h1>
+  <p class="lede">前后比是天线主瓣方向功率与背面方向功率之比——它衡量天线&#34;指向前方时后面泄露了多少&#34;，FBR 越高，天线的方向性越纯粹，对后方干扰的抑制能力越强。</p>
+  
 </header>
 
 <main>
@@ -99,164 +101,327 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>前后比就像你站在马路边喊话——你面向前方大声喊（主瓣），但嘴巴也会向后漏声音（后瓣）。FBR 就是"前面喊的声音"和"后面漏的声音"的比值。FBR 越高，后面的人越听不到你在喊什么。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 前后比的定义</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 前后比的定义</h2>
     <pre><code>FBR = 20·log₁₀(E_front / E_back) [dB]
-    FBR = 10·log₁₀(P_front / P_back) [dB]</code></pre>
-    <p>其中：</p>
-    <ul><li>E_front = 主瓣最大值处的电场强度</li><li>E_back = 后瓣最大值处的电场强度</li></ul>
-    <h3>1.2 前后比的变体</h3>
-    <p><b>主瓣/后瓣比（FBR）</b>：</p>
-    <pre><code>FBR = 20·log₁₀(E_max / E_rear_max)</code></pre>
-    <p><b>3dB 后瓣宽度</b>：</p>
-    <pre><code>后瓣中功率下降 3dB 的范围</code></pre>
-    <p><b>10dB 后瓣宽度</b>：</p>
-    <pre><code>后瓣中功率下降 10dB 的范围</code></pre>
-    <h3>1.3 前后比与旁瓣的区别</h3>
+FBR = 10·log₁₀(P_front / P_back) [dB]
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>E_front = 主瓣最大值处的电场强度</li>
+<li>E_back = 后瓣最大值处的电场强度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 前后比的变体</h2>
+    <p><strong>主瓣/后瓣比（FBR）</strong>：</p>
+<pre><code>FBR = 20·log₁₀(E_max / E_rear_max)
+</code></pre>
+<p><strong>3dB 后瓣宽度</strong>：</p>
+<pre><code>后瓣中功率下降 3dB 的范围
+</code></pre>
+<p><strong>10dB 后瓣宽度</strong>：</p>
+<pre><code>后瓣中功率下降 10dB 的范围
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 前后比与旁瓣的区别</h2>
     <pre><code>旁瓣电平（SLL）：主瓣外的次大辐射
-    前后比（FBR）：主瓣与后瓣的比值
-    
-    旁瓣可能在任何方向（30°、60°等）
-    后瓣特指 180° 附近的辐射</code></pre>
-  </article>
+前后比（FBR）：主瓣与后瓣的比值
 
-  <article class="card">
-    <h2>二、计算公式</h2>
-    <h3>2.1 阵列天线的 FBR</h3>
+旁瓣可能在任何方向（30°、60°等）
+后瓣特指 180° 附近的辐射
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 阵列天线的 FBR</h2>
     <pre><code>N 元均匀线阵（端射）：
-    FBR ≈ 10·log₁₀(N) [dB]
+FBR ≈ 10·log₁₀(N) [dB]
+
+N = 4 → FBR ≈ 6dB
+N = 8 → FBR ≈ 9dB
+N = 16 → FBR ≈ 12dB
+N = 32 → FBR ≈ 15dB
+N = 64 → FBR ≈ 18dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    N = 4 → FBR ≈ 6dB
-    N = 8 → FBR ≈ 9dB
-    N = 16 → FBR ≈ 12dB
-    N = 32 → FBR ≈ 15dB
-    N = 64 → FBR ≈ 18dB</code></pre>
-    <h3>2.2 抛物面天线的 FBR</h3>
+    <h2>2.2 抛物面天线的 FBR</h2>
     <pre><code>FBR ≈ 32·log₁₀(D/λ) - 8 [dB]
+
+D/λ = 100 → FBR ≈ 56dB
+D/λ = 50 → FBR ≈ 44dB
+D/λ = 20 → FBR ≈ 32dB
+D/λ = 10 → FBR ≈ 20dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    D/λ = 100 → FBR ≈ 56dB
-    D/λ = 50 → FBR ≈ 44dB
-    D/λ = 20 → FBR ≈ 32dB
-    D/λ = 10 → FBR ≈ 20dB</code></pre>
-    <h3>2.3 八木天线的 FBR</h3>
+    <h2>2.3 八木天线的 FBR</h2>
     <pre><code>FBR 取决于引向器数量和长度精度
+
+典型值：
+  3 单元 → 15-20dB
+  5 单元 → 20-25dB
+  8 单元 → 25-30dB
+  12 单元 → 30-35dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型值：
-      3 单元 → 15-20dB
-      5 单元 → 20-25dB
-      8 单元 → 25-30dB
-      12 单元 → 30-35dB</code></pre>
-    <h3>2.4 FBR 与方向系数的关系</h3>
+    <h2>2.4 FBR 与方向系数的关系</h2>
     <pre><code>高 FBR 不一定意味着高方向性
-    高方向性通常需要高 FBR + 低旁瓣</code></pre>
+高方向性通常需要高 FBR + 低旁瓣
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型值范围</h2>
-    <h3>3.1 不同天线的 FBR</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>FBR (dB)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>八木天线（3单元）</td><td>15-20</td><td>低成本</td></tr>
-    <tr><td>八木天线（8单元）</td><td>25-30</td><td>中等</td></tr>
-    <tr><td>抛物面天线</td><td>25-40+</td><td>取决于馈源</td></tr>
-    <tr><td>喇叭天线</td><td>20-30</td><td>标准增益喇叭</td></tr>
-    <tr><td>微带贴片</td><td>15-25</td><td>背向辐射较大</td></tr>
-    <tr><td>5G AAU（Sub-6GHz）</td><td>20-30</td><td>板状阵列</td></tr>
-    <tr><td>5G AAU（毫米波）</td><td>25-35</td><td>波束窄</td></tr>
-    <tr><td>基站扇区天线</td><td>25-35</td><td>覆盖要求</td></tr>
-    <tr><td>车载 MIMO</td><td>15-20</td><td>全向覆盖</td></tr>
-    </tbody></table></div>
-    <h3>3.2 5G 基站 FBR 要求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>FBR 要求</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>城市宏站</td><td>> 25dB</td><td>防止楼底干扰</td></tr>
-    <tr><td>密集城区</td><td>> 30dB</td><td>多层建筑</td></tr>
-    <tr><td>高铁覆盖</td><td>> 20dB</td><td>侧面覆盖需求</td></tr>
-    <tr><td>卫星通信</td><td>> 35dB</td><td>抗多径</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 不同天线的 FBR</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>FBR (dB)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>八木天线（3单元）</td>
+<td>15-20</td>
+<td>低成本</td>
+</tr>
+<tr>
+<td>八木天线（8单元）</td>
+<td>25-30</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>抛物面天线</td>
+<td>25-40+</td>
+<td>取决于馈源</td>
+</tr>
+<tr>
+<td>喇叭天线</td>
+<td>20-30</td>
+<td>标准增益喇叭</td>
+</tr>
+<tr>
+<td>微带贴片</td>
+<td>15-25</td>
+<td>背向辐射较大</td>
+</tr>
+<tr>
+<td>5G AAU（Sub-6GHz）</td>
+<td>20-30</td>
+<td>板状阵列</td>
+</tr>
+<tr>
+<td>5G AAU（毫米波）</td>
+<td>25-35</td>
+<td>波束窄</td>
+</tr>
+<tr>
+<td>基站扇区天线</td>
+<td>25-35</td>
+<td>覆盖要求</td>
+</tr>
+<tr>
+<td>车载 MIMO</td>
+<td>15-20</td>
+<td>全向覆盖</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、测量方法</h2>
-    <h3>4.1 远场测量</h3>
+  
+  <article class="card ">
+    
+    <h2>3.2 5G 基站 FBR 要求</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>FBR 要求</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>城市宏站</td>
+<td>&gt; 25dB</td>
+<td>防止楼底干扰</td>
+</tr>
+<tr>
+<td>密集城区</td>
+<td>&gt; 30dB</td>
+<td>多层建筑</td>
+</tr>
+<tr>
+<td>高铁覆盖</td>
+<td>&gt; 20dB</td>
+<td>侧面覆盖需求</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>&gt; 35dB</td>
+<td>抗多径</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 远场测量</h2>
     <pre><code>设备：转台 + 标准增益天线 + VNA
-    方法：
-      1. 旋转被测天线 360°
-      2. 记录 0°（主瓣）和 180°（后瓣）的功率
-      3. FBR = 20·log₁₀(P_0° / P_180°)
-    精度：±1dB</code></pre>
-    <h3>4.2 暗室测量</h3>
+方法：
+  1. 旋转被测天线 360°
+  2. 记录 0°（主瓣）和 180°（后瓣）的功率
+  3. FBR = 20·log₁₀(P_0° / P_180°)
+精度：±1dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 暗室测量</h2>
     <pre><code>设备：微波暗室 + 转台
-    方法：
-      1. 在暗室中旋转天线
-      2. 记录全方向图
-      3. 提取 FBR
-    优势：无反射干扰，精度高</code></pre>
-    <h3>4.3 OTA 测量</h3>
+方法：
+  1. 在暗室中旋转天线
+  2. 记录全方向图
+  3. 提取 FBR
+优势：无反射干扰，精度高
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 OTA 测量</h2>
     <pre><code>设备：暗室 + 多探头阵列
-    方法：
-      1. 被测天线放在暗室中央
-      2. 多探头同时采集
-      3. 提取 FBR
-    适用：终端天线、手机</code></pre>
+方法：
+  1. 被测天线放在暗室中央
+  2. 多探头同时采集
+  3. 提取 FBR
+适用：终端天线、手机
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>旁瓣电平</td><td>相关</td><td>旁瓣低通常 FBR 也高</td></tr>
-    <tr><td>方向性系数</td><td>相关</td><td>高方向性通常需要高 FBR</td></tr>
-    <tr><td>天线增益</td><td>间接</td><td>高 FBR 可能牺牲少量增益</td></tr>
-    <tr><td>前后辐射比</td><td>等同</td><td>FBR 的同义词</td></tr>
-    <tr><td>隔离度</td><td>相关</td><td>多天线系统中 FBR 影响隔离度</td></tr>
-    </tbody></table></div>
-  </article>
-
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 FBR 恶化的常见原因</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 FBR 恶化的常见原因</h2>
     <pre><code>设计 FBR：30dB
-    实测 FBR：20dB（恶化 10dB）
-    
-    原因：
-      1. 安装支架反射（+5dB 恶化）
-      2. 馈线耦合（+3dB 恶化）
-      3. 天线罩影响（+2dB 恶化）
-      4. 地面反射（+2dB 恶化）</code></pre>
-    <h3>6.2 改善 FBR 的方法</h3>
-    <div class="tw"><table>
-    <thead><tr><th>方法</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>加反射板/背腔</td><td>FBR ↑ 10-15dB</td><td>体积 ↑</td></tr>
-    <tr><td>优化馈源设计</td><td>FBR ↑ 5-10dB</td><td>设计复杂</td></tr>
-    <tr><td>使用吸波材料</td><td>FBR ↑ 5-10dB</td><td>重量 ↑</td></tr>
-    <tr><td>背腔贴片天线</td><td>FBR ↑ 15-20dB</td><td>带宽 ↓</td></tr>
-    <tr><td>端射阵列优化</td><td>FBR ↑ 5-10dB</td><td>增益 ↓</td></tr>
-    </tbody></table></div>
-    <h3>6.3 FBR 与覆盖设计的权衡</h3>
-    <pre><code>高 FBR（&gt; 30dB）：
-      优点：后方干扰小，定位精度高
-      缺点：可能需要更大天线，成本 ↑
-    
-    低 FBR（&lt; 15dB）：
-      优点：成本低，体积小
-      缺点：后方干扰大，系统容量 ↓</code></pre>
-  </article>
+实测 FBR：20dB（恶化 10dB）
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>前后比 FBR 是天线"指向前方时后面泄露了多少"的度量——FBR 越高，天线越"专一"。记住三个关键：① FBR 与旁瓣不同，它特指主瓣与后瓣（180°）的比值 ② 抛物面天线 FBR 可达 30-40dB，微带贴片只有 15-25dB ③ 实际 FBR 受安装环境影响很大，设计时要预留余量。</p>
+原因：
+  1. 安装支架反射（+5dB 恶化）
+  2. 馈线耦合（+3dB 恶化）
+  3. 天线罩影响（+2dB 恶化）
+  4. 地面反射（+2dB 恶化）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 改善 FBR 的方法</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>加反射板/背腔</td>
+<td>FBR ↑ 10-15dB</td>
+<td>体积 ↑</td>
+</tr>
+<tr>
+<td>优化馈源设计</td>
+<td>FBR ↑ 5-10dB</td>
+<td>设计复杂</td>
+</tr>
+<tr>
+<td>使用吸波材料</td>
+<td>FBR ↑ 5-10dB</td>
+<td>重量 ↑</td>
+</tr>
+<tr>
+<td>背腔贴片天线</td>
+<td>FBR ↑ 15-20dB</td>
+<td>带宽 ↓</td>
+</tr>
+<tr>
+<td>端射阵列优化</td>
+<td>FBR ↑ 5-10dB</td>
+<td>增益 ↓</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 FBR 与覆盖设计的权衡</h2>
+    <pre><code>高 FBR（&gt; 30dB）：
+  优点：后方干扰小，定位精度高
+  缺点：可能需要更大天线，成本 ↑
+
+低 FBR（&lt; 15dB）：
+  优点：成本低，体积小
+  缺点：后方干扰大，系统容量 ↓
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -276,39 +441,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

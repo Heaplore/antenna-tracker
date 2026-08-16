@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>旁瓣电平 Sidelobe Level（SLL） · 知识卡片</title>
+<title>旁瓣电平Sidelobe-Level · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">旁瓣电平 Sidelobe Level <span class="en">SLL</span></h1>
-  <p class="lede">旁瓣电平是主瓣之外最大辐射方向的功率与主瓣最大功率之比——它衡量天线的"干净程度"，旁瓣越低，天线指向越纯粹，抗干扰能力越强。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">旁瓣电平Sidelobe-Level</h1>
+  <p class="lede">旁瓣电平是主瓣之外最大辐射方向的功率与主瓣最大功率之比——它衡量天线的&#34;干净程度&#34;，旁瓣越低，天线指向越纯粹，抗干扰能力越强。</p>
+  
 </header>
 
 <main>
@@ -99,191 +101,408 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>旁瓣就像手电筒除了主光束外那些散出来的光——你本想把光照向一个方向，但余光（旁瓣）会照亮其他地方。如果余光太强，不仅浪费能量，还可能被敌人（干扰源）发现你的位置。SLL 就是衡量"余光有多强"的指标。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与物理意义</h2>
-    <h3>1.1 旁瓣电平（SLL）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 旁瓣电平（SLL）</h2>
     <pre><code>SLL = 20·log₁₀(E_max_sidelobe / E_mainlobe) [dB]
-    SLL = 10·log₁₀(P_max_sidelobe / P_mainlobe) [dB]</code></pre>
-    <p><b>注意</b>：SLL 是负值（旁瓣功率低于主瓣），但工程上常说"SLL = -20dB"表示旁瓣比主瓣低 20dB。</p>
-    <h3>1.2 栅瓣（Grating Lobe）</h3>
-    <pre><code>栅瓣 = 由于单元间距过大而产生的等大旁瓣</code></pre>
-    <p>当 d > λ/2 时（相控阵），会出现栅瓣——它与主瓣功率几乎相等，是严重的旁瓣问题。</p>
-    <pre><code>栅瓣条件：
-    sin(θ_grating) = sin(θ₀) ± n·λ/d
+SLL = 10·log₁₀(P_max_sidelobe / P_mainlobe) [dB]
+</code></pre>
+<p><strong>注意</strong>：SLL 是负值（旁瓣功率低于主瓣），但工程上常说"SLL = -20dB"表示旁瓣比主瓣低 20dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    当 d &gt; λ 时，即使 θ₀ = 0° 也有栅瓣（n=1）</code></pre>
-    <h3>1.3 方向图结构</h3>
+    <h2>1.2 栅瓣（Grating Lobe）</h2>
+    <pre><code>栅瓣 = 由于单元间距过大而产生的等大旁瓣
+</code></pre>
+<p>当 d &gt; λ/2 时（相控阵），会出现栅瓣——它与主瓣功率几乎相等，是严重的旁瓣问题。</p>
+<pre><code>栅瓣条件：
+sin(θ_grating) = sin(θ₀) ± n·λ/d
+
+当 d &gt; λ 时，即使 θ₀ = 0° 也有栅瓣（n=1）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 方向图结构</h2>
     <pre><code>         主瓣
-            ╱    ╲
-           ╱      ╲    旁瓣
-          ╱   ★    ╲  ╱
-    ─────╱──────────╲╱──────
-       零点       旁瓣
-    
-    ★ = 主瓣峰值
-    旁瓣 = 主瓣外的次级辐射
-    栅瓣 = 与主瓣等大的旁瓣（d &gt; λ 时出现）</code></pre>
-  </article>
+        ╱    ╲
+       ╱      ╲    旁瓣
+      ╱   ★    ╲  ╱
+─────╱──────────╲╱──────
+   零点       旁瓣
 
-  <article class="card">
-    <h2>二、计算公式</h2>
-    <h3>2.1 SLL 与口径照明分布的关系</h3>
+★ = 主瓣峰值
+旁瓣 = 主瓣外的次级辐射
+栅瓣 = 与主瓣等大的旁瓣（d &gt; λ 时出现）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 SLL 与口径照明分布的关系</h2>
     <pre><code>均匀照射：SLL = 0dB（最差，第一旁瓣与主瓣等高）
-    三角形照射：SLL = -23dB
-    二次方（Cos²）照射：SLL = -32dB
-    切比雪夫照射：SLL = -20 到 -40dB（可调）
-    泰勒照射：SLL = -20 到 -30dB（可调）</code></pre>
-    <h3>2.2 均匀照射的旁瓣电平</h3>
+三角形照射：SLL = -23dB
+二次方（Cos²）照射：SLL = -32dB
+切比雪夫照射：SLL = -20 到 -40dB（可调）
+泰勒照射：SLL = -20 到 -30dB（可调）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 均匀照射的旁瓣电平</h2>
     <pre><code>N 元均匀线阵：
-    SLL ≈ -13.5dB（恒定，与 N 无关）
-    第一旁瓣在主瓣两侧 ±λ/(Nd) 处</code></pre>
-    <h3>2.3 切比雪夫阵列的 SLL 设计</h3>
+SLL ≈ -13.5dB（恒定，与 N 无关）
+第一旁瓣在主瓣两侧 ±λ/(Nd) 处
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 切比雪夫阵列的 SLL 设计</h2>
     <pre><code>给定 SLL 目标值（如 -20dB）：
-      设计参数 R = 10^(SLL_dB/20)⁻¹
-      R = 10^(-20/20)⁻¹ = 10
+  设计参数 R = 10^(SLL_dB/20)⁻¹
+  R = 10^(-20/20)⁻¹ = 10
+
+切比雪夫多项式系数由 R 决定
+</code></pre>
+<p><strong>典型设计</strong>：
+| SLL 目标 | R 值 | 增益损失 | 备注 |
+|---------|------|---------|------|
+| -10dB | 3.16 | 0.1dB | 低隔离 |
+| -20dB | 10 | 0.3dB | 通用 |
+| -30dB | 31.6 | 0.8dB | 高隔离 |
+| -40dB | 100 | 1.5dB | 极端隔离 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    切比雪夫多项式系数由 R 决定</code></pre>
-    <p><b>典型设计</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>SLL 目标</th><th>R 值</th><th>增益损失</th><th>备注</th></tr></thead>
-    <tbody>
-    <tr><td>-10dB</td><td>3.16</td><td>0.1dB</td><td>低隔离</td></tr>
-    <tr><td>-20dB</td><td>10</td><td>0.3dB</td><td>通用</td></tr>
-    <tr><td>-30dB</td><td>31.6</td><td>0.8dB</td><td>高隔离</td></tr>
-    <tr><td>-40dB</td><td>100</td><td>1.5dB</td><td>极端隔离</td></tr>
-    </tbody></table></div>
-    <h3>2.4 旁瓣与主瓣宽度的关系</h3>
+    <h2>2.4 旁瓣与主瓣宽度的关系</h2>
     <pre><code>SLL 越低 → 波束越宽（口径效率越低）
-    SLL 越高 → 波束越窄（口径效率越高）</code></pre>
-    <p><b>Trade-off 曲线</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>SLL (dB)</th><th>波束展宽因子</th><th>口径效率损失</th></tr></thead>
-    <tbody>
-    <tr><td>0（均匀）</td><td>1.0×</td><td>0%</td></tr>
-    <tr><td>-10</td><td>1.1×</td><td>5%</td></tr>
-    <tr><td>-20</td><td>1.2×</td><td>10%</td></tr>
-    <tr><td>-30</td><td>1.4×</td><td>18%</td></tr>
-    <tr><td>-40</td><td>1.6×</td><td>25%</td></tr>
-    </tbody></table></div>
+SLL 越高 → 波束越窄（口径效率越高）
+</code></pre>
+<p><strong>Trade-off 曲线</strong>：
+| SLL (dB) | 波束展宽因子 | 口径效率损失 |
+|----------|------------|------------|
+| 0（均匀） | 1.0× | 0% |
+| -10 | 1.1× | 5% |
+| -20 | 1.2× | 10% |
+| -30 | 1.4× | 18% |
+| -40 | 1.6× | 25% |</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、典型值范围</h2>
-    <h3>3.1 不同天线的旁瓣电平</h3>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>SLL (dB)</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>均匀照射阵列</td><td>-13.5</td><td>理论极限</td></tr>
-    <tr><td>切比雪夫阵列（-20dB）</td><td>-20</td><td>5G 基站常用</td></tr>
-    <tr><td>切比雪夫阵列（-30dB）</td><td>-30</td><td>雷达常用</td></tr>
-    <tr><td>泰勒阵列</td><td>-20 ~ -30</td><td>可调</td></tr>
-    <tr><td>抛物面天线</td><td>-15 ~ -25</td><td>取决于馈源</td></tr>
-    <tr><td>八木天线</td><td>-15 ~ -20</td><td>驱动单元设计</td></tr>
-    <tr><td>喇叭天线</td><td>-15 ~ -20</td><td>标准增益喇叭</td></tr>
-    <tr><td>手机终端</td><td>-10 ~ -15</td><td>人体影响大</td></tr>
-    <tr><td>WiFi 路由器</td><td>-12 ~ -18</td><td>低成本设计</td></tr>
-    </tbody></table></div>
-    <h3>3.2 5G AAU 旁瓣要求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>场景</th><th>SLL 要求</th><th>原因</th></tr></thead>
-    <tbody>
-    <tr><td>城市宏站</td><td>< -15dB</td><td>邻小区干扰控制</td></tr>
-    <tr><td>密集城区</td><td>< -20dB</td><td>高密度部署</td></tr>
-    <tr><td>毫米波基站</td><td>< -18dB</td><td>波束窄，旁瓣影响大</td></tr>
-    <tr><td>卫星通信</td><td>< -30dB</td><td>抗干扰要求高</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>3.1 不同天线的旁瓣电平</h2>
+    <table>
+<thead>
+<tr>
+<th>天线类型</th>
+<th>SLL (dB)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀照射阵列</td>
+<td>-13.5</td>
+<td>理论极限</td>
+</tr>
+<tr>
+<td>切比雪夫阵列（-20dB）</td>
+<td>-20</td>
+<td>5G 基站常用</td>
+</tr>
+<tr>
+<td>切比雪夫阵列（-30dB）</td>
+<td>-30</td>
+<td>雷达常用</td>
+</tr>
+<tr>
+<td>泰勒阵列</td>
+<td>-20 ~ -30</td>
+<td>可调</td>
+</tr>
+<tr>
+<td>抛物面天线</td>
+<td>-15 ~ -25</td>
+<td>取决于馈源</td>
+</tr>
+<tr>
+<td>八木天线</td>
+<td>-15 ~ -20</td>
+<td>驱动单元设计</td>
+</tr>
+<tr>
+<td>喇叭天线</td>
+<td>-15 ~ -20</td>
+<td>标准增益喇叭</td>
+</tr>
+<tr>
+<td>手机终端</td>
+<td>-10 ~ -15</td>
+<td>人体影响大</td>
+</tr>
+<tr>
+<td>WiFi 路由器</td>
+<td>-12 ~ -18</td>
+<td>低成本设计</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>四、测量方法</h2>
-    <h3>4.1 暗室测量</h3>
+  
+  <article class="card ">
+    
+    <h2>3.2 5G AAU 旁瓣要求</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>SLL 要求</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>城市宏站</td>
+<td>&lt; -15dB</td>
+<td>邻小区干扰控制</td>
+</tr>
+<tr>
+<td>密集城区</td>
+<td>&lt; -20dB</td>
+<td>高密度部署</td>
+</tr>
+<tr>
+<td>毫米波基站</td>
+<td>&lt; -18dB</td>
+<td>波束窄，旁瓣影响大</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>&lt; -30dB</td>
+<td>抗干扰要求高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 暗室测量</h2>
     <pre><code>设备：暗室 + 转台 + 标准增益天线 + VNA
-    方法：
-      1. 旋转被测天线 360°
-      2. 记录每个角度的功率
-      3. 找到主瓣峰值和最大旁瓣
-      4. SLL = 20·log₁₀(P_sidelobe / P_mainlobe)
-    精度：±1dB</code></pre>
-    <h3>4.2 OTA 测量</h3>
+方法：
+  1. 旋转被测天线 360°
+  2. 记录每个角度的功率
+  3. 找到主瓣峰值和最大旁瓣
+  4. SLL = 20·log₁₀(P_sidelobe / P_mainlobe)
+精度：±1dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 OTA 测量</h2>
     <pre><code>设备：暗室 + 多探头阵列
-    方法：
-      1. 被测天线放在暗室中央
-      2. 多探头同时采集方向图
-      3. 提取 SLL
-    优势：适合终端天线（手机、AiP 模组）</code></pre>
-    <h3>4.3 近场扫描</h3>
+方法：
+  1. 被测天线放在暗室中央
+  2. 多探头同时采集方向图
+  3. 提取 SLL
+优势：适合终端天线（手机、AiP 模组）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 近场扫描</h2>
     <pre><code>设备：近场扫描系统
-    方法：
-      1. 二维扫描（平面/圆柱/球形）
-      2. FFT 变换到远场
-      3. 计算 SLL
-    优势：精度高（±0.5dB），速度快</code></pre>
+方法：
+  1. 二维扫描（平面/圆柱/球形）
+  2. FFT 变换到远场
+  3. 计算 SLL
+优势：精度高（±0.5dB），速度快
+</code></pre>
   </article>
+  
 
-  <article class="card">
+  
+  <article class="card ">
+    
     <h2>五、与其他指标的关系</h2>
-    <div class="tw"><table>
-    <thead><tr><th>关联指标</th><th>关系类型</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>波束宽度</td><td>反比</td><td>SLL 越低 → 波束越宽</td></tr>
-    <tr><td>口径效率</td><td>反比</td><td>SLL 越低 → 效率越低</td></tr>
-    <tr><td>栅瓣</td><td>制约</td><td>d > λ/2 时出现栅瓣（SLL ≈ 0dB）</td></tr>
-    <tr><td>天线增益</td><td>制约</td><td>SLL 降低会牺牲增益</td></tr>
-    <tr><td>前后比</td><td>相关</td><td>前后比高通常旁瓣也低</td></tr>
-    <tr><td>互耦</td><td>影响</td><td>互耦会恶化旁瓣电平</td></tr>
-    </tbody></table></div>
+    <table>
+<thead>
+<tr>
+<th>关联指标</th>
+<th>关系类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束宽度</td>
+<td>反比</td>
+<td>SLL 越低 → 波束越宽</td>
+</tr>
+<tr>
+<td>口径效率</td>
+<td>反比</td>
+<td>SLL 越低 → 效率越低</td>
+</tr>
+<tr>
+<td>栅瓣</td>
+<td>制约</td>
+<td>d &gt; λ/2 时出现栅瓣（SLL ≈ 0dB）</td>
+</tr>
+<tr>
+<td>天线增益</td>
+<td>制约</td>
+<td>SLL 降低会牺牲增益</td>
+</tr>
+<tr>
+<td>前后比</td>
+<td>相关</td>
+<td>前后比高通常旁瓣也低</td>
+</tr>
+<tr>
+<td>互耦</td>
+<td>影响</td>
+<td>互耦会恶化旁瓣电平</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 栅瓣的避免</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 栅瓣的避免</h2>
     <pre><code>相控阵最大扫描角 θ_max：
-    d/λ ≤ 1 / (1 + |sin(θ_max)|)
-    
-    θ_max = 0° → d ≤ λ/2
-    θ_max = 30° → d ≤ 0.67λ
-    θ_max = 60° → d ≤ 0.5λ
-    θ_max = 90° → d ≤ 0.5λ</code></pre>
-    <p><b>经验法则</b>：相控阵单元间距 d ≤ λ/2 以避免栅瓣。</p>
-    <h3>6.2 旁瓣对系统性能的影响</h3>
-    <pre><code>干扰抑制比 SIR = -SLL
-    
-    SLL = -20dB → SIR = 20dB
-    SLL = -10dB → SIR = 10dB</code></pre>
-    <p><b>5G 基站旁瓣影响</b>：</p>
-    <ul><li>旁瓣过高 → 邻小区干扰 ↑ → 系统容量 ↓</li><li>旁瓣过高 → 定位精度 ↓（雷达）</li><li>旁瓣过高 → 被敌方测向定位 ↑（军用雷达）</li></ul>
-    <h3>6.3 旁瓣抑制技术</h3>
-    <div class="tw"><table>
-    <thead><tr><th>技术</th><th>效果</th><th>代价</th></tr></thead>
-    <tbody>
-    <tr><td>口径照明 taper</td><td>SLL ↓ 5-10dB</td><td>增益 ↓ 1-3dB</td></tr>
-    <tr><td>切比雪夫分布</td><td>SLL 可调（-20~-40dB）</td><td>复杂度 ↑</td></tr>
-    <tr><td>泰勒分布</td><td>SLL 可调 + 波束窄</td><td>复杂度 ↑↑</td></tr>
-    <tr><td>单元振幅加权</td><td>SLL ↓ 3-5dB</td><td>馈电网络复杂</td></tr>
-    <tr><td>单元位置扰动</td><td>SLL ↓ 3-8dB</td><td>设计复杂</td></tr>
-    <tr><td>吸收材料</td><td>环境旁瓣 ↓</td><td>重量 ↑</td></tr>
-    </tbody></table></div>
-    <h3>6.4 实际系统中的旁瓣恶化</h3>
-    <pre><code>理想 SLL：-20dB
-    实际 SLL：-15dB（恶化 5dB）
-    
-    原因：
-      1. 单元间距误差（加工公差）
-      2. 相位误差（移相器精度）
-      3. 幅度误差（馈电网络不一致）
-      4. 互耦效应
-      5. 安装环境反射</code></pre>
-  </article>
+d/λ ≤ 1 / (1 + |sin(θ_max)|)
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>旁瓣电平是天线"干净程度"的度量——主瓣之外的辐射越低越好，旁瓣太高会导致干扰、容量下降和被定位风险。记住三个关键：①均匀照射的旁瓣最差（-13.5dB），切比雪夫/泰勒分布可设计到 -30dB 以下 ②栅瓣是最危险的旁瓣（d > λ/2 时出现）③SLL 和波束宽度是跷跷板（旁瓣越低，波束越宽，增益越低）。</p>
+θ_max = 0° → d ≤ λ/2
+θ_max = 30° → d ≤ 0.67λ
+θ_max = 60° → d ≤ 0.5λ
+θ_max = 90° → d ≤ 0.5λ
+</code></pre>
+<p><strong>经验法则</strong>：相控阵单元间距 d ≤ λ/2 以避免栅瓣。</p>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 旁瓣对系统性能的影响</h2>
+    <pre><code>干扰抑制比 SIR = -SLL
+
+SLL = -20dB → SIR = 20dB
+SLL = -10dB → SIR = 10dB
+</code></pre>
+<p><strong>5G 基站旁瓣影响</strong>：</p>
+<ul>
+<li>旁瓣过高 → 邻小区干扰 ↑ → 系统容量 ↓</li>
+<li>旁瓣过高 → 定位精度 ↓（雷达）</li>
+<li>旁瓣过高 → 被敌方测向定位 ↑（军用雷达）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 旁瓣抑制技术</h2>
+    <table>
+<thead>
+<tr>
+<th>技术</th>
+<th>效果</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>口径照明 taper</td>
+<td>SLL ↓ 5-10dB</td>
+<td>增益 ↓ 1-3dB</td>
+</tr>
+<tr>
+<td>切比雪夫分布</td>
+<td>SLL 可调（-20~-40dB）</td>
+<td>复杂度 ↑</td>
+</tr>
+<tr>
+<td>泰勒分布</td>
+<td>SLL 可调 + 波束窄</td>
+<td>复杂度 ↑↑</td>
+</tr>
+<tr>
+<td>单元振幅加权</td>
+<td>SLL ↓ 3-5dB</td>
+<td>馈电网络复杂</td>
+</tr>
+<tr>
+<td>单元位置扰动</td>
+<td>SLL ↓ 3-8dB</td>
+<td>设计复杂</td>
+</tr>
+<tr>
+<td>吸收材料</td>
+<td>环境旁瓣 ↓</td>
+<td>重量 ↑</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 实际系统中的旁瓣恶化</h2>
+    <pre><code>理想 SLL：-20dB
+实际 SLL：-15dB（恶化 5dB）
+
+原因：
+  1. 单元间距误差（加工公差）
+  2. 相位误差（移相器精度）
+  3. 幅度误差（馈电网络不一致）
+  4. 互耦效应
+  5. 安装环境反射
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -303,39 +522,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

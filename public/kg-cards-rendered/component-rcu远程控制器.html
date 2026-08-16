@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RCU（Remote Control Unit）远程控制器单元 · 知识卡片</title>
+<title>RCU远程控制器 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">RCU远程控制器单元 <span class="en">Remote Control Unit</span></h1>
-  <p class="lede">RCU 是基站天线的"大脑"——它负责控制天线的所有远程功能：电调下倾角（RET）、波束赋形参数、通道校准、故障诊断和告警上报。在 5G AAU 中，RCU 通常集成在 AAU 本体或 RRU 中，不再作为独立盒子。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">RCU远程控制器</h1>
+  <p class="lede">RCU 是基站天线的&#34;大脑&#34;——它负责控制天线的所有远程功能：电调下倾角（RET）、波束赋形参数、通道校准、故障诊断和告警上报。在 5G AAU 中，RCU 通常集成在 AAU 本体或 RRU 中，不再作为独立盒子。</p>
+  
 </header>
 
 <main>
@@ -99,176 +101,358 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>RCU 就像智能家居的"中控面板"——你可以远程控制窗帘的开合角度（电调下倾）、灯光的亮度（波束赋形）、空调的温度（通道功率），还能知道哪个设备坏了（故障诊断）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 RCU 的角色</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 RCU 的角色</h2>
     <pre><code>传统基站（宏站）：
-      BBU（基带）→ 光纤 → RRU（射频）→ 馈线 → 天线
-      RCU 是独立控制器，安装在塔下
+  BBU（基带）→ 光纤 → RRU（射频）→ 馈线 → 天线
+  RCU 是独立控制器，安装在塔下
+
+5G AAU（有源天线）：
+  BBU/DU → 前传光纤 → AAU（集成 RCU 功能）
+  RCU 功能集成在 AAU 主控板中
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    5G AAU（有源天线）：
-      BBU/DU → 前传光纤 → AAU（集成 RCU 功能）
-      RCU 功能集成在 AAU 主控板中</code></pre>
-    <h3>1.2 核心功能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>功能</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>电调下倾控制</td><td>远程调节波束下倾角（0-15°）</td></tr>
-    <tr><td>波束赋形控制</td><td>调节各通道幅度和相位</td></tr>
-    <tr><td>通道校准</td><td>管理 T/R 模块校准流程</td></tr>
-    <tr><td>功率控制</td><td>远程调节发射功率</td></tr>
-    <tr><td>故障诊断</td><td>监测温度、电压、电流、PIM</td></tr>
-    <tr><td>告警上报</td><td>通过 SNMP/NETCONF 上报</td></tr>
-    <tr><td>软件升级</td><td>OTA 远程固件升级</td></tr>
-    </tbody></table></div>
-    <h3>1.3 RCU 架构</h3>
+    <h2>1.2 核心功能</h2>
+    <table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电调下倾控制</td>
+<td>远程调节波束下倾角（0-15°）</td>
+</tr>
+<tr>
+<td>波束赋形控制</td>
+<td>调节各通道幅度和相位</td>
+</tr>
+<tr>
+<td>通道校准</td>
+<td>管理 T/R 模块校准流程</td>
+</tr>
+<tr>
+<td>功率控制</td>
+<td>远程调节发射功率</td>
+</tr>
+<tr>
+<td>故障诊断</td>
+<td>监测温度、电压、电流、PIM</td>
+</tr>
+<tr>
+<td>告警上报</td>
+<td>通过 SNMP/NETCONF 上报</td>
+</tr>
+<tr>
+<td>软件升级</td>
+<td>OTA 远程固件升级</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 RCU 架构</h2>
     <pre><code>RCU 硬件组成：
-      ├── 主控 MCU（ARM Cortex-M4）
-      ├── 通信接口
-      │     ├── RS485（连接电调板/波控板）
-      │     ├── Ethernet（SNMP/NETCONF）
-      │     └── IPMI（基站管理）
-      ├── 电源管理（48V DC → 5V/3.3V）
-      ├── 保护电路（过压/过流/反接）
-      └── 存储（Flash + EEPROM 配置备份）</code></pre>
+  ├── 主控 MCU（ARM Cortex-M4）
+  ├── 通信接口
+  │     ├── RS485（连接电调板/波控板）
+  │     ├── Ethernet（SNMP/NETCONF）
+  │     └── IPMI（基站管理）
+  ├── 电源管理（48V DC → 5V/3.3V）
+  ├── 保护电路（过压/过流/反接）
+  └── 存储（Flash + EEPROM 配置备份）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、电调控制（RET Control）</h2>
-    <h3>2.1 RET 协议</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 RET 协议</h2>
     <pre><code>RET 协议标准：3GPP TS 38.423 / O-RAN RET Profile
+
+RET 命令格式：
+  下倾角：0° - 15°（步进 0.1°）
+  方位角：0° - 360°（步进 0.1°）
+  波束倾斜：±10°（步进 0.1°）
+
+通信接口：
+  RS485（主流）
+  Ethernet（新型 AAU）
+  CAN Bus（部分厂商）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    RET 命令格式：
-      下倾角：0° - 15°（步进 0.1°）
-      方位角：0° - 360°（步进 0.1°）
-      波束倾斜：±10°（步进 0.1°）
-    
-    通信接口：
-      RS485（主流）
-      Ethernet（新型 AAU）
-      CAN Bus（部分厂商）</code></pre>
-    <h3>2.2 RET 精度要求</h3>
+    <h2>2.2 RET 精度要求</h2>
     <pre><code>3GPP 规定：
-      角度精度：±0.5°
-      角度分辨率：0.1°
-      角度重复性：±0.2°
-      响应时间：&lt; 200ms
-    
-    实际产品：
-      精度：±0.3°
-      分辨率：0.05°
-      响应时间：&lt; 100ms</code></pre>
-    <h3>2.3 电调下倾 vs 机械下倾</h3>
-    <div class="tw"><table>
-    <thead><tr><th>特性</th><th>电调下倾（RET）</th><th>机械下倾</th></tr></thead>
-    <tbody>
-    <tr><td>调节范围</td><td>0-15°</td><td>固定 2-15°</td></tr>
-    <tr><td>调节精度</td><td>0.1°</td><td>固定档位</td></tr>
-    <tr><td>远程调节</td><td>✅</td><td>❌</td></tr>
-    <tr><td>对方向图影响</td><td>小（窄化主瓣）</td><td>大（畸变主瓣）</td></tr>
-    <tr><td>成本</td><td>高</td><td>低</td></tr>
-    <tr><td>可靠性</td><td>中（有电机）</td><td>高（无运动件）</td></tr>
-    </tbody></table></div>
-  </article>
+  角度精度：±0.5°
+  角度分辨率：0.1°
+  角度重复性：±0.2°
+  响应时间：&lt; 200ms
 
-  <article class="card">
-    <h2>三、波束控制</h2>
-    <h3>3.1 波束赋形参数</h3>
+实际产品：
+  精度：±0.3°
+  分辨率：0.05°
+  响应时间：&lt; 100ms
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 电调下倾 vs 机械下倾</h2>
+    <table>
+<thead>
+<tr>
+<th>特性</th>
+<th>电调下倾（RET）</th>
+<th>机械下倾</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>调节范围</td>
+<td>0-15°</td>
+<td>固定 2-15°</td>
+</tr>
+<tr>
+<td>调节精度</td>
+<td>0.1°</td>
+<td>固定档位</td>
+</tr>
+<tr>
+<td>远程调节</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>对方向图影响</td>
+<td>小（窄化主瓣）</td>
+<td>大（畸变主瓣）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>中（有电机）</td>
+<td>高（无运动件）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 波束赋形参数</h2>
     <pre><code>RCU 管理的波束参数：
-      1. 波束指向角（θ, φ）
-      2. 波束宽度（HPBW）
-      3. 波束数量（多波束并发）
-      4. 波束权重（幅度/相位）
+  1. 波束指向角（θ, φ）
+  2. 波束宽度（HPBW）
+  3. 波束数量（多波束并发）
+  4. 波束权重（幅度/相位）
+
+5G AAU 典型配置：
+  64T64R → 最多 8 个独立波束
+  每个波束可独立控制指向角和宽度
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    5G AAU 典型配置：
-      64T64R → 最多 8 个独立波束
-      每个波束可独立控制指向角和宽度</code></pre>
-    <h3>3.2 波束管理</h3>
+    <h2>3.2 波束管理</h2>
     <pre><code>波束切换流程：
-      1. UE 上报 CSI（Channel State Information）
-      2. gNB 计算最优波束权重
-      3. RCU 下发权重到 T/R 模块
-      4. T/R 模块更新移相器/衰减器
-      5. 波束切换完成（&lt; 1ms）</code></pre>
+  1. UE 上报 CSI（Channel State Information）
+  2. gNB 计算最优波束权重
+  3. RCU 下发权重到 T/R 模块
+  4. T/R 模块更新移相器/衰减器
+  5. 波束切换完成（&lt; 1ms）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、故障诊断与告警</h2>
-    <h3>4.1 监测参数</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 监测参数</h2>
     <pre><code>RCU 实时监测：
-      温度：-40°C to +70°C（PA 温度、MCU 温度）
-      电压：48V DC ±20%
-      电流：0-50A（发射时）
-      功率：当前发射功率
-      VSWR：各通道驻波比
-      PIM：无源互调水平
-      风扇转速：（如果有）</code></pre>
-    <h3>4.2 告警级别</h3>
-    <div class="tw"><table>
-    <thead><tr><th>级别</th><th>告警类型</th><th>示例</th></tr></thead>
-    <tbody>
-    <tr><td>Critical</td><td>紧急</td><td>PA 过热、电源故障</td></tr>
-    <tr><td>Major</td><td>主要</td><td>VSWR 过高、通道失效</td></tr>
-    <tr><td>Minor</td><td>次要</td><td>PIM 超标、温度偏高</td></tr>
-    <tr><td>Warning</td><td>预警</td><td>风扇转速异常</td></tr>
-    </tbody></table></div>
-    <h3>4.3 故障诊断流程</h3>
+  温度：-40°C to +70°C（PA 温度、MCU 温度）
+  电压：48V DC ±20%
+  电流：0-50A（发射时）
+  功率：当前发射功率
+  VSWR：各通道驻波比
+  PIM：无源互调水平
+  风扇转速：（如果有）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 告警级别</h2>
+    <table>
+<thead>
+<tr>
+<th>级别</th>
+<th>告警类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical</td>
+<td>紧急</td>
+<td>PA 过热、电源故障</td>
+</tr>
+<tr>
+<td>Major</td>
+<td>主要</td>
+<td>VSWR 过高、通道失效</td>
+</tr>
+<tr>
+<td>Minor</td>
+<td>次要</td>
+<td>PIM 超标、温度偏高</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>预警</td>
+<td>风扇转速异常</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 故障诊断流程</h2>
     <pre><code>1. RCU 监测到异常
-    2. 记录故障码和日志
-    3. 通过 SNMP Trap / NETCONF 上报
-    4. 网管系统告警
-    5. 维护人员远程诊断或派单</code></pre>
+2. 记录故障码和日志
+3. 通过 SNMP Trap / NETCONF 上报
+4. 网管系统告警
+5. 维护人员远程诊断或派单
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、通信接口</h2>
-    <h3>5.1 管理接口</h3>
-    <div class="tw"><table>
-    <thead><tr><th>接口</th><th>协议</th><th>速率</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>RS485</td><td>RET Profile 2.0</td><td>115.2kbps</td><td>电调控制</td></tr>
-    <tr><td>Ethernet</td><td>SNMPv3 / NETCONF</td><td>100Mbps</td><td>网管通信</td></tr>
-    <tr><td>IPMI</td><td>IPMI 2.0</td><td>100kbps</td><td>基站管理</td></tr>
-    <tr><td>UART</td><td>调试</td><td>115.2kbps</td><td>工厂调试</td></tr>
-    </tbody></table></div>
-    <h3>5.2 前传接口（与 DU 通信）</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 管理接口</h2>
+    <table>
+<thead>
+<tr>
+<th>接口</th>
+<th>协议</th>
+<th>速率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RS485</td>
+<td>RET Profile 2.0</td>
+<td>115.2kbps</td>
+<td>电调控制</td>
+</tr>
+<tr>
+<td>Ethernet</td>
+<td>SNMPv3 / NETCONF</td>
+<td>100Mbps</td>
+<td>网管通信</td>
+</tr>
+<tr>
+<td>IPMI</td>
+<td>IPMI 2.0</td>
+<td>100kbps</td>
+<td>基站管理</td>
+</tr>
+<tr>
+<td>UART</td>
+<td>调试</td>
+<td>115.2kbps</td>
+<td>工厂调试</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 前传接口（与 DU 通信）</h2>
     <pre><code>AAU 与 DU 之间：
-      CPRI（传统）：2.5Gbps/10Gbps
-      eCPRI（5G 主流）：25Gbps
-      
-    数据内容：
-      IQ 数据（波束赋形后的基带样本）
-      控制信令（RET 命令、校准参数）
-      状态上报（温度、功率、告警）</code></pre>
-  </article>
+  CPRI（传统）：2.5Gbps/10Gbps
+  eCPRI（5G 主流）：25Gbps
 
-  <article class="card">
-    <h2>六、典型产品</h2>
-    <h3>6.1 中兴 RCU</h3>
+数据内容：
+  IQ 数据（波束赋形后的基带样本）
+  控制信令（RET 命令、校准参数）
+  状态上报（温度、功率、告警）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 中兴 RCU</h2>
     <pre><code>型号：ZTE AAU 内置 RCU
-    处理器：ARM Cortex-M4 @ 168MHz
-    接口：RS485 × 2, Ethernet × 1, IPMI × 1
-    防护等级：IP65
-    工作温度：-40°C to +65°C
-    功耗：&lt; 5W</code></pre>
-    <h3>6.2 华为 RCU</h3>
-    <pre><code>型号：Huawei AAU Control Unit
-    处理器：ARM Cortex-A7 @ 800MHz
-    接口：RS485 × 2, Ethernet × 2
-    防护等级：IP66
-    工作温度：-40°C to +70°C
-    功耗：&lt; 8W</code></pre>
+处理器：ARM Cortex-M4 @ 168MHz
+接口：RS485 × 2, Ethernet × 1, IPMI × 1
+防护等级：IP65
+工作温度：-40°C to +65°C
+功耗：&lt; 5W
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>RCU 是基站天线的"大脑"——控制电调下倾、波束赋形、通道校准、故障诊断。5G AAU 中 RCU 功能已集成到 AAU 主控板中，不再独立。记住三个关键：① RET 精度 ±0.5° 是 3GPP 硬性要求 ② 波束切换 < 1ms 是用户体验底线 ③ 告警上报是运维的第一道防线。</p>
+  
+  <article class="card ">
+    
+    <h2>6.2 华为 RCU</h2>
+    <pre><code>型号：Huawei AAU Control Unit
+处理器：ARM Cortex-A7 @ 800MHz
+接口：RS485 × 2, Ethernet × 2
+防护等级：IP66
+工作温度：-40°C to +70°C
+功耗：&lt; 8W
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -288,39 +472,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

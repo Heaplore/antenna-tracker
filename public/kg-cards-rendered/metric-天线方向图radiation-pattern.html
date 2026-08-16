@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线方向图（Radiation Pattern） · 知识卡片</title>
+<title>天线方向图Radiation-Pattern · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线方向图 <span class="en">Radiation Pattern</span></h1>
-  <p class="lede"><b>天线方向图是天线在三维空间中的"指纹"——它告诉你信号往哪个方向最强、往哪个方向最弱、旁瓣会不会干扰别人。5G Massive MIMO 的 3D 波束赋形、干扰消除、null steering，全建立在对方向图的精确控制之上。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线方向图Radiation-Pattern</h1>
+  
+  
 </header>
 
 <main>
@@ -99,215 +101,363 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、方向图的几何解剖</h2>
-    <h3>三大瓣区</h3>
-    <p>天线方向图在球坐标系（θ, φ）中展开，分为三个主要区域：</p>
-    <div class="tw"><table>
-    <thead><tr><th>区域</th><th>名称</th><th>含义</th><th>重要性</th></tr></thead>
-    <tbody>
-    <tr><td><b>主瓣</b></td><td>Main Lobe / Beam</td><td>能量最集中的方向</td><td>核心关注区域</td></tr>
-    <tr><td><b>旁瓣</b></td><td>Side Lobe</td><td>主瓣之外的次要辐射方向</td><td>干扰源，需抑制</td></tr>
-    <tr><td><b>后瓣</b></td><td>Back Lobe</td><td>与主瓣相反方向的辐射</td><td>通常为旁瓣的一部分</td></tr>
-    </tbody></table></div>
-    <p><b>类比</b>：你站在操场中央喊话。正前方声音最大（主瓣），侧面也能听到一些（旁瓣），背后几乎听不到（后瓣/零点）。</p>
-    <h3>关键参数定义</h3>
-    <h4>1. HPBW（Half-Power Beamwidth，半功率波束宽度）</h4>
-    <p>主瓣峰值两侧功率下降到一半（-3dB）之间的夹角。</p>
-    <pre><code>HPBW ≈ 70° × λ / D  （D 为天线孔径，λ 为波长）</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>天线类型</th><th>频率</th><th>HPBW（水平/垂直）</th></tr></thead>
-    <tbody>
-    <tr><td>全向天线</td><td>2.4GHz</td><td>360° × 15°（甜甜圈形）</td></tr>
-    <tr><td>4G 扇区天线</td><td>2GHz</td><td>65° × 8°</td></tr>
-    <tr><td>5G AAU (64T64R)</td><td>3.5GHz</td><td>6° × 3°</td></tr>
-    <tr><td>5G mmWave</td><td>28GHz</td><td>3° × 2°</td></tr>
-    <tr><td>Starlink 终端</td><td>14GHz</td><td>2° × 2°</td></tr>
-    </tbody></table></div>
-    <p><b>关键判断</b>：HPBW 越窄，方向性越强，增益越高，但覆盖范围越小。5G Massive MIMO 的波束宽度（6°×3°）比 4G（65°×8°）窄了一个数量级——这是"精准投送"的代价。</p>
-    <h4>2. SLL（Side Lobe Level，旁瓣电平）</h4>
-    <p>旁瓣峰值与主瓣峰值的比值，通常用 dB 表示。</p>
-    <pre><code>SLL = 20 × log₁₀(E_side / E_main)</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>SLL</th><th>含义</th><th>应用场景</th></tr></thead>
-    <tbody>
-    <tr><td>-13dB</td><td>均匀照射（Taylor 分布极限）</td><td>基础天线阵列</td></tr>
-    <tr><td>-20dB</td><td>Chebyshev 分布</td><td>5G 基站广播波束</td></tr>
-    <tr><td>-25dB</td><td>Dolph-Chebyshev 优化</td><td>卫星通信</td></tr>
-    <tr><td>-30dB 以下</td><td>高精度雷达</td><td>军用雷达</td></tr>
-    </tbody></table></div>
-    <p><b>5G 广播波束设计约束</b>：</p>
-    <ul><li>水平 3dB 波束宽度：约 36°（约为 4G 的 0.55 倍）</li><li>垂直面旁瓣抑制：≥ 13.8dB</li><li>增益损失：随波束宽度增大而增加，最大约 13dB</li></ul>
-    <h4>3. Front-to-Back Ratio（前后比）</h4>
-    <p>主瓣方向功率与正后方（180°）功率的比值。</p>
-    <pre><code>FBR = 10 × log₁₀(P_front / P_back)</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>前后比</th><th>含义</th></tr></thead>
-    <tbody>
-    <tr><td>< 10dB</td><td>较差，适合全向场景</td></tr>
-    <tr><td>10-20dB</td><td>一般，适合定向场景</td></tr>
-    <tr><td>> 20dB</td><td>优秀，适合点对点链路</td></tr>
-    </tbody></table></div>
-    <h4>4. Null Depth（零点深度）</h4>
-    <p>方向图中最小值与主瓣峰值的比值。零点越深，干扰抑制能力越强。</p>
-    <pre><code>Null Depth = 20 × log₁₀(E_null / E_main)</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>零点深度</th><th>含义</th></tr></thead>
-    <tbody>
-    <tr><td>-10dB</td><td>轻度干扰抑制</td></tr>
-    <tr><td>-20dB</td><td>中度干扰抑制</td></tr>
-    <tr><td>-30dB 以下</td><td>强干扰抑制（null steering）</td></tr>
-    </tbody></table></div>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、方向图与增益、方向性的关系</h2>
-    <h3>方向性（Directivity）vs 增益（Gain）</h3>
+  
+  <article class="card ">
+    
+    <h2>方向性（Directivity）vs 增益（Gain）</h2>
     <p>很多人混淆这两个概念，它们的区别很关键：</p>
-    <div class="tw"><table>
-    <thead><tr><th>维度</th><th>方向性 D</th><th>增益 G</th></tr></thead>
-    <tbody>
-    <tr><td>定义</td><td>天线在最大辐射方向的功率密度与理想各向同性天线的比值</td><td>考虑了天线效率后的实际增益</td></tr>
-    <tr><td>公式</td><td>D = 4π × U_max / P_rad</td><td>G = η × D（η 为效率）</td></tr>
-    <tr><td>单位</td><td>dBi</td><td>dBi</td></tr>
-    <tr><td>关系</td><td>G ≤ D（因为 η ≤ 1）</td><td>G = D - 损耗(dB)</td></tr>
-    </tbody></table></div>
-    <p><b>典型损耗来源</b>：</p>
-    <ul><li>导体损耗：0.5-1dB</li><li>介质损耗：0.2-0.5dB</li><li>驻波比损耗：0.1-0.5dB</li><li>总损耗：0.8-2dB</li></ul>
-    <p><b>举例</b>：一个 64T64R 5G AAU，方向性 25dBi，效率 90%（-0.45dB），增益 = 25 - 0.45 = 24.55dBi。</p>
-    <h3>方向图的积分关系</h3>
-    <pre><code>D = 4π / ∫∫ F(θ,φ)² dΩ</code></pre>
-    <p>其中 F(θ,φ) 是归一化方向图函数，dΩ 是立体角元。</p>
-    <p><b>物理意义</b>：方向性与方向图的"集中度"成反比——方向图越窄（能量越集中在一个方向），方向性越高。</p>
-    <p>---</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>方向性 D</th>
+<th>增益 G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>天线在最大辐射方向的功率密度与理想各向同性天线的比值</td>
+<td>考虑了天线效率后的实际增益</td>
+</tr>
+<tr>
+<td>公式</td>
+<td>D = 4π × U_max / P_rad</td>
+<td>G = η × D（η 为效率）</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>dBi</td>
+<td>dBi</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>G ≤ D（因为 η ≤ 1）</td>
+<td>G = D - 损耗(dB)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>典型损耗来源</strong>：</p>
+<ul>
+<li>导体损耗：0.5-1dB</li>
+<li>介质损耗：0.2-0.5dB</li>
+<li>驻波比损耗：0.1-0.5dB</li>
+<li>总损耗：0.8-2dB</li>
+</ul>
+<p><strong>举例</strong>：一个 64T64R 5G AAU，方向性 25dBi，效率 90%（-0.45dB），增益 = 25 - 0.45 = 24.55dBi。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>三、3D 方向图：5G FD-MIMO 的革命</h2>
-    <h3>从 2D 到 3D</h3>
+  
+  <article class="card ">
+    
+    <h2>方向图的积分关系</h2>
+    <pre><code>D = 4π / ∫∫ F(θ,φ)² dΩ
+</code></pre>
+<p>其中 F(θ,φ) 是归一化方向图函数，dΩ 是立体角元。</p>
+<p><strong>物理意义</strong>：方向性与方向图的"集中度"成反比——方向图越窄（能量越集中在一个方向），方向性越高。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>从 2D 到 3D</h2>
     <p>4G 天线方向图通常是 2D 的——只关心水平面（方位角 φ），垂直面（俯仰角 θ）是固定的机械下倾角。</p>
-    <p>5G Massive MIMO 引入了 <b>FD-MIMO（Full Dimension MIMO）</b>，方向图变成了真正的 3D：</p>
-    <pre><code>F(θ, φ) = F_azimuth(φ) × F_elevation(θ)</code></pre>
-    <p><b>3D 波束赋形的能力</b>：</p>
-    <ul><li>水平波束指向：±90°（左右各 90°）</li><li>垂直波束指向：±15°（动态电下倾）</li><li>同时控制水平和垂直波束，实现"3D 精准投送"</li></ul>
-    <h3>3GPP 3D 信道模型</h3>
+<p>5G Massive MIMO 引入了 <strong>FD-MIMO（Full Dimension MIMO）</strong>，方向图变成了真正的 3D：</p>
+<pre><code>F(θ, φ) = F_azimuth(φ) × F_elevation(θ)
+</code></pre>
+<p><strong>3D 波束赋形的能力</strong>：</p>
+<ul>
+<li>水平波束指向：±90°（左右各 90°）</li>
+<li>垂直波束指向：±15°（动态电下倾）</li>
+<li>同时控制水平和垂直波束，实现"3D 精准投送"</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3GPP 3D 信道模型</h2>
     <p>3GPP TR 38.901 的 3D 信道模型考虑了：</p>
-    <ul><li>到达角（AoA）和 Departure Angle（AoD）的二维分布（方位角 + 俯仰角）</li><li>天线方向图的三维响应</li><li>交叉极化功率比（XPR）</li></ul>
-    <p><b>计算复杂度</b>：相比 2D 模型，3D 模型的计算复杂度增加 <b>3 倍以上</b>，且随天线单元数线性增长。</p>
-    <h3>电下倾 vs 机械下倾</h3>
-    <div class="tw"><table>
-    <thead><tr><th>维度</th><th>机械下倾</th><th>电下倾（3D 波束赋形）</th></tr></thead>
-    <tbody>
-    <tr><td>调整方式</td><td>物理倾斜天线</td><td>改变相位权重</td></tr>
-    <tr><td>调整速度</td><td>手动，分钟级</td><td>软件定义，毫秒级</td></tr>
-    <tr><td>灵活性</td><td>固定</td><td>每个用户独立</td></tr>
-    <tr><td>旁瓣影响</td><td>旁瓣也跟着倾斜</td><td>可独立控制旁瓣</td></tr>
-    <tr><td>典型范围</td><td>2°-15°</td><td>±15° 动态可调</td></tr>
-    </tbody></table></div>
-    <p><b>动态电下倾的收益</b>：</p>
-    <ul><li>高层建筑场景：对不同楼层的用户分配不同俯仰角波束</li><li>干扰抑制：在干扰方向形成零点（null steering）</li><li>容量提升：同一扇区可服务 2-3 倍用户</li></ul>
-    <p>---</p>
+<ul>
+<li>到达角（AoA）和 Departure Angle（AoD）的二维分布（方位角 + 俯仰角）</li>
+<li>天线方向图的三维响应</li>
+<li>交叉极化功率比（XPR）</li>
+</ul>
+<p><strong>计算复杂度</strong>：相比 2D 模型，3D 模型的计算复杂度增加 <strong>3 倍以上</strong>，且随天线单元数线性增长。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>四、Null Steering：方向图的&quot;雕刻刀&quot;</h2>
-    <h3>什么是 Null Steering？</h3>
+  
+  <article class="card ">
+    
+    <h2>电下倾 vs 机械下倾</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>机械下倾</th>
+<th>电下倾（3D 波束赋形）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>调整方式</td>
+<td>物理倾斜天线</td>
+<td>改变相位权重</td>
+</tr>
+<tr>
+<td>调整速度</td>
+<td>手动，分钟级</td>
+<td>软件定义，毫秒级</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>固定</td>
+<td>每个用户独立</td>
+</tr>
+<tr>
+<td>旁瓣影响</td>
+<td>旁瓣也跟着倾斜</td>
+<td>可独立控制旁瓣</td>
+</tr>
+<tr>
+<td>典型范围</td>
+<td>2°-15°</td>
+<td>±15° 动态可调</td>
+</tr>
+</tbody>
+</table>
+<p><strong>动态电下倾的收益</strong>：</p>
+<ul>
+<li>高层建筑场景：对不同楼层的用户分配不同俯仰角波束</li>
+<li>干扰抑制：在干扰方向形成零点（null steering）</li>
+<li>容量提升：同一扇区可服务 2-3 倍用户</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>什么是 Null Steering？</h2>
     <p>在方向图的干扰方向"雕刻"出深零点（-30dB 以下），让能量不往那个方向辐射。</p>
-    <p><b>类比</b>：你用手电筒照一个人，同时用另一只手在他身后放一块挡板，挡住散射光。Null steering 就是用算法在干扰方向"放一块挡板"。</p>
-    <h3>3GPP Rel-18 EIRP 评估</h3>
+<p><strong>类比</strong>：你用手电筒照一个人，同时用另一只手在他身后放一块挡板，挡住散射光。Null steering 就是用算法在干扰方向"放一块挡板"。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3GPP Rel-18 EIRP 评估</h2>
     <p>2026 年 arXiv 论文评估了 3GPP Rel-18 标准下的 5G gNB 3D EIRP 轮廓：</p>
-    <p><b>核心发现</b>：</p>
-    <ol><li>基站干扰不只取决于最差波束方向，还取决于旁瓣产生的各种波束方向</li><li>AAS 架构和天线端口配置对 3D EIRP 有决定性影响</li><li>提出的两种 beam nulling 方法可实现 <b>11dB 的目标方向功率降低</b></li><li>代价：UE 链路 SNR 损失 3.5-4.5dB（在 10⁻⁴ BER 下）</li></ol>
-    <h3>Null Steering 的工程实现</h3>
-    <p><b>相位-only 控制</b>（MDPI 2019）：</p>
-    <ul><li>只调整相位，不调整幅度，降低馈电网络复杂度</li><li>闭式解（closed-form）估算每个单元的相位</li><li>计算成本低，适合实时部署</li><li>支持任意几何形状的平面阵列和共形阵列</li></ul>
-    <p><b>多用户场景</b>：</p>
-    <ul><li>同时形成 P 个主瓣和 Q 个零点</li><li>目标：在 Ξ = {ξ₁, ..., ξₚ} 方向有最大值，在 Χ = {χ₁, ..., χ_Q} 方向有零点</li><li>加权代价函数最小化</li></ul>
-    <p>---</p>
+<p><strong>核心发现</strong>：</p>
+<ol>
+<li>基站干扰不只取决于最差波束方向，还取决于旁瓣产生的各种波束方向</li>
+<li>AAS 架构和天线端口配置对 3D EIRP 有决定性影响</li>
+<li>提出的两种 beam nulling 方法可实现 <strong>11dB 的目标方向功率降低</strong></li>
+<li>代价：UE 链路 SNR 损失 3.5-4.5dB（在 10⁻⁴ BER 下）</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>五、旁瓣抑制：从 Taylor 分布到神经网络</h2>
-    <h3>Taylor 分布</h3>
+  
+  <article class="card ">
+    
+    <h2>Null Steering 的工程实现</h2>
+    <p><strong>相位-only 控制</strong>（MDPI 2019）：</p>
+<ul>
+<li>只调整相位，不调整幅度，降低馈电网络复杂度</li>
+<li>闭式解（closed-form）估算每个单元的相位</li>
+<li>计算成本低，适合实时部署</li>
+<li>支持任意几何形状的平面阵列和共形阵列</li>
+</ul>
+<p><strong>多用户场景</strong>：</p>
+<ul>
+<li>同时形成 P 个主瓣和 Q 个零点</li>
+<li>目标：在 Ξ = {ξ₁, ..., ξₚ} 方向有最大值，在 Χ = {χ₁, ..., χ_Q} 方向有零点</li>
+<li>加权代价函数最小化</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Taylor 分布</h2>
     <p>经典的旁瓣抑制方法，通过调整阵列激励幅度分布来控制旁瓣：</p>
-    <pre><code>α（Taylor 参数）：控制主瓣宽度和旁瓣电平的 trade-off
-    - α 大 → 旁瓣更低，但主瓣更宽
-    - α 小 → 主瓣更窄，但旁瓣更高</code></pre>
-    <p><b>典型值</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>α</th><th>SLL</th><th>主瓣展宽</th></tr></thead>
-    <tbody>
-    <tr><td>2.5</td><td>-13dB</td><td>1.0×</td></tr>
-    <tr><td>3.5</td><td>-20dB</td><td>1.2×</td></tr>
-    <tr><td>4.5</td><td>-25dB</td><td>1.5×</td></tr>
-    <tr><td>5.5</td><td>-30dB</td><td>1.8×</td></tr>
-    </tbody></table></div>
-    <h3>Raised Cosine 成形函数（PMC 2025）</h3>
+<pre><code>α（Taylor 参数）：控制主瓣宽度和旁瓣电平的 trade-off
+- α 大 → 旁瓣更低，但主瓣更宽
+- α 小 → 主瓣更窄，但旁瓣更高
+</code></pre>
+<p><strong>典型值</strong>：
+| α | SLL | 主瓣展宽 |
+|---|-----|---------|
+| 2.5 | -13dB | 1.0× |
+| 3.5 | -20dB | 1.2× |
+| 4.5 | -25dB | 1.5× |
+| 5.5 | -30dB | 1.8× |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Raised Cosine 成形函数（PMC 2025）</h2>
     <p>2025 年 PMC 论文提出了一种混合解析-优化框架：</p>
-    <p><b>核心思想</b>：用 Raised Cosine 函数的滚降因子控制主瓣和旁瓣之间的过渡平滑度。</p>
-    <ul><li>滚降因子大 → 空间渐变平滑 → 旁瓣更强但主瓣更窄</li><li>滚降因子小 → 过渡锐利 → 主瓣更窄但旁瓣更高</li></ul>
-    <p><b>实验结果</b>：15 元均匀线性阵列（ULA），半波长间距，初始 SLL = -13.1dB。优化后 SLL = <b>-25dB 以下</b>，同时保持主瓣宽度不变。</p>
-    <h3>神经网络辅助阵列综合</h3>
+<p><strong>核心思想</strong>：用 Raised Cosine 函数的滚降因子控制主瓣和旁瓣之间的过渡平滑度。</p>
+<ul>
+<li>滚降因子大 → 空间渐变平滑 → 旁瓣更强但主瓣更窄</li>
+<li>滚降因子小 → 过渡锐利 → 主瓣更窄但旁瓣更高</li>
+</ul>
+<p><strong>实验结果</strong>：15 元均匀线性阵列（ULA），半波长间距，初始 SLL = -13.1dB。优化后 SLL = <strong>-25dB 以下</strong>，同时保持主瓣宽度不变。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>神经网络辅助阵列综合</h2>
     <p>MDPI Antennas 2025：将 Taylor 级数展开与神经网络优化结合。</p>
-    <p><b>流程</b>：</p>
-    <ol><li>用 Taylor 级数初始化阵列综合参数</li><li>神经网络优化剩余自由度</li><li>目标：指定主瓣宽度 + 指定 SLL + 指定零点位置</li></ol>
-    <p><b>优势</b>：比纯数值优化快 10-100 倍，收敛更稳定。</p>
-    <p>---</p>
+<p><strong>流程</strong>：</p>
+<ol>
+<li>用 Taylor 级数初始化阵列综合参数</li>
+<li>神经网络优化剩余自由度</li>
+<li>目标：指定主瓣宽度 + 指定 SLL + 指定零点位置</li>
+</ol>
+<p><strong>优势</strong>：比纯数值优化快 10-100 倍，收敛更稳定。</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>六、方向图在五大场景中的应用</h2>
-    <h3>6.1 5G 基站广播波束设计</h3>
-    <p><b>约束条件</b>：</p>
-    <ul><li>水平 3dB 波束宽度：~36°（4G 的 0.55 倍）</li><li>垂直面旁瓣抑制：≥ 13.8dB</li><li>全局垂直面旁瓣抑制：≥ 20dB</li><li>增益损失：最大 ~13dB</li></ul>
-    <p><b>设计权衡</b>：</p>
-    <ul><li>波束越宽 → 覆盖越好 → 增益损失越大</li><li>旁瓣越低 → 干扰越小 → 主瓣越宽</li></ul>
-    <h3>6.2 毫米波稀疏阵列</h3>
-    <p><b>挑战</b>：稀疏排列导致栅瓣（grating lobe）出现。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>优化单元位置（非均匀间距）</li><li>旁瓣抑制算法（如本文提到的 RC 成形函数）</li><li>第一旁瓣电平降至 -25dB 以下</li></ul>
-    <h3>6.3 卫星通信</h3>
-    <p><b>要求</b>：</p>
-    <ul><li>高方向性（29.9 dBi）</li><li>低旁瓣（-14.8dB）</li><li>窄波束宽度（Ka-band 波导阵列）</li></ul>
-    <p><b>典型配置</b>：</p>
-    <ul><li>频率：Ka-band（27-30GHz）</li><li>孔径：波导阵列</li><li>方向性：~30dBi</li><li>SLL：<-15dB</li></ul>
-    <h3>6.4 雷达系统</h3>
-    <p><b>要求</b>：</p>
-    <ul><li>极低旁瓣（<-30dB）</li><li>极窄主瓣（<1°）</li><li>快速波束切换（微秒级）</li></ul>
-    <p><b>Taylor 分布的典型 α 值</b>：4.5-5.5（对应 SLL = -25 到 -30dB）</p>
-    <h3>6.5 6G XL-MIMO</h3>
-    <p><b>新挑战</b>：</p>
-    <ul><li>孔径 10m+，远场边界 200m+</li><li>方向图不再是简单的平面波响应</li><li>需要考虑球面波方向图（spherical wave pattern）</li><li>空间非平稳性：不同孔径位置的方向图不同</li></ul>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>6.1 5G 基站广播波束设计</h2>
+    <p><strong>约束条件</strong>：</p>
+<ul>
+<li>水平 3dB 波束宽度：~36°（4G 的 0.55 倍）</li>
+<li>垂直面旁瓣抑制：≥ 13.8dB</li>
+<li>全局垂直面旁瓣抑制：≥ 20dB</li>
+<li>增益损失：最大 ~13dB</li>
+</ul>
+<p><strong>设计权衡</strong>：</p>
+<ul>
+<li>波束越宽 → 覆盖越好 → 增益损失越大</li>
+<li>旁瓣越低 → 干扰越小 → 主瓣越宽</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>七、方向图的测量：暗室与近场扫描</h2>
-    <h3>暗室测量（Anechoic Chamber）</h3>
-    <p><b>原理</b>：在无反射的暗室中，旋转天线并测量各方向的辐射强度。</p>
-    <p><b>典型流程</b>：</p>
-    <ol><li>将 DUT（被测天线）安装在旋转台上</li><li>用标准增益天线作为参考</li><li>在方位角 0°-360°、俯仰角 0°-180° 范围内采样</li><li>绘制极坐标方向图</li></ol>
-    <p><b>局限</b>：需要足够大的远场距离 dF = 2D²/λ。对于 6G 的 10m 孔径天线，dF = 200m，暗室需要至少 200 米长——造价极高。</p>
-    <h3>近场扫描（Near-Field Measurement）</h3>
-    <p><b>原理</b>：在近场区域扫描，通过傅里叶变换转换到远场。</p>
-    <p><b>优势</b>：</p>
-    <ul><li>暗室尺寸要求低（只需近场距离）</li><li>适合大孔径天线（6G XL-MIMO）</li><li>精度高</li></ul>
-    <p><b>流程</b>：</p>
-    <ol><li>探针在近场平面（或圆柱面）上扫描</li><li>记录每个采样点的场强和相位</li><li>通过近远场变换（Near-Far Field Transformation）计算远场方向图</li></ol>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>6.2 毫米波稀疏阵列</h2>
+    <p><strong>挑战</strong>：稀疏排列导致栅瓣（grating lobe）出现。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>优化单元位置（非均匀间距）</li>
+<li>旁瓣抑制算法（如本文提到的 RC 成形函数）</li>
+<li>第一旁瓣电平降至 -25dB 以下</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>八、给非专业读者的一句话总结</h2>
-    <div class="call"><b>天线方向图就是天线在三维空间的"立体照片"——主瓣是它"看"的方向，旁瓣是它"漏看"的方向，零点是它"故意不看"的方向。5G 的 3D 波束赋形，本质上就是在实时"转动"这张照片，让主瓣永远对准用户，零点永远对准干扰。</b></div>
-    <p><b>金句</b>：方向图告诉你一个道理——<b>有时候，"不看哪里"比"看哪里"更重要</b>。null steering 的本质就是学会忽略干扰。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>6.3 卫星通信</h2>
+    <p><strong>要求</strong>：</p>
+<ul>
+<li>高方向性（29.9 dBi）</li>
+<li>低旁瓣（-14.8dB）</li>
+<li>窄波束宽度（Ka-band 波导阵列）</li>
+</ul>
+<p><strong>典型配置</strong>：</p>
+<ul>
+<li>频率：Ka-band（27-30GHz）</li>
+<li>孔径：波导阵列</li>
+<li>方向性：~30dBi</li>
+<li>SLL：&lt;-15dB</li>
+</ul>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 雷达系统</h2>
+    <p><strong>要求</strong>：</p>
+<ul>
+<li>极低旁瓣（&lt;-30dB）</li>
+<li>极窄主瓣（&lt;1°）</li>
+<li>快速波束切换（微秒级）</li>
+</ul>
+<p><strong>Taylor 分布的典型 α 值</strong>：4.5-5.5（对应 SLL = -25 到 -30dB）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.5 6G XL-MIMO</h2>
+    <p><strong>新挑战</strong>：</p>
+<ul>
+<li>孔径 10m+，远场边界 200m+</li>
+<li>方向图不再是简单的平面波响应</li>
+<li>需要考虑球面波方向图（spherical wave pattern）</li>
+<li>空间非平稳性：不同孔径位置的方向图不同</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>暗室测量（Anechoic Chamber）</h2>
+    <p><strong>原理</strong>：在无反射的暗室中，旋转天线并测量各方向的辐射强度。</p>
+<p><strong>典型流程</strong>：</p>
+<ol>
+<li>将 DUT（被测天线）安装在旋转台上</li>
+<li>用标准增益天线作为参考</li>
+<li>在方位角 0°-360°、俯仰角 0°-180° 范围内采样</li>
+<li>绘制极坐标方向图</li>
+</ol>
+<p><strong>局限</strong>：需要足够大的远场距离 dF = 2D²/λ。对于 6G 的 10m 孔径天线，dF = 200m，暗室需要至少 200 米长——造价极高。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>近场扫描（Near-Field Measurement）</h2>
+    <p><strong>原理</strong>：在近场区域扫描，通过傅里叶变换转换到远场。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>暗室尺寸要求低（只需近场距离）</li>
+<li>适合大孔径天线（6G XL-MIMO）</li>
+<li>精度高</li>
+</ul>
+<p><strong>流程</strong>：</p>
+<ol>
+<li>探针在近场平面（或圆柱面）上扫描</li>
+<li>记录每个采样点的场强和相位</li>
+<li>通过近远场变换（Near-Far Field Transformation）计算远场方向图</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -328,39 +478,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

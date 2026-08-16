@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线安装结构 · 知识卡片</title>
+<title>天线安装结构塔装杆装楼装室内 · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线安装结构</h1>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线安装结构塔装杆装楼装室内</h1>
   <p class="lede">基站天线安装分三种：塔装（抱杆/三脚架/平台）、楼装（壁挂/桅杆/屋顶）、室内分布（吸顶/面板）。核心约束是风载（抗 150km/h 台风）、抗震（8 度设防）、防雷（接闪器+接地）。</p>
+  
 </header>
 
 <main>
@@ -99,200 +101,257 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>天线安装就像"挂空调外机"——要稳、要抗风、要排水、要防雷。但天线更极端：要扛 150km/h 台风、-40°C 严寒、+65°C 暴晒，还要在 30 米高空挂 10 年不生锈。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、塔装天线</h2>
-    <h3>1.1 抱杆安装（Pole Mount）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 抱杆安装（Pole Mount）</h2>
     <pre><code>结构：
-      天线 → 安装支架 → 抱箍 → 铁塔/杆体
-      
-    抱杆类型：
-      1. 圆形抱杆（Φ80-200mm）
-         - 最常见
-         - 抱箍紧固
-         - 可调角度
-         
-      2. 方形抱杆（100×100-200×200mm）
-         - 通信塔专用
-         - 螺栓固定
-         
-      3. 三管塔
-         - 三根钢管组成三角形
-         - 天线装在管上
-         
-    安装参数：
-      - 抱杆直径：Φ100-160mm（主流）
-      - 抱杆壁厚：4-8mm
-      - 安装高度：20-50m（宏站）
-      - 天线间距：≥ 0.5m（垂直隔离）</code></pre>
-    <h3>1.2 平台安装（Platform Mount）</h3>
-    <pre><code>结构：
-      天线固定在铁塔平台上
-      
-    适用场景：
-      - 多扇区基站（3 扇 × 1 AAU = 3 台）
-      - A+P 共站（4G+5G 天线同装）
-      
-    优势：
-      - 安装稳固
-      - 便于维护
-      
-    劣势：
-      - 平台承重有限
-      - 需要额外钢结构</code></pre>
-    <h3>1.3 三脚架/自立塔</h3>
-    <pre><code>结构：
-      三根钢管组成自立塔
-      顶部安装天线
-      
-    适用场景：
-      - 无铁塔的站点
-      - 微站/小站
-      - 临时应急通信
-      
-    高度：5-20m
-    风载设计：抗 150km/h 风速</code></pre>
-  </article>
+  天线 → 安装支架 → 抱箍 → 铁塔/杆体
 
-  <article class="card">
-    <h2>二、楼装天线</h2>
-    <h3>2.1 壁挂安装（Wall Mount）</h3>
-    <pre><code>结构：
-      天线 → L 型支架 → 墙体膨胀螺栓
-      
-    墙体类型：
-      1. 混凝土墙（最强）
-         - M12 膨胀螺栓
-         - 承载力 &gt; 500kg
-         
-      2. 砖墙（中等）
-         - 化学锚栓
-         - 承载力 200-300kg
-         
-      3. 幕墙（最弱）
-         - 需要钢结构骨架
-         - 承载力需结构工程师核算
-         
-    安装要点：
-      - 下倾角：5-15°（避免信号直射地面）
-      - 距墙距离：0.3-1m（减少反射）
-      - 避雷：支架接地</code></pre>
-    <h3>2.2 桅杆安装（Monopole）</h3>
-    <pre><code>结构：
-      独立钢桅杆（10-30m）
-      天线通过抱箍固定在桅杆上
-      
-    适用场景：
-      - 无铁塔的楼顶
-      - 景观要求高的区域
-      
-    优势：
-      - 美观
-      - 承载力强
-      
-    劣势：
-      - 需要地基
-      - 成本高</code></pre>
-    <h3>2.3 屋顶安装</h3>
-    <pre><code>结构：
-      混凝土配重底座 → 桅杆 → 天线
-      
-    配重设计：
-      - 抗风载：混凝土配重 ≥ 天线风载荷的 2 倍
-      - 一般 200-500kg/根桅杆
-      
-    优势：
-      - 无需打孔（保护屋面防水）
-      
-    劣势：
-      - 占用屋顶空间
-      - 需要结构核算</code></pre>
-  </article>
+抱杆类型：
+  1. 圆形抱杆（Φ80-200mm）
+     - 最常见
+     - 抱箍紧固
+     - 可调角度
 
-  <article class="card">
-    <h2>三、室内分布天线</h2>
-    <h3>3.1 吸顶天线（Ceiling Mount）</h3>
-    <pre><code>结构：
-      圆盘/方盘天线
-      吸顶安装（3M 胶 + 膨胀管）
-      
-    参数：
-      - 直径：100-200mm
-      - 增益：2-5dBi
-      - 覆盖半径：5-15m
-      
-    适用场景：
-      - 办公楼
-      - 商场
-      - 酒店
-      - 地下停车场</code></pre>
-    <h3>3.2 面板天线（Panel Mount）</h3>
-    <pre><code>结构：
-      长方形面板（80×200mm）
-      墙面安装（类似开关面板）
-      
-    参数：
-      - 增益：3-6dBi
-      - 覆盖：走廊/房间
-      
-    适用场景：
-      - 酒店客房
-      - 办公室隔间
-      - 医院病房</code></pre>
-  </article>
+  2. 方形抱杆（100×100-200×200mm）
+     - 通信塔专用
+     - 螺栓固定
 
-  <article class="card">
-    <h2>四、关键设计约束</h2>
-    <h3>4.1 风载计算</h3>
+  3. 三管塔
+     - 三根钢管组成三角形
+     - 天线装在管上
+
+安装参数：
+  - 抱杆直径：Φ100-160mm（主流）
+  - 抱杆壁厚：4-8mm
+  - 安装高度：20-50m（宏站）
+  - 天线间距：≥ 0.5m（垂直隔离）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 平台安装（Platform Mount）</h2>
+    <pre><code>结构：
+  天线固定在铁塔平台上
+
+适用场景：
+  - 多扇区基站（3 扇 × 1 AAU = 3 台）
+  - A+P 共站（4G+5G 天线同装）
+
+优势：
+  - 安装稳固
+  - 便于维护
+
+劣势：
+  - 平台承重有限
+  - 需要额外钢结构
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 三脚架/自立塔</h2>
+    <pre><code>结构：
+  三根钢管组成自立塔
+  顶部安装天线
+
+适用场景：
+  - 无铁塔的站点
+  - 微站/小站
+  - 临时应急通信
+
+高度：5-20m
+风载设计：抗 150km/h 风速
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 壁挂安装（Wall Mount）</h2>
+    <pre><code>结构：
+  天线 → L 型支架 → 墙体膨胀螺栓
+
+墙体类型：
+  1. 混凝土墙（最强）
+     - M12 膨胀螺栓
+     - 承载力 &gt; 500kg
+
+  2. 砖墙（中等）
+     - 化学锚栓
+     - 承载力 200-300kg
+
+  3. 幕墙（最弱）
+     - 需要钢结构骨架
+     - 承载力需结构工程师核算
+
+安装要点：
+  - 下倾角：5-15°（避免信号直射地面）
+  - 距墙距离：0.3-1m（减少反射）
+  - 避雷：支架接地
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 桅杆安装（Monopole）</h2>
+    <pre><code>结构：
+  独立钢桅杆（10-30m）
+  天线通过抱箍固定在桅杆上
+
+适用场景：
+  - 无铁塔的楼顶
+  - 景观要求高的区域
+
+优势：
+  - 美观
+  - 承载力强
+
+劣势：
+  - 需要地基
+  - 成本高
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 屋顶安装</h2>
+    <pre><code>结构：
+  混凝土配重底座 → 桅杆 → 天线
+
+配重设计：
+  - 抗风载：混凝土配重 ≥ 天线风载荷的 2 倍
+  - 一般 200-500kg/根桅杆
+
+优势：
+  - 无需打孔（保护屋面防水）
+
+劣势：
+  - 占用屋顶空间
+  - 需要结构核算
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 吸顶天线（Ceiling Mount）</h2>
+    <pre><code>结构：
+  圆盘/方盘天线
+  吸顶安装（3M 胶 + 膨胀管）
+
+参数：
+  - 直径：100-200mm
+  - 增益：2-5dBi
+  - 覆盖半径：5-15m
+
+适用场景：
+  - 办公楼
+  - 商场
+  - 酒店
+  - 地下停车场
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 面板天线（Panel Mount）</h2>
+    <pre><code>结构：
+  长方形面板（80×200mm）
+  墙面安装（类似开关面板）
+
+参数：
+  - 增益：3-6dBi
+  - 覆盖：走廊/房间
+
+适用场景：
+  - 酒店客房
+  - 办公室隔间
+  - 医院病房
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 风载计算</h2>
     <pre><code>风载公式：
-      F = 0.5 × ρ × v² × Cd × A
-      
-      其中：
-      ρ = 空气密度（1.225 kg/m³）
-      v = 风速（m/s）
-      Cd = 阻力系数（天线 ~1.5-2.0）
-      A = 迎风面积（m²）
-      
-    设计标准：
-      - 沿海/台风区：抗 150km/h（42m/s）
-      - 内陆：抗 120km/h（33m/s）
-      - 雪载：抗 1000Pa（东北/西北）
-      
-    示例：
-      64T64R AAU（1.2m × 0.3m × 0.2m）
-      风载面积：0.36m²（迎风面）
-      150km/h 风速 → F ≈ 540N ≈ 55kg
-      → 安装支架需承受 ≥ 110kg（2 倍安全系数）</code></pre>
-    <h3>4.2 抗震设计</h3>
-    <pre><code>设防标准：
-      - 8 度设防（中国大部分地区）
-      - 加速度：0.2-0.3g
-      
-    设计要求：
-      - 抱箍/支架有抗震垫片
-      - 螺栓防松（弹簧垫片+螺纹胶）
-      - 天线与抱杆之间有活动间隙（允许振动）</code></pre>
-    <h3>4.3 防雷设计</h3>
-    <pre><code>防雷措施：
-      1. 接闪器：塔顶安装避雷针
-      2. 接地：所有金属支架接地（&lt; 5Ω）
-      3. 等电位：天线与铁塔等电位连接
-      4. 馈线接地：馈线进入机房前接地（3 处）
-      
-    接地要求：
-      - 接地电阻 &lt; 5Ω（岩地区 &lt; 30Ω）
-      - 接地体：40×4mm 镀锌角钢，L=2.5m
-      - 接地线：≥ 35mm² 铜缆</code></pre>
-  </article>
+  F = 0.5 × ρ × v² × Cd × A
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>天线安装不是"挂上去就行"——要扛台风（150km/h）、抗震（8 度）、防雷（< 5Ω 接地）、防腐（盐雾 500h）。塔装用抱箍/平台，楼装用 L 型支架/桅杆，室内用吸顶/面板。记住：安装质量直接影响天线性能——抱箍松动 = 天线偏移 = 波束指向错误 = 覆盖空洞。</p>
+  其中：
+  ρ = 空气密度（1.225 kg/m³）
+  v = 风速（m/s）
+  Cd = 阻力系数（天线 ~1.5-2.0）
+  A = 迎风面积（m²）
+
+设计标准：
+  - 沿海/台风区：抗 150km/h（42m/s）
+  - 内陆：抗 120km/h（33m/s）
+  - 雪载：抗 1000Pa（东北/西北）
+
+示例：
+  64T64R AAU（1.2m × 0.3m × 0.2m）
+  风载面积：0.36m²（迎风面）
+  150km/h 风速 → F ≈ 540N ≈ 55kg
+  → 安装支架需承受 ≥ 110kg（2 倍安全系数）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 抗震设计</h2>
+    <pre><code>设防标准：
+  - 8 度设防（中国大部分地区）
+  - 加速度：0.2-0.3g
+
+设计要求：
+  - 抱箍/支架有抗震垫片
+  - 螺栓防松（弹簧垫片+螺纹胶）
+  - 天线与抱杆之间有活动间隙（允许振动）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 防雷设计</h2>
+    <pre><code>防雷措施：
+  1. 接闪器：塔顶安装避雷针
+  2. 接地：所有金属支架接地（&lt; 5Ω）
+  3. 等电位：天线与铁塔等电位连接
+  4. 馈线接地：馈线进入机房前接地（3 处）
+
+接地要求：
+  - 接地电阻 &lt; 5Ω（岩地区 &lt; 30Ω）
+  - 接地体：40×4mm 镀锌角钢，L=2.5m
+  - 接地线：≥ 35mm² 铜缆
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -312,39 +371,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

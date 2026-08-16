@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>八木天线（Yagi-Uda Antenna） · 知识卡片</title>
+<title>八木天线Yagi-Uda · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">八木天线 <span class="en">Yagi-Uda Antenna</span></h1>
-  <p class="lede">八木天线是"定向天线的经典"——一根有源振子（偶极子）+ 一根反射器 + 若干引向器，形成高增益定向波束。WiFi 路由器上的"天线"很多就是迷你八木，基站天线的"耳朵"也是八木的变种。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">八木天线Yagi-Uda</h1>
+  <p class="lede">八木天线是&#34;定向天线的经典&#34;——一根有源振子（偶极子）+ 一根反射器 + 若干引向器，形成高增益定向波束。WiFi 路由器上的&#34;天线&#34;很多就是迷你八木，基站天线的&#34;耳朵&#34;也是八木的变种。</p>
+  
 </header>
 
 <main>
@@ -99,99 +101,159 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>八木天线就像划船——有源振子是"桨手"（出力），反射器是"船尾配重"（把波束推向前面），引向器是"船头向导"（引导波束方向）。引向器越多，船开得越直（波束越窄、增益越高）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、八木天线的结构</h2>
-    <h3>1.1 单元组成</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 单元组成</h2>
     <pre><code>        引向器    引向器    引向器
-              │         │         │
-        ────●────●────●────●──────────
-             ↑    ↑    ↑    ↑
-           反射器 有源振子（馈电点）
-           
-    单元：
-      反射器（Reflector）：最长，位于后方
-      有源振子（Driven Element）：中间长度，馈电点
-      引向器（Director）：最短，位于前方（可有多个）
-      
-    间距：
-      反射器-振子：0.15λ
-      振子-引向器：0.1-0.15λ
-      引向器间距：0.1-0.15λ（递减）</code></pre>
-    <h3>1.2 单元数与增益</h3>
-    <div class="tw"><table>
-    <thead><tr><th>单元数</th><th>增益（dBi）</th><th>波束宽度（H/V）</th><th>前后比</th></tr></thead>
-    <tbody>
-    <tr><td>3（1反+1振+1引）</td><td>7-8</td><td>60°/50°</td><td>20dB</td></tr>
-    <tr><td>5</td><td>10-11</td><td>45°/35°</td><td>25dB</td></tr>
-    <tr><td>8</td><td>12-13</td><td>35°/25°</td><td>28dB</td></tr>
-    <tr><td>12</td><td>14-15</td><td>25°/18°</td><td>30dB</td></tr>
-    </tbody></table></div>
-  </article>
+          │         │         │
+    ────●────●────●────●──────────
+         ↑    ↑    ↑    ↑
+       反射器 有源振子（馈电点）
 
-  <article class="card">
-    <h2>二、八木天线的特点</h2>
-    <h3>2.1 优势</h3>
+单元：
+  反射器（Reflector）：最长，位于后方
+  有源振子（Driven Element）：中间长度，馈电点
+  引向器（Director）：最短，位于前方（可有多个）
+
+间距：
+  反射器-振子：0.15λ
+  振子-引向器：0.1-0.15λ
+  引向器间距：0.1-0.15λ（递减）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 单元数与增益</h2>
+    <table>
+<thead>
+<tr>
+<th>单元数</th>
+<th>增益（dBi）</th>
+<th>波束宽度（H/V）</th>
+<th>前后比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3（1反+1振+1引）</td>
+<td>7-8</td>
+<td>60°/50°</td>
+<td>20dB</td>
+</tr>
+<tr>
+<td>5</td>
+<td>10-11</td>
+<td>45°/35°</td>
+<td>25dB</td>
+</tr>
+<tr>
+<td>8</td>
+<td>12-13</td>
+<td>35°/25°</td>
+<td>28dB</td>
+</tr>
+<tr>
+<td>12</td>
+<td>14-15</td>
+<td>25°/18°</td>
+<td>30dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 优势</h2>
     <pre><code>1. 结构简单（无源器件）
-    2. 成本低
-    3. 增益适中（7-15dBi）
-    4. 方向性强（前后比 &gt; 20dB）
-    5. 易于安装和维护</code></pre>
-    <h3>2.2 劣势</h3>
+2. 成本低
+3. 增益适中（7-15dBi）
+4. 方向性强（前后比 &gt; 20dB）
+5. 易于安装和维护
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 劣势</h2>
     <pre><code>1. 带宽窄（5-10% FBW）
-       - 不适合宽频应用
-       - 需要多频八木（多组单元）
-       
-    2. 尺寸大
-       - λ/2 级别的单元间距
-       - 低频八木体积巨大（700MHz = 2m+）
-       
-    3. 增益有限
-       - 最多 15-18dBi
-       - 不如平板天线（20dBi+）</code></pre>
-  </article>
+   - 不适合宽频应用
+   - 需要多频八木（多组单元）
 
-  <article class="card">
-    <h2>三、八木天线的应用</h2>
-    <h3>3.1 WiFi 八木</h3>
+2. 尺寸大
+   - λ/2 级别的单元间距
+   - 低频八木体积巨大（700MHz = 2m+）
+
+3. 增益有限
+   - 最多 15-18dBi
+   - 不如平板天线（20dBi+）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 WiFi 八木</h2>
     <pre><code>2.4GHz/5GHz WiFi 八木：
-      单元数：3-8
-      增益：8-12dBi
-      尺寸：30-60cm
-      用途：点对点 WiFi 桥接
-      
-    典型产品：
-      TP-Link 8dBi 定向天线
-      Ubiquiti NanoStation（内置八木）</code></pre>
-    <h3>3.2 基站八木</h3>
-    <pre><code>传统 4G 基站：
-      频段：1.8-2.6GHz
-      单元数：2-4 组（每组 6-10 单元）
-      增益：17-19dBi
-      极化：±45°
-      
-    注意：5G 基站已不用传统八木
-      → 改用平板天线（贴片阵列）</code></pre>
-    <h3>3.3 业余无线电</h3>
-    <pre><code>70cm 八木（430MHz）：
-      增益：10-14dBi
-      单元数：8-12
-      尺寸：1-2m
-      
-    2m 八木（144MHz）：
-      增益：8-12dBi
-      单元数：6-10
-      尺寸：2-4m</code></pre>
-  </article>
+  单元数：3-8
+  增益：8-12dBi
+  尺寸：30-60cm
+  用途：点对点 WiFi 桥接
 
-  <article class="card">
-    <h2>四、一句话总结</h2>
-    <p>八木天线是"定向天线的经典结构"——结构简单、成本低、增益适中（7-15dBi），但带宽窄（5-10%）。WiFi 桥接和业余无线电仍在广泛使用，但 5G 基站已转向贴片阵列平板天线。记住：引向器越多增益越高，但尺寸也越大——这是永恒的工程权衡。</p>
+典型产品：
+  TP-Link 8dBi 定向天线
+  Ubiquiti NanoStation（内置八木）
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 基站八木</h2>
+    <pre><code>传统 4G 基站：
+  频段：1.8-2.6GHz
+  单元数：2-4 组（每组 6-10 单元）
+  增益：17-19dBi
+  极化：±45°
+
+注意：5G 基站已不用传统八木
+  → 改用平板天线（贴片阵列）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 业余无线电</h2>
+    <pre><code>70cm 八木（430MHz）：
+  增益：10-14dBi
+  单元数：8-12
+  尺寸：1-2m
+
+2m 八木（144MHz）：
+  增益：8-12dBi
+  单元数：6-10
+  尺寸：2-4m
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -211,39 +273,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

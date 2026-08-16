@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>环形器/隔离器 Circulator / Isolator · 知识卡片</title>
+<title>环形器隔离器Circulator-Isolator · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">环形器/隔离器 Circulator / Isolator <span class="en">Circulator-Isolator</span></h1>
-  <p class="lede">环形器是一个多端口非互易器件——信号从端口 1 到端口 2，从端口 2 到端口 3，从端口 3 到端口 1，<b>反向不通</b>。隔离器是环形器的特例（2 端口），只允许信号单向通过，反射信号被"吞"掉。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">环形器隔离器Circulator-Isolator</h1>
+  <p class="lede">环形器是一个多端口非互易器件——信号从端口 1 到端口 2，从端口 2 到端口 3，从端口 3 到端口 1，反向不通。隔离器是环形器的特例（2 端口），只允许信号单向通过，反射信号被&#34;吞&#34;掉。</p>
+  
 </header>
 
 <main>
@@ -99,186 +101,480 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>环形器就像一个"单行道转盘"——车从 A 入口进来只能从 B 出口出去，从 B 进来只能从 C 出去，不能逆行。隔离器就是一个"单向阀门"——水只能从进口流向出口，逆流时阀门自动关闭。在射频系统中，隔离器保护 PA 不被天线的反射功率烧毁。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与工作原理</h2>
-    <h3>1.1 环形器（Circulator）</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 环形器（Circulator）</h2>
     <pre><code>    Port 1 ──→ Port 2
-        ↑              │
-        │              ↓
-        Port 3 ←── Port 2</code></pre>
-    <p><b>信号流向</b>：</p>
-    <pre><code>P1 → P2 → P3 → P1 → ...（顺时针）
-    反向不通：P2 ↛ P1, P3 ↛ P2, P1 ↛ P3</code></pre>
-    <h3>1.2 隔离器（Isolator）</h3>
-    <p>隔离器 = 环形器 + 端接负载：</p>
-    <pre><code>         ┌──[50Ω Load]──┐
-    P1 ──→ P2 ──→ Output
     ↑              │
     │              ↓
-    Isolation      P3（内部端接）</code></pre>
-    <p><b>信号流向</b>：</p>
-    <pre><code>输入 → 隔离器 → 输出（正向通过）
-    反射信号 ← 隔离器（被吸收，不回传输入端）</code></pre>
-    <p>隔离度 > 20dB 意味着反射信号被衰减 100 倍以上。</p>
-    <h3>1.3 工作原理：铁氧体 + 磁场</h3>
-    <pre><code>铁氧体材料 + 永久磁铁 → 非互易性 → 环形/单向传输</code></pre>
-    <p><b>物理原理</b>：</p>
-    <ul><li>外加磁场使铁氧体中的电子进动</li><li>顺时针和逆时针极化的波经历不同的有效磁导率</li><li>导致正向和反向传播的相位速度不同</li><li>结果是信号只能单向通过</li></ul>
+    Port 3 ←── Port 2
+</code></pre>
+<p><strong>信号流向</strong>：</p>
+<pre><code>P1 → P2 → P3 → P1 → ...（顺时针）
+反向不通：P2 ↛ P1, P3 ↛ P2, P1 ↛ P3
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、关键指标</h2>
-    <h3>2.1 环形器指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>符号</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>插入损耗</td><td>IL</td><td>0.1-0.5dB</td><td>正向通过的损耗</td></tr>
-    <tr><td>隔离度</td><td>ISO</td><td>15-30dB</td><td>反向隔离能力</td></tr>
-    <tr><td>电压驻波比</td><td>VSWR</td><td>1.1-1.3</td><td>端口匹配</td></tr>
-    <tr><td>工作频段</td><td>f_min - f_max</td><td>取决于设计</td><td>带宽</td></tr>
-    <tr><td>功率容量</td><td>P_max</td><td>10W-1kW</td><td>连续/脉冲</td></tr>
-    </tbody></table></div>
-    <h3>2.2 隔离器指标</h3>
-    <div class="tw"><table>
-    <thead><tr><th>指标</th><th>符号</th><th>典型值</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>插入损耗</td><td>IL</td><td>0.1-0.3dB</td><td>正向损耗</td></tr>
-    <tr><td>隔离度</td><td>ISO</td><td>20-40dB</td><td>反向隔离</td></tr>
-    <tr><td>电压驻波比</td><td>VSWR</td><td>1.05-1.2</td><td>端口匹配</td></tr>
-    <tr><td>工作频段</td><td>f_min - f_max</td><td>1-18GHz 常见</td><td></td></tr>
-    <tr><td>功率容量</td><td>P_max</td><td>10W-500W</td><td></td></tr>
-    </tbody></table></div>
-    <h3>2.3 隔离度与功率容量的关系</h3>
+  
+  <article class="card ">
+    
+    <h2>1.2 隔离器（Isolator）</h2>
+    <p>隔离器 = 环形器 + 端接负载：</p>
+<pre><code>         ┌──[50Ω Load]──┐
+P1 ──→ P2 ──→ Output
+↑              │
+│              ↓
+Isolation      P3（内部端接）
+</code></pre>
+<p><strong>信号流向</strong>：</p>
+<pre><code>输入 → 隔离器 → 输出（正向通过）
+反射信号 ← 隔离器（被吸收，不回传输入端）
+</code></pre>
+<p>隔离度 &gt; 20dB 意味着反射信号被衰减 100 倍以上。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 工作原理：铁氧体 + 磁场</h2>
+    <pre><code>铁氧体材料 + 永久磁铁 → 非互易性 → 环形/单向传输
+</code></pre>
+<p><strong>物理原理</strong>：</p>
+<ul>
+<li>外加磁场使铁氧体中的电子进动</li>
+<li>顺时针和逆时针极化的波经历不同的有效磁导率</li>
+<li>导致正向和反向传播的相位速度不同</li>
+<li>结果是信号只能单向通过</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 环形器指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>符号</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入损耗</td>
+<td>IL</td>
+<td>0.1-0.5dB</td>
+<td>正向通过的损耗</td>
+</tr>
+<tr>
+<td>隔离度</td>
+<td>ISO</td>
+<td>15-30dB</td>
+<td>反向隔离能力</td>
+</tr>
+<tr>
+<td>电压驻波比</td>
+<td>VSWR</td>
+<td>1.1-1.3</td>
+<td>端口匹配</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>f_min - f_max</td>
+<td>取决于设计</td>
+<td>带宽</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>P_max</td>
+<td>10W-1kW</td>
+<td>连续/脉冲</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 隔离器指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>符号</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入损耗</td>
+<td>IL</td>
+<td>0.1-0.3dB</td>
+<td>正向损耗</td>
+</tr>
+<tr>
+<td>隔离度</td>
+<td>ISO</td>
+<td>20-40dB</td>
+<td>反向隔离</td>
+</tr>
+<tr>
+<td>电压驻波比</td>
+<td>VSWR</td>
+<td>1.05-1.2</td>
+<td>端口匹配</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>f_min - f_max</td>
+<td>1-18GHz 常见</td>
+<td></td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>P_max</td>
+<td>10W-500W</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 隔离度与功率容量的关系</h2>
     <pre><code>隔离度越高 → 对 PA 的保护越好
-    功率容量越大 → 能承受的输出功率越高</code></pre>
-    <p><b>典型权衡</b>：</p>
-    <ul><li>低功率隔离器（< 1W）：IL = 0.05dB，ISO = 30dB</li><li>中功率隔离器（10W）：IL = 0.15dB，ISO = 25dB</li><li>高功率隔离器（100W）：IL = 0.3dB，ISO = 20dB</li></ul>
+功率容量越大 → 能承受的输出功率越高
+</code></pre>
+<p><strong>典型权衡</strong>：</p>
+<ul>
+<li>低功率隔离器（&lt; 1W）：IL = 0.05dB，ISO = 30dB</li>
+<li>中功率隔离器（10W）：IL = 0.15dB，ISO = 25dB</li>
+<li>高功率隔离器（100W）：IL = 0.3dB，ISO = 20dB</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>三、主要类型</h2>
-    <h3>3.1 铁氧体环形器/隔离器</h3>
+  
+  <article class="card ">
+    
+    <h2>3.1 铁氧体环形器/隔离器</h2>
     <p>最传统、最成熟的类型：</p>
-    <pre><code>结构：
-      永久磁铁 → 提供偏置磁场
-      铁氧体圆盘 → 核心非互易材料
-      微带/波导结构 → 信号传输路径</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>频段</td><td>DC-18GHz</td></tr>
-    <tr><td>IL</td><td>0.1-0.5dB</td></tr>
-    <tr><td>ISO</td><td>20-30dB</td></tr>
-    <tr><td>功率</td><td>1W-1kW</td></tr>
-    <tr><td>体积</td><td>较大</td></tr>
-    </tbody></table></div>
-    <h3>3.2 平面环形器（Microstrip/Monolithic）</h3>
+<pre><code>结构：
+  永久磁铁 → 提供偏置磁场
+  铁氧体圆盘 → 核心非互易材料
+  微带/波导结构 → 信号传输路径
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>DC-18GHz</td>
+</tr>
+<tr>
+<td>IL</td>
+<td>0.1-0.5dB</td>
+</tr>
+<tr>
+<td>ISO</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>功率</td>
+<td>1W-1kW</td>
+</tr>
+<tr>
+<td>体积</td>
+<td>较大</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 平面环形器（Microstrip/Monolithic）</h2>
     <p>集成于 PCB 或 MMIC：</p>
-    <pre><code>结构：
-      铁氧体薄膜 + 微带线
-      或
-      磁光材料 + 光波导（光环形器）</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>频段</td><td>1-40GHz</td></tr>
-    <tr><td>IL</td><td>0.5-2dB</td></tr>
-    <tr><td>ISO</td><td>10-20dB</td></tr>
-    <tr><td>功率</td><td>< 1W</td></tr>
-    <tr><td>体积</td><td>很小（芯片级）</td></tr>
-    </tbody></table></div>
-    <h3>3.3 光环形器（Optical Circulator）</h3>
+<pre><code>结构：
+  铁氧体薄膜 + 微带线
+  或
+  磁光材料 + 光波导（光环形器）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>1-40GHz</td>
+</tr>
+<tr>
+<td>IL</td>
+<td>0.5-2dB</td>
+</tr>
+<tr>
+<td>ISO</td>
+<td>10-20dB</td>
+</tr>
+<tr>
+<td>功率</td>
+<td>&lt; 1W</td>
+</tr>
+<tr>
+<td>体积</td>
+<td>很小（芯片级）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 光环形器（Optical Circulator）</h2>
     <p>用于光纤通信：</p>
-    <pre><code>波长 | 端口1 → 端口2 → 端口3
-    1310nm | 输入 → 环行 → 输出
-    1550nm | 反射 → 环行 → 监测</code></pre>
-    <h3>3.4 非互易相移器</h3>
+<pre><code>波长 | 端口1 → 端口2 → 端口3
+1310nm | 输入 → 环行 → 输出
+1550nm | 反射 → 环行 → 监测
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 非互易相移器</h2>
     <p>利用磁光效应实现非互易相移：</p>
-    <pre><code>正向相移：+45°
-    反向相移：-45°</code></pre>
+<pre><code>正向相移：+45°
+反向相移：-45°
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、应用场景</h2>
-    <h3>4.1 PA 保护（隔离器）</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 PA 保护（隔离器）</h2>
     <pre><code>PA → 隔离器 → 滤波器 → 天线
-          ↑
-       反射功率被吸收</code></pre>
-    <p><b>为什么需要</b>：</p>
-    <ul><li>天线 VSWR 不佳时，反射功率可能烧毁 PA</li><li>隔离器阻止反射功率回传 PA</li><li>保护 PA 免受驻波损坏</li></ul>
-    <h3>4.2 全双工通信（环形器）</h3>
+      ↑
+   反射功率被吸收
+</code></pre>
+<p><strong>为什么需要</strong>：</p>
+<ul>
+<li>天线 VSWR 不佳时，反射功率可能烧毁 PA</li>
+<li>隔离器阻止反射功率回传 PA</li>
+<li>保护 PA 免受驻波损坏</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 全双工通信（环形器）</h2>
     <pre><code>Tx → 端口1 → 端口2 → 天线
-    Rx ← 端口3 ← 天线（接收信号）</code></pre>
-    <p><b>全双工挑战</b>：</p>
-    <ul><li>发射信号泄漏到接收端（自干扰）</li><li>需要环形器 + 自干扰消除</li><li>隔离度要求 > 60dB（环形器本身只有 20-30dB）</li></ul>
-    <h3>4.3 T/R 模块中的收发隔离</h3>
+Rx ← 端口3 ← 天线（接收信号）
+</code></pre>
+<p><strong>全双工挑战</strong>：</p>
+<ul>
+<li>发射信号泄漏到接收端（自干扰）</li>
+<li>需要环形器 + 自干扰消除</li>
+<li>隔离度要求 &gt; 60dB（环形器本身只有 20-30dB）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 T/R 模块中的收发隔离</h2>
     <pre><code>PA → 环形器端口1 → 端口2 → 天线
-    LNA ← 环形器端口3 ← 天线</code></pre>
-    <h3>4.4 雷达系统</h3>
+LNA ← 环形器端口3 ← 天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 雷达系统</h2>
     <pre><code>脉冲雷达：
-      发射 → 环形器 → 天线
-      接收 ← 环形器 ← 天线</code></pre>
-    <h3>4.5 基站前端</h3>
+  发射 → 环形器 → 天线
+  接收 ← 环形器 ← 天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 基站前端</h2>
     <pre><code>AAU 中每个通道：
-      PA → 隔离器 → 滤波器 → 天线
-      保护 PA 免受天线失配损坏</code></pre>
+  PA → 隔离器 → 滤波器 → 天线
+  保护 PA 免受天线失配损坏
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、与功分器的关系</h2>
-    <p>环形器和功分器经常一起使用：</p>
-    <pre><code>PA 输出 → 功分器（N 路）→ N 个 PA → N 个隔离器 → 合路器 → 天线</code></pre>
-    <p>隔离器确保每个 PA 的反射不会影响其他 PA。</p>
-  </article>
-
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 温度对性能的影响</h3>
+  
+  <article class="card ">
+    
+    <h2>6.1 温度对性能的影响</h2>
     <pre><code>铁氧体材料的磁特性随温度变化：
-    ΔISO/ΔT ≈ -0.1 to -0.5 dB/°C
-    ΔIL/ΔT ≈ +0.01 to +0.05 dB/°C</code></pre>
-    <p>高温环境（如密闭 AAU）需要特别注意。</p>
-    <h3>6.2 功率容量与散热</h3>
-    <pre><code>高功率下铁氧体发热 → 磁特性退化 → 隔离度下降</code></pre>
-    <p><b>散热措施</b>：</p>
-    <ul><li>金属外壳导热</li><li>PCB 散热通孔</li><li>强制风冷（高功率场景）</li></ul>
-    <h3>6.3 磁场屏蔽</h3>
+ΔISO/ΔT ≈ -0.1 to -0.5 dB/°C
+ΔIL/ΔT ≈ +0.01 to +0.05 dB/°C
+</code></pre>
+<p>高温环境（如密闭 AAU）需要特别注意。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 功率容量与散热</h2>
+    <pre><code>高功率下铁氧体发热 → 磁特性退化 → 隔离度下降
+</code></pre>
+<p><strong>散热措施</strong>：</p>
+<ul>
+<li>金属外壳导热</li>
+<li>PCB 散热通孔</li>
+<li>强制风冷（高功率场景）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 磁场屏蔽</h2>
     <p>环形器/隔离器内部的永久磁铁可能干扰周围电路：</p>
-    <pre><code>外部磁场 &lt; 100 Oe（避免影响铁氧体工作状态）</code></pre>
-    <h3>6.4 小型化趋势</h3>
+<pre><code>外部磁场 &lt; 100 Oe（避免影响铁氧体工作状态）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 小型化趋势</h2>
     <pre><code>传统铁氧体隔离器：10×10×5mm
-    平面集成隔离器：1×1mm（芯片级）</code></pre>
-    <p>5G 毫米波基站中，隔离器正逐渐集成到 T/R 模块内部。</p>
+平面集成隔离器：1×1mm（芯片级）
+</code></pre>
+<p>5G 毫米波基站中，隔离器正逐渐集成到 T/R 模块内部。</p>
   </article>
+  
 
-  <article class="card">
-    <h2>七、典型产品</h2>
-    <h3>7.1 铁氧体隔离器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>IL</th><th>ISO</th><th>功率</th></tr></thead>
-    <tbody>
-    <tr><td>ADI-1WH</td><td>Mini-Circuits</td><td>0.5-1GHz</td><td>0.1dB</td><td>25dB</td><td>1W</td></tr>
-    <tr><td>CIR-1010</td><td>Mini-Circuits</td><td>8-12GHz</td><td>0.2dB</td><td>20dB</td><td>2W</td></tr>
-    <tr><td>JFC-450</td><td>MACOM</td><td>4-8GHz</td><td>0.15dB</td><td>25dB</td><td>50W</td></tr>
-    </tbody></table></div>
-    <h3>7.2 平面隔离器（毫米波）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>IL</th><th>ISO</th><th>封装</th></tr></thead>
-    <tbody>
-    <tr><td>HMC1098</td><td>Analog Devices</td><td>24-30GHz</td><td>1.5dB</td><td>15dB</td><td>QFN</td></tr>
-    <tr><td>MGA-62563</td><td>Broadcom</td><td>24-30GHz</td><td>2dB</td><td>12dB</td><td>SMT</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>7.1 铁氧体隔离器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>IL</th>
+<th>ISO</th>
+<th>功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADI-1WH</td>
+<td>Mini-Circuits</td>
+<td>0.5-1GHz</td>
+<td>0.1dB</td>
+<td>25dB</td>
+<td>1W</td>
+</tr>
+<tr>
+<td>CIR-1010</td>
+<td>Mini-Circuits</td>
+<td>8-12GHz</td>
+<td>0.2dB</td>
+<td>20dB</td>
+<td>2W</td>
+</tr>
+<tr>
+<td>JFC-450</td>
+<td>MACOM</td>
+<td>4-8GHz</td>
+<td>0.15dB</td>
+<td>25dB</td>
+<td>50W</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>环形器/隔离器是射频系统中的"单向阀门"——利用铁氧体的非互易特性，让信号只能单向通过。隔离器保护 PA 不被反射功率烧毁，环形器在 T/R 模块中实现收发隔离。核心指标：插入损耗（越小越好）、隔离度（越大越好）、功率容量（越大越好）。5G 毫米波时代，环形器正从分立器件走向集成化（芯片级）。</p>
+  
+  <article class="card ">
+    
+    <h2>7.2 平面隔离器（毫米波）</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>IL</th>
+<th>ISO</th>
+<th>封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HMC1098</td>
+<td>Analog Devices</td>
+<td>24-30GHz</td>
+<td>1.5dB</td>
+<td>15dB</td>
+<td>QFN</td>
+</tr>
+<tr>
+<td>MGA-62563</td>
+<td>Broadcom</td>
+<td>24-30GHz</td>
+<td>2dB</td>
+<td>12dB</td>
+<td>SMT</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -298,39 +594,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

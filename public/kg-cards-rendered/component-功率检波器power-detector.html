@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>功率检波器 Power Detector · 知识卡片</title>
+<title>功率检波器Power-Detector · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">功率检波器 Power Detector <span class="en">Power-Detector</span></h1>
-  <p class="lede">功率检波器是 T/R 模块功率控制闭环的"传感器"——它将射频信号的幅度转换为直流电压，让基带芯片能实时监测和调整发射功率。核心指标是线性动态范围、精度和响应速度。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">功率检波器Power-Detector</h1>
+  <p class="lede">功率检波器是 T/R 模块功率控制闭环的&#34;传感器&#34;——它将射频信号的幅度转换为直流电压，让基带芯片能实时监测和调整发射功率。核心指标是线性动态范围、精度和响应速度。</p>
+  
 </header>
 
 <main>
@@ -99,188 +101,414 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>功率检波器就像汽车的速度表——发动机（PA）在狂飙，但你需要一个仪表告诉你实际速度（功率）是多少，然后踩油门或刹车（调整增益）来保持目标速度。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 功率检波器的角色</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 功率检波器的角色</h2>
     <pre><code>射频信号 → 功率检波器 → 直流电压（与功率成正比）
-                  ↑
-             ADC 读取 → 基带芯片 → PID 控制 PA 增益</code></pre>
-    <h3>1.2 主要功能</h3>
-    <div class="tw"><table>
-    <thead><tr><th>功能</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>功率监测</td><td>实时检测发射功率</td></tr>
-    <tr><td>功率控制闭环</td><td>为 PID 控制器提供反馈</td></tr>
-    <tr><td>过载保护</td><td>功率超限 → 自动降低 PA 增益</td></tr>
-    <tr><td>温度补偿</td><td>检测 PA 功率随温度的变化</td></tr>
-    <tr><td>接收信号强度指示（RSSI）</td><td>接收通道信号强度监测</td></tr>
-    </tbody></table></div>
+              ↑
+         ADC 读取 → 基带芯片 → PID 控制 PA 增益
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>二、检波器类型</h2>
-    <h3>2.1 峰值检波器（Peak Detector）</h3>
-    <pre><code>原理：
-      射频信号 → 二极管 → 电容充电 → 峰值电压
-      
-    特点：
-      - 响应速度快
-      - 线性动态范围窄（10-20dB）
-      - 适合调制信号的峰值监测</code></pre>
-    <h3>2.2 均值检波器（RMS Detector）</h3>
-    <pre><code>原理：
-      射频信号 → 平方律器件 → 低通滤波 → RMS 电压
-      
-    特点：
-      - 精度高（±1dB）
-      - 线性动态范围宽（40-60dB）
-      - 响应速度慢（需要低通滤波）
-      - 适合 CW 信号和功率控制</code></pre>
-    <h3>2.3 对数检波器（Logarithmic Detector）</h3>
-    <pre><code>原理：
-      射频信号 → 多级放大器 → 检波级 → 对数输出
-      
-    特点：
-      - 对数输出（dB 线性）
-      - 动态范围极宽（60-80dB）
-      - 精度 ±1-2dB
-      - 5G 功率控制首选</code></pre>
+  
+  <article class="card ">
+    
+    <h2>1.2 主要功能</h2>
+    <table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功率监测</td>
+<td>实时检测发射功率</td>
+</tr>
+<tr>
+<td>功率控制闭环</td>
+<td>为 PID 控制器提供反馈</td>
+</tr>
+<tr>
+<td>过载保护</td>
+<td>功率超限 → 自动降低 PA 增益</td>
+</tr>
+<tr>
+<td>温度补偿</td>
+<td>检测 PA 功率随温度的变化</td>
+</tr>
+<tr>
+<td>接收信号强度指示（RSSI）</td>
+<td>接收通道信号强度监测</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、关键指标</h2>
-    <h3>3.1 动态范围（Dynamic Range）</h3>
-    <pre><code>DR = P_max - P_min [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>检波器类型</th><th>动态范围</th></tr></thead>
-    <tbody>
-    <tr><td>峰值检波</td><td>10-20dB</td></tr>
-    <tr><td>均值检波</td><td>40-60dB</td></tr>
-    <tr><td>对数检波</td><td>60-80dB</td></tr>
-    </tbody></table></div>
-    <h3>3.2 精度（Accuracy）</h3>
-    <pre><code>精度 = |V_measured - V_true| / V_true</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>检波器类型</th><th>精度</th></tr></thead>
-    <tbody>
-    <tr><td>峰值检波</td><td>±3-5dB</td></tr>
-    <tr><td>均值检波</td><td>±1-2dB</td></tr>
-    <tr><td>对数检波</td><td>±1-2dB</td></tr>
-    </tbody></table></div>
-    <h3>3.3 响应时间（Response Time）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 峰值检波器（Peak Detector）</h2>
+    <pre><code>原理：
+  射频信号 → 二极管 → 电容充电 → 峰值电压
+
+特点：
+  - 响应速度快
+  - 线性动态范围窄（10-20dB）
+  - 适合调制信号的峰值监测
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 均值检波器（RMS Detector）</h2>
+    <pre><code>原理：
+  射频信号 → 平方律器件 → 低通滤波 → RMS 电压
+
+特点：
+  - 精度高（±1dB）
+  - 线性动态范围宽（40-60dB）
+  - 响应速度慢（需要低通滤波）
+  - 适合 CW 信号和功率控制
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 对数检波器（Logarithmic Detector）</h2>
+    <pre><code>原理：
+  射频信号 → 多级放大器 → 检波级 → 对数输出
+
+特点：
+  - 对数输出（dB 线性）
+  - 动态范围极宽（60-80dB）
+  - 精度 ±1-2dB
+  - 5G 功率控制首选
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 动态范围（Dynamic Range）</h2>
+    <pre><code>DR = P_max - P_min [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>检波器类型</th>
+<th>动态范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值检波</td>
+<td>10-20dB</td>
+</tr>
+<tr>
+<td>均值检波</td>
+<td>40-60dB</td>
+</tr>
+<tr>
+<td>对数检波</td>
+<td>60-80dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 精度（Accuracy）</h2>
+    <pre><code>精度 = |V_measured - V_true| / V_true
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>检波器类型</th>
+<th>精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值检波</td>
+<td>±3-5dB</td>
+</tr>
+<tr>
+<td>均值检波</td>
+<td>±1-2dB</td>
+</tr>
+<tr>
+<td>对数检波</td>
+<td>±1-2dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 响应时间（Response Time）</h2>
     <pre><code>τ = 1 / (2π · f_cutoff)
-    
-    f_cutoff = 低通滤波器截止频率</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>检波器类型</th><th>响应时间</th></tr></thead>
-    <tbody>
-    <tr><td>峰值检波</td><td>< 10ns</td></tr>
-    <tr><td>均值检波</td><td>1-10μs</td></tr>
-    <tr><td>对数检波</td><td>1-5μs</td></tr>
-    </tbody></table></div>
-    <h3>3.4 工作频率范围</h3>
-    <div class="tw"><table>
-    <thead><tr><th>检波器</th><th>频率范围</th></tr></thead>
-    <tbody>
-    <tr><td>峰值检波</td><td>DC - 6GHz</td></tr>
-    <tr><td>均值检波</td><td>100MHz - 6GHz</td></tr>
-    <tr><td>对数检波</td><td>10MHz - 8GHz</td></tr>
-    <tr><td>毫米波检波</td><td>24-40GHz</td></tr>
-    </tbody></table></div>
-  </article>
 
-  <article class="card">
-    <h2>四、在 T/R 模块中的应用</h2>
-    <h3>4.1 发射功率控制闭环</h3>
+f_cutoff = 低通滤波器截止频率
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>检波器类型</th>
+<th>响应时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值检波</td>
+<td>&lt; 10ns</td>
+</tr>
+<tr>
+<td>均值检波</td>
+<td>1-10μs</td>
+</tr>
+<tr>
+<td>对数检波</td>
+<td>1-5μs</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 工作频率范围</h2>
+    <table>
+<thead>
+<tr>
+<th>检波器</th>
+<th>频率范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>峰值检波</td>
+<td>DC - 6GHz</td>
+</tr>
+<tr>
+<td>均值检波</td>
+<td>100MHz - 6GHz</td>
+</tr>
+<tr>
+<td>对数检波</td>
+<td>10MHz - 8GHz</td>
+</tr>
+<tr>
+<td>毫米波检波</td>
+<td>24-40GHz</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 发射功率控制闭环</h2>
     <pre><code>PA 输出 → 耦合器（-10dB） → 功率检波器 → DC 电压
-                                                        ↓
-                                                  ADC（基带）
-                                                        ↓
-                                                  PID 控制器
-                                                        ↓
-                                                  DAC → PA 增益控制</code></pre>
-    <h3>4.2 功率控制精度要求</h3>
+                                                    ↓
+                                              ADC（基带）
+                                                    ↓
+                                              PID 控制器
+                                                    ↓
+                                              DAC → PA 增益控制
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 功率控制精度要求</h2>
     <pre><code>5G NR 功率控制精度：
-      Sub-6GHz：±1.5dB（3GPP 要求）
-      毫米波：±2dB
+  Sub-6GHz：±1.5dB（3GPP 要求）
+  毫米波：±2dB
+
+实现方法：
+  1. 高精度对数检波器（±0.5dB）
+  2. 温度补偿查找表
+  3. 校准补偿（出厂校准）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    实现方法：
-      1. 高精度对数检波器（±0.5dB）
-      2. 温度补偿查找表
-      3. 校准补偿（出厂校准）</code></pre>
-    <h3>4.3 过载保护</h3>
+    <h2>4.3 过载保护</h2>
     <pre><code>功率超限检测：
-      检波器输出 &gt; 阈值 → 触发保护
-      保护动作：
-        1. 降低 PA 增益（快速）
-        2. 关闭 PA（严重过载）
-        3. 报警通知基带
-        
-    响应时间要求：
-      快速保护：&lt; 1μs
-      慢速保护：&lt; 10μs</code></pre>
-  </article>
+  检波器输出 &gt; 阈值 → 触发保护
+  保护动作：
+    1. 降低 PA 增益（快速）
+    2. 关闭 PA（严重过载）
+    3. 报警通知基带
 
-  <article class="card">
-    <h2>五、典型产品</h2>
-    <h3>5.1 Sub-6GHz 功率检波器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频率</th><th>动态范围</th><th>精度</th><th>封装</th></tr></thead>
-    <tbody>
-    <tr><td>HMC646ALP3E</td><td>Analog Devices</td><td>100MHz-6GHz</td><td>50dB</td><td>±1dB</td><td>3×3mm</td></tr>
-    <tr><td>AD8313</td><td>Analog Devices</td><td>5MHz-5GHz</td><td>73dB</td><td>±2dB</td><td>8-lead</td></tr>
-    <tr><td>PMAD1003</td><td>Qorvo</td><td>50MHz-4GHz</td><td>40dB</td><td>±1.5dB</td><td>5×5mm</td></tr>
-    </tbody></table></div>
-    <h3>5.2 毫米波功率检波器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频率</th><th>动态范围</th><th>精度</th><th>封装</th></tr></thead>
-    <tbody>
-    <tr><td>HMC753ALP4E</td><td>Analog Devices</td><td>24-40GHz</td><td>30dB</td><td>±2dB</td><td>2×2mm</td></tr>
-    <tr><td>ICS5911</td><td>Integrated Circuit Systems</td><td>24-30GHz</td><td>40dB</td><td>±1.5dB</td><td>3×3mm</td></tr>
-    </tbody></table></div>
+响应时间要求：
+  快速保护：&lt; 1μs
+  慢速保护：&lt; 10μs
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 温度漂移</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 Sub-6GHz 功率检波器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频率</th>
+<th>动态范围</th>
+<th>精度</th>
+<th>封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HMC646ALP3E</td>
+<td>Analog Devices</td>
+<td>100MHz-6GHz</td>
+<td>50dB</td>
+<td>±1dB</td>
+<td>3×3mm</td>
+</tr>
+<tr>
+<td>AD8313</td>
+<td>Analog Devices</td>
+<td>5MHz-5GHz</td>
+<td>73dB</td>
+<td>±2dB</td>
+<td>8-lead</td>
+</tr>
+<tr>
+<td>PMAD1003</td>
+<td>Qorvo</td>
+<td>50MHz-4GHz</td>
+<td>40dB</td>
+<td>±1.5dB</td>
+<td>5×5mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 毫米波功率检波器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频率</th>
+<th>动态范围</th>
+<th>精度</th>
+<th>封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HMC753ALP4E</td>
+<td>Analog Devices</td>
+<td>24-40GHz</td>
+<td>30dB</td>
+<td>±2dB</td>
+<td>2×2mm</td>
+</tr>
+<tr>
+<td>ICS5911</td>
+<td>Integrated Circuit Systems</td>
+<td>24-30GHz</td>
+<td>40dB</td>
+<td>±1.5dB</td>
+<td>3×3mm</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 温度漂移</h2>
     <pre><code>检波器温度漂移：
-      峰值检波：±0.02dB/°C
-      均值检波：±0.01dB/°C
-      对数检波：±0.015dB/°C
-    
-    补偿方法：
-      1. 内置温度传感器
-      2. 查找表补偿
-      3. 出厂校准</code></pre>
-    <h3>6.2 负载牵引效应</h3>
-    <pre><code>检波器并联在耦合器上 → 负载效应
-    负载效应 → 耦合度变化 → 测量误差
-    
-    解决方法：
-      1. 高输入阻抗设计
-      2. 缓冲放大器隔离
-      3. 耦合度设计时预留余量</code></pre>
-    <h3>6.3 调制信号的影响</h3>
-    <pre><code>CW 信号：检波器输出稳定
-    OFDM 信号：峰值/均值比 = PAPR（峰均比）
-      5G NR PAPR = 9-10dB
-      检波器需要能处理高峰均比
-    
-    解决方法：
-      1. 使用 RMS 检波器（不受 PAPR 影响）
-      2. 峰值检波器 + 保持电路
-      3. 对数检波器（天然对数压缩）</code></pre>
-  </article>
+  峰值检波：±0.02dB/°C
+  均值检波：±0.01dB/°C
+  对数检波：±0.015dB/°C
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>功率检波器是 T/R 模块功率控制的"眼睛"——它将射频功率转换为直流电压，让基带芯片能实时监测和调整发射功率。对数检波器动态范围最宽（60-80dB），是 5G 功率控制的首选。记住：检波器的精度决定了功率控制的精度，5G NR 要求 ±1.5dB，选检波器时要预留余量。</p>
+补偿方法：
+  1. 内置温度传感器
+  2. 查找表补偿
+  3. 出厂校准
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 负载牵引效应</h2>
+    <pre><code>检波器并联在耦合器上 → 负载效应
+负载效应 → 耦合度变化 → 测量误差
+
+解决方法：
+  1. 高输入阻抗设计
+  2. 缓冲放大器隔离
+  3. 耦合度设计时预留余量
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 调制信号的影响</h2>
+    <pre><code>CW 信号：检波器输出稳定
+OFDM 信号：峰值/均值比 = PAPR（峰均比）
+  5G NR PAPR = 9-10dB
+  检波器需要能处理高峰均比
+
+解决方法：
+  1. 使用 RMS 检波器（不受 PAPR 影响）
+  2. 峰值检波器 + 保持电路
+  3. 对数检波器（天然对数压缩）
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -300,39 +528,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

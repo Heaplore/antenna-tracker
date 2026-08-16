@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>滤波器 Filter · 知识卡片</title>
+<title>滤波器Filter · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">滤波器 Filter <span class="en">Filter</span></h1>
-  <p class="lede">滤波器是射频前端的"安检门"——只让目标频段的信号通过，把带外干扰和噪声挡在外面。5G 滤波器的主流技术是 SAW（Sub-6GHz）和 BAW/FBAR（高频段），毫米波频段则用波导滤波器或 SIW 滤波器。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">滤波器Filter</h1>
+  <p class="lede">滤波器是射频前端的&#34;安检门&#34;——只让目标频段的信号通过，把带外干扰和噪声挡在外面。5G 滤波器的主流技术是 SAW（Sub-6GHz）和 BAW/FBAR（高频段），毫米波频段则用波导滤波器或 SIW 滤波器。</p>
+  
 </header>
 
 <main>
@@ -99,206 +101,615 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>滤波器就像咖啡滤纸——热水（目标信号）能通过，咖啡渣（带外干扰）被拦住。但射频滤波器的"滤纸"精细得多：它不仅要挡住杂质，还要同时挡住几百个不同频率的干扰信号，而且损耗要小到几乎感觉不到。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 滤波器的基本功能</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 滤波器的基本功能</h2>
     <pre><code>输入信号 → 滤波器 → 输出信号
-                ↑
-            频率选择性</code></pre>
-    <p><b>核心作用</b>：</p>
-    <ol><li><b>选频</b>：只让目标频段通过</li><li><b>抑制干扰</b>：阻挡带外信号</li><li><b>保护前端</b>：防止强干扰损坏 LNA/PA</li><li><b>满足频谱掩模</b>：符合法规要求</li></ol>
-    <h3>1.2 滤波器的主要类型</h3>
-    <div class="tw"><table>
-    <thead><tr><th>类型</th><th>频段范围</th><th>Q 值</th><th>插入损耗</th><th>功率容量</th><th>典型应用</th></tr></thead>
-    <tbody>
-    <tr><td>LC 滤波器</td><td>DC-1GHz</td><td>低</td><td>0.5-2dB</td><td>高</td><td>低频</td></tr>
-    <tr><td>声表面波 SAW</td><td>100MHz-3GHz</td><td>中</td><td>1-3dB</td><td>低</td><td>手机 Sub-6GHz</td></tr>
-    <tr><td>体声波 BAW/FBAR</td><td>1-10GHz</td><td>高</td><td>0.5-2dB</td><td>中</td><td>5G Sub-6GHz</td></tr>
-    <tr><td>陶瓷滤波器</td><td>400MHz-6GHz</td><td>中高</td><td>0.5-1.5dB</td><td>中</td><td>基站</td></tr>
-    <tr><td>波导滤波器</td><td>1-100GHz</td><td>极高</td><td>0.1-0.5dB</td><td>极高</td><td>基站、卫星</td></tr>
-    <tr><td>SIW 滤波器</td><td>10-100GHz</td><td>高</td><td>0.5-2dB</td><td>中</td><td>毫米波</td></tr>
-    <tr><td>介质滤波器</td><td>1-40GHz</td><td>高</td><td>0.2-1dB</td><td>高</td><td>基站</td></tr>
-    </tbody></table></div>
+            ↑
+        频率选择性
+</code></pre>
+<p><strong>核心作用</strong>：</p>
+<ol>
+<li><strong>选频</strong>：只让目标频段通过</li>
+<li><strong>抑制干扰</strong>：阻挡带外信号</li>
+<li><strong>保护前端</strong>：防止强干扰损坏 LNA/PA</li>
+<li><strong>满足频谱掩模</strong>：符合法规要求</li>
+</ol>
   </article>
+  
 
-  <article class="card">
-    <h2>二、关键指标</h2>
-    <h3>2.1 插入损耗（Insertion Loss, IL）</h3>
-    <pre><code>IL = -10·log₁₀(P_out / P_in) [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>滤波器类型</th><th>IL（典型）</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>波导</td><td>0.1-0.3dB</td><td>最低</td></tr>
-    <tr><td>陶瓷</td><td>0.3-0.8dB</td><td>很低</td></tr>
-    <tr><td>BAW/FBAR</td><td>0.5-1.5dB</td><td>低</td></tr>
-    <tr><td>SAW</td><td>1-3dB</td><td>中等</td></tr>
-    <tr><td>SIW</td><td>0.5-2dB</td><td>中等</td></tr>
-    <tr><td>LC</td><td>0.5-2dB</td><td>低频</td></tr>
-    </tbody></table></div>
-    <p><b>IL 对系统的影响</b>：</p>
-    <pre><code>IL = 1dB → 信号损失 20%
-    IL = 3dB → 信号损失 50%
-    IL = 0.5dB → 信号损失 10%</code></pre>
-    <h3>2.2 带宽（Bandwidth）</h3>
-    <pre><code>相对带宽 = (f_high - f_low) / f_center × 100%</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>滤波器</th><th>带宽</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>窄带</td><td>< 5%</td><td>基站双工器</td></tr>
-    <tr><td>中宽</td><td>5-20%</td><td>5G Sub-6GHz</td></tr>
-    <tr><td>宽带</td><td>> 20%</td><td>WiFi、SDR</td></tr>
-    </tbody></table></div>
-    <h3>2.3 带外抑制（Rejection）</h3>
-    <pre><code>带外抑制 = 阻带最小衰减 [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>应用</th><th>带外抑制要求</th></tr></thead>
-    <tbody>
-    <tr><td>5G 手机</td><td>> 60dB @ 相邻频段</td></tr>
-    <tr><td>基站</td><td>> 80dB @ 相邻基站</td></tr>
-    <tr><td>WiFi</td><td>> 40dB</td></tr>
-    <tr><td>卫星通信</td><td>> 60dB</td></tr>
-    </tbody></table></div>
-    <h3>2.4 群时延（Group Delay）</h3>
-    <pre><code>τ_g = -dφ/dω</code></pre>
-    <p>群时延波动影响数字信号的相位一致性：</p>
-    <pre><code>5G NR 要求：τ_g_fluctuation &lt; 0.1μs</code></pre>
-    <h3>2.5 Q 值（品质因数）</h3>
-    <pre><code>Q = f_center / BW</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>滤波器类型</th><th>Q 值</th></tr></thead>
-    <tbody>
-    <tr><td>波导</td><td>1000-10000</td></tr>
-    <tr><td>陶瓷</td><td>500-2000</td></tr>
-    <tr><td>BAW</td><td>1000-5000</td></tr>
-    <tr><td>SAW</td><td>100-500</td></tr>
-    <tr><td>LC</td><td>10-100</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>1.2 滤波器的主要类型</h2>
+    <table>
+<thead>
+<tr>
+<th>类型</th>
+<th>频段范围</th>
+<th>Q 值</th>
+<th>插入损耗</th>
+<th>功率容量</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LC 滤波器</td>
+<td>DC-1GHz</td>
+<td>低</td>
+<td>0.5-2dB</td>
+<td>高</td>
+<td>低频</td>
+</tr>
+<tr>
+<td>声表面波 SAW</td>
+<td>100MHz-3GHz</td>
+<td>中</td>
+<td>1-3dB</td>
+<td>低</td>
+<td>手机 Sub-6GHz</td>
+</tr>
+<tr>
+<td>体声波 BAW/FBAR</td>
+<td>1-10GHz</td>
+<td>高</td>
+<td>0.5-2dB</td>
+<td>中</td>
+<td>5G Sub-6GHz</td>
+</tr>
+<tr>
+<td>陶瓷滤波器</td>
+<td>400MHz-6GHz</td>
+<td>中高</td>
+<td>0.5-1.5dB</td>
+<td>中</td>
+<td>基站</td>
+</tr>
+<tr>
+<td>波导滤波器</td>
+<td>1-100GHz</td>
+<td>极高</td>
+<td>0.1-0.5dB</td>
+<td>极高</td>
+<td>基站、卫星</td>
+</tr>
+<tr>
+<td>SIW 滤波器</td>
+<td>10-100GHz</td>
+<td>高</td>
+<td>0.5-2dB</td>
+<td>中</td>
+<td>毫米波</td>
+</tr>
+<tr>
+<td>介质滤波器</td>
+<td>1-40GHz</td>
+<td>高</td>
+<td>0.2-1dB</td>
+<td>高</td>
+<td>基站</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>三、SAW vs BAW 对比</h2>
-    <h3>3.1 SAW（Surface Acoustic Wave）</h3>
+  
+  <article class="card ">
+    
+    <h2>2.1 插入损耗（Insertion Loss, IL）</h2>
+    <pre><code>IL = -10·log₁₀(P_out / P_in) [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>滤波器类型</th>
+<th>IL（典型）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波导</td>
+<td>0.1-0.3dB</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>陶瓷</td>
+<td>0.3-0.8dB</td>
+<td>很低</td>
+</tr>
+<tr>
+<td>BAW/FBAR</td>
+<td>0.5-1.5dB</td>
+<td>低</td>
+</tr>
+<tr>
+<td>SAW</td>
+<td>1-3dB</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>SIW</td>
+<td>0.5-2dB</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>LC</td>
+<td>0.5-2dB</td>
+<td>低频</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IL 对系统的影响</strong>：</p>
+<pre><code>IL = 1dB → 信号损失 20%
+IL = 3dB → 信号损失 50%
+IL = 0.5dB → 信号损失 10%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 带宽（Bandwidth）</h2>
+    <pre><code>相对带宽 = (f_high - f_low) / f_center × 100%
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>滤波器</th>
+<th>带宽</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>窄带</td>
+<td>&lt; 5%</td>
+<td>基站双工器</td>
+</tr>
+<tr>
+<td>中宽</td>
+<td>5-20%</td>
+<td>5G Sub-6GHz</td>
+</tr>
+<tr>
+<td>宽带</td>
+<td>&gt; 20%</td>
+<td>WiFi、SDR</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 带外抑制（Rejection）</h2>
+    <pre><code>带外抑制 = 阻带最小衰减 [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>应用</th>
+<th>带外抑制要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5G 手机</td>
+<td>&gt; 60dB @ 相邻频段</td>
+</tr>
+<tr>
+<td>基站</td>
+<td>&gt; 80dB @ 相邻基站</td>
+</tr>
+<tr>
+<td>WiFi</td>
+<td>&gt; 40dB</td>
+</tr>
+<tr>
+<td>卫星通信</td>
+<td>&gt; 60dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 群时延（Group Delay）</h2>
+    <pre><code>τ_g = -dφ/dω
+</code></pre>
+<p>群时延波动影响数字信号的相位一致性：</p>
+<pre><code>5G NR 要求：τ_g_fluctuation &lt; 0.1μs
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.5 Q 值（品质因数）</h2>
+    <pre><code>Q = f_center / BW
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>滤波器类型</th>
+<th>Q 值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波导</td>
+<td>1000-10000</td>
+</tr>
+<tr>
+<td>陶瓷</td>
+<td>500-2000</td>
+</tr>
+<tr>
+<td>BAW</td>
+<td>1000-5000</td>
+</tr>
+<tr>
+<td>SAW</td>
+<td>100-500</td>
+</tr>
+<tr>
+<td>LC</td>
+<td>10-100</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 SAW（Surface Acoustic Wave）</h2>
     <pre><code>原理：
-      电信号 → IDT（叉指换能器）→ 表面声波 → IDT → 电信号
-      声波在材料表面传播（速度 ~3000m/s）</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>频段</td><td>100MHz - 3GHz</td></tr>
-    <tr><td>IL</td><td>1-3dB</td></tr>
-    <tr><td>Q</td><td>100-500</td></tr>
-    <tr><td>功率容量</td><td>< 23dBm</td></tr>
-    <tr><td>温度系数</td><td>较大</td></tr>
-    <tr><td>成本</td><td>低</td></tr>
-    </tbody></table></div>
-    <h3>3.2 BAW/FBAR（Bulk Acoustic Wave / Film Bulk Acoustic Resonator）</h3>
+  电信号 → IDT（叉指换能器）→ 表面声波 → IDT → 电信号
+  声波在材料表面传播（速度 ~3000m/s）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>100MHz - 3GHz</td>
+</tr>
+<tr>
+<td>IL</td>
+<td>1-3dB</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>100-500</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>&lt; 23dBm</td>
+</tr>
+<tr>
+<td>温度系数</td>
+<td>较大</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 BAW/FBAR（Bulk Acoustic Wave / Film Bulk Acoustic Resonator）</h2>
     <pre><code>原理：
-      电信号 → 谐振器 → 体声波 → 谐振器 → 电信号
-      声波在薄膜中垂直传播（速度 ~5000m/s）</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>典型值</th></tr></thead>
-    <tbody>
-    <tr><td>频段</td><td>1GHz - 10GHz</td></tr>
-    <tr><td>IL</td><td>0.5-1.5dB</td></tr>
-    <tr><td>Q</td><td>1000-5000</td></tr>
-    <tr><td>功率容量</td><td>23-30dBm</td></tr>
-    <tr><td>温度系数</td><td>较小</td></tr>
-    <tr><td>成本</td><td>中</td></tr>
-    </tbody></table></div>
-    <h3>3.3 选择指南</h3>
+  电信号 → 谐振器 → 体声波 → 谐振器 → 电信号
+  声波在薄膜中垂直传播（速度 ~5000m/s）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频段</td>
+<td>1GHz - 10GHz</td>
+</tr>
+<tr>
+<td>IL</td>
+<td>0.5-1.5dB</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>1000-5000</td>
+</tr>
+<tr>
+<td>功率容量</td>
+<td>23-30dBm</td>
+</tr>
+<tr>
+<td>温度系数</td>
+<td>较小</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 选择指南</h2>
     <pre><code>f &lt; 3GHz → SAW（成本低，性能够用）
-    3GHz &lt; f &lt; 7GHz → BAW/FBAR（SAW 性能不够）
-    f &gt; 7GHz → 波导/介质滤波器（声学滤波器不适用）</code></pre>
+3GHz &lt; f &lt; 7GHz → BAW/FBAR（SAW 性能不够）
+f &gt; 7GHz → 波导/介质滤波器（声学滤波器不适用）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、5G 滤波器应用</h2>
-    <h3>4.1 5G Sub-6GHz 滤波器需求</h3>
-    <div class="tw"><table>
-    <thead><tr><th>频段</th><th>频率</th><th>滤波器类型</th><th>IL 要求</th><th>抑制要求</th></tr></thead>
-    <tbody>
-    <tr><td>n1</td><td>2.1GHz</td><td>SAW</td><td>< 2dB</td><td>> 60dB</td></tr>
-    <tr><td>n28</td><td>700MHz</td><td>SAW</td><td>< 1.5dB</td><td>> 60dB</td></tr>
-    <tr><td>n77</td><td>3.3-4.2GHz</td><td>BAW</td><td>< 1dB</td><td>> 60dB</td></tr>
-    <tr><td>n78</td><td>3.3-3.8GHz</td><td>BAW</td><td>< 1dB</td><td>> 60dB</td></tr>
-    <tr><td>n79</td><td>4.4-5.0GHz</td><td>BAW</td><td>< 1dB</td><td>> 60dB</td></tr>
-    </tbody></table></div>
-    <h3>4.2 5G 毫米波滤波器</h3>
+  
+  <article class="card ">
+    
+    <h2>4.1 5G Sub-6GHz 滤波器需求</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>频率</th>
+<th>滤波器类型</th>
+<th>IL 要求</th>
+<th>抑制要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n1</td>
+<td>2.1GHz</td>
+<td>SAW</td>
+<td>&lt; 2dB</td>
+<td>&gt; 60dB</td>
+</tr>
+<tr>
+<td>n28</td>
+<td>700MHz</td>
+<td>SAW</td>
+<td>&lt; 1.5dB</td>
+<td>&gt; 60dB</td>
+</tr>
+<tr>
+<td>n77</td>
+<td>3.3-4.2GHz</td>
+<td>BAW</td>
+<td>&lt; 1dB</td>
+<td>&gt; 60dB</td>
+</tr>
+<tr>
+<td>n78</td>
+<td>3.3-3.8GHz</td>
+<td>BAW</td>
+<td>&lt; 1dB</td>
+<td>&gt; 60dB</td>
+</tr>
+<tr>
+<td>n79</td>
+<td>4.4-5.0GHz</td>
+<td>BAW</td>
+<td>&lt; 1dB</td>
+<td>&gt; 60dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 5G 毫米波滤波器</h2>
     <pre><code>28GHz 频段：
-      波导滤波器：IL = 0.3-0.8dB，抑制 &gt; 40dB
-      SIW 滤波器：IL = 0.5-1.5dB，抑制 &gt; 30dB
-      介质滤波器：IL = 0.2-0.5dB，抑制 &gt; 50dB</code></pre>
-    <h3>4.3 滤波器与 PA/LNA 的配合</h3>
+  波导滤波器：IL = 0.3-0.8dB，抑制 &gt; 40dB
+  SIW 滤波器：IL = 0.5-1.5dB，抑制 &gt; 30dB
+  介质滤波器：IL = 0.2-0.5dB，抑制 &gt; 50dB
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 滤波器与 PA/LNA 的配合</h2>
     <pre><code>PA → 滤波器 → 天线
-           ↑
-        抑制 PA 谐波
+       ↑
+    抑制 PA 谐波
+
+天线 → 滤波器 → LNA
+       ↑
+    抑制带外干扰
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    天线 → 滤波器 → LNA
-           ↑
-        抑制带外干扰</code></pre>
+    <h2>5.1 SAW 滤波器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>IL</th>
+<th>抑制</th>
+<th>封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDF2633</td>
+<td>Murata</td>
+<td>700MHz</td>
+<td>1.2dB</td>
+<td>55dB</td>
+<td>1.6×1.2mm</td>
+</tr>
+<tr>
+<td>LFB2631G00A</td>
+<td>TDK</td>
+<td>2.1GHz</td>
+<td>1.5dB</td>
+<td>50dB</td>
+<td>2.0×1.6mm</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>五、典型滤波器产品</h2>
-    <h3>5.1 SAW 滤波器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>IL</th><th>抑制</th><th>封装</th></tr></thead>
-    <tbody>
-    <tr><td>DDF2633</td><td>Murata</td><td>700MHz</td><td>1.2dB</td><td>55dB</td><td>1.6×1.2mm</td></tr>
-    <tr><td>LFB2631G00A</td><td>TDK</td><td>2.1GHz</td><td>1.5dB</td><td>50dB</td><td>2.0×1.6mm</td></tr>
-    </tbody></table></div>
-    <h3>5.2 BAW/FBAR 滤波器</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>IL</th><th>抑制</th><th>封装</th></tr></thead>
-    <tbody>
-    <tr><td>RFFL1K100</td><td>Qorvo</td><td>3.3-3.8GHz</td><td>0.8dB</td><td>60dB</td><td>2.5×2.0mm</td></tr>
-    <tr><td>AFEM-8051</td><td>Broadcom</td><td>4.4-5.0GHz</td><td>1.0dB</td><td>55dB</td><td>BGA</td></tr>
-    </tbody></table></div>
-    <h3>5.3 波导滤波器（基站）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>型号</th><th>厂商</th><th>频段</th><th>IL</th><th>抑制</th><th>功率</th></tr></thead>
-    <tbody>
-    <tr><td>WFC-3700</td><td>Cooper</td><td>3.5GHz</td><td>0.3dB</td><td>80dB</td><td>1kW</td></tr>
-    <tr><td>WFC-2600</td><td>Commtech</td><td>2.6GHz</td><td>0.25dB</td><td>75dB</td><td>500W</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>5.2 BAW/FBAR 滤波器</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>IL</th>
+<th>抑制</th>
+<th>封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RFFL1K100</td>
+<td>Qorvo</td>
+<td>3.3-3.8GHz</td>
+<td>0.8dB</td>
+<td>60dB</td>
+<td>2.5×2.0mm</td>
+</tr>
+<tr>
+<td>AFEM-8051</td>
+<td>Broadcom</td>
+<td>4.4-5.0GHz</td>
+<td>1.0dB</td>
+<td>55dB</td>
+<td>BGA</td>
+</tr>
+</tbody>
+</table>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 温度漂移</h3>
+  
+  <article class="card ">
+    
+    <h2>5.3 波导滤波器（基站）</h2>
+    <table>
+<thead>
+<tr>
+<th>型号</th>
+<th>厂商</th>
+<th>频段</th>
+<th>IL</th>
+<th>抑制</th>
+<th>功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WFC-3700</td>
+<td>Cooper</td>
+<td>3.5GHz</td>
+<td>0.3dB</td>
+<td>80dB</td>
+<td>1kW</td>
+</tr>
+<tr>
+<td>WFC-2600</td>
+<td>Commtech</td>
+<td>2.6GHz</td>
+<td>0.25dB</td>
+<td>75dB</td>
+<td>500W</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 温度漂移</h2>
     <pre><code>SAW 温度系数：-20 to -50 ppm/°C
-    BAW 温度系数：-5 to -15 ppm/°C
+BAW 温度系数：-5 to -15 ppm/°C
+
+温度变化 50°C → 频率偏移：
+  SAW：-0.5% to -1.25%
+  BAW：-0.125% to -0.375%
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    温度变化 50°C → 频率偏移：
-      SAW：-0.5% to -1.25%
-      BAW：-0.125% to -0.375%</code></pre>
-    <h3>6.2 功率容量</h3>
+    <h2>6.2 功率容量</h2>
     <pre><code>手机滤波器：&lt; 23dBm（200mW）
-    基站滤波器：&gt; 40dBm（10W）
+基站滤波器：&gt; 40dBm（10W）
+
+高功率下滤波器可能：
+  1. 谐振频率漂移
+  2. 插入损耗增大
+  3. 永久损坏
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    高功率下滤波器可能：
-      1. 谐振频率漂移
-      2. 插入损耗增大
-      3. 永久损坏</code></pre>
-    <h3>6.3 滤波器与天线的匹配</h3>
+    <h2>6.3 滤波器与天线的匹配</h2>
     <pre><code>滤波器输出阻抗必须与天线输入阻抗匹配
-    不匹配 → 反射 → 插入损耗增大 → 抑制恶化</code></pre>
+不匹配 → 反射 → 插入损耗增大 → 抑制恶化
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>七、技术成熟度</h2>
-    <ul><li><b>成熟度等级</b>：高度成熟（SAW/BAW）→ 快速演进（毫米波）</li><li><b>说明</b>：Sub-6GHz SAW/BAW 滤波器技术非常成熟（4G 积累）。5G n77/n78/n79 滤波器已大规模商用。毫米波滤波器随 5G FR2 快速成熟。</li></ul>
-  </article>
+  
+    
+  
 
-  <article class="card">
-    <h2>八、一句话总结</h2>
-    <p>滤波器是射频前端的"安检门"——SAW 便宜但带宽窄（< 3GHz），BAW/FBAR 性能好但贵（3-10GHz），波导滤波器功率容量大但体积大（基站用）。5G 带来了滤波器需求量的暴增（每个频段一个滤波器，Sub-6GHz 手机需要 10-20 个滤波器）。记住：IL 越低越好，抑制越高越好，但两者通常是 trade-off。</p>
-  </article>
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -318,39 +729,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

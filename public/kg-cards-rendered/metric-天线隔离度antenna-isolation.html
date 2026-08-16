@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天线隔离度（Antenna Isolation） · 知识卡片</title>
+<title>天线隔离度Antenna-Isolation · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">天线隔离度 <span class="en">Antenna Isolation</span></h1>
-  <p class="lede"><b>天线隔离度 = 两个天线之间"互相听见"的程度。隔离度越好，你打电话的声音越不会被隔壁听见；隔离度越差，你的信号就会串到别人的频道里。</b></p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">天线隔离度Antenna-Isolation</h1>
+  
+  
 </header>
 
 <main>
@@ -99,176 +101,340 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、什么是天线隔离度？</h2>
-    <h3>S21：隔离度的量化指标</h3>
-    <p>天线隔离度用 <b>S 参数</b>（散射参数）来量化，具体是 <b>S21</b>（或 S12，两者对称）。S21 的物理含义是：从端口 1 输入的信号，有多少能量"泄露"到了端口 2。</p>
-    <p><b>公式</b>：</p>
-    <pre><code>Isolation (dB) = -20 × log₁₀(|S21|)</code></pre>
-    <p><b>典型值解读</b>：</p>
-    <ul><li><b>S21 = -10dB</b>：端口 1 的信号有 10% 泄露到端口 2 → 隔离度差</li><li><b>S21 = -20dB</b>：0.1% 泄露 → 勉强可用</li><li><b>S21 = -30dB</b>：0.001% 泄露 → 良好</li><li><b>S21 = -40dB</b>：0.00001% 泄露 → 优秀</li><li><b>S21 = -50dB</b>：0.0000001% 泄露 → 顶级</li></ul>
-    <p><b>关键判断</b>：在 5G Massive MIMO 系统中，端口隔离度通常需要达到 <b>-20dB 以上</b>（即 99% 以上的信号被隔离）。对于 64T64R 的 AAU，有 4096 个端口对需要满足隔离要求——任何一个端口对的隔离度不达标，都会影响整个系统的 MIMO 性能。</p>
-    <h3>互耦（Mutual Coupling）：隔离度的"敌人"</h3>
-    <p>互耦是隔离度的反面——两个天线单元之间的电磁相互作用。互耦越强，隔离度越差。</p>
-    <p><b>互耦的来源</b>：</p>
-    <ol><li><b>近场耦合</b>：天线单元之间的距离小于一个波长时，近场电磁场直接相互作用</li><li><b>表面波耦合</b>：信号通过基板或接地板上的表面波传播，从一个单元"爬"到另一个单元</li><li><b>空间波耦合</b>：辐射出去的电磁波被相邻单元接收</li></ol>
-    <p><b>互耦的危害</b>：</p>
-    <ul><li><b>增益降低</b>：天线单元的辐射效率下降</li><li><b>波束畸变</b>：波束赋形算法失效，波束指向偏离预期</li><li><b>通道相关性升高</b>：MIMO 的空间复用能力下降</li><li><b>互调失真</b>：多信号在非线性器件中产生互调产物，污染邻频</li></ul>
-    <p>---</p>
-  </article>
 
-  <article class="card">
-    <h2>二、影响隔离度的四大因素</h2>
-    <h3>1. 物理间距</h3>
+  
+  <article class="card ">
+    
+    <h2>1. 物理间距</h2>
     <p>这是最直观的隔离手段。两个天线之间的距离越大，电磁场耦合越弱。</p>
-    <p><b>经验法则</b>：天线间距 ≥ λ/2（半波长）。</p>
-    <p><b>典型值</b>：</p>
-    <ul><li>3.5GHz（5G n78）：λ = 85.7mm，λ/2 ≈ 43mm → 单元间距 40-50mm</li><li>2.6GHz（5G n71）：λ = 115mm，λ/2 ≈ 57mm → 单元间距 55-60mm</li><li>28GHz（毫米波）：λ = 10.7mm，λ/2 ≈ 5.4mm → 单元间距 5-6mm</li></ul>
-    <p><b>矛盾</b>：间距越大，隔离度越好，但天线面板尺寸也越大。而运营商要求 AAU 面板尺寸不能超过一定范围（否则风载太大、铁塔承重不够）。这就是隔离度问题的核心矛盾。</p>
-    <h3>2. 极化方式</h3>
+<p><strong>经验法则</strong>：天线间距 ≥ λ/2（半波长）。</p>
+<p><strong>典型值</strong>：</p>
+<ul>
+<li>3.5GHz（5G n78）：λ = 85.7mm，λ/2 ≈ 43mm → 单元间距 40-50mm</li>
+<li>2.6GHz（5G n71）：λ = 115mm，λ/2 ≈ 57mm → 单元间距 55-60mm</li>
+<li>28GHz（毫米波）：λ = 10.7mm，λ/2 ≈ 5.4mm → 单元间距 5-6mm</li>
+</ul>
+<p><strong>矛盾</strong>：间距越大，隔离度越好，但天线面板尺寸也越大。而运营商要求 AAU 面板尺寸不能超过一定范围（否则风载太大、铁塔承重不够）。这就是隔离度问题的核心矛盾。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 极化方式</h2>
     <p>正交极化是最常用的隔离手段。+45° 和 -45° 两种极化的电场方向互相垂直，理论上可以实现 20-30dB 的极化隔离度。</p>
-    <p><b>类比</b>：两个人分别横着和竖着挥动绳子，绳子的波动不会互相干扰。</p>
-    <p><b>实际限制</b>：理想情况下正交极化隔离度可达 30dB+，但实际中由于：</p>
-    <ul><li>天线单元制造公差</li><li>馈电网络不对称</li><li>多径反射导致极化旋转</li><li>接收机本振泄漏</li></ul>
-    <p>实际基站天线的极化隔离度通常在 <b>20-25dB</b>。</p>
-    <h3>3. 接地结构</h3>
+<p><strong>类比</strong>：两个人分别横着和竖着挥动绳子，绳子的波动不会互相干扰。</p>
+<p><strong>实际限制</strong>：理想情况下正交极化隔离度可达 30dB+，但实际中由于：</p>
+<ul>
+<li>天线单元制造公差</li>
+<li>馈电网络不对称</li>
+<li>多径反射导致极化旋转</li>
+<li>接收机本振泄漏</li>
+</ul>
+<p>实际基站天线的极化隔离度通常在 <strong>20-25dB</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 接地结构</h2>
     <p>共用地面是隔离度的"隐形杀手"。当天线共享一个接地板时，表面电流会在接地板上流动，从一个天线"爬"到另一个天线。</p>
-    <p><b>关键发现</b>：Altium 的技术文档明确指出——"Antennas that share a reference plane, such as antennas on a smartphone, can have low isolation due to currents excited in the ground plane."</p>
-    <p><b>接地结构对隔离的影响</b>：</p>
-    <ul><li>完整的金属接地：表面波畅通无阻，隔离度差</li><li>带有缺陷地结构（DGS）的接地：表面波被阻断，隔离度提升</li><li>去耦接地（DG）：通过调整接地板形状，使耦合波反向抵消</li></ul>
-    <h3>4. 工作频率</h3>
+<p><strong>关键发现</strong>：Altium 的技术文档明确指出——"Antennas that share a reference plane, such as antennas on a smartphone, can have low isolation due to currents excited in the ground plane."</p>
+<p><strong>接地结构对隔离的影响</strong>：</p>
+<ul>
+<li>完整的金属接地：表面波畅通无阻，隔离度差</li>
+<li>带有缺陷地结构（DGS）的接地：表面波被阻断，隔离度提升</li>
+<li>去耦接地（DG）：通过调整接地板形状，使耦合波反向抵消</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 工作频率</h2>
     <p>频率越高，波长越短，相同物理间距对应的电距离（以波长为单位）越大，隔离度越好。</p>
-    <p><b>规律</b>：</p>
-    <ul><li>低频段（700MHz）：λ = 428mm，λ/2 = 214mm → 天线单元间距大，但面板尺寸也大</li><li>中频段（3.5GHz）：λ = 85.7mm，λ/2 = 43mm → 平衡点</li><li>高频段（28GHz）：λ = 10.7mm，λ/2 = 5.4mm → 单元间距小，但表面波效应更强</li></ul>
-    <p>---</p>
+<p><strong>规律</strong>：</p>
+<ul>
+<li>低频段（700MHz）：λ = 428mm，λ/2 = 214mm → 天线单元间距大，但面板尺寸也大</li>
+<li>中频段（3.5GHz）：λ = 85.7mm，λ/2 = 43mm → 平衡点</li>
+<li>高频段（28GHz）：λ = 10.7mm，λ/2 = 5.4mm → 单元间距小，但表面波效应更强</li>
+</ul>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>三、八大去耦技术：从简单到高级</h2>
-    <h3>1. 增大间距（Spacing Increase）</h3>
+  
+  <article class="card ">
+    
+    <h2>1. 增大间距（Spacing Increase）</h2>
     <p>最简单的方法——把天线单元拉开距离。</p>
-    <p><b>效果</b>：隔离度提升 3-10dB（取决于初始间距）</p>
-    <p><b>局限</b>：受限于面板尺寸，不能无限拉大。</p>
-    <h3>2. 正交极化（Orthogonal Polarization）</h3>
+<p><strong>效果</strong>：隔离度提升 3-10dB（取决于初始间距）</p>
+<p><strong>局限</strong>：受限于面板尺寸，不能无限拉大。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 正交极化（Orthogonal Polarization）</h2>
     <p>+45° 和 -45° 双极化是基站天线的标配。</p>
-    <p><b>效果</b>：20-30dB 极化隔离</p>
-    <p><b>局限</b>：多径环境下的极化旋转会降低实际隔离度。</p>
-    <h3>3. 去耦墙（Ground Metal Wall / Via Fence）</h3>
+<p><strong>效果</strong>：20-30dB 极化隔离</p>
+<p><strong>局限</strong>：多径环境下的极化旋转会降低实际隔离度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 去耦墙（Ground Metal Wall / Via Fence）</h2>
     <p>在相邻天线单元之间打入一排金属过孔（via），形成一道"电磁围墙"，阻断表面电流。</p>
-    <p><b>原理</b>：金属过孔阵列形成一个截止波导，表面波无法通过。</p>
-    <p><b>效果</b>：15-25dB 隔离提升</p>
-    <p><b>典型应用</b>：Sub-6GHz MIMO 天线、智能手机天线</p>
-    <h3>4. 缺陷地结构（DGS / CSRR）</h3>
+<p><strong>原理</strong>：金属过孔阵列形成一个截止波导，表面波无法通过。</p>
+<p><strong>效果</strong>：15-25dB 隔离提升</p>
+<p><strong>典型应用</strong>：Sub-6GHz MIMO 天线、智能手机天线</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 缺陷地结构（DGS / CSRR）</h2>
     <p>在接地板上蚀刻特定的缺口图案（如环形、十字形、同心圆等），阻断表面电流的传播路径。</p>
-    <p><b>原理</b>：DGS 结构改变了接地平面的阻抗特性，在特定频率产生带阻效应，阻止表面波传播。</p>
-    <p><b>效果</b>：10-20dB 隔离提升</p>
-    <p><b>典型案例</b>：2026 年 Nature Scientific Reports 论文中，采用矩形环 + 同心环 + 十字槽的组合 DGS 结构，实现了 <b>33dB 隔离度</b>，同时保持了 92.5% 的辐射效率。</p>
-    <pre><code>DGS 蚀刻图案示意：
-    ┌─────────────────────┐
-    │ ▭▭▭    ▭▭▭    ▭▭▭  │  ← 矩形环
-    │    ┬──┬    ┬──┬     │  ← 十字槽
-    │ ▭▭▭    ▭▭▭    ▭▭▭  │  ← 同心环
-    └─────────────────────┘</code></pre>
-    <h3>5. 电磁带隙结构（EBG / Via Fence）</h3>
+<p><strong>原理</strong>：DGS 结构改变了接地平面的阻抗特性，在特定频率产生带阻效应，阻止表面波传播。</p>
+<p><strong>效果</strong>：10-20dB 隔离提升</p>
+<p><strong>典型案例</strong>：2026 年 Nature Scientific Reports 论文中，采用矩形环 + 同心环 + 十字槽的组合 DGS 结构，实现了 <strong>33dB 隔离度</strong>，同时保持了 92.5% 的辐射效率。</p>
+<pre><code>DGS 蚀刻图案示意：
+┌─────────────────────┐
+│ ▭▭▭    ▭▭▭    ▭▭▭  │  ← 矩形环
+│    ┬──┬    ┬──┬     │  ← 十字槽
+│ ▭▭▭    ▭▭▭    ▭▭▭  │  ← 同心环
+└─────────────────────┘
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 电磁带隙结构（EBG / Via Fence）</h2>
     <p>EBG 是一种人工设计的周期性金属结构，可以看作是一个"频率陷阱"——它只允许特定频率的信号通过，对其他频率呈现高阻抗。</p>
-    <p><b>原理</b>：EBG 结构的周期等于目标波长的 1/2 到 1/4，形成布拉格反射，抑制表面波传播。</p>
-    <p><b>效果</b>：20-30dB 宽频隔离</p>
-    <p><b>变种</b>：</p>
-    <ul><li><b>蘑菇状 EBG</b>：金属柱 + 金属顶板，形成 LC 谐振结构</li><li><b>Yablonovite</b>：三维周期性结构，全向带隙</li><li><b>Defected Ground Structure (DGS)</b>：二维简化版 EBG</li></ul>
-    <h3>6. 中和线（Neutralization Line）</h3>
+<p><strong>原理</strong>：EBG 结构的周期等于目标波长的 1/2 到 1/4，形成布拉格反射，抑制表面波传播。</p>
+<p><strong>效果</strong>：20-30dB 宽频隔离</p>
+<p><strong>变种</strong>：</p>
+<ul>
+<li><strong>蘑菇状 EBG</strong>：金属柱 + 金属顶板，形成 LC 谐振结构</li>
+<li><strong>Yablonovite</strong>：三维周期性结构，全向带隙</li>
+<li><strong>Defected Ground Structure (DGS)</strong>：二维简化版 EBG</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6. 中和线（Neutralization Line）</h2>
     <p>在两个天线单元之间连接一条传输线，产生一个与原耦合信号反相的耦合路径，互相抵消。</p>
-    <p><b>原理</b>：耦合信号 = 直接耦合 + 中和线耦合。通过精确设计中和线的长度和阻抗，使两者幅值相等、相位相反，叠加后抵消。</p>
-    <p><b>效果</b>：15-25dB 隔离提升</p>
-    <p><b>局限</b>：窄带有效，频率偏移后抵消效果急剧下降。</p>
-    <h3>7. 去耦表面（Active Decoupling Surface / ADS）</h3>
+<p><strong>原理</strong>：耦合信号 = 直接耦合 + 中和线耦合。通过精确设计中和线的长度和阻抗，使两者幅值相等、相位相反，叠加后抵消。</p>
+<p><strong>效果</strong>：15-25dB 隔离提升</p>
+<p><strong>局限</strong>：窄带有效，频率偏移后抵消效果急剧下降。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7. 去耦表面（Active Decoupling Surface / ADS）</h2>
     <p>在天线上方放置一层超材料或寄生贴片，反射波与原耦合波反相抵消。</p>
-    <p><b>效果</b>：20dB+ 隔离提升</p>
-    <p><b>优势</b>：不占用天线单元之间的水平空间，适合高密度阵列。</p>
-    <h3>8. 超材料去耦（Metamaterial Decoupling）</h3>
+<p><strong>效果</strong>：20dB+ 隔离提升</p>
+<p><strong>优势</strong>：不占用天线单元之间的水平空间，适合高密度阵列。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8. 超材料去耦（Metamaterial Decoupling）</h2>
     <p>这是 2025-2026 年最前沿的研究方向。利用超材料（Metamaterial, MTM）的人工电磁特性，实现前所未有的隔离效果。</p>
-    <p><b>原理</b>：超材料具有负介电常数和负磁导率（DNG, Double Negative），可以反转电磁波的相位，抑制近场耦合。</p>
-    <p><b>典型案例</b>：</p>
-    <ul><li><b>2026 年实验验证</b>：在 6.4-8.4GHz 频段，单个亚波长 DNG 超材料单元使端口隔离从 -12dB 提升到 <b>-30dB</b>（抑制率 150%），同时峰值增益从 5.9dBi 提升到 9.6dBi（提升 63%）。</li><li><b>2025 年 24GHz 雷达应用</b>：6 端口 MIMO 天线，采用 SRR（Split-Ring Resonator）超材料去耦结构，实现超过 <b>46dB</b> 的端口隔离。</li></ul>
-    <p><b>超材料的优势</b>：</p>
-    <ul><li>不增加天线 footprint</li><li>同时提升隔离度和增益</li><li>宽带工作（通过多层或多单元设计）</li></ul>
-    <p><b>类比</b>：传统去耦技术像是在两堵墙之间加隔音棉（被动吸收），超材料去耦像是给墙装了一个"反相声波发生器"（主动抵消）——不仅隔音，还能增强声音。</p>
-    <p>---</p>
+<p><strong>原理</strong>：超材料具有负介电常数和负磁导率（DNG, Double Negative），可以反转电磁波的相位，抑制近场耦合。</p>
+<p><strong>典型案例</strong>：</p>
+<ul>
+<li>
+<p><strong>2026 年实验验证</strong>：在 6.4-8.4GHz 频段，单个亚波长 DNG 超材料单元使端口隔离从 -12dB 提升到 <strong>-30dB</strong>（抑制率 150%），同时峰值增益从 5.9dBi 提升到 9.6dBi（提升 63%）。</p>
+</li>
+<li>
+<p><strong>2025 年 24GHz 雷达应用</strong>：6 端口 MIMO 天线，采用 SRR（Split-Ring Resonator）超材料去耦结构，实现超过 <strong>46dB</strong> 的端口隔离。</p>
+</li>
+</ul>
+<p><strong>超材料的优势</strong>：</p>
+<ul>
+<li>不增加天线 footprint</li>
+<li>同时提升隔离度和增益</li>
+<li>宽带工作（通过多层或多单元设计）</li>
+</ul>
+<p><strong>类比</strong>：传统去耦技术像是在两堵墙之间加隔音棉（被动吸收），超材料去耦像是给墙装了一个"反相声波发生器"（主动抵消）——不仅隔音，还能增强声音。</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>四、Massive MIMO 时代：隔离度的极端挑战</h2>
-    <h3>挑战 1：密度爆炸</h3>
+  
+  <article class="card ">
+    
+    <h2>挑战 1：密度爆炸</h2>
     <p>一个 64T64R 的 Massive MIMO 天线阵子包含 256 个辐射单元，全部塞在一个不到 2 米长的面板里。单元之间的间距可能只有 0.4-0.5 个波长，电磁耦合非常强烈。</p>
-    <p><b>量化对比</b>：</p>
-    <div class="tw"><table>
-    <thead><tr><th>系统</th><th>天线单元数</th><th>面板尺寸</th><th>单元间距</th><th>典型隔离要求</th></tr></thead>
-    <tbody>
-    <tr><td>4G 8T8R</td><td>16</td><td>1.2m × 0.3m</td><td>0.7λ</td><td>>15dB</td></tr>
-    <tr><td>5G 64T64R</td><td>256</td><td>2.0m × 0.3m</td><td>0.5λ</td><td>>20dB</td></tr>
-    <tr><td>5G 256T256R</td><td>1024</td><td>2.0m × 0.3m</td><td>0.35λ</td><td>>25dB</td></tr>
-    </tbody></table></div>
-    <p><b>关键判断</b>：当单元间距缩小到 0.35λ 以下时，传统的去耦技术（DGS、EBG）已经不够用了，必须引入超材料、多层去耦结构等更高级的方案。</p>
-    <h3>挑战 2：多频段共存</h3>
+<p><strong>量化对比</strong>：
+| 系统 | 天线单元数 | 面板尺寸 | 单元间距 | 典型隔离要求 |
+|------|-----------|---------|---------|------------|
+| 4G 8T8R | 16 | 1.2m × 0.3m | 0.7λ | &gt;15dB |
+| 5G 64T64R | 256 | 2.0m × 0.3m | 0.5λ | &gt;20dB |
+| 5G 256T256R | 1024 | 2.0m × 0.3m | 0.35λ | &gt;25dB |</p>
+<p><strong>关键判断</strong>：当单元间距缩小到 0.35λ 以下时，传统的去耦技术（DGS、EBG）已经不够用了，必须引入超材料、多层去耦结构等更高级的方案。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 2：多频段共存</h2>
     <p>同一个天线面板需要同时支持 3.5GHz 和 4.9GHz 两个频段。不同频段的去耦结构需要同时工作，设计复杂度呈指数级上升。</p>
-    <p><b>解决方案</b>：</p>
-    <ul><li>宽带超材料去耦结构（覆盖两个频段）</li><li>频段分组：3.5GHz 单元和 4.9GHz 单元物理隔离</li><li>滤波器前置：在每个端口加带通滤波器，阻止非工作频段能量泄漏</li></ul>
-    <h3>挑战 3：U6G 频段的特殊挑战</h3>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>宽带超材料去耦结构（覆盖两个频段）</li>
+<li>频段分组：3.5GHz 单元和 4.9GHz 单元物理隔离</li>
+<li>滤波器前置：在每个端口加带通滤波器，阻止非工作频段能量泄漏</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 3：U6G 频段的特殊挑战</h2>
     <p>Upper 6GHz（6.425-7.125GHz）是 6G 的重要频段。在这个频段，波长更短（42-47mm），单元间距更小，表面波效应更强。</p>
-    <p><b>业界方案</b>：双层部分反射去耦层（PRDL）+ 虚拟去耦探针（DDP）组合方案。两层 PRDL 逐步抵消主要耦合，DDP 处理剩余耦合。实测隔离度提升至 <b>21dB+</b>。</p>
-    <p>---</p>
+<p><strong>业界方案</strong>：双层部分反射去耦层（PRDL）+ 虚拟去耦探针（DDP）组合方案。两层 PRDL 逐步抵消主要耦合，DDP 处理剩余耦合。实测隔离度提升至 <strong>21dB+</strong>。</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>五、测量与验收：3GPP 标准怎么测？</h2>
-    <h3>OTA 测试（Over-The-Air）</h3>
+  
+  <article class="card ">
+    
+    <h2>OTA 测试（Over-The-Air）</h2>
     <p>5G Massive MIMO 天线的隔离度不能像传统天线那样用电缆直接测量——因为有太多端口，而且波束赋形是在空中完成的。</p>
-    <p><b>3GPP TR 38.884</b> 规定了 OTA 测试方法：</p>
-    <ul><li>在暗室中放置被测天线（DUT）</li><li>用标准增益天线在不同位置发射/接收信号</li><li>测量 S21 参数</li></ul>
-    <p><b>关键指标</b>：</p>
-    <ul><li><b>TRP</b>（Total Radiated Power）：总辐射功率</li><li><b>TIS</b>（Total Isotropic Sensitivity）：全向灵敏度</li><li><b>EIRP</b>（Effective Isotropic Radiated Power）：等效全向辐射功率</li></ul>
-    <h3>暗室 vs 混响室</h3>
-    <div class="tw"><table>
-    <thead><tr><th>测试方法</th><th>原理</th><th>优点</th><th>缺点</th></tr></thead>
-    <tbody>
-    <tr><td><b>暗室（Anechoic Chamber）</b></td><td>吸收反射，模拟自由空间</td><td>精度高，可测波束方向图</td><td>设备昂贵（千万级）</td></tr>
-    <tr><td><b>混响室（Reverberation Chamber）</b></td><td>搅拌反射，统计平均</td><td>成本低，适合批量测试</td><td>精度较低，只能测统计指标</td></tr>
-    </tbody></table></div>
-    <p>---</p>
+<p><strong>3GPP TR 38.884</strong> 规定了 OTA 测试方法：</p>
+<ul>
+<li>在暗室中放置被测天线（DUT）</li>
+<li>用标准增益天线在不同位置发射/接收信号</li>
+<li>测量 S21 参数</li>
+</ul>
+<p><strong>关键指标</strong>：</p>
+<ul>
+<li><strong>TRP</strong>（Total Radiated Power）：总辐射功率</li>
+<li><strong>TIS</strong>（Total Isotropic Sensitivity）：全向灵敏度</li>
+<li><strong>EIRP</strong>（Effective Isotropic Radiated Power）：等效全向辐射功率</li>
+</ul>
   </article>
+  
 
-  <article class="card">
-    <h2>六、工程实战：隔离度不达标的后果</h2>
-    <h3>后果 1：MIMO 容量暴跌</h3>
+  
+  <article class="card ">
+    
+    <h2>暗室 vs 混响室</h2>
+    <table>
+<thead>
+<tr>
+<th>测试方法</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>暗室（Anechoic Chamber）</strong></td>
+<td>吸收反射，模拟自由空间</td>
+<td>精度高，可测波束方向图</td>
+<td>设备昂贵（千万级）</td>
+</tr>
+<tr>
+<td><strong>混响室（Reverberation Chamber）</strong></td>
+<td>搅拌反射，统计平均</td>
+<td>成本低，适合批量测试</td>
+<td>精度较低，只能测统计指标</td>
+</tr>
+</tbody>
+</table>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>后果 1：MIMO 容量暴跌</h2>
     <p>MIMO 的空间复用能力直接依赖于通道隔离度。隔离度不达标 → 通道相关性升高 → 空间复用层数被迫减少。</p>
-    <p><b>量化</b>：</p>
-    <ul><li>隔离度 30dB：8 层空间复用，容量 8×</li><li>隔离度 20dB：6 层空间复用，容量 6×</li><li>隔离度 15dB：4 层空间复用，容量 4×</li><li>隔离度 10dB：2 层空间复用，容量 2×</li></ul>
-    <p><b>结论</b>：隔离度每降低 5dB，MIMO 容量可能减半。</p>
-    <h3>后果 2：波束赋形失效</h3>
+<p><strong>量化</strong>：</p>
+<ul>
+<li>隔离度 30dB：8 层空间复用，容量 8×</li>
+<li>隔离度 20dB：6 层空间复用，容量 6×</li>
+<li>隔离度 15dB：4 层空间复用，容量 4×</li>
+<li>隔离度 10dB：2 层空间复用，容量 2×</li>
+</ul>
+<p><strong>结论</strong>：隔离度每降低 5dB，MIMO 容量可能减半。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>后果 2：波束赋形失效</h2>
     <p>波束赋形算法假设各通道之间是独立的。如果通道之间存在强耦合，算法计算出的波束权重就会出错，导致：</p>
-    <ul><li>波束指向偏差</li><li>旁瓣升高</li><li>主瓣展宽</li></ul>
-    <h3>后果 3：互调污染</h3>
+<ul>
+<li>波束指向偏差</li>
+<li>旁瓣升高</li>
+<li>主瓣展宽</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>后果 3：互调污染</h2>
     <p>两个或多个信号在非线性器件（如功放）中混合，产生互调产物。如果隔离度不够，这些互调产物会落在工作频带内，造成自干扰。</p>
-    <p><b>典型案例</b>：3.5GHz 和 4.9GHz 双频 AAU，如果隔离度只有 15dB，两个频段的信号在功放中产生三阶互调产物，恰好落在 3.5GHz 频带内，导致信噪比下降 6-10dB。</p>
-    <p>---</p>
+<p><strong>典型案例</strong>：3.5GHz 和 4.9GHz 双频 AAU，如果隔离度只有 15dB，两个频段的信号在功放中产生三阶互调产物，恰好落在 3.5GHz 频带内，导致信噪比下降 6-10dB。</p>
+<hr />
   </article>
+  
 
-  <article class="card">
-    <h2>七、隔离度的未来：从被动到主动</h2>
-    <h3>趋势 1：AI 辅助去耦设计</h3>
+  
+  <article class="card ">
+    
+    <h2>趋势 1：AI 辅助去耦设计</h2>
     <p>传统去耦结构的设计依赖工程师经验和电磁仿真软件的迭代试错。AI 代理模型（Surrogate Model）可以在几秒钟内预测不同去耦结构的隔离效果，大幅缩短设计周期。</p>
-    <h3>趋势 2：可重构超材料</h3>
-    <p>未来的去耦结构不是固定的，而是可以根据实时工况动态调整。比如当检测到某个方向干扰严重时，自动切换去耦模式的频率响应。</p>
-    <h3>趋势 3：超材料量产化</h3>
-    <p>2026 年超材料去耦结构还停留在实验室阶段，主要障碍是成本。但随着印刷电路工艺和 3D 打印技术的进步，超材料去耦结构的量产成本正在快速下降。预计 2028 年会在高端 Massive MIMO 产品中率先商用。</p>
-    <p>---</p>
   </article>
+  
 
-  <article class="card">
-    <h2>八、给非专业读者的一句话总结</h2>
-    <div class="call"><b>天线隔离度是 Massive MIMO 的"隐形天花板"——你塞进面板的天线单元越多，隔离度就越关键。它不像增益那样显眼，但决定了你的 MIMO 系统是"8 车道高速公路"还是"2 车道乡间小路"。</b></div>
-    <p><b>金句</b>：隔离度好的天线，就像隔音好的办公室——每个人都能专心工作，互不打扰。隔离度差的天线，就像开放式办公区——你打电话的声音，隔壁听得清清楚楚。</p>
-    <p>---</p>
+  
+  <article class="card ">
+    
+    <h2>趋势 2：可重构超材料</h2>
+    <p>未来的去耦结构不是固定的，而是可以根据实时工况动态调整。比如当检测到某个方向干扰严重时，自动切换去耦模式的频率响应。</p>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>趋势 3：超材料量产化</h2>
+    <p>2026 年超材料去耦结构还停留在实验室阶段，主要障碍是成本。但随着印刷电路工艺和 3D 打印技术的进步，超材料去耦结构的量产成本正在快速下降。预计 2028 年会在高端 Massive MIMO 产品中率先商用。</p>
+<hr />
+  </article>
+  
+
+  
+    
+  
 
 
 </main><script>
@@ -289,39 +455,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

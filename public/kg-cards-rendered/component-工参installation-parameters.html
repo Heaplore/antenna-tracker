@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>工参（Installation Parameters）工程参数 · 知识卡片</title>
+<title>工参Installation-Parameters · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">工参工程参数 <span class="en">Installation Parameters</span></h1>
-  <p class="lede">工参是基站天线的"身份证"——包括经纬度、高度、方位角、下倾角、PCI、频点等核心参数，直接决定了网络的覆盖、容量和干扰水平。一个错误的工参可能导致覆盖空洞或越区覆盖。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">工参Installation-Parameters</h1>
+  <p class="lede">工参是基站天线的&#34;身份证&#34;——包括经纬度、高度、方位角、下倾角、PCI、频点等核心参数，直接决定了网络的覆盖、容量和干扰水平。一个错误的工参可能导致覆盖空洞或越区覆盖。</p>
+  
 </header>
 
 <main>
@@ -99,122 +101,272 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>一、工参分类</h2>
-    <h3>1.1 机械参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>单位</th><th>典型范围</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>经度</td><td>°</td><td>100-120</td><td>基站位置</td></tr>
-    <tr><td>纬度</td><td>°</td><td>20-40</td><td>基站位置</td></tr>
-    <tr><td>海拔高度</td><td>m</td><td>0-500</td><td>天线安装高度</td></tr>
-    <tr><td>挂高</td><td>m</td><td>15-50</td><td>天线离地高度</td></tr>
-    <tr><td>方位角</td><td>°</td><td>0-360</td><td>天线朝向</td></tr>
-    <tr><td>机械下倾</td><td>°</td><td>0-15</td><td>物理下倾角</td></tr>
-    <tr><td>电调下倾</td><td>°</td><td>0-15</td><td>RET 下倾角</td></tr>
-    </tbody></table></div>
-    <h3>1.2 射频参数</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>单位</th><th>典型范围</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>PCI</td><td>-</td><td>0-1007</td><td>物理小区标识</td></tr>
-    <tr><td>频点（EARFCN/NR-ARFCN）</td><td>-</td><td>按频段</td><td>工作频率</td></tr>
-    <tr><td>带宽</td><td>MHz</td><td>10-100</td><td>信道带宽</td></tr>
-    <tr><td>发射功率</td><td>dBm</td><td>38-46</td><td>每通道功率</td></tr>
-    <tr><td>CRS 功率</td><td>dBm</td><td>35-43</td><td>参考信号功率</td></tr>
-    </tbody></table></div>
-    <h3>1.3 波束参数（5G）</h3>
-    <div class="tw"><table>
-    <thead><tr><th>参数</th><th>单位</th><th>典型范围</th><th>说明</th></tr></thead>
-    <tbody>
-    <tr><td>波束数量</td><td>-</td><td>1-8</td><td>并发波束数</td></tr>
-    <tr><td>波束宽度（水平）</td><td>°</td><td>30-65</td><td>HPBW</td></tr>
-    <tr><td>波束宽度（垂直）</td><td>°</td><td>3-12</td><td>HPBV</td></tr>
-    <tr><td>波束赋形增益</td><td>dBi</td><td>0-20</td><td>波束赋形增益</td></tr>
-    </tbody></table></div>
-  </article>
 
-  <article class="card">
+  
+  <article class="card ">
+    
+    <h2>1.1 机械参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>单位</th>
+<th>典型范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>经度</td>
+<td>°</td>
+<td>100-120</td>
+<td>基站位置</td>
+</tr>
+<tr>
+<td>纬度</td>
+<td>°</td>
+<td>20-40</td>
+<td>基站位置</td>
+</tr>
+<tr>
+<td>海拔高度</td>
+<td>m</td>
+<td>0-500</td>
+<td>天线安装高度</td>
+</tr>
+<tr>
+<td>挂高</td>
+<td>m</td>
+<td>15-50</td>
+<td>天线离地高度</td>
+</tr>
+<tr>
+<td>方位角</td>
+<td>°</td>
+<td>0-360</td>
+<td>天线朝向</td>
+</tr>
+<tr>
+<td>机械下倾</td>
+<td>°</td>
+<td>0-15</td>
+<td>物理下倾角</td>
+</tr>
+<tr>
+<td>电调下倾</td>
+<td>°</td>
+<td>0-15</td>
+<td>RET 下倾角</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 射频参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>单位</th>
+<th>典型范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCI</td>
+<td>-</td>
+<td>0-1007</td>
+<td>物理小区标识</td>
+</tr>
+<tr>
+<td>频点（EARFCN/NR-ARFCN）</td>
+<td>-</td>
+<td>按频段</td>
+<td>工作频率</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>MHz</td>
+<td>10-100</td>
+<td>信道带宽</td>
+</tr>
+<tr>
+<td>发射功率</td>
+<td>dBm</td>
+<td>38-46</td>
+<td>每通道功率</td>
+</tr>
+<tr>
+<td>CRS 功率</td>
+<td>dBm</td>
+<td>35-43</td>
+<td>参考信号功率</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 波束参数（5G）</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>单位</th>
+<th>典型范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波束数量</td>
+<td>-</td>
+<td>1-8</td>
+<td>并发波束数</td>
+</tr>
+<tr>
+<td>波束宽度（水平）</td>
+<td>°</td>
+<td>30-65</td>
+<td>HPBW</td>
+</tr>
+<tr>
+<td>波束宽度（垂直）</td>
+<td>°</td>
+<td>3-12</td>
+<td>HPBV</td>
+</tr>
+<tr>
+<td>波束赋形增益</td>
+<td>dBi</td>
+<td>0-20</td>
+<td>波束赋形增益</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>二、工参配置流程</h2>
     <pre><code>1. 站点勘察
-       - 确定经纬度、挂高、方位
-       - 测量机械下倾基准
-       - 拍摄现场照片
-    
-    2. 工参设计
-       - 规划 PCI（避免冲突）
-       - 设置方位角和下倾角
-       - 配置波束参数
-    
-    3. 工参录入
-       - 网管系统录入
-       - 自动化下发到 RCU
-       - 验证 RET 角度
-    
-    4. 现场验证
-       - DT 路测
-       - 检查覆盖和干扰
-       - 调整工参（必要时）</code></pre>
-  </article>
+   - 确定经纬度、挂高、方位
+   - 测量机械下倾基准
+   - 拍摄现场照片
 
-  <article class="card">
-    <h2>三、常见工参问题</h2>
-    <h3>3.1 PCI 冲突</h3>
+2. 工参设计
+   - 规划 PCI（避免冲突）
+   - 设置方位角和下倾角
+   - 配置波束参数
+
+3. 工参录入
+   - 网管系统录入
+   - 自动化下发到 RCU
+   - 验证 RET 角度
+
+4. 现场验证
+   - DT 路测
+   - 检查覆盖和干扰
+   - 调整工参（必要时）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 PCI 冲突</h2>
     <pre><code>问题：相邻小区 PCI 相同
-    影响：切换失败、干扰增加
-    解决：重新规划 PCI
+影响：切换失败、干扰增加
+解决：重新规划 PCI
+
+冲突检测：
+  - PCI mod 3 冲突（RSRP）
+  - PCI mod 6 冲突（CSI-RS）
+  - PCI mod 30 冲突（SRS）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    冲突检测：
-      - PCI mod 3 冲突（RSRP）
-      - PCI mod 6 冲突（CSI-RS）
-      - PCI mod 30 冲突（SRS）</code></pre>
-    <h3>3.2 方位角错误</h3>
+    <h2>3.2 方位角错误</h2>
     <pre><code>问题：工参方位角与实际不符
-    影响：波束指向错误、覆盖偏移
-    解决：现场校准
+影响：波束指向错误、覆盖偏移
+解决：现场校准
+
+典型偏差：
+  - 罗盘误差：±5°
+  - 安装误差：±3°
+  - 总误差：±8°
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    典型偏差：
-      - 罗盘误差：±5°
-      - 安装误差：±3°
-      - 总误差：±8°</code></pre>
-    <h3>3.3 下倾角错误</h3>
+    <h2>3.3 下倾角错误</h2>
     <pre><code>问题：电调下倾角设置错误
-    影响：覆盖过远或过近
-    解决：RET 校准
+影响：覆盖过远或过近
+解决：RET 校准
+
+校准方法：
+  1. 使用 RET 测试仪
+  2. 比对工参与实际角度
+  3. 修正工参或 RET 设置
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
     
-    校准方法：
-      1. 使用 RET 测试仪
-      2. 比对工参与实际角度
-      3. 修正工参或 RET 设置</code></pre>
-  </article>
-
-  <article class="card">
-    <h2>四、工参自动化</h2>
-    <h3>4.1 5G 工参自动化</h3>
+    <h2>4.1 5G 工参自动化</h2>
     <pre><code>自动化流程：
-      1. 规划系统自动生成工参
-      2. CSV/Excel 批量导入网管
-      3. 网管校验（PCI 冲突、覆盖重叠）
-      4. 自动下发到 AAU
-      5. 自动验证（DT 路测）</code></pre>
-    <h3>4.2 工参管理工具</h3>
-    <pre><code>主流工具：
-      - 华为 UMG（统一管理网关）
-      - 中兴 NetNumen
-      - 爱立信 ENM
-      - 诺基亚 NetAct
-      
-    功能：
-      - 工参批量管理
-      - 变更追踪
-      - 版本控制
-      - 自动化校验</code></pre>
+  1. 规划系统自动生成工参
+  2. CSV/Excel 批量导入网管
+  3. 网管校验（PCI 冲突、覆盖重叠）
+  4. 自动下发到 AAU
+  5. 自动验证（DT 路测）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、一句话总结</h2>
-    <p>工参是基站天线的"灵魂"——一个错误的方位角或下倾角就能让整个小区的覆盖偏离预期。5G AAU 的工参更复杂（多了波束参数），但自动化程度也更高。记住：工参管理不是"录完就完"，需要定期核查和校准。</p>
+  
+  <article class="card ">
+    
+    <h2>4.2 工参管理工具</h2>
+    <pre><code>主流工具：
+  - 华为 UMG（统一管理网关）
+  - 中兴 NetNumen
+  - 爱立信 ENM
+  - 诺基亚 NetAct
+
+功能：
+  - 工参批量管理
+  - 变更追踪
+  - 版本控制
+  - 自动化校验
+</code></pre>
   </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -234,39 +386,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>

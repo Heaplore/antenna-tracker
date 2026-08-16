@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巴伦 Balun（Balance-Unbalance Converter） · 知识卡片</title>
+<title>巴伦Balun · 知识卡片</title>
 <style>
   :root{
     --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
@@ -88,8 +88,10 @@
 </head>
 <body>
 <header class="page-head">
-  <h1 class="title">巴伦 Balun <span class="en">Balance-Unbalance Converter</span></h1>
-  <p class="lede">巴伦是平衡信号与不平衡信号之间的"翻译官"——它将单端信号（如 coax 电缆）转换为差分信号（如微带线），反之亦然。核心指标是幅度平衡、相位平衡和插入损耗。</p>
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">巴伦Balun</h1>
+  <p class="lede">巴伦是平衡信号与不平衡信号之间的&#34;翻译官&#34;——它将单端信号（如 coax 电缆）转换为差分信号（如微带线），反之亦然。核心指标是幅度平衡、相位平衡和插入损耗。</p>
+  
 </header>
 
 <main>
@@ -99,222 +101,475 @@
   <div class="masonry-col col-right"></div>
 </div>
 
-  <article class="card">
-    <h2>类比入口</h2>
-    <p>想象你有一根水管（同轴电缆，单端）要连接到两个对称的水管（差分线，平衡）。巴伦就是这个"三通接头"——它把一股水分成两股对称的水流，而且两股水流的方向相反（差分）。如果巴伦做得不好，两股水流就不对称（幅度不平衡）或者不同时到达（相位不平衡）。</p>
-  </article>
 
-  <article class="card">
-    <h2>一、定义与功能</h2>
-    <h3>1.1 平衡 vs 不平衡</h3>
+  
+  <article class="card ">
+    
+    <h2>1.1 平衡 vs 不平衡</h2>
     <pre><code>不平衡（Unbalanced）：
-      信号线 + 地线（参考面）
-      例：同轴电缆、单端微带线
-      
-    平衡（Balanced）：
-      两条对称的信号线
-      例：差分微带线、对称振子天线</code></pre>
-    <h3>1.2 巴伦的功能</h3>
+  信号线 + 地线（参考面）
+  例：同轴电缆、单端微带线
+
+平衡（Balanced）：
+  两条对称的信号线
+  例：差分微带线、对称振子天线
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 巴伦的功能</h2>
     <pre><code>单端输入 → 巴伦 → 差分输出
-      (50Ω)      ↑      (2 × 50Ω 差分)
-      
-    或反过来：
-    差分输入 → 巴伦 → 单端输出</code></pre>
-    <p><b>核心作用</b>：</p>
-    <ol><li><b>阻抗变换</b>：单端 50Ω → 差分 100Ω</li><li><b>信号对称</b>：输出两路幅度相等、相位差 180°</li><li><b>抑制共模</b>：阻止共模信号通过</li><li><b>防止共模电流</b>：在同轴电缆外皮上产生共模电流时会辐射干扰</li></ol>
-    <h3>1.3 巴伦 vs 功分器</h3>
+  (50Ω)      ↑      (2 × 50Ω 差分)
+
+或反过来：
+差分输入 → 巴伦 → 单端输出
+</code></pre>
+<p><strong>核心作用</strong>：</p>
+<ol>
+<li><strong>阻抗变换</strong>：单端 50Ω → 差分 100Ω</li>
+<li><strong>信号对称</strong>：输出两路幅度相等、相位差 180°</li>
+<li><strong>抑制共模</strong>：阻止共模信号通过</li>
+<li><strong>防止共模电流</strong>：在同轴电缆外皮上产生共模电流时会辐射干扰</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 巴伦 vs 功分器</h2>
     <pre><code>功分器：1 路 → N 路（同相输出）
-    巴伦：1 路 → 2 路（180° 反相输出）
-    
-    功分器：幅度相等，相位相同
-    巴伦：幅度相等，相位相反（180°）</code></pre>
-  </article>
+巴伦：1 路 → 2 路（180° 反相输出）
 
-  <article class="card">
-    <h2>二、巴伦的主要类型</h2>
-    <h3>2.1 传输线巴伦（Transmission Line Balun）</h3>
-    <h4>180° 传输线巴伦</h4>
+功分器：幅度相等，相位相同
+巴伦：幅度相等，相位相反（180°）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>180° 传输线巴伦</h2>
     <pre><code>结构：
-      两条平行传输线，一端交叉连接
-      
-    信号流向：
-      输入 → 传输线 A → 输出 +
-      输入 → 传输线 B（交叉）→ 输出 -
-      
-    相位差：180°</code></pre>
-    <h4>Marconi Balun（折叠式）</h4>
+  两条平行传输线，一端交叉连接
+
+信号流向：
+  输入 → 传输线 A → 输出 +
+  输入 → 传输线 B（交叉）→ 输出 -
+
+相位差：180°
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Marconi Balun（折叠式）</h2>
     <pre><code>结构：
-      同轴电缆绕芯（共模扼流圈）
-      
-    原理：
-      共模电流被扼流圈抑制
-      差模信号正常通过</code></pre>
-    <h3>2.2 分支线耦合器巴伦（Branch-Line Coupler）</h3>
+  同轴电缆绕芯（共模扼流圈）
+
+原理：
+  共模电流被扼流圈抑制
+  差模信号正常通过
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 分支线耦合器巴伦（Branch-Line Coupler）</h2>
     <pre><code>        Port 1（输入）
-             │
-        ┌────┴────┐
-        │         │
-        │  90°    │
-        │ Hybrid  │
-        │         │
-        └────┬────┘
-        Port 2    Port 3（90° 相位差）
-        
-    注意：这是 90° 巴伦，不是 180°！</code></pre>
-    <h3>2.3 环形桥巴伦（Rat-Race Coupler）</h3>
+         │
+    ┌────┴────┐
+    │         │
+    │  90°    │
+    │ Hybrid  │
+    │         │
+    └────┬────┘
+    Port 2    Port 3（90° 相位差）
+
+注意：这是 90° 巴伦，不是 180°！
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 环形桥巴伦（Rat-Race Coupler）</h2>
     <pre><code>        Port 1（Σ 端口）
-             │
-        ┌────┴────┐
-        │         │
-        │ 180°    │
-        │ Hybrid  │
-        │         │
-        └────┬────┘
-        Port 2    Port 3（180° 相位差）
-             │
-        Port 4（隔离端口）</code></pre>
-    <h3>2.4 变压器巴伦（Transformer Balun）</h3>
-    <pre><code>结构：
-      磁芯 + 初级绕组 + 次级绕组（中心抽头）
-      
-    原理：
-      电磁感应实现平衡-不平衡转换
-      
-    优点：
-      宽带（DC 到 GHz）
-      阻抗变换灵活</code></pre>
-    <h3>2.5 功率合成巴伦（Power Combiner Balun）</h3>
-    <pre><code>结构：
-      两个晶体管差分对 + 传输线
-      
-    用途：
-      PA 中的差分功率合成
-      LNA 中的差分输入匹配</code></pre>
+         │
+    ┌────┴────┐
+    │         │
+    │ 180°    │
+    │ Hybrid  │
+    │         │
+    └────┬────┘
+    Port 2    Port 3（180° 相位差）
+         │
+    Port 4（隔离端口）
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>三、关键指标</h2>
-    <h3>3.1 相位平衡（Phase Balance）</h3>
-    <pre><code>Δφ = |φ_+ - φ_- - 180°|</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>巴伦类型</th><th>相位平衡</th></tr></thead>
-    <tbody>
-    <tr><td>传输线巴伦</td><td>±5-10°</td></tr>
-    <tr><td>变压器巴伦</td><td>±2-5°</td></tr>
-    <tr><td>分支线耦合器</td><td>±5°</td></tr>
-    <tr><td>Rat-Race</td><td>±3-5°</td></tr>
-    </tbody></table></div>
-    <h3>3.2 幅度平衡（Amplitude Balance）</h3>
-    <pre><code>ΔA = |A_+ - A_-| [dB]</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>巴伦类型</th><th>幅度平衡</th></tr></thead>
-    <tbody>
-    <tr><td>传输线巴伦</td><td>±0.5-1dB</td></tr>
-    <tr><td>变压器巴伦</td><td>±0.2-0.5dB</td></tr>
-    <tr><td>分支线耦合器</td><td>±0.5dB</td></tr>
-    <tr><td>Rat-Race</td><td>±0.3dB</td></tr>
-    </tbody></table></div>
-    <h3>3.3 插入损耗（Insertion Loss）</h3>
-    <pre><code>IL = IL_balun + IL_matching</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>巴伦类型</th><th>IL（典型）</th></tr></thead>
-    <tbody>
-    <tr><td>传输线巴伦</td><td>0.2-0.5dB</td></tr>
-    <tr><td>变压器巴伦</td><td>0.1-0.3dB</td></tr>
-    <tr><td>分支线耦合器</td><td>0.3-0.8dB</td></tr>
-    <tr><td>Rat-Race</td><td>0.5-1dB</td></tr>
-    </tbody></table></div>
-    <h3>3.4 带宽（Bandwidth）</h3>
-    <pre><code>BW = (f_high - f_low) / f_center</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>巴伦类型</th><th>带宽</th></tr></thead>
-    <tbody>
-    <tr><td>传输线巴伦</td><td>20-40%</td></tr>
-    <tr><td>变压器巴伦</td><td>1-2 个十倍频程</td></tr>
-    <tr><td>分支线耦合器</td><td>10-20%</td></tr>
-    <tr><td>Rat-Race</td><td>15-25%</td></tr>
-    </tbody></table></div>
-    <h3>3.5 隔离度（Isolation）</h3>
-    <pre><code>隔离度 = 两个输出端口之间的衰减</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>巴伦类型</th><th>隔离度</th></tr></thead>
-    <tbody>
-    <tr><td>传输线巴伦</td><td>15-25dB</td></tr>
-    <tr><td>变压器巴伦</td><td>20-30dB</td></tr>
-    <tr><td>Rat-Race</td><td>20-30dB</td></tr>
-    </tbody></table></div>
+  
+  <article class="card ">
+    
+    <h2>2.4 变压器巴伦（Transformer Balun）</h2>
+    <pre><code>结构：
+  磁芯 + 初级绕组 + 次级绕组（中心抽头）
+
+原理：
+  电磁感应实现平衡-不平衡转换
+
+优点：
+  宽带（DC 到 GHz）
+  阻抗变换灵活
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>四、典型应用</h2>
-    <h3>4.1 差分 LNA 输入</h3>
+  
+  <article class="card ">
+    
+    <h2>2.5 功率合成巴伦（Power Combiner Balun）</h2>
+    <pre><code>结构：
+  两个晶体管差分对 + 传输线
+
+用途：
+  PA 中的差分功率合成
+  LNA 中的差分输入匹配
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 相位平衡（Phase Balance）</h2>
+    <pre><code>Δφ = |φ_+ - φ_- - 180°|
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>巴伦类型</th>
+<th>相位平衡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线巴伦</td>
+<td>±5-10°</td>
+</tr>
+<tr>
+<td>变压器巴伦</td>
+<td>±2-5°</td>
+</tr>
+<tr>
+<td>分支线耦合器</td>
+<td>±5°</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>±3-5°</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 幅度平衡（Amplitude Balance）</h2>
+    <pre><code>ΔA = |A_+ - A_-| [dB]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>巴伦类型</th>
+<th>幅度平衡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线巴伦</td>
+<td>±0.5-1dB</td>
+</tr>
+<tr>
+<td>变压器巴伦</td>
+<td>±0.2-0.5dB</td>
+</tr>
+<tr>
+<td>分支线耦合器</td>
+<td>±0.5dB</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>±0.3dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 插入损耗（Insertion Loss）</h2>
+    <pre><code>IL = IL_balun + IL_matching
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>巴伦类型</th>
+<th>IL（典型）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线巴伦</td>
+<td>0.2-0.5dB</td>
+</tr>
+<tr>
+<td>变压器巴伦</td>
+<td>0.1-0.3dB</td>
+</tr>
+<tr>
+<td>分支线耦合器</td>
+<td>0.3-0.8dB</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>0.5-1dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.4 带宽（Bandwidth）</h2>
+    <pre><code>BW = (f_high - f_low) / f_center
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>巴伦类型</th>
+<th>带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线巴伦</td>
+<td>20-40%</td>
+</tr>
+<tr>
+<td>变压器巴伦</td>
+<td>1-2 个十倍频程</td>
+</tr>
+<tr>
+<td>分支线耦合器</td>
+<td>10-20%</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>15-25%</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.5 隔离度（Isolation）</h2>
+    <pre><code>隔离度 = 两个输出端口之间的衰减
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>巴伦类型</th>
+<th>隔离度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输线巴伦</td>
+<td>15-25dB</td>
+</tr>
+<tr>
+<td>变压器巴伦</td>
+<td>20-30dB</td>
+</tr>
+<tr>
+<td>Rat-Race</td>
+<td>20-30dB</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 差分 LNA 输入</h2>
     <pre><code>单端天线 → 巴伦 → 差分 LNA
-                  ↑
-             抑制共模噪声</code></pre>
-    <h3>4.2 差分 PA 输出</h3>
+              ↑
+         抑制共模噪声
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 差分 PA 输出</h2>
     <pre><code>差分 PA → 巴伦 → 单端天线
-                  ↑
-             功率合成</code></pre>
-    <h3>4.3 平衡混频器</h3>
+              ↑
+         功率合成
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 平衡混频器</h2>
     <pre><code>LO（单端）→ 巴伦 → 差分 LO 输入
-    RF（单端）→ 巴伦 → 差分 RF 输入</code></pre>
-    <h3>4.4 平衡天线馈电</h3>
+RF（单端）→ 巴伦 → 差分 RF 输入
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 平衡天线馈电</h2>
     <pre><code>单端馈线 → 巴伦 → 对称振子天线
-                  ↑
-             防止共模电流</code></pre>
-    <h3>4.5 5G MIMO 天线</h3>
+              ↑
+         防止共模电流
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.5 5G MIMO 天线</h2>
     <pre><code>MIMO 天线阵列中每个通道都需要巴伦：
-      单端馈线 → 巴伦 → 差分天线单元</code></pre>
+  单端馈线 → 巴伦 → 差分天线单元
+</code></pre>
   </article>
+  
 
-  <article class="card">
-    <h2>五、巴伦设计要点</h2>
-    <h3>5.1 频率选择</h3>
+  
+  <article class="card ">
+    
+    <h2>5.1 频率选择</h2>
     <pre><code>f &lt; 1GHz → 变压器巴伦（宽带好）
-    1-6GHz → 传输线巴伦（紧凑）
-    &gt; 6GHz → 微带/共面波导巴伦（集成）</code></pre>
-    <h3>5.2 阻抗匹配</h3>
+1-6GHz → 传输线巴伦（紧凑）
+&gt; 6GHz → 微带/共面波导巴伦（集成）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 阻抗匹配</h2>
     <pre><code>单端阻抗 Z_0 = 50Ω
-    差分阻抗 Z_diff = 100Ω
-    
-    巴伦阻抗变换比：
-      1:2（50Ω → 100Ω 差分）
-      1:4（50Ω → 200Ω 差分，较少用）</code></pre>
-    <h3>5.3 共模抑制比（CMRR）</h3>
-    <pre><code>CMRR = 20·log₁₀(|A_diff| / |A_common|)</code></pre>
-    <div class="tw"><table>
-    <thead><tr><th>CMRR</th><th>效果</th></tr></thead>
-    <tbody>
-    <tr><td>> 30dB</td><td>良好</td></tr>
-    <tr><td>> 40dB</td><td>优秀</td></tr>
-    <tr><td>> 50dB</td><td>极佳</td></tr>
-    </tbody></table></div>
-  </article>
+差分阻抗 Z_diff = 100Ω
 
-  <article class="card">
-    <h2>六、工程注意事项</h2>
-    <h3>6.1 巴伦的功率容量</h3>
+巴伦阻抗变换比：
+  1:2（50Ω → 100Ω 差分）
+  1:4（50Ω → 200Ω 差分，较少用）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 共模抑制比（CMRR）</h2>
+    <pre><code>CMRR = 20·log₁₀(|A_diff| / |A_common|)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>CMRR</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt; 30dB</td>
+<td>良好</td>
+</tr>
+<tr>
+<td>&gt; 40dB</td>
+<td>优秀</td>
+</tr>
+<tr>
+<td>&gt; 50dB</td>
+<td>极佳</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 巴伦的功率容量</h2>
     <pre><code>PA 输出端巴伦：
-      手机：P &lt; 23dBm
-      基站：P &lt; 40dBm
-      
-    LNA 输入端巴伦：
-      功率很小，主要考虑线性度</code></pre>
-    <h3>6.2 温度稳定性</h3>
-    <pre><code>变压器巴伦的温度漂移：
-      Δf/f/ΔT ≈ 10-50 ppm/°C
-    
-    传输线巴伦的温度漂移：
-      Δf/f/ΔT ≈ 5-20 ppm/°C</code></pre>
-    <h3>6.3 尺寸与集成</h3>
-    <pre><code>Sub-6GHz 巴伦：1-3mm²（芯片级）
-    毫米波巴伦：0.5-1mm²（集成于 BFIC）</code></pre>
-  </article>
+  手机：P &lt; 23dBm
+  基站：P &lt; 40dBm
 
-  <article class="card">
-    <h2>七、一句话总结</h2>
-    <p>巴伦是平衡与不平衡信号之间的"翻译官"——把单端信号变成差分信号（或反过来），核心指标是相位平衡（±2-10°）、幅度平衡（±0.2-1dB）和插入损耗（0.1-1dB）。变压器巴伦宽带最好，传输线巴伦最紧凑，Rat-Race 和分支线耦合器常用于特定频率。记住：巴伦不是功分器——功分器输出同相，巴伦输出反相（180°）。</p>
+LNA 输入端巴伦：
+  功率很小，主要考虑线性度
+</code></pre>
   </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 温度稳定性</h2>
+    <pre><code>变压器巴伦的温度漂移：
+  Δf/f/ΔT ≈ 10-50 ppm/°C
+
+传输线巴伦的温度漂移：
+  Δf/f/ΔT ≈ 5-20 ppm/°C
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 尺寸与集成</h2>
+    <pre><code>Sub-6GHz 巴伦：1-3mm²（芯片级）
+毫米波巴伦：0.5-1mm²（集成于 BFIC）
+</code></pre>
+  </article>
+  
+
+  
+    
+  
+
 
 </main><script>
 /* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
@@ -334,39 +589,6 @@
     (lH <= rH ? leftCol : rightCol).appendChild(card);
   });
   main.classList.add('masonry-ready');
-})();
-</script>
-<script>
-(function(){
-  function wire(){
-    document.querySelectorAll('a.rel-card[href*="kg-cards-rendered/"]').forEach(function(a){
-      if (a.__kgWired) return;
-      a.__kgWired = true;
-      a.addEventListener('click', function(e){
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          var href = a.getAttribute('href') || '';
-          var fn = href.split('/').pop() || '';
-          fn = decodeURIComponent(fn).replace(/\.html$/i, '');
-          var id = fn;
-          if (id && window.parent !== window) {
-            window.parent.postMessage({type:'kg-nav', id:id}, '*');
-          } else {
-            window.location.href = href;
-          }
-        } catch(err) {
-          console.warn('kg-card nav error', err);
-        }
-        return false;
-      }, true);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wire);
-  } else {
-    wire();
-  }
 })();
 </script>
 </body>
