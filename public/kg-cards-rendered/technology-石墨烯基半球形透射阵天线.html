@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>石墨烯基半球形透射阵天线 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">石墨烯基半球形透射阵天线</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">透射阵天线</span><span class="chip brand">石墨烯</span><span class="chip brand">太赫兹</span><span class="chip brand">波束赋形</span><span class="chip brand">RIS</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p><strong>石墨烯基半球形透射阵天线</strong>（Graphene-based Hemispherical Transmitarray Antenna）是一种面向6G太赫兹频段（200-300 GHz）的新型波束赋形天线架构。该设计由美国加州大学圣地亚哥分校（UCSD）Somayeh Komeylian和Christopher Paolini团队于2026年7月提出（arXiv: 2607.26437v1），利用石墨烯的电可调表面电导率特性，实现了±87°俯仰角 + 360°方位角的<strong>全三维电子扫描</strong>，同时达到纳秒至微秒级的超快重配置速度。</p>
+<p><strong>核心价值</strong>：该技术为6G太赫兹通信提供了突破传统相控阵硬件复杂度瓶颈的新路径，尤其适合高速移动目标的实时跟踪场景。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 半球形透射阵架构</h2>
+    <p>透射阵天线（Transmitarray Antenna）通过在辐射孔径前方放置超表面层，对入射球面波进行相位调控，转换为平面波辐射。与传统金属透镜相比，透射阵具有低剖面、易于集成的优势。</p>
+<p><strong>半球形设计的创新点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>传统平板透射阵</th>
+<th>半球形透射阵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相位匹配</td>
+<td>需要额外的相位补偿层</td>
+<td>天然匹配中心馈源的球面波前</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>±60°以内</td>
+<td>±87°俯仰 + 360°方位</td>
+</tr>
+<tr>
+<td>孔径效率</td>
+<td>广角扫描时显著下降</td>
+<td>保持68%-80%效率（仅10%退化）</td>
+</tr>
+<tr>
+<td>馈源遮挡</td>
+<td>存在</td>
+<td>无（中心馈源在球内）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 石墨烯电压控制机制</h2>
+    <p><strong>核心原理</strong>：石墨烯的表面电导率可通过外加偏置电压动态调节（电化学掺杂或场效应），从而改变超表面单元的等效阻抗和透射相位。</p>
+<p><strong>单元结构</strong>：</p>
+<ul>
+<li><strong>黄金辐射贴片</strong>：作为谐振单元，决定透射相位</li>
+<li><strong>石墨烯扇区</strong>：作为可调阻抗层，独立施加偏置电压</li>
+<li><strong>hBN介电层</strong>：六方氮化硼（hBN）作为绝缘 spacer，保护石墨烯并控制电容耦合</li>
+<li>** centrally positioned horn feed**：中心位置角 horn 馈源</li>
+</ul>
+<p><strong>控制矩阵</strong>：</p>
+<ul>
+<li>121个石墨烯单元排列为 11×11 电压控制矩阵</li>
+<li>FPGA（AMD Xilinx Zynq UltraScale+ RFSoC）计算所需电压映射表</li>
+<li>通过高速多通道DAC（SPI或LVDS接口）并行输出</li>
+<li><strong>行并行控制架构</strong>使全孔径重配置仅需10-20 μs（对应50,000-100,000次波束更新/秒）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 表面电导率建模与传输系数分析</h2>
+    <p><strong>石墨烯表面电导率公式</strong>（Drude模型）：</p>
+<p>$$\sigma_s(\omega, \mu_c, \tau) = \frac{2q^2 k_B T}{\pi \hbar^2 (\omega + j/\tau)} \left[ \frac{\mu_c}{k_B T} + 2 \ln\left(1 + e^{-\mu_c/k_B T}\right) \right]$$</p>
+<p>其中：</p>
+<ul>
+<li>$\mu_c$：费米能级（通过偏置电压调节，典型范围 0-0.5 eV）</li>
+<li>$\tau$：载流子散射时间（影响损耗）</li>
+<li>$\omega$：工作角频率（250 THz 对应 250 GHz）</li>
+</ul>
+<p><strong>ABCD矩阵与广义 sheets transition conditions (GSTC)</strong>：</p>
+<ul>
+<li>多层石墨烯-介电结构通过 ABCD 传输矩阵级联分析</li>
+<li>GSTC 条件确保电磁场在界面处的边界匹配</li>
+<li>透射系数 $T = \frac{2Z_0}{2Z_0 + Z_s}$，其中 $Z_s = 1/\sigma_s$</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.  conformal array factor 分析</h2>
+    <p>半球形曲面的 conformal array factor 需考虑局部法向变化：</p>
+<p>$$AF(\theta, \phi) = \sum_{m=1}^{M}\sum_{n=1}^{N} a_{mn} \cdot e^{j(k \cdot r_{mn} + \beta_{mn})}$$</p>
+<p>其中 $\beta_{mn}$ 为第 (m,n) 单元的附加相位（由石墨烯偏置决定），$r_{mn}$ 为单元在半球面上的位置矢量。这种 conformal 分析使得广角扫描时的相位误差建模更准确。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G太赫兹通信</h2>
+    <ul>
+<li><strong>应用场景</strong>：基站到基站的回传链路、室内高速热点覆盖、卫星互联网地面站</li>
+<li><strong>优势</strong>：250 GHz 频段提供 100+ Gbps 的潜在数据速率</li>
+<li><strong>挑战</strong>：大气吸收损耗（氧气共振峰 ~60 GHz，水蒸气 ~22 GHz，250 GHz 相对透明）、雨衰</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 超快移动目标跟踪雷达</h2>
+    <ul>
+<li><strong>应用场景</strong>：航空/航天器实时跟踪、导弹防御、无人机蜂群监测</li>
+<li><strong>性能</strong>：50,000-100,000 波束更新/秒，可实时补偿目标角位移</li>
+<li><strong>对比</strong>：传统机械扫描雷达（ms-s级）无法跟踪高超音速目标</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. RIS与透射阵融合架构</h2>
+    <ul>
+<li>半球形透射阵可视为<strong>有源RIS</strong>的一种形式</li>
+<li>与传统无源RIS（仅反射）相比，透射阵提供双向覆盖（透过孔径）</li>
+<li>与STAR-RIS（全空间覆盖）形成互补：半球形提供3D电子扫描，STAR-RIS提供360°静态覆盖</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>学术研究对比</h2>
+    <table>
+<thead>
+<tr>
+<th>方案</th>
+<th>频率</th>
+<th>扫描范围</th>
+<th>速度</th>
+<th>效率</th>
+<th>作者/机构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>石墨烯半球形透射阵</td>
+<td>200-300 GHz</td>
+<td>±87°/360°</td>
+<td>ns-μs</td>
+<td>68-80%</td>
+<td>Komeylian &amp; Paolini, UCSD/SDSU</td>
+</tr>
+<tr>
+<td>PIN二极管相控阵</td>
+<td>5.75-40 GHz</td>
+<td>±30°-±60°</td>
+<td>ns-μs</td>
+<td>-</td>
+<td>[3,5,8,10]</td>
+</tr>
+<tr>
+<td>机械馈源位移</td>
+<td>450-650 GHz</td>
+<td>±25°</td>
+<td>ms-s</td>
+<td>-</td>
+<td>[13]</td>
+</tr>
+<tr>
+<td>被动频率依赖透镜</td>
+<td>610-685 GHz</td>
+<td>16°-32° FoV</td>
+<td>fast</td>
+<td>-</td>
+<td>[11]</td>
+</tr>
+<tr>
+<td>1-bit二元超表面</td>
+<td>2.1-75 GHz</td>
+<td>±30°-±60°</td>
+<td>static</td>
+<td>-</td>
+<td>[6,9]</td>
+</tr>
+<tr>
+<td>多焦点馈源切换</td>
+<td>24.25-25.8 GHz</td>
+<td>±48°</td>
+<td>ms-s</td>
+<td>-</td>
+<td>[12]</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业界布局</h2>
+    <ul>
+<li><strong>华为</strong>：6G太赫兹通感一体化预研，关注全息超表面与相控阵融合</li>
+<li><strong>中兴</strong>：U6G试验场探索XL-MIMO近场波束聚焦，透射阵架构可作为AAU集成方案</li>
+<li><strong>爱立信</strong>：AI-ready radios中探索RIS辅助覆盖增强，石墨烯太赫兹器件属供应链上游研究</li>
+<li><strong>诺基亚</strong>：6G太赫兹无线接入网研究，关注高频段波束管理算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li>石墨烯太赫兹器件从实验室走向原型验证</li>
+<li><strong>关键瓶颈</strong>：石墨烯大面积均匀制备、高密度电压布线、热管理</li>
+<li>可能率先应用于<strong>卫星互联网地面终端</strong>（要求轻量、低功耗、快速波束指向）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li>与CMOS工艺兼容的石墨烯-硅异构集成方案成熟</li>
+<li>半球形透射阵可能成为<strong>6G Terahertz MIMO阵列</strong>的单元模块</li>
+<li>与<strong>数字孪生天线</strong>（数字模型实时更新石墨烯偏置）结合，实现自适应波束优化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>长期（5-10年）</h2>
+    <ul>
+<li>若石墨烯成本大幅下降，可能替代部分相控阵T/R模块市场</li>
+<li>与<strong>量子传感</strong>结合：太赫兹波段对分子指纹识别敏感，可用于通信-感知-成像一体化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>风险与挑战</h2>
+    <ol>
+<li><strong>石墨烯迁移率</strong>：室温下高品质石墨烯迁移率 ~10,000 cm²/V·s，仍需提升以降低欧姆损耗</li>
+<li><strong>偏置网络复杂度</strong>：121个独立电极的布线密度在半球曲面上是制造挑战</li>
+<li><strong>温度稳定性</strong>：石墨烯电导率对温度敏感，需闭环温度补偿算法</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对老大工作的参考价值</h2>
+    <ol>
+<li>
+<p><strong>RIS技术路线补充</strong>：老大关注的<strong>逆拓扑设计</strong>和<strong>半导体集成RIS</strong>方向，与本论文的石墨烯电压控制路线形成互补。半透射阵更适用于需要<strong>高增益、宽扫描</strong>的场景（如基站侧），而无源RIS更适合<strong>低成本、大规模部署</strong>（如室内覆盖增强）。</p>
+</li>
+<li>
+<p><strong>太赫兹天线储备</strong>：老大持续追踪6G太赫兹技术，本文提供了<strong>250 GHz频段的详细电磁设计方法</strong>（石墨烯表面电导率建模、ABCD矩阵、conformal array factor），可直接引用为技术参考。</p>
+</li>
+<li>
+<p><strong>波束赋形架构对比</strong>：传统相控阵（大量T/R模块）vs 透射阵（单层超表面）vs RIS（反射型单层）的<strong>效率-复杂度权衡</strong>，有助于老大多方案评估时做出更精准的架构选择。</p>
+</li>
+<li>
+<p><strong>产业链机会</strong>：石墨烯太赫兹器件的<strong>制备工艺</strong>（CVD生长、转移、光刻图案化）和<strong>测试设备</strong>（太赫兹矢量网络分析仪、探针台）可能是国产替代机会点。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>建议后续跟踪</h2>
+    <ul>
+<li>关注该团队的后续实验验证论文（预期2026年底-2027年初）</li>
+<li>跟踪<strong>中科院苏州纳米所</strong>、<strong>清华大学</strong>等国内团队是否在类似方向有布局</li>
+<li>评估与<strong>STM（扫描隧道显微镜）石墨烯制备设备</strong>国产厂商的联动机会</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>arXiv: 2607.26437v1 — "Graphene-based Hemispherical Transmitarray Antenna for Wide-Angle Beam Steering and Ultrafast Moving Target Tracking" (Komeylian &amp; Paolini, 2026.07)</li>
+<li>IEEE Trans. Antennas Propag. 相关透射阵综述文献（引用 [10], [28]）</li>
+<li>石墨烯太赫兹器件综述：Nature Nanotechnology, "Graphene terahertz technologies" (2024)</li>
+</ul>
+<hr />
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
