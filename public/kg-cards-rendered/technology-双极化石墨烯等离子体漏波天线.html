@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>双极化石墨烯等离子体漏波天线 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">双极化石墨烯等离子体漏波天线</h1>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">石墨烯</span><span class="chip brand">太赫兹</span><span class="chip brand">双极化</span><span class="chip brand">漏波天线</span>
+  </div>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>双极化石墨烯等离子体漏波天线（Dual-Polarized Plasmonic Leaky-Wave Antenna based on Anisotropic Graphene-Modulated Metasurface）是2026年8月发表在Scientific Reports的最新研究，由伊朗比尔詹德大学Hadi Soleimani和Mohammadreza Khorshidi团队完成。该研究首次实现了在太赫兹频段工作的双极化等离子体漏波天线，通过各向异性石墨烯超表面（MTS）单元同时支持TM-SPP和TE-SPP模式传播，突破了传统石墨烯超表面仅支持单一偏振模式的限制。</p>
+<p>这项研究对6G太赫兹通信、双极化天线设计、石墨烯基太赫兹器件具有重要参考价值，与老大关注的石墨烯天线、THz通信、双极化技术方向高度契合。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 各向异性石墨烯超表面（AGP单元）</h2>
+    <p>传统各向同性石墨烯超表面只能支持TM或TE单一模式的表面等离子体极化（SPP）波传播。本研究提出的各向异性石墨烯贴片（AGP）单元通过几何各向异性设计，实现了TM-SPP和TE-SPP模式的同步传播。</p>
+<p><strong>关键设计参数：</strong>
+- 单元几何结构：各向异性矩形石墨烯贴片
+- 支持模式：TM-SPP + TE-SPP同时传播
+- 工作频段：太赫兹（THz）频段
+- 匹配条件：通过等效电路模型确定最佳传播特性</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 双极化实现机制</h2>
+    <p><strong>TM模式控制：</strong>
+- 通过石墨烯费米能级调节实现TM模式相位匹配
+- 实现Broadside辐射（垂直于表面辐射）</p>
+<p><strong>TE模式控制：</strong>
+- 独立调节TE模式表面阻抗
+- 与TM模式同步优化，实现双极化共口径辐射</p>
+<p><strong>偏振分离误差：</strong>
+- 偏振相关调制误差仅0.002 dB/μm
+- 实现了高度独立的TM/TE模式控制</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 性能参数</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方向图增益</td>
+<td>≈21.5 dBi</td>
+</tr>
+<tr>
+<td>辐射效率</td>
+<td>≈26%</td>
+</tr>
+<tr>
+<td>旁瓣电平（SLL）</td>
+<td>&lt;-15 dB（双极化）</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>THz频段</td>
+</tr>
+<tr>
+<td>尺寸</td>
+<td>微米级（芯片级集成）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 关键技术突破</h2>
+    <p><strong>首次实现双极化等离子体漏波天线：</strong>
+- 突破了传统石墨烯超表面仅支持单一偏振的限制
+- 实现了TM和TE模式的独立调控与协同优化
+- 为太赫兹双极化通信系统提供了新的技术路线</p>
+<p><strong>各向异性设计创新：</strong>
+- 通过几何各向异性而非材料各向异性实现模式分离
+- 保持了石墨烯的电可调谐优势
+- 兼容CMOS制造工艺</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G太赫兹通信系统</h2>
+    <p>双极化石墨烯漏波天线可直接应用于6G太赫兹通信系统：</p>
+<ul>
+<li>利用双极化实现空间分集，提升链路可靠性</li>
+<li>太赫兹频段高频特性适合大容量短距离通信</li>
+<li>芯片级集成适合终端设备部署</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 卫星通信与星间链路</h2>
+    <ul>
+<li>Starlink V2 Mini等卫星已采用相控阵天线，石墨烯漏波天线可作为补充技术路线</li>
+<li>双极化特性适合卫星通信的极化复用</li>
+<li>太赫兹频段适合激光通信之外的射频备份链路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 通感一体化（ISAC）</h2>
+    <ul>
+<li>双极化天线可同时支持通信和感知功能</li>
+<li>太赫兹频段提供高分辨率感知能力</li>
+<li>与RIS、HISAC等技术形成协同</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 芯片级太赫兹集成</h2>
+    <ul>
+<li>微米级尺寸适合片上集成</li>
+<li>CMOS兼容工艺降低制造成本</li>
+<li>可用于太赫兹光子集成电路（PIC）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 石墨烯太赫兹天线研究格局</h2>
+    <p><strong>学术机构：</strong>
+- 伊朗国家科学基金会（INSF）资助基础研究
+- 欧洲多所大学开展石墨烯太赫兹器件研究
+- 中国高校（电子科大、中科院）在太赫兹天线领域活跃</p>
+<p><strong>产业布局：</strong>
+- 华为、中兴在太赫兹通信系统层面布局
+- 三星、高通在太赫兹芯片层面研究
+- 目前尚无产业化产品，处于实验室阶段</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 双极化天线技术路线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>技术路线</th>
+<th>优势</th>
+<th>劣势</th>
+<th>成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传统金属微带双极化天线</td>
+<td>工艺成熟、效率高</td>
+<td>尺寸大、频率受限</td>
+<td>高</td>
+</tr>
+<tr>
+<td>石墨烯等离子体漏波天线</td>
+<td>尺寸小、电可调、双极化</td>
+<td>效率较低（26%）</td>
+<td>低（实验室）</td>
+</tr>
+<tr>
+<td>硅基太赫兹相控阵</td>
+<td>工艺成熟、可集成</td>
+<td>调谐范围有限</td>
+<td>中</td>
+</tr>
+<tr>
+<td>RIS辅助双极化天线</td>
+<td>灵活可控</td>
+<td>需要额外控制单元</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 漏波天线技术演进</h2>
+    <ul>
+<li><strong>传统漏波天线</strong>：微波频段，金属波导结构</li>
+<li><strong>太赫兹漏波天线</strong>：硅基、石墨烯等新材料</li>
+<li><strong>等离子体漏波天线</strong>：石墨烯SPP模式，尺寸更小</li>
+<li><strong>双极化漏波天线</strong>：本研究突破，支持TM+TE双模式</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 石墨烯太赫兹天线技术成熟度评估</h2>
+    <p><strong>当前阶段：实验室研究阶段（TRL 3-4）</strong>
+- 理论基础完整，仿真验证充分
+- 实验演示初见成果，但效率有待提升
+- 制造工艺需要进一步优化</p>
+<p><strong>未来3-5年趋势：</strong>
+- 效率提升是主要攻关方向（当前26% → 目标&gt;50%）
+- 与CMOS工艺集成是产业化关键
+- 双极化/多极化将是重要发展方向</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 对6G太赫兹通信的影响</h2>
+    <p><strong>正面影响：</strong>
+- 提供芯片级双极化天线解决方案
+- 降低太赫兹终端天线成本和尺寸
+- 支持极化复用提升容量</p>
+<p><strong>挑战：</strong>
+- 效率问题需要工程化解决
+- 与现有硅基太赫兹技术的竞争
+- 标准化和产业化路径不清晰</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 与老大关注方向的关联</h2>
+    <p><strong>直接相关：</strong>
+- 石墨烯天线技术（已有#125、#146、#186篇笔记）
+- 太赫兹通信（6G核心频段）
+- 双极化技术（极化分集、极化复用）
+- 漏波天线（已有#12、#132篇笔记）</p>
+<p><strong>间接相关：</strong>
+- Starlink卫星相控阵（已有#188篇笔记）
+- RIS智能超表面（已有大量笔记）
+- 6G通感一体化</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 技术储备价值</h2>
+    <p>本研究填补了双极化石墨烯太赫兹漏波天线领域的空白，与老大已有的石墨烯天线、太赫兹天线、漏波天线知识体系形成完整闭环。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 工程参考意义</h2>
+    <ul>
+<li><strong>效率问题</strong>：当前26%的效率是工程化主要障碍，需关注后续研究突破</li>
+<li><strong>工艺兼容</strong>：CMOS兼容性是产业化关键，可与中兴现有工艺路线对照</li>
+<li><strong>双极化优势</strong>：适合卫星通信、终端设备的极化分集应用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 研究跟踪建议</h2>
+    <p>建议持续关注以下方向：</p>
+<ol>
+<li>石墨烯太赫兹天线效率提升进展</li>
+<li>CMOS工艺集成路线图</li>
+<li>双极化在卫星通信中的实际应用案例</li>
+<li>与RIS、HISAC等技术的协同方案</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Soleimani, H., &amp; Khorshidi, M. (2026). Dual-polarized plasmonic leaky-wave antenna based on anisotropic graphene-modulated metasurface. Scientific Reports, 16, 65461. https://doi.org/10.1038/s41598-026-65461-0</li>
+<li>伊朗国家科学基金会（INSF）项目 No. 40401661 资助</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
