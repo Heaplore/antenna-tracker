@@ -1,20 +1,97 @@
 {
-  "generatedAt": "2026-08-18T15:16:05+08:00",
+  "generatedAt": "2026-08-19T15:15:18+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
     "cost": {
       "cards": [
         {
+          "type": "成本上行信号",
+          "severity": "high",
+          "title": "本月涨幅 TOP 5",
+          "summary": "PVDF氟膜 +333233.3%；LCP薄膜 +6213.6%；导热硅脂 +114.5%；硅烷偶联剂 +93.1%；电子布7628 +74.1%",
+          "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "成本下行信号",
+          "severity": "high",
+          "title": "本月跌幅 TOP 5",
+          "summary": "三防漆 -69.6%；PTFE高频覆铜板 -57.1%；电子级环氧树脂 -50.8%；碳氢树脂覆铜板 -47.9%；PTFE树脂 -9.1%",
+          "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
           "type": "BOM 全景",
           "severity": "low",
           "title": "成本方向分布",
-          "summary": "27种主要原材料中，0种上涨、0种下跌、27种持平。",
-          "recommendation": "整体 BOM 成本方向：横盘。",
+          "summary": "27种主要原材料中，14种上涨、9种下跌、4种持平。",
+          "recommendation": "整体 BOM 成本方向：走高。",
           "data_sources": [
             "prices.json"
           ],
           "priorityScore": 2
+        },
+        {
+          "type": "关键波动",
+          "severity": "high",
+          "title": "大幅波动信号 (≥10%)",
+          "summary": "银 +11.3%；LCP薄膜 +6213.6%；碳氢树脂覆铜板 -47.9%；PTFE高频覆铜板 -57.1%；电子布7628 +74.1%；PVDF氟膜 +333233.3%；导热硅脂 +114.5%；硅烷偶联剂 +93.1%；三防漆 -69.6%；电子级环氧树脂 -50.8%",
+          "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "金属原材料分类（10种）平均变化",
+          "summary": "本分类材料均价 +2.5%",
+          "recommendation": "金属原材料板块整体呈现上行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "工程塑料分类（6种）平均变化",
+          "summary": "本分类材料均价 -2.3%",
+          "recommendation": "工程塑料板块整体呈现下行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "分类聚合",
+          "severity": "medium",
+          "title": "PCB/覆铜板分类（5种）平均变化",
+          "summary": "本分类材料均价 +1237.2%",
+          "recommendation": "PCB/覆铜板板块整体呈现上行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "分类聚合",
+          "severity": "medium",
+          "title": "化工类原材料分类（6种）平均变化",
+          "summary": "本分类材料均价 +55553.1%",
+          "recommendation": "化工类原材料板块整体呈现上行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 5
         }
       ],
       "source": "derived-from-prices"
@@ -25,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 35 条新闻入库（2026-08-11 ~ 2026-08-18）。",
+          "summary": "过去 7 天共 32 条新闻入库（2026-08-12 ~ 2026-08-19）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×273；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×282；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "SpaceX以600亿美元收购AI编程初创公司Cursor | 刷新国际纪录！中国电信联合上海交大、华东师大在抗量子密码基础研究领域取得重要突破 | AIDC暴涨486%！中国移动靠什么打赢下半场？",
+          "summary": "中国联通Q2运营数据：连接用户超13亿户，5G用户近2.49亿户 | 营收微增、利润下滑34.6%，中国联通正在押注算力新周期 | 中国联通委任邱宝华为高级副总裁",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×107；通信世界网×98；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×112；通信世界网×102；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
@@ -282,5 +359,5 @@
       "source": "derived-from-market"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点信号：交付：本周行业动态；技术：行业技术概览；技术：技术详情覆盖 14 项；市场：行业核心驱动；成本：成本方向分布。"
+  "crossDimensionSummary": "⚠️ 重点信号：成本：本月涨幅 TOP 5；成本：本月跌幅 TOP 5；成本：大幅波动信号 (≥10%)；成本：PCB/覆铜板分类（5种）平均变化；成本：化工类原材料分类（6种）平均变化。"
 }
