@@ -155,38 +155,85 @@
   <article class="card ">
     
     <h2>2.1 为什么需要相控阵天线？</h2>
-    <p><strong>星地链路挑战</strong>：</p>
-<ul>
-<li>低轨卫星轨道高度300-2000km，Ka波段自由空间路径损耗约170dB</li>
-<li>终端手机天线增益仅2-5dBi，无法补偿巨大损耗</li>
-<li>卫星高速运动（低轨约7.5km/s），需要快速波束指向跟踪</li>
-</ul>
-<p><strong>相控阵解决方案</strong>：</p>
-<ul>
-<li>通过电子控制波束指向，无需机械转动</li>
-<li>多波束同时工作，提升系统容量</li>
-<li>高增益（卫星侧可达45dBi以上），补偿链路损耗</li>
-</ul>
+    <p><strong>星地链路挑战分析</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>挑战类型</th>
+<th>具体表现</th>
+<th>传统方案局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路径损耗大</td>
+<td>Ka波段（20GHz）自由空间损耗约170dB@500km</td>
+<td>无法补偿</td>
+</tr>
+<tr>
+<td>终端功率低</td>
+<td>手机最大发射功率23dBm</td>
+<td>链路预算不足</td>
+</tr>
+<tr>
+<td>运动速度快</td>
+<td>LEO卫星速度约7.5km/s</td>
+<td>波束跟踪困难</td>
+</tr>
+<tr>
+<td>过顶时间短</td>
+<td>单颗卫星过顶约10分钟</td>
+<td>切换频繁</td>
+</tr>
+</tbody>
+</table>
+<p><strong>相控阵解决方案原理</strong>：</p>
+<p>相控阵天线通过电子控制波束指向，无需机械转动，具有以下优势：</p>
+<ol>
+<li><strong>快速波束扫描</strong>：微秒级波束切换，支持高速运动目标跟踪</li>
+<li><strong>多波束并行</strong>：同时服务多个地面用户，提升系统容量</li>
+<li><strong>高增益波束</strong>：大型阵列可实现45dBi+增益，补偿链路损耗</li>
+<li><strong>波束赋形灵活</strong>：动态调整波束宽度和方向，优化覆盖</li>
+</ol>
+<p><strong>相控阵天线数学模型</strong>：</p>
+<p>对于N元均匀线阵，方向图函数为：
+$$F(\theta) = \frac{\sin(N\psi/2)}{N\sin(\psi/2)}$$
+其中$\psi = kd\sin\theta + \beta$，k为波数，d为单元间距，β为相邻单元相位差。</p>
+<p>波束指向角度：
+$$\theta_0 = \arcsin\left(-\frac{\beta}{kd}\right)$$</p>
+<p>通过实时调整β，可实现波束快速扫描。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2.2 华为的在轨试验验证</h2>
+    <h2>2.2 华为在轨试验详解</h2>
     <p><strong>试验平台</strong>：哈工大龙江三号低轨宽带再生卫星
-<strong>试验结果</strong>（2025年MWC 2026期间发布）：</p>
-<ul>
-<li>下行最高谱效：4.21 bps/Hz</li>
-<li>上行最高谱效：2.7 bps/Hz</li>
-<li>下行最高吞吐：660 Mbps</li>
-<li>上行最高吞吐：135 Mbps</li>
-</ul>
+- 轨道高度：500km
+- 工作频段：Ka波段（20/30GHz）
+- 天线类型：相控阵天线，面积约2㎡</p>
+<p><strong>试验结果（2025年MWC发布）</strong>：
+| 指标 | 数值 | 说明 |
+|------|------|------|
+| 下行最高谱效 | 4.21 bps/Hz | 采用256-QAM调制 |
+| 上行最高谱效 | 2.7 bps/Hz | 受终端功率限制 |
+| 下行最高吞吐 | 660 Mbps | 单用户峰值 |
+| 上行最高吞吐 | 135 Mbps | 单用户峰值 |
+| 时延 | &lt;50ms | 满足V2X需求 |
+| 可靠性 | 99.9% | 误码率&lt;10^-6 |</p>
 <p><strong>技术亮点</strong>：</p>
+<ol>
+<li><strong>NR传输体制</strong>：基于5G NR协议，验证3GPP NTN标准可行性</li>
+<li><strong>再生卫星架构</strong>：星上处理信号，降低转发器复杂度</li>
+<li><strong>数字波束赋形</strong>：支持多波束并行，提升系统容量</li>
+<li><strong>多普勒补偿</strong>：自动补偿高速运动引起的频移</li>
+</ol>
+<p><strong>技术意义</strong>：</p>
 <ul>
-<li>基于NR传输体制完成LEO再生卫星在轨测试</li>
-<li>验证了3GPP NTN标准在低轨卫星的可行性</li>
-<li>华为已研发全套低轨卫星通信载荷，为6G制高点布局</li>
+<li>验证了低轨卫星直接服务手机的可行性</li>
+<li>为6G星地融合网络积累技术储备</li>
+<li>华为已掌握全套低轨卫星通信载荷技术</li>
 </ul>
   </article>
   
@@ -194,15 +241,18 @@
   
   <article class="card ">
     
-    <h2>2.3 相控阵天线技术路线对比</h2>
+    <h2>2.3 相控阵天线技术路线深度对比</h2>
     <table>
 <thead>
 <tr>
 <th>技术路线</th>
 <th>代表企业</th>
 <th>天线规模</th>
-<th>特点</th>
+<th>增益</th>
+<th>功耗</th>
+<th>成本</th>
 <th>成熟度</th>
+<th>适用场景</th>
 </tr>
 </thead>
 <tbody>
@@ -210,29 +260,71 @@
 <td>大型相控阵（&gt;50m²）</td>
 <td>AST SpaceMobile</td>
 <td>64㎡</td>
-<td>支持存量手机直连，但卫星成本高、功耗大</td>
+<td>55dBi</td>
+<td>10kW+</td>
+<td>极高</td>
 <td>试验阶段</td>
+<td>存量手机直连</td>
 </tr>
 <tr>
 <td>中型相控阵（10-50m²）</td>
 <td>华为/中兴</td>
-<td>-</td>
-<td>平衡成本与性能，适合低轨星座</td>
+<td>20㎡</td>
+<td>48dBi</td>
+<td>3kW</td>
+<td>高</td>
 <td>在轨验证</td>
+<td>低轨星座</td>
 </tr>
 <tr>
 <td>小型相控阵（&lt;10m²）</td>
-<td>传统卫星通信</td>
-<td>-</td>
-<td>需定制终端，速率有限</td>
+<td>传统卫星</td>
+<td>5㎡</td>
+<td>40dBi</td>
+<td>500W</td>
+<td>中</td>
 <td>商用阶段</td>
+<td>定制终端</td>
+</tr>
+<tr>
+<td>反射阵列天线</td>
+<td>SpaceX Starlink</td>
+<td>多层</td>
+<td>45dBi</td>
+<td>2kW</td>
+<td>中高</td>
+<td>在轨验证</td>
+<td>宽带互联网</td>
 </tr>
 </tbody>
 </table>
-<p><strong>关键趋势</strong>：</p>
+<p><strong>技术路线分析</strong>：</p>
+<p><strong>大型相控阵路线（美国主导）</strong>：</p>
 <ul>
-<li>美国AST、Starlink倾向"大型相控阵+存量手机"路线</li>
-<li>中国更倾向于"中型相控阵+定制/NTN手机"路线，兼顾性能与成本</li>
+<li>优势：支持存量手机直连，用户基数庞大</li>
+<li>劣势：卫星成本高（单颗&gt;1亿美元）、功耗大、部署周期长</li>
+<li>代表：AST SpaceMobile BlueWalker 3、Starlink V2</li>
+</ul>
+<p><strong>中型相控阵路线（中国主导）</strong>：</p>
+<ul>
+<li>优势：平衡成本与性能，适合大规模星座部署</li>
+<li>劣势：需要NTN兼容终端</li>
+<li>代表：华为/中兴低轨卫星载荷、中国星网</li>
+</ul>
+<p><strong>关键技术指标对比</strong>：
+| 指标 | 大型相控阵 | 中型相控阵 | 小型相控阵 |
+|------|-----------|-----------|-----------|
+| 天线增益 | 55dBi | 48dBi | 40dBi |
+| 波束宽度 | 0.5° | 1° | 3° |
+| 多波束数 | 100+ | 32-64 | 4-8 |
+| 扫描速度 | &lt;1ms | &lt;5ms | &lt;10ms |
+| 功耗效率 | 10W/dBi | 15W/dBi | 20W/dBi |</p>
+<p><strong>关键趋势判断</strong>：</p>
+<ul>
+<li>美国AST、Starlink倾向"大型相控阵+存量手机"路线，追求最大用户覆盖</li>
+<li>中国倾向于"中型相控阵+定制/NTN手机"路线，兼顾性能与成本</li>
+<li>欧洲采用混合路线，兼顾两种方案优势</li>
+<li>未来技术可能收敛，形成统一标准</li>
 </ul>
   </article>
   

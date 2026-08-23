@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">HoNi BAJR反射阵列pLEO战术SATCOM抗干扰</h1>
-  
+  <p class="lede">MIT Lincoln Laboratory于2026年6月发布HoNi BAJR反射阵列原型，相比传统相控阵功耗降低95%，支持多峰波束合成和实时旁瓣抑制，专为pLEO战术卫星通信场景设计，是小型卫星低成本抗干扰天线的突破性方案。</p>
   
 </header>
 
@@ -105,113 +105,139 @@
   
   <article class="card ">
     
-    <h2>主题概述：HoNi BAJR 反射阵列——pLEO 战术 SATCOM 的低功耗抗干扰新路线</h2>
-    <p>MIT Lincoln Laboratory 于 2026 年 6 月 26 日发布了 HoNi BAJR（Hosted Nimble Beamforming Anti-Jam Reflectarray）原型扫描反射阵列天线。与传统的有源相控阵不同，反射阵列通过无源反射元件实现波束成形，功耗降低约 95%，特别适合 pLEO（ proliferated LEO，大规模低轨卫星星座）等 SWaP-C 严格受限的场景。这是目前唯一在小型卫星平台上演示高扫描角、多峰波束合成和抗干扰抑制的反射阵列原型。</p>
+    <h2>一、主题概述</h2>
+    <p>HoNi BAJR（Hosted Nimble Beamforming Anti-Jam Reflectarray）是MIT Lincoln Laboratory开发的扫描反射阵列天线原型，专为pLEO（大规模低轨卫星星座）环境设计。传统相控阵每个天线单元都需要独立的功率放大器和射频链路，功耗随单元数线性增长。反射阵列采用无源反射单元阵列，信号在自由空间完成波束成形，仅需单个馈源天线，大幅降低SWaP（尺寸、重量、功耗）。这是目前唯一在小型卫星平台上演示高扫描角、多峰波束合成和抗干扰抑制的反射阵列原型。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>核心技术/原理：反射阵列 vs 相控阵的本质区别</h2>
-    <p>反射阵列（Reflectarray）是一种混合天线架构，介于抛物面反射器和相控阵之间：</p>
-<ul>
-<li>
-<p><strong>相控阵</strong>：每个天线单元连接一个 T/R 模块（含放大器、移相器），通过电子控制各单元的幅度和相位实现波束赋形。优点是波束切换快，缺点是 SWaP 极高——每个单元都需要独立的功放和射频链路。</p>
-</li>
-<li>
-<p><strong>反射阵列</strong>：表面由大量可独立控制的无源反射单元组成（HoNi BAJR 为 16×16 = 256 单元）。入射信号由馈源天线接收后，在自由空间与各反射单元相互作用，每个单元引入特定相移后反射向目标方向。<strong>不需要每个单元配备放大器</strong>，波束成形在自由空间完成。</p>
-</li>
-</ul>
-<p><strong>关键公式</strong>：反射阵列的辐射方向图由单元相位分布决定：</p>
-<p>$$E(\theta,\phi) = \sum_{n=1}^{N} a_n e^{j(n\psi + \beta_n)}$$</p>
-<p>其中 $\beta_n$ 是第 n 个反射单元的相位控制量，通过调节 $\beta_n$ 可实现波束指向和形状重构。</p>
-<p><strong>类比入口</strong>：相控阵像一支 256 人的交响乐团，每个人都有自己的乐器和指挥；反射阵列则像一面 256 片的智能镜子，光线照上来后每片镜子微调角度，共同把光反射到指定方向——不需要每片镜子都发光。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>行业应用：pLEO 战术 SATCOM 抗干扰</h2>
-    <p>HoNi BAJR 的核心应用场景是战术卫星通信在对抗环境中的抗干扰：</p>
+    <h2>二、核心技术/原理</h2>
+    <p><strong>反射阵列 vs 相控阵的本质区别</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>场景</th>
-<th>传统相控阵方案</th>
-<th>HoNi BAJR 反射阵列</th>
+<th>架构</th>
+<th>单元结构</th>
+<th>功耗来源</th>
+<th>波束控制</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>SWaP</td>
-<td>每个单元需功放，功耗高</td>
-<td>无需单元功放，功耗降 95%</td>
+<td>相控阵</td>
+<td>每个单元含PA+移相器</td>
+<td>单元数×单功耗</td>
+<td>电子切换（快）</td>
 </tr>
 <tr>
-<td>可扩展性</td>
-<td>重新设计波束成形网络</td>
-<td>单元简单，易于扩展规模</td>
-</tr>
-<tr>
-<td>抗干扰方式</td>
-<td>快速自适应波束置零</td>
-<td>实时塑造旁瓣抑制干扰区域</td>
-</tr>
-<tr>
-<td>适用平台</td>
-<td>大型卫星/地面站</td>
-<td>小型卫星/ CubeSat</td>
+<td>反射阵列</td>
+<td>无源反射单元</td>
+<td>仅馈源PA</td>
+<td>自由空间相移</td>
 </tr>
 </tbody>
 </table>
-<p><strong>pLEO 威胁模型</strong>：</p>
+<p><strong>核心公式</strong>：反射阵列辐射方向图由单元相位分布决定：</p>
+<p>$$E(\theta,\phi) = \sum_{n=1}^{N} a_n e^{j(n\psi + \beta_n)}$$</p>
+<p>其中β_n是第n个反射单元的相位控制量，通过调节β_n可实现波束指向和形状重构。</p>
+<p><strong>抗干扰机制</strong>：</p>
 <ul>
-<li>信号干扰（jamming）：敌方发射干扰信号阻断 SATCOM 链路</li>
-<li>信号情报（SIGINT）：敌方截获通信内容</li>
-<li>应对策略：实时改变波束形状，在干扰方向放置零陷（null），同时保持主瓣对准目标卫星</li>
+<li><strong>旁瓣抑制</strong>：通过整形波束旁瓣创建"干扰抑制区域"，而非针对单个干扰点逐个置零</li>
+<li><strong>多峰波束合成</strong>：可将波束分裂为多个峰值，同时服务多个用户</li>
+<li><strong>自适应波束赋形</strong>：基于DESRa和PhAB项目技术积累，实时适应干扰环境</li>
 </ul>
-<p><strong>多峰波束能力</strong>：测试显示反射阵列可以将波束分裂为多个峰值，同时服务多个用户而不丢失信息，这在传统相控阵中需要复杂的并行射频链路。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>竞品/同行动态</h2>
-    <ul>
-<li>
-<p><strong>银河航天 128 波束 ASIC 星载相控阵</strong>（2026.07.08 笔记）：中国方案，采用 ASIC 化有源相控阵，128 波束同时覆盖。优势是波束切换速度快、灵活度高；劣势是 SWaP 高。</p>
-</li>
-<li>
-<p><strong>DESRa / PhAB 项目</strong>（MIT Lincoln Lab 内部 R&amp;D）：HoNi BAJR 的前身技术验证，PhAB 已证明反射阵列可以实时置零抗干扰，但动态环境中波束调整速度可能不够。</p>
-</li>
-<li>
-<p><strong>传统有源相控阵</strong>（华为/中兴/泰雷兹）：当前军用 SATCOM 主流方案，成熟可靠但体积功耗大，不适合大规模星座部署。</p>
-</li>
-</ul>
-<p><strong>判断</strong>：反射阵列不是要替代相控阵，而是在特定场景（SWaP 极度受限、波束调度而非极速跟踪）下提供差异化选择。未来可能出现"相控阵 + 反射阵列"混合架构。</p>
+    <h2>三、行业应用</h2>
+    <p><strong>核心应用场景</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>传统方案</th>
+<th>HoNi BAJR优势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>战术SATCOM抗干扰</td>
+<td>大型相控阵基站</td>
+<td>功耗降95%，适配小型卫星</td>
+</tr>
+<tr>
+<td>pLEO星座互联</td>
+<td>星载相控阵</td>
+<td>SWaP极度受限场景首选</td>
+</tr>
+<tr>
+<td>边缘覆盖终端</td>
+<td>固定高增益天线</td>
+<td>可调波束，动态覆盖</td>
+</tr>
+<tr>
+<td>应急通信快速部署</td>
+<td>车载相控阵系统</td>
+<td>轻量化CubeSat平台可用</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>趋势判断</h2>
+    <h2>四、竞品/同行动态</h2>
+    <table>
+<thead>
+<tr>
+<th>机构/厂商</th>
+<th>方案</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MIT Lincoln Lab</td>
+<td>HoNi BAJR</td>
+<td>反射面+单一馈源，95%功耗降低</td>
+</tr>
+<tr>
+<td>SpaceX</td>
+<td>Starlink V2</td>
+<td>5倍天线尺寸，S-band ASIC相控阵</td>
+</tr>
+<tr>
+<td>银河航天</td>
+<td>第二代相控阵</td>
+<td>128波束ASIC化，功耗降20%</td>
+</tr>
+<tr>
+<td>Aalto大学</td>
+<td>Metacrystal</td>
+<td>被动式超晶体面板，6G室内覆盖</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判断</strong>：反射阵列不是要替代相控阵，而是在SWaP极度受限、波束调度而非极速跟踪场景下提供差异化选择。未来可能出现"相控阵+反射阵列"混合架构。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、趋势判断</h2>
     <ol>
-<li>
-<p><strong>反射阵列将在 pLEO 星座中占据一席之地</strong>。随着 Starlink、OneWeb 等大规模星座部署，卫星 SWaP 成本成为核心约束，反射阵列的低功耗优势将越来越重要。</p>
-</li>
-<li>
-<p><strong>校准是最大瓶颈</strong>。反射阵列缺乏成熟的校准流程，这是从原型走向商用的关键障碍。</p>
-</li>
-<li>
-<p><strong>旁瓣控制精度决定抗干扰能力</strong>。测试中旁瓣控制的小信号变化敏感性是主要技术挑战，需要更精密的单元设计和系统级校准。</p>
-</li>
-<li>
-<p><strong>与 ORIS/STARE 的交叉可能</strong>。反射阵列的可编程相位控制理念与智能超表面 RIS 高度相通，未来可能在同一硬件平台上融合两种技术。</p>
-</li>
+<li><strong>反射阵列将在pLEO星座中占据一席之地</strong>：随着Starlink、OneWeb等大规模星座部署，卫星SWaP成本成为核心约束，反射阵列的低功耗优势将越来越重要</li>
+<li><strong>校准是最大瓶颈</strong>：反射阵列缺乏成熟的校准流程，这是从原型走向商用的关键障碍</li>
+<li><strong>旁瓣控制精度决定抗干扰能力</strong>：测试中旁瓣控制对小信号变化敏感，需要更精密的单元设计和系统级校准</li>
+<li><strong>与ORIS/STARE的交叉可能</strong>：反射阵列的可编程相位控制理念与智能超表面RIS高度相通，未来可能在同一硬件平台融合</li>
 </ol>
   </article>
   
@@ -219,21 +245,24 @@
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
+    <h2>六、与老大的关联</h2>
     <ul>
-<li>
-<p><strong>产品线参考</strong>：中兴在星地融合 NTN 方向已有布局（中信科移动标准布局笔记），反射阵列可作为低轨卫星终端天线的备选方案之一，尤其在 SWaP 敏感场景。</p>
-</li>
-<li>
-<p><strong>技术互补</strong>：老大关注的 GigaMIMO 和 ORIS 都是大规模天线/超表面方向，反射阵列提供了另一种大规模天线实现路径——用无源元件替代有源 T/R 模块来降低成本。</p>
-</li>
-<li>
-<p><strong>产业情报</strong>：MIT Lincoln Lab 将此技术定位为战术 SATCOM 抗干扰方案，说明军方对低功耗抗干扰卫星通信天线的需求正在推动新技术路线发展。</p>
-</li>
+<li><strong>产品线参考</strong>：中兴在星地融合NTN方向已有布局，反射阵列可作为低轨卫星终端天线的备选方案，尤其在SWaP敏感场景</li>
+<li><strong>技术互补</strong>：老大关注的GigaMIMO和ORIS都是大规模天线/超表面方向，反射阵列提供了另一种大规模天线实现路径——用无源元件替代有源T/R模块来降低成本</li>
+<li><strong>产业情报</strong>：MIT将此技术定位为战术SATCOM抗干扰方案，说明军方对低功耗抗干扰卫星通信天线的需求正在推动新技术路线发展</li>
 </ul>
-<blockquote>
-<p>参考资料: <a href="https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626">MIT News - HoNi BAJR (2026.06.26)</a>, MIT Lincoln Laboratory Tactical Satellite Communications Group</p>
-</blockquote>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li><a href="https://news.mit.edu/2026/antenna-array-could-provide-protected-tactical-satellite-communications-low-earth-orbit-0626">MIT News - HoNi BAJR (2026.06.26)</a></li>
+<li><a href="https://interestingengineering.com/military/reflectarray-satellite-antenna-jamming">Interesting Engineering - New satellite antenna counters jamming</a></li>
+<li>MIT Lincoln Laboratory Tactical Satellite Communications Group</li>
+</ul>
   </article>
   
 

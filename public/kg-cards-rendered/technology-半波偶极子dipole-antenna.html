@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">半波偶极子Dipole-Antenna</h1>
-  
+  <p class="lede">半波偶极子是天线界的&#34;基元&#34;——两根λ/2金属棒，增益2.15dBi，输入阻抗73Ω，结构简单到任何时代都能造，但通过折叠、弯曲、堆叠、印刷可演化为从900MHz到300GHz、从2dBi到25dBi的各种变种，是5G毫米波阵列和6G超大规模MIMO的基础单元。</p>
   
 </header>
 
@@ -105,24 +105,11 @@
   
   <article class="card ">
     
-    <h2>2.1 折叠偶极子（Folded Dipole）</h2>
-    <p><strong>结构</strong>：两根平行的 λ/2 偶极子，两端连接，中间馈电。</p>
-<pre><code>    ────────┬────────
-            │
-         馈电点
-            │
-    ────────┴────────
-</code></pre>
-<p><strong>阻抗变换</strong>：</p>
-<pre><code>Z_folded = 4 × Z_dipole ≈ 292 Ω
-</code></pre>
-<p><strong>为什么用 4 倍？</strong>：电流在两根导体上平分，电压不变 → 阻抗变为 4 倍（Z = V²/P，功率变为 1/4）。</p>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>阻抗 292Ω → 需要 4:1 巴伦（Balun）变换到 50Ω</li>
-<li>带宽比单偶极子宽 2-3 倍（15-30% vs 8-15%）</li>
-<li>抗干扰能力强（差分结构）</li>
-<li>TV 天线、WiFi 天线常用</li>
+    <h2>基本结构</h2>
+    <ul>
+<li>总长度：L = λ/2 = c/(2f)，实际长度需打0.95折扣系数</li>
+<li>电流分布：I(z) = I₀ × sin(k(L/2 - |z|))，中心最大两端为零</li>
+<li>电压分布与电流相反（中心最小两端最大）</li>
 </ul>
   </article>
   
@@ -130,20 +117,13 @@
   
   <article class="card ">
     
-    <h2>2.2 V 型偶极子（V-Dipole / Inverted-V）</h2>
-    <p><strong>结构</strong>：两根臂向下倾斜一定角度（通常 90-120°）。</p>
-<pre><code>        ╲    ╱
-         ╲  ╱
-          ╳  ← 馈电点
-         ╱  ╲
-        ╱    ╲
-</code></pre>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>不需要桅杆支撑中间点</li>
-<li>阻抗降至约 50-60Ω（接近 50Ω 系统）</li>
-<li>方向图从"甜甜圈"变为"扁甜甜圈"（水平方向增益略有增加）</li>
-<li>便携电台、业余无线电常用</li>
+    <h2>辐射特性</h2>
+    <ul>
+<li>三维方向图：甜甜圈（toroid）</li>
+<li>E面方向图函数：∝ |cos(π/2 × cosθ)| / sinθ</li>
+<li>H面：圆形（全向）</li>
+<li>HPBW：78°（E面）</li>
+<li>方向性：D = 1.64 = 2.15 dBi = 0 dBd</li>
 </ul>
   </article>
   
@@ -151,21 +131,11 @@
   
   <article class="card ">
     
-    <h2>2.3 蝴蝶结天线（Bowtie / Biconical）</h2>
-    <p><strong>结构</strong>：两根三角形"翅膀"面对面放置。</p>
-<pre><code>    △       △
-   △△       △△
-  △△△     △△△
- ────────┬───────
-         │
-       馈电点
-</code></pre>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>带宽极宽（3:1 到 10:1 频率比）</li>
-<li>增益仍为 2.15dBi</li>
-<li>常用于 UHF/VHF 宽带接收</li>
-<li>NASA 深空通信使用双锥天线（biconical）变种</li>
+    <h2>输入阻抗</h2>
+    <ul>
+<li>λ/2处：Z_in = 73.1 + j42.5 Ω</li>
+<li>谐振时（约0.48λ）：Z_in ≈ 70 + j0 Ω</li>
+<li>73Ω接近75Ω同轴电缆可直接连接，与50Ω系统VSWR≈1.46可接受</li>
 </ul>
   </article>
   
@@ -173,250 +143,204 @@
   
   <article class="card ">
     
-    <h2>2.4 磁电偶极子（Magnetoelectric Dipole, MED）</h2>
-    <p><strong>结构</strong>：偶极子 + 微带贴片（E-field + H-field 同时辐射）。</p>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>带宽极宽（&gt; 100%）</li>
-<li>增益 6-8dBi（比普通偶极子高）</li>
-<li>前后比好（&gt; 20dB）</li>
-<li><strong>5G 毫米波阵列的主力单元</strong>（IEEE TAP 2019-2021 多篇论文）</li>
-</ul>
-<p><strong>2023 IEEE TAP 突破</strong>：平行折叠偶极子（PFD）+ 耦合槽馈电
-- 阻抗带宽 64%（17-33.75GHz）
-- 4×4 阵列峰值增益 17.5dBi
-- 总效率 69-82%</p>
+    <h2>五种主要变种</h2>
+    <p><strong>折叠偶极子（Folded Dipole）</strong>
+- 阻抗变换：Z_folded = 4 × Z_dipole ≈ 292 Ω
+- 带宽：15-30%（比普通偶极子宽2-3倍）
+- 需4:1巴伦变换到50Ω</p>
+<p><strong>V型偶极子（V-Dipole/Inverted-V）</strong>
+- 两臂向下倾斜90-120°
+- 阻抗降至50-60Ω接近50Ω系统
+- 便携电台、业余无线电常用</p>
+<p><strong>蝴蝶结天线（Bowtie/Biconical）</strong>
+- 带宽极宽（3:1到10:1频率比）
+- 增益仍为2.15dBi
+- NASA深空通信使用双锥天线变种</p>
+<p><strong>磁电偶极子（Magnetoelectric Dipole, MED）</strong>
+- 偶极子+微带贴片，E-field+H-field同时辐射
+- 带宽&gt;100%，增益6-8dBi
+- 前后比&gt;20dB
+- 5G毫米波阵列主力单元</p>
+<p><strong>印刷偶极子（Printed Dipole）</strong>
+- PCB蚀刻成型，成本低易批量生产
+- 尺寸受基板介电常数影响（L ∝ 1/√ε_r）
+- 5G毫米波AiP核心单元</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2.5 印刷偶极子（Printed Dipole）</h2>
-    <p><strong>结构</strong>：在 PCB 上蚀刻出的偶极子形状。</p>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>成本低，易于批量生产</li>
-<li>可与微带馈线直接集成</li>
-<li>尺寸受基板介电常数影响（L ∝ 1/√ε_r）</li>
-<li><strong>5G 毫米波 AiP 的核心单元</strong></li>
-</ul>
-<p><strong>2026 前沿</strong>：弯曲印刷偶极子（Curved Printed Dipole）
-- RO5880 基板，0.5mm 厚
-- 4 元端射阵列，峰值增益 8.85dBi
-- 覆盖 n257/n258/n261（22.79-29.7GHz）</p>
-<hr />
+    <h2>阵列应用</h2>
+    <p><strong>Yagi-Uda天线（八木天线）</strong>
+- 偶极子（有源）+反射器+引向器
+- 3单元增益7-8dBi，5单元10-11dBi，8单元12-13dBi</p>
+<p><strong>共线阵列（Collinear Array）</strong>
+- 多个偶极子沿轴向堆叠
+- 2单元5.15dBi（+3dB），4单元8.15dBi（+6dB），8单元11.15dBi（+9dB）</p>
+<p><strong>基站扇区天线</strong>
+- 8-16个偶极子堆叠+水平排列
+- 64单元（4×16）阵列，增益20-25dBi，HPBW水平6-10°垂直3-6°</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.1 Yagi-Uda 天线（八木天线）</h2>
-    <p><strong>结构</strong>：偶极子（有源）+ 反射器 + 1-N 个引向器。</p>
-<pre><code>    ← 引向器 ← [偶极子] → 反射器 →
-</code></pre>
-<p><strong>增益</strong>：
-| 单元数 | 增益 |
-|-------|------|
-| 3 单元（1 反射+1 有源+1 引向） | 7-8 dBi |
-| 5 单元 | 10-11 dBi |
-| 8 单元 | 12-13 dBi |</p>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>方向性强，前后比好</li>
-<li>带宽窄（~5%）</li>
-<li>电视天线、业余无线电经典选择</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.2 共线阵列（Collinear Array）</h2>
-    <p><strong>结构</strong>：多个偶极子沿轴向堆叠。</p>
-<pre><code>    ┌───┐
-    │ λ/2│
-    └───┘
-     │
-    ┌───┐
-    │ λ/2│
-    └───┘
-     │
-    ┌───┐
-    │ λ/2│
-    └───┘
-</code></pre>
-<p><strong>增益叠加</strong>：</p>
-<ul>
-<li>2 单元：5.15 dBi（+3dB）</li>
-<li>4 单元：8.15 dBi（+6dB）</li>
-<li>8 单元：11.15 dBi（+9dB）</li>
-</ul>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>水平全向，垂直方向图变窄</li>
-<li>基站扇区天线常用结构</li>
-<li>每个偶极子间距约 0.4-0.5λ</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.3 基站扇区天线</h2>
-    <p><strong>结构</strong>：8-16 个偶极子（或其变种）堆叠 + 水平排列。</p>
-<p><strong>典型参数</strong>（5G AAU）：
-| 参数 | 数值 |
-|------|------|
-| 单元数 | 64（4×16 阵列） |
-| 单个偶极子增益 | 2-3 dBi |
-| 阵列增益 | 20-25 dBi |
-| HPBW（水平） | 6-10° |
-| HPBW（垂直） | 3-6° |
-| 前后比 | &gt; 30dB |</p>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>四、偶极子的关键参数总结</h2>
+    <h2>变种对比</h2>
     <table>
 <thead>
 <tr>
-<th>参数</th>
-<th>半波偶极子</th>
-<th>折叠偶极子</th>
-<th>短偶极子(&lt;λ/10)</th>
-<th>全波偶极子(λ)</th>
+<th>变种类型</th>
+<th>增益</th>
+<th>带宽</th>
+<th>输入阻抗</th>
+<th>典型应用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>长度</td>
-<td>λ/2</td>
-<td>λ/2（双线）</td>
-<td>&lt;λ/10</td>
-<td>λ</td>
+<td>基本半波偶极子</td>
+<td>2.15dBi</td>
+<td>2-3%</td>
+<td>73Ω</td>
+<td>理论基准</td>
 </tr>
 <tr>
-<td>阻抗</td>
-<td>73+j42Ω</td>
-<td>292+j??Ω</td>
-<td>&lt;5Ω</td>
-<td>~5kΩ</td>
+<td>折叠偶极子</td>
+<td>2.15dBi</td>
+<td>15-30%</td>
+<td>292Ω</td>
+<td>电视天线、WiFi</td>
 </tr>
+<tr>
+<td>V型偶极子</td>
+<td>2-3dBi</td>
+<td>5-10%</td>
+<td>50-60Ω</td>
+<td>便携电台、业余无线电</td>
+</tr>
+<tr>
+<td>蝴蝶结天线</td>
+<td>2.15dBi</td>
+<td>3:1-10:1</td>
+<td>100-200Ω</td>
+<td>UHF/VHF宽带接收</td>
+</tr>
+<tr>
+<td>磁电偶极子</td>
+<td>6-8dBi</td>
+<td>&gt;100%</td>
+<td>50Ω</td>
+<td>5G毫米波阵列</td>
+</tr>
+<tr>
+<td>印刷偶极子</td>
+<td>2-5dBi</td>
+<td>10-20%</td>
+<td>50Ω</td>
+<td>5G毫米波AiP</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、应用场景</h2>
+    <table>
+<thead>
+<tr>
+<th>场景</th>
+<th>变种类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电视天线</td>
+<td>折叠偶极子</td>
+<td>宽带接收，阻抗匹配方便</td>
+</tr>
+<tr>
+<td>WiFi天线</td>
+<td>折叠偶极子</td>
+<td>2.4GHz/5GHz双频</td>
+</tr>
+<tr>
+<td>业余无线电</td>
+<td>V型偶极子</td>
+<td>便携、易搭建</td>
+</tr>
+<tr>
+<td>UHF/VHF宽带接收</td>
+<td>蝴蝶结天线</td>
+<td>NASA深空通信变种</td>
+</tr>
+<tr>
+<td>5G毫米波阵列</td>
+<td>MED、印刷偶极子</td>
+<td>5G AAU基础单元</td>
+</tr>
+<tr>
+<td>基站扇区天线</td>
+<td>共线阵列</td>
+<td>64单元阵列，20-25dBi</td>
+</tr>
+<tr>
+<td>6G太赫兹</td>
+<td>新型偶极子变种</td>
+<td>适应更短波长</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>典型值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>增益</td>
-<td>2.15dBi</td>
-<td>2.15dBi</td>
-<td>1.76dBi</td>
-<td>3.8dBi</td>
+<td>2.15-25 dBi</td>
+<td>取决于变种和阵列规模</td>
 </tr>
 <tr>
 <td>带宽</td>
-<td>8-15%</td>
-<td>15-30%</td>
-<td>&lt;1%</td>
-<td>10-20%</td>
+<td>2%-100%+</td>
+<td>MED&gt;100%，基本偶极子~2%</td>
 </tr>
 <tr>
-<td>方向图</td>
-<td>甜甜圈</td>
-<td>甜甜圈</td>
-<td>球形</td>
-<td>多瓣</td>
-</tr>
-</tbody>
-</table>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>单极子 = 偶极子 + 镜像</h2>
-    <pre><code>单极子:     偶极子:
-    │           │
-    │           │
-─── ───        ─── ───
-    │           │
-    │           │
-</code></pre>
-<p><strong>关系</strong>：</p>
-<ul>
-<li>单极子 = 偶极子的一半</li>
-<li>地面/金属平面提供镜像</li>
-<li>单极子长度 = λ/4（偶极子 = λ/2）</li>
-</ul>
-<p><strong>参数对比</strong>：
-| 参数 | 半波偶极子 | λ/4 单极子 |
-|------|----------|----------|
-| 长度 | λ/2 | λ/4 |
-| 阻抗 | 73Ω | 36.5Ω |
-| 增益 | 2.15dBi | 5.15dBi（相对各向同性） |
-| 方向图 | 甜甜圈 | 半球 |
-| 需要地面 | 否 | 是（至少 λ/4） |</p>
-<p><strong>关键洞察</strong>：单极子增益更高（5.15dBi vs 2.15dBi），不是因为辐射更强，而是因为能量被"压"到了半球空间——和偶极子比，它只是少了一半的"浪费方向"。</p>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.1 挑战</h2>
-    <ol>
-<li><strong>尺寸小</strong>：28GHz 时 λ/2 ≈ 5.4mm → 加工精度要求高</li>
-<li><strong>损耗大</strong>：PCB 基板损耗在毫米波频段显著</li>
-<li><strong>互耦强</strong>：单元间距小（~0.5λ），互耦影响阻抗和方向图</li>
-<li><strong>馈电网络复杂</strong>：64 路馈电，插入损耗累积</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.2 解决方案</h2>
-    <table>
-<thead>
-<tr>
-<th>技术</th>
-<th>方法</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MED（磁电偶极子）</td>
-<td>偶极子+贴片</td>
-<td>带宽&gt;100%，增益 6-8dBi</td>
+<td>输入阻抗</td>
+<td>50-292 Ω</td>
+<td>取决于变种类型</td>
 </tr>
 <tr>
-<td>弯曲偶极子</td>
-<td>弧形单元</td>
-<td>端射辐射，前后比&gt;20dB</td>
+<td>VSWR</td>
+<td>&lt;2:1</td>
+<td>可接受范围</td>
 </tr>
 <tr>
-<td>平行折叠偶极子</td>
-<td>双平行线+耦合槽</td>
-<td>带宽 64%，阻抗平坦</td>
+<td>HPBW（E面）</td>
+<td>78°（单偶极子）</td>
+<td>阵列后变窄</td>
 </tr>
 <tr>
-<td>3D 打印波导馈电</td>
-<td>步进波导</td>
-<td>低损耗，适合 Ka 波段</td>
-</tr>
-<tr>
-<td>超表面增强</td>
-<td>顶部加载 metamaterial</td>
-<td>增益提升 2-3dB</td>
+<td>前后比</td>
+<td>&gt;20dB（MED）</td>
+<td>抑制后向辐射</td>
 </tr>
 </tbody>
 </table>
@@ -426,34 +350,31 @@
   
   <article class="card ">
     
-    <h2>6.3 典型案例</h2>
-    <p><strong>MDPI 2024 超表面偶极子阵列</strong>：</p>
-<ul>
-<li>5×7 超表面单元加载</li>
-<li>23.2-45.3GHz 带宽</li>
-<li>峰值增益 8.02dBi（平均 6.59dBi）</li>
-<li>端射辐射，前后比&gt;15dB</li>
+    <h2>七、技术演进</h2>
+    <ul>
+<li>基本半波偶极子（1888年赫兹验证电磁波）：天线理论基石</li>
+<li>折叠偶极子（1940s）：宽带化改进，电视天线标配</li>
+<li>Yagi-Uda阵列（1920s）：偶极子+反射器+引向器，增益提升</li>
+<li>共线阵列（1950s）：轴向堆叠，垂直波束压缩</li>
+<li>磁电偶极子（2010s）：5G毫米波主力单元，带宽&gt;100%</li>
+<li>印刷偶极子（2020s）：5G毫米波AiP核心，PCB集成</li>
+<li>超表面偶极子阵列（2024-）：超表面加载提升增益和带宽</li>
 </ul>
-<p><strong>IEEE TAP 2023 平行折叠偶极子</strong>：</p>
-<ul>
-<li>4×4 阵列，17-33.75GHz</li>
-<li>峰值增益 17.5dBi</li>
-<li>总效率 69-82%</li>
-<li>扫描角 ±50°</li>
-</ul>
-<hr />
   </article>
   
 
   
   <article class="card ">
     
-    <h2>七、给非专业读者的一句话总结</h2>
-    <blockquote>
-<p><strong>偶极子是"天线界的基元"——就像乐高积木的最小块。一根 λ/2 的金属棒，增益 2.15dBi，结构简单到任何时代都能造。但把它折叠、弯曲、堆叠、印刷在电路板上，就能从 2dBi 干到 25dBi，从 900MHz 干到 300GHz。5G 基站里 64 根天线，每根的本质都是一个"进化版"的偶极子。</strong></p>
-</blockquote>
-<p><strong>金句</strong>：偶极子告诉你一个道理——<strong>最简单的结构往往最有生命力</strong>。一根棒子 + 一根棒子，解决了人类无线通信 100 年的基本问题。</p>
-<hr />
+    <h2>参考资料</h2>
+    <ul>
+<li>Wikipedia: Dipole antenna</li>
+<li>RF Essentials: What is a Dipole Antenna?</li>
+<li>IEEE TAP 2023: Parallel Folded Dipole Antenna for 5G mmWave</li>
+<li>MDPI 2024: Metamaterial-Integrated Dipole Array for 5G mmWave</li>
+<li>Ansys: The Half-Wave Dipole: Design</li>
+<li>ARRL Antenna Book (25th Ed.)</li>
+</ul>
   </article>
   
 

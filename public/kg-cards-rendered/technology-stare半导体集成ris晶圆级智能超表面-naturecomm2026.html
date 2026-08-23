@@ -105,6 +105,15 @@
   
   <article class="card ">
     
+    <h2>主题概述</h2>
+    <p>STARE（Semiconductor Transmit Array with Reconfigurable Elements）是首个采用标准半导体工艺制造的RIS系统，发表在Nature Communications 2026。该设计采用高阻硅基底+定制Selective Overlap Diode（SOD）二极管，实现180°相移控制和±45°波束扫描，工作频率15.5GHz。核心突破在于将RIS单元与CMOS工艺兼容，为大规模量产奠定基础。</p>
+<p><strong>核心价值</strong>：首次证明RIS可以用半导体代工厂的标准工艺制造，从"手工定制"走向"晶圆级量产"，成本有望降至传统方案的1/10。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>1.1 技术背景</h2>
     <p><strong>RIS（Reconfigurable Intelligent Surface，智能反射面）</strong>是6G核心使能技术之一：</p>
 <ul>
@@ -112,13 +121,13 @@
 <li>每个单元可独立控制电磁波的相位、幅度、极化</li>
 <li>通过软件定义无线传播环境，实现"智能反射"</li>
 </ul>
-<p><strong>当前RIS的技术瓶颈</strong>：</p>
-<ol>
-<li><strong>离散元件方案</strong>：基于PIN二极管、变容二极管或MEMS，体积大、功耗高、一致性差</li>
-<li><strong>液晶方案</strong>：响应慢（毫秒级）、温度敏感、功率容量低</li>
-<li><strong>半导体方案缺失</strong>：缺乏与CMOS工艺兼容的RIS实现路径</li>
-</ol>
-<p><strong>STARE的突破</strong>：首次采用标准半导体工艺制造RIS系统， bridging device-level fabrication与system-level beamforming。</p>
+<p><strong>当前RIS的技术瓶颈</strong>：
+| 瓶颈 | 传统方案问题 |
+|------|-------------|
+| 离散元件方案 | 基于PIN二极管、变容二极管或MEMS，体积大、功耗高、一致性差 |
+| 液晶方案 | 响应慢（毫秒级）、温度敏感、功率容量低 |
+| 半导体方案缺失 | 缺乏与CMOS工艺兼容的RIS实现路径 |</p>
+<p><strong>STARE的突破</strong>：首次采用标准半导体工艺制造RIS系统，bridging device-level fabrication与system-level beamforming。</p>
   </article>
   
 
@@ -133,14 +142,8 @@
 <li><strong>Vialess transmit-type unit cell</strong>：无过孔透射型单元，采用磁耦合而非传统垂直互连</li>
 <li><strong>高阻硅基底</strong>：降低衬底损耗，提升Q值</li>
 </ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1.3 工作原理</h2>
-    <pre><code>入射电磁波 → RIS单元阵列 → 相位调控 → 反射/透射波前整形 → 目标方向波束
+<p><strong>工作原理流程图</strong>：</p>
+<pre><code>入射电磁波 → RIS单元阵列 → 相位调控 → 反射/透射波前整形 → 目标方向波束
                 ↑
            DC偏置电压（控制二极管状态）
 </code></pre>
@@ -157,7 +160,7 @@
   
   <article class="card ">
     
-    <h2>2.1 Selective Overlap Diode (SOD)</h2>
+    <h2>1.3 Selective Overlap Diode (SOD)</h2>
     <p><strong>SOD是STARE的核心创新</strong>：</p>
 <table>
 <thead>
@@ -202,7 +205,7 @@
   
   <article class="card ">
     
-    <h2>2.2 Vialess透射型单元设计</h2>
+    <h2>1.4 Vialess透射型单元设计</h2>
     <p><strong>传统RIS单元问题</strong>：</p>
 <ul>
 <li>需要TSV（硅通孔）实现垂直互连</li>
@@ -221,7 +224,7 @@
   
   <article class="card ">
     
-    <h2>2.3 单元细胞设计</h2>
+    <h2>1.5 单元细胞设计</h2>
     <p><strong>单层STARE单元结构</strong>：</p>
 <ol>
 <li><strong>辐射单元</strong>：偶极子或微带贴片，工作于15.5GHz</li>
@@ -229,20 +232,20 @@
 <li><strong>偏置网络</strong>：DC馈电，RF接地</li>
 <li><strong>高阻硅基底</strong>：ρ &gt; 10kΩ·cm</li>
 </ol>
-<p><strong>性能指标</strong>：</p>
-<ul>
-<li>相移范围：180°（理想）/ 150°（实测）</li>
-<li>插入损耗：≤ 1.5 dB</li>
-<li>偏置电压：0-5V</li>
-<li>单元面积：λ₀/2 × λ₀/2 ≈ 5mm × 5mm @ 15.5GHz</li>
-</ul>
+<p><strong>性能指标</strong>：
+| 指标 | 数值 |
+|------|------|
+| 相移范围 | 180°（理想）/ 150°（实测） |
+| 插入损耗 | ≤ 1.5 dB |
+| 偏置电压 | 0-5V |
+| 单元面积 | λ₀/2 × λ₀/2 ≈ 5mm × 5mm @ 15.5GHz |</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2.4 阵列设计与波束赋形</h2>
+    <h2>1.6 阵列设计与波束赋形</h2>
     <p><strong>4×4 STARE阵列</strong>：</p>
 <ul>
 <li>总单元数：16个</li>
@@ -256,124 +259,6 @@
 <li><strong>查找表预编程</strong>：建立相位-电压映射表，实时查表控制</li>
 </ol>
 <p><strong>扫描范围</strong>：±45°（俯仰+方位）</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.1 技术路线对比</h2>
-    <table>
-<thead>
-<tr>
-<th>路线</th>
-<th>响应速度</th>
-<th>损耗</th>
-<th>功耗</th>
-<th>工艺</th>
-<th>成本</th>
-<th>成熟度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>STARE（本研究）</strong></td>
-<td>ns级</td>
-<td>低</td>
-<td>极低</td>
-<td><strong>CMOS兼容</strong></td>
-<td><strong>低</strong></td>
-<td>实验室</td>
-</tr>
-<tr>
-<td>PIN二极管RIS</td>
-<td>ns级</td>
-<td>中</td>
-<td>中</td>
-<td>混合</td>
-<td>中</td>
-<td>原型</td>
-</tr>
-<tr>
-<td>MEMS RIS</td>
-<td>μs级</td>
-<td>低</td>
-<td>极低</td>
-<td>特殊工艺</td>
-<td>高</td>
-<td>原型</td>
-</tr>
-<tr>
-<td>液晶RIS</td>
-<td>ms级</td>
-<td>高</td>
-<td>低</td>
-<td>PCB</td>
-<td>低</td>
-<td>商用早期</td>
-</tr>
-<tr>
-<td>变容二极管RIS</td>
-<td>ns级</td>
-<td>中</td>
-<td>中</td>
-<td>半导体</td>
-<td>中</td>
-<td>原型</td>
-</tr>
-</tbody>
-</table>
-<p><strong>STARE的优势</strong>：</p>
-<ul>
-<li>✅ 半导体工艺，可大规模量产</li>
-<li>✅ 无机械部件，可靠性高</li>
-<li>✅ 低功耗（仅需静态偏置）</li>
-<li>✅ 与IC集成，系统级优化</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.2 制造工艺</h2>
-    <p><strong>STARE制造流程</strong>：</p>
-<ol>
-<li><strong>高阻硅片准备</strong>：float-zone硅，ρ &gt; 10kΩ·cm</li>
-<li><strong>光刻定义</strong>：形成SOD二极管区域</li>
-<li><strong>离子注入</strong>：调整掺杂浓度</li>
-<li><strong>金属化</strong>：蒸发/溅射铜或铝</li>
-<li><strong>刻蚀</strong>：形成辐射单元和传输线</li>
-<li><strong>封装</strong>：陶瓷或有机基板封装</li>
-</ol>
-<p><strong>关键工艺参数</strong>：</p>
-<ul>
-<li>光刻分辨率：≤ 5μm</li>
-<li>金属厚度：2-5μm</li>
-<li>表面粗糙度：Ra &lt; 0.5μm</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.3 测试与验证</h2>
-    <p><strong>测试平台</strong>：</p>
-<ul>
-<li>微波暗室</li>
-<li>矢量网络分析仪（VNA）</li>
-<li>频谱分析仪</li>
-<li>直流电源（偏置控制）</li>
-</ul>
-<p><strong>关键测试项目</strong>：</p>
-<ol>
-<li><strong>S参数测量</strong>：S11（回波损耗）、S21（插入损耗）</li>
-<li><strong>相位响应测量</strong>：不同偏置电压下的反射相位</li>
-<li><strong>波束扫描测量</strong>：远场方向图</li>
-<li><strong>功耗测量</strong>：静态偏置功耗</li>
-<li><strong>温度稳定性测试</strong>：-40°C ~ +85°C</li>
-</ol>
   </article>
   
 
@@ -456,190 +341,73 @@
   
   <article class="card ">
     
-    <h2>5.1 射频性能</h2>
+    <h2>技术路线对比</h2>
     <table>
 <thead>
 <tr>
-<th>指标</th>
-<th>数值</th>
-<th>测试条件</th>
+<th>路线</th>
+<th>响应速度</th>
+<th>损耗</th>
+<th>功耗</th>
+<th>工艺</th>
+<th>成本</th>
+<th>成熟度</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>工作频段</td>
-<td>15.5 GHz</td>
-<td>D波段</td>
+<td><strong>STARE（本研究）</strong></td>
+<td>ns级</td>
+<td>低</td>
+<td>极低</td>
+<td><strong>CMOS兼容</strong></td>
+<td><strong>低</strong></td>
+<td>实验室</td>
 </tr>
 <tr>
-<td>相移范围</td>
-<td>180°</td>
-<td>理想 / 150°实测</td>
+<td>PIN二极管RIS</td>
+<td>ns级</td>
+<td>中</td>
+<td>中</td>
+<td>混合</td>
+<td>中</td>
+<td>原型</td>
 </tr>
 <tr>
-<td>插入损耗</td>
-<td>≤ 1.5 dB</td>
-<td>最大损耗状态</td>
+<td>MEMS RIS</td>
+<td>μs级</td>
+<td>低</td>
+<td>极低</td>
+<td>特殊工艺</td>
+<td>高</td>
+<td>原型</td>
 </tr>
 <tr>
-<td>波束扫描范围</td>
-<td>±45°</td>
-<td>俯仰+方位</td>
+<td>液晶RIS</td>
+<td>ms级</td>
+<td>高</td>
+<td>低</td>
+<td>PCB</td>
+<td>低</td>
+<td>商用早期</td>
 </tr>
 <tr>
-<td>回波损耗</td>
-<td>&lt; -10 dB</td>
-<td>匹配状态</td>
-</tr>
-<tr>
-<td>极化隔离度</td>
-<td>&gt; 20 dB</td>
-<td>线极化</td>
-</tr>
-<tr>
-<td>增益</td>
-<td>~12 dBi</td>
-<td>4×4阵列</td>
+<td>变容二极管RIS</td>
+<td>ns级</td>
+<td>中</td>
+<td>中</td>
+<td>半导体</td>
+<td>中</td>
+<td>原型</td>
 </tr>
 </tbody>
 </table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.2 控制性能</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>控制电压</td>
-<td>0-5 V</td>
-<td>单极性</td>
-</tr>
-<tr>
-<td>响应时间</td>
-<td>&lt; 10 ns</td>
-<td>SOD二极管开关</td>
-</tr>
-<tr>
-<td>静态功耗</td>
-<td>&lt; 1 mW/单元</td>
-<td>仅偏置网络功耗</td>
-</tr>
-<tr>
-<td>控制精度</td>
-<td>5.6°</td>
-<td>180°/32级</td>
-</tr>
-<tr>
-<td>通道数</td>
-<td>16</td>
-<td>4×4阵列</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.3 物理参数</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单元尺寸</td>
-<td>5mm × 5mm</td>
-</tr>
-<tr>
-<td>阵列尺寸</td>
-<td>20mm × 20mm</td>
-</tr>
-<tr>
-<td>厚度</td>
-<td>&lt; 1mm</td>
-</tr>
-<tr>
-<td>重量</td>
-<td>&lt; 5g</td>
-</tr>
-<tr>
-<td>基底材料</td>
-<td>高阻硅（ρ &gt; 10kΩ·cm）</td>
-</tr>
-<tr>
-<td>金属层</td>
-<td>铜（2-5μm）</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.4 环境适应性</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>工作温度</td>
-<td>-40°C ~ +85°C</td>
-</tr>
-<tr>
-<td>存储温度</td>
-<td>-55°C ~ +125°C</td>
-</tr>
-<tr>
-<td>湿度</td>
-<td>5% ~ 95% RH（非凝结）</td>
-</tr>
-<tr>
-<td>振动</td>
-<td>10-2000 Hz, 5g</td>
-</tr>
-<tr>
-<td>冲击</td>
-<td>50g, 11ms</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.1 工艺挑战</h2>
-    <p><strong>高阻硅材料获取</strong>：</p>
+<p><strong>STARE的优势</strong>：</p>
 <ul>
-<li>问题：高阻硅片价格昂贵，尺寸有限</li>
-<li>解决：与半导体代工厂合作，开发专用工艺</li>
-</ul>
-<p><strong>SOD二极管一致性</strong>：</p>
-<ul>
-<li>问题：工艺波动导致二极管参数分散</li>
-<li>解决：设计容差分析，增加校准电路</li>
+<li>✅ 半导体工艺，可大规模量产</li>
+<li>✅ 无机械部件，可靠性高</li>
+<li>✅ 低功耗（仅需静态偏置）</li>
+<li>✅ 与IC集成，系统级优化</li>
 </ul>
   </article>
   
@@ -647,88 +415,7 @@
   
   <article class="card ">
     
-    <h2>6.2 热管理</h2>
-    <p><strong>功耗累积</strong>：</p>
-<ul>
-<li>问题：大规模阵列总功耗不可忽视</li>
-<li>解决：优化偏置网络，采用动态功耗管理</li>
-</ul>
-<p><strong>温度稳定性</strong>：</p>
-<ul>
-<li>问题：二极管参数随温度漂移</li>
-<li>解决：温度补偿算法，或选择温度不敏感工作点</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.3 校准与测试</h2>
-    <p><strong>生产测试成本高</strong>：</p>
-<ul>
-<li>问题：每个单元需单独校准</li>
-<li>解决：批量测试方案，自动化校准</li>
-</ul>
-<p><strong>长期可靠性验证</strong>：</p>
-<ul>
-<li>问题：半导体RIS长期稳定性未知</li>
-<li>解决：加速寿命测试，建立失效模型</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.4 系统集成</h2>
-    <p><strong>与现有通信系统兼容</strong>：</p>
-<ul>
-<li>问题：STARE需要与控制基带协同工作</li>
-<li>解决：定义标准接口协议，推动标准化</li>
-</ul>
-<p><strong>大规模部署成本</strong>：</p>
-<ul>
-<li>问题：单位面积成本需足够低</li>
-<li>解决：晶圆级制造，规模效应</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>7.1 历史脉络</h2>
-    <ul>
-<li><strong>2018年</strong>：早期RIS概念提出（MIT Ekmet基本理论）</li>
-<li><strong>2020年</strong>：RIS原型验证（PIN二极管方案）</li>
-<li><strong>2022年</strong>：RIS标准化启动（3GPP Rel-18研究）</li>
-<li><strong>2024年</strong>：RIS外场试验（中国电信3.5GHz验证）</li>
-<li><strong>2025年</strong>：半导体RIS概念提出（多篇论文）</li>
-<li><strong>2026年</strong>：<strong>STARE首次实现（首尔大学，Nature Communications）</strong></li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>7.2 关键技术突破节点</h2>
-    <ol>
-<li><strong>2018</strong>：RIS概念验证</li>
-<li><strong>2020</strong>：PIN二极管RIS原型</li>
-<li><strong>2022</strong>：MEMS RIS低损耗方案</li>
-<li><strong>2024</strong>：液晶RIS商用化尝试</li>
-<li><strong>2025</strong>：半导体RIS理论设计</li>
-<li><strong>2026</strong>：<strong>STARE实验验证（本论文）</strong></li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>7.3 对比同期工作</h2>
+    <h2>与同期工作对比</h2>
     <table>
 <thead>
 <tr>
@@ -741,7 +428,7 @@
 </thead>
 <tbody>
 <tr>
-<td>首尔大学（本研究）</td>
+<td><strong>首尔大学（本研究）</strong></td>
 <td>2026</td>
 <td>15.5GHz</td>
 <td><strong>CMOS兼容</strong></td>
@@ -776,23 +463,61 @@
   
   <article class="card ">
     
-    <h2>8.1 当前阶段：实验室原型验证</h2>
-    <p><strong>成熟度等级</strong>：实验室原理验证阶段</p>
-<p><strong>判断依据</strong>：</p>
-<ol>
-<li>✅ 原理验证完成（15.5GHz 180°相移）</li>
-<li>✅ 芯片流片成功（高阻硅工艺）</li>
-<li>⚠️ 频率较低（15.5GHz，非6G目标频段）</li>
-<li>⚠️ 阵列规模小（4×4=16单元）</li>
-<li>⚠️ 距离有限（近场测试为主）</li>
-</ol>
+    <h2>产业动态</h2>
+    <table>
+<thead>
+<tr>
+<th>机构</th>
+<th>技术路线</th>
+<th>标准化进展</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3GPP Rel-18</strong></td>
+<td>RIS标准化研究</td>
+<td>信道建模启动</td>
+</tr>
+<tr>
+<td><strong>RISTA联盟</strong></td>
+<td>全球RIS技术生态</td>
+<td>白皮书发布</td>
+</tr>
+<tr>
+<td><strong>中兴通讯</strong></td>
+<td>BD-RIS超对角架构</td>
+<td>专利布局中</td>
+</tr>
+<tr>
+<td><strong>华为</strong></td>
+<td>AI-RAN+RIS协同</td>
+<td>6G星穹架构</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>8.2 产业化时间表预测</h2>
+    <h2>技术成熟度评估</h2>
+    <p><strong>当前阶段</strong>：实验室原型验证（TRL 3-4）</p>
+<p><strong>成熟度等级判断依据</strong>：
+| 项目 | 状态 |
+|------|------|
+| 原理验证完成 | ✅ 15.5GHz 180°相移 |
+| 芯片流片成功 | ✅ 高阻硅工艺 |
+| 频率覆盖6G目标 | ⚠️ 15.5GHz偏低（目标60GHz+） |
+| 阵列规模 | ⚠️ 4×4=16单元（太小） |
+| 测试距离 | ⚠️ 近场测试为主 |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业化时间表预测</h2>
     <table>
 <thead>
 <tr>
@@ -830,19 +555,66 @@
   
   <article class="card ">
     
-    <h2>8.3 与老大的关联</h2>
-    <p><strong>对中兴U6G项目的价值</strong>：</p>
-<ol>
-<li><strong>技术对标</strong>：STARE半导体路线 vs 中兴现有RIS方案</li>
-<li><strong>工艺参考</strong>：高阻硅工艺对中兴供应链的参考价值</li>
-<li><strong>专利预警</strong>：首尔大学STARE专利布局分析</li>
-<li><strong>合作机会</strong>：与韩国学术界合作可能性</li>
-</ol>
-<p><strong>研究建议</strong>：</p>
+    <h2>关键技术突破节点</h2>
+    <table>
+<thead>
+<tr>
+<th>年份</th>
+<th>突破</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018</td>
+<td>RIS概念验证</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>PIN二极管RIS原型</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>MEMS RIS低损耗方案</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>液晶RIS商用化尝试</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>半导体RIS理论设计</td>
+</tr>
+<tr>
+<td><strong>2026</strong></td>
+<td><strong>STARE实验验证（本论文）</strong></td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>工程挑战与坑</h2>
+    <p><strong>工艺挑战</strong>：
+| 问题 | 解决方案 |
+|------|---------|
+| 高阻硅材料获取 | 与半导体代工厂合作，开发专用工艺 |
+| SOD二极管一致性 | 设计容差分析，增加校准电路 |</p>
+<p><strong>热管理</strong>：</p>
 <ul>
-<li>跟踪首尔大学后续论文（Nature Communications后续研究）</li>
-<li>关注3GPP RIS标准化进展（Rel-19/20）</li>
-<li>评估STARE路线与中兴现有方案的兼容性</li>
+<li>问题：大规模阵列总功耗不可忽视</li>
+<li>解决：优化偏置网络，采用动态功耗管理</li>
+<li>问题：二极管参数随温度漂移</li>
+<li>解决：温度补偿算法，或选择温度不敏感工作点</li>
+</ul>
+<p><strong>校准与测试</strong>：</p>
+<ul>
+<li>问题：每个单元需单独校准</li>
+<li>解决：批量测试方案，自动化校准</li>
+<li>问题：长期可靠性未知</li>
+<li>解决：加速寿命测试，建立失效模型</li>
 </ul>
   </article>
   
@@ -850,12 +622,13 @@
   
   <article class="card ">
     
-    <h2>9.1 短期（1-2年）</h2>
-    <ol>
-<li><strong>频率提升</strong>：从15.5GHz向60GHz/140GHz演进</li>
-<li><strong>阵列扩大</strong>：从4×4向16×16/32×32扩展</li>
-<li><strong>智能控制</strong>：AI辅助的实时波束优化</li>
-<li><strong>标准制定</strong>：3GPP Rel-19可能启动RIS标准化</li>
+    <h2>1. 技术对标价值</h2>
+    <p><strong>对中兴U6G项目的价值</strong>：</p>
+<ol>
+<li><strong>技术对标</strong>：STARE半导体路线 vs 中兴现有RIS方案</li>
+<li><strong>工艺参考</strong>：高阻硅工艺对中兴供应链的参考价值</li>
+<li><strong>专利预警</strong>：首尔大学STARE专利布局分析</li>
+<li><strong>合作机会</strong>：与韩国学术界合作可能性</li>
 </ol>
   </article>
   
@@ -863,25 +636,82 @@
   
   <article class="card ">
     
-    <h2>9.2 中期（3-5年）</h2>
-    <ol>
-<li><strong>6G标准落地</strong>：ITU-R确定RIS相关频段和参数</li>
-<li><strong>芯片集成</strong>：RIS控制器与基带芯片集成</li>
-<li><strong>多频段融合</strong>：Sub-6GHz + 毫米波 + 亚太赫兹多频段RIS</li>
-<li><strong>应用场景落地</strong>：6G基站、卫星互联网首批商用</li>
-</ol>
+    <h2>2. 关键参数记录</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>STARE值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频率</td>
+<td>15.5 GHz</td>
+<td>需提升至60GHz+</td>
+</tr>
+<tr>
+<td>相移范围</td>
+<td>180°</td>
+<td>理想值</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>≤ 1.5 dB</td>
+<td>较低损耗</td>
+</tr>
+<tr>
+<td>波束扫描范围</td>
+<td>±45°</td>
+<td>俯仰+方位</td>
+</tr>
+<tr>
+<td>静态功耗</td>
+<td>&lt; 1 mW/单元</td>
+<td>极低功耗</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>&lt; 10 ns</td>
+<td>ns级响应</td>
+</tr>
+<tr>
+<td>单元尺寸</td>
+<td>5mm × 5mm</td>
+<td>λ₀/2间距</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>9.3 长期（5年以上）</h2>
+    <h2>3. 研究建议</h2>
+    <ul>
+<li>跟踪首尔大学后续论文（Nature Communications后续研究）</li>
+<li>关注3GPP RIS标准化进展（Rel-19/20）</li>
+<li>评估STARE路线与中兴现有方案的兼容性</li>
+</ul>
+<p><strong>与已有笔记的关联</strong>：</p>
+<ul>
+<li>[[技术概念-清华SC-RIS自控制智能超表面-20260705]]：自控制 vs 半导体工艺对比</li>
+<li>[[技术概念-6G RIS半导体集成与近场XL-MIMO波束域-20260809]]：晶圆级制造趋势</li>
+<li>[[技术概念-6G独立双极化RIS单元设计-20260818]]：PCB级 vs 芯片级路线互补</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
     <ol>
-<li><strong>全息RIS</strong>：3D立体波束控制</li>
-<li><strong>通感一体化</strong>：RIS同时支持通信和感知</li>
-<li><strong>量子RIS</strong>：与量子通信结合</li>
-<li><strong>能源收集</strong>：RIS同时实现无线能量收集</li>
+<li>Kim et al., "STARE: a semiconductor-integrated transmit-array architecture for 6G beamforming", Nature Communications, 2026. (DOI: 10.1038/s41467-026-74911-2)</li>
+<li>Seoul National University News, "STARE: First Semiconductor-Foundry-Manufacturable RIS", 2026.</li>
+<li>arXiv:2601.08326, "From Antenna Abundance to Antenna Intelligence in 6G Gigantic MIMO Systems", Jan 2026.</li>
 </ol>
   </article>
   

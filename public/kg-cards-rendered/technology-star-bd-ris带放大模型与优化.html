@@ -105,40 +105,17 @@
   
   <article class="card ">
     
-    <h2>从被动到主动：RIS 放大的必然性</h2>
-    <p>传统 RIS 由大量无源可调元件组成，信号经过 RIS 时经历"基站→RIS→用户"两段衰落，称为乘性衰落（multiplicative fading）。当元件数量增大时，信号衰减反而更严重，这限制了 RIS 的实际部署价值。</p>
-<p>Active RIS 通过在部分或全部元件中集成功率放大器来抵消乘性衰落，但现有建模存在两个问题：</p>
-<ol>
-<li><strong>缺乏物理一致性</strong>：很多论文把放大器简化为理想增益，忽略了实际功放的非线性约束和功耗模型</li>
-<li><strong>仅支持单向</strong>：大多数 Active RIS 只考虑反射模式，无法覆盖 RIS 两侧的用户</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>STAR-RIS：全空间覆盖</h2>
-    <p>STAR-RIS（Space-Time-Amplitude-Ranging / Simultaneously Transmitting and Reflecting RIS）在 2021 年提出，每个单元可同时控制反射和透射两端的信号，实现全空间覆盖。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>BD-RIS：跨元互连</h2>
-    <p>BD-RIS（Beyond-Diagonal RIS）打破传统 RIS 各元件独立的假设，通过阻抗网络实现元件间的互连耦合，散射矩阵不再是对角阵，自由度大幅提升。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>STAR-BD-RIS + 放大：三者融合</h2>
-    <p>Sheemar et al.（arXiv 2603.06020 / Open MIND 2026）首次将 STAR-RIS、BD-RIS 和有源放大三者融合，建立了完整的物理一致信号模型和优化框架。</p>
-<p>核心创新：</p>
+    <h2>一、主题概述</h2>
+    <p><strong>STAR-BD-RIS（Simultaneously Transmitting and Reflecting Beyond-Diagonal RIS with Amplification）</strong>是RIS技术的最新演进方向，首次将三种关键技术融合：</p>
 <ul>
-<li><strong>逐元放大增益矩阵</strong>：每个 STAR-BD-RIS 单元可独立控制放大倍数</li>
+<li><strong>STAR-RIS</strong>：全空间覆盖（同时透射和反射）</li>
+<li><strong>BD-RIS</strong>：跨元互连（打破元件独立假设，引入耦合矩阵）</li>
+<li><strong>有源放大</strong>：补偿乘性衰落（在元件中集成功率放大器）</li>
+</ul>
+<p><strong>为什么重要</strong>：传统RIS面临"乘性衰落"问题——信号经历基站→RIS→用户两段衰落，元件越多衰减越严重。STAR-BD-RIS通过有源放大解决这个问题，同时保持全空间覆盖和高自由度优势。</p>
+<p><strong>核心创新</strong>：</p>
+<ul>
+<li><strong>逐元放大增益矩阵</strong>：每个STAR-BD-RIS单元可独立控制放大倍数</li>
 <li><strong>反射/透射功率分配比</strong>：每个单元决定多少信号反射、多少透射</li>
 <li><strong>被动跨对角耦合矩阵</strong>：元件间的互连耦合结构（非对角散射矩阵）</li>
 <li>三要素解耦建模，使优化问题可分解求解</li>
@@ -149,23 +126,36 @@
   
   <article class="card ">
     
-    <h2>1. 物理一致信号模型</h2>
+    <h2>2.1 从被动到主动：RIS放大的必然性</h2>
+    <p>传统RIS由大量无源可调元件组成，信号经过RIS时经历"基站→RIS→用户"两段衰落，称为乘性衰落（multiplicative fading）。当元件数量增大时，信号衰减反而更严重，这限制了RIS的实际部署价值。</p>
+<p>Active RIS通过在部分或全部元件中集成功率放大器来抵消乘性衰落，但现有建模存在两个问题：</p>
+<ol>
+<li><strong>缺乏物理一致性</strong>：很多论文把放大器简化为理想增益，忽略了实际功放的非线性约束和功耗模型</li>
+<li><strong>仅支持单向</strong>：大多数Active RIS只考虑反射模式，无法覆盖RIS两侧的用户</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 物理一致信号模型</h2>
     <p>接收信号模型：</p>
 <p>$$\mathbf{y} = \left(\mathbf{H}<em>{dr} \boldsymbol{\Theta}_r + \mathbf{H}</em>{dt} \boldsymbol{\Theta}_t\right) \boldsymbol{\Phi} \mathbf{G} \mathbf{s} + \mathbf{n}$$</p>
 <p>其中：</p>
 <ul>
-<li>$\mathbf{G}$：基站→RIS 的信道</li>
+<li>$\mathbf{G}$：基站→RIS的信道</li>
 <li>$\mathbf{H}_{dr}$：RIS→用户的反射信道</li>
 <li>$\mathbf{H}_{dt}$：RIS→用户的透射信道</li>
 <li>$\boldsymbol{\Theta}_r$：反射增益矩阵（对角元素为反射放大系数）</li>
 <li>$\boldsymbol{\Theta}_t$：透射增益矩阵（对角元素为透射放大系数）</li>
-<li>$\boldsymbol{\Phi}$：BD-RIS 跨对角耦合散射矩阵（非对角）</li>
+<li>$\boldsymbol{\Phi}$：BD-RIS跨对角耦合散射矩阵（非对角）</li>
 <li>约束条件：$\boldsymbol{\Theta}<em>r + \boldsymbol{\Theta}_t \leq \boldsymbol{\Theta}</em>{\max}$（总功率分配约束）</li>
 </ul>
 <p>与传统模型的差异：</p>
 <ul>
-<li>传统 Active RIS：$\boldsymbol{\Phi} = \mathbf{I}$（对角阵，无跨元耦合）</li>
-<li>传统 STAR-RIS：无放大（$\boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t$ 仅含相位旋转）</li>
+<li>传统Active RIS：$\boldsymbol{\Phi} = \mathbf{I}$（对角阵，无跨元耦合）</li>
+<li>传统STAR-RIS：无放大（$\boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t$仅含相位旋转）</li>
 <li>STAR-BD-RIS with Amplification：三者同时存在，建模复杂度呈指数增长</li>
 </ul>
   </article>
@@ -174,16 +164,16 @@
   
   <article class="card ">
     
-    <h2>2. 三要素解耦与交替优化</h2>
-    <p>优化目标：最大化系统 sum-rate</p>
+    <h2>2.3 三要素解耦与交替优化</h2>
+    <p>优化目标：最大化系统sum-rate</p>
 <p>$$\max_{\boldsymbol{\Phi}, \boldsymbol{\Theta}<em>r, \boldsymbol{\Theta}_t} \sum</em>{k=1}^{K} R_k(\boldsymbol{\Phi}, \boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t)$$</p>
 <p>受限于：</p>
 <ul>
 <li>功放功率约束</li>
 <li>反射/透射功率分配约束</li>
-<li>BD-RIS 散射矩阵无源性约束</li>
+<li>BD-RIS散射矩阵无源性约束</li>
 </ul>
-<p><strong>交替优化框架（WMMSE 转化）</strong>：</p>
+<p><strong>交替优化框架（WMMSE转化）</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -198,13 +188,13 @@
 <td>1</td>
 <td>反射增益 $\boldsymbol{\Theta}_r$</td>
 <td>$\boldsymbol{\Phi}, \boldsymbol{\Theta}_t$</td>
-<td>WMMSE 加权最小均方误差转化</td>
+<td>WMMSE加权最小均方误差转化</td>
 </tr>
 <tr>
 <td>2</td>
 <td>透射增益 $\boldsymbol{\Theta}_t$</td>
 <td>$\boldsymbol{\Phi}, \boldsymbol{\Theta}_r$</td>
-<td>WMMSE 加权最小均方误差转化</td>
+<td>WMMSE加权最小均方误差转化</td>
 </tr>
 <tr>
 <td>3</td>
@@ -220,23 +210,23 @@
   
   <article class="card ">
     
-    <h2>3. 复 Stiefel 流形上的黎曼梯度步</h2>
-    <p>BD-RIS 耦合矩阵 $\boldsymbol{\Phi}$ 需满足无源性约束（散射矩阵的奇异值 ≤ 1），这等价于 $\boldsymbol{\Phi}$ 位于复 Stiefel 流形上。</p>
+    <h2>2.4 复Stiefel流形上的黎曼梯度步</h2>
+    <p>BD-RIS耦合矩阵$\boldsymbol{\Phi}$需满足无源性约束（散射矩阵的奇异值≤1），这等价于$\boldsymbol{\Phi}$位于复Stiefel流形上。</p>
 <p>优化方法：</p>
 <ul>
 <li>在流形上计算黎曼梯度</li>
-<li>使用 QR 分解或 polar 分解进行重traction（retraction），确保每步迭代后仍满足无源性约束</li>
+<li>使用QR分解或polar分解进行重traction（retraction），确保每步迭代后仍满足无源性约束</li>
 <li>结合循环坐标降级（cyclic coordinate descent），每次只更新一个子块</li>
 </ul>
-<p><strong>关键性质</strong>：该算法被严格证明具有单调下降收敛性——每次迭代 sum-rate 不会下降。</p>
+<p><strong>关键性质</strong>：该算法被严格证明具有单调下降收敛性——每次迭代sum-rate不会下降。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 循环坐标降级（CCD）</h2>
-    <p>对于 STAR 功率分配比的更新：</p>
+    <h2>2.5 循环坐标降级（CCD）</h2>
+    <p>对于STAR功率分配比的更新：</p>
 <ul>
 <li>固定其他参数，逐个单元优化其反射/透射功率分配比</li>
 <li>闭式解或一维搜索即可得到最优分配</li>
@@ -248,8 +238,9 @@
   
   <article class="card ">
     
-    <h2>三种架构对比</h2>
-    <table>
+    <h2>3.1 实现方式与分类</h2>
+    <p><strong>三种架构对比</strong>：</p>
+<table>
 <thead>
 <tr>
 <th>架构</th>
@@ -262,7 +253,7 @@
 <tbody>
 <tr>
 <td>全连接有源</td>
-<td>所有元件互连 + 每个元件带功放</td>
+<td>所有元件互连+每个元件带功放</td>
 <td>N</td>
 <td>最高</td>
 <td>高密度用户、极端覆盖</td>
@@ -276,79 +267,134 @@
 </tr>
 <tr>
 <td>混合有源/无源</td>
-<td>表面分区：一部分被动 BD-RIS + 一部分主动 BD-RIS</td>
+<td>表面分区：一部分被动BD-RIS+一部分主动BD-RIS</td>
 <td>&lt;N</td>
 <td>灵活</td>
 <td>成本敏感场景</td>
 </tr>
 </tbody>
 </table>
-<p>STAR-BD-RIS 的灵活性在于可以在三种架构间切换，通过调整耦合矩阵 $\boldsymbol{\Phi}$ 的结构来适配不同场景。</p>
+<p>STAR-BD-RIS的灵活性在于可以在三种架构间切换，通过调整耦合矩阵$\boldsymbol{\Phi}$的结构来适配不同场景。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 6G 基站全空间覆盖增强</h2>
-    <p>STAR-BD-RIS 可同时服务基站两侧的用户（如室内+室外），配合有源放大解决乘性衰落，是 6G 基站的理想覆盖增强方案。</p>
+    <h2>3.2 典型应用场景</h2>
+    <p><strong>6G基站全空间覆盖增强</strong>
+- STAR-BD-RIS可同时服务基站两侧的用户（如室内+室外）
+- 配合有源放大解决乘性衰落
+- 是6G基站的理想覆盖增强方案</p>
+<p><strong>低空通感一体化</strong>
+- BD-RIS增强的自由度使其天然适合ISAC系统
+- STAR-BD-RIS在有源放大的加持下，可同时增强通信链路和感知波束
+- 特别适合无人机通感一体化场景</p>
+<p><strong>隐蔽通信与安全传输</strong>
+- Meta-DRL驱动的BD-RIS可在3GPP合规信道模型下将Secrecy Rate提升25-30%
+- 加入STAR和放大后，可进一步利用透射端做安全信号干扰</p>
+<p><strong>卫星地面协同</strong>
+- STAR-BD-RIS的透射能力可用于地面-卫星链路的中继增强
+- 特别适合城市峡谷等信号遮挡严重的场景</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 低空通感一体化</h2>
-    <p>BD-RIS 增强的自由度使其天然适合 ISAC 系统。STAR-BD-RIS 在有源放大的加持下，可同时增强通信链路和感知波束，特别适合无人机通感一体化场景。</p>
+    <h2>四、竞品/同行动态</h2>
+    <p><strong>学术界研究动态</strong>：</p>
+<ul>
+<li><strong>卢森堡大学SnT团队</strong>：STAR-BD-RIS放大模型（arXiv 2603.06020 / Open MIND 2026）</li>
+<li><strong>帕多瓦大学</strong>：Active BD-RIS理论体系（Shen/Clerckx等）</li>
+<li><strong>清华大学</strong>：SC-RIS自控制超表面（2025）</li>
+<li><strong>中兴通讯</strong>：ORIS有源RIS原型（2025）</li>
+<li><strong>SORIS团队</strong>：自组织架构，消除导频链路（2026.01）</li>
+</ul>
+<p><strong>产业界跟进</strong>：</p>
+<ul>
+<li><strong>ZTE</strong>：动态RIS 2.0有源化升级方向</li>
+<li><strong>华为/爱立信</strong>：关注RIS标准化进程，6G候选技术之一</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 隐蔽通信与安全传输</h2>
-    <p>Mirza et al. (CSNT 2026) 已证明 Meta-DRL 驱动的 BD-RIS 可在 3GPP 合规信道模型下将 Secrecy Rate 提升 25-30%。加入 STAR 和放大后，可进一步利用透射端做安全信号干扰。</p>
+    <h2>短期（1-2年）</h2>
+    <ul>
+<li>混合有源/无源STAR-BD-RIS原型验证</li>
+<li>信道估计开销降低（参考SORIS自组织思路）</li>
+<li>功放非线性失真与线性度权衡工程化</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 卫星地面协同</h2>
-    <p>STAR-BD-RIS 的透射能力可用于地面-卫星链路的中继增强，特别是在城市峡谷等信号遮挡严重的场景中。</p>
+    <h2>中期（3-5年）</h2>
+    <ul>
+<li>STAR-BD-RIS小规模商用试点</li>
+<li>与5G-Advanced基站集成</li>
+<li>功耗管理策略成熟化</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 功放非线性失真</h2>
-    <p>实际功放在接近饱和区工作时会产生非线性失真，影响信号质量。需要在放大增益和线性度之间做权衡。</p>
+    <h2>长期（5年以上）</h2>
+    <ul>
+<li>STAR-BD-RIS + SORIS自组织融合</li>
+<li>成为6G基础设施标配</li>
+<li>与半导体工艺深度融合（晶圆级制造）</li>
+</ul>
+<p><strong>核心判断</strong>：</p>
+<ul>
+<li>STAR-BD-RIS代表RIS从被动走向主动、从单向走向全空间的关键一步</li>
+<li>三要素解耦建模使优化问题可分解求解，为工程实现提供理论基础</li>
+<li>与ZTE动态RIS 2.0的有源化升级方向高度契合</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 硬件实现复杂度</h2>
-    <p>BD-RIS 的跨元耦合需要精密的阻抗网络设计，在毫米波频段实现难度显著增加。有源放大进一步增加了热管理和功耗控制的要求。</p>
+    <h2>6.1 技术参考</h2>
+    <ul>
+<li><strong>RIS技术路线选择</strong>：被动RIS vs Active RIS vs STAR-RIS vs BD-RIS vs STAR-BD-RIS的技术权衡</li>
+<li><strong>有源化路径</strong>：全有源 vs 混合有源/无源的工程取舍</li>
+<li><strong>优化算法</strong>：交替优化框架与WMMSE转化方法可借鉴</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 信道估计开销</h2>
-    <p>STAR-BD-RIS 的优化变量包括耦合矩阵 $\boldsymbol{\Phi}$、反射增益 $\boldsymbol{\Theta}_r$、透射增益 $\boldsymbol{\Theta}_t$，维度远超传统对角 RIS。如何高效估计级联信道是部署瓶颈。</p>
-<p><strong>解决方向</strong>：可参考 SORIS 的自组织信道估计思路，减少对外部导频链路的依赖。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 功耗管理</h2>
-    <p>有源放大意味着额外的功耗。在大规模部署场景下，功耗控制直接影响运营成本。需要精细的功率分配策略。</p>
+    <h2>6.2 行业洞察</h2>
+    <ul>
+<li><strong>标准化机会</strong>：3GPP R19/R20是参与RIS标准制定的关键窗口</li>
+<li><strong>产业链位置</strong>：关注STAR-BD-RIS单元设计与集成的市场机会</li>
+<li><strong>竞争策略</strong>：传统RIS厂商需要向有源化、全空间化演进</li>
+</ul>
+<p><strong>对质量管理的启示</strong>：</p>
+<ol>
+<li>STAR-BD-RIS单元的性能测试标准（相位精度、放大增益、插入损耗、耦合矩阵特性）将成为新的质量评估维度</li>
+<li>三要素协同优化的测试方法需要建立</li>
+<li>混合有源/无源架构下的功耗与能效评估框架需提前研究</li>
+</ol>
+<p><strong>工程挑战与坑</strong>：</p>
+<ol>
+<li><strong>功放非线性失真</strong>：实际功放在接近饱和区工作时会产生非线性失真，影响信号质量</li>
+<li><strong>硬件实现复杂度</strong>：BD-RIS的跨元耦合需要精密的阻抗网络设计，毫米波频段难度显著增加</li>
+<li><strong>信道估计开销</strong>：优化变量维度远超传统对角RIS，高效估计级联信道是部署瓶颈</li>
+<li><strong>功耗管理</strong>：有源放大意味着额外功耗，大规模部署场景下需精细的功率分配策略</li>
+</ol>
   </article>
   
 
@@ -357,16 +403,16 @@
     
     <h2>七、技术演进</h2>
     <ul>
-<li><strong>2018</strong>：RIS 概念提出（Di Renzo 团队），被动反射型</li>
-<li><strong>2021</strong>：STAR-RIS 提出，实现同时透射反射</li>
-<li><strong>2023</strong>：BD-RIS 提出，引入跨元互连</li>
-<li><strong>2024</strong>：Active RIS 出现，部分元件集成功放</li>
-<li><strong>2025</strong>：清华 SC-RIS 自控制超表面，中兴 ORIS 原型</li>
-<li><strong>2026.01</strong>：SORIS 自组织架构，消除导频链路</li>
-<li><strong>2026.03</strong>：Active BD-RIS 理论体系建立（Shen/Clerckx 等）</li>
-<li><strong>2026.03</strong>：STAR-BD-RIS 放大模型（Sheemar 等，卢森堡/帕多瓦），本文主题</li>
-<li><strong>2026.04</strong>：Active BD-RIS 收发混合模式（Fu Liu 等），全空间覆盖</li>
-<li><strong>2026.05</strong>：混合有源/无源 BD-RIS 架构族（Ntougias/Krikidis）</li>
+<li><strong>2018年</strong>：RIS概念提出（Di Renzo团队），被动反射型</li>
+<li><strong>2021年</strong>：STAR-RIS提出，实现同时透射反射</li>
+<li><strong>2023年</strong>：BD-RIS提出，引入跨元互连</li>
+<li><strong>2024年</strong>：Active RIS出现，部分元件集成功放</li>
+<li><strong>2025年</strong>：清华SC-RIS自控制超表面，中兴ORIS原型</li>
+<li><strong>2026.01</strong>：SORIS自组织架构，消除导频链路</li>
+<li><strong>2026.03</strong>：Active BD-RIS理论体系建立（Shen/Clerckx等）</li>
+<li><strong>2026.03</strong>：STAR-BD-RIS放大模型（Sheemar等，卢森堡/帕多瓦）← 本笔记核心</li>
+<li><strong>2026.04</strong>：Active BD-RIS收发混合模式（Fu Liu等），全空间覆盖</li>
+<li><strong>2026.05</strong>：混合有源/无源BD-RIS架构族（Ntougias/Krikidis）</li>
 </ul>
   </article>
   
@@ -374,18 +420,13 @@
   
   <article class="card ">
     
-    <h2>十、与老大的关联</h2>
-    <ol>
-<li>
-<p><strong>中兴动态 RIS 2.0 升级路径</strong>：ZTE 已在动态 RIS 2.0 上积累深厚，STAR-BD-RIS 的有源放大和全空间覆盖能力是下一代产品的自然演进方向。建议在产品规划中将 STAR-BD-RIS 列为重点跟踪技术。</p>
-</li>
-<li>
-<p><strong>6G 标准布局</strong>：3GPP Rel-20/21 已开始研究 RIS 相关特性，STAR-BD-RIS 的理论和优化成果可作为中兴在标准提案中的技术储备。</p>
-</li>
-<li>
-<p><strong>知识图谱完整性</strong>：这篇笔记补充了 Active BD-RIS/SORIS 笔记（20260716）之后 STAR-BD-RIS 这一重要分支的独立成篇，形成了从被动→主动→BD→STAR-BD→SORIS 的完整知识链。</p>
-</li>
-</ol>
+    <h2>九、参考资料</h2>
+    <ul>
+<li>Sheemar et al., "STAR-BD-RIS with Amplification: Physical Consistent Model and Optimization," arXiv:2603.06020, 2026.</li>
+<li>Open MIND 2026 proceedings.</li>
+<li>Mirza et al., "Meta-DRL for BD-RIS Enhanced Secrecy Communication," CSNT 2026.</li>
+<li>Shen, C., Clerckx, B., et al., "Active BD-RIS: Theory and Practice," IEEE TWC, 2026.</li>
+</ul>
   </article>
   
 

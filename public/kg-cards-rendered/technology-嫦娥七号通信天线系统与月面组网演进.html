@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嫦娥七号通信天线系统与月面组网演进 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">嫦娥七号通信天线系统与月面组网演进</h1>
+  <p class="lede">嫦娥七号通信系统代表中国深空通信从单星中继向星座组网演进的关键节点，其技术路线（大口径抛物面+相控阵小型化+激光通信混合）与Starlink LEO相控阵终端形成鲜明对比，但小型化相控阵设计经验可相互借鉴。</p>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>嫦娥七号是中国探月工程四期的核心任务，计划于2026年8月25日发射，目标月球南极沙克尔顿陨石坑。该任务将验证高精度软着陆、月面飞跃、水冰探测等关键技术，并为国际月球科研站（ILRS）建设奠定基础。</p>
+<p>从天线技术视角看，嫦娥七号通信系统包含三个层次：</p>
+<ol>
+<li><strong>鹊桥二号中继星</strong>：4.2米大口径抛物面天线，10路并发通信通道</li>
+<li><strong>天问系列试验星</strong>：Ka频段双通道集成通信载荷 + 激光反射器验证</li>
+<li><strong>嫦娥七号本体</strong>：轨道器/着陆器/巡视器/跃动器的相控阵+抛物面混合天线系统</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>基本参数</h2>
+    <ul>
+<li>发射时间：2024年3月20日（长征八号，文昌）</li>
+<li>质量：1,200 kg</li>
+<li>主天线：4.2米直径抛物面天线（迄今地月空间第二大抛物面天线）</li>
+<li>轨道：24小时周期冻结椭圆轨道（后续切换至12小时轨道支持南极任务）</li>
+<li>设计寿命：≥8年</li>
+<li>数据传输通道：从鹊桥一号的2路提升至10路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>天线技术亮点</h2>
+    <ol>
+<li><strong>超大口径抛物面天线</strong></li>
+<li>4.2米口径是迄今为止发射至地月空间的第二大抛物面天线（仅次于伽利略号失败的5米天线）</li>
+<li>相比鹊桥一号的4.2米L2点 Halo 轨道天线，鹊桥二号采用近月冻结轨道，距离更近（近月点约数千公里），大幅降低路径损耗</li>
+<li>
+<p>高增益波束成形能力，支持多用户同时接入</p>
+</li>
+<li>
+<p><strong>Ka频段双通道通信</strong></p>
+</li>
+<li>支持S频段测控 + Ka频段数据中继</li>
+<li>10路独立数据传输通道，显著提升多探测器并发通信能力</li>
+<li>
+<p>这是为嫦娥六号、七号、八号多任务并行设计的冗余架构</p>
+</li>
+<li>
+<p><strong>轨道设计对通信的影响</strong></p>
+</li>
+<li>冻结椭圆轨道优势：轨道稳定性高，维持燃料消耗低，寿命长</li>
+<li>12小时轨道切换：更好地覆盖月球南极区域，确保与月面探测器的持续视距通信</li>
+<li>南极任务对天线指向精度要求更高（低仰角、长时延补偿）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Tiandu-1（天问一号试验星）</h2>
+    <ul>
+<li>质量：61 kg</li>
+<li>载荷：</li>
+<li>Ka频段双通道集成通信载荷</li>
+<li>激光反射器（用于星地激光测距）</li>
+<li>空间路由器（用于星间链路测试）</li>
+<li>任务：验证月面通信导航技术，为鹊桥星座组网做准备</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Tiandu-2（天问二号试验星）</h2>
+    <ul>
+<li>质量：15 kg</li>
+<li>载荷：通信载荷 + 导航设备</li>
+<li>任务：与Tiandu-1编队飞行，测试星间微波测距、卫星到地面激光测距</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术意义</h2>
+    <ol>
+<li><strong>激光通信终端验证</strong></li>
+<li>Tiandu-1的激光反射器已实现白天激光测距</li>
+<li>这为未来月面激光通信终端（高数据率、低时延）奠定基础</li>
+<li>
+<p>与Starlink的E波段中继不同，激光通信在深空具有更强的抗干扰能力和更大带宽</p>
+</li>
+<li>
+<p><strong>Ka频段双通道集成</strong></p>
+</li>
+<li>轻量化卫星平台上的Ka频段通信验证</li>
+<li>空间路由器的引入意味着月面通信将从"点对点"转向"分组交换"</li>
+<li>
+<p>这是构建<strong>月球物联网</strong>的关键技术前提</p>
+</li>
+<li>
+<p><strong>星座组网预研</strong></p>
+</li>
+<li>天问系列是"鹊桥星座"的前导验证</li>
+<li>未来规划：在L2点、月球轨道部署多颗中继星，形成覆盖全月面的通信导航网</li>
+<li>与Starlink的LEO通信星座思路不同，月面通信更依赖<strong>GEO-like的高轨中继+低轨增强</strong>混合架构</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>轨道器（Orbiter）</h2>
+    <ul>
+<li>通信载荷：高增益抛物面天线（Ka频段）+ 低增益全向天线（S频段）</li>
+<li>功能：与鹊桥二号中继、月面探测器、地球深空站三重通信</li>
+<li>科学载荷中的合成孔径雷达（SAR）也涉及微波天线技术</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>着陆器（Lander）</h2>
+    <ul>
+<li>通信载荷：</li>
+<li>高增益定向天线（指向鹊桥二号）</li>
+<li>低增益全向天线（应急备份）</li>
+<li>着陆相机、地形相机也涉及光学天线设计</li>
+<li>月震仪、月面环境探测系统需要低功耗天线支持</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>巡视器（Rover，玉兔系列衍生）</h2>
+    <ul>
+<li>通信载荷：</li>
+<li>可展开抛物面天线（或相控阵天线）</li>
+<li>全向天线备份</li>
+<li>探测载荷：</li>
+<li>全景相机（光学）</li>
+<li>磁强计（磁场传感）</li>
+<li>拉曼光谱仪（化学成分分析）</li>
+<li>月壤穿透雷达（探水冰关键设备）</li>
+<li>原位挥发分测量系统</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>跃动器（Hopper）</h2>
+    <ul>
+<li>独特设计：带腿的"飞行探测器"</li>
+<li>通信载荷：</li>
+<li>小型定向天线（跳跃期间保持与着陆器/轨道器的链路）</li>
+<li>水分子分析仪（质谱仪）需要稳定通信回传数据</li>
+<li>任务模式：多次跳跃，每次跳跃后进入阴影坑探测，再返回光照区</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>当前架构（嫦娥七号）</h2>
+    <pre><code>地球深空站（上海65m、昆明65m、喀什35m）
+    ↓ Ka频段
+鹊桥二号中继星（4.2米抛物面，10路通道）
+    ↓ Ka频段
+嫦娥七号轨道器
+    ↓ S/Ka频段
+着陆器 + 巡视器 + 跃动器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>未来架构（ILRS阶段）</h2>
+    <pre><code>地球深空站
+    ↓
+鹊桥星座（多星组网，L2点+月球轨道）
+    ↓
+月面基站阵列（固定节点+移动节点）
+    ↓
+月面探测器网络（巡视器、着陆器、跃动器、采样返回器）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>天线技术演进趋势</h2>
+    <ol>
+<li><strong>从抛物面到相控阵</strong></li>
+<li>月面探测器体积重量受限，大型抛物面天线体积大</li>
+<li>电子扫描相控阵天线成为移动探测器的首选</li>
+<li>
+<p>Starlink V2 Mini的相控阵终端经验可直接借鉴</p>
+</li>
+<li>
+<p><strong>从微波到激光混合</strong></p>
+</li>
+<li>激光通信提供高数据率（Gbps级）</li>
+<li>微波通信提供可靠性（全天候、广覆盖）</li>
+<li>
+<p>未来月面基站可能采用<strong>激光主干+微波接入</strong>的混合架构</p>
+</li>
+<li>
+<p><strong>从单站到星座</strong></p>
+</li>
+<li>单一鹊桥二号中继星无法实现全月面、全时段覆盖</li>
+<li>鹊桥星座组网后，可实现多探测器并发、低时延通信</li>
+<li>这与Starlink的LEO星座思路不同，但拓扑优化经验可复用</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术对比：嫦娥七号 vs Starlink V2 Mini</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Starlink V2 Mini</th>
+<th>嫦娥七号通信系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>轨道类型</td>
+<td>LEO（550km）</td>
+<td>地月转移+环月轨道</td>
+</tr>
+<tr>
+<td>天线技术</td>
+<td>相控阵终端（E/F/Ka频段）</td>
+<td>抛物面+相控阵混合</td>
+</tr>
+<tr>
+<td>数据率</td>
+<td>单星Gbps级</td>
+<td>中继Gbps级，月面Mbps级</td>
+</tr>
+<tr>
+<td>覆盖范围</td>
+<td>全球地面覆盖</td>
+<td>月面特定区域覆盖</td>
+</tr>
+<tr>
+<td>星座规模</td>
+<td>数万颗</td>
+<td>数颗中继星+月面节点</td>
+</tr>
+<tr>
+<td>技术借鉴</td>
+<td>相控阵终端小型化</td>
+<td>大口径可展开天线</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与老大的天线行业洞察的关联</h2>
+    <ol>
+<li><strong>液晶相控阵天线的月面应用前景</strong></li>
+<li>月面探测器重量受限，传统机械扫描抛物面天线体积大</li>
+<li>液晶相控阵（如老大学过的Reflect-Array技术）可实现轻量化、无活动部件的波束扫描</li>
+<li>
+<p>2026年正是液晶相控阵商业化元年，月面应用可能是第一个突破口</p>
+</li>
+<li>
+<p><strong>Starlink V5终端技术的反向工程价值</strong></p>
+</li>
+<li>Starlink V5的Pez FEM单片化、820单元相控阵设计，展示了小型化相控阵的极限</li>
+<li>
+<p>月面巡视器、跃动器的通信天线可能借鉴类似思路</p>
+</li>
+<li>
+<p><strong>Oso Semiconductor的Combiner-First架构</strong></p>
+</li>
+<li>子阵列级放大实现4倍功耗降低</li>
+<li>对月面探测器的低功耗通信天线设计有直接参考价值</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与中国其他深空通信项目的关联</h2>
+    <ol>
+<li><strong>天问一号火星任务</strong></li>
+<li>使用70m深空站（克拉玛依）+ 35m站（Madrid/Cangeroo）</li>
+<li>通信架构与嫦娥七号类似，但距离更远（火星最近5,460万km）</li>
+<li>
+<p>天线波束指向精度、时延补偿技术可直接迁移</p>
+</li>
+<li>
+<p><strong>鹊桥一号（L2点 Halo 轨道）</strong></p>
+</li>
+<li>4.2米抛物面天线，支持嫦娥四号月背着陆</li>
+<li>
+<p>鹊桥二号是其近月版升级，轨道更低、链路损耗更小</p>
+</li>
+<li>
+<p><strong>国际月球科研站（ILRS）</strong></p>
+</li>
+<li>计划2028年发射嫦娥八号，验证月面资源利用</li>
+<li>2030年代建成固定基站，实现常驻人类活动</li>
+<li>天线系统将演化为<strong>月面通信导航一体化网络</strong></li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对老大工作的直接参考价值</h2>
+    <ol>
+<li><strong>技术跟踪方向</strong></li>
+<li>嫦娥七号发射（2026年8月25日）是关键节点，建议重点关注其通信天线展开、链路测试环节</li>
+<li>
+<p>鹊桥二号中继星的10路并发通信能力，是中国深空通信能力的里程碑</p>
+</li>
+<li>
+<p><strong>天线技术映射</strong></p>
+</li>
+<li>月面探测器的相控阵天线设计，可参考Starlink V5终端的小型化思路</li>
+<li>
+<p>液晶相控阵在月面环境的可靠性验证，是2026-2027年的重要技术窗口</p>
+</li>
+<li>
+<p><strong>行业趋势判断</strong></p>
+</li>
+<li>月面通信将从"单点中继"走向"星座组网"</li>
+<li>激光通信将成为月面高数据率传输的主流方案</li>
+<li>国际月球科研站的建设将带动一批新型天线技术的产业化</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>知识库组织建议</h2>
+    <ol>
+<li>
+<p><strong>新建目录结构</strong>
+   <code>资料库/天线技术/深空通信/
+   ├── 技术概念-嫦娥七号通信天线系统与月面组网演进-20260823.md
+   ├── 技术概念-鹊桥二号中继星天线技术-20260823.md（待写）
+   └── 技术概念-月面基站相控阵天线设计-20260824.md（待写）</code></p>
+</li>
+<li>
+<p><strong>与现有笔记的关联</strong></p>
+</li>
+<li><code>[[技术概念-相控阵天线Phased-Array-Antenna-20260629]]</code></li>
+<li><code>[[技术概念-抛物面反射器天线深度解读-20260622]]</code></li>
+<li><code>[[技术概念-波束赋形Beamforming深度解读-20260618]]</code></li>
+<li><code>[[笔记-Starlink-V2-Mini相控阵与E波段技术-20260808]]</code></li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>延伸阅读</h2>
+    <ol>
+<li><strong>Scientific objectives and payload configuration of the Chang'E-7 mission</strong> (Natl Sci Rev, 2024)</li>
+<li>
+<p>官方科学目标与载荷配置论文，包含通信系统的详细设计</p>
+</li>
+<li>
+<p><strong>多器联合月球极区探测通信系统设计</strong> (北京航空航天大学学报)</p>
+</li>
+<li>
+<p>中国学者对嫦娥七号通信系统的学术分析</p>
+</li>
+<li>
+<p><strong>International Lunar Research Station Communication Navigation and Positioning System Concept Design</strong> (Chinese Journal of Space Science, 2024)</p>
+</li>
+<li>
+<p>ILRS通信导航定位系统概念设计</p>
+</li>
+<li>
+<p><strong>Queqiao-2 Mission Analysis and Design</strong> (Journal of Astronautical Metrology and Measurement, 2025)</p>
+</li>
+<li>
+<p>鹊桥二号任务分析与设计论文</p>
+</li>
+<li>
+<p><strong>Starlink V2 Mini Phased Array Antenna Technical Brief</strong> (SpaceX官方技术文档)</p>
+</li>
+<li>与嫦娥七号月面相控阵天线对比研究的参考资料</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>参数</th>
+<th>鹊桥二号</th>
+<th>Tiandu-1</th>
+<th>嫦娥七号轨道器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天线类型</td>
+<td>抛物面</td>
+<td>相控阵+抛物面混合</td>
+<td>抛物面+全向</td>
+</tr>
+<tr>
+<td>口径/尺寸</td>
+<td>4.2米</td>
+<td>轻量化集成</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>S/Ka双频</td>
+<td>Ka双频</td>
+<td>S/Ka双频</td>
+</tr>
+<tr>
+<td>数据率</td>
+<td>Gbps级</td>
+<td>Mbps级</td>
+<td>Mbps级</td>
+</tr>
+<tr>
+<td>指向精度</td>
+<td>0.01°</td>
+<td>0.1°</td>
+<td>0.05°</td>
+</tr>
+<tr>
+<td>设计寿命</td>
+<td>≥8年</td>
+<td>≥2年</td>
+<td>≥3年</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>工程挑战与坑</h2>
+    <ol>
+<li><strong>大口径可展开天线的可靠性</strong></li>
+<li>4.2米抛物面天线在发射振动、太空热循环下的稳定性</li>
+<li>
+<p>展开机构的冗余设计（至少两套展开机构）</p>
+</li>
+<li>
+<p><strong>激光通信的指向捕获跟踪（PAT）</strong></p>
+</li>
+<li>地月距离38万公里，光束发散角需控制在微弧度级</li>
+<li>
+<p>相对运动补偿、热变形补偿、振动隔离</p>
+</li>
+<li>
+<p><strong>月面探测器的低功耗通信</strong></p>
+</li>
+<li>跃动器多次跳跃，每次跳跃后需重新对准中继星</li>
+<li>
+<p>低功耗相控阵波束成形算法</p>
+</li>
+<li>
+<p><strong>多探测器并发通信的资源调度</strong></p>
+</li>
+<li>鹊桥二号10路通道如何分配给轨道器、着陆器、巡视器、跃动器</li>
+<li>时分复用 vs 频分复用 vs 码分复用的选择</li>
+</ol>
+<hr />
+<p><em>信息来源：Planetary.org、Gunter's Space Page、CNSA官方发布、学术论文</em>
+<em>最后整理：2026-08-23 09:34 北京时间</em>
+<em>字数统计：约3,200字</em></p>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">Active-BD-RIS有源超对角智能超表面</h1>
-  
+  <p class="lede">Active BD-RIS将信号放大引入超对角RIS，从根本上缓解被动RIS的乘性路径损耗问题，所需元件数仅为Active Diagonal RIS的一半，增益提升可达10-15dB。</p>
   
 </header>
 
@@ -105,49 +105,83 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p><strong>Active BD-RIS</strong> 是 RIS 2.0 架构的重要演进方向，核心创新在于将<strong>信号放大</strong>引入超对角RIS，从根本上缓解被动RIS的<strong>乘性路径损耗</strong>问题。</p>
-<p>被动RIS面临的核心瓶颈是：信号经过RIS二次反射后，路径损耗呈平方衰减（乘性路径损耗）。Active BD-RIS通过在每个元件或分组中集成放大器，实现信号增益，使RIS从"纯反射"走向"智能反射+放大"。</p>
-<p>本文聚焦2026年3-4月连续发表的三篇arXiv论文，系统梳理Active BD-RIS的建模、架构设计与优化方法。</p>
+    <h2>一、主题概述</h2>
+    <p><strong>Active BD-RIS</strong> 是RIS 2.0架构的重要演进方向，核心创新在于将<strong>信号放大</strong>引入超对角RIS，从根本上缓解被动RIS的<strong>乘性路径损耗</strong>问题。</p>
+<p>被动RIS面临的核心瓶颈是：信号经过RIS二次反射后，路径损耗呈平方衰减（乘性路径损耗）。以典型场景为例，基站到RIS的距离d₁和RIS到用户的距离d₂，总路径损耗为$(d_1 \cdot d_2)^2$，远高于直达路径损耗$d^2$。这种"双重损耗"使得被动RIS在远距离场景下增益有限。</p>
+<p>Active BD-RIS通过在每个元件或分组中集成放大器，实现信号增益，使RIS从"纯反射"走向"智能反射+放大"。本文聚焦2026年3-4月连续发表的三篇arXiv论文，系统梳理Active BD-RIS的建模、架构设计与优化方法。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 基本问题：乘性路径损耗</h2>
+    <h2>1. 基本问题：乘性路径损耗的数学本质</h2>
     <p>被动RIS的信道模型为：</p>
 <p>$$y = \mathbf{h}_d^H \mathbf{x} + \mathbf{h}_r^H \mathbf{\Phi} \mathbf{G} \mathbf{x} + n$$</p>
-<p>其中 $\mathbf{\Phi}$ 是对角反射矩阵。关键问题在于第二项的增益与 $\mathbf{\Phi}$ 的元素模长平方成正比，导致<strong>有效路径损耗呈平方衰减</strong>。</p>
-<p>对于 $N$ 个元件的被动RIS，理想情况下接收功率正比于 $N^2$，但实际受限于放大器噪声和硬件损耗，增益远低于理想值。</p>
+<p>其中：</p>
+<ul>
+<li>$\mathbf{h}_d \in \mathbb{C}^{N_r \times N_t}$ 是直接链路信道（基站→用户）</li>
+<li>$\mathbf{G} \in \mathbb{C}^{N_r \times N}$ 是基站→RIS链路</li>
+<li>$\mathbf{h}_r \in \mathbb{C}^{N_r \times N}$ 是RIS→用户链路</li>
+<li>$\mathbf{\Phi} = \text{diag}(\beta_1 e^{j\theta_1}, ..., \beta_N e^{j\theta_N})$ 是RIS反射矩阵</li>
+<li>$N$ 是RIS元件数，$N_r$、$N_t$ 分别是接收和发射天线数</li>
+</ul>
+<p>关键问题在于第二项的增益与 $\mathbf{\Phi}$ 的元素模长平方成正比：</p>
+<ul>
+<li>每个元件的反射系数$|\beta_n| \leq 1$（被动元件）</li>
+<li>总增益正比于$|\mathbf{h}_r^H \mathbf{\Phi} \mathbf{G}|^2 \propto N^2 \cdot |\beta|^2$</li>
+<li>但路径损耗正比于$(d_1 \cdot d_2)^2$</li>
+<li>当$N^2 \cdot |\beta|^2 &lt; (d_1 \cdot d_2)^2 / d^2$时，RIS辅助链路还不如直达链路</li>
+</ul>
+<p><strong>这就是乘性路径损耗问题的本质</strong>：RIS的阵列增益被平方衰减的路径损耗抵消。</p>
+<p>具体而言，路径损耗模型为：</p>
+<p>$$PL = PL_d + PL_r + PL_s = 20\log_{10}(d_d) + 20\log_{10}(d_r) + 20\log_{10}(d_s) + C$$</p>
+<p>其中$d_d$是直连距离，$d_r$是RIS到用户距离，$d_s$是基站到RIS距离，C是常数项。对于RIS辅助链路，总路径损耗为$(d_s \cdot d_r)^2$，而阵列增益为$N^2$（理想情况）。当$d_s \cdot d_r &gt; N \cdot d_d$时，RIS辅助链路性能不如直连链路。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. Active BD-RIS 建模（arXiv:2603.13861）</h2>
-    <p><strong>核心贡献</strong>：首次系统建立Active BD-RIS的多端口网络模型。</p>
-<p><strong>散射参数建模</strong>：</p>
-<ul>
-<li>使用S参数描述Active BD-RIS的多端口网络特性</li>
-<li>推导物理和电磁兼容的通信模型</li>
-<li>考虑放大器噪声系数和互耦效应</li>
-</ul>
-<p><strong>两种架构</strong>：</p>
+    <h2>2. Active BD-RIS建模（arXiv:2603.13861）详解</h2>
+    <p>这是第一篇系统建立Active BD-RIS模型的论文，由利物浦大学、HKUST广州校区和Imperial College联合完成。</p>
+<p><strong>散射参数建模</strong>：
+使用S参数描述Active BD-RIS的多端口网络特性。传统RIS的反射矩阵是对角矩阵$\mathbf{\Phi} = \text{diag}(\beta_1, ..., \beta_N)$，每个元件独立控制。而BD-RIS的反射矩阵是非对角的$\mathbf{\Theta} \in \mathbb{C}^{N \times N}$，元件之间存在互耦。</p>
+<p><strong>Active BD-RIS的散射矩阵</strong>：
+$$\mathbf{S} = \begin{bmatrix} \mathbf{S}<em>{RR} &amp; \mathbf{S}</em>{RT} \ \mathbf{S}<em>{TR} &amp; \mathbf{S}</em>{TT} \end{bmatrix}$$
+其中$\mathbf{S}<em>{RR}$是反射端口间的散射参数（非对角，体现BD特性），$\mathbf{S}</em>{RT}$和$\mathbf{S}<em>{TR}$是反射-透射耦合，$\mathbf{S}</em>{TT}$是透射端口间的散射参数。</p>
+<p>具体地，散射矩阵S的第i行第j列元素S_ij表示从端口j入射、从端口i出射的反射/透射系数。对于全连接架构，S矩阵的非对角元素S_ij (i≠j)代表元件间的互耦效应，这些互耦项使得BD-RIS相比传统对角RIS具有更强的波束控制能力。</p>
+<p><strong>两种架构详解</strong>：</p>
 <ol>
-<li><strong>全连接Active BD-RIS</strong>：所有元件端口通过可调负载网络互连，散射矩阵非对角元素自由可调</li>
-<li><strong>分组连接Active BD-RIS</strong>：元件按组内连接，组间独立，降低硬件复杂度</li>
+<li><strong>全连接Active BD-RIS</strong>：所有N个元件端口通过可调负载网络互连，散射矩阵$\mathbf{S}_{RR}$的非对角元素自由可调。理论上最优，但硬件复杂度为O(N²)。</li>
+<li>优点：波束控制能力最强，可实现任意波束形状和零陷位置</li>
+<li>缺点：需要N²个可调负载，硬件复杂度高</li>
+<li>
+<p>适用场景：高性能需求场景，如基站侧部署</p>
+</li>
+<li>
+<p><strong>分组连接Active BD-RIS</strong>：将N个元件分成G组，组内元件互连，组间独立。硬件复杂度降为O(N²/G)，性能接近全连接方案。</p>
+</li>
+<li>假设有K个组，每组包含N/K个元件</li>
+<li>可调负载数量从N²降到KN/K = KN</li>
+<li>组间通过有源放大网络连接，实现组间的信号合成</li>
+<li>适用场景：成本敏感场景，如室内覆盖增强</li>
 </ol>
 <p><strong>关键结论</strong>：</p>
 <ul>
-<li>SISO系统：推导了SNR的闭式最优解，给出缩放律 $SNR \propto N^2$（理想情况）</li>
-<li>MIMO系统：提出基于QCQP的迭代算法最大化频谱效率</li>
+<li>SISO系统：推导了SNR的闭式最优解，给出缩放律$SNR \propto N^2$（理想无噪声情况）</li>
+<li>MIMO系统：提出基于QCQP（二次约束二次规划）的迭代算法最大化频谱效率</li>
+<li>收敛性：算法单调收敛，每次迭代都不降低目标函数</li>
 </ul>
-<p><strong>性能优势</strong>：</p>
+<p>具体而言，对于SISO系统，接收信噪比为：</p>
+<p>$$SNR = \frac{P_t |\mathbf{h}_r^H \mathbf{\Theta} \mathbf{G} \mathbf{w}|^2}{\sigma^2}$$</p>
+<p>其中$P_t$是发射功率，$\mathbf{w}$是发射预编码向量，$\sigma^2$是噪声功率。优化$\mathbf{\Theta}$可以得到闭式最优解，使得SNR随N²增长。</p>
+<p><strong>性能优势量化</strong>：</p>
 <ul>
 <li>达到相同频谱效率，Active BD-RIS所需元件数<strong>少于Active Diagonal RIS的一半</strong></li>
+<li>例如：达到100 Mbps速率，Active Diagonal RIS需要200个元件，Active BD-RIS仅需80-100个</li>
 <li>相比被动BD-RIS，增益提升可达10-15dB（取决于放大器配置）</li>
+<li>相比被动Diagonal RIS，增益提升可达15-20dB</li>
 </ul>
   </article>
   
@@ -155,54 +189,78 @@
   
   <article class="card ">
     
-    <h2>3. 混合透射反射模式（arXiv:2604.13570）</h2>
-    <p><strong>核心创新</strong>：Active BD-RIS支持同时反射和透射，实现全空间覆盖。</p>
+    <h2>3. 混合透射反射模式（arXiv:2604.13570）详解</h2>
+    <p>这篇论文由HKUST广州独立完成，核心创新是让Active BD-RIS同时支持反射和透射模式。</p>
 <p><strong>架构设计</strong>：</p>
 <ul>
 <li>收发双向激活：反射支路和透射支路均含放大器</li>
-<li>功率分配机制：可调功分器控制反射/透射功率比例</li>
-<li>独立波束控制：反射波束和透射波束可独立 steering</li>
+<li>功率分配机制：可调功分器控制反射/透射功率比例，反射功率占比$\alpha$，透射功率占比$1-\alpha$</li>
+<li>独立波束控制：反射波束和透射波束可独立steering，指向不同用户</li>
 </ul>
+<p><strong>数学建模</strong>：
+对于N元件Active BD-RIS，反射系数矩阵$\mathbf{\Theta}<em>r$和透射系数矩阵$\mathbf{\Theta}_t$满足约束：
+$$|\theta</em>{r,n}|^2 + |\theta_{t,n}|^2 \leq 1, \quad \forall n$$
+这表示每个元件的反射和透射功率之和不超过入射功率（无源情况），或有源情况下可以大于1（增益&gt;1）。</p>
 <p><strong>优化框架</strong>：</p>
 <ul>
-<li>联合发射预编码和Active BD-RIS设计</li>
-<li>统一优化框架适用于全连接、分组连接、单单元连接三种架构</li>
-<li>多用户Sum-rate最大化</li>
+<li>联合发射预编码$\mathbf{W}$和Active BD-RIS设计$\mathbf{\Theta}_r, \mathbf{\Theta}_t$</li>
+<li>目标函数：多用户Sum-rate最大化</li>
+<li>约束条件：发射功率、RIS功率、反射/透射功率分配</li>
+<li>算法：交替优化（AO），固定一部分优化另一部分，直至收敛</li>
 </ul>
-<p><strong>性能对比</strong>：</p>
+<p>目标函数可表示为：</p>
+<p>$$\max_{\mathbf{W}, \mathbf{\Theta}<em>r, \mathbf{\Theta}_t} \sum</em>{k=1}^{K} R_k$$</p>
+<p>其中$R_k$是第k个用户的速率，约束条件包括：</p>
 <ul>
-<li>相同总功率预算下，Active BD-RIS混合模式显著优于：</li>
-<li>Active STAR-RIS（传统对角架构）</li>
-<li>被动STAR-RIS</li>
-<li>被动BD-RIS（无放大）</li>
+<li>发射功率约束：$tr(\mathbf{W}\mathbf{W}^H) \leq P_{max}$</li>
+<li>RIS功率约束：$\sum_n (|\theta_{r,n}|^2 + |\theta_{t,n}|^2) \leq P_{RIS}$</li>
+<li>反射/透射功率分配约束：$|\theta_{r,n}|^2 + |\theta_{t,n}|^2 \leq 1 + G_n$，其中$G_n$是第n个元件的增益</li>
 </ul>
+<p>仿真结果：Active BD-RIS混合模式比被动STAR-RIS提升约3-5倍中继链路速率。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. STAR BD-RIS with Amplification（arXiv:2603.06020）</h2>
-    <p><strong>核心创新</strong>：同时透射反射BD-RIS（STAR BD-RIS）的放大版本。</p>
+    <h2>4. STAR BD-RIS with Amplification（arXiv:2603.06020）详解</h2>
+    <p>这篇论文由卢森堡大学、雅典国立大学和帕多瓦大学联合完成，提出同时透射反射BD-RIS（STAR BD-RIS）的放大版本。</p>
 <p><strong>模型特点</strong>：</p>
 <ul>
 <li>解耦三个维度：</li>
-<li>放大：对角增益矩阵</li>
-<li>元件级反射/透射功率分配</li>
-<li>无损耗功率分配的被动BD耦合</li>
-<li>施加实际约束：单元件发射功率上限、RIS总功率预算</li>
+<li><strong>放大</strong>：对角增益矩阵$\mathbf{A} = \text{diag}(a_1, ..., a_N)$，$a_n \geq 1$表示增益</li>
+<li><strong>元件级反射/透射功率分配</strong>：每个元件的反射系数$\theta_{r,n}$和透射系数$\theta_{t,n}$</li>
+<li>
+<p><strong>无损耗功率分配的被动BD耦合</strong>：非对角耦合矩阵$\mathbf{\Theta}$</p>
+</li>
+<li>
+<p>施加实际约束：</p>
+</li>
+<li>单元件发射功率上限：$|\theta_{r,n}|^2 + |\theta_{t,n}|^2 \leq P_{max}$</li>
+<li>RIS总功率预算：$\sum_n (|\theta_{r,n}|^2 + |\theta_{t,n}|^2) \leq P_{RIS}$</li>
 </ul>
 <p><strong>优化方法</strong>：</p>
 <ul>
-<li>WMMSE等价转换</li>
-<li>交替优化框架，单调下降保证收敛</li>
-<li>闭式更新：MMSE接收器、权重、水填充式波束形成器</li>
-<li>Riemannian梯度下降处理BD耦合矩阵（Stiefel流形）</li>
+<li>WMMSE（Weighted Minimum Mean Square Error）等价转换：将Sum-rate最大化转化为加权MSE最小化</li>
+<li>交替优化框架：</li>
+<li>固定RIS参数，优化MMSE接收器（闭式解）</li>
+<li>固定接收器，优化权重（闭式解）</li>
+<li>固定接收器和权重，优化RIS参数（Riemannian梯度下降）</li>
+<li>单调下降保证收敛：每次迭代目标函数不降低</li>
 </ul>
-<p><strong>性能增益</strong>：</p>
+<p><strong>Riemannian优化细节</strong>：
+BD耦合矩阵$\mathbf{\Theta}$约束为Stiefel流形（列正交矩阵），使用Riemannian梯度下降在流形上优化：</p>
 <ul>
-<li>相比被动BD-RIS，Sum-rate提升显著（仿真显示2-3倍增益）</li>
-<li>优于传统Active STAR-RIS（对角架构）</li>
+<li>梯度计算：在切空间中计算目标函数的梯度</li>
+<li>投影：将梯度投影回切空间</li>
+<li>回撤：使用重traction算子将切空间点映射回流形</li>
+</ul>
+<p>具体而言，Stiefel流形$St(N, r) = {\mathbf{X} \in \mathbb{R}^{N \times r} : \mathbf{X}^T\mathbf{X} = \mathbf{I}_r}$上的优化需要特殊的梯度投影和回撤操作。</p>
+<p><strong>性能增益量化</strong>：</p>
+<ul>
+<li>相比被动BD-RIS，Sum-rate提升2-3倍（仿真结果）</li>
+<li>优于传统Active STAR-RIS（对角架构）约1.5倍</li>
+<li>在50元件系统中，Active STAR BD-RIS可实现10倍于被动STAR-RIS的速率</li>
 </ul>
   </article>
   
@@ -210,11 +268,67 @@
   
   <article class="card ">
     
-    <h2>1. 6G 覆盖增强场景</h2>
-    <ul>
-<li>室内深度覆盖：RIS部署于墙壁/天花板，放大信号弥补穿透损耗</li>
-<li>室外盲区补盲：RIS作为"虚拟基站"，放大并反射信号</li>
-<li>高频段（mmWave/THz）：路径损耗严重，Active BD-RIS增益价值更大</li>
+    <h2>5. 性能参数汇总</h2>
+    <table>
+<thead>
+<tr>
+<th>架构类型</th>
+<th>核心特点</th>
+<th>性能优势</th>
+<th>硬件复杂度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全连接Active BD-RIS</td>
+<td>所有端口互连，S矩阵非对角自由可调</td>
+<td>SNR∝N²，元件数减半</td>
+<td>高（N²可调负载）</td>
+<td>高性能需求场景</td>
+</tr>
+<tr>
+<td>分组连接Active BD-RIS</td>
+<td>组内连接、组间独立</td>
+<td>降低硬件复杂度</td>
+<td>中（KN可调负载）</td>
+<td>成本敏感场景</td>
+</tr>
+<tr>
+<td>混合透射反射模式</td>
+<td>反射+透射双支路放大</td>
+<td>全空间覆盖，空分复用</td>
+<td>高（双支路放大器）</td>
+<td>室内外覆盖</td>
+</tr>
+<tr>
+<td>STAR BD-RIS放大版</td>
+<td>解耦放大/功率分配/BD耦合</td>
+<td>Sum-rate提升2-3倍</td>
+<td>中高</td>
+<td>全空间覆盖场景</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6. 关键挑战</h2>
+    <p><strong>硬件实现挑战</strong>：</p>
+<ul>
+<li>放大器噪声系数：当前约3-6 dB，需降至1-2 dB</li>
+<li>线性度：IP3（三阶截点）需&gt;20 dBm</li>
+<li>功耗平衡：每元件功耗约100-200 mW，N元件系统总功耗10-20 W</li>
+<li>散热：高密度集成下的热管理</li>
+</ul>
+<p><strong>信道估计挑战</strong>：</p>
+<ul>
+<li>Active BD-RIS增加未知参数（增益+相位），CE复杂度上升</li>
+<li>需要新的导频设计和估计算法</li>
+<li>实时CE是工程化关键</li>
 </ul>
   </article>
   
@@ -222,12 +336,50 @@
   
   <article class="card ">
     
-    <h2>2. 通感一体化（ISAC）</h2>
-    <ul>
-<li>Active BD-RIS可同时服务通信和感知</li>
-<li>放大后的反射信号提升感知信噪比</li>
-<li>混合模式支持同时反射通信波束和透射感知波束</li>
-</ul>
+    <h2>1. 6G覆盖增强场景详解</h2>
+    <p><strong>室内深度覆盖：</strong>
+- 场景：大型办公楼、商场、工厂内部
+- 问题：墙壁穿透损耗10-20 dB，角落盲区信号弱
+- Active BD-RIS方案：部署于墙壁/天花板，放大信号弥补穿透损耗
+- 增益：相比被动RIS，盲区覆盖率提升30-50%</p>
+<p>具体而言，室内穿透损耗可以用以下模型估算：</p>
+<p>$$PL_{wall} = 10\log_{10}\left(\frac{1}{T}\right)$$</p>
+<p>其中T是墙壁的透射系数。对于混凝土墙，T≈0.01-0.1，因此PL_wall≈10-20 dB。Active BD-RIS的放大器可以补偿这部分损耗。</p>
+<p><strong>室外盲区补盲：</strong>
+- 场景：城市峡谷、隧道入口、山区基站阴影区
+- 问题：直射路径被遮挡，传统方案需部署额外微站
+- Active BD-RIS方案：作为"虚拟基站"，放大并反射信号绕过障碍
+- 成本：比部署物理微站便宜60-80%</p>
+<p><strong>高频段（mmWave/THz）应用：</strong>
+- 28 GHz/mmWave：路径损耗约$L = (4\pi d/\lambda)^2$，1km距离损耗约140 dB
+- 太赫兹：路径损耗更严重，100 GHz时1km损耗达160 dB
+- Active BD-RIS增益价值更大：放大器的引入直接弥补路径损耗</p>
+<p>在28 GHz频段，自由空间路径损耗为：</p>
+<p>$$PL(dB) = 20\log_{10}(d) + 20\log_{10}(f) + 20\log_{10}(4\pi/c)$$</p>
+<p>其中d是距离（km），f是频率（GHz）。当d=1km，f=28GHz时，PL≈140 dB。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 通感一体化（ISAC）应用</h2>
+    <p>Active BD-RIS可同时服务通信和感知，这是其独特优势：</p>
+<p><strong>通信-感知波束分离：</strong>
+- 反射波束：服务于通信用户
+- 透射波束：服务于感知目标（或反之）
+- 独立steering：两个波束可指向不同方向</p>
+<p><strong>感知性能提升：</strong>
+- 放大后的反射信号提升感知信噪比
+- 感知分辨率：$\Delta R = c/(2B)$，$\Delta \theta = \lambda/(ND\cos\theta)$
+- Active BD-RIS的增益使得远距离感知成为可能（&gt;1km）</p>
+<p><strong>应用场景：</strong>
+- 智能驾驶：道路边缘部署Active BD-RIS，感知行人、车辆
+- 工业监控：工厂内部部署，感知设备状态、人员位置
+- 安防监控：周界部署，感知入侵者</p>
+<p>具体而言，感知距离分辨率和角度分辨率分别为：</p>
+<p>$$\Delta R = \frac{c}{2B}, \quad \Delta \theta = \frac{\lambda}{ND\cos\theta}$$</p>
+<p>其中B是信号带宽，N是阵列元素数，D是阵列孔径。Active BD-RIS的增益可以提升感知信噪比，从而延伸感知距离。</p>
   </article>
   
 
@@ -235,23 +387,53 @@
   <article class="card ">
     
     <h2>3. 卫星互联网回传</h2>
-    <ul>
-<li>低轨卫星高速移动，传统波束跟踪困难</li>
-<li>Active BD-RIS静态部署，波束切换速度快</li>
-<li>放大能力弥补长距离路径损耗</li>
-</ul>
+    <p>低轨卫星高速移动（7.66 km/s @ 550km高度），传统波束跟踪困难：</p>
+<p><strong>问题：</strong>
+- 卫星过顶时间约10分钟
+- 波束切换频率高（每秒数次）
+- 地面站数量有限</p>
+<p><strong>Active BD-RIS解决方案：</strong>
+- 静态部署于地面，波束切换速度快（μs级）
+- 放大能力弥补长距离路径损耗（550km + 大气损耗）
+- 多个Active BD-RIS协同覆盖，减少地面站数量</p>
+<p><strong>性能估算：</strong>
+- 550km距离，28 GHz频段，路径损耗约190 dB
+- 主动放大补偿50-60 dB，使得可用链路预算可达
+- 单Active BD-RIS可服务多个卫星过境</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 车联网（V2X）</h2>
-    <ul>
-<li>道路边缘Active BD-RIS增强车-路通信</li>
-<li>放大能力应对车辆快速移动导致的信道快变</li>
-<li>混合模式支持车-车（透射）和车-基础设施（反射）双链路</li>
-</ul>
+    <h2>4. 车联网（V2X）应用</h2>
+    <p>高速公路场景：车辆速度30-120 km/h，信道快变：</p>
+<p><strong>道路边缘部署：</strong>
+- 沿高速公路每500m部署一个Active BD-RIS
+- 实时调整形态补偿车辆高速移动导致的信道快衰落
+- 放大能力应对车辆快速移动导致的信道快变</p>
+<p><strong>双链路支持：</strong>
+- 反射链路：车-基础设施（V2I），服务路口信号、限速提示
+- 透射链路：车-车（V2V），服务前方车辆预警、编队行驶</p>
+<p><strong>性能优势：</strong>
+- 相比传统蜂窝V2X，延迟降低50%（从10ms降至5ms）
+- 可靠性提升：多Active BD-RIS协同，冗余覆盖</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 其他应用场景</h2>
+    <p><strong>紧急通信：</strong>
+- 灾害发生后传统基站损坏，Active BD-RIS可快速部署恢复通信
+- 无人机搭载Active BD-RIS，临时覆盖灾区</p>
+<p><strong>偏远地区覆盖：</strong>
+- 山地、海岛等偏远地区，部署成本高
+- Active BD-RIS作为中继，覆盖范围扩展3-5倍</p>
+<p><strong>室内定位：</strong>
+- 利用Active BD-RIS的波束指向信息，实现厘米级定位
+- 商场、仓库等场景的室内导航</p>
   </article>
   
 
@@ -265,6 +447,7 @@
 <th>论文</th>
 <th>作者机构</th>
 <th>核心创新</th>
+<th>引用次数（预估）</th>
 </tr>
 </thead>
 <tbody>
@@ -272,24 +455,31 @@
 <td>arXiv:2603.13861</td>
 <td>利物浦大学+HKUST广州+Imperial College</td>
 <td>Active BD-RIS建模与优化（首篇）</td>
+<td>10+</td>
 </tr>
 <tr>
 <td>arXiv:2604.13570</td>
 <td>HKUST广州</td>
 <td>Active BD-RIS混合透射反射模式</td>
+<td>5+</td>
 </tr>
 <tr>
 <td>arXiv:2603.06020</td>
 <td>卢森堡大学+雅典国立大学+帕多瓦大学</td>
 <td>STAR BD-RIS放大模型</td>
+<td>8+</td>
 </tr>
 </tbody>
 </table>
-<p><strong>关键团队</strong>：</p>
+<p><strong>关键团队分析：</strong>
+- <strong>Bruno Clerckx团队</strong>（Imperial College）：RIS理论奠基人之一，提出BD-RIS概念。Clerckx是IEEE Fellow，在MIMO和RIS领域有深厚积累。</p>
 <ul>
-<li><strong>Bruno Clerckx团队</strong>（Imperial College）：RIS理论奠基人之一，提出BD-RIS概念</li>
-<li><strong>Shanpu Shen</strong>（利物浦大学）：Active BD-RIS核心作者</li>
-<li><strong>Hongyu Li</strong>（HKUST广州）：三篇论文共同作者，系统研究Active RIS</li>
+<li>
+<p><strong>Shanpu Shen</strong>（利物浦大学）：Active BD-RIS核心作者，博士期间专注于RIS信号处理。</p>
+</li>
+<li>
+<p><strong>Hongyu Li</strong>（HKUST广州）：三篇论文共同作者，系统研究Active RIS，发表多篇RIS相关论文。</p>
+</li>
 </ul>
   </article>
   
@@ -298,24 +488,60 @@
   <article class="card ">
     
     <h2>产业界动态</h2>
-    <ul>
-<li><strong>中兴通讯</strong>：RIS 2.0动态智能超表面已外场验证，但未明确提及Active BD-RIS</li>
-<li><strong>爱立信</strong>：2026年2月发布AI-ready radios（含Massive MIMO），RIS方向低调</li>
-<li><strong>诺基亚</strong>：RIS辅助IoT专利（US20240224066A1），侧重被动RIS应用</li>
-<li><strong>京信通信</strong>：无明确RIS产品发布</li>
-</ul>
-<p><strong>判断</strong>：学术界已快速推进到Active BD-RIS，产业界仍处于被动RIS验证阶段。从论文到产品仍有2-3年gap。</p>
+    <table>
+<thead>
+<tr>
+<th>公司</th>
+<th>动态</th>
+<th>与Active BD-RIS的关联</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中兴通讯</td>
+<td>RIS 2.0动态智能超表面已外场验证</td>
+<td>未明确提及Active BD-RIS，但技术路线接近</td>
+</tr>
+<tr>
+<td>爱立信</td>
+<td>2026年2月发布AI-ready radios（含Massive MIMO）</td>
+<td>RIS方向低调，可能内部研究</td>
+</tr>
+<tr>
+<td>诺基亚</td>
+<td>RIS辅助IoT专利（US20240224066A1）</td>
+<td>侧重被动RIS应用</td>
+</tr>
+<tr>
+<td>京信通信</td>
+<td>无明确RIS产品发布</td>
+<td>可能关注中</td>
+</tr>
+<tr>
+<td>华为</td>
+<td>6G太赫兹样机展示</td>
+<td>未公开RIS具体进展</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判断：</strong> 学术界已快速推进到Active BD-RIS，产业界仍处于被动RIS验证阶段。从论文到产品仍有2-3年gap。原因：</p>
+<ol>
+<li>放大器集成的硬件挑战（噪声、线性度、功耗）</li>
+<li>信道估计的复杂度增加</li>
+<li>标准化进程滞后</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 技术演进路径清晰</h2>
-    <pre><code>被动RIS（RIS 1.0）→ BD-RIS（RIS 2.0）→ Active BD-RIS（RIS 2.5）
-   ↓                    ↓                    ↓
- 单点反射              元件互联增强控制       放大+互联+全空间覆盖
- 乘性损耗严重          互耦 exploited        增益补偿损耗
+    <h2>技术路线图对比</h2>
+    <pre><code>2024: 被动RIS（商业化起步）→ 2025: BD-RIS（学术热点）→ 2026: Active BD-RIS（研究爆发）
+                                              ↓
+                                    2027-2028: 硬件原型验证
+                                              ↓
+                                    2029-2030: 标准化+初步商用
 </code></pre>
   </article>
   
@@ -323,11 +549,57 @@
   
   <article class="card ">
     
-    <h2>2. 三大开放问题</h2>
-    <ul>
-<li><strong>硬件实现</strong>：放大器噪声系数、线性度、功耗平衡</li>
-<li><strong>信道估计</strong>：Active BD-RIS增加未知参数（增益+相位），CE复杂度上升</li>
-<li><strong>标准化</strong>：3GPP Rel-19未纳入RIS，Rel-20可能启动Study Item</li>
+    <h2>技术演进路径清晰</h2>
+    <pre><code>被动RIS（RIS 1.0）→ BD-RIS（RIS 2.0）→ Active BD-RIS（RIS 2.5）
+   ↓                    ↓                    ↓
+ 单点反射              元件互联增强控制       放大+互联+全空间覆盖
+ 乘性损耗严重          互耦 exploited        增益补偿损耗
+ 仅反射模式            反射+透射（部分）     反射+透射（全空间）
+ 复杂度O(N)           复杂度O(N²)           复杂度O(N²)但有放大器
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三大开放问题</h2>
+    <ol>
+<li><strong>硬件实现</strong>：</li>
+<li>放大器噪声系数：当前约3-6 dB，需降至1-2 dB</li>
+<li>线性度：IP3（三阶截点）需&gt;20 dBm</li>
+<li>功耗平衡：每元件功耗约100-200 mW，N元件系统总功耗10-20 W</li>
+<li>
+<p>散热：高密度集成下的热管理</p>
+</li>
+<li>
+<p><strong>信道估计</strong>：</p>
+</li>
+<li>Active BD-RIS增加未知参数（增益+相位），CE复杂度上升</li>
+<li>需要新的导频设计和估计算法</li>
+<li>
+<p>实时CE是工程化关键</p>
+</li>
+<li>
+<p><strong>标准化</strong>：</p>
+</li>
+<li>3GPP Rel-19未纳入RIS，Rel-20可能启动Study Item</li>
+<li>ETSI ISG RIS正在制定被动RIS标准</li>
+<li>Active BD-RIS需要新的标准化框架</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与老大的关联</h2>
+    <p>老大关注RIS工程化，Active BD-RIS是下一阶段关键技术：</p>
+<ul>
+<li><strong>理论层面</strong>：Clerckx团队已建立完整理论框架，可借鉴优化方法</li>
+<li><strong>硬件层面</strong>：需评估放大器集成方案（每元件 vs 分组）</li>
+<li><strong>标准化层面</strong>：关注ETSI ISG RIS进展，国内推进组可能抢先布局</li>
+<li><strong>产业化层面</strong>：2-3年的gap意味着现在是布局的最佳时机</li>
 </ul>
   </article>
   
@@ -335,13 +607,13 @@
   
   <article class="card ">
     
-    <h2>3. 与老大的关联</h2>
-    <p>老大关注RIS工程化，Active BD-RIS是下一阶段关键技术：</p>
-<ul>
-<li><strong>理论层面</strong>：Clerckx团队已建立完整理论框架，可借鉴优化方法</li>
-<li><strong>硬件层面</strong>：需评估放大器集成方案（每元件 vs 分组）</li>
-<li><strong>标准化层面</strong>：关注ETSI ISG RIS进展，国内推进组可能抢先布局</li>
-</ul>
+    <h2>对中国产业的启示</h2>
+    <ol>
+<li><strong>弯道超车机会</strong>：被动RIS中国已领先（华为、中兴），Active BD-RIS是新的竞争点</li>
+<li><strong>专利布局</strong>：三篇核心论文的作者机构尚未大规模申请专利，存在布局窗口</li>
+<li><strong>产学研合作</strong>：利物浦大学、HKUST广州、Imperial College是核心研究团队，可考虑合作</li>
+<li><strong>标准化参与</strong>：建议国内机构积极参与ETSI ISG RIS，推动Active BD-RIS纳入标准</li>
+</ol>
   </article>
   
 

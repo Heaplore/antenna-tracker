@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">菲涅尔区天线深度解读</h1>
-  
+  <p class="lede">菲涅尔区是无线链路设计中&#34;看不见但摸得着&#34;的物理现实——它像一个橄榄球形的能量走廊包裹在直射路径周围，设计天线链路时不仅要保证&#34;看得见&#34;（LOS），更要保证&#34;走廊通畅&#34;（60%净空）。</p>
   
 </header>
 
@@ -105,121 +105,141 @@
   
   <article class="card ">
     
-    <h2>菲涅尔区的数学构造</h2>
-    <p>以发射机 T 和接收机 R 为焦点，<strong>任意路径长度与直线距离之差 = n·λ/2</strong> 的所有点构成第 n 个菲涅尔椭球面。</p>
-<pre><code>第 1 菲涅尔区：路径差 = λ/2
-第 2 菲涅尔区：路径差 = λ
-第 3 菲涅尔区：路径差 = 3λ/2
-...
-第 n 菲涅尔区：路径差 = n·λ/2
-</code></pre>
-<p><strong>能量贡献占比</strong>：
-| 菲涅尔区 | 路径差 | 相位差 | 能量贡献 | 作用 |
-|---------|--------|--------|---------|------|
-| 第 1 区 | λ/2 | 180° | ~70% | 正向叠加（增强） |
-| 第 2 区 | λ | 360° | ~25% | 反向叠加（削弱） |
-| 第 3 区 | 3λ/2 | 540° | ~7% | 正向叠加（增强） |
-| 第 4 区 | 2λ | 720° | ~1% | 反向叠加（削弱） |</p>
-<p><strong>关键判断</strong>：第一菲涅尔区贡献了总接收功率的约 70%，第二区约 25%，第三区约 7%。所以工程设计中只关心第一区就够了——它占了九成以上的能量。</p>
+    <h2>主题概述</h2>
+    <p>菲涅尔区（Fresnel Zone）概念源于1818年法国物理学家Augustin-Jean Fresnel研究光的衍射时提出的天才想法：把一个波前的传播路径按相位差分成若干个椭球形区域，每个区域内的次级波源对接收点的合成信号有不同贡献。相邻菲涅尔区之间的路径差为λ/2，相位差为π（180°）。奇数区（1,3,5...）的贡献与直射波同相叠加（增强信号），偶数区（2,4,6...）的贡献与直射波反相叠加（削弱信号）。这套200年前的理论被直接搬到无线电传播领域，今天几乎所有无线链路预算工具都基于此。6G时代XL-MIMO（超大规模MIMO）天线孔径扩大到数米，菲涅尔区（近场）范围急剧扩大，平面波近似失效，球面波建模成为刚需。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>第一菲涅尔区半径公式</h2>
-    <p>最实用的工程近似（d 单位 km，f 单位 GHz，r 单位 m）：</p>
+    <h2>1. 几何定义</h2>
+    <p>以发射机T和接收机R为焦点，任意路径长度与直线距离之差 = n·λ/2 的所有点构成第n个菲涅尔椭球面。</p>
+<table>
+<thead>
+<tr>
+<th>菲涅尔区</th>
+<th>路径差</th>
+<th>相位差</th>
+<th>能量贡献</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1区</td>
+<td>λ/2</td>
+<td>180°</td>
+<td>~70%</td>
+<td>正向叠加（增强）</td>
+</tr>
+<tr>
+<td>第2区</td>
+<td>λ</td>
+<td>360°</td>
+<td>~25%</td>
+<td>反向叠加（削弱）</td>
+</tr>
+<tr>
+<td>第3区</td>
+<td>3λ/2</td>
+<td>540°</td>
+<td>~7%</td>
+<td>正向叠加（增强）</td>
+</tr>
+<tr>
+<td>第4区</td>
+<td>2λ</td>
+<td>720°</td>
+<td>~1%</td>
+<td>反向叠加（削弱）</td>
+</tr>
+</tbody>
+</table>
+<p>第一菲涅尔区贡献了总接收功率的约70%，第二区约25%，第三区约7%。工程上只关心第一区就够了。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 第一菲涅尔区半径公式</h2>
+    <p>最实用的工程近似（d单位km，f单位GHz，r单位m）：</p>
 <pre><code>r₁ = 17.32 × √(d₁ × d₂ / (f × (d₁ + d₂)))
 </code></pre>
-<p>或者用波长版本（更直观）：</p>
-<pre><code>r₁ = √(λ × d₁ × d₂ / (d₁ + d₂))
-</code></pre>
-<p>其中：</p>
-<ul>
-<li>d = T-R 总距离</li>
-<li>d₁ = T 到测量点的距离</li>
-<li>d₂ = R 到测量点的距离</li>
-<li>r₁ 在 d₁ = d₂ = d/2 时取最大值（即链路中点处椭圆最宽）</li>
-</ul>
-<p><strong>快速记忆法则</strong>：</p>
-<ul>
-<li>频率越高（波长越短），菲涅尔区越窄</li>
-<li>距离越远，菲涅尔区越宽</li>
-<li>链路中点是最宽的位置</li>
-</ul>
+<p>或波长版本：r₁ = √(λ × d₁ × d₂ / (d₁ + d₂))</p>
+<p><strong>快速记忆法则</strong>：频率越高（波长越短），菲涅尔区越窄；距离越远，菲涅尔区越宽；链路中点是最宽的位置。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>工程算例</h2>
+    <h2>3. 工程算例</h2>
     <table>
 <thead>
 <tr>
 <th>场景</th>
 <th>频率</th>
 <th>距离</th>
-<th>中点 r₁</th>
-<th>60% 净空要求</th>
+<th>中点r₁</th>
+<th>60%净空要求</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>WiFi 桥接</td>
+<td>WiFi桥接</td>
 <td>2.4GHz</td>
 <td>1km</td>
-<td><strong>17.3m</strong></td>
+<td>17.3m</td>
 <td>10.4m</td>
 </tr>
 <tr>
-<td>WiFi 桥接</td>
+<td>WiFi桥接</td>
 <td>5.8GHz</td>
 <td>1km</td>
-<td><strong>11.3m</strong></td>
+<td>11.3m</td>
 <td>6.8m</td>
 </tr>
 <tr>
 <td>微波回传</td>
 <td>11GHz</td>
 <td>10km</td>
-<td><strong>41.7m</strong></td>
+<td>41.7m</td>
 <td>25.0m</td>
 </tr>
 <tr>
 <td>微波回传</td>
 <td>18GHz</td>
 <td>20km</td>
-<td><strong>80.6m</strong></td>
+<td>80.6m</td>
 <td>48.4m</td>
 </tr>
 <tr>
-<td>5G 毫米波</td>
+<td>5G毫米波</td>
 <td>28GHz</td>
 <td>500m</td>
-<td><strong>3.7m</strong></td>
+<td>3.7m</td>
 <td>2.2m</td>
 </tr>
 <tr>
-<td>5G 毫米波</td>
+<td>5G毫米波</td>
 <td>60GHz</td>
 <td>200m</td>
-<td><strong>1.1m</strong></td>
+<td>1.1m</td>
 <td>0.7m</td>
 </tr>
 </tbody>
 </table>
-<p><strong>关键洞察</strong>：别看毫米波的菲涅尔区很小（几米），但毫米波本身的路径损耗巨大（28GHz 1km 的 FSPL 约 134dB），加上菲涅尔区遮挡的额外损耗，链路预算很容易崩掉。</p>
-<hr />
+<p>毫米波菲涅尔区虽然窄（几米），但路径损耗巨大（28GHz 1km的FSPL约134dB），留给遮挡的余量几乎为零。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>为什么是 60%？</h2>
-    <p>工程界普遍接受的判据是<strong>第一菲涅尔区 60% 净空</strong>：</p>
-<table>
+    <h2>4. 60%净空准则</h2>
+    <table>
 <thead>
 <tr>
 <th>净空比例</th>
@@ -250,336 +270,121 @@
 </tr>
 </tbody>
 </table>
-<p><strong>为什么 60% 就够了？</strong></p>
-<p>因为偶数区（被遮挡也没关系）抵消了部分奇数区的能量。只要奇数区（特别是第一区）占主导，60% 净空已经接近"无阻挡"性能。这是工程经验和场测共同验证的结论。</p>
-<p><strong>类比</strong>：你有一支 10 人的队伍，其中 7 个人是主力（第一区），3 个人是替补（第二区）。如果替补被挡住了，主力还在，队伍战斗力只损失 30%。如果主力被挡住一半（只剩 3.5 人），战斗力直接腰斩。</p>
-<hr />
+<p>60%净空已接近"无阻挡"性能，因为偶数区被遮挡反而抵消了部分奇数区的能量。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>地球凸起高度</h2>
-    <p>地面是弧形的，远距离链路还要考虑地球凸起。简单估算：</p>
-<pre><code>地球凸起高度 ≈ d² / (50.7)  （d 单位 km，结果单位 m）
-</code></pre>
-<p><strong>典型值</strong>：
-| 链路距离 | 中点地球凸起 |
-|---------|------------|
-| 5km | 0.5m |
-| 10km | 2.0m |
-| 20km | 7.9m |
-| 50km | 49.3m |
-| 100km | 197m |</p>
-<p><strong>关键判断</strong>：50km 以上的微波回传链路，地球曲率是中点净空的头号敌人——中点凸起近 50 米，你必须把天线架得更高。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>K 因子：大气折射的修正</h2>
-    <p>实际大气折射会让电波路径轻微弯向地面，等效于地球半径变大为 K·R。典型 K = 4/3（标准大气条件）。</p>
-<p><strong>修正后的地球凸起</strong>：</p>
-<pre><code>H_eff = d² / (50.7 × K)
-</code></pre>
-<p>K = 4/3 时，有效凸起降低到原来的 3/4。</p>
-<p><strong>极端情况</strong>：</p>
-<ul>
-<li>K = 2/3（逆温层）：凸起增大 50%，链路更容易被遮挡</li>
-<li>K = ∞（超折射）：电波弯向地面，可能出现" ducting"现象，信号传得异常远但也异常不稳定</li>
-</ul>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>完整链路预算公式</h2>
-    <pre><code>Prx = Pt + Gt + Gr - FSPL - Lcable - Lfade - Lother
-</code></pre>
+    <h2>5. 地球曲率与K因子</h2>
+    <p>地球凸起高度 ≈ d²/(50.7)（d单位km，结果单位m）</p>
 <table>
 <thead>
 <tr>
-<th>项</th>
-<th>含义</th>
-<th>典型值</th>
+<th>链路距离</th>
+<th>中点地球凸起</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Pt</td>
-<td>发射功率</td>
-<td>+23dBm (200mW)</td>
+<td>5km</td>
+<td>0.5m</td>
 </tr>
 <tr>
-<td>Gt</td>
-<td>发射天线增益</td>
-<td>+15dBi (0.6m 碟形天线)</td>
+<td>10km</td>
+<td>2.0m</td>
 </tr>
 <tr>
-<td>Gr</td>
-<td>接收天线增益</td>
-<td>+15dBi</td>
+<td>20km</td>
+<td>7.9m</td>
 </tr>
 <tr>
-<td>FSPL</td>
-<td>自由空间路径损耗</td>
-<td>-80 ~ -140dB</td>
+<td>50km</td>
+<td>49.3m</td>
 </tr>
 <tr>
-<td>Lcable</td>
-<td>馈线损耗</td>
-<td>-2 ~ -5dB</td>
-</tr>
-<tr>
-<td>Lfade</td>
-<td>衰落余量（含菲涅尔遮挡）</td>
-<td>-3 ~ -20dB</td>
-</tr>
-<tr>
-<td>Lother</td>
-<td>其他损耗（雨衰、大气吸收）</td>
-<td>-1 ~ -15dB</td>
+<td>100km</td>
+<td>197m</td>
 </tr>
 </tbody>
 </table>
-<p><strong>菲涅尔遮挡损耗在链路预算中的角色</strong>：它属于"衰落余量（Fade Margin）"的一部分。如果你的链路 60% 净空不达标，就需要额外增加 Fade Margin——要么提高发射功率，要么增大天线口径，要么加高塔架。</p>
+<p>大气折射修正（K因子）：H_eff = d²/(50.7×K)，典型K=4/3（标准大气）。极端情况：K=2/3（逆温层）凸起增大50%；K=∞（超折射）出现"ducting"现象。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5G 微波回传的菲涅尔区考量</h2>
-    <p>2025-2026 年，印尼新首都 IKN 的 5G 微波回传项目提供了典型案例：</p>
-<ul>
-<li><strong>频段</strong>：13GHz</li>
-<li><strong>天线高度</strong>：50m</li>
-<li><strong>地形</strong>：丘陵地带</li>
-<li><strong>结果</strong>：只有少数链路达到 10-15dB 的正 Fade Margin，多数链路因地形阻挡和菲涅尔区侵入导致严重降级</li>
-<li><strong>优化方案</strong>：增加天线高度、调整链路几何、部署中继节点</li>
-</ul>
-<p><strong>关键教训</strong>：在热带丘陵地形中，菲涅尔区净空不足是导致微波回传链路失败的元凶之一。</p>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>误区 1：&#34;我看到 LOS 没挡就 OK&#34;</h2>
-    <p><strong>错。LOS 是一根线，菲涅尔区是一个体。</strong></p>
-<p>树叶、屋顶、山脊都可能伸进第一区而不挡住 LOS 本身。WiFi 桥接经常因为一颗春笋发芽就把链路打掉——春笋长高了就够得到 60% 净空区。</p>
-<p><strong>案例</strong>：某企业 5.8GHz WiFi 桥接链路，LOS 清晰无阻，但链路中点下方 5 米处有一排树。树高 3 米，LOS 完全不受影响。但第一菲涅尔区在中点处半径 11.3 米，树冠已经侵入了 30% 的第一区——链路速率从 800Mbps 降到 200Mbps。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>误区 2：&#34;我用全向天线不用算菲涅尔区&#34;</h2>
-    <p><strong>半对。</strong> 全向天线的链路是点对多点，每条点对点链路都要单独算菲涅尔区。全向只是不限制方向，不是免疫菲涅尔。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>误区 3：&#34;5G 毫米波就不用管这个了&#34;</h2>
-    <p><strong>反了。</strong> 毫米波波长极短（1-10mm），第一菲涅尔区反而更容易被小物体遮挡——一片树叶、一根细线都可能造成几 dB 衰减。5G 28GHz 链路对净空要求更严。</p>
-<p><strong>量化</strong>：
-| 频段 | λ | 1km 链路 r₁ | 100m 链路 r₁ |
-|------|---|------------|-------------|
-| 2.4GHz | 125mm | 17.3m | 5.5m |
-| 5.8GHz | 52mm | 11.3m | 3.6m |
-| 28GHz | 10.7mm | 4.7m | 1.5m |
-| 60GHz | 5.0mm | 2.8m | 0.9m |</p>
-<p>毫米波的菲涅尔区虽然窄，但路径损耗大得多，留给遮挡的余量几乎为零。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>误区 4：&#34;天线增益高就能克服菲涅尔遮挡&#34;</h2>
-    <p><strong>部分正确。</strong> 增益可以提高接收功率，但不能消除多径衰落。菲涅尔区被遮挡后，除了主波束衰减，还会产生强烈的多径效应——信号通过不同路径到达，相位叠加后可能在某些频率点完全抵消。增益再高也救不回来。</p>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>地面反射模型</h2>
-    <p>3GPP TR 38.901 信道模型中包含显式的地面反射模型（Explicit Ground Reflection Model）。地面反射波和直射波在第一菲涅尔区内叠加，形成多径衰落。</p>
-<p><strong>地面反射的影响</strong>：</p>
-<ul>
-<li>当反射点位于第一菲涅尔区内时，直射波和反射波干涉，造成信号增强或抵消</li>
-<li>反射系数取决于地面介电常数和入射角</li>
-<li>水体（湖泊、海洋）反射系数接近 -1，造成强烈的相消干涉</li>
-</ul>
-<p><strong>多径衰落深度</strong>：</p>
-<pre><code>深衰落（Null）：直射波和反射波相位差 180°，信号完全抵消
-浅衰落（Peak）：直射波和反射波相位差 0°，信号叠加增强
+    <h2>6. 链路预算中的位置</h2>
+    <pre><code>Prx = Pt + Gt + Gr - FSPL - Lcable - Lfade - Lother
 </code></pre>
-<p><strong>衰落深度可达 20-30dB</strong>——这比菲涅尔区遮挡的 6-10dB 更致命。</p>
+<p>菲涅尔遮挡损耗属于"衰落余量（Fade Margin）"的一部分。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>城市环境中的菲涅尔区</h2>
-    <p>在城市峡谷（Street Canyon）中，建筑物的墙壁、窗户、广告牌都可能伸入菲涅尔区，造成：</p>
-<ul>
-<li>直射波衰减</li>
-<li>多次反射产生丰富的多径分量</li>
-<li>信号强度和相位剧烈波动</li>
+    <h2>行业应用</h2>
+    <ul>
+<li><strong>微波回传链路设计</strong>：60%净空准则是工程界黄金法则</li>
+<li><strong>5G基站选址</strong>：毫米波频段对菲涅尔区遮挡极度敏感</li>
+<li><strong>WiFi桥接</strong>：城市环境中树木生长是最大威胁</li>
+<li><strong>3GPP信道建模</strong>：TR 38.901包含显式地面反射模型，Rel-19近场扩展进一步细化</li>
 </ul>
-<p><strong>3GPP UMi（Urban Microcell）场景</strong>：</p>
-<ul>
-<li>基站天线高度 10-25m</li>
-<li>用户设备高度 1.5m</li>
-<li>街道宽度 5-50m</li>
-<li>菲涅尔区经常被建筑物墙壁切割</li>
-</ul>
-<hr />
+<p>典型案例：印尼新首都IKN的5G微波回传项目（13GHz，50m天线高度，丘陵地形），只有少数链路达到10-15dB正Fade Margin，多数链路因地形阻挡和菲涅尔区侵入导致严重降级。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>平面波近似失效</h2>
-    <p>6G 的 XL-MIMO（超大规模 MIMO）天线孔径扩大到数米级别。当天线孔径 D 很大、频率很高时，菲涅尔区（近场）的范围急剧扩大：</p>
-<pre><code>远场边界（Fraunhofer 距离）: dF = 2D²/λ
-</code></pre>
-<p><strong>典型值</strong>：
-| 天线孔径 | 频率 | dF |
-|---------|------|-----|
-| 0.3m (5G AAU) | 3.5GHz | 0.5m |
-| 2.0m (XL-MIMO) | 3.5GHz | 23m |
-| 2.0m (XL-MIMO) | 28GHz | 1.4m |
-| 5.0m (6G ELAA) | 6GHz | 83m |
-| 10.0m (6G ELAA) | 10GHz | 200m |</p>
-<p><strong>关键判断</strong>：对于 6G 的 10m 孔径天线，在 10GHz 频段，远场边界达到了 200 米！这意味着在 200 米以内，用户都处于天线的菲涅尔区（近场）内，接收到的不是平面波而是<strong>球面波</strong>。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>球面波建模</h2>
-    <p>2025-2026 年，学术界提出对 3GPP TR 38.901 信道模型进行近场扩展：</p>
-<ul>
-<li>引入球面波前（spherical wavefront）替代平面波近似</li>
-<li>使用虚拟镜像理论确定 NLoS 路径的反射距离</li>
-<li>考虑部分遮挡或簇可见性导致的天线孔径上 10dB+ 的信号波动</li>
-</ul>
-<p><strong>空间非平稳性（Spatial Non-Stationarity）</strong>：在 XL-MIMO 的近场区域，不同天线单元看到的传播环境可能完全不同——一部分单元被遮挡，另一部分没有。这违反了传统信道模型的 WSS（宽平稳）假设。</p>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>设计阶段</h2>
-    <ol>
-<li><strong>地形分析</strong>：用 Digital Terrain Model (DTM) 计算链路剖面图，检查菲涅尔区净空</li>
-<li><strong>工具推荐</strong>：Atoll、Planet、Pathloss 5.0、RACOM RAy Link Calculator</li>
-<li><strong>净空标准</strong>：至少 60% 第一菲涅尔区净空，理想 100%</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>施工前</h2>
-    <ol>
-<li><strong>实地踏勘</strong>：看链路中点附近有没有可能长高的树木、建筑工地、新增建筑物</li>
-<li><strong>拍照存档</strong>：记录 LOS 状态，便于后期运维对比</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>施工阶段</h2>
-    <ol>
-<li><strong>塔高计算</strong>：天线高度 = 地球凸起 + 60% 菲涅尔区半径 + 安全余量（5-10m）</li>
-<li><strong>风载校核</strong>：塔越高，风载越大，成本呈非线性增长——找到最优平衡点</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>验收测试</h2>
-    <ol>
-<li><strong>RSSI 比对</strong>：实测 RSSI 与计算值偏差 &lt; 5dB 可接受，&gt; 10dB 基本可判定净空不足</li>
-<li><strong>误码率测试</strong>：BER &lt; 10⁻⁶ 为合格</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>长期运维</h2>
-    <ol>
-<li><strong>植被管理</strong>：植被生长是最大的"隐形杀手"，每 1-2 年复测一次净空</li>
-<li><strong>新建筑监控</strong>：周边新建高楼可能侵入菲涅尔区，需要重新评估</li>
-</ol>
-<hr />
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>十、菲涅尔区与其他天线概念的串联</h2>
+    <h2>竞品/同行动态</h2>
     <table>
 <thead>
 <tr>
-<th>概念</th>
-<th>与菲涅尔区的关系</th>
+<th>方向</th>
+<th>代表进展</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>MIMO 阵列</strong></td>
-<td>每个天线对之间都是独立链路，每条都要算菲涅尔区净空</td>
+<td>3GPP TR 38.901</td>
+<td>含地面反射模型，Rel-19近场扩展引入球面波前建模</td>
 </tr>
 <tr>
-<td><strong>链路预算</strong></td>
-<td>菲涅尔净空是预算里的"环境余量"项，和天线增益、发射功率、接收灵敏度并列</td>
+<td>IEEE 2025</td>
+<td>Near-Field Extension of 3GPP GBSM for Sub-THz Communication</td>
 </tr>
 <tr>
-<td><strong>天线高度 vs 增益</strong></td>
-<td>增益高不一定链路好，净空不足会把所有增益抹平</td>
+<td>MDPI Applied Sciences 2025</td>
+<td>Availability and Fade Margin for 5G Microwave Anyhaul</td>
 </tr>
 <tr>
-<td><strong>多径衰落</strong></td>
-<td>菲涅尔区内/外的多次反射叠加，是快衰落的物理根源</td>
+<td>RACOM</td>
+<td>RAy Link Calculator工具，支持菲涅尔区和链路预算计算</td>
 </tr>
 <tr>
-<td><strong>3GPP 信道模型</strong></td>
-<td>地面反射模型基于菲涅尔区干涉理论，Rel-19 近场扩展进一步细化</td>
-</tr>
-<tr>
-<td><strong>XL-MIMO / 6G</strong></td>
-<td>超大孔径天线的菲涅尔区扩展到数百米，近场球面波建模成为刚需</td>
+<td>Atoll/Planet</td>
+<td>商用链路规划工具，内置菲涅尔区净空分析</td>
 </tr>
 </tbody>
 </table>
-<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>3GPP TR 38.901 V19.x: 3D Channel Model for NR（含地面反射模型）</li>
+<li>MDPI Applied Sciences 2025: Availability and Fade Margin for 5G Microwave Anyhaul</li>
+<li>IEEE: Near-Field Extension of 3GPP GBSM for Sub-THz Communication (2025)</li>
+<li>RACOM RAy Link Calculator: Fresnel Zone and Link Budget</li>
+<li>Pathloss 5.0 / Atoll / Planet链路规划工具文档</li>
+</ul>
   </article>
   
 

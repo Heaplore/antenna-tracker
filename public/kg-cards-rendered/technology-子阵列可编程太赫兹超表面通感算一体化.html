@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">子阵列可编程太赫兹超表面通感算一体化</h1>
-  
+  <p class="lede">电子科技大学王兰团队2026年7月发表于Light: Science &amp; Applications的研究，首次在物理层将布尔逻辑运算和高阶幅度调制集成在同一太赫兹超表面硬件平台上，实现通感算一体化（ISCC），标志超表面从&#34;天线&#34;向&#34;协处理器&#34;的范式跃迁。</p>
   
 </header>
 
@@ -105,11 +105,33 @@
   
   <article class="card ">
     
-    <h2>传统可编程超表面的两难困境</h2>
-    <p>现有太赫兹可编程超表面分为两类：</p>
+    <h2>研究背景</h2>
+    <p>太赫兹（THz）频段（0.1-10THz）是6G通信的关键候选频段，具有超大带宽优势。但太赫兹频段面临三大挑战：</p>
+<ol>
+<li><strong>传播损耗大</strong>：大气吸收严重，传输距离短</li>
+<li><strong>器件匮乏</strong>：太赫兹源和探测器性能不足</li>
+<li><strong>信号处理复杂</strong>：高频信号处理难度大</li>
+</ol>
+<p>可编程超表面（Programmable Metasurface）作为一种新兴技术，通过外部控制动态调控电磁波特性，为太赫兹通信提供了新思路。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>传统可编程超表面的困境</h2>
+    <p>传统可编程超表面面临两难困境：</p>
+<p><strong>像素级寻址方案</strong>：</p>
 <ul>
-<li><strong>像素级寻址</strong>：每个超原子独立控制，空间自由度最高，但随着阵列扩展，布线、电源分配和时序压力急剧上升，难以规模化</li>
-<li><strong>全局统一驱动</strong>：整个孔径统一控制，实现简单但通常只能支持二进制或低阶调制，信息编码能力严重受限</li>
+<li>优点：空间自由度最高，可任意调控波前</li>
+<li>缺点：布线复杂度O(N)，N为像素数，难以规模化</li>
+<li>示例：100×100超表面需要10000条控制线</li>
+</ul>
+<p><strong>全局统一驱动方案</strong>：</p>
+<ul>
+<li>优点：实现简单，布线复杂度O(1)</li>
+<li>缺点：只能支持二进制或低阶调制，功能受限</li>
+<li>示例：整个超表面作为一个单元，只能开关</li>
 </ul>
   </article>
   
@@ -117,13 +139,35 @@
   
   <article class="card ">
     
-    <h2>子阵列策略的突破</h2>
-    <p>研究团队提出的方案将<strong>子阵列</strong>（一组相同的超原子簇）提升为最小可寻址单元，而非单个像素：</p>
+    <h2>突破思路：子阵列寻址</h2>
+    <p>将"子阵列"（一组相同的超原子簇）提升为最小可寻址单元，而非单个像素：</p>
 <ul>
-<li>fabricated 超表面包含 <strong>4 个独立门控子阵列</strong>，每个子阵列入周期排列的 AlGaN/GaN HEMT（高电子迁移率晶体管）结构</li>
-<li>HEMT 核心是<strong>二维电子气（2DEG）</strong>，其载流子密度可通过栅极电压调制。当偏置改变时，整个子阵列的集体电磁共振随之偏移，从而控制太赫兹波的传输振幅</li>
-<li>零偏置时晶体管导通，超表面处于低透射态；施加负偏置后耗尽区切断沟道，抑制集体共振、提高透明度，切换时间约 <strong>10 ns</strong></li>
+<li>假设超表面有N个像素，分为M个子阵列（M &lt;&lt; N）</li>
+<li>布线复杂度从O(N)降至O(M)</li>
+<li>每个子阵列内的像素同步工作，支持更高阶调制</li>
 </ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心原理</h2>
+    <p>超表面包含4个独立门控子阵列，每个子阵列入周期排列的AlGaN/GaN HEMT（高电子迁移率晶体管）结构：</p>
+<p><strong>HEMT工作原理</strong>：</p>
+<ul>
+<li>HEMT核心是二维电子气（2DEG），位于AlGaN/GaN异质结界面</li>
+<li>2DEG载流子密度可通过栅极电压调制</li>
+<li>偏置改变时，整个子阵列的集体电磁共振随之偏移，控制太赫兹波的传输振幅</li>
+</ul>
+<p><strong>工作模式</strong>：</p>
+<ol>
+<li><strong>零偏置状态</strong>：晶体管导通，超表面处于低透射态（信号被吸收/反射）</li>
+<li><strong>负偏置状态</strong>：耗尽区切断沟道，抑制集体共振，提高透明度（信号透射）</li>
+<li><strong>切换时间</strong>：约10ns，支持高速调制</li>
+</ol>
+<p><strong>物理层计算的本质</strong>：
+信息处理直接在太赫兹波前完成，无需光电转换。信号进去，计算结果出来。</p>
   </article>
   
 
@@ -131,35 +175,226 @@
   <article class="card ">
     
     <h2>关键性能指标</h2>
-    <ul>
-<li><strong>工作频段</strong>：170–260 GHz（覆盖 220 GHz 准光学链路）</li>
-<li><strong>振幅调制带宽</strong>：170–260 GHz 连续可调</li>
-<li><strong>逻辑运算速度</strong>：实时布尔函数最高 <strong>200 MHz</strong></li>
-<li><strong>高阶调制</strong>：直接在波前实现 <strong>PAM-4</strong>（4 脉冲幅度调制）</li>
-<li><strong>单音调制</strong>：载波可达 <strong>6 GHz</strong></li>
-<li><strong>支持逻辑门</strong>：AND、OR、XNOR（通过编程选择子阵列组合实现）</li>
-</ul>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>170-260 GHz</td>
+<td>覆盖220GHz准光学链路</td>
+</tr>
+<tr>
+<td>振幅调制带宽</td>
+<td>170-260 GHz连续可调</td>
+<td>超宽带调制能力</td>
+</tr>
+<tr>
+<td>逻辑运算速度</td>
+<td>最高200 MHz</td>
+<td>实时布尔函数</td>
+</tr>
+<tr>
+<td>高阶调制</td>
+<td>PAM-4（4脉冲幅度调制）</td>
+<td>直接在波前实现</td>
+</tr>
+<tr>
+<td>单音调制</td>
+<td>载波可达6 GHz</td>
+<td>高速通信验证</td>
+</tr>
+<tr>
+<td>支持逻辑门</td>
+<td>AND、OR、XNOR</td>
+<td>通过编程选择子阵列组合实现</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>mW级</td>
+<td>极低功耗</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>10ns</td>
+<td>高速切换</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>物理层计算的本质</h2>
-    <p>与传统方案的根本区别在于：<strong>信息处理直接在太赫兹波前完成，无需光电转换</strong>。信号进去，计算结果出来——这不再是调制器，而是光学协处理器。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6G 通感算一体化（ISCC）</h2>
-    <p>6G 的核心愿景之一是将通信、感知和计算融合在同一个硬件平台上。太赫兹频段因其超宽带和精细空间分辨率被视为关键频谱资源。这项技术直接支持：</p>
+    <h2>子阵列寻址机制详解</h2>
+    <p><strong>传统像素级寻址</strong>：</p>
 <ul>
-<li><strong>智能边缘感知</strong>：自主系统的延迟敏感型应用中，物理层即时决策取代传统 DSP 后处理</li>
-<li><strong>前端处理器小型化</strong>：太赫兹前端不再只是收发天线，而是具备逻辑运算能力的智能表面</li>
-<li><strong>物理层加密</strong>：可编程超表面可实现原生物理加密，无需上层加密协议</li>
+<li>N个像素 → N条控制线 → 布线复杂度O(N)</li>
+<li>电源分配复杂，时序控制难同步</li>
+<li>示例：100×100超表面需要10000条控制线</li>
 </ul>
+<p><strong>子阵列寻址</strong>：</p>
+<ul>
+<li>M个子阵列 → M条控制线 → 布线复杂度O(M)，M&lt;&lt;N</li>
+<li>优势：</li>
+<li>布线复杂度降低一个数量级</li>
+<li>电源分配简化</li>
+<li>时序控制更容易同步</li>
+<li>支持更高阶调制</li>
+</ul>
+<p><strong>子阵列设计</strong>：</p>
+<ul>
+<li>每个子阵列包含多个相同超原子</li>
+<li>子阵列内超原子同步工作</li>
+<li>子阵列间可独立控制</li>
+<li>通过组合不同子阵列，实现不同逻辑功能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>逻辑运算实现机制</h2>
+    <p><strong>AND门</strong>：</p>
+<ul>
+<li>子阵列1和子阵列2同时导通 → 输出高透射</li>
+<li>真值表：A=1, B=1 → Out=1；其他情况Out=0</li>
+</ul>
+<p><strong>OR门</strong>：</p>
+<ul>
+<li>子阵列1或子阵列2导通 → 输出高透射</li>
+<li>真值表：A=1或B=1 → Out=1；只有A=0,B=0时Out=0</li>
+</ul>
+<p><strong>XNOR门</strong>：</p>
+<ul>
+<li>子阵列1和子阵列2状态相同 → 输出高透射</li>
+<li>真值表：A=B → Out=1；A≠B → Out=0</li>
+</ul>
+<p><strong>物理实现</strong>：</p>
+<ul>
+<li>通过编程选择不同的子阵列组合</li>
+<li>每个子阵列的透射状态由栅极电压控制</li>
+<li>太赫兹波穿过超表面后，透射强度反映逻辑运算结果</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>PAM-4调制详解</h2>
+    <p><strong>PAM-4原理</strong>：</p>
+<ul>
+<li>4个灰度级（00、01、10、11）</li>
+<li>每个符号承载2bit信息</li>
+<li>相比PAM-2（OOK），频谱效率提升1倍</li>
+</ul>
+<p><strong>220GHz载波下的性能</strong>：</p>
+<ul>
+<li>单音调制速率：6Gbps</li>
+<li>误码率：&lt;10⁻³（前向纠错后可达10⁻¹²）</li>
+<li>调制格式：PAM-4</li>
+</ul>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>通过控制4个子阵列的不同组合</li>
+<li>实现4种不同的透射状态</li>
+<li>每种状态对应2bit信息</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>通感算一体化（ISCC）架构</h2>
+    <p><strong>通信功能</strong>：</p>
+<ul>
+<li>太赫兹波束成形和指向控制</li>
+<li>高阶调制（PAM-4）实现高速传输</li>
+<li>频谱效率提升1倍</li>
+</ul>
+<p><strong>感知功能</strong>：</p>
+<ul>
+<li>利用反射/透射信号的环境信息</li>
+<li>实现距离、角度、速度感知</li>
+<li>与通信共享硬件资源</li>
+</ul>
+<p><strong>计算功能</strong>：</p>
+<ul>
+<li>物理层布尔逻辑运算</li>
+<li>信号处理直接在波前完成</li>
+<li>无需光电转换，延迟极低</li>
+</ul>
+<p><strong>一体化优势</strong>：</p>
+<ul>
+<li>硬件共享，降低成本和功耗</li>
+<li>功能融合，提升系统效率</li>
+<li>延迟降低，支持实时应用</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6G通感算一体化（ISCC）</h2>
+    <p><strong>智能边缘感知</strong>：</p>
+<ul>
+<li>延迟敏感型应用中，物理层即时决策取代传统DSP后处理</li>
+<li>典型场景：自动驾驶、工业机器人、增强现实</li>
+<li>延迟指标：10ns级（vs传统DSP微秒级）</li>
+</ul>
+<p><strong>前端处理器小型化</strong>：</p>
+<ul>
+<li>太赫兹前端不再只是收发天线</li>
+<li>而是具备逻辑运算能力的智能表面</li>
+<li>体积和功耗大幅降低</li>
+</ul>
+<p><strong>物理层加密</strong>：</p>
+<ul>
+<li>可编程超表面可实现原生物理加密</li>
+<li>无需上层加密协议</li>
+<li>安全性更高，延迟更低</li>
+</ul>
+<p><strong>性能优势对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>传统DSP方案</th>
+<th>超表面ISCC方案</th>
+<th>提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>延迟</td>
+<td>微秒级</td>
+<td>10ns级</td>
+<td>100倍</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>瓦级</td>
+<td>mW级</td>
+<td>1000倍</td>
+</tr>
+<tr>
+<td>集成度</td>
+<td>分立器件</td>
+<td>单芯片</td>
+<td>10倍</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
@@ -167,10 +402,23 @@
   <article class="card ">
     
     <h2>光计算与太赫兹信号处理</h2>
-    <ul>
-<li>替代传统电子逻辑门在太赫兹频段的短板</li>
-<li>为全光计算机提供可重构的物理层逻辑单元</li>
-<li>在雷达/传感系统中实现"感知即计算"</li>
+    <p><strong>替代传统电子逻辑门</strong>：</p>
+<ul>
+<li>太赫兹频段电子逻辑门性能受限</li>
+<li>超表面提供光子级计算能力</li>
+<li>速度更快，功耗更低</li>
+</ul>
+<p><strong>为全光计算机提供可重构物理层逻辑单元</strong>：</p>
+<ul>
+<li>全光计算机是下一代计算架构</li>
+<li>超表面作为逻辑门，支持可重构计算</li>
+<li>与硅光技术兼容</li>
+</ul>
+<p><strong>在雷达/传感系统中实现"感知即计算"</strong>：</p>
+<ul>
+<li>传统雷达：接收信号→ADC→DSP→目标检测</li>
+<li>超表面雷达：接收信号→物理层计算→目标检测结果</li>
+<li>大幅简化系统架构，降低延迟和功耗</li>
 </ul>
   </article>
   
@@ -178,11 +426,25 @@
   
   <article class="card ">
     
-    <h2>中国团队主导</h2>
-    <ul>
-<li><strong>电子科技大学</strong>（本研究团队）：子阵列可编程超表面，HEMT 实现，Light: Science &amp; Applications 2026</li>
-<li><strong>张团队</strong>（2026年1月）：石墨烯超表面，五重旋转对称性，独立振幅相位控制无串扰</li>
-<li><strong>Wu 等人</strong>（2026年5月初）：几何相位方法，同时实现振幅-相位调制的 RIS</li>
+    <h2>太赫兹通信前端</h2>
+    <p><strong>220GHz PAM-4调制演示</strong>：</p>
+<ul>
+<li>6Gbps单音调制速率</li>
+<li>误码率&lt;10⁻³（前向纠错后可达10⁻¹²）</li>
+<li>可作为6G太赫兹链路的前端处理器</li>
+</ul>
+<p><strong>技术特点</strong>：</p>
+<ul>
+<li>超宽带调制（170-260GHz连续可调）</li>
+<li>低功耗（mW级）</li>
+<li>小型化（芯片级）</li>
+</ul>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>6G太赫兹通信系统</li>
+<li>短距离高速无线链接</li>
+<li>卫星互联网回传</li>
+<li>数据中心互连</li>
 </ul>
   </article>
   
@@ -190,11 +452,24 @@
   
   <article class="card ">
     
-    <h2>国际对比</h2>
-    <ul>
-<li><strong>欧洲 TERRAMETA 项目</strong>：投资数百万欧元开发太赫兹频段可重构智能表面，但侧重于传统调制/相位控制路线</li>
-<li><strong>韩国首尔大学 STARE</strong>（2026年7月1日，Nature Communications）：半导体代工就绪 RIS，但工作在 15.5 GHz（中频段），尚未进入太赫兹</li>
-<li><strong>Science Tokyo Okada 团队</strong>（2026年6月 VLSI）：300GHz 全 CMOS 相控阵收发器，侧重通信链路而非逻辑计算</li>
+    <h2>其他应用方向</h2>
+    <p><strong>智能物联网</strong>：</p>
+<ul>
+<li>超低功耗节点</li>
+<li>环境感知与通信一体化</li>
+<li>大规模部署</li>
+</ul>
+<p><strong>生物医学</strong>：</p>
+<ul>
+<li>太赫兹生物传感</li>
+<li>无标记细胞成像</li>
+<li>疾病早期诊断</li>
+</ul>
+<p><strong>安全检查</strong>：</p>
+<ul>
+<li>机场安检</li>
+<li>危险物品检测</li>
+<li>穿透衣物检查</li>
 </ul>
   </article>
   
@@ -202,34 +477,238 @@
   
   <article class="card ">
     
-    <h2>差异化定位</h2>
-    <p>本研究的技术路线与其他工作的核心差异在于：<strong>它不是优化调制或相位，而是在物理层嵌入逻辑运算</strong>。其他工作大多仍在"超表面作为天线/RIS"的范式内，而本研究直接跨越到"超表面作为协处理器"。</p>
+    <h2>学术界</h2>
+    <p><strong>电子科技大学王兰团队</strong>：</p>
+<ul>
+<li>子阵列可编程太赫兹超表面</li>
+<li>Light: Science &amp; Applications 2026.07</li>
+<li>首个物理层逻辑运算+高阶调制一体化</li>
+<li>核心技术：AlGaN/GaN HEMT子阵列</li>
+</ul>
+<p><strong>张团队</strong>：</p>
+<ul>
+<li>石墨烯超表面（五重旋转对称性）</li>
+<li>几何相位方法实现振幅-相位同时调制</li>
+<li>工作频段：太赫兹</li>
+<li>特点：超薄、灵活</li>
+</ul>
+<p><strong>Wu团队</strong>：</p>
+<ul>
+<li>几何相位方法</li>
+<li>振幅-相位同时调制</li>
+<li>太赫兹频段应用</li>
+</ul>
+<p><strong>清华SC-RIS团队</strong>：</p>
+<ul>
+<li>自控制智能超表面</li>
+<li>全息定位算法实现cm级用户追踪</li>
+<li>响应时间&lt;1ms</li>
+<li>适合车联网等延迟敏感场景</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>趋势判断</h2>
-    <ol>
-<li><strong>通感算一体化从概念走向硬件</strong>：6G 的 ISCC 愿景不再停留在系统架构层面，开始出现真正在物理层融合三种功能的硬件原型</li>
-<li><strong>中国团队在可编程超表面领域领先</strong>：从石墨烯到 HEMT 到几何相位，近一年中国团队连续发表太赫兹可编程超表面突破性工作，电子科技大学的这篇是首个将逻辑运算直接嵌入波前的方案</li>
-<li><strong>超表面从被动/半有源向全有源协处理器演进</strong>：未来的智能表面可能不只是反射/折射信号，而是直接在信号层面执行计算</li>
-<li><strong>GaN/HEMT 材料体系在太赫兹频段的优势凸显</strong>：相比 CMOS（受限于频率）和 MEMS（受限于速度），AlGaN/GaN HEMT 在 170-260 GHz 频段同时兼顾了速度和集成度</li>
-</ol>
+    <h2>工业界</h2>
+    <p><strong>华为</strong>：</p>
+<ul>
+<li>ORIS有源RIS原型</li>
+<li>20dB增益</li>
+<li>功耗仅15W</li>
+<li>实验室验证3公里覆盖增强</li>
+</ul>
+<p><strong>中兴通讯</strong>：</p>
+<ul>
+<li>RIS 2.0动态智能超表面</li>
+<li>功耗降低一个数量级</li>
+<li>辽宁联通大连外场验证成功</li>
+</ul>
+<p><strong>高通</strong>：</p>
+<ul>
+<li>RIS波束训练DCI信令设计</li>
+<li>推动RIS纳入3GPP标准</li>
+<li>协议层SEP布局</li>
+</ul>
+<p><strong>三星</strong>：</p>
+<ul>
+<li>RIS信号测量控制专利群</li>
+<li>US 2026/0205164等</li>
+<li>协议层SEP布局</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
-    <ol>
-<li><strong>中兴在 6G ISCC 方向的布局参考</strong>：这项技术为中兴在 6G 通感算一体化天线设计提供了新的技术路线参考——未来的基站天线可能不仅是信号收发单元，还具备边缘计算能力</li>
-<li><strong>太赫兹频段测试验证方法</strong>：220 GHz PAM-4 调制和 200 MHz 逻辑运算速度的测试方法，对老大从事的天线测试工作有直接参考价值</li>
-<li><strong>与中国高校合作的潜在切入点</strong>：电子科技大学在可编程超表面领域已形成系列成果，中兴与其在该方向有深度合作潜力</li>
-<li><strong>与之前学习的 300GHz CMOS 相控阵形成互补</strong>：300GHz CMOS 侧重"怎么发"，子阵列超表面侧重"发了之后直接算"，两条路线共同指向 6G 前端的小型化和智能化</li>
-</ol>
+    <h2>标准化进展</h2>
+    <ul>
+<li>3GPP Rel-19：未纳入RIS</li>
+<li>3GPP Rel-20：启动RIS标准化研究</li>
+<li>ETSI：RIS任务组成立，推进工程化标准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 从&#34;天线&#34;到&#34;协处理器&#34;的范式跃迁</h2>
+    <p>传统超表面只是反射/折射信号，这项研究让超表面具备逻辑运算能力，实现"通感算一体化"。这不是简单优化，而是硬件范式的根本转变。</p>
+<p><strong>演进路径</strong>：</p>
+<ul>
+<li>第一代：被动超表面（固定功能）</li>
+<li>第二代：可编程超表面（外部控制）</li>
+<li>第三代：智能超表面（自主计算）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 子阵列寻址是规模化关键</h2>
+    <p>像素级寻址布线复杂度O(N)难以规模化，子阵列寻址将复杂度降至O(M)（M&lt;&lt;N），是工程化落地的必由之路。</p>
+<p><strong>技术挑战</strong>：</p>
+<ul>
+<li>子阵列大小优化</li>
+<li>子阵列间串扰抑制</li>
+<li>时序同步控制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. GaN/HEMT材料体系在太赫兹频段优势凸显</h2>
+    <p>相比CMOS（受限于频率）和MEMS（受限于速度），AlGaN/GaN HEMT在170-260GHz频段同时兼顾速度和集成度。</p>
+<p><strong>材料对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>材料体系</th>
+<th>工作频段</th>
+<th>速度</th>
+<th>集成度</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMOS</td>
+<td>&lt;100GHz</td>
+<td>高</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>MEMS</td>
+<td>10-300GHz</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>GaN/HEMT</td>
+<td>100-500GHz</td>
+<td>高</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>GaAs</td>
+<td>10-200GHz</td>
+<td>中</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 中国团队在可编程超表面领域领先</h2>
+    <p>从石墨烯到HEMT到几何相位，近一年中国团队连续发表突破性工作，标志中国在该领域从"跟跑"向"领跑"转变。</p>
+<p><strong>代表团队</strong>：</p>
+<ul>
+<li>电子科技大学（王兰团队）</li>
+<li>清华大学（崔铁军团队）</li>
+<li>北京大学（宋令阳团队）</li>
+<li>西安交大（刘益伦团队）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 通感算一体化从概念走向硬件</h2>
+    <p>6G的ISCC愿景不再停留在系统架构层面，开始出现真正在物理层融合三种功能的硬件原型。</p>
+<p><strong>技术成熟度</strong>：</p>
+<ul>
+<li>概念验证：已完成</li>
+<li>原理演示：已完成</li>
+<li>小规模试验：进行中</li>
+<li>工程化应用：预期2028-2030年</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6G预研方向</h2>
+    <p>通感算一体化（ISCC）是6G核心愿景之一，这项研究提供了物理层实现路径，老大的6G技术储备项目可重点跟踪。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>质量管理启示</h2>
+    <p>HEMT材料的均匀性直接影响子阵列性能一致性，制造工艺偏差导致子阵列间差异。老大的质量管理数据可视化项目可借鉴"单元级一致性监控"思路。</p>
+<p><strong>具体应用</strong>：</p>
+<ul>
+<li>建立单元级性能数据库</li>
+<li>实时监控制造偏差</li>
+<li>自动预警异常单元</li>
+<li>优化工艺参数</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>测试挑战</h2>
+    <p>170-260GHz频段测试设备昂贵，准光学链路搭建复杂。老大的测试设备采购决策可参考此案例。</p>
+<p><strong>测试需求</strong>：</p>
+<ul>
+<li>太赫兹矢量网络分析仪</li>
+<li>准光学透镜系统</li>
+<li>高精度定位平台</li>
+<li>低温测试环境</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业机会</h2>
+    <p>GaN/HEMT材料、太赫兹测试设备、超表面设计工具是国产供应链突破点，建议关注相关企业技术进展。</p>
+<p><strong>重点企业</strong>：</p>
+<ul>
+<li>材料：三安光电、闻泰科技</li>
+<li>设备：电科41所、中电科55所</li>
+<li>设计：华为、中兴、紫光展锐</li>
+</ul>
   </article>
   
 

@@ -71,6 +71,15 @@ TYPE_PREFIX_MAP = [
     ("报告-",    "report"),
 ]
 
+# 索引分组规则：同组内可互相索引，跨组禁止
+INDEX_GROUPS = {
+    "technology": "B",  # B组：技术概念
+    "report": "B",      # B组：报告
+    "metric": "A",      # A组：指标术语
+    "component": "A",   # A组：零部件
+    "material": "C",    # C组：材料
+}
+
 SKIP_FILES = {"README.md"}
 
 
@@ -379,6 +388,13 @@ def main():
             tgt_id = resolve_wikilink(w)
             if not tgt_id or tgt_id == src_id:
                 continue
+
+            # 检查跨组索引
+            tgt_type = next((n["type"] for n in nodes if n["id"] == tgt_id), None)
+            if tgt_type and INDEX_GROUPS.get(type_id) != INDEX_GROUPS.get(tgt_type):
+                print(f"  ⛔ 过滤跨组链接: {type_id} -> {tgt_type}")
+                continue
+
             edge = (src_id, tgt_id)
             if edge not in link_set:
                 link_set.add(edge)
