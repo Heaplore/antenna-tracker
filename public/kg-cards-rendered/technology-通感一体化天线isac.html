@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">通感一体化天线ISAC</h1>
-  <p class="lede">通感一体化天线让通信基站同时具备雷达感知能力，共享硬件、频谱和波形，实现&#34;网络即传感器&#34;。这是 6G 的核心使能技术之一，也是当前华为、中兴等厂商争夺低空经济基础设施话语权的杀手级方案。</p>
+  <p class="lede">ISAC天线是让一套硬件同时干两件事——发通信信号给人类用户，又用同一套波束去探测环境里的障碍物、车辆、行人，实现&#34;一边聊天一边看路&#34;。</p>
   
 </header>
 
@@ -105,217 +105,20 @@
   
   <article class="card ">
     
-    <h2>一、基本定义与原理</h2>
-    <p>通感一体化（ISAC）将雷达感知与无线通信融合到同一套系统中，利用无线电波的传输、反射和散射来"观察"物理世界。其核心思想是<strong>资源复用</strong>：</p>
-<ul>
-<li><strong>硬件复用</strong>：同一套射频前端、天线阵列、基带处理单元</li>
-<li><strong>频谱复用</strong>：通信与感知共享同一频段，而非各自占用独立频谱</li>
-<li><strong>波形复用</strong>：同一信号同时承载通信信息和感知信息</li>
-</ul>
-<p>华为在《通信感知一体化——从概念到实践》中将 ISAC 分为三个等级：</p>
-<ol>
-<li><strong>第一级（硬件 + 频谱共享）</strong>：通信与感知共享硬件和频谱，降低部署成本，但波形仍相对独立</li>
-<li><strong>第二级（波形 + 信号处理一体化）</strong>：时域、频域、空域的波形和信号处理技术组合起来，为两个功能共同服务</li>
-<li><strong>第三级（信息跨层共享）</strong>：通信与感知完全一体化，系统性能显著提升，成本和能耗大幅降低</li>
-</ol>
-<p>感知反过来也辅助通信：高精度定位帮助波束赋形更准确、波束失败恢复更迅速、CSI 追踪开销更低。这就是"感知辅助通信"的双向赋能逻辑。</p>
+    <h2>1.1 什么是ISAC</h2>
+    <p>通信感知一体化（Integrated Sensing and Communication，ISAC）是6G的六大典型应用场景之一。它把传统独立的通信系统和雷达感知系统融合到同一个物理平台上，共享天线阵列、频谱资源、信号处理链路，实现"一网两用"。</p>
+<p>核心思想：通信波形本身就是感知波形。5G/6G基站发射的OFDM信号，在传输数据的同时，其时延、多普勒频移、到达角等信息，恰好可以被接收机用来估计目标的距离、速度和角度。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2.1 关键性能指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>通信侧要求</th>
-<th>感知侧要求</th>
-<th>冲突点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>波形</td>
-<td>OFDM 高效频谱利用率</td>
-<td>FMCW/OTFS 高距离分辨率</td>
-<td>OFDM 随机性导致距离-多普勒旁瓣高</td>
-</tr>
-<tr>
-<td>带宽</td>
-<td>越宽速率越高</td>
-<td>越窄旁瓣越低</td>
-<td>需折中优化</td>
-</tr>
-<tr>
-<td>天线阵列</td>
-<td>Massive MIMO 多用户复用</td>
-<td>大规模孔径高分辨率</td>
-<td>用户数 vs 感知精度</td>
-</tr>
-<tr>
-<td>PAPR</td>
-<td>越低功率效率越高</td>
-<td>越高目标检测越好</td>
-<td>功率约束矛盾</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.2 核心公式</h2>
-    <p><strong>雷达感知性能上限</strong>由 Cramér-Rao 下界（CRLB）决定，定位精度与以下因素相关：</p>
-<p>$$\sigma_{range} \propto \frac{c}{2B\sqrt{SNR}}$$</p>
-<p>其中 $B$ 为信号带宽，$SNR$ 为信噪比。带宽越大、信噪比越高，距离分辨率越高。</p>
-<p><strong>感知辅助通信增益</strong>体现在波束赋形方向图的综合优化：</p>
-<p>$$IMSR = \frac{P_{mainlobe}}{P_{sidelobe}}$$</p>
-<p>集成主瓣旁瓣比（IMSR）越高，雷达探测方向性越强，同时干扰通信用户的能力越小。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.3 主流波形方案对比</h2>
-    <table>
-<thead>
-<tr>
-<th>波形</th>
-<th>通信优势</th>
-<th>感知优势</th>
-<th>代表论文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OFDM</td>
-<td>5G/6G 标准兼容</td>
-<td>旁瓣高，需抑制</td>
-<td>Li et al. IEEE TWC 2025</td>
-</tr>
-<tr>
-<td>FMCW</td>
-<td>硬件简单</td>
-<td>距离-速度联合估计好</td>
-<td>经典雷达波形</td>
-</tr>
-<tr>
-<td>OTFS</td>
-<td>高速移动场景鲁棒</td>
-<td>距离-多普勒二维聚焦</td>
-<td>6G 候选波形</td>
-</tr>
-<tr>
-<td>符号级预编码 SLP</td>
-<td>利用干扰作为增益</td>
-<td>显著降低旁瓣</td>
-<td>大连理工 IEEE TWC 2025</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.1 架构分类</h2>
-    <p><strong>共孔径方案</strong>：通信和感知共用同一副天线孔径，通过极化分集或频分实现隔离。典型实现如互补分裂环谐振器（CSRR）接地结构，可实现 38 dB 隔离度（Barkhausen 研究所 Wi-Fi 频段演示）。</p>
-<p><strong>分孔径方案</strong>：通信和感知使用独立天线阵列，但在基带层面共享信号处理。部署灵活，但硬件成本较高。</p>
-<p><strong>双频段可重构方案</strong>：东南大学提出的 DBRAA（Dual-Band Reconfigurable Antenna Array），sub-6 GHz 和毫米波共用一套阵列。sub-6G 端通过 PIN 二极管动态复用多个 mmWave 天线形成虚拟天线；mmWave 端通过移相器和可重构开关网络实现混合波束赋形。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.2 硬件实现路径</h2>
-    <table>
-<thead>
-<tr>
-<th>路径</th>
-<th>描述</th>
-<th>成熟度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>软件定义无线电 SDR</td>
-<td>现有通信基站升级固件即可启用感知功能</td>
-<td>原型验证</td>
-</tr>
-<tr>
-<td>专用 ISAC 芯片</td>
-<td>如 TI IWR6843AOP（60 GHz 单芯片 RFoD），集成雷达与通信</td>
-<td>小规模商用</td>
-</tr>
-<tr>
-<td>128TR AAU 自发自收</td>
-<td>中兴业界首款，支持 65° 大张角覆盖低空</td>
-<td>试点商用</td>
-</tr>
-<tr>
-<td>光无线 ISAC-OW</td>
-<td>华为样机，利用光谱大带宽实现通信+厘米级定位+无接触健康监测</td>
-<td>实验室</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.1 低空经济（当前最热）</h2>
-    <p>MWC 2026 上，华为和中兴都把低空经济作为 ISAC 的首要落地场景：</p>
-<ul>
-<li><strong>华为</strong>：5G-A 通感一体化基站，毫米波 + 大规模阵列复用，低空探测分辨率达分米级，单个基站覆盖 1000 米以下空域。全国已有 330 个核心城市完成初步部署</li>
-<li><strong>中兴</strong>：业界首款自发自收 128TR AAU，支持 65° 大张角覆盖地面 + 低空连续区；首次采用连续波 + 脉冲波双波形智能感知方案，搭配智能超表面（RIS）增强覆盖</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.2 高精度定位与追踪</h2>
-    <p>6G ISAC 系统通过超宽带（毫米波 / 太赫兹）和大规模天线阵列，可实现：</p>
-<ul>
-<li>户外目标定位精度：<strong>厘米级</strong></li>
-<li>室内 3D 定位：<strong>亚米级</strong></li>
-<li>相对定位（无人机停靠移动车辆）：<strong>准毫米级</strong></li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.3 人类感官增强</h2>
-    <p>华为 ISAC-OW 光无线样机已实现：</p>
-<ul>
-<li>通过人脸血液颜色变化无接触测量心率和呼吸，准确性与智能手表相当</li>
-<li>通过腹部起伏测量呼吸频率</li>
-<li>厘米级室内定位精度</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.4 工业与安防</h2>
+    <h2>1.2 为什么需要ISAC</h2>
     <ul>
-<li>工厂产品非接触式超高精度检测</li>
-<li>墙体后管道状态检测（太赫兹穿透）</li>
-<li>包裹安检成像</li>
-<li>远程手术监控</li>
+<li><strong>频谱效率</strong>：通信和感知各自占用独立频谱，浪费严重。ISAC共享频谱，效率翻倍</li>
+<li><strong>硬件成本</strong>：两套系统等于两套天线、射频链、基带处理。融合后只需一套</li>
+<li><strong>6G需求</strong>：自动驾驶、无人机、数字孪生需要高精度环境感知，光靠独立雷达成本高、部署难</li>
 </ul>
   </article>
   
@@ -323,98 +126,430 @@
   
   <article class="card ">
     
-    <h2>五、关键技术指标</h2>
+    <h2>1.3 天线角色的转变</h2>
+    <p>传统天线是"能量转换器"，负责把电信号变成电磁波（或反之）。ISAC天线变成了"电磁波空间信息处理器"：</p>
+<ul>
+<li>发射端：生成兼具通信高效率和高感知分辨率的波形</li>
+<li>接收端：同时分离通信信号和解调数据，以及感知回波和提取环境信息</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.1 大规模MIMO阵列的空间自由度</h2>
+    <p>ISAC的核心使能技术是大规模MIMO阵列。传统MIMO可能只有4-8个天线单元，ISAC系统通常部署数十到数百个单元。</p>
+<p><strong>空间自由度公式</strong>：</p>
+<p>对于均匀线阵ULA，有N个天线单元，阵元间距d=λ/2：</p>
+<pre><code>方向图函数：F(θ) = Σ(n=0 to N-1) w_n · exp(j·n·π·sin(θ))
+</code></pre>
+<p>其中w_n是波束赋形权重，θ是波束指向角。N越大，主瓣越窄，角度分辨率越高，感知精度越好。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 波束赋形架构</h2>
+    <p>ISAC需要同时服务多个用户和感知多个目标，波束赋形是关键：</p>
+<p><strong>混合波束赋形（Hybrid Beamforming）</strong>：</p>
+<pre><code>RF域（模拟）：相移器网络 → 低维波束
+BB域（数字）：数字预编码 → 高维波束
+</code></pre>
+<ul>
+<li>模拟波束：覆盖 wide area，适合感知扫描</li>
+<li>数字波束：指向 specific user，适合通信传输</li>
+<li>两者协同：通信波束指向用户A，感知波束指向目标B，同时工作互不干扰</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 自干扰抑制</h2>
+    <p>ISAC最棘手的工程挑战。发射机的高功率信号会通过天线近场耦合、散射泄漏到接收机：</p>
+<pre><code>自干扰功率 ≈ 发射功率 × 耦合系数
+典型值：发射功率 40dBm，耦合系数 -60dB → 自干扰 -20dBm
+感知回波功率：-90dBm ~ -110dBm
+</code></pre>
+<p>自干扰比感知回波强70-90dB，必须抑制到噪声基底以下。</p>
+<p><strong>抑制手段</strong>：</p>
+<ul>
+<li>模拟域隔离：极化隔离、空间正交波束、去耦网络</li>
+<li>数字域消除：自干扰信道估计 + 减法消除</li>
+<li>全双工技术：时域/频域/空域分离</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 稀疏MIMO阵列</h2>
+    <p>传统紧凑MIMO：N个单元占据 N×λ/2 孔径
+稀疏MIMO：N个单元占据更大孔径，用空穴换分辨率</p>
+<p><strong>孔径增益</strong>：</p>
+<pre><code>方向图主瓣宽度 ≈ λ / (N·d)
+稀疏阵 d &gt; λ/2 → 主瓣更窄 → 角度分辨率更高
+</code></pre>
+<p>代价：栅瓣问题（grating lobe），需要在阵列优化中约束栅瓣电平。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 天线架构类型</h2>
     <table>
 <thead>
 <tr>
-<th>指标</th>
-<th>典型值</th>
+<th>类型</th>
+<th>描述</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分离式阵列</td>
+<td>通信天线和感知天线物理隔离</td>
+<td>设计简单，自干扰易抑制</td>
+<td>空间资源未完全共享</td>
+</tr>
+<tr>
+<td>共形阵列</td>
+<td>天线单元集成到载体曲面</td>
+<td>高度集成，隐蔽性好</td>
+<td>耦合复杂，设计难度大</td>
+</tr>
+<tr>
+<td>可重构阵列</td>
+<td>通过开关/变容管动态切换模式</td>
+<td>灵活适应不同场景</td>
+<td>插入损耗，非线性</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 频段选择</h2>
+    <table>
+<thead>
+<tr>
+<th>频段</th>
+<th>典型应用</th>
+<th>优势</th>
+<th>挑战</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sub-6GHz</td>
+<td>广域通信 + 粗粒度感知</td>
+<td>覆盖远，技术成熟</td>
+<td>分辨率低</td>
+</tr>
+<tr>
+<td>mmWave (24-100GHz)</td>
+<td>高精感知 + 高速通信</td>
+<td>带宽大，阵列紧凑</td>
+<td>路径损耗大</td>
+</tr>
+<tr>
+<td>THz (&gt;100GHz)</td>
+<td>超高分辨率感知</td>
+<td>极致带宽</td>
+<td>器件不成熟，损耗极大</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 波形设计</h2>
+    <p><strong>OFDM波形</strong>：5G/6G原生波形，天然适合感知
+- 时延分辨率：Δτ = 1/B（B为信号带宽）
+- 速度分辨率：Δv = λ/(2·T_obs)（T_obs为观测时间）
+- 角度分辨率：Δθ ≈ λ/(N·d·cos(θ))</p>
+<p><strong>LFM（线性调频）波形</strong>：传统雷达波形，感知性能好
+- 距离分辨率：ΔR = c/(2B)
+- 缺点：与通信标准不兼容</p>
+<p><strong>联合优化波形</strong>：通信效率和感知性能 Pareto 最优折中</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 自动驾驶</h2>
+    <p>车载ISAC天线同时实现：</p>
+<ul>
+<li>V2X通信：与周围车辆、基站交换信息</li>
+<li>环境感知：探测前方车辆、行人、障碍物位置和速度</li>
+</ul>
+<p>华为在MWC26展示的V2X感知方案即基于此原理。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 低空经济</h2>
+    <p>无人机/低空飞行器搭载ISAC：</p>
+<ul>
+<li>通信：与地面基站保持链路</li>
+<li>感知：避障、地形测绘、其他飞行器检测</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 卫星通感一体化</h2>
+    <p>多低轨卫星搭载ISAC基站，协同为地面用户提供：</p>
+<ul>
+<li>通信服务：覆盖偏远地区</li>
+<li>感知服务：环境监测、灾害预警</li>
+</ul>
+<p>长光卫星2026年7月发表的研究提出了多卫星联合波束成形方案，通过半正定松弛优化最大化最小检测概率。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 智慧城市</h2>
+    <p>建筑物外墙ISAC天线：</p>
+<ul>
+<li>通信：为周边用户提供5G/6G接入</li>
+<li>感知：交通流量监测、人流密度统计、异常行为检测</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 通信性能指标</h2>
+    <ul>
+<li>频谱效率：bit/s/Hz（目标：10-100 bit/s/Hz for 6G）</li>
+<li>误码率BER：&lt; 1e-5（QPSK），&lt; 1e-3（16QAM）</li>
+<li>信噪比SNR：&gt; 20dB（保障高阶调制）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 感知性能指标</h2>
+    <ul>
+<li>距离分辨率：ΔR = c/(2B)，6GHz带宽100MHz → 1.5m</li>
+<li>角度分辨率：Δθ ≈ λ/(N·d)，128阵元@28GHz → ~2°</li>
+<li>速度分辨率：Δv = λ/(2·T_obs)，1s观测 @ 28GHz → 5.4mm/s</li>
+<li>探测距离：取决于发射功率、天线增益、目标RCS</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 自干扰抑制比（SIRR）</h2>
+    <pre><code>SIRR = P_tx_coupling - P_echo_target
+目标：&gt; 80dB（确保回波可检测）
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.4 感知-通信权衡因子</h2>
+    <p>定义感知性能度量（如CRB，克拉美-罗下界）与通信容量之比：</p>
+<pre><code>Trade-off Factor = f(CRB_sensing, C_communication)
+</code></pre>
+<p>最优设计需要 Pareto 前沿分析。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 自干扰消除难度被低估</h2>
+    <p>很多研究假设自干扰可以完美消除，实际工程中：</p>
+<ul>
+<li>模拟域抑制有限（通常30-50dB）</li>
+<li>数字域消除依赖精确的信道估计</li>
+<li>温度漂移、器件老化会改变耦合特性</li>
+<li>需要在线校准机制</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 波形兼容性难题</h2>
+    <p>5G NR和6G标准没有原生支持感知功能，要：</p>
+<ul>
+<li>修改波形参数（子载波间隔、CP长度）</li>
+<li>增加感知参考信号（Probe Signal）</li>
+<li>与现有终端兼容</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 阵列校准复杂度</h2>
+    <p>大规模MIMO阵列每个通道的相位和幅度必须精确校准：</p>
+<ul>
+<li>工厂校准：成本高，一次性的</li>
+<li>在线校准：需要辅助信道，消耗资源</li>
+<li>温度漂移：每度变化引起相位漂移</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.4 算法复杂度</h2>
+    <p>联合波束成形是NP-hard问题，近似算法才有可行性：</p>
+<ul>
+<li>交替优化（AO）：收敛但慢</li>
+<li>凸松弛（SDR）：高质量解但计算量大</li>
+<li>深度学习：训练难，泛化性存疑</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 第一阶段：通信增强感知（2020-2025）</h2>
+    <ul>
+<li>5G AAU增加感知功能</li>
+<li>通信波形复用做粗粒度感知</li>
+<li>代表：华为V2X感知方案</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 第二阶段：联合设计优化（2025-2030）</h2>
+    <ul>
+<li>波形、波束、功率联合优化</li>
+<li>稀疏MIMO阵列实用化</li>
+<li>代表：3GPP Rel-19/20 ISAC标准化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 第三阶段：原生ISAC（2030+）</h2>
+    <ul>
+<li>6G标准原生支持感知</li>
+<li>通感算一体化（ISACC）</li>
+<li>卫星-ISAC深度融合</li>
+<li>代表：清华SC-RIS、卫星通感算融合架构</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>八、技术成熟度</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>成熟度</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>工作频段</td>
-<td>sub-6 GHz / mmWave（28/39/60/79 GHz）/ 太赫兹（&gt;100 GHz）</td>
-<td>频段越高感知分辨率越好</td>
+<td>理论基础</td>
+<td>★★★★☆</td>
+<td>论文丰富，算法成熟</td>
 </tr>
 <tr>
-<td>定位精度</td>
-<td>户外厘米级 / 室内亚米级</td>
-<td>依赖带宽和天线孔径</td>
+<td>芯片实现</td>
+<td>★★★☆☆</td>
+<td>mmWave ISAC芯片已有原型，THz还在实验室</td>
 </tr>
 <tr>
-<td>距离分辨率</td>
-<td>0.08 m（MIMO-OFDM 测试床）</td>
-<td>取决于有效带宽</td>
+<td>标准制定</td>
+<td>★★☆☆☆</td>
+<td>3GPP Rel-19开始讨论，尚无完整标准</td>
 </tr>
 <tr>
-<td>速度分辨率</td>
-<td>0.125 m/s</td>
-<td>取决于相干处理时间</td>
+<td>商用部署</td>
+<td>★☆☆☆☆</td>
+<td>仅华为等厂商有演示系统，无规模商用</td>
 </tr>
 <tr>
-<td>通信 - 感知隔离度</td>
-<td>≥38 dB（共孔径 CSRR 方案）</td>
-<td>影响双工性能</td>
-</tr>
-<tr>
-<td>波束赋形角度</td>
-<td>65° 大张角（中兴 128TR AAU）</td>
-<td>兼顾地面和低空覆盖</td>
-</tr>
-<tr>
-<td>PAPR 控制</td>
-<td>&lt;8 dB（优化后）</td>
-<td>影响功率放大器和感知旁瓣</td>
+<td>自干扰抑制</td>
+<td>★★★☆☆</td>
+<td>理论可行，工程实现仍有挑战</td>
 </tr>
 </tbody>
 </table>
+<p>整体评价：实验室验证阶段，商用化仍需3-5年。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6.1 波形设计的根本矛盾</h2>
-    <p>OFDM 波形对通信高效但对感知不友好：通信数据的随机性导致距离-多普勒二维模糊函数的旁瓣很高，严重影响雷达探测灵敏度。解决思路包括符号级预编码（SLP）、矩阵补全插值、以及 OTFS 波形替代。</p>
+    <h2>9.1 稀疏MIMO成为主流</h2>
+    <p>紧凑MIMO走向瓶颈，稀疏MIMO用更少单元实现更大孔径，性价比更高。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6.2 硬件非理想性</h2>
-    <p>实际射频前端的 IQ 不平衡、相位噪声、功率放大器非线性都会显著恶化感知性能。Barkhausen 研究所的研究指出，79 GHz 二进制相位调制 FMCW 收发器需要 TX-to-RX 溢出干扰消除技术才能正常工作。</p>
+    <h2>9.2 可重构ISAC天线</h2>
+    <p>通过智能超表面RIS或可调器件，动态切换通信/感知模式，适应场景变化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6.3 低空覆盖的仰角难题</h2>
-    <p>传统基站天线主要面向地面用户，仰角覆盖不足。中兴 128TR AAU 通过 65° 大张角设计同时覆盖地面和低空，但这意味着天线方向图必须重新优化，不能沿用传统宏站天线的俯仰波束赋形策略。</p>
+    <h2>9.3 卫星-ISAC融合</h2>
+    <p>低轨卫星星座搭载ISAC基站，实现全球三维立体覆盖，地面-天空感知一体化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6.4 标准滞后</h2>
-    <p>3GPP Rel-18 仅启动了 5G-A ISAC 的初步研究，Rel-19/20 才逐步深入。IEEE 802.11bf 正在制定 Wi-Fi 感知标准，但 6G ISAC 的空口标准尚未定型。这意味着设备商在做产品时缺乏统一规范，互操作性是问题。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>七、技术演进</h2>
-    <ul>
-<li><strong>2016-2018</strong>：JRC（Joint Radar-Communication）概念提出，早期研究以雷达系统为基础添加通信功能</li>
-<li><strong>2019-2021</strong>：5G NR 波形被探索用于感知，华为发布 ISAC 白皮书初稿</li>
-<li><strong>2022-2023</strong>：IEEE JSAC 出版 ISAC 专刊，Fan Liu 等人提出 ISAC 分类框架；3GPP Rel-18 启动研究</li>
-<li><strong>2024-2025</strong>：TI 推出集成通信感知的单芯片方案（IWR6843AOP）；东南大学提出 DBRAA 双频段可重构阵列；大连理工提出 SLP 旁瓣抑制方案</li>
-<li><strong>2026</strong>：MWC 26 上华为展示 ISAC-OW 光无线样机；中兴发布 128TR AAU 低空智联方案；工信部明确 2027 年低空公共航路地面覆盖率达 90% 以上</li>
+    <h2>9.4 AI赋能ISAC</h2>
+    <p>深度学习用于：</p>
+<ul>
+<li>波束成形快速求解</li>
+<li>自干扰信道估计</li>
+<li>感知-通信波形联合优化</li>
 </ul>
   </article>
   
@@ -422,11 +557,24 @@
   
   <article class="card ">
     
-    <h2>九、未来趋势</h2>
+    <h2>9.5 太赫兹ISAC</h2>
+    <p>THz频段提供超大带宽，实现厘米级甚至毫米级感知分辨率，但器件和传播挑战巨大。</p>
+  </article>
+  
+
+  
+    
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
     <ul>
-<li><strong>短期（1-2 年）</strong>：低空经济成为 ISAC 首个杀手级应用，5G-A 基站批量升级通感功能；Wi-Fi 7/8 感知功能普及（IEEE 802.11bf 标准落地）</li>
-<li><strong>中期（3-5 年）</strong>：6G 标准冻结（预计 2029-2030），ISAC 成为原生空口特性；AI 驱动的自适应波形设计成为主流；光无线 ISAC 走向实用</li>
-<li><strong>长期（5 年以上）</strong>：通感算一体化（ISAC + Edge AI），网络即传感器成为基础设施标配；太赫兹 ISAC 实现毫米级成像；数字孪生城市依赖全网感知数据</li>
+<li><a href="https://rf.eefocus.com/article/id-339151">从通信到感知：天线如何实现"通感一体化"功能？</a></li>
+<li><a href="https://www.chinaaet.com/article/3000179191">多低轨卫星使能通感一体化系统：联合波束成形设计</a></li>
+<li><a href="https://xuebaozr.sysu.edu.cn/zh/article/doi/10.13471/j.cnki.acta.snus.ZR20240363/">6G通感一体化：从传统MIMO到稀疏MIMO</a></li>
+<li><a href="http://dianda.cqvip.com/Qikan/Article/Detail?id=7108820133">面向卫星通信的6G通感算融合架构</a></li>
 </ul>
   </article>
   

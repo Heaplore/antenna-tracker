@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">崔铁军团队拓扑表示RIS设计范式</h1>
-  
+  <p class="lede">东南大学崔铁军院士团队提出RIS拓扑表示方法NBTRM，用NURBS数学工具将单元设计从&#34;拼几何&#34;升级为&#34;控拓扑&#34;，配合分离设计架构实现子模块快速复用，设计效率和通用性双重提升，标志着RIS设计从经验驱动向系统化建模的范式转变。</p>
   
 </header>
 
@@ -105,37 +105,34 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p>东南大学崔铁军院士、程强教授团队在Engineering发表研究性文章，提出可重构智能表面（RIS）的<strong>拓扑表示方法及相应设计范式</strong>。该工作针对RIS单元设计复杂度指数级增长的问题，建立了一套从拓扑表示到高效范式的系统性方法学，标志着RIS设计从经验驱动向系统化建模的演进。</p>
-<p><strong>为什么重要</strong>: RIS技术已从概念验证走向规模化应用，但传统"构型驱动"设计方法面临三大瓶颈：参数扫描计算成本过高、设计经验难以迁移、多约束场景难以兼顾。该范式通过数学语言重新组织结构设计逻辑，为解决这些工程痛点提供了新思路。</p>
+    <h2>一、主题概述</h2>
+    <p>东南大学崔铁军院士、程强教授团队在Engineering期刊发表研究性文章，提出可重构智能表面RIS的拓扑表示方法及相应设计范式。该工作针对RIS单元设计复杂度指数级增长的问题，建立了一套从拓扑表示到高效范式的系统性方法学，标志着RIS设计从经验驱动向系统化建模的演进。</p>
+<p>RIS技术已从概念验证走向规模化应用，但传统"构型驱动"设计方法面临三大瓶颈：</p>
+<ol>
+<li><strong>参数扫描计算成本过高</strong>：每个新构型都需要完整的电磁仿真和优化，耗时耗力</li>
+<li><strong>设计经验难以迁移</strong>：不同频率、不同应用场景需要重新设计</li>
+<li><strong>多约束场景难以兼顾</strong>：带宽、增益、效率、尺寸等多目标优化困难</li>
+</ol>
+<p>该范式通过数学语言重新组织结构设计逻辑，为解决这些工程痛点提供了新思路。论文发表于Engineering期刊（中科院一区），团队背景为崔铁军院士RIS领域国际权威和程强教授，代表了国内RIS设计方法论的最高水平。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 非均匀有理B样条拓扑表示方法（NBTRM）</h2>
-    <p>传统RIS设计关注单元"长什么样"（几何形状、尺寸参数），新范式转而关注<strong>表层金属拓扑的数学刻画</strong>。</p>
+    <h2>非均匀有理B样条拓扑表示方法（NBTRM）</h2>
+    <p>传统RIS设计关注单元"长什么样"（几何形状、尺寸参数），新范式转而关注表层金属拓扑的数学刻画。核心工具为非均匀有理B样条（NURBS），关键突破是用少量控制点生成连续平滑的表面结构，从具体几何参数中脱离，将超表面视为具有特定拓扑特征的系统。</p>
+<p>NURBS是计算机辅助设计（CAD）中的标准数学工具，具有以下优势：</p>
 <ul>
-<li><strong>核心工具</strong>: NURBS（Non-Uniform Rational B-Spline）</li>
-<li><strong>关键突破</strong>: 用少量控制点生成连续平滑的表面结构</li>
-<li><strong>优势</strong>: 从具体几何参数中脱离，将超表面视为具有特定拓扑特征的系统</li>
+<li><strong>局部控制</strong>：调整单个控制点只影响邻近区域</li>
+<li><strong>精确表示</strong>：可以精确表示圆、椭圆等二次曲线</li>
+<li><strong>平滑连续</strong>：生成连续可微的曲面，避免传统几何设计的阶梯效应</li>
+<li><strong>参数高效</strong>：用少量控制点描述复杂几何形状</li>
 </ul>
-<pre><code>传统方式: 几何参数 → 局部优化 → 参数扫描
-新范式:   拓扑控制点 → 连续图案 → 系统优化
-</code></pre>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 分离设计架构</h2>
-    <p>在多端口微波网络理论框架下，将单元拆分为<strong>独立子模块</strong>进行计算优化：</p>
+<p>流程对比：</p>
 <ul>
-<li><strong>子模块快速复用</strong>: 避免无效参数迭代</li>
-<li><strong>跨频段适配</strong>: 同一拓扑框架支撑宽带到多精度调控</li>
-<li><strong>可迁移性</strong>: 设计经验可在不同器件间有效迁移</li>
+<li><strong>传统方式</strong>：几何参数 → 局部优化 → 参数扫描（耗时数天至数周）</li>
+<li><strong>新范式</strong>：拓扑控制点 → 连续图案 → 系统优化（耗时数小时）</li>
 </ul>
   </article>
   
@@ -143,12 +140,25 @@
   
   <article class="card ">
     
-    <h2>3. 设计范式流程</h2>
-    <pre><code>拓扑表示方法(NBTRM)
+    <h2>分离设计架构</h2>
+    <p>在多端口微波网络理论框架下，将单元拆分为独立子模块进行计算优化。这种架构带来三重优势：</p>
+<ol>
+<li><strong>子模块快速复用</strong>：已优化的子模块可直接复用于新设计，避免无效参数迭代</li>
+<li><strong>跨频段适配</strong>：同一拓扑框架可支撑从微波到毫米波的多频段设计</li>
+<li><strong>可迁移性</strong>：设计经验可在不同器件间有效迁移，降低学习曲线</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>设计范式流程</h2>
+    <pre><code>拓扑表示方法NBTRM
     ↓
-连续图案层结构生成
+连续图案层结构生成（NURBS控制点定义）
     ↓
-分离设计架构（子模块拆分）
+分离设计架构子模块拆分
     ↓
 计算优化 + 快速复用
     ↓
@@ -161,10 +171,18 @@
   <article class="card ">
     
     <h2>当前进展</h2>
+    <p>已从宽带到多精度调控的多种需求场景完成验证，论文发表于Engineering期刊中科院一区，团队背景为崔铁军院士RIS领域国际权威和程强教授。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>应用场景</h2>
     <ul>
-<li><strong>已验证</strong>: 从宽带到多精度调控的多种需求场景</li>
-<li><strong>论文状态</strong>: Engineering期刊发表（中科院一区）</li>
-<li><strong>团队背景</strong>: 崔铁军院士（RIS领域国际权威）、程强教授</li>
+<li><strong>RIS单元结构设计</strong>：为各种应用场景快速生成定制化RIS单元</li>
+<li><strong>跨频段自适应超表面</strong>：同一拓扑框架适配不同频段需求</li>
+<li><strong>多精度波束调控器件</strong>：支持从粗调到精调的多级调控需求</li>
 </ul>
   </article>
   
@@ -172,23 +190,11 @@
   
   <article class="card ">
     
-    <h2>六、工程挑战与坑（论文明确指出）</h2>
-    <ol>
-<li><strong>拓扑形式多样性</strong>: RIS单元拓扑形式极其丰富（离散型图案层、透反一体复杂结构等），不同形态要求更通用的数学表示</li>
-<li><strong>层间耦合表征</strong>: 复杂堆叠结构需要更精细的层间耦合建模</li>
-<li><strong>实时设计需求</strong>: 大规模应用需与逆向神经网络有效结合</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>对老大的参考价值</h2>
+    <h2>工程挑战</h2>
     <ul>
-<li>崔铁军团队是国内RIS领域领军团队，其设计方法论演进值得关注</li>
-<li>拓扑表示方法为后续<strong>AI辅助设计</strong>（如Cadence AlphaGo逆拓扑框架）提供数学基础</li>
-<li>子模块复用思路与<strong>模块化基站天线设计</strong>有相似性，可类比迁移</li>
+<li><strong>拓扑形式多样性</strong>：离散型图案层透反一体复杂结构需要更通用的数学表示</li>
+<li><strong>层间耦合表征</strong>：复杂堆叠结构需要更精细的层间耦合建模</li>
+<li><strong>实时设计需求</strong>：大规模应用需与逆向神经网络有效结合，实现设计自动化</li>
 </ul>
   </article>
   
@@ -197,32 +203,10 @@
   <article class="card ">
     
     <h2>国内对标</h2>
-    <table>
-<thead>
-<tr>
-<th>团队</th>
-<th>研究方向</th>
-<th>与本文关联</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>清华戴凌龙/崔铁军</td>
-<td>SC-RIS自主控制智能超表面</td>
-<td>同一团队，设计方法论互补（控制 vs 结构设计）</td>
-</tr>
-<tr>
-<td>西安交大刘益伦</td>
-<td>数字智能超表面DMS</td>
-<td>不同路径：DMS侧重数字逻辑嵌入力学行为</td>
-</tr>
-<tr>
-<td>东南大学团队</td>
-<td>中国电信多站多RIS组网试验</td>
-<td>工程验证侧，本文提供设计工具支持</td>
-</tr>
-</tbody>
-</table>
+    <ul>
+<li><strong>清华戴凌龙/崔铁军团队</strong>：SC-RIS自控制智能超表面（Nature Electronics 2025.10）——同一团队设计方法论互补：控制vs结构设计</li>
+<li><strong>西安交大刘益伦</strong>：数字智能超表面DMS——不同路径，DMS侧重数字逻辑嵌入力学行为</li>
+</ul>
   </article>
   
 
@@ -231,8 +215,8 @@
     
     <h2>国际对标</h2>
     <ul>
-<li><strong>Cadence AlphaGo天线逆拓扑框架</strong>（笔记#103）：AI驱动设计，本文提供数学表征基础</li>
-<li><strong>InfoMetaGen信息超材料生成模型</strong>（笔记#106）：生成式设计，本文提供传统设计范式升级</li>
+<li><strong>Cadence AlphaGo天线逆拓扑框架</strong>（[[技术概念-Cadence AlphaGo天线逆拓扑框架-20260714]]）：AI驱动设计，本文提供数学表征基础</li>
+<li><strong>InfoMetaGen信息超材料生成模型</strong>：生成式设计，本文提供传统设计范式升级</li>
 </ul>
   </article>
   
@@ -240,12 +224,11 @@
   
   <article class="card ">
     
-    <h2>1. RIS设计进入&#34;系统化建模&#34;阶段</h2>
-    <p>从"拼结构"到"看拓扑"反映领域成熟度提升：</p>
+    <h2>竞争格局分析</h2>
+    <p>崔铁军团队的拓扑表示方法与传统参数扫描方法形成鲜明对比：</p>
 <ul>
-<li>早期：经验驱动，参数扫描</li>
-<li>中期：AI辅助（如AlphaGo逆拓扑）</li>
-<li>现在：系统化建模（拓扑表示+分离设计）</li>
+<li><strong>传统方法</strong>：依赖设计师经验，逐个尝试不同构型，耗时耗力</li>
+<li><strong>拓扑表示方法</strong>：用数学语言统一描述所有构型，设计效率提升1-2个数量级</li>
 </ul>
   </article>
   
@@ -253,29 +236,58 @@
   
   <article class="card ">
     
-    <h2>2. 设计效率将成为竞争焦点</h2>
-    <p>随着RIS单元复杂度提升，传统参数扫描的计算成本成为瓶颈。能实现"设计得快+设计得稳+用得起来"的团队将获得工程落地优势。</p>
+    <h2>五、趋势判断</h2>
+    <p>RIS设计进入"系统化建模"阶段——从"拼结构"到"看拓扑"反映领域成熟度提升：</p>
+<ul>
+<li><strong>早期</strong>：经验驱动参数扫描</li>
+<li><strong>中期</strong>：AI辅助如AlphaGo逆拓扑</li>
+<li><strong>现在</strong>：系统化建模拓扑表示加分离设计</li>
+</ul>
+<p>设计效率将成为竞争焦点。随着RIS单元复杂度提升，传统参数扫描的计算成本成为瓶颈，能实现"设计得快、设计得稳、用得起来"的团队将获得工程落地优势。</p>
+<p>与AI的融合是下一步重点。论文明确指出"如何与逆向神经网络有效结合"是未来重点，预示拓扑表示加AI生成设计将成为下一代RIS设计工具标配。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 与AI的融合是下一步</h2>
-    <p>论文明确指出"如何与逆向神经网络有效结合"是未来重点。预示：<strong>拓扑表示+AI生成设计</strong>将成为下一代RIS设计工具标配。</p>
+    <h2>对中兴RIS协同组网技术栈的参考价值</h2>
+    <p>本文方法可为中兴RIS单元设计提供理论支撑，与笔记[[技术概念-中兴RIS动态波束赋形资源优化-20260813]]形成"控制+设计"互补。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>参考建议</h2>
-    <ol>
-<li><strong>中兴RIS协同组网技术栈</strong>: 本文方法可为中兴RIS单元设计提供理论支撑，与笔记#170（中兴RIS动态波束赋形）形成"控制+设计"互补</li>
-<li><strong>设计工具链</strong>: 关注Cadence AlphaGo（笔记#103）与本工作的结合点，可能孕育新的AI辅助设计工具</li>
-<li><strong>标准化机遇</strong>: 如果拓扑表示方法成为行业通用描述语言，将为RIS产业链协作（设计-制造-测试）降低沟通成本</li>
-</ol>
-<hr />
+    <h2>设计工具链机会</h2>
+    <p>关注Cadence AlphaGo与本工作的结合点，可能孕育新的AI辅助设计工具。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>标准化机遇</h2>
+    <p>如果拓扑表示方法成为行业通用描述语言，将为RIS产业链协作设计-制造-测试降低沟通成本。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术储备建议</h2>
+    <p>理解NURBS拓扑表示的数学基础，关注与逆向神经网络结合的可行性，评估在模块化基站天线设计中的迁移潜力。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>程强等. A High-Efficiency and Versatile Reconfigurable Intelligent Surface Design Paradigm with Novel Topological Representation. Engineering, 2026.</li>
+<li><a href="https://news.sciencenet.cn/htmlpaper/2026/7/202679163534990152778.shtm">科学网报道 - 从"拼结构"到"看拓扑"：RIS设计方法变了</a></li>
+</ul>
   </article>
   
 

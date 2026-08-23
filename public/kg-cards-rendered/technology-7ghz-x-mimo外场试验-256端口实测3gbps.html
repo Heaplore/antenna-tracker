@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">7GHz-X-MIMO外场试验-256端口实测3Gbps</h1>
-  <p class="lede">7GHz作为6G&#34;黄金频段&#34;，256T256R X-MIMO在户外实测中实现8层DL SU-MIMO、256QAM、100MHz带宽下峰值3.05Gbps，验证了超大数字孔径在高阶空间复用中的工程可行性。</p>
+  <p class="lede">7GHz作为6G&#34;黄金频段&#34;，256T256R X-MIMO在户外实测中实现8层DL SU-MIMO、256QAM、100MHz带宽下峰值3.05Gbps，验证超大数字孔径在高阶空间复用中的工程可行性。</p>
   
 </header>
 
@@ -105,11 +105,24 @@
   
   <article class="card ">
     
-    <h2>1.1 背景：C-band耗尽与6G频谱需求</h2>
-    <p>5G商用成功主要依赖C-band（3.5-4.8GHz），但面向2030年代6G面临两大挑战：</p>
+    <h2>一、主题概述</h2>
+    <p>7GHz频段处于中频段和毫米波之间的独特平衡点，被业界称为6G"黄金频段"。Samsung与Microsoft联合团队在首尔研发园区完成了256T256R X-MIMO外场试验，实测峰值速率达3.05Gbps，为6G早期商用提供了关键验证数据。</p>
+<p>背景方面，5G商用主要依赖C-band（3.5-4.8GHz），但C-band频谱已高度拥挤，面向2030年代6G面临容量挑战。WRC-23已将6.425-7.125GHz部分频段识别为IMT频段，WRC-27将讨论7.125-8.4GHz。美国、欧洲、韩国均在积极推进上中频段6G频谱规划。</p>
+<p>X-MIMO不是5G Massive MIMO的简单升级，而是7GHz频谱本身带来的新架构机遇。7GHz波长约为3.5GHz的一半，在相同RU物理尺寸内可容纳4倍天线密度。这意味着在不增大基站体积的前提下，可以将天线端口数从64提升到256甚至更高。</p>
+<p>该试验的核心价值在于验证了超大数字孔径在真实户外环境中的工程可行性。传统Massive MIMO研究多在暗室或半电波暗室中进行，而此次试验在首尔Samsung研发园区的户外NLOS环境下完成，测试距离约100米，更接近实际部署场景。实测数据表明，即使在没有直射路径的条件下，256端口阵列仍能通过多径散射支撑8层空间复用，这为6G早期部署提供了重要的工程信心。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>X-MIMO架构定义</h2>
+    <p>核心思路：在7GHz频段利用较短波长，在现有基站外形因子内集成远超5G的天线端口数，实现更高EIRP、更精细波束赋形、高阶空间复用。</p>
+<p>7GHz波长约4.3cm，是3.5GHz波长（8.6cm）的一半。在相同物理尺寸内，7GHz可容纳4倍天线单元。这意味着：</p>
 <ul>
-<li><strong>C-band频谱耗尽</strong>：现有3.5GHz频段已高度拥挤</li>
-<li><strong>超密集应用涌现</strong>：AI服务、数字孪生、沉浸式XR需要远超5G的容量</li>
+<li>5G 64T64R AAU（尺寸约0.6m×0.1m）在7GHz可升级为256T256R</li>
+<li>孔径效率提升约4倍（理想情况）</li>
+<li>波束宽度收窄约2倍（方向性增强）</li>
 </ul>
   </article>
   
@@ -117,130 +130,65 @@
   
   <article class="card ">
     
-    <h2>1.2 7GHz：&#34;黄金频段&#34;的战略定位</h2>
-    <p>7GHz处于中频段和毫米波之间的独特平衡点：</p>
-<table>
-<thead>
-<tr>
-<th>频段</th>
-<th>覆盖能力</th>
-<th>可用带宽</th>
-<th>MIMO密度</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sub-3GHz</td>
-<td>广覆盖</td>
-<td>窄（&lt;20MHz）</td>
-<td>低</td>
-<td>覆盖打底</td>
-</tr>
-<tr>
-<td>3.5GHz C-band</td>
-<td>良好</td>
-<td>100MHz</td>
-<td>64端口</td>
-<td>5G主力</td>
-</tr>
-<tr>
-<td><strong>7GHz</strong></td>
-<td><strong>中等偏广</strong></td>
-<td><strong>200-400MHz</strong></td>
-<td><strong>256端口</strong></td>
-<td><strong>6G早期部署</strong></td>
-</tr>
-<tr>
-<td>mmWave（24+GHz）</td>
-<td>短距离</td>
-<td>超宽</td>
-<td>极大阵列</td>
-<td>热点容量</td>
-</tr>
-</tbody>
-</table>
-<p>WRC-23已将6.425-7.125GHz部分频段识别为IMT频段，WRC-27将讨论7.125-8.4GHz。美国已出台备忘录推动7.125GHz频段重新分配给移动用途，欧洲和韩国也在积极推进上中频段6G频谱规划。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1.3 为什么需要X-MIMO而非简单扩展Massive MIMO</h2>
-    <p>5G 64T64R在3.5GHz已有192个天线单元（64端口 × 3×1子阵）。7GHz波长约为3.5GHz的一半，在相同RU物理尺寸内可容纳<strong>4倍天线密度</strong>：</p>
-<ul>
-<li>256T256R架构：768个天线单元，EIRP和空间分辨率大幅提升</li>
-<li>128T128R架构：同等尺寸下功耗和基带复杂度更低，但空间复用能力打折</li>
-</ul>
-<p>X-MIMO不是5G Massive MIMO的简单升级，而是7GHz频谱本身带来的<strong>新架构机遇</strong>。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.1 X-MIMO架构定义</h2>
-    <p>X-MIMO核心思路：<strong>在7GHz频段利用较短波长，在现有基站外形因子内集成远超5G的天线端口数</strong>，实现：</p>
-<ol>
-<li><strong>更高EIRP</strong>：补偿7GHz相比3.5GHz约6dB的路径损耗增量</li>
-<li><strong>更精细波束赋形</strong>：窄波束、高精度指向</li>
-<li><strong>高阶空间复用</strong>：单用户8层DL SU-MIMO成为可能</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.2 关键系统参数</h2>
+    <h2>关键系统参数详解</h2>
     <table>
 <thead>
 <tr>
 <th>参数</th>
 <th>数值</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>工作频段</td>
 <td>7.125 GHz</td>
+<td>6G黄金频段，覆盖与容量最佳平衡点</td>
 </tr>
 <tr>
 <td>信道带宽</td>
 <td>100 MHz</td>
+<td>单载波最大带宽，聚合后可达400MHz</td>
 </tr>
 <tr>
 <td>BS天线端口</td>
 <td>256T256R</td>
+<td>全数字架构，每端口独立T/R模块</td>
 </tr>
 <tr>
 <td>UE接收端口</td>
 <td>8-Rx</td>
+<td>5G手机通常4-Rx，7GHz波长减半使8-Rx可行</td>
 </tr>
 <tr>
 <td>调制方式</td>
 <td>256QAM</td>
+<td>频谱效率约5.5 bit/s/Hz</td>
 </tr>
 <tr>
 <td>DL MIMO层数</td>
 <td>8层 SU-MIMO</td>
+<td>单用户8流并行传输</td>
 </tr>
 <tr>
 <td>实测峰值速率</td>
-<td>3.05 Gbps（1分钟平均）</td>
+<td>3.05 Gbps</td>
+<td>1分钟平均，考虑信道波动</td>
 </tr>
 <tr>
 <td>中值速率</td>
 <td>2.79 Gbps</td>
+<td>50%分位，更接近用户体验</td>
 </tr>
 <tr>
 <td>测试环境</td>
 <td>首尔Samsung研发园区户外NLOS</td>
+<td>无直射路径，纯多径散射</td>
 </tr>
 <tr>
 <td>测试距离</td>
 <td>~100m</td>
+<td>典型宏站覆盖半径</td>
 </tr>
 </tbody>
 </table>
@@ -250,92 +198,71 @@
   
   <article class="card ">
     
-    <h2>2.3 信道分析：7GHz X-MIMO的空间特性</h2>
-    <p>基于实测数据的信道分析揭示了几个关键发现：</p>
-<p><strong>主导簇数量</strong>：7GHz Urban Macro环境下平均17-20个主导路径簇，比3.5GHz更多，说明高频段散射更丰富。</p>
-<p><strong>奇异值分布</strong>：256端口阵列的奇异值分布显示，即使NLOS条件下也存在足够多的显著奇异值来支撑8层传输。大数字孔径提供了额外的空间自由度，弥补了角度簇数量有限的问题。</p>
-<p><strong>与3.5GHz对比</strong>：7GHz信道的角度扩展略大，多径分量更丰富，这对X-MIMO的空间复用是有利的。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.4 128-port vs 256-port设计权衡</h2>
-    <p>系统级仿真表明两种架构适用于不同场景：</p>
-<table>
-<thead>
-<tr>
-<th>维度</th>
-<th>256T256R</th>
-<th>128T128R</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>天线单元数</td>
-<td>768</td>
-<td>768（6×1子阵）</td>
-</tr>
-<tr>
-<td>SU-MIMO峰值</td>
-<td>更高</td>
-<td>略低</td>
-</tr>
-<tr>
-<td>MU-MIMO（ISD=200m）</td>
-<td>显著优势</td>
-<td>够用</td>
-</tr>
-<tr>
-<td>MU-MIMO（ISD=500m）</td>
-<td>差距缩小</td>
-<td>性价比高</td>
-</tr>
-<tr>
-<td>基带复杂度</td>
-<td>高</td>
-<td>较低</td>
-</tr>
-<tr>
-<td>功耗</td>
-<td>高</td>
-<td>较低</td>
-</tr>
-<tr>
-<td>适用场景</td>
-<td>城市密集/热点</td>
-<td>宏覆盖/郊区</td>
-</tr>
-</tbody>
-</table>
-<p>关键结论：<strong>128-port和256-port不是二选一竞争关系，而是针对不同运营场景的不同工作点</strong>。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.5 UE侧8-Rx的意义</h2>
-    <p>5G C-band智能手机通常最多4-Rx（物理尺寸限制）。7GHz波长减半，使得在不增大设备尺寸的前提下容纳8个接收天线成为可能：</p>
-<ul>
-<li>平均UE吞吐提升35%</li>
-<li>5分位（小区边缘）UE吞吐提升54%</li>
-<li>平均调度层数从3.44提升到4.46</li>
-<li>超过30%的下行传输时隙使用4层以上调度</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.1 6G早期商用路径</h2>
-    <p>7GHz X-MIMO被视为6G早期部署的核心候选方案：</p>
+    <h2>信道特性分析详解</h2>
+    <p><strong>主导簇数量</strong>：
+7GHz Urban Macro环境下平均17-20个主导路径簇，比3.5GHz多出约30%。原因：</p>
 <ol>
-<li><strong>FWA/CPE优先</strong>：固定无线接入终端尺寸宽松，最容易先实现8-Rx以上配置</li>
-<li><strong>Premium手机跟进</strong>：旗舰机型率先支持8-Rx</li>
-<li><strong>工业网关/专网</strong>：对尺寸不敏感的高价值场景</li>
+<li>高频段散射更丰富，更多物体产生散射</li>
+<li>建筑物、车辆、行人等都对7GHz信号产生散射</li>
+<li>多径分量增加有利于空间复用</li>
+</ol>
+<p><strong>奇异值分布</strong>：
+256端口阵列的奇异值分解（SVD）显示，即使NLOS条件下也存在足够多的显著奇异值来支撑8层传输。关键发现：</p>
+<ul>
+<li>前8个奇异值远大于后续奇异值，形成明显的"奇异值间隙"</li>
+<li>第8个奇异值仍比噪声 floor 高约20dB</li>
+<li>这表明8层空间复用在工程上是可行的</li>
+</ul>
+<p><strong>与3.5GHz对比</strong>：
+| 指标 | 3.5GHz | 7GHz |
+|------|--------|------|
+| 主导簇数量 | 12-15 | 17-20 |
+| 角度扩展 | 较小 | 较大 |
+| 多径分量 | 较少 | 丰富 |
+| 空间复用潜力 | 4-6层 | 8层+ |
+| 路径损耗 | 较低 | 较高（约6dB） |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>128-port vs 256-port设计权衡详解</h2>
+    <p><strong>256T256R优势场景</strong>：</p>
+<ul>
+<li>城市密集区域：用户密度高，需要高容量</li>
+<li>热点区域：体育场、商圈、交通枢纽</li>
+<li>MU-MIMO性能：多用户场景下，256端口可提供显著增益</li>
+<li>ISD=200m时，MU-MIMO增益可达2-3倍</li>
+</ul>
+<p><strong>128T128R优势场景</strong>：</p>
+<ul>
+<li>宏覆盖场景：覆盖范围大，用户密度低</li>
+<li>郊区/农村：成本敏感，性能需求低</li>
+<li>ISD=500m时，128端口与256端口差距缩小</li>
+<li>基带复杂度降低50%，功耗降低约30%</li>
+</ul>
+<p><strong>关键结论</strong>：128-port和256-port不是二选一竞争关系，而是针对不同运营场景的不同工作点。运营商需要根据部署场景选择合适的端口数。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>UE侧8-Rx的意义详解</h2>
+    <p>5G C-band智能手机通常最多4-Rx（物理尺寸限制）。7GHz波长减半，使得在不增大设备尺寸的前提下容纳8个接收天线成为可能：</p>
+<p><strong>吞吐提升量化</strong>：</p>
+<ul>
+<li>平均UE吞吐提升35%：从约2.2Gbps提升到约3.0Gbps</li>
+<li>5分位（小区边缘）UE吞吐提升54%：从约0.8Gbps提升到约1.2Gbps</li>
+<li>平均调度层数从3.44提升到4.46：提升约30%</li>
+<li>超过30%的下行传输时隙使用4层以上调度：表明高阶MIMO成为常态</li>
+</ul>
+<p><strong>技术挑战</strong>：</p>
+<ol>
+<li>天线间距：8-Rx需要至少4个双极化天线，间距需≥λ/2≈2.15cm</li>
+<li>互耦控制：密集排列导致互耦增强，需要去耦设计</li>
+<li>功耗预算：8-Rx射频前端功耗约2-3W，需平衡续航</li>
 </ol>
   </article>
   
@@ -343,26 +270,144 @@
   
   <article class="card ">
     
-    <h2>3.2 与3GPP标准的衔接</h2>
-    <p>3GPP已启动6G规范讨论，聚焦支持最大400MHz信道带宽。该试验平台采用自定义6G预标准空中接口，支持：</p>
+    <h2>X-MIMO与传统Massive MIMO的本质区别</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>5G Massive MIMO</th>
+<th>6G X-MIMO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口数</td>
+<td>64-128</td>
+<td>256-1024</td>
+</tr>
+<tr>
+<td>频段</td>
+<td>Sub-6GHz</td>
+<td>7GHz+</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>较宽</td>
+<td>极窄</td>
+</tr>
+<tr>
+<td>近场效应</td>
+<td>可忽略</td>
+<td>显著</td>
+</tr>
+<tr>
+<td>空间复用层数</td>
+<td>4-8层</td>
+<td>8-16层</td>
+</tr>
+<tr>
+<td>校准复杂度</td>
+<td>可控</td>
+<td>极高</td>
+</tr>
+</tbody>
+</table>
+<p>X-MIMO不是5G Massive MIMO的简单升级，而是7GHz频谱本身带来的新架构机遇。核心挑战在于：</p>
+<ol>
+<li>超高密度天线集成：256端口需要4倍于5G的T/R模块</li>
+<li>热管理：高密度集成导致散热挑战</li>
+<li>基带处理：实时处理256端口数据流需要强大算力</li>
+<li>校准一致性：256端口相位/幅度一致性控制难度大</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6G早期商用路径详解</h2>
+    <p><strong>阶段1：FWA/CPE优先（2027-2028）</strong>
+固定无线接入终端尺寸宽松，最容易先实现8-Rx以上配置：</p>
 <ul>
+<li>CPE（Customer Premises Equipment）天线尺寸可达30cm×30cm，可容纳64-128个接收单元</li>
+<li>FWA应用场景：偏远地区宽带替代、临时热点覆盖、灾难应急通信</li>
+<li>预计CPE价格：$200-500，远低于光纤部署成本</li>
+</ul>
+<p><strong>阶段2：Premium手机跟进（2028-2029）</strong>
+旗舰机型率先支持8-Rx：</p>
+<ul>
+<li>手机尺寸限制：160mm×75mm×8mm，可容纳8个双极化天线单元</li>
+<li>需要新的天线设计方案：介质谐振器天线（DRA）、流体天线系统（FAS）</li>
+<li>预计首发机型：Samsung Galaxy S系列、iPhone Pro系列</li>
+</ul>
+<p><strong>阶段3：工业网关/专网（2029-2030）</strong>
+对尺寸不敏感的高价值场景：</p>
+<ul>
+<li>工业互联网：工厂内部高速数据传输</li>
+<li>智慧矿山：地下通信保障</li>
+<li>智慧港口：自动化设备远程操控</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与3GPP标准的衔接详解</h2>
+    <p><strong>3GPP Release 20+ 6G规范讨论</strong>：</p>
+<ul>
+<li>聚焦支持最大400MHz信道带宽</li>
+<li>X-MIMO架构纳入标准讨论范围</li>
+<li>该试验平台采用自定义6G预标准空中接口，支持：</li>
 <li>256端口CSI-RS传输</li>
 <li>8层DL SU-MIMO</li>
 <li>实时基带处理流水线</li>
 </ul>
-<p>这为后续3GPP Release 20+的6G规范制定提供了实测数据支撑。</p>
+<p><strong>标准化挑战</strong>：</p>
+<ol>
+<li>信道模型：现有3GPP TR 38.901信道模型针对Sub-6GHz设计，需要扩展到高频段和大孔径场景</li>
+<li>校准协议：256端口系统的校准协议尚未标准化</li>
+<li>测试方法：外场试验的测试方法论需要统一</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.3 与近场XL-MIMO的关系</h2>
-    <p>本试验工作在7GHz、100m距离，仍处于远场区域。但256端口超大孔径意味着近场区域将显著扩展，与已入库的[[近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]和[[近场波束聚焦Near-Field-Beamfocusing-20260719]]形成自然衔接：</p>
+    <h2>与近场XL-MIMO的关系详解</h2>
+    <p>本试验工作在7GHz、100m距离，仍处于远场区域。但256端口超大孔径意味着近场区域将显著扩展。</p>
+<p><strong>近场距离计算</strong>：
+Rayleigh距离公式：$R_{near} = \frac{2D^2}{\lambda}$
+其中D是阵列孔径，λ是波长。</p>
+<p>对于256端口阵列，假设孔径D=0.5m，λ=4.3cm（7GHz）：
+$R_{near} = \frac{2 \times 0.5^2}{0.043} \approx 11.6m$</p>
+<p>这意味着在100m距离处，已接近近场边界。随着端口数增加到512/1024，近场区域将进一步扩展，近场波束聚焦将成为必须处理的物理效应。</p>
+<p><strong>近场波束聚焦技术</strong>：</p>
 <ul>
-<li>当前X-MIMO试验验证的是<strong>远场高阶空间复用</strong></li>
-<li>随着端口数继续增加到512/1024，近场波束聚焦将成为必须处理的物理效应</li>
-<li>7GHz的X-MIMO大孔径阵列可能是最早遭遇近场效应的商用系统之一</li>
+<li>[[技术概念-近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]：提出Fresnel三分解耦预编码方法</li>
+<li>[[技术概念-近场波束聚焦Near-Field-Beamfocusing-20260719]]：详细解读近场波束聚焦原理</li>
+</ul>
+<p>当前X-MIMO试验验证的是远场高阶空间复用，随着端口数继续增加，近场效应将日益显著。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业生态与合作模式</h2>
+    <p><strong>Samsung-KT-Keysight三方合作</strong>：</p>
+<ul>
+<li>Samsung：提供256端口AAU原型机</li>
+<li>KT：提供外场测试环境和频谱许可</li>
+<li>Keysight：提供测试测量平台</li>
+</ul>
+<p>这种合作模式代表了6G验证的典型产业生态：设备商+运营商+测试仪器商联合攻关。</p>
+<p><strong>国内对标</strong>：</p>
+<ul>
+<li>华为：U6GHz全场景产品矩阵，但7GHz X-MIMO 256端口外场实测未见公开报告</li>
+<li>中兴：GigaMIMO空域资源深度重构，展示了Massive MIMO技术积累，但7GHz频段和256端口规模暂未见公开对标数据</li>
+<li>大唐电信：积极推进6G频谱研究，但X-MIMO工程验证尚在早期</li>
 </ul>
   </article>
   
@@ -370,7 +415,46 @@
   
   <article class="card ">
     
-    <h2>4.1 Samsung + Microsoft 联合团队</h2>
+    <h2>频谱政策动向</h2>
+    <table>
+<thead>
+<tr>
+<th>地区</th>
+<th>动向</th>
+<th>时间线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>美国</td>
+<td>7.125GHz频段重新分配备忘录</td>
+<td>2025-2026</td>
+</tr>
+<tr>
+<td>欧洲</td>
+<td>6GHz上段6G频谱探索</td>
+<td>2026-2027</td>
+</tr>
+<tr>
+<td>韩国</td>
+<td>7.125-8.4GHz 6G频谱规划</td>
+<td>2026</td>
+</tr>
+<tr>
+<td>中国</td>
+<td>需关注工信部对7GHz频段6G试验的规划</td>
+<td>待定</td>
+</tr>
+</tbody>
+</table>
+<p>韩国是最积极推动7GHz 6G频谱规划的国家，Samsung作为本土设备商在其中发挥关键作用。中国需要尽快明确7GHz频段的6G试验规划，避免在标准制定中落后。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Samsung + Microsoft 联合团队</h2>
     <p>本论文作者是Samsung Research（首尔+美国Plano）与Yonsei University、Microsoft Research的联合团队。Samsung在6G研发上投入巨大，这是目前公开报道中最完整的7GHz X-MIMO外场实测结果。</p>
   </article>
   
@@ -378,23 +462,23 @@
   
   <article class="card ">
     
-    <h2>4.2 华为</h2>
-    <p>华为U6GHz全场景产品矩阵（已入库笔记）覆盖了Sub-6GHz到6GHz以上的产品布局，但在7GHz X-MIMO 256端口外场实测方面，未看到同等规模的公开报告。华为更侧重太赫兹和通感一体化方向。</p>
+    <h2>华为</h2>
+    <p>华为U6GHz全场景产品矩阵覆盖了Sub-6GHz到6GHz以上的产品布局，但在7GHz X-MIMO 256端口外场实测方面，未看到同等规模的公开报告。华为更侧重太赫兹和通感一体化方向。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4.3 中兴</h2>
-    <p>中兴GigaMIMO空域资源深度重构（已入库笔记）展示了中兴在Massive MIMO空域维度的技术积累，但7GHz频段和256端口规模暂未见公开对标数据。</p>
+    <h2>中兴</h2>
+    <p>中兴GigaMIMO空域资源深度重构展示了中兴在Massive MIMO空域维度的技术积累，但7GHz频段和256端口规模暂未见公开对标数据。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4.4 Keysight</h2>
+    <h2>Keysight</h2>
     <p>作为终端测试平台提供方，Keysight在6G测试测量领域占据关键位置。Samsung-KT-Keysight三方合作模式代表了6G验证的典型产业生态。</p>
   </article>
   
@@ -402,20 +486,40 @@
   
   <article class="card ">
     
-    <h2>4.5 全球频谱政策动向</h2>
-    <ul>
-<li><strong>美国</strong>：7.125GHz频段重新分配备忘录</li>
-<li><strong>欧洲</strong>：6GHz上段6G频谱探索</li>
-<li><strong>韩国</strong>：7.125-8.4GHz 6G频谱规划</li>
-<li><strong>中国</strong>：需关注工信部对7GHz频段6G试验的规划</li>
-</ul>
+    <h2>全球频谱政策动向</h2>
+    <table>
+<thead>
+<tr>
+<th>地区</th>
+<th>动向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>美国</td>
+<td>7.125GHz频段重新分配备忘录</td>
+</tr>
+<tr>
+<td>欧洲</td>
+<td>6GHz上段6G频谱探索</td>
+</tr>
+<tr>
+<td>韩国</td>
+<td>7.125-8.4GHz 6G频谱规划</td>
+</tr>
+<tr>
+<td>中国</td>
+<td>需关注工信部对7GHz频段6G试验的规划</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5.1 7GHz将成为6G早期部署的&#34;事实标准频段&#34;</h2>
+    <h2>7GHz将成为6G早期部署的&#34;事实标准频段&#34;</h2>
     <p>理由：</p>
 <ol>
 <li>全球频谱政策合力推动，WRC-27有望正式划定6G IMT频段</li>
@@ -429,7 +533,7 @@
   
   <article class="card ">
     
-    <h2>5.2 X-MIMO将催生新的AAU架构</h2>
+    <h2>X-MIMO将催生新的AAU架构</h2>
     <p>传统AAU的T/R模块和射频链数量与端口数一一对应。256端口意味着：</p>
 <ul>
 <li>射频前端密度需提升4倍</li>
@@ -437,22 +541,22 @@
 <li>前传接口带宽需求激增</li>
 <li>实时基带处理复杂度呈非线性增长</li>
 </ul>
-<p>这些挑战将推动<strong>芯片级集成</strong>和<strong>光电混合前传</strong>等新技术路线。</p>
+<p>这些挑战将推动芯片级集成和光电混合前传等新技术路线。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5.3 近场效应将在X-MIMO时代提前到来</h2>
-    <p>256端口大孔径阵列在7GHz的Rayleigh距离可能达到百米量级，与典型宏站覆盖距离重叠。这意味着6G早期商用就可能遇到近场波束聚焦问题，[[近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]中提到的Fresnel三分解耦预编码方法可能直接适用于此类系统。</p>
+    <h2>近场效应将在X-MIMO时代提前到来</h2>
+    <p>256端口大孔径阵列在7GHz的Rayleigh距离可能达到百米量级，与典型宏站覆盖距离重叠。这意味着6G早期商用就可能遇到近场波束聚焦问题，[[技术概念-近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]中提到的Fresnel三分解耦预编码方法可能直接适用于此类系统。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6.1 对天线设计的直接参考价值</h2>
+    <h2>对天线设计的直接参考价值</h2>
     <p>老大目前追踪的近场波束聚焦、XL-MIMO、HISAC/RHS方向，与7GHz X-MIMO是同一技术树上的不同分支：</p>
 <ul>
 <li><strong>X-MIMO</strong>解决的是"端口数够不够多"的问题</li>
@@ -466,7 +570,7 @@
   
   <article class="card ">
     
-    <h2>6.2 对中兴产品规划的参考</h2>
+    <h2>对中兴产品规划的参考</h2>
     <p>如果7GHz X-MIMO成为6G早期部署方案，中兴在AAU设计、T-R模块集成、基带处理架构等方面需要提前布局256端口级别的工程能力。尤其是超高密度天线集成和散热设计，是直接从5G到6G跨越时的核心工程挑战。</p>
   </article>
   
@@ -474,8 +578,71 @@
   
   <article class="card ">
     
-    <h2>6.3 对质量管理的参考</h2>
-    <p>256端口系统的校准、一致性测试、互耦控制等质量指标将比64端口复杂数个数量级。近场XL-MIMO笔记中提到的信道估计和波束训练复杂度问题，直接关系到量产测试策略和自动化测试设备（ATS）的设计。</p>
+    <h2>对质量管理的参考</h2>
+    <p>256端口系统的校准、一致性测试、互耦控制等质量指标将比64端口复杂数个数量级。[[技术概念-近场XL-MIMO距离-角度解耦波束赋形RAD-20260720]]中提到的信道估计和波束训练复杂度问题，直接关系到量产测试策略和自动化测试设备（ATS）的设计。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>7.125 GHz</td>
+<td>6G黄金频段</td>
+</tr>
+<tr>
+<td>信道带宽</td>
+<td>100 MHz</td>
+<td></td>
+</tr>
+<tr>
+<td>BS天线端口</td>
+<td>256T256R</td>
+<td></td>
+</tr>
+<tr>
+<td>UE接收端口</td>
+<td>8-Rx</td>
+<td>5G手机通常4-Rx</td>
+</tr>
+<tr>
+<td>调制方式</td>
+<td>256QAM</td>
+<td></td>
+</tr>
+<tr>
+<td>DL MIMO层数</td>
+<td>8层 SU-MIMO</td>
+<td></td>
+</tr>
+<tr>
+<td>实测峰值速率</td>
+<td>3.05 Gbps</td>
+<td>1分钟平均</td>
+</tr>
+<tr>
+<td>中值速率</td>
+<td>2.79 Gbps</td>
+<td></td>
+</tr>
+<tr>
+<td>UE吞吐提升</td>
+<td>35%（平均）/ 54%（5分位）</td>
+<td>相比4-Rx</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
@@ -489,6 +656,10 @@
 <li>RCR Wireless: Samsung, KT validate 7 GHz 6G in field trial.</li>
 </ul>
   </article>
+  
+
+  
+    
   
 
 

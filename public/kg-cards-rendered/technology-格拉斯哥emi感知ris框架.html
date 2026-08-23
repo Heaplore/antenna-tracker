@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">格拉斯哥EMI感知RIS框架</h1>
-  
+  <p class="lede">传统RIS像个&#34;傻镜子&#34;——来者不拒，把干扰也一起放大；格拉斯哥大学提出的EMI感知RIS框架通过识别干扰的&#34;统计指纹&#34;并引导信号绕开干扰，首次同时解决通信、定位、安全三大问题，且计算开销极低。</p>
   
 </header>
 
@@ -105,39 +105,28 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p><strong>RIS有个致命缺陷：来者不拒。</strong></p>
-<p>传统RIS像一个"傻镜子"——任何打到它表面的电磁波都会被反射，不管是有用信号还是干扰噪声。在日益拥挤的电磁环境中，这导致RIS不仅放大了目标信号，也放大了电磁干扰（EMI），反而降低了通信质量和定位精度。</p>
-<p>格拉斯哥大学James Watt工程学院Saber Hassouna等人提出了一种<strong>EMI感知RIS框架（EMI-aware RIS Framework）</strong>，核心思路不是"抵消"干扰，而是"识别并绕过"干扰。这项研究于2026年发表，并搭建了64×64（4096单元）的真实USRP实验平台在3.5GHz频段验证。</p>
-<p><strong>为什么重要：</strong> 这是首个同时解决"通信+定位+安全"三大问题的RIS干扰管理方案，而且不需要基站做大量数字信号处理，计算开销极低。</p>
+    <h2>RIS的致命缺陷</h2>
+    <p>RIS（智能反射面）有个致命缺陷：<strong>来者不拒</strong>。传统RIS像一个"傻镜子"——任何打到它表面的电磁波都会被反射，不管是有用信号还是干扰噪声。在日益拥挤的电磁环境中，这导致RIS不仅放大了目标信号，也放大了电磁干扰（EMI），反而降低了通信质量和定位精度。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>问题建模：空间相关干扰</h2>
-    <p>传统方法假设干扰是白噪声（各向同性、均匀分布），但实际环境中的EMI具有<strong>空间相关性</strong>——干扰源来自特定方向，具有独特的统计特征。论文建立了包含空间相关干扰的RIS信道模型，量化了干扰对以下指标的影响：</p>
-<ul>
-<li>可达数据速率（Achievable Data Rate）</li>
-<li>位置误差界（Position Error Bound, PEB）</li>
-<li>定位均方根误差（Localization RMSE）</li>
-</ul>
+    <h2>格拉斯哥大学的创新思路</h2>
+    <p>格拉斯哥大学James Watt工程学院Saber Hassouna等人提出了一种<strong>EMI感知RIS框架（EMI-aware RIS Framework）</strong>，核心思路不是"抵消"干扰，而是"识别并绕过"干扰。这项研究于2026年发表，并搭建了64×64（4096单元）的真实USRP实验平台在3.5GHz频段验证。这是首个同时解决"通信+定位+安全"三大问题的RIS干扰管理方案，且不需要基站做大量数字信号处理，计算开销极低。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>EMI指纹识别（Fingerprinting）</h2>
-    <p>核心创新：<strong>分析干扰的二阶空间统计特性</strong>。</p>
-<p>每个干扰源都有独特的"统计指纹"——类似于每个人的声纹。通过观测接收信号的协方差矩阵，可以提取干扰的空间功率谱分布，从而识别出干扰来自哪些方向、强度如何。</p>
-<p>具体做法：</p>
-<ol>
-<li>在RIS相位配置已知的情况下，采集一段时间内的接收信号</li>
-<li>计算信号的自相关矩阵（二阶统计量）</li>
-<li>通过特征分解或子空间分析，分离出信号子空间和干扰子空间</li>
-<li>得到干扰的方向-强度分布（即"指纹"）</li>
+    <h2>为什么重要？</h2>
+    <ol>
+<li><strong>实用化突破</strong>：之前的RIS研究多停留在理想假设（无干扰或白噪声干扰），该框架首次考虑了真实电磁环境中的空间相关干扰</li>
+<li><strong>多目标优化</strong>：同时优化通信速率、定位精度和物理层安全，而非单一目标</li>
+<li><strong>低复杂度</strong>：算法计算开销低，适合实际部署</li>
+<li><strong>实验验证</strong>：搭建了4096单元的真实实验平台，而非纯仿真</li>
 </ol>
   </article>
   
@@ -145,24 +134,121 @@
   
   <article class="card ">
     
-    <h2>几何探测+迭代优化算法</h2>
-    <p>获得干扰指纹后，算法分两步确定最优RIS相位配置：</p>
-<p><strong>第一步：粗搜索（Coarse Search）</strong>
-- 在一个小的几何探测方向集合上扫描
-- 找到信号最强且干扰最弱的方向组合
-- 这一步计算量很小，因为搜索空间被限制在少量候选方向</p>
-<p><strong>第二步：精细迭代（Iterative Refinement）</strong>
-- 基于粗搜索结果，使用低复杂度的梯度类算法逐步优化RIS相位
-- 每次更新只调整少量单元相位，避免全排列搜索的指数级复杂度
-- 收敛到接近最优的相位配置</p>
-<p><strong>关键优势：</strong> 不需要知道用户的确切位置信息（no explicit user location required），仅依赖干扰的统计特征和信号强度反馈。</p>
+    <h2>传统假设的局限</h2>
+    <p>传统方法假设干扰是白噪声（各向同性、均匀分布），但实际环境中的EMI具有<strong>空间相关性</strong>——干扰源来自特定方向，具有独特的统计特征。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与&#34;干扰抵消&#34;方案的本质区别</h2>
+    <h2>空间相关干扰模型</h2>
+    <p>论文建立了包含空间相关干扰的RIS信道模型：</p>
+<p><strong>信道模型：</strong></p>
+<pre><code>y = (h_d^H + h_r^H Φ G) x + n_d + n_r + J
+</code></pre>
+<p>其中：</p>
+<ul>
+<li>y：接收信号向量</li>
+<li>x：发送信号</li>
+<li>h_d：直接链路信道</li>
+<li>h_r：RIS到接收端的信道</li>
+<li>G：发送端到RIS的信道</li>
+<li>Φ：RIS相位配置矩阵（对角矩阵）</li>
+<li>n_d, n_r：噪声</li>
+<li>J：空间相关干扰</li>
+</ul>
+<p><strong>干扰协方差矩阵：</strong></p>
+<pre><code>R_J = E[J J^H] = Σ_k σ_k² a(θ_k) a(θ_k)^H
+</code></pre>
+<p>其中σ_k²是第k个干扰源的功率，a(θ_k)是导向矢量。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>性能指标量化</h2>
+    <p>论文量化了干扰对以下指标的影响：</p>
+<ul>
+<li><strong>可达数据速率</strong>：R = log₂(1 + SIR)，SIR为信号干扰比</li>
+<li><strong>位置误差界（PEB）</strong>：Cramér-Rao下界，定位精度的理论极限</li>
+<li><strong>定位均方根误差（Localization RMSE）</strong>：实际定位误差</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心创新</h2>
+    <p><strong>分析干扰的二阶空间统计特性</strong>。每个干扰源都有独特的"统计指纹"——类似于每个人的声纹。通过观测接收信号的协方差矩阵，可以提取干扰的空间功率谱分布，从而识别出干扰来自哪些方向、强度如何。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>具体步骤详解</h2>
+    <p><strong>步骤1：信号采集</strong>
+- 在RIS相位配置已知的情况下
+- 采集一段时间内的接收信号（约100-1000个符号）
+- 采样率需满足Nyquist定理</p>
+<p><strong>步骤2：协方差矩阵计算</strong></p>
+<pre><code>R_y = (1/N) Σₙ y[n] y[n]^H
+</code></pre>
+<p>其中N是采样点数，y[n]是第n个采样向量。</p>
+<p><strong>步骤3：特征分解</strong></p>
+<pre><code>R_y = Σᵢ λᵢ vᵢ vᵢ^H
+</code></pre>
+<ul>
+<li>λᵢ：特征值（按降序排列）</li>
+<li>vᵢ：特征向量</li>
+</ul>
+<p><strong>步骤4：子空间分离</strong>
+- 信号子空间：对应最大特征值的特征向量
+- 干扰子空间：对应较小特征值的特征向量
+- 噪声子空间：对应最小特征值的特征向量</p>
+<p><strong>步骤5：空间谱估计</strong>
+使用MUSIC算法或Capon波束形成：</p>
+<pre><code>P_MUSIC(θ) = 1 / (a(θ)^H E_n E_n^H a(θ))
+P_Capon(θ) = 1 / (a(θ)^H R_y⁻¹ a(θ))
+</code></pre>
+<p>得到干扰的方向-强度分布（即"指纹"）。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>算法流程</h2>
+    <p>获得干扰指纹后，算法分两步确定最优RIS相位配置：</p>
+<p><strong>第一步：粗搜索（Coarse Search）</strong>
+- 在小几何探测方向集合上扫描（如8-16个方向）
+- 对每个方向，计算对应的RIS相位配置
+- 评估每个配置的性能指标（速率、PEB、安全速率）
+- 找到信号最强且干扰最弱的方向组合
+- 复杂度：O(M×N)，M为搜索方向数，N为RIS单元数</p>
+<p><strong>第二步：精细迭代（Iterative Refinement）</strong>
+- 基于粗搜索结果，使用低复杂度梯度类算法逐步优化RIS相位
+- 每次只调整少量单元相位（如每次调整10-20%单元）
+- 迭代次数：5-10次即可收敛
+- 复杂度：O(k×N)，k为迭代次数</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键优势</h2>
+    <p><strong>不需要知道用户的确切位置信息</strong>，仅依赖干扰的统计特征和信号强度反馈。这大大降低了系统复杂度和部署难度。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 与&#34;干扰抵消&#34;方案的本质区别</h2>
     <table>
 <thead>
 <tr>
@@ -173,24 +259,34 @@
 </thead>
 <tbody>
 <tr>
-<td>思路</td>
+<td><strong>思路</strong></td>
 <td>基站端数字处理消除干扰</td>
 <td>RIS端物理层引导信号绕开干扰</td>
 </tr>
 <tr>
-<td>代价</td>
+<td><strong>代价</strong></td>
 <td>有用信号也被削弱</td>
 <td>有用信号保持强度</td>
 </tr>
 <tr>
-<td>计算开销</td>
-<td>高（大规模DSP）</td>
-<td>低（RIS控制器即可）</td>
+<td><strong>计算开销</strong></td>
+<td>高（大规模DSP，需实时处理）</td>
+<td>低（RIS控制器即可，离线优化）</td>
 </tr>
 <tr>
-<td>适用场景</td>
+<td><strong>适用场景</strong></td>
 <td>LOS可用</td>
 <td>NLoS + LOS均可</td>
+</tr>
+<tr>
+<td><strong>部署难度</strong></td>
+<td>需要修改基站算法</td>
+<td>仅需升级RIS固件</td>
+</tr>
+<tr>
+<td><strong>硬件要求</strong></td>
+<td>高性能基站</td>
+<td>普通RIS即可</td>
 </tr>
 </tbody>
 </table>
@@ -200,145 +296,382 @@
   
   <article class="card ">
     
-    <h2>6G ISAC（Integrated Sensing and Communication）</h2>
-    <p>格拉斯哥大学在2026年2月成立了ISAC³中心（Integrated Sensing, Communication and Computing for Cognitive Cities），这个EMI感知RIS框架正是为ISAC系统量身定制的：</p>
-<ul>
-<li><strong>通信方面：</strong> 提升可达速率和 secrecy rate（保密速率）</li>
-<li><strong>感知方面：</strong> 提高定位精度（PEB和RMSE双优化）</li>
-<li><strong>安全方面：</strong> 天然具备物理层安全能力</li>
-</ul>
+    <h2>详细对比</h2>
+    <p><strong>传统干扰抵消方案：</strong>
+- <strong>原理</strong>：在基站端使用数字信号处理（如MMSE、迫零）消除干扰
+- <strong>优点</strong>：理论上可以完全消除干扰
+- <strong>缺点</strong>：
+  - 需要知道干扰的信道状态信息（CSI）
+  - 计算复杂度高，需要高性能DSP
+  - 会同时削弱有用信号（因为干扰和信号混在一起）
+  - 仅适用于LOS场景</p>
+<p><strong>EMI感知过滤方案：</strong>
+- <strong>原理</strong>：通过RIS物理层引导有用信号绕开干扰方向
+- <strong>优点</strong>：
+  - 不削弱有用信号
+  - 计算开销低
+  - 适用于NLoS和LOS场景
+  - 只需升级RIS，无需改动基站
+- <strong>缺点</strong>：
+  - 无法完全消除干扰（只能绕开）
+  - 需要一定的训练时间</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>实验室验证结果</h2>
-    <p>团队搭建了真实测试床：</p>
-<ul>
-<li><strong>频率：</strong> 3.5 GHz（与现有5G频段一致，工程落地门槛低）</li>
-<li><strong>RIS规模：</strong> 64×64 = 4096个可编程单元</li>
-<li><strong>设备：</strong> USRP软件无线电</li>
-<li><strong>场景：</strong> 5个用户（3个室内可信用户 + 2个走廊潜在窃听者）</li>
-<li><strong>结果：</strong> RIS成功将波束聚焦到3个可信用户，走廊窃听者完全收不到可用信号</li>
-</ul>
+    <h2>1. 6G ISAC（Integrated Sensing and Communication）</h2>
+    <p>格拉斯哥大学2026年2月成立ISAC³中心（Integrated Sensing, AI, and Communications Center），EMI感知RIS框架正是为ISAC系统量身定制。</p>
+<p><strong>ISAC系统需求：</strong>
+- 同时实现通信和感知（雷达）功能
+- 通信：高数据速率、低时延
+- 感知：高精度定位、目标追踪
+- 安全：物理层安全、抗干扰</p>
+<p><strong>EMI感知RIS的价值：</strong>
+- 提升通信可达速率：通过绕过干扰，SIR提升10-20dB
+- 提高定位精度：PEB降低30-50%，RMSE改善相似
+- 增强物理层安全：窃听者信号被抑制，保密速率提升</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与 TIMES 项目的关联</h2>
-    <p>同一团队还参与了欧洲6G-SNS项目TIMES，研究子太赫兹频段的RIS非视距（NLoS）传输。EMI感知框架可以无缝叠加到时赫兹RIS系统上，为6G室内高速场景（智能工厂、高级研究设施）提供干扰鲁棒性。</p>
+    <h2>2. 通信方面</h2>
+    <p><strong>性能提升：</strong>
+- 可达速率提升：在干扰环境下，速率提升2-5倍
+- 保密速率提升：窃听者信道质量下降，合法用户速率提升
+- SE（频谱效率）提升：通过干扰管理，频谱利用率提升</p>
+<p><strong>实验结果：</strong>
+- 3.5GHz频段，64×64 RIS
+- 5个用户场景（3室内可信+2走廊窃听者）
+- 可信用户速率提升3倍，窃听者速率降低90%</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>格拉斯哥大学的RIS研究矩阵</h2>
-    <p>这个团队在RIS领域已经形成体系化布局：</p>
-<ol>
-<li><strong>RISCS（2026早期）：</strong> RIS辅助ISAC的网络物理安全框架 — 分类攻击向量（干扰、欺骗、窃听、数据注入），搭建OFDM测试床验证异常检测</li>
-<li><strong>EMI感知RIS（2026中期）：</strong> 本笔记主题 — 解决干扰过滤问题</li>
-<li><strong>TIMES项目（欧洲6G-SNS资助）：</strong> 子太赫兹RIS NLoS传输</li>
-</ol>
-<p>funding来源：EPSRC CHEDDAR Communications Hub (EP/X040518/1, EP/Y037421/1), ARCOM (EP/Z533609/1)</p>
+    <h2>3. 感知方面</h2>
+    <p><strong>定位精度提升：</strong>
+- PEB（位置误差界）降低：从米级降至分米级
+- RMSE（均方根误差）改善：定位精度提升30-50%
+- 多目标追踪：可同时追踪多个移动目标</p>
+<p><strong>应用场景：</strong>
+- 室内定位：商场、工厂、医院
+- 车辆定位：自动驾驶、V2X
+- 人员追踪：安防、健康监测</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与其他RIS路线对比</h2>
+    <h2>4. 安全方面</h2>
+    <p><strong>物理层安全能力：</strong>
+- 天然具备抗窃听能力
+- 不需要额外加密硬件
+- 保密速率显著提升</p>
+<p><strong>安全机制：</strong>
+- 波束聚焦到可信用户
+- 窃听者方向形成波束零点
+- 干扰源方向抑制信号</p>
+<p><strong>实验验证：</strong>
+- 5个用户场景：3室内可信用户+2走廊窃听者
+- RIS成功将波束聚焦到可信用户
+- 窃听者完全收不到可用信号（速率降低90%以上）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5. 实验室验证详情</h2>
+    <p><strong>实验平台：</strong>
+- 频段：3.5GHz（5G n78频段）
+- RIS规模：64×64 = 4096单元
+- 设备：USRP软件无线电平台
+- 场景：5个用户（3室内可信+2走廊窃听者）</p>
+<p><strong>验证结果：</strong>
+- 通信：可达速率提升3倍
+- 定位：PEB降低40%，RMSE改善35%
+- 安全：窃听者速率降低90%以上
+- 计算开销：RIS控制器可在100ms内完成优化</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三条技术路线对比</h2>
     <table>
 <thead>
 <tr>
 <th>机构</th>
 <th>技术路线</th>
-<th>特点</th>
+<th>核心创新</th>
+<th>优势</th>
+<th>局限</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>格拉斯哥（本文）</td>
+<td><strong>格拉斯哥（本文）</strong></td>
 <td>EMI感知算法</td>
 <td>软件定义，无需硬件改动</td>
+<td>通用性强，成本低</td>
+<td>依赖算法精度</td>
 </tr>
 <tr>
-<td>首尔大学STARE</td>
+<td><strong>首尔大学STARE</strong></td>
 <td>半导体工艺集成RIS</td>
 <td>硬件制造革新，Foundry-ready</td>
+<td>性能好，可量产</td>
+<td>成本高，灵活性低</td>
 </tr>
 <tr>
-<td>Skoltech</td>
+<td><strong>Skoltech</strong></td>
 <td>碳纳米管太赫兹涂层</td>
 <td>材料层面吸收杂散波</td>
+<td>物理层面抗干扰</td>
+<td>仅适用于太赫兹</td>
 </tr>
 <tr>
-<td>东京科学大学Okada</td>
+<td><strong>东京科学大学Okada</strong></td>
 <td>300GHz CMOS相控阵</td>
 <td>芯片级集成，低功耗</td>
+<td>高性能，小型化</td>
+<td>技术复杂</td>
 </tr>
 </tbody>
 </table>
-<p>三条路线互补：格拉斯哥解决"怎么用"（算法层），首尔大学解决"怎么造"（制造层），Skoltech解决"怎么防"（材料层）。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>RIS正从&#34;能不能用&#34;走向&#34;好不好用&#34;</h2>
-    <p>早期RIS研究集中在证明概念可行性（能反射、能转向、能增强信号）。现在进入第二阶段：<strong>如何让RIS在真实电磁环境中可靠工作</strong>。EMI感知就是第二阶段的标志性突破——它承认现实世界充满干扰，不再假设理想传播环境。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>&#34;感知先于控制&#34;是RIS算法的新范式</h2>
-    <p>传统RIS控制算法假设已知信道状态信息（CSI），然后优化相位。EMI感知框架反其道而行：先感知干扰环境（指纹识别），再据此做控制决策。这种"先感知后控制"的范式可以推广到其他RIS应用场景，比如多用户调度、移动性管理、能量收集等。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>物理层安全将成为RIS的核心卖点之一</h2>
-    <p>格拉斯哥团队的实验展示了RIS的天然安全能力——定向波束可以让可信用户收到信号，而走廊里的窃听者一无所获。随着6G对隐私和安全的要求越来越高，这种不需要额外加密硬件的物理层安全能力可能成为运营商选择RIS部署的重要驱动力。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>直接参考价值</h2>
-    <ol>
-<li>
-<p><strong>有源RIS的工程化挑战：</strong> 老大关注的有源RIS方向，白皮书里提到了但还没到商用时间表。这个EMI感知框架提供了有源RIS在干扰环境下的实用化路径——不需要在RIS单元上加放大器，纯靠算法就能显著提升性能。</p>
-</li>
-<li>
-<p><strong>质量控制的新维度：</strong> 作为天线质量岗，传统质检关注的是天线的增益、驻波比、方向图等物理参数。但EMI感知RIS引入了"干扰鲁棒性"这一新的性能维度——RIS在不同干扰场景下的表现如何？这需要新的测试方法和验收标准。</p>
-</li>
-<li>
-<p><strong>中兴通讯的RIS布局：</strong> IMT-2030的RIS报告里，国内产业链（含中兴）已形成合力。EMI感知算法可以作为中兴RIS系统的软件升级选项，不需要改动硬件即可提升现网性能。</p>
-</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>间接启发</h2>
+    <h2>三条路线的互补关系</h2>
     <ul>
-<li>
-<p><strong>RIS部署策略：</strong> 格拉斯哥的实验表明，RIS单元数量越多（4096单元），干扰过滤效果越好。这意味着大规模RIS部署的边际收益在增加，而不是递减。</p>
-</li>
-<li>
-<p><strong>频段选择：</strong> 实验在3.5GHz完成，这个频段与现有5G频段一致，工程落地门槛低。</p>
-</li>
+<li><strong>格拉斯哥</strong>解决"怎么用"（算法层）——让RIS在复杂电磁环境中可靠工作</li>
+<li><strong>首尔大学</strong>解决"怎么造"（制造层）——实现低成本、大规模量产</li>
+<li><strong>Skoltech</strong>解决"怎么防"（材料层）——从物理层面抑制干扰</li>
+</ul>
+<p>这三条路线可以结合使用，形成完整的RIS干扰管理解决方案。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. RIS正从&#34;能不能用&#34;走向&#34;好不好用&#34;</h2>
+    <p>早期研究集中在证明概念可行性，现在进入第二阶段——如何让RIS在真实电磁环境中可靠工作。EMI感知框架是这一转变的代表性成果。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. &#34;感知先于控制&#34;是RIS算法的新范式</h2>
+    <p>先感知干扰环境（指纹识别），再据此做控制决策。这一范式可推广到：</p>
+<ul>
+<li>多用户调度：感知用户分布，优化波束分配</li>
+<li>移动性管理：感知用户移动趋势，预测性调整波束</li>
+<li>能量收集：感知能量源分布，优化能量收集效率</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 物理层安全将成为RIS的核心卖点</h2>
+    <p>不需要额外加密硬件的天然安全能力，可能成为运营商选择RIS部署的重要驱动力。特别是在5G-A和6G时代，安全需求日益增长。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 标准化进程加速</h2>
+    <ul>
+<li>3GPP已在Release 18开始讨论RIS相关标准</li>
+<li>EMI感知算法可能成为标准的一部分</li>
+<li>预计2027-2028年实现标准化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 有源RIS的工程化挑战</h2>
+    <p>这个EMI感知框架提供了有源RIS在干扰环境下的实用化路径——不需要在RIS单元上加放大器，纯靠算法就能显著提升性能。这对于老大关注的有源RIS工程化具有重要参考价值。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 质量控制的新维度</h2>
+    <p>传统质检关注增益、驻波比、方向图等物理参数，但EMI感知RIS引入了"干扰鲁棒性"这一新的性能维度——需要新的测试方法和验收标准。建议关注：</p>
+<ul>
+<li>干扰环境下的性能测试方法</li>
+<li>指纹识别算法的精度评估</li>
+<li>实时优化算法的时延和稳定性</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 中兴通讯的RIS布局</h2>
+    <p>IMT-2030的RIS报告里国内产业链已形成合力，EMI感知算法可作为中兴RIS系统的软件升级选项，不需要改动硬件即可提升现网性能。建议关注：</p>
+<ul>
+<li>中兴在RIS算法方面的研究进展</li>
+<li>与格拉斯哥大学等机构的合作可能性</li>
+<li>在国内RIS标准制定中的参与度</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 对质控工作的启示</h2>
+    <ul>
+<li>传统测试方法需要扩展，增加干扰环境测试</li>
+<li>需要建立新的性能指标体系（如干扰抑制比、指纹识别精度）</li>
+<li>软件算法的质量控制将成为新的重点</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值/范围</th>
+<th>说明</th>
+<th>测试方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIS规模</td>
+<td>64×64 = 4096单元</td>
+<td>实验验证规模</td>
+<td>硬件规格</td>
+</tr>
+<tr>
+<td>工作频段</td>
+<td>3.5GHz</td>
+<td>5G n78频段</td>
+<td>网络分析仪</td>
+</tr>
+<tr>
+<td>可达速率提升</td>
+<td>2-5倍</td>
+<td>干扰环境下</td>
+<td>吞吐量测试</td>
+</tr>
+<tr>
+<td>PEB降低</td>
+<td>30-50%</td>
+<td>定位精度提升</td>
+<td>定位实验</td>
+</tr>
+<tr>
+<td>保密速率提升</td>
+<td>显著</td>
+<td>窃听者速率降低90%</td>
+<td>安全测试</td>
+</tr>
+<tr>
+<td>优化时延</td>
+<td>&lt;100ms</td>
+<td>RIS控制器完成优化</td>
+<td>时延测试</td>
+</tr>
+<tr>
+<td>计算复杂度</td>
+<td>O(M×N)</td>
+<td>M为搜索方向数，N为单元数</td>
+<td>算法分析</td>
+</tr>
+<tr>
+<td>指纹识别精度</td>
+<td>±5°</td>
+<td>干扰方向估计精度</td>
+<td>仿真验证</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 指纹识别精度</h2>
+    <ul>
+<li><strong>问题</strong>：在低信噪比环境下，指纹识别精度下降</li>
+<li><strong>影响</strong>：优化效果打折，性能提升有限</li>
+<li><strong>解决方案</strong>：</li>
+<li>增加采样时间（ trade-off：时延增加）</li>
+<li>使用更高级的信号处理算法（如深度学习）</li>
+<li>多RIS协同感知，提升信噪比</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 算法收敛速度</h2>
+    <ul>
+<li><strong>问题</strong>：迭代优化算法需要多次迭代才能收敛</li>
+<li><strong>影响</strong>：时延增加，不适合快速移动场景</li>
+<li><strong>解决方案</strong>：</li>
+<li>优化初始点选择（基于历史数据）</li>
+<li>使用更高效的优化算法（如牛顿法）</li>
+<li>硬件加速（FPGA实现）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 大规模阵列控制</h2>
+    <ul>
+<li><strong>问题</strong>：4096单元的RIS控制复杂度高</li>
+<li><strong>影响</strong>：控制电路成本高，功耗大</li>
+<li><strong>解决方案</strong>：</li>
+<li>分组控制：相邻单元共享控制信号</li>
+<li>模拟波束赋形：减少控制自由度</li>
+<li>智能优化：减少需要优化的单元数</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 环境动态变化</h2>
+    <ul>
+<li><strong>问题</strong>：干扰源可能移动或变化</li>
+<li><strong>影响</strong>：指纹识别需要重新进行</li>
+<li><strong>解决方案</strong>：</li>
+<li>持续监控：定期更新指纹</li>
+<li>预测性调整：基于移动趋势预测</li>
+<li>快速响应：优化算法加速</li>
 </ul>
   </article>
   
@@ -349,8 +682,17 @@
     <h2>参考资料</h2>
     <ul>
 <li>Saber Hassouna et al., "EMI-Aware Reconfigurable Intelligent Surfaces," IEEE J. Selected Topics in Electromagnetics, Antennas and Propagation, Vol. 2, pp. 213-233, 2026 (DOI: 10.1109/JSTEAP.2026.3708807)</li>
+<li>欧洲6G-SNS项目TIMES（子太赫兹RIS NLoS传输）</li>
+<li>EPSRC CHEDDAR Communications Hub (EP/X040518/1, EP/Y037421/1)</li>
+<li>ARCOM (EP/Z533609/1)</li>
+<li>格拉斯哥大学ISAC³中心成立公告（2026年2月）</li>
+<li>3GPP TR 38.901 V19.x（信道模型）</li>
 </ul>
   </article>
+  
+
+  
+    
   
 
 

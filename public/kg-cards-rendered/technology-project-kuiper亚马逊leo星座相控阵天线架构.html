@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project-Kuiper亚马逊LEO星座相控阵天线架构 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">Project-Kuiper亚马逊LEO星座相控阵天线架构</h1>
+  <p class="lede">Amazon Leo（原 Project Kuiper）采用全球首创的 Ka 频段收发合孔单孔径相控阵终端设计，单孔径直径仅 12 英寸、约 404 个 T/R 单元，比 Starlink Dishy 小 3 倍，同时搭配企业级 Leo Ultra（全双工并排收发）形成差异化产品矩阵。</p>
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>主题概述</h2>
+    <p>Project Kuiper（2025 年 11 月更名为 Amazon Leo）是亚马逊斥资超过 100 亿美元建设的低地球轨道（LEO）通信卫星星座项目，目标部署 3,236 颗卫星（Gen1）+ 4,500 颗（Gen2 扩展），总计 7,727 颗卫星，与 SpaceX 的 Starlink 形成直接竞争。该项目于 2019 年公布，2020 年 7 月获得 FCC 运营许可证，2023 年 10 月发射两颗原型卫星，2025 年 4 月启动正式部署。截至 2026 年 8 月，已在轨部署 302+ 颗生产级卫星，是继 Starlink（10,000+ 颗）和 OneWeb（~600 颗）之后的第三大卫星星座。</p>
+<p><strong>为什么重要</strong>：Kuiper 代表了 Amazon 对 LEO 卫星互联网市场的战略进入，其天线架构设计展现了与传统 Ka 频段相控阵不同的技术路线，尤其是收发合孔单孔径设计在全球商业卫星通信终端中具有首创性。对老大而言，理解 Kuiper 天线架构有助于把握 LEO 星座竞争的底层技术差异，以及 Amazon 在相控阵天线领域的创新方向。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>轨道参数</h2>
+    <ul>
+<li><strong>轨道高度</strong>：590 km / 610 km / 630 km 三层 LEO 壳层</li>
+<li><strong>轨道面数</strong>：98 个轨道面</li>
+<li><strong>单星重量</strong>：537-571 kg</li>
+<li><strong>设计寿命</strong>：7 年</li>
+<li><strong>在轨数量（2026 年 8 月）</strong>：302+ 颗生产级卫星（19 次发射任务）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>星间链路（OISL）</h2>
+    <ul>
+<li><strong>技术类型</strong>：光学星间链路（Optical Inter-Satellite Link, OISL）</li>
+<li><strong>传输速率</strong>：单链路 100 Gbps（原型卫星已验证）</li>
+<li><strong>网络拓扑</strong>：空间 Mesh 网络，减少地对站依赖</li>
+<li><strong>与 Starlink 对比</strong>：Starlink V2 Mini 支持 25 Gbps→200 Gbps 升级，Kuiper 当前单链路 100 Gbps，总容量目标 4 Tbps（与 Starlink 同一量级）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>星载处理芯片</h2>
+    <ul>
+<li><strong>Prometheus 基带芯片</strong>：Amazon 自研 SoC，集成多芯片功能</li>
+<li><strong>单星处理能力</strong>：最高 1 Tbps 吞吐量</li>
+<li><strong>功耗优化</strong>：针对空间环境的热管理是关键挑战（无空气对流散热）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心技术突破：收发合孔单孔径设计</h2>
+    <p>Kuiper 用户终端天线采用了<strong>全球首次 Ka 频段收发合孔单孔径相控阵设计</strong>，这是该项目在天线架构上的核心创新。</p>
+<p><strong>传统方案痛点</strong>：</p>
+<ul>
+<li>Ka 频段工作频段跨度大：接收 18-20 GHz，发射 28-30 GHz</li>
+<li>传统设计需将发射天线和接收天线并排放置</li>
+<li>导致天线孔径面积大、成本高、生产复杂</li>
+</ul>
+<p><strong>Kuiper 创新方案</strong>：</p>
+<ul>
+<li>采用微型天线单元结构，将发射和接收天线<strong>叠加在同一孔径</strong></li>
+<li>通过独特的单元级设计实现单晶格布局</li>
+<li>单孔径直径仅 12 英寸（约 30.5 cm），面积约为 730 cm²</li>
+</ul>
+<p><strong>对比 Starlink Dishy</strong>：
+| 指标 | Kuiper 终端 | Starlink Dishy |
+|------|-----------|----------------|
+| 孔径直径 | 12 英寸 | 19 英寸 |
+| 天线面积 | ~730 cm² | ~2,100 cm² |
+| 尺寸比 | 1x | 约 3x（Kuiper 更小） |
+| T/R 单元数 | ~404 个 | ~600+ 个 |
+| 原型速率 | 400 Mbps | 早期版本 100+ Mbps |
+| 生产宣称成本优势 | 大幅降低 | - |</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>天线技术参数</h2>
+    <ul>
+<li><strong>接收频段</strong>：18-20 GHz（Ka 频段下行）</li>
+<li><strong>发射频段</strong>：28-30 GHz（Ka 频段上行）</li>
+<li><strong>波束赋形</strong>：电子扫描，数字 + 模拟混合架构</li>
+<li><strong>T/R 单元数</strong>：约 404 个（比 Starlink 少约 30%）</li>
+<li><strong>制造友好性</strong>：设计简化，可使用主流 PCB 制造商量产</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>终端产品线（2025 年 11 月发布）</h2>
+    <ol>
+<li><strong>Leo Ultra</strong>（企业级旗舰）</li>
+<li>规格：20" × 30"，约 37 lbs</li>
+<li>速率：下载 1 Gbps / 上传 400 Mbps</li>
+<li>特点：全双工相控阵，收发天线并排布局，同时收发</li>
+<li>
+<p>应用：企业、政府、航空、海事等高要求场景</p>
+</li>
+<li>
+<p><strong>Leo Pro</strong>（标准用户终端）</p>
+</li>
+<li>规格：11" × 11"</li>
+<li>速率：下载 400 Mbps</li>
+<li>
+<p>特点：收发叠孔设计，轻量紧凑</p>
+</li>
+<li>
+<p><strong>Leo Nano</strong>（便携终端）</p>
+</li>
+<li>规格：7" × 7"</li>
+<li>速率：下载 100 Mbps</li>
+<li>特点：超便携，面向移动场景</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>卫星相控阵天线</h2>
+    <ul>
+<li><strong>类型</strong>：电子扫描相控阵天线</li>
+<li><strong>功能</strong>：</li>
+<li>星地链路（Ka 频段）</li>
+<li>星间链路（激光）</li>
+<li>与用户终端通信</li>
+<li><strong>技术特点</strong>：</li>
+<li>高容量吞吐量 Ka 频段链路作为骨干容量</li>
+<li>Ku 频段用于补充容量</li>
+<li>每颗卫星配备多波束相控阵，覆盖广阔地面区域</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与 Starlink 卫星天线对比</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Kuiper 卫星</th>
+<th>Starlink V2 Mini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>星地链路频段</td>
+<td>Ka 频段（主要）+ Ku 频段</td>
+<td>E-band 相控阵 + 激光</td>
+</tr>
+<tr>
+<td>星间链路</td>
+<td>激光 100 Gbps</td>
+<td>激光 25-200 Gbps</td>
+</tr>
+<tr>
+<td>单星处理能力</td>
+<td>Prometheus 芯片 1 Tbps</td>
+<td>定制基带芯片</td>
+</tr>
+<tr>
+<td>卫星重量</td>
+<td>537-571 kg</td>
+<td>约 300 kg（V2 Mini）</td>
+</tr>
+<tr>
+<td>天线架构</td>
+<td>相控阵（未公开详细单元数）</td>
+<td>E-band 相控阵 + OPA 激光终端</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>一、全球宽带覆盖</h2>
+    <ul>
+<li><strong>目标市场</strong>：未覆盖和欠覆盖社区、企业、政府机构</li>
+<li><strong>应用场景</strong>：</li>
+<li>偏远地区宽带接入</li>
+<li>航空、海事移动宽带</li>
+<li>企业专网（Direct to AWS、Private Network Interconnect）</li>
+<li>电信运营商回传（Vodafone、SKY Perfect JSAT 等合作）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>二、与 AWS 深度集成</h2>
+    <ul>
+<li><strong>Direct to AWS</strong>：通过 AWS Transit Gateway 或直接连接，无需经过公共互联网</li>
+<li><strong>Private Network Interconnect</strong>：在主要 colo 设施建立私有网络互联</li>
+<li><strong>优势</strong>：企业用户可将远程站点数据直接传输至 AWS 云工作负载</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三、终端应用场景</h2>
+    <ul>
+<li><strong>Leo Ultra</strong>：</li>
+<li>实时视频监控</li>
+<li>大规模数据传输</li>
+<li>企业级视频会议</li>
+<li>远程作业管理</li>
+<li><strong>Leo Pro/Nano</strong>：</li>
+<li>家庭宽带</li>
+<li>移动车辆/船舶</li>
+<li>应急通信</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、与老大的关联</h2>
+    <ol>
+<li><strong>相控阵天线设计参考</strong>：Kuiper 的收发合孔单孔径设计对 Starlink 的分离孔径设计形成技术竞争，可能推动整个行业向更紧凑、低成本相控阵演进</li>
+<li><strong>E-band vs Ka-band 路线对比</strong>：Starlink V2 Mini 采用 E-band 相控阵，Kuiper 采用 Ka 频段，两种技术路线各有优劣</li>
+<li><strong>激光星间链路</strong>：Kuiper 与 Starlink 均采用激光 OISL，但 Kuiper 当前单链路 100 Gbps，Starlink V2 Mini 支持 25→200 Gbps 升级</li>
+<li><strong>产业机会</strong>：Kuiper 的规模化部署将带动相控阵天线供应链需求，包括 T/R 模块、PCB 制造、射频芯片等</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>发射进度（截至 2026 年 8 月）</h2>
+    <ul>
+<li><strong>已发射</strong>：302+ 颗生产级卫星（19 次任务）</li>
+<li><strong>发射载体</strong>：</li>
+<li>ULA Atlas V（主要）</li>
+<li>SpaceX Falcon 9</li>
+<li>Arianespace Ariane 6</li>
+<li>Blue Origin New Glenn（计划中）</li>
+<li><strong>发射节奏</strong>：</li>
+<li>2025 年：首年开始部署，约 12 次发射</li>
+<li>2026 年：目标 20+ 次发射</li>
+<li>2027 年：目标 30+ 次发射</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>FCC 部署 deadline</h2>
+    <ul>
+<li><strong>50% deadline</strong>：2026 年 7 月 30 日前需部署 1,618 颗（已请求延期）</li>
+<li><strong>全部署 deadline</strong>：2029 年 7 月 30 日前需部署 3,236 颗</li>
+<li><strong>现状</strong>：当前 302 颗，距离 50% 目标仍有较大差距</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>服务进展</h2>
+    <ul>
+<li><strong>企业预览</strong>：2025 年 11 月启动，已向 Hunt Energy、JetBlue、Vanu、Connected Farms、Crane Worldwide Logistics 等提供测试</li>
+<li><strong>消费者服务</strong>：预计 2026 年底或 2027 年初在美国、英国、法国、德国、加拿大有限公测</li>
+<li><strong>.waitlist</strong>：leo.amazon.com 已开放公众排队</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>星座规模对比</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Starlink</th>
+<th>Amazon Leo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在轨数量</td>
+<td>10,000+</td>
+<td>302+</td>
+</tr>
+<tr>
+<td>授权数量（Gen1）</td>
+<td>12,000</td>
+<td>3,236</td>
+</tr>
+<tr>
+<td>总规划（含 Gen2）</td>
+<td>42,000</td>
+<td>7,727</td>
+</tr>
+<tr>
+<td>轨道高度</td>
+<td>340-570 km</td>
+<td>590-630 km</td>
+</tr>
+<tr>
+<td>2026 年发射率</td>
+<td>~130 颗/年</td>
+<td>~20 颗/年（爬坡中）</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>终端对比</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Starlink Dishy</th>
+<th>Amazon Leo Ultra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>孔径直径</td>
+<td>19 英寸</td>
+<td>20"×30"（矩形）</td>
+</tr>
+<tr>
+<td>峰值速率</td>
+<td>400+ Mbps（家庭）</td>
+<td>1 Gbps 下载/400 Mbps 上传</td>
+</tr>
+<tr>
+<td>价格</td>
+<td>$499（早期）</td>
+<td>未公开（企业级溢价）</td>
+</tr>
+<tr>
+<td>技术路线</td>
+<td>分离收发孔径</td>
+<td>全双工并排收发</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>竞争态势</h2>
+    <ul>
+<li><strong>Starlink 优势</strong>：先发优势（数千颗在轨）、成本控制在 $499 终端、百万级用户基础</li>
+<li><strong>Kuiper 优势</strong>：与 AWS 生态深度集成、企业级市场聚焦、收发合孔单孔径降低成本</li>
+<li><strong>关键差异</strong>：Starlink 走消费大众市场，Kuiper 先攻企业/政府市场再向消费扩展</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>OneWeb</h2>
+    <ul>
+<li>在轨约 600 颗，主打企业/政府市场</li>
+<li>与 BT、索尼等合作</li>
+<li>技术路线：Ku/Ka 频段相控阵</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中国星网（Guowang）</h2>
+    <ul>
+<li>规划约 13,000 颗卫星</li>
+<li>激光星间链路技术跟进中</li>
+<li>国内天线厂商（如京信、通宇）潜在供应链机会</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>Telesat Lightspeed</h2>
+    <ul>
+<li>规划约 290 颗卫星</li>
+<li>主打高端企业市场</li>
+<li>与 Bell、NTT 等合作</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 相控阵天线小型化与低成本化</h2>
+    <ul>
+<li>Kuiper 的收发合孔单孔径设计代表了相控阵天线的重要演进方向</li>
+<li>通过减少 T/R 单元数（404 vs 600+）和优化孔径效率，实现更紧凑、更廉价的用户终端</li>
+<li>对老大而言，这验证了相控阵天线向集成化、低成本化发展的趋势</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 激光星间链路成为 LEO 星座标配</h2>
+    <ul>
+<li>Kuiper 和 Starlink 均采用激光 OISL</li>
+<li>技术成熟度：单链路 100 Gbps 已验证，未来向 200 Gbps+ 演进</li>
+<li>对地面站依赖降低，星座自主组网能力增强</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 星载处理能力大幅提升</h2>
+    <ul>
+<li>Prometheus 芯片实现单星 1 Tbps 处理能力</li>
+<li>边缘计算能力嵌入卫星，减少地对站负担</li>
+<li>未来卫星将更像"太空数据中心节点"</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. LEO 星座从技术验证进入规模化运营</h2>
+    <ul>
+<li>Starlink 已实现盈利，Kuiper 开始企业预览</li>
+<li>市场从"谁先发射"转向"谁先覆盖、谁先盈利"</li>
+<li>服务差异化：Starlink 走大众市场，Kuiper 走企业/AWS 生态</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 中国企业加速追赶</h2>
+    <ul>
+<li>中国星网、垣信卫星（G60 星座）推进中</li>
+<li>国内天线厂商面临供应链机会与挑战</li>
+<li>激光星间链路、相控阵天线技术国产化需求迫切</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 终端价格战不可避免</h2>
+    <ul>
+<li>Starlink $499 终端已验证市场接受度</li>
+<li>Kuiper 需要通过规模效应进一步降低成本</li>
+<li>未来终端价格可能下探至 $200-300 区间</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 技术路线选择</h2>
+    <ul>
+<li>Kuiper 的 Ka 频段方案 vs Starlink 的 E-band 方案，各有优劣</li>
+<li>Ka 频段技术成熟度高，E-band 带宽更大但技术挑战更大</li>
+<li>老大的 E-band 相控阵研究正好对标 Starlink 技术路线</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 供应链机会</h2>
+    <ul>
+<li>Kuiper 规模化部署将带动相控阵 T/R 模块、PCB、射频芯片需求</li>
+<li>国内天线厂商可关注 Kuiper 供应链机会</li>
+<li>激光星间链路组件（OPA、激光器）也是潜在机会</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 竞争格局分析</h2>
+    <ul>
+<li>Starlink 当前领先约 30 倍（在轨卫星数）</li>
+<li>Kuiper 需要快速追赶，但 FCC deadline 压力巨大</li>
+<li>技术差异化（AWS 集成、企业市场）是 Kuiper 的突围策略</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Amazon Science: Nima Mahanfar discusses the science behind Project Kuiper customer terminal antenna (2020-12-16)</li>
+<li>Amazon News: Amazon marks breakthrough in Project Kuiper development (2020-12-16)</li>
+<li>Amazon News: Amazon Leo introduces Ultra antenna with 1 Gbps speeds (2025-11-21)</li>
+<li>eoPortal: Project Kuiper satellite mission page (2025-08-31)</li>
+<li>Orbital Radar: How Many Amazon Kuiper Satellites Are in Orbit? 2026 (2026-08-17)</li>
+<li>IEEE ComSoc Technology Blog: Amazon Leo competitive analysis with Starlink (2025-11-25)</li>
+<li>SpaceNews: Amazon unveils flat-panel customer terminal for Kuiper (2020-12-16)</li>
+<li>Satellite Today: Amazon Unveils Project Kuiper Antenna Design (2020-12-16)</li>
+</ul>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

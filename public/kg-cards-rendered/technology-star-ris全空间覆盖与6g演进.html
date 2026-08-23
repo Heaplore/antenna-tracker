@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">Star-RIS全空间覆盖与6G演进</h1>
-  <p class="lede">STAR-RIS是RIS技术的重大演进，通过同时实现透射和反射功能，将传统RIS的半空间覆盖扩展为360度全空间覆盖，为6G ISAC（通感一体化）提供关键使能技术，已在IEEE标准组织和学术界引发密集研究。</p>
+  <p class="lede">STAR-RIS通过同时控制信号的透射和反射系数，实现360°全空间覆盖，被视为6G关键使能技术之一，已在标准化和外场试验层面加速推进。ZTE已推出Dynamic RIS 2.0商用产品并完成mmWave实测验证，标志着RIS技术从学术研究快速向工程化过渡，是构建6G智能无线环境的核心技术。</p>
   
 </header>
 
@@ -105,87 +105,277 @@
   
   <article class="card ">
     
-    <h2>1.1 传统RIS的局限性</h2>
-    <p>传统反射型RIS只能在一侧工作（反射空间），存在两大瓶颈：</p>
-<ul>
-<li><strong>半空间覆盖限制</strong>：只能服务反射侧用户，透射侧信号被阻挡</li>
-<li><strong>双跳衰落问题</strong>：信号需经历BS→RIS→用户双跳，路径损耗严重</li>
-<li><strong>部署灵活性差</strong>：需要精确朝向用户，易受建筑物遮挡影响</li>
-</ul>
+    <h2>一、主题概述</h2>
+    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）是传统反射型/透射型RIS的演进方向，相比传统RIS的180°半空间覆盖，将无线环境智能控制的自由度大幅提升。每个STAR-RIS单元独立调控入射信号的透射（Transmission, T）和反射（Reflection, R）系数，包括相位和幅度，允许信号从表面两侧同时传播，形成全维度智能无线电环境。</p>
+<p>该技术在2023年由Yuanwei Liu等人在arXiv上首次系统阐述（arXiv:2304.14180），2025-2026年进入论文爆发期，成为RIS研究的前沿热点。ZTE已推出Dynamic RIS 2.0商用产品并完成mmWave实测验证，标志着STAR-RIS从理论走向实践。</p>
+<p><strong>为什么重要</strong>：
+传统RIS只能服务反射侧用户，透射侧用户无法受益，这在城市复杂环境中造成覆盖盲区。STAR-RIS的全空间覆盖能力可以消除这一限制，特别适合建筑物密集的城市环境、室内外无缝切换场景。同时，STAR-RIS为6G通感一体化（ISAC）提供了物理层基础，是实现6G智能无线环境的关键使能技术。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1.2 STAR-RIS的突破</h2>
-    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）由刘裕团队于2021年首次提出（IEEE Wireless Communications），核心创新：</p>
-<ul>
-<li><strong>双向信号调控</strong>：每个单元同时具备透射和反射能力</li>
-<li><strong>360度全空间覆盖</strong>：同时服务反射侧和透射侧用户</li>
-<li><strong>能量分裂协议</strong>：支持能量分裂（ES）、模式切换（MS）、时间切换（TS）三种工作模式</li>
-<li><strong>自由度倍增</strong>：相比传统RIS，设计自由度翻倍</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1.3 技术谱系演进</h2>
-    <pre><code>传统RIS（反射型）
-    ↓
-STAR-RIS（同时透射反射型）← 本笔记核心
-    ↓
-Active STAR-RIS（有源STAR-RIS）
-    ↓
-STAR-RIS + ISAC（通感一体化）
-    ↓
-STAR-RIS + MFA-RIS（多功能超表面）
-</code></pre>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.1 单元结构设计</h2>
-    <p>STAR-RIS单元核心结构：</p>
-<ul>
-<li><strong>透射-反射解耦设计</strong>：通过电磁耦合或空间隔离实现透射和反射通道的独立控制</li>
-<li><strong>能量分裂系数</strong>：每个单元需满足能量守恒约束 $|\Gamma_n|^2 + |\Tau_n|^2 \leq 1$</li>
-<li><strong>相位调控机制</strong>：透射相位和反射相位可独立或联合调控</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.2 工作模式对比</h2>
-    <table>
+    <h2>2.1 三种操作协议详解</h2>
+    <p>STAR-RIS的核心创新在于每个单元能够同时控制透射（Transmission）和反射（Reflection）两个维度的电磁参数。根据控制策略的不同，可分为三种操作协议：</p>
+<p><strong>能量分割协议（Energy Splitting, ES）</strong>：
+每个STAR-RIS单元同时执行透射和反射操作，入射信号被分成两部分分别向两侧传播。设入射波振幅为$A_{in}$，则透射波振幅为$t_n \cdot A_{in}$，反射波振幅为$r_n \cdot A_{in}$，其中$t_n$和$r_n$分别是第n个单元的透射系数和反射系数。</p>
+<p>能量守恒约束为：
+$$|t_n|^2 + |r_n|^2 \leq 1, \quad \forall n \in {1, 2, ..., N}$$</p>
+<p>该约束意味着透射和反射不能同时达到最大值，需要在两者之间进行权衡优化。ES协议的性能最优，但硬件实现复杂，功耗较高。</p>
+<p><strong>模式切换协议（Mode Switching, MS）</strong>：
+每个单元在透射模式和反射模式之间切换工作。当单元处于透射模式时，$t_n = 1, r_n = 0$；当处于反射模式时，$t_n = 0, r_n = 1$。这种协议硬件简单，但无法同时服务两侧用户。</p>
+<p><strong>时间切换协议（Time Switching, TS）</strong>：
+在不同时隙分别执行透射和反射操作。假设帧结构包含$T$个时隙，其中$T_t$个时隙用于透射，$T_r$个时隙用于反射，$T_t + T_r = T$。该协议避免了复杂的硬件设计，但会引入时延，不适合时延敏感的应用场景。</p>
+<p><strong>协议选择矩阵</strong>：</p>
+<table>
 <thead>
 <tr>
-<th>工作模式</th>
-<th>特点</th>
+<th>协议</th>
+<th>性能</th>
+<th>复杂度</th>
+<th>时延</th>
+<th>功耗</th>
 <th>适用场景</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>ES（Energy Splitting）</strong></td>
-<td>信号同时透射和反射，按固定比例分裂</td>
-<td>均匀覆盖需求</td>
+<td>ES</td>
+<td>最优</td>
+<td>高</td>
+<td>低</td>
+<td>高</td>
+<td>高密度用户、多用户MIMO</td>
 </tr>
 <tr>
-<td><strong>MS（Mode Switching）</strong></td>
-<td>单元工作在透射或反射单一模式</td>
-<td>最大化单边增益</td>
+<td>MS</td>
+<td>中等</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+<td>单侧覆盖、低成本部署</td>
 </tr>
 <tr>
-<td><strong>TS（Time Switching）</strong></td>
-<td>时间域上交替透射/反射</td>
-<td>动态切换需求</td>
+<td>TS</td>
+<td>较好</td>
+<td>中</td>
+<td>高</td>
+<td>低</td>
+<td>非实时应用、IoT感知</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键数学约束与优化挑战</strong>：
+ES协议下，每个单元的透射和反射系数满足能量守恒约束，且相位耦合关系使得优化问题高度非凸。具体而言，优化目标函数通常为系统总速率最大化：</p>
+<p>$$\max_{{t_n, r_n}} \sum_{k=1}^{K} R_k({t_n, r_n})$$</p>
+<p>$$\text{s.t. } |t_n|^2 + |r_n|^2 \leq 1, \quad \angle t_n, \angle r_n \in [0, 2\pi)$$</p>
+<p>这是一个典型的非凸优化问题，因为目标函数$R_k$是关于$t_n$和$r_n$的有理函数，约束集也是非凸的。传统交替优化（Alternating Optimization）方法可以求得局部最优解，但计算复杂度高。近年来，深度学习方法（如DDPG、TD3、PPO）被引入来解决这一优化问题，在动态用户场景下显著优于传统方法。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.2 硬件实现分类与技术对比</h2>
+    <p>STAR-RIS的硬件实现主要分为两大类：贴片阵列型（Patch-array-based）和超表面型（Metasurface-based），两者在频率适配性、制造成本和控制精度上有显著差异。</p>
+<p><strong>贴片阵列型STAR-RIS</strong>：
+由周期性排列的金属贴片单元组成，每个单元通过PIN二极管或变容二极管实现可调谐特性。典型周期尺寸为半波长量级（Sub-6GHz频段约为几厘米，mmWave频段约为几毫米）。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>Sub-6GHz</th>
+<th>mmWave (28GHz)</th>
+<th>THz (300GHz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元周期</td>
+<td>2-5 cm</td>
+<td>5-10 mm</td>
+<td>0.5-1 mm</td>
+</tr>
+<tr>
+<td>单元数量（1m²）</td>
+<td>400-2500</td>
+<td>10000-40000</td>
+<td>100000-400000</td>
+</tr>
+<tr>
+<td>控制精度</td>
+<td>5-6 bit</td>
+<td>3-4 bit</td>
+<td>1-2 bit</td>
+</tr>
+<tr>
+<td>插入损耗</td>
+<td>1-2 dB</td>
+<td>2-4 dB</td>
+<td>4-6 dB</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>5-10 W</td>
+<td>10-20 W</td>
+<td>20-50 W</td>
+</tr>
+</tbody>
+</table>
+<p><strong>超表面型STAR-RIS</strong>：
+采用亚波长尺度的超材料单元，周期尺寸远小于工作波长（通常为λ/4到λ/10），可以实现空间连续的电磁参数调控。超表面型在mmWave和THz频段具有显著优势，因为单元尺寸可以微纳加工实现。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>介质超表面</th>
+<th>金属-介质超表面</th>
+<th>石墨烯超表面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>周期尺寸</td>
+<td>λ/3-λ/5</td>
+<td>λ/4-λ/8</td>
+<td>λ/10-λ/20</td>
+</tr>
+<tr>
+<td>调控维度</td>
+<td>2（相位+幅度）</td>
+<td>3（相位+幅度+极化）</td>
+<td>4（含频率）</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>10-20%</td>
+<td>20-30%</td>
+<td>5-10%</td>
+</tr>
+<tr>
+<td>响应速度</td>
+<td>ns-μs</td>
+<td>μs-ms</td>
+<td>ps-ns</td>
+</tr>
+<tr>
+<td>制备工艺</td>
+<td>光刻+蚀刻</td>
+<td>光刻+蚀刻+沉积</td>
+<td>CVD+转移</td>
+</tr>
+</tbody>
+</table>
+<p><strong>新型实现方案</strong>：</p>
+<ol>
+<li>
+<p><strong>半导体集成STAR-RIS（STARE）</strong>：采用标准CMOS工艺，将RIS单元直接集成在高阻硅衬底上，实现晶圆级批量制造，成本降低一个数量级。</p>
+</li>
+<li>
+<p><strong>MEMS STAR-RIS</strong>：基于微机电系统技术，具有低功耗、高线性度优点，但响应速度较慢（ms级）。</p>
+</li>
+<li>
+<p><strong>相变材料STAR-RIS</strong>：利用VO₂等相变材料的绝缘-金属相变实现调控，具有超快响应（ps级）但功耗较高。</p>
+</li>
+</ol>
+<p>随着半导体工艺进步和大规模生产经验积累，超表面型STAR-RIS的成本正在快速下降，预计在2027-2028年将达到可与贴片阵列型竞争的水平。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 深度学习驱动的STAR-RIS智能优化</h2>
+    <p>STAR-RIS的波束赋形优化是一个典型的高维非凸优化问题，传统方法（如交替优化、半定松弛）在计算复杂度和实时性方面难以满足6G需求。深度学习，特别是深度强化学习（DRL）和元学习，正在成为STAR-RIS优化的主流解决方案。</p>
+<p><strong>问题建模</strong>：
+将STAR-RIS波束赋形建模为部分可观测马尔可夫决策过程（POMDP）：</p>
+<ul>
+<li><strong>状态空间</strong>${\mathcal{S}}$：用户位置、信道状态信息（CSI）、干扰分布</li>
+<li><strong>动作空间</strong>${\mathcal{A}}$：STAR-RIS单元的透射系数${t_n}$和反射系数${r_n}$（$n=1,...,N$）</li>
+<li><strong>奖励函数</strong>${\mathcal{R}}$：系统总速率、公平性指标、能耗惩罚</li>
+</ul>
+<p><strong>深度确定性策略梯度（DDPG）</strong>：
+DDPG适合连续动作空间，通过Actor-Critic架构实现端到端学习。</p>
+<ul>
+<li>Actor网络输出最优的透射/反射系数配置</li>
+<li>Critic网络评估动作价值，指导Actor更新</li>
+<li>经验回放缓冲池解决样本相关性</li>
+<li>目标网络稳定训练过程</li>
+</ul>
+<p><strong>TD3（Twin Delayed DRL）</strong>：
+TD3在DDPG基础上引入双Critic网络和延迟更新机制，有效缓解过估计问题：</p>
+<ul>
+<li>两个Critic网络输出取较小值，减少最大误差传播</li>
+<li>目标策略平滑正则化，增强鲁棒性</li>
+<li>策略更新频率低于价值网络，提升稳定性</li>
+</ul>
+<p><strong>PPO（Proximal Policy Optimization）</strong>：
+PPO通过裁剪机制限制策略更新步长，适合多用户联合优化：</p>
+<ul>
+<li>目标函数：$L^{CLIP}(\theta) = \hat{\mathbb{E}}_t[\min(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t)]$</li>
+<li>超参数$\epsilon$控制更新步长，通常取0.1-0.3</li>
+<li>多轮epoch训练提升样本效率</li>
+</ul>
+<p><strong>元学习快速适应</strong>：
+面对动态变化的无线环境，元学习（如MAML、Reptile）使STAR-RIS能够在极少样本下快速适应新场景：</p>
+<ul>
+<li>元训练阶段：在多种信道分布上学习通用初始化参数</li>
+<li>元测试阶段：在新场景中仅用少量梯度更新即可快速收敛</li>
+<li>训练-测试分离：元学习器负责快速适应，基础DRL负责精细优化</li>
+</ul>
+<p><strong>实际应用案例</strong>：</p>
+<ul>
+<li>华为2025年提出基于TD3的STAR-RIS多用户波束优化算法，在3.5GHz频段实现2.3倍速率提升</li>
+<li>中兴通讯2026年采用PPO+元学习框架，在移动场景下波束跟踪时延降低90%</li>
+<li>ETSI RIS ISG将AI-Native控制纳入Phase II标准化讨论</li>
+</ul>
+<p><strong>性能对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>收敛速度</th>
+<th>最优性能</th>
+<th>实时性</th>
+<th>泛化能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交替优化</td>
+<td>慢（秒级）</td>
+<td>高</td>
+<td>差</td>
+<td>弱</td>
+</tr>
+<tr>
+<td>凸优化</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>DDPG</td>
+<td>快（毫秒级）</td>
+<td>中高</td>
+<td>好</td>
+<td>中</td>
+</tr>
+<tr>
+<td>TD3</td>
+<td>快</td>
+<td>高</td>
+<td>好</td>
+<td>中</td>
+</tr>
+<tr>
+<td>PPO+元学习</td>
+<td>极快</td>
+<td>高</td>
+<td>极好</td>
+<td>强</td>
 </tr>
 </tbody>
 </table>
@@ -195,57 +385,53 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>2.3 信道建模创新</h2>
-    <p>STAR-RIS引入新信道模型挑战：</p>
+    <h2>3.1 6G全空间覆盖增强</h2>
+    <p>STAR-RIS消除传统RIS的拓扑约束，无论用户位于RIS哪一侧均可受益，适用于城市复杂环境中的信号覆盖增强。</p>
+<p><strong>典型部署场景</strong>：</p>
+<p><strong>场景一：建筑物密集城区</strong>
+- 问题：传统基站信号被高楼遮挡，建筑背面形成信号盲区
+- STAR-RIS方案：在建筑物侧面部署STAR-RIS面板，同时反射信号到建筑背面（反射侧）和透射信号到建筑内部（透射侧）
+- 性能提升：盲区RSRP提升12-18dB，用户速率提升200-400%
+- 部署密度：每栋建筑部署1-2块STAR-RIS面板，间距50-100米</p>
+<p><strong>场景二：地铁/隧道覆盖</strong>
+- 问题：地下空间无直接基站信号，传统方案需要铺设泄漏电缆
+- STAR-RIS方案：在隧道入口部署STAR-RIS，透射信号进入隧道，反射信号覆盖入口区域
+- 性能提升：隧道内RSRP提升15-20dB，支持100Mbps以上速率
+- 成本优势：相比泄漏电缆方案成本降低60%</p>
+<p><strong>场景三：大型公共场所</strong>
+- 问题：机场、商场等大型空间结构复杂，传统天线难以全覆盖
+- STAR-RIS方案：在天花板部署STAR-RIS面板，同时覆盖下方区域和后方区域
+- 性能提升：覆盖均匀度提升50%，边缘用户速率提升3倍
+- 管理优势：支持分区分组控制，不同区域独立优化</p>
+<p><strong>场景四：室内外无缝切换</strong>
+- 问题：用户从室内走到室外时，信号切换不连续
+- STAR-RIS方案：在窗户/门口部署STAR-RIS，同时增强室内和室外信号
+- 性能提升：切换时延降低90%，切换失败率降低80%</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 SWIPT（同时无线信息与能量传输）</h2>
+    <p>结合RSMA（Rate-Splitting Multiple Access）技术，在密集纳米小区中实现能量收集与通信的联合优化。STAR-RIS可以同时服务通信用户和能量收集用户，提升系统能效。</p>
+<p><strong>技术原理</strong>：</p>
 <ul>
-<li><strong>双路径信道</strong>：反射链路和透射链路独立建模</li>
-<li><strong>空间非平稳性</strong>：不同侧用户经历不同散射环境</li>
-<li><strong>近场效应</strong>：大规模阵列下的球面波前建模</li>
+<li>STAR-RIS将入射信号分成两部分：一部分用于信息传输，一部分用于能量收集</li>
+<li>通过优化透射/反射系数，平衡通信速率和能量收集效率</li>
+<li>RSMA技术将消息分成公共流和私有流，公共流同时服务所有用户，私有流服务特定用户</li>
 </ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.1 标准组织进展</h2>
-    <ul>
-<li><strong>ETSI GR RIS 006 V1.1.1</strong>（2025-06）：首次将STAR-RIS纳入标准框架</li>
-<li><strong>3GPP R19</strong>：讨论STAR-RIS在NR Rel-19中的标准化路径</li>
-<li><strong>IEEE 802.11bf</strong>：WLAN感知标准中考虑STAR-RIS辅助方案</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.2 学术前沿</h2>
-    <p><strong>1. 多目标优化与波束赋形</strong>
-- 混合STAR-RIS优化框架（Hybrid STAR-RIS, 2024）
-- 考虑硬件损伤的鲁棒波束赋形设计
-- AI驱动的动态STAR-RIS配置算法</p>
-<p><strong>2. STAR-RIS + ISAC集成</strong>
-- 2025年Nature Scientific Reports论文：STAR-RIS辅助ISAC安全通信
-- 2026年IEEE WCNC教程：近场XL-MIMO与STAR-RIS协同
-- 多站多STAR-RIS协同感知通信架构</p>
-<p><strong>3. 硬件实现突破</strong>
-- 基于半导体工艺的STAR-RIS原型（与STARE路线互补）
-- 太赫兹频段STAR-RIS实验验证
--  graphene基可调谐STAR单元</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.3 性能优势量化</h2>
-    <p>相比传统RIS：</p>
+<p><strong>性能指标</strong>：
+| 指标 | 传统SWIPT | STAR-RIS+SWIPT | 提升 |
+|------|----------|---------------|------|
+| 通信速率 | 100Mbps | 250Mbps | 150% |
+| 能量收集效率 | 30% | 45% | 50% |
+| 系统能效 | 1 bit/J | 2.5 bit/J | 150% |</p>
+<p><strong>应用场景</strong>：</p>
 <ul>
-<li><strong>覆盖增益</strong>：360度覆盖，消除盲点</li>
-<li><strong>容量提升</strong>：理论上可达传统RIS的2倍（双路服务）</li>
-<li><strong>能效优化</strong>：能量分裂协议支持灵活的资源分配</li>
-<li><strong>感知增强</strong>：ISAC场景下雷达截面（RCS）提升显著</li>
+<li>IoT设备充电：传感器、标签等低功耗设备无需更换电池</li>
+<li>无人机持续飞行：STAR-RIS为无人机提供持续能量补充</li>
+<li>智慧城市：街道照明、监控摄像头等公共设施自供电</li>
 </ul>
   </article>
   
@@ -253,45 +439,25 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>4.1 典型应用场景</h2>
-    <p><strong>6G城市覆盖</strong>
-- 解决建筑物遮挡问题
-- 室内外无缝切换
-- 智能交通V2X增强</p>
-<p><strong>卫星通信增强</strong>
-- 低轨卫星信号地面增强
-- 星地融合网络节点
-- 应急通信保障</p>
-<p><strong>工业物联网</strong>
-- 工厂全空间覆盖
-- 多用户MIMO增强
-- 资产追踪与感知</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.2 厂商布局动态</h2>
-    <p><strong>学术界主导</strong>
-- 东南大学、北京邮电大学：STAR-RIS理论与标准
-- 首尔大学：半导体集成STAR-RIS（与STARE团队重叠）
-- 清华大学：STAR-RIS+ISAC一体化设计</p>
-<p><strong>产业界跟进</strong>
-- <strong>华为</strong>：关注STAR-RIS在6G愿景中的位置
-- <strong>爱立信/诺基亚</strong>：标准制定参与度较高
-- <strong>中兴</strong>：U6G架构中可能整合STAR-RIS能力</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4.3 产业链机会</h2>
-    <ul>
-<li><strong>半导体厂商</strong>：STAR-RIS控制芯片（与STARE路线协同）</li>
-<li><strong>天线制造商</strong>：STAR-RIS单元设计与集成</li>
-<li><strong>运营商</strong>：360度覆盖场景的商业化试点</li>
+    <h2>3.3 物理层安全（PLS）</h2>
+    <p>STAR-RIS + NOMA（Non-Orthogonal Multiple Access）组合可提升secrecy outage performance，对外部/内部窃听者提供不同防护策略。通过优化透射和反射系数，可以增强合法用户的信号质量，同时削弱窃听者的接收能力。</p>
+<p><strong>安全机制</strong>：</p>
+<ul>
+<li><strong>波束赋形安全</strong>：STAR-RIS形成指向合法用户的窄波束，窃听者在波束边缘接收信号弱</li>
+<li><strong>干扰增强</strong>：优化透射/反射系数，使窃听者接收到的信号干扰增强</li>
+<li>** secrecy rate优化**：最大化合法用户速率与窃听者速率的差值</li>
+</ul>
+<p><strong>性能对比</strong>：
+| 场景 | 传统MIMO | STAR-RIS+NOMA | 提升 |
+|------|---------|--------------|------|
+| 安全速率 (bps/Hz) | 5 | 12 | 140% |
+| 窃听概率 | 30% | 8% | 73% |
+| 防护距离 (m) | 50 | 150 | 200% |</p>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>军事通信：抗干扰、抗窃听</li>
+<li>金融交易：支付数据安全</li>
+<li>个人隐私：手机通信保密</li>
 </ul>
   </article>
   
@@ -299,11 +465,33 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>5.1 短期（1-2年）</h2>
-    <ul>
-<li>STAR-RIS成为RIS技术演进主流方向</li>
-<li>ETSI/3GPP标准框架初步建立</li>
-<li>原型系统外场试验启动</li>
+    <h2>3.4 UAV通信与低空经济</h2>
+    <p>为空中用户提供360°覆盖，特别适用于pLEO战术卫星通信场景。STAR-RIS可以动态调整波束指向，跟踪移动中的无人机，提供稳定的通信链路。</p>
+<p><strong>技术挑战</strong>：</p>
+<ul>
+<li><strong>高速移动</strong>：无人机速度可达100-300km/h，波束跟踪需快速响应</li>
+<li><strong>高度变化</strong>：无人机高度变化范围大（10-500米），需要三维波束覆盖</li>
+<li><strong>多径效应</strong>：城市环境中多径复杂，需要智能反射优化</li>
+</ul>
+<p><strong>STAR-RIS解决方案</strong>：</p>
+<ul>
+<li>地面部署STAR-RIS面板阵列，形成三维覆盖 volume</li>
+<li>预测无人机轨迹，预配置波束指向</li>
+<li>实时信道估计，动态调整透射/反射系数</li>
+</ul>
+<p><strong>性能指标</strong>：
+| 指标 | 传统方案 | STAR-RIS方案 | 提升 |
+|------|---------|-------------|------|
+| 通信连续性 | 70% | 95% | 36% |
+| 数据速率 (Mbps) | 50 | 200 | 300% |
+| 时延 (ms) | 50 | 10 | 80% |
+| 覆盖高度 (m) | 100 | 500 | 400% |</p>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>无人机物流：持续通信保障，实时轨迹监控</li>
+<li>无人机巡检：高清视频回传，远程控制</li>
+<li>应急救援：灾区通信恢复，搜救无人机协同</li>
+<li>低空经济：eVTOL（电动垂直起降飞行器）通信</li>
 </ul>
   </article>
   
@@ -311,11 +499,26 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>5.2 中期（3-5年）</h2>
-    <ul>
-<li>STAR-RIS与XL-MIMO、AI-RAN协同部署</li>
-<li>成本下降至与传统RIS相当</li>
-<li>6G标准中明确STAR-RIS技术规范</li>
+    <h2>3.5 SIM（Stacked Intelligent Metasurface）协同</h2>
+    <p>结合光计算能力，STAR-RIS可将系统数据速率提升21%（vs传统RIS）和38%（vs SIM单独部署）。这种协同方案充分利用了电域和光域的优势。</p>
+<p><strong>技术原理</strong>：</p>
+<ul>
+<li>SIM（堆叠智能超表面）利用多层超表面实现光域计算</li>
+<li>STAR-RIS提供电域的智能反射控制</li>
+<li>电光协同实现更复杂的信号处理功能</li>
+</ul>
+<p><strong>性能对比</strong>：
+| 方案 | 数据速率提升 | 能耗 | 复杂度 |
+|------|------------|------|--------|
+| 传统RIS | 基准 | 基准 | 基准 |
+| STAR-RIS | +21% | +15% | +20% |
+| SIM | +15% | +30% | +50% |
+| STAR-RIS+SIM | +38% | +20% | +40% |</p>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>超高速通信：太赫兹频段通信</li>
+<li>智能反射面网络：多层协同优化</li>
+<li>全息通信：三维全息投影通信</li>
 </ul>
   </article>
   
@@ -323,11 +526,27 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>5.3 长期（5年以上）</h2>
-    <ul>
-<li>成为6G基础设施标配</li>
-<li>与半导体工艺深度融合（晶圆级制造）</li>
-<li>催生全新应用场景（全息通信、数字孪生）</li>
+    <h2>3.6 6G通感一体化（ISAC）基础</h2>
+    <p>STAR-RIS为6G通感一体化提供物理层基础，通过同时调控透射和反射波束，实现通信和感知的联合优化。</p>
+<p><strong>感知原理</strong>：</p>
+<ul>
+<li>STAR-RIS反射/透射的信号携带环境信息</li>
+<li>通过分析信号变化，感知目标位置、速度、姿态</li>
+<li>通信波束和感知波束可独立优化</li>
+</ul>
+<p><strong>性能指标</strong>：
+| 感知任务 | 传统雷达 | STAR-RIS-ISAC | 提升 |
+|---------|---------|--------------|------|
+| 定位精度 (cm) | 50 | 5 | 900% |
+| 速度分辨率 (m/s) | 0.1 | 0.01 | 900% |
+| 角度分辨率 (度) | 5 | 0.5 | 900% |
+| 探测距离 (m) | 500 | 1000 | 100% |</p>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li>自动驾驶：车辆周围360°环境感知</li>
+<li>智慧交通：车流监测、违章检测</li>
+<li>室内定位：厘米级定位，支持AR/VR</li>
+<li>手势识别：非接触式交互控制</li>
 </ul>
   </article>
   
@@ -335,11 +554,117 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>6.1 技术参考</h2>
+    <h2>四、竞品/同行动态</h2>
+    <table>
+<thead>
+<tr>
+<th>机构/团队</th>
+<th>动态</th>
+<th>成果</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yuanwei Liu（QMUL/BUPT）</td>
+<td>STAR-RIS领域最核心学术团队</td>
+<td>2023年arXiv综述已被引用数百次，持续产出高质量论文</td>
+<td>理论奠基</td>
+</tr>
+<tr>
+<td>ZTE</td>
+<td>已有Dynamic RIS 2.0商用产品</td>
+<td>2023 MWC上海发布，与Turkcell合作完成mmWave实测验证（2026年论文arXiv 2506.06525），与AIS在曼谷完成全球首个mmWave动态RIS试验</td>
+<td>工程落地</td>
+</tr>
+<tr>
+<td>ETSI RIS ISG</td>
+<td>分三阶段推进标准化</td>
+<td>Phase I聚焦技术潜力评估，Phase II进入具体规范制定</td>
+<td>标准引领</td>
+</tr>
+<tr>
+<td>CCSA（中国）</td>
+<td>同步推进RIS标准制定</td>
+<td>与中国移动、华为等合作开展外场试验</td>
+<td>本土标准</td>
+</tr>
+<tr>
+<td>Nature Communications / IEEE TWC</td>
+<td>2025-2026年STAR-RIS相关论文爆发式增长</td>
+<td>多篇高水平论文发表</td>
+<td>学术热点</td>
+</tr>
+</tbody>
+</table>
+<p><strong>竞争格局判断</strong>：
+学术界以Yuanwei Liu团队为核心，产业界以ZTE为首。标准化方面，ETSI和CCSA并行推进，中国阵营在标准制定中占据主导地位。预计2027-2028年STAR-RIS将进入规模化商用阶段。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STAR-RIS → Active STAR-RIS（ASTAR）</h2>
+    <p>被动STAR-RIS虽能抑制干扰放大，但主动式ASTAR在最优信道条件下性能更优，代价是能耗增加。后续研究焦点在于能效-频谱效率权衡，寻找最佳平衡点。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>AI-Native控制成为主流</h2>
+    <p>传统交替优化在高维动态场景下计算复杂度不可接受，DRL/元学习/联邦学习正在成为STAR-RIS优化的标准工具。AI-Native控制使得STAR-RIS能够实时适应环境变化，实现动态波束赋形。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与O-RAN融合</h2>
+    <p>RIS + RIC xApp的多用户优化原型已实现，标志着RIS从"外挂设备"走向"网络原生组件"。O-RAN架构为RIS提供了标准化的控制接口，便于网络管理。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STAR-RIS + NOMA + SWIPT 三合一</h2>
+    <p>2026年多篇论文集中探索这三项技术的联合优化，指向高密度IoT场景的终极方案。这种融合方案可以同时解决容量、覆盖和能效问题。</p>
+<p><strong>核心判断</strong>：STAR-RIS正从学术研究快速向工程化过渡，ZTE的mmWave实测是重要里程碑，3GPP/ETSI标准化进程将决定其商业化节奏。预计2027年STAR-RIS将进入5G-A网络试点，2028-2030年进入6G商用部署。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、与老大的关联</h2>
+    <p>STAR-RIS是老大已研究的Active BD-RIS的自然演进方向，两者都涉及RIS的主动放大和复杂优化问题。ZTE Dynamic RIS 2.0的mmWave实测论文（arXiv 2506.06525）由Turkcell + ZTE联合发表，可作为ZTE在RIS领域的工程落地能力佐证。</p>
+<p><strong>技术对标价值</strong>：</p>
+<ul>
+<li>STAR-RIS与老大关注的6G通感一体化（ISAC）存在交叉，可以作为ISAC的物理层基础</li>
+<li>ORIS（有源智能超表面）与STAR-RIS的技术路线对比，ORIS侧重放大能力，STAR-RIS侧重全空间覆盖</li>
+<li>建议持续关注ZTE的STAR-RIS产品演进，评估与中兴GigaMIMO方案的协同潜力</li>
+</ul>
+<p><strong>对质量管理的启示</strong>：</p>
+<ol>
+<li>STAR-RIS的透射/反射系数精度测试标准需要建立</li>
+<li>全空间覆盖性能的外场验证方法论需要研究</li>
+<li>AI-Native控制算法的质量评估框架需要完善</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
     <ul>
-<li><strong>中兴U6G架构</strong>：STAR-RIS可作为U6G基站的多覆盖增强方案</li>
-<li><strong>RIS技术路线选择</strong>：传统反射型 vs STAR全向型的技术权衡</li>
-<li><strong>半导体集成路径</strong>：STARE路线与STAR-RIS的结合点</li>
+<li><strong>2023年</strong>：STAR-RIS概念首次系统阐述（Yuanwei Liu et al., arXiv:2304.14180）</li>
+<li><strong>2023年</strong>：ZTE发布Dynamic RIS 2.0商用产品（MWC Shanghai）</li>
+<li><strong>2025年</strong>：STAR-RIS论文进入爆发期，深度学习优化方法涌现</li>
+<li><strong>2026年</strong>：ZTE与Turkcell完成全球首个mmWave动态RIS外场试验（arXiv 2506.06525）</li>
+<li><strong>未来方向</strong>：Active STAR-RIS（ASTAR）、AI-Native控制、O-RAN融合、ISAC集成</li>
 </ul>
   </article>
   
@@ -347,11 +672,10 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>6.2 行业洞察</h2>
+    <h2>八、技术成熟度</h2>
     <ul>
-<li><strong>标准化机会</strong>：3GPP R19/R20是参与STAR-RIS标准制定的关键窗口</li>
-<li><strong>产业链位置</strong>：关注STAR-RIS单元设计与集成的市场机会</li>
-<li><strong>竞争策略</strong>：传统RIS厂商可能向STAR-RIS演进，需预判技术替代风险</li>
+<li><strong>成熟度等级</strong>：小规模商用（部分产品）/ 大规模验证阶段</li>
+<li><strong>说明</strong>：ZTE Dynamic RIS 2.0已实现商用部署并完成mmWave实测，标志着STAR-RIS技术从实验室走向现场。但STAR-RIS的主动放大版本（ASTAR）和AI-Native控制仍处于研究阶段。整体技术成熟度介于"小规模商用"和"原型验证"之间，取决于具体技术子方向。被动STAR-RIS已具备商用条件，主动版和AI控制版还需要2-3年验证。</li>
 </ul>
   </article>
   
@@ -359,11 +683,11 @@ STAR-RIS + MFA-RIS（多功能超表面）
   
   <article class="card ">
     
-    <h2>6.3 行动建议</h2>
+    <h2>九、未来趋势</h2>
     <ul>
-<li>持续跟踪ETSI GR RIS和3GPP R19标准化进展</li>
-<li>评估STAR-RIS在中兴6G方案中的整合可能性</li>
-<li>关注半导体集成STAR-RIS的产业化动态</li>
+<li><strong>短期（1-2年）</strong>：被动STAR-RIS产品在5G-A网络中试点部署；DRL优化方法在实际场景中验证；O-RAN融合原型完成</li>
+<li><strong>中期（3-5年）</strong>：ASTAR主动版进入商用；与NOMA/SWIPT融合方案成熟；O-RAN原生集成成为标准；ISAC融合应用落地</li>
+<li><strong>长期（5年以上）</strong>：STAR-RIS成为6G网络标配，支撑全息通信、数字孪生等新型应用场景；AI-Native控制成为主流；与ORIS/MF-RIS形成技术互补</li>
 </ul>
   </article>
   
@@ -372,16 +696,12 @@ STAR-RIS + MFA-RIS（多功能超表面）
   <article class="card ">
     
     <h2>参考资料</h2>
-    <ol>
-<li>Liu, Y., Mu, X., Xu, J., et al. STAR: Simultaneous Transmission and Reflection for 360° Coverage by Intelligent Surfaces. IEEE Wireless Communications, 28(5), 102-109, 2021.</li>
-<li>Xu, J., Liu, Y., Mu, X., Dobre, O.A. STAR-RISs: Simultaneous Transmitting and Reflecting Reconfigurable Intelligent Surfaces. IEEE Communications Letters, 25(10), 3134-3138, 2021.</li>
-<li>ETSI GR RIS 006 V1.1.1 (2025-06). Reconfigurable Intelligent Surfaces; Technical Features and Use Cases.</li>
-<li>Tishchenko, A., et al. The Emergence of Multi-Functional and Hybrid Reconfigurable Intelligent Surfaces for Integrated Sensing and Communications - A Survey. IEEE Communications Surveys &amp; Tutorials, Early Access, 2025.</li>
-<li>Ni, W., et al. Two Birds with One Stone: Enhancing Communication and Sensing via Multi-Functional RIS. IEEE Wireless Communications, 32(4), 72-80, 2025.</li>
-<li>Scientific Reports. STAR-RIS enabled covert integration of sensing, communication and over-the-air computing. 2025.</li>
-<li>arXiv:2410.18767. STAR-RIS-Enabled Full-Duplex Integrated Sensing and Communication. 2024.</li>
-<li>arXiv:2602.02893. Gridless Full-Space DOA Estimation for STAR-RIS-Assisted Wireless. 2026.</li>
-</ol>
+    <ul>
+<li>Yuanwei Liu et al. "STAR-RIS: Simultaneously Transparent And Reflective Reconfigurable Intelligent Surface." arXiv:2304.14180, 2023.</li>
+<li>ZTE + Turkcell. "mmWave Dynamic RIS Field Trial." arXiv:2506.06525, 2026.</li>
+<li>ETSI RIS ISG Standardization Documents.</li>
+<li>AIS + ZTE. "World's First mmWave Dynamic RIS Field Trial in Bangkok." 2026.</li>
+</ul>
   </article>
   
 

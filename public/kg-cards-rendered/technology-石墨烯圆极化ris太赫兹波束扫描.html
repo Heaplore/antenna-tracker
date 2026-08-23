@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">石墨烯圆极化RIS太赫兹波束扫描</h1>
-  
+  <p class="lede">2026年Scientific Reports发表的石墨烯CP-GRIS研究，实现了太赫兹波段（266-332 GHz）圆极化波束扫描，最大增益24.8 dBi、广角扫描±40°，为6G太赫兹通信提供了全新的RIS实现方案。</p>
   
 </header>
 
@@ -105,37 +105,34 @@
   
   <article class="card ">
     
+    <h2>一、主题概述</h2>
+    <p>2026年6月，Scientific Reports发表了一项关于石墨烯基可重构智能超表面（CP-GRIS，Circularly Polarized Graphene-based Reconfigurable Intelligent Surface）的研究，实现了太赫兹波段（266-332 GHz）的圆极化波束扫描。该工作采用1-bit编码超表面结构，结合相位调谐和极化转换功能，为6G太赫兹通信提供了新的RIS实现方案。</p>
+<p>传统RIS多为线极化，此研究首次实现了太赫兹波段的圆极化可重构反射表面，填补了该频段可重构表面的技术空白。圆极化在卫星通信、抗多径干扰等场景具有独特优势，因为圆极化波在反射后仍能保持极化状态，而线极化波在反射后极化方向可能发生改变。</p>
+<p>该研究的核心创新在于：</p>
+<ol>
+<li><strong>石墨烯可调谐单元设计</strong>：采用倒半月形金贴片+嵌入石墨烯条的结构，通过调控石墨烯费米能级实现180°相位切换</li>
+<li><strong>圆极化波束扫描</strong>：45×45单元阵列（15λ×15λ），实现全二维和三维波束扫描，最大广角扫描±40°</li>
+<li><strong>性能指标优异</strong>：工作频率300 GHz，最大法向增益24.8 dBi，波束宽度4.4°，旁瓣电平低于主瓣15.3 dB，扫描损耗仅1.2 dBi（±40°）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
     <h2>石墨烯CP-GRIS设计</h2>
     <p><strong>核心创新</strong>：</p>
 <ol>
-<li><strong>石墨烯可调谐单元</strong>：</li>
-<li>采用倒半月形金贴片+嵌入石墨烯条的结构</li>
-<li>通过调控石墨烯费米能级实现180°相位切换</li>
-<li>
-<p>工作频段：266-332 GHz（太赫兹波段）</p>
-</li>
-<li>
-<p><strong>圆极化波束扫描</strong>：</p>
-</li>
-<li>45×45单元阵列（15λ×15λ）</li>
-<li>实现全二维和三维波束扫描能力</li>
-<li>
-<p>最大广角扫描：±40°</p>
-</li>
-<li>
-<p><strong>性能指标</strong>：</p>
-</li>
-<li>工作频率：300 GHz</li>
-<li>最大法向增益：24.8 dBi</li>
-<li>波束宽度：4.4°</li>
-<li>旁瓣电平：低于主瓣15.3 dB</li>
-<li>扫描损耗：1.2 dBi（±40°）</li>
+<li><strong>石墨烯可调谐单元</strong>：倒半月形金贴片+嵌入石墨烯条，通过调控石墨烯费米能级实现180°相位切换，工作频段266-332 GHz。石墨烯的电导率可通过外加偏置电压调节，从而改变单元的反射相位和幅度</li>
+<li><strong>圆极化波束扫描</strong>：45×45单元阵列（15λ×15λ），实现全二维和三维波束扫描，最大广角扫描±40°。圆极化通过正交线极化分量的90°相位差实现</li>
+<li><strong>性能指标</strong>：工作频率300 GHz，最大法向增益24.8 dBi，波束宽度4.4°，旁瓣电平低于主瓣15.3 dB，扫描损耗1.2 dBi（±40°）</li>
 </ol>
 <p><strong>技术优势</strong>：</p>
 <ul>
-<li>石墨烯可调性响应速度快（皮秒级）</li>
-<li>太赫兹波段低损耗</li>
-<li>圆极化特性适合卫星通信等场景</li>
+<li><strong>石墨烯可调性响应速度快</strong>：皮秒级（ps），远快于半导体RIS的纳秒级（ns），适合高速动态场景</li>
+<li><strong>太赫兹波段低损耗</strong>：石墨烯在太赫兹频段的欧姆损耗相对较低，效率较高</li>
+<li><strong>圆极化特性适合卫星通信</strong>：圆极化波在反射后极化状态保持不变，适合卫星-地面链路</li>
+<li><strong>宽带工作</strong>：266-332 GHz频段覆盖66 GHz带宽，支持高速数据传输</li>
 </ul>
   </article>
   
@@ -143,118 +140,282 @@
   
   <article class="card ">
     
-    <h2>太赫兹通信场景</h2>
-    <ol>
-<li><strong>6G太赫兹链路增强</strong>：</li>
-<li>弥补太赫兹波传播损耗大的缺陷</li>
-<li>支持非视距（NLoS）通信</li>
-<li>
-<p>提升链路可靠性</p>
-</li>
-<li>
-<p><strong>卫星通信</strong>：</p>
-</li>
-<li>圆极化特性适合卫星链路</li>
-<li>太赫兹频段带宽大，支持高速传输</li>
-<li>
-<p>可重构波束支持多卫星切换</p>
-</li>
-<li>
-<p><strong>短距高速传输</strong>：</p>
-</li>
-<li>300 GHz频段支持超大带宽</li>
-<li>潜在应用：太赫兹回传、室内高速链路</li>
-</ol>
+    <h2>圆极化原理</h2>
+    <p>圆极化波的电场矢量端点随时间旋转，形成圆形轨迹。圆极化分为左旋圆极化（LCP）和右旋圆极化（RCP），其电场可表示为：</p>
+<pre><code>E_LCP = E₀[cos(ωt)·x̂ + sin(ωt)·ŷ]
+E_RCP = E₀[cos(ωt)·x̂ - sin(ωt)·ŷ]
+</code></pre>
+<p>CP-GRIS通过控制正交线极化分量的振幅比和相位差来实现圆极化。当振幅相等且相位差为±90°时，实现纯圆极化；否则为椭圆极化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>竞品/同行动态</h2>
+    <h2>波束扫描原理</h2>
+    <p>波束扫描通过控制阵列中各单元的相位分布来实现。对于均匀线性阵列，波束方向θ满足：</p>
+<pre><code>θ = arcsin(λ/(2πd) · Δφ)
+</code></pre>
+<p>其中d是单元间距，Δφ是相邻单元相位差。CP-GRIS采用45×45二维阵列，可实现全二维波束扫描。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>与STARE半导体RIS对比</h2>
     <table>
 <thead>
 <tr>
-<th>厂商/机构</th>
-<th>动向</th>
-<th>关联度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>阿米尔卡比尔理工大学</td>
-<td>发表CP-GRIS论文（Scientific Reports 2026）</td>
-<td>高</td>
-</tr>
-<tr>
-<td>首尔大学</td>
-<td>STARE半导体RIS（Nature Communications）</td>
-<td>中</td>
-</tr>
-<tr>
-<td>中兴</td>
-<td>U6G-2048原型机，太赫兹方向待观察</td>
-<td>中</td>
-</tr>
-<tr>
-<td>华为</td>
-<td>太赫兹研究布局中</td>
-<td>低</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>石墨烯RIS在太赫兹波段具有独特优势</h2>
-    <ol>
-<li><strong>响应速度</strong>：石墨烯电子迁移率高，可实现皮秒级相位切换，适合高速波束扫描</li>
-<li><strong>工作频段</strong>：太赫兹波段是6G重要频谱资源，石墨烯RIS填补了该频段的可重构表面空白</li>
-<li><strong>圆极化</strong>：传统RIS多为线极化，圆极化RIS拓展了应用场景</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>与STARE路线的对比</h2>
-    <table>
-<thead>
-<tr>
-<th>维度</th>
-<th>STARE（半导体）</th>
+<th>指标</th>
 <th>CP-GRIS（石墨烯）</th>
+<th>STARE（半导体）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>工作频段</td>
-<td>15.5 GHz（中频）</td>
 <td>266-332 GHz（太赫兹）</td>
+<td>15.5 GHz（中频）</td>
 </tr>
 <tr>
 <td>工艺</td>
-<td>标准CMOS</td>
 <td>石墨烯转移+光刻</td>
+<td>标准CMOS</td>
 </tr>
 <tr>
 <td>极化</td>
-<td>线极化</td>
 <td>圆极化</td>
+<td>线极化</td>
 </tr>
 <tr>
 <td>响应速度</td>
-<td>纳秒级</td>
-<td>皮秒级</td>
+<td>皮秒级（ps）</td>
+<td>纳秒级（ns）</td>
 </tr>
 <tr>
-<td>应用方向</td>
-<td>6G中频覆盖</td>
-<td>6G太赫兹高速链路</td>
+<td>最大增益</td>
+<td>24.8 dBi</td>
+<td>-</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>±40°</td>
+<td>-</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>66 GHz</td>
+<td>-</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>低（无源）</td>
+<td>低（无源）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高（石墨烯工艺复杂）</td>
+<td>低（CMOS成熟）</td>
+</tr>
+</tbody>
+</table>
+<p>石墨烯路线与半导体路线互补：石墨烯胜在太赫兹高频段和超快响应，半导体胜在工艺成熟和低成本量产。两者可能在不同频段和应用场景中发挥各自优势。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>潜在应用场景</h2>
+    <ol>
+<li><strong>6G太赫兹链路增强</strong>：弥补太赫兹波传播损耗大的缺陷，支持非视距通信。太赫兹频段自由空间损耗与频率平方成正比，300 GHz的损耗约为20 GHz的100倍，RIS可显著补偿路径损耗</li>
+<li><strong>卫星通信</strong>：圆极化特性适合卫星链路，太赫兹频段带宽大支持高速传输。低轨卫星互联网需要高速回传链路，太赫兹RIS可作为地面站增强天线</li>
+<li><strong>短距高速传输</strong>：300 GHz频段支持超大带宽，潜在应用太赫兹回传、室内高速链路。单链路可达100 Gbps以上速率</li>
+<li><strong>抗干扰通信</strong>：圆极化波对线极化干扰具有天然抑制能力，适合军事和应急通信场景</li>
+<li><strong>通感一体化</strong>：圆极化RIS可通过极化散射矩阵区分目标类型，提升感知精度</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业链动态</h2>
+    <ul>
+<li><strong>学术主导</strong>：Scientific Reports期刊发表，代表前沿研究成果，目前尚无产业界大规模跟进</li>
+<li><strong>工艺路线</strong>：石墨烯转移+光刻工艺，区别于STARE的CMOS工艺。石墨烯转移工艺的良率和成本控制是产业化关键</li>
+<li><strong>成熟度</strong>：实验室研究阶段，距离商用尚有距离。主要挑战在于石墨烯材料的大面积制备和工艺集成</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>四、竞品/同行动态</h2>
+    <table>
+<thead>
+<tr>
+<th>技术路线</th>
+<th>代表成果</th>
+<th>频段</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>石墨烯CP-GRIS</td>
+<td>Scientific Reports 2026</td>
+<td>266-332 GHz</td>
+<td>圆极化、皮秒响应、太赫兹，填补太赫兹圆极化RIS空白</td>
+</tr>
+<tr>
+<td>STARE半导体RIS</td>
+<td>Nature Communications 2026</td>
+<td>15.5 GHz</td>
+<td>线极化、CMOS工艺、中频，已实现晶圆级集成</td>
+</tr>
+<tr>
+<td>清华SC-RIS</td>
+<td>自控制智能超表面</td>
+<td>毫米波</td>
+<td>不依赖基站信令，全息定位算法</td>
+</tr>
+<tr>
+<td>东南大学亚运RIS</td>
+<td>全球首次大型赛事部署</td>
+<td>2.4 GHz</td>
+<td>工程化示范，透明超表面</td>
+</tr>
+</tbody>
+</table>
+<p>石墨烯路线与半导体路线互补：石墨烯胜在太赫兹高频段和超快响应，半导体胜在工艺成熟和低成本量产。未来可能出现"半导体RIS（中低频）+ 石墨烯RIS（太赫兹）"的组合方案，覆盖6G全频谱。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术演进方向</h2>
+    <ul>
+<li><strong>线极化RIS（早期）</strong>：传统硅基/半导体RIS，工作在中低频段（Sub-6G/mmWave）</li>
+<li><strong>太赫兹RIS探索（2025-）</strong>：石墨烯材料带来太赫兹频段可能性，解决太赫兹波段RIS空白</li>
+<li><strong>CP-GRIS突破（2026）</strong>：Scientific Reports论文，首次实现太赫兹圆极化RIS，实现24.8 dBi增益和±40°扫描</li>
+<li><strong>多频段策略（未来）</strong>：STARE（中频）+ CP-GRIS（太赫兹）互补覆盖6G全频谱，形成"中低频半导体RIS + 高频石墨烯RIS"的分工格局</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>商业化路径</h2>
+    <ol>
+<li><strong>短期（1-2年）</strong>：石墨烯RIS工艺优化，良率提升。重点解决石墨烯大面积制备和转移工艺的稳定性问题</li>
+<li><strong>中期（3-5年）</strong>：多频段RIS策略成型，半导体+石墨烯互补覆盖6G全频谱。可能在卫星通信、太赫兹回传等特定场景率先商用</li>
+<li><strong>长期（5年以上）</strong>：太赫兹卫星互联网终端成为首批商业化场景，圆极化RIS价值凸显。同时，石墨烯RIS可能与SC-RIS等自控制理念结合，形成新一代智能超表面</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>直接参考价值</h2>
+    <ol>
+<li><strong>太赫兹技术储备</strong>：老大所在的中兴通讯需在太赫兹频段布局，CP-GRIS展示了石墨烯路线可行性。中兴在太赫兹相控阵方向已有研究基础，可与石墨烯RIS形成技术互补</li>
+<li><strong>圆极化RIS新方向</strong>：传统RIS多为线极化，圆极化适合卫星通信，老大如涉及卫星直连业务可重点关注。华为已在卫星通信领域有布局，圆极化RIS可能成为竞争焦点</li>
+<li><strong>材料路线选择</strong>：石墨烯vs半导体CMOS两条路线各有优劣，老大需根据应用场景选择。卫星通信适合石墨烯（太赫兹+圆极化），地面覆盖适合半导体（低成本+成熟工艺）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>对老大的启示</h2>
+    <ul>
+<li>太赫兹频段（266-332 GHz）是6G关键频段，老大需关注石墨烯RIS工艺进展。建议与高校合作，跟踪石墨烯材料制备和工艺集成研究</li>
+<li>圆极化RIS在卫星通信场景有独特优势，与老大手机直连卫星业务相关。可评估圆极化RIS在卫星地面站增强中的应用可能性</li>
+<li>石墨烯响应速度皮秒级，远快于半导体纳秒级，适合高速场景。在高速移动场景（如高铁、无人机）下，石墨烯RIS可能具有独特优势</li>
+<li>建议关注石墨烯RIS的专利布局动态，避免侵权风险。目前该领域专利尚少，是布局窗口期</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>CP-GRIS（石墨烯）</th>
+<th>STARE（半导体）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作频段</td>
+<td>266-332 GHz（太赫兹）</td>
+<td>15.5 GHz（中频）</td>
+</tr>
+<tr>
+<td>工艺</td>
+<td>石墨烯转移+光刻</td>
+<td>标准CMOS</td>
+</tr>
+<tr>
+<td>极化</td>
+<td>圆极化</td>
+<td>线极化</td>
+</tr>
+<tr>
+<td>响应速度</td>
+<td>皮秒级</td>
+<td>纳秒级</td>
+</tr>
+<tr>
+<td>最大增益</td>
+<td>24.8 dBi</td>
+<td>-</td>
+</tr>
+<tr>
+<td>扫描范围</td>
+<td>±40°</td>
+<td>-</td>
+</tr>
+<tr>
+<td>波束宽度</td>
+<td>4.4°</td>
+<td>-</td>
+</tr>
+<tr>
+<td>旁瓣电平</td>
+<td>&lt;主瓣15.3 dB</td>
+<td>-</td>
+</tr>
+<tr>
+<td>扫描损耗</td>
+<td>1.2 dBi（±40°）</td>
+<td>-</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>66 GHz</td>
+<td>-</td>
+</tr>
+<tr>
+<td>单元数量</td>
+<td>45×45（2025单元）</td>
+<td>-</td>
+</tr>
+<tr>
+<td>阵列尺寸</td>
+<td>15λ×15λ</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
@@ -264,26 +425,39 @@
   
   <article class="card ">
     
-    <h2>对老大的参考价值</h2>
-    <ol>
-<li><strong>太赫兹技术布局</strong>：</li>
-<li>建议关注石墨烯RIS的产业化进展</li>
-<li>
-<p>评估与中兴太赫兹研究的协同机会</p>
-</li>
-<li>
-<p><strong>多频段RIS策略</strong>：</p>
-</li>
-<li>STARE（中频）+ CP-GRIS（太赫兹）形成互补</li>
-<li>
-<p>建议构建多频段RIS技术图谱</p>
-</li>
-<li>
-<p><strong>圆极化RIS应用</strong>：</p>
-</li>
-<li>圆极化特性适合卫星通信场景</li>
-<li>建议跟踪6G NTN（非地面网络）RIS需求</li>
-</ol>
+    <h2>工程挑战与坑</h2>
+    <ul>
+<li><strong>石墨烯转移工艺良率控制</strong>：CVD生长的石墨烯转移到基底时易产生裂纹和缺陷，影响单元性能一致性</li>
+<li><strong>太赫兹频段损耗对性能的影响</strong>：虽然石墨烯损耗相对较低，但太赫兹波段整体损耗仍较高，需优化单元设计</li>
+<li><strong>圆极化纯度的工程实现难度</strong>：实际器件中难以实现理想的90°相位差和等振幅，圆极化纯度（AX ratio）通常只有20-30 dB</li>
+<li><strong>大规模阵列的相位一致性控制</strong>：2025个单元的相位控制需要复杂的偏置网络设计，布线密度和串扰是挑战</li>
+<li><strong>石墨烯费米能级调控的稳定性</strong>：外加偏置电压可能受环境影响，需设计稳定的调控电路</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2年）</strong>：石墨烯RIS工艺优化，良率提升，开展工程化验证。重点解决石墨烯大面积制备和转移工艺稳定性问题</li>
+<li><strong>中期（3-5年）</strong>：多频段RIS策略成型，半导体+石墨烯互补覆盖6G全频谱；太赫兹RIS在实验室环境验证，可能在卫星通信场景试点</li>
+<li><strong>长期（5年以上）</strong>：太赫兹卫星互联网终端成为首批商业化场景，圆极化RIS价值凸显。同时，石墨烯RIS可能与SC-RIS等自控制理念结合，形成新一代智能超表面</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考资料</h2>
+    <ul>
+<li>Scientific Reports - Graphene-based circularly polarized reconfigurable intelligent surface for terahertz beam scanning (2026)</li>
+<li>https://www.nature.com/srep</li>
+<li>石墨烯超表面太赫兹相控阵-20260805</li>
+<li>STARE半导体集成RIS-20260707</li>
+</ul>
   </article>
   
 

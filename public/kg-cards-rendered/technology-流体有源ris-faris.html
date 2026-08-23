@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">流体有源RIS-FARIS</h1>
-  
+  <p class="lede">FARIS将流体天线的空间自由度与有源RIS的信号放大能力融合，通过&#34;流体端口重定位+每端口主动放大&#34;双重优化，突破传统RIS在空间自适应和路径损耗补偿上的根本瓶颈。</p>
   
 </header>
 
@@ -105,71 +105,79 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
+    <h2>一、主题概述</h2>
     <p><strong>FARIS（Fluid-Active RIS）</strong> 是 RIS 研究的最新前沿概念，首次由韩国外国语大学洪柏贤于2025年12月在arXiv上提出。该架构创新性地将<strong>流体天线系统（FAS）的空间自由度</strong>与<strong>有源RIS的信号放大能力</strong>深度融合，通过"流体端口重定位+每端口主动放大"的双重自由度设计，突破了传统固定结构RIS在空间自适应和路径损耗补偿上的根本性瓶颈。</p>
-<p>FARIS的核心思想是：每个选中的流体活性单元不仅能通过放大器补偿乘性衰落，还能在可用孔径内自由移动至空间最优位置，实现"在哪里放大"和"放大多少"的联合优化。</p>
+<p>FARIS的核心思想是：每个选中的流体活性单元不仅能通过放大器补偿乘性衰落，还能在可用孔径内自由移动至空间最优位置，实现"在哪里放大"和"放大多少"的联合优化。这种双重优化机制是FARIS相比传统RIS和有源RIS的根本优势。</p>
+<p>传统被动RIS只能反射信号，无法补偿路径损耗；有源RIS（ORIS）可以放大信号，但位置固定，无法优化空间自由度；FARIS则同时具备空间移动和信号放大两种能力，实现了真正的"智能"超表面。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 双重自由度设计</h2>
+    <h2>双重自由度设计</h2>
     <p>FARIS同时具备两种核心自由度：</p>
-<p><strong>（1）空间流动性（Fluid Port Repositioning）</strong></p>
-<ul>
-<li>每个流体单元可在其子区域内自由移动</li>
-<li>通过扫描多个候选端口位置，选择信道条件最优的空间位置</li>
-<li>无需增加阵列规模即可获取额外的空间自由度</li>
-</ul>
-<p><strong>（2）主动放大（Per-Element Active Amplification）</strong></p>
-<ul>
-<li>每个选中单元集成微型放大器，提供可控增益</li>
-<li>有效补偿BS→RIS和RIS→UE两段信道的乘性路径损耗</li>
-<li>通过直流偏置功率为放大器供电</li>
-</ul>
+<p><strong>（1）空间流动性（Fluid Port Repositioning）</strong>
+- 每个流体单元可在其子区域内自由移动
+- 通过扫描多个候选端口位置，选择信道条件最优的空间位置
+- 无需增加阵列规模即可获取额外的空间自由度
+- 空间多样性增益：流体单元移动可改变阵列的电磁场分布，获得额外的分集增益</p>
+<p><strong>（2）主动放大（Per-Element Active Amplification）</strong>
+- 每个选中单元集成微型放大器，提供可控增益
+- 有效补偿BS→RIS和RIS→UE两段信道的乘性路径损耗
+- 通过直流偏置功率为放大器供电
+- 放大增益可调：根据信道条件动态调整，平衡信号增强与噪声放大</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 信号模型与功率约束</h2>
+    <h2>信号模型与功率约束</h2>
     <p>FARIS的接收信号模型为：</p>
-<p>$$y = \sqrt{P_t} \mathbf{h}_{r}^H \mathbf{\Phi}(\mathbf{p}) \mathbf{G}(\mathbf{p}) \mathbf{x} + n$$</p>
+<pre><code>y = √P_t · h_r^H · Φ(p) · G(p) · x + n
+</code></pre>
 <p>其中：</p>
 <ul>
-<li>$\mathbf{p}$ 是流体单元的位置向量</li>
-<li>$\mathbf{\Phi}(\mathbf{p})$ 是包含增益和相位的反射矩阵</li>
-<li>$\mathbf{G}(\mathbf{p})$ 是考虑空间位置变化的BS-RIS信道</li>
+<li><code>p</code> 是流体单元的位置向量（空间自由度）</li>
+<li><code>Φ(p)</code> 是包含增益和相位的反射矩阵（放大自由度）</li>
+<li><code>G(p)</code> 是考虑空间位置变化的BS-RIS信道</li>
+<li><code>h_r</code> 是RIS-UE信道</li>
+<li><code>P_t</code> 是发射功率</li>
 </ul>
 <p><strong>功率消耗模型</strong>包含两部分：</p>
 <ul>
-<li>逻辑控制/切换功率：端口选择与移动消耗的功率</li>
-<li>直流偏置功率：放大器运行所需的直流功耗</li>
+<li><strong>逻辑控制/切换功率</strong>：端口选择与移动消耗的功率，包括MEMS驱动、控制电路等</li>
+<li><strong>直流偏置功率</strong>：放大器运行所需的直流功耗，与放大增益成正比</li>
 </ul>
+<p>总功率约束：</p>
+<pre><code>P_total = P_control + P_amplifier ≤ P_max
+</code></pre>
+<p>其中P_max是FARIS的总功耗预算。这个约束意味着FARIS需要在空间流动性、放大增益和功耗之间进行权衡优化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 交替优化框架（AO）</h2>
+    <h2>交替优化框架（AO）</h2>
     <p>求解FARIS的遍历速率最大化问题采用交替优化框架：</p>
-<p><strong>步骤1</strong>：固定位置，优化放大-反射向量
+<p><strong>步骤1：固定位置，优化放大-反射向量</strong>
 - 使用水填充算法优化功率分配
-- 闭式解更新相位和增益参数</p>
-<p><strong>步骤2</strong>：固定放大-反射参数，优化端口位置
+- 闭式解更新相位和增益参数
+- 优化目标：最大化信道增益</p>
+<p><strong>步骤2：固定放大-反射参数，优化端口位置</strong>
 - 在候选端口集合中搜索最优空间位置
-- 利用信道状态信息选择最佳端口</p>
-<p><strong>迭代收敛</strong>：交替优化保证遍历速率单调递增，最终收敛至局部最优解。</p>
+- 利用信道状态信息选择最佳端口
+- 优化目标：最大化空间分集增益</p>
+<p><strong>迭代收敛</strong>：交替优化保证遍历速率单调递增，最终收敛至局部最优解。仿真结果表明，FARIS在10次迭代内即可收敛。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 与传统RIS的对比</h2>
+    <h2>与传统RIS的对比</h2>
     <table>
 <thead>
 <tr>
@@ -208,7 +216,7 @@
 <td>功耗</td>
 <td>&lt;10W</td>
 <td>50-200W</td>
-<td>更高</td>
+<td>100-300W</td>
 </tr>
 <tr>
 <td>空间多样性</td>
@@ -216,20 +224,34 @@
 <td>有限</td>
 <td>丰富</td>
 </tr>
+<tr>
+<td>部署灵活性</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>成本控制</td>
+<td>易</td>
+<td>中</td>
+<td>难</td>
+</tr>
 </tbody>
 </table>
+<p>FARIS在性能上显著优于传统RIS和有源RIS，但硬件复杂度和成本控制是其产业化面临的主要挑战。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 6G高频段覆盖增强</h2>
+    <h2>6G高频段覆盖增强</h2>
     <p>FARIS在毫米波和太赫兹频段价值显著：</p>
 <ul>
-<li>高频段传播损耗极高（自由空间损耗与频率平方成正比）</li>
+<li>高频段传播损耗极高（自由空间损耗与频率平方成正比）。300 GHz的损耗约为3 GHz的10000倍</li>
 <li>流体单元可移动至信道最优位置，最大化路径增益</li>
 <li>主动放大补偿乘性衰落，显著提升链路预算</li>
+<li>特别适合6G太赫兹通信场景，弥补太赫兹波段传播损耗大的缺陷</li>
 </ul>
   </article>
   
@@ -237,11 +259,12 @@
   
   <article class="card ">
     
-    <h2>2. 室内深度覆盖</h2>
+    <h2>室内深度覆盖</h2>
     <ul>
 <li>流体天线可部署于天花板的柔性载体上</li>
 <li>根据用户位置动态调整，实现个性化覆盖</li>
 <li>放大器补偿信号穿透损耗，提升室内信噪比</li>
+<li>适合大型办公楼、商场等复杂室内环境</li>
 </ul>
   </article>
   
@@ -249,11 +272,12 @@
   
   <article class="card ">
     
-    <h2>3. 卫星互联网增强</h2>
+    <h2>卫星互联网增强</h2>
     <ul>
 <li>低轨卫星高速移动导致传统波束跟踪困难</li>
 <li>FARIS可动态调整端口位置，跟踪卫星信号</li>
 <li>放大能力弥补长距离传输损耗</li>
+<li>适合Starship、OneWeb等低轨卫星互联网的地面增强</li>
 </ul>
   </article>
   
@@ -261,11 +285,25 @@
   
   <article class="card ">
     
-    <h2>4. 车联网V2X</h2>
+    <h2>车联网V2X</h2>
     <ul>
 <li>道路边缘部署柔性FARIS面板</li>
 <li>根据车辆位置动态调整覆盖</li>
 <li>放大能力应对快速变化的信道条件</li>
+<li>适合高速公路、城市快速路等高速移动场景</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>工业物联网</h2>
+    <ul>
+<li>复杂工业环境中信号遮挡严重</li>
+<li>FARIS可动态调整位置，绕过障碍物</li>
+<li>放大能力补偿多径损耗</li>
+<li>适合工厂自动化、智能仓储等场景</li>
 </ul>
   </article>
   
@@ -302,14 +340,21 @@
 <td>SORIS自组织架构</td>
 <td>2026-01</td>
 </tr>
+<tr>
+<td>arXiv:2510.07466</td>
+<td>UESTC+NTU+UT Dallas</td>
+<td>FIM柔性智能超表面</td>
+<td>2025-10</td>
+</tr>
 </tbody>
 </table>
 <p><strong>关键研究团队</strong>：</p>
 <ul>
-<li><strong>韩国外国语大学Hong-Bae Jeon团队</strong>：FARIS概念提出者</li>
-<li><strong>Imperial College Bruno Clerckx团队</strong>：RIS理论奠基，BD-RIS先驱</li>
-<li><strong>HKUST广州香港科技大学</strong>：Active RIS系统级优化</li>
-<li><strong>新加坡国立大学Rui Zhang</strong>：通信理论与优化专家</li>
+<li><strong>韩国外国语大学Hong-Bae Jeon团队</strong>：FARIS概念提出者，已发表初步研究成果</li>
+<li><strong>Imperial College Bruno Clerckx团队</strong>：RIS理论奠基，BD-RIS先驱，可能跟进FARIS研究</li>
+<li><strong>HKUST广州香港科技大学</strong>：Active RIS系统级优化，与Liverpool合作Active BD-RIS</li>
+<li><strong>新加坡国立大学Rui Zhang</strong>：通信理论与优化专家，可能参与FARIS相关研究</li>
+<li><strong>UESTC+NTU+UT Dallas联合团队</strong>：FIM柔性智能超表面，与FARIS形成互补（FIM侧重物理变形，FARIS侧重端口移动）</li>
 </ul>
   </article>
   
@@ -319,45 +364,54 @@
     
     <h2>产业界动态</h2>
     <ul>
-<li><strong>中兴通讯</strong>：RIS 2.0动态智能超表面已外场验证，未提及FARIS或流体天线</li>
-<li><strong>华为</strong>：RIS专利布局激进（如US20250096852A1），但未见流体天线相关专利</li>
-<li><strong>清华大学</strong>：戴玲龙团队专注Active RIS和SC-RIS，无流体方向</li>
-<li><strong>3GPP Rel-21</strong>：已启动6G RIS标准化研究，但未涉及流体天线</li>
+<li><strong>中兴通讯</strong>：RIS 2.0动态智能超表面已外场验证，未提及FARIS或流体天线。但中兴在流体天线系统（FAS）方向有研究积累，可能跟进FARIS</li>
+<li><strong>华为</strong>：RIS专利布局激进（如US20250096852A1），但未见流体天线相关专利。华为在太赫兹通信方向有深厚积累，可能从太赫兹角度切入FARIS</li>
+<li><strong>清华大学</strong>：戴玲龙团队专注Active RIS和SC-RIS，无流体方向。但清华在智能超表面领域研究活跃，可能跟进</li>
+<li><strong>东南大学</strong>：崔铁军院士团队在RIS领域成果丰硕，可能从电磁超表面角度研究FARIS</li>
+<li><strong>3GPP Rel-21</strong>：已启动6G RIS标准化研究，但未涉及流体天线。FARIS标准化需等待学术成果成熟</li>
 </ul>
-<p><strong>判断</strong>：FARIS处于纯学术研究阶段，产业界尚无明确布局。从理论到产品预计需要3-5年。</p>
+<p><strong>判断</strong>：FARIS处于纯学术研究阶段，产业界尚无明确布局。从理论到产品预计需要3-5年。主要障碍在于硬件实现复杂度和成本控制。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. 技术演进三阶段</h2>
+    <h2>技术演进三阶段</h2>
     <pre><code>RIS 1.0（被动反射）→ RIS 2.0（有源放大）→ RIS 3.0（流体智能）
        ↓                  ↓                  ↓
   乘性衰落严重        放大补偿损耗         空间+放大双重优化
   固定结构           固定位置             可移动部署
+  成本低             成本中               成本高
 </code></pre>
+<p>FARIS代表RIS技术的第三阶段，是学术界对"如何让超表面更智能"这一问题的探索。虽然目前仍处于理论阶段，但其"双重优化"的理念具有启发性。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 三大挑战</h2>
+    <h2>三大挑战</h2>
     <p><strong>硬件复杂度</strong>：</p>
 <ul>
 <li>流体机制需要微机电系统（MEMS）或柔性电子技术</li>
 <li>大量移动部件增加故障率和维护成本</li>
+<li>需要设计精密的定位和控制机构</li>
+<li>柔性基底的耐久性和可靠性待验证</li>
 </ul>
 <p><strong>信道估计复杂度</strong>：</p>
 <ul>
 <li>空间位置是连续变量，信道估计自由度大幅增加</li>
 <li>需要联合估计位置、增益、相位，训练开销显著</li>
+<li>传统CSI估计方法不再适用，需开发新的算法</li>
+<li>动态场景下信道估计时延成为瓶颈</li>
 </ul>
 <p><strong>标准化空白</strong>：</p>
 <ul>
 <li>3GPP尚未将流体天线纳入6G标准讨论</li>
 <li>缺乏统一的性能评估基准和接口规范</li>
+<li>需要建立FARIS的性能测试方法和验收标准</li>
+<li>标准化工作需等待学术成果成熟</li>
 </ul>
   </article>
   
@@ -365,11 +419,11 @@
   
   <article class="card ">
     
-    <h2>3. 商业化路径预判</h2>
+    <h2>商业化路径预判</h2>
     <ul>
-<li><strong>短期（1-2年）</strong>：学术研究爆发期，可能出现多个团队竞争性提出改进方案</li>
-<li><strong>中期（3-5年）</strong>：原型验证，可能在卫星通信、工业物联网等特定场景试点</li>
-<li><strong>长期（5年以上）</strong>：如果硬件成本下降、标准化推进，可能成为6G核心使能技术</li>
+<li><strong>短期（1-2年）</strong>：学术研究爆发期，可能出现多个团队竞争性提出改进方案。预计会有更多论文聚焦于FARIS的算法优化和性能提升</li>
+<li><strong>中期（3-5年）</strong>：原型验证，可能在卫星通信、工业物联网等特定场景试点。需要解决硬件实现和成本控制问题</li>
+<li><strong>长期（5年以上）</strong>：如果硬件成本下降、标准化推进，可能成为6G核心使能技术。特别是在太赫兹通信和卫星互联网场景，FARIS可能发挥独特价值</li>
 </ul>
   </article>
   
@@ -377,22 +431,31 @@
   
   <article class="card ">
     
-    <h2>与老大的关联</h2>
+    <h2>六、与老大的关联</h2>
     <p>FARIS代表了RIS研究的最高自由度形态，对老大工作有如下参考价值：</p>
 <p><strong>技术前瞻性</strong>：</p>
 <ul>
-<li>关注流体天线系统的专利布局动态，特别是韩国、中国团队</li>
-<li>了解FARIS的硬件实现路径（MEMS vs 柔性电子）</li>
+<li>关注流体天线系统的专利布局动态，特别是韩国、中国团队。目前该领域专利空白，是布局窗口期</li>
+<li>了解FARIS的硬件实现路径（MEMS vs 柔性电子），评估不同技术路线的可行性</li>
+<li>跟踪学术界进展，特别是Hong-Bae Jeon团队和Imperial College团队的后续研究</li>
 </ul>
 <p><strong>研究趋势判断</strong>：</p>
 <ul>
-<li>学术界正在从"静态放大"走向"动态空间+放大联合优化"</li>
-<li>这可能是6G RIS技术的重要分支，值得长期跟踪</li>
+<li>学术界正在从"静态放大"走向"动态空间+放大联合优化"，这是RIS技术演进的重要方向</li>
+<li>FARIS可能与FIM（柔性智能超表面）形成技术融合，FIM侧重物理变形，FARIS侧重端口移动，两者结合可能产生更强的性能</li>
+<li>这可能是6G RIS技术的重要分支，值得长期跟踪，但不宜过早投入资源</li>
 </ul>
 <p><strong>产业机会点</strong>：</p>
 <ul>
 <li>如果FARIS走向工程化，流体机构件（MEMS开关、柔性基板）可能是关键供应商</li>
 <li>通信设备商（中兴、华为）的RIS产品线可能需要评估此技术路线</li>
+<li>卫星互联网服务商可能关注FARIS在太赫兹卫星通信中的应用潜力</li>
+</ul>
+<p><strong>对质量管理的启示</strong>：</p>
+<ul>
+<li>FARIS引入了"位置精度"这一新的质量评估维度——需要新的测试方法和验收标准</li>
+<li>流体机构的长期可靠性需要特别关注——MEMS开关的寿命测试、柔性基底的耐久性测试</li>
+<li>机电耦合系统的稳定性测试——位置控制精度、响应时间、功耗等指标的测试方法</li>
 </ul>
   </article>
   
@@ -400,12 +463,99 @@
   
   <article class="card ">
     
-    <h2>参考资料</h2>
+    <h2>关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>维度</th>
+<th>被动RIS</th>
+<th>有源ORIS</th>
+<th>FARIS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空间自由度</td>
+<td>固定</td>
+<td>固定</td>
+<td>可移动</td>
+</tr>
+<tr>
+<td>放大能力</td>
+<td>无</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>乘性衰落补偿</td>
+<td>无</td>
+<td>部分</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>硬件复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>&lt;10W</td>
+<td>50-200W</td>
+<td>100-300W</td>
+</tr>
+<tr>
+<td>空间多样性</td>
+<td>无</td>
+<td>有限</td>
+<td>丰富</td>
+</tr>
+<tr>
+<td>部署灵活性</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>成本控制</td>
+<td>易</td>
+<td>中</td>
+<td>难</td>
+</tr>
+<tr>
+<td>技术成熟度</td>
+<td>原型验证</td>
+<td>原型验证</td>
+<td>实验室研究</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>工程挑战与坑</h2>
     <ul>
-<li>[arXiv:2512.22479] FARIS: Fluid-Active-RIS: A New Smart-Radio Paradigm with Joint Port Selection and Active Reflection Design</li>
-<li>[arXiv:2603.13861] Active Beyond-Diagonal Reconfigurable Intelligent Surfaces: Modeling, Architecture Design, and Optimization</li>
-<li>[arXiv:2601.22724] SORIS: A Self-Organized Reconfigurable Intelligent Surface Architecture for Wireless Communications</li>
-<li>IEEE Transactions on Green Communications and Networking, vol. 10, pp. 1749-1764, 2026</li>
+<li><strong>MEMS器件可靠性</strong>：流体单元的移动部件需要长期可靠运行，MEMS开关的寿命和稳定性是最大挑战</li>
+<li><strong>柔性基底耐久性</strong>：柔性电子材料在户外环境下的老化和耐久性尚不充分验证</li>
+<li><strong>控制算法复杂度</strong>：联合优化位置和增益的算法复杂度高，实时性难以保证</li>
+<li><strong>信道估计时延</strong>：动态场景下面临信道估计时延问题，可能影响优化效果</li>
+<li><strong>成本控制</strong>：流体机构件成本高，大规模部署的经济性待验证</li>
+<li><strong>标准化缺失</strong>：缺乏统一的性能评估基准，难以进行横向对比</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、未来趋势</h2>
+    <ul>
+<li><strong>短期（1-2年）</strong>：学术研究爆发期，可能出现多个团队竞争性提出改进方案。重点方向包括算法优化、硬件实现路径探索、与其他RIS变体（如FIM、SC-RIS）的对比研究</li>
+<li><strong>中期（3-5年）</strong>：原型验证，可能在卫星通信、工业物联网等特定场景试点。需要解决MEMS可靠性、柔性基底耐久性、成本控制等工程问题</li>
+<li><strong>长期（5年以上）</strong>：如果硬件成本下降、标准化推进，可能成为6G核心使能技术。特别是在太赫兹通信和卫星互联网场景，FARIS可能发挥独特价值</li>
 </ul>
   </article>
   

@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">STAR-RIS不规则配置D2D通信优化</h1>
-  
+  <p class="lede">台湾成功大学团队提出 STAR-RIS 不规则配置方案：只激活部分元素+2-bit低分辨率相移器+交叉熵优化，对数和速率提升52%、能效提升67%，为低成本D2D和IoT部署提供可行路径。</p>
   
 </header>
 
@@ -105,29 +105,20 @@
   
   <article class="card ">
     
-    <h2>1. STAR-RIS基本架构</h2>
-    <p>传统RIS仅支持信号反射，而STAR-RIS实现360°全空间覆盖：</p>
-<ul>
-<li><strong>反射模式</strong>：信号被反射到入射同侧</li>
-<li><strong>透射模式</strong>：信号穿透到入射异侧</li>
-<li><strong>能量分割协议</strong>：每个元素同时分配透射和反射系数，满足能量守恒约束</li>
-</ul>
-<p>$$|\beta_n^t|^2 + |\beta_n^r|^2 \leq 1, \quad \forall n \in {1,...,N}$$</p>
-<p>其中$\beta_n^t$和$\beta_n^r$分别为第n个元素的透射和反射系数。</p>
+    <h2>STAR-RIS 双模调控基础</h2>
+    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）每个元单元同时具备透射和反射通道，满足能量守恒约束 $|\beta_n^t|^2 + |\beta_n^r|^2 \leq 1$，实现 360° 全空间覆盖。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 不规则配置创新</h2>
-    <p><strong>核心思想</strong>：不是激活所有N个元素，而是策略性地选择子集$\mathcal{S} \subset {1,...,N}$，$|\mathcal{S}| = N_s \ll N$。</p>
-<p><strong>优势分析</strong>：</p>
+    <h2>不规则配置：稀疏激活</h2>
+    <p>从 N 个元素中策略性选择 $N_s$ 个激活（$N_s \ll N$），搜索空间从 $2^N$ 降至 $\binom{N}{N_s}$，优势在于：</p>
 <ul>
-<li>降低硬件成本：减少相移器数量</li>
-<li>节省功耗：只激活必要元素</li>
-<li>增强空间分集：稀疏激活避免元素间强耦合</li>
-<li>简化优化：搜索空间从$2^N$降至$\binom{N}{N_s}$</li>
+<li>降低硬件成本</li>
+<li>节省功耗</li>
+<li>增强空间分集（稀疏激活避免强耦合）</li>
 </ul>
   </article>
   
@@ -135,70 +126,39 @@
   
   <article class="card ">
     
-    <h2>3. 低分辨率相移器建模</h2>
-    <p>实际硬件约束：</p>
-<ul>
-<li><strong>耦合幅度-相位模型</strong>：透射和反射系数不是独立的</li>
-<li><strong>低分辨率量化</strong>：Phase shifters with $b$-bit quantization:</li>
-</ul>
-<p>$$\phi \in {0, \frac{2\pi}{2^b-1}, ..., \frac{(2^b-1)2\pi}{2^b-1}}$$</p>
-<p>论文采用2-bit量化（16个离散相位值），兼顾性能与实现复杂度。</p>
+    <h2>低分辨率相移器</h2>
+    <p>采用 2-bit 量化（16个离散相位值），兼顾性能与实现复杂度。实际硬件中透射和反射系数存在耦合约束。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 交叉熵优化框架（CEO）</h2>
-    <p><strong>问题形式化</strong>：
-最大化K对D2D用户的对数和速率，联合优化：</p>
-<ul>
-<li>元素选择变量$\mathbf{s} \in {0,1}^N$</li>
-<li>透射系数$\boldsymbol{\beta}^t \in \mathbb{C}^N$</li>
-<li>反射系数$\boldsymbol{\beta}^r \in \mathbb{C}^N$</li>
-<li>用户调度分组$\mathcal{G}$</li>
-</ul>
-<p><strong>交叉熵方法核心</strong>：</p>
+    <h2>交叉熵优化框架（CEO）</h2>
+    <p>针对混合连续-离散优化问题：</p>
 <ol>
-<li>初始化概率分布$p(\mathbf{x})$</li>
-<li>采样生成候选解集</li>
-<li>选择精英样本（top-$\rho$）</li>
-<li>更新分布参数使精英样本概率最大化</li>
-<li>迭代直至收敛</li>
+<li>初始化概率分布</li>
+<li>采样候选解</li>
+<li>选择精英样本</li>
+<li>更新分布参数</li>
+<li>迭代收敛</li>
 </ol>
-<p><strong>优势</strong>：</p>
-<ul>
-<li>处理混合连续-离散优化问题</li>
-<li>避免陷入局部最优</li>
-<li>计算复杂度低于 exhaustive search</li>
-</ul>
+<p>避免陷入局部最优，复杂度低于穷举搜索。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5. 用户调度分组策略</h2>
-    <p>将K个D2D用户分成$|\mathcal{G}|$组，同组用户共享时间 slot，不同组正交调度：</p>
-<ul>
-<li>减少组内干扰</li>
-<li>提高频谱效率</li>
-<li>降低调度复杂度</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>关键技术指标</h2>
-    <table>
+    <h2>用户调度分组</h2>
+    <p>将 K 个 D2D 用户分成 $|\mathcal{G}|$ 组，同组共享时隙、不同组正交调度，减少组内干扰，提高频谱效率。</p>
+<table>
 <thead>
 <tr>
 <th>指标</th>
-<th>传统RIS</th>
-<th>标准STAR-RIS</th>
-<th>不规则STAR-RIS（本文）</th>
+<th>传统 RIS</th>
+<th>标准 STAR-RIS</th>
+<th>不规则 STAR-RIS（本文）</th>
 </tr>
 </thead>
 <tbody>
@@ -240,13 +200,137 @@
   
   <article class="card ">
     
-    <h2>1. 车联网V2X通信</h2>
-    <p>D2D是V2X的核心使能技术：</p>
+    <h2>优化问题 formulation</h2>
+    <p>$$\max_{\mathcal{S}, \boldsymbol{\Theta}, \mathbf{W}} \sum_{g \in \mathcal{G}} R_g$$</p>
+<p>受限于：</p>
 <ul>
-<li>车辆间直接通信降低延迟</li>
-<li>STAR-RIS不规则配置减少车载终端功耗</li>
-<li>适合高速公路、城市拥堵场景</li>
+<li>元素选择约束：$|\mathcal{S}| = N_s$</li>
+<li>功率分配约束：$|\beta_n^t|^2 + |\beta_n^r|^2 \leq 1, \forall n \in \mathcal{S}$</li>
+<li>相移器量化约束：$\theta_n \in {0, \pi/8, \pi/4, ..., 15\pi/8}$</li>
+<li>用户调度约束：每组共享时隙</li>
 </ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>交叉熵优化算法流程</h2>
+    <pre><code>1. 初始化: p_0(n) = 0.5, ∀n ∈ {1,...,N}
+2. for t = 1 to T:
+
+3.     采样: 从 Bernoulli(p_t) 采样 S^t
+4.     评估: 计算 R(S^t), 选择 Top-k 精英样本
+5.     更新: p_{t+1}(n) = mean(精英样本中 n=1 的比例)
+6. end for
+</code></pre>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键性能分析</h2>
+    <ul>
+<li><strong>对数和速率增益</strong>：相比传统 RIS baseline 提升 52%</li>
+<li><strong>能效增益</strong>：相比传统 RIS baseline 提升 67%</li>
+<li><strong>硬件成本节省</strong>：仅需激活约 30-50% 的元素</li>
+<li><strong>功耗降低</strong>：低分辨率相移器 + 稀疏激活双重节能</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>不规则配置策略对比</h2>
+    <table>
+<thead>
+<tr>
+<th>策略</th>
+<th>描述</th>
+<th>复杂度</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>随机稀疏</td>
+<td>随机选择 $N_s$ 个元素</td>
+<td>最低</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>贪婪选择</td>
+<td>按信道增益排序选择</td>
+<td>中等</td>
+<td>较好</td>
+</tr>
+<tr>
+<td>CEO优化</td>
+<td>交叉熵方法联合优化</td>
+<td>较高</td>
+<td>最优</td>
+</tr>
+<tr>
+<td>深度强化学习</td>
+<td>DRL 代理学习选择策略</td>
+<td>训练成本高</td>
+<td>接近最优</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>相移器分辨率权衡</h2>
+    <table>
+<thead>
+<tr>
+<th>分辨率</th>
+<th>相位值数量</th>
+<th>性能损失 vs 无限</th>
+<th>硬件成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-bit</td>
+<td>2</td>
+<td>&lt;3 dB</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>2-bit</td>
+<td>16</td>
+<td>&lt;1.5 dB</td>
+<td>低</td>
+</tr>
+<tr>
+<td>3-bit</td>
+<td>64</td>
+<td>&lt;0.5 dB</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>无限</td>
+<td>∞</td>
+<td>基准</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 车联网 V2X</h2>
+    <p>D2D 是 V2X 核心使能技术。STAR-RIS 不规则配置降低车载终端功耗，适合高速公路和城市拥堵场景。</p>
   </article>
   
 
@@ -254,12 +338,7 @@
   <article class="card ">
     
     <h2>2. 物联网大规模连接</h2>
-    <p>海量IoT设备需要低成本连接方案：</p>
-<ul>
-<li>低分辨率相移器降低RIS部署成本</li>
-<li>不规则配置适配稀疏用户分布</li>
-<li>分组调度支持大规模设备接入</li>
-</ul>
+    <p>低分辨率相移器降低部署成本，不规则配置适配稀疏用户分布，分组调度支持海量设备接入。</p>
   </article>
   
 
@@ -267,12 +346,7 @@
   <article class="card ">
     
     <h2>3. 室内微蜂窝覆盖</h2>
-    <p>密集城区室内场景：</p>
-<ul>
-<li>STAR-RIS部署于墙面实现全空间覆盖</li>
-<li>不规则配置避免过覆盖干扰</li>
-<li>D2D offload缓解基站负载</li>
-</ul>
+    <p>部署于墙面实现全空间覆盖，不规则配置避免过覆盖干扰，D2D offload 缓解基站负载。</p>
   </article>
   
 
@@ -280,170 +354,102 @@
   <article class="card ">
     
     <h2>4. 应急通信网络</h2>
-    <p>灾难场景快速部署：</p>
-<ul>
-<li>STAR-RIS便携部署</li>
-<li>D2D自组网能力</li>
-<li>不规则配置适应临时拓扑</li>
-</ul>
+    <p>便携部署+D2D 自组网能力，不规则配置适应临时拓扑变化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>台湾成功大学团队</h2>
+    <h2>五、关键技术指标</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对数和速率提升</td>
+<td>+52%</td>
+<td>vs 传统 RIS baseline</td>
+</tr>
+<tr>
+<td>能效提升</td>
+<td>+67%</td>
+<td>vs 传统 RIS baseline</td>
+</tr>
+<tr>
+<td>激活元素比例</td>
+<td>30-50%</td>
+<td>典型配置</td>
+</tr>
+<tr>
+<td>相移器分辨率</td>
+<td>2-bit</td>
+<td>16 级相位</td>
+</tr>
+<tr>
+<td>优化收敛迭代数</td>
+<td>~50-100</td>
+<td>CEO 算法</td>
+</tr>
+<tr>
+<td>组内干扰抑制</td>
+<td>&gt;15 dB</td>
+<td>分组调度效果</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 元素选择与调度联合优化</h2>
+    <p>$N_s$ 的选择和分组策略 $\mathcal{G}$ 需要联合优化，否则可能陷入次优解。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 低分辨率量化失真</h2>
+    <p>2-bit 量化导致相位误差约 ±11.25°，在大规模阵列中累积误差可能显著。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 信道估计开销</h2>
+    <p>不规则配置需要估计激活元素对应的子信道，信道估计开销随 $N_s$ 线性增长。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 动态拓扑适配</h2>
+    <p>D2D 用户移动速度快，不规则配置需要快速重优化，实时性要求高。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、技术演进</h2>
     <ul>
-<li>负责人：Jung-Chieh Chen教授</li>
-<li>研究方向：STAR-RIS优化、D2D通信、交叉熵方法</li>
-<li>代表性成果：</li>
-<li>IEEE Open Journal of Vehicular Technology (2024)</li>
-<li>Engineering Proceedings (2026)</li>
-<li>ICKII 2025会议论文</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>韩国KAIST团队</h2>
-    <p>提出FDD模式下STAR-RIS加权对数和速率最大化：</p>
-<ul>
-<li>交替优化框架</li>
-<li>SCA技术处理非凸约束</li>
-<li>与本文CEO方法形成对比</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>中国学者方案</h2>
-    <ul>
-<li>杭州电子科技大学：分布式STAR-RIS能效优化（PDD方法）</li>
-<li>西南交通大学：STAR-RIS辅助V2I低延迟配置（差分进化算法）</li>
-<li>浙江大学：近场宽带STAR-RIS波束成形（深度强化学习）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>标准化进展</h2>
-    <ul>
-<li>3GPP R19：RIS信道建模研究启动</li>
-<li>ETSI：RIS部署指南制定中</li>
-<li>IMT-2030：中国RIS测试验证推进</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 不规则配置将成为STAR-RIS实用化关键</h2>
-    <p>全元素激活的理论最优与硬件约束的现实差距日益突出。不规则配置在成本、功耗、性能三角中找到平衡点，预计成为产业界首选方案。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 低分辨率相移器是量产必经之路</h2>
-    <p>高精度相移器成本高昂且功耗大。2-bit甚至1-bit量化方案在理论性能损失&lt;3dB的情况下，可实现成本降低50%以上，是商业化必选项。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 交叉熵优化比传统凸优化更适应实际问题</h2>
-    <p>传统方法假设理想硬件模型，而CEO框架天然支持：</p>
-<ul>
-<li>离散-连续混合变量</li>
-<li>非凸约束处理</li>
-<li>硬件损伤建模</li>
-</ul>
-<p>预计将在RIS优化算法中占据主流地位。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. D2D+STAR-RIS融合是新赛道</h2>
-    <p>传统D2D研究聚焦于直连链路优化，引入STAR-RIS后：</p>
-<ul>
-<li>覆盖范围从点对点扩展至全空间</li>
-<li>干扰管理从二维提升至三维</li>
-<li>优化变量从功率控制扩展至元素选择</li>
-</ul>
-<p>形成新的研究热点。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 中兴D2D技术布局参考</h2>
-    <p>中兴在V2X和物联网领域有深厚积累。STAR-RIS不规则配置方案可为中兴D2D产品提供：</p>
-<ul>
-<li>低成本RIS辅助覆盖方案</li>
-<li>低功耗终端设计参考</li>
-<li>高密度场景干扰管理思路</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. STAR-BD-RIS技术路线对比</h2>
-    <p>老大已关注的STAR-BD-RIS（笔记#112）侧重带放大模型的透反射优化，而本文侧重硬件约束下的不规则配置。两者互补：</p>
-<ul>
-<li>STAR-BD-RIS：性能优先，适合基站侧部署</li>
-<li>不规则STAR-RIS：成本优先，适合大规模IoT部署</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 6G标准提案素材</h2>
-    <p>论文提出的CEO优化框架和不规则配置概念，可作为中兴6G RIS标准提案的技术素材：</p>
-<ul>
-<li>硬件友好型RIS设计</li>
-<li>低开销优化算法</li>
-<li>D2D增强方案</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 知识图谱更新建议</h2>
-    <p>本笔记应归入<code>资料库/天线技术/技术概念/</code>，与以下笔记形成技术谱系：</p>
-<ul>
-<li>[[技术概念-STAR-RIS全空间覆盖与6G演进-20260811]]（STAR-RIS基础）</li>
-<li>[[技术概念-STAR-BD-RIS带放大模型与优化-20260718]]（有源STAR-RIS）</li>
-<li>[[技术概念-6G独立双极化RIS单元设计-20260718]]（硬件实现）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>参考资料</h2>
-    <ul>
-<li>Su, Z.K. &amp; Chen, J.C. (2026). Joint User Scheduling and Beamforming Design in STAR-RIS-Assisted D2D Communications. <em>Engineering Proceedings</em>, 120(1), 53.</li>
-<li>Chen, J.C. et al. (2024). Optimizing D2D Communication With Practical STAR-RIS and Irregular Configurations. <em>IEEE Open Journal of Vehicular Technology</em>, 5, 778-791.</li>
-<li><a href="https://www.researchgate.net/publication/381056367_Optimizing_D2D_Communication_with_Practical_STAR-RIS_and_Irregular_Configurations">ResearchGate论文链接</a></li>
+<li><strong>2021</strong>：STAR-RIS 概念提出</li>
+<li><strong>2023</strong>：BD-RIS 引入跨元耦合</li>
+<li><strong>2024</strong>：Active RIS 出现，部分元件集成功放</li>
+<li><strong>2025</strong>：不规则 RIS 配置概念提出（传统 RIS）</li>
+<li><strong>2026.02</strong>：STAR-RIS 不规则配置 D2D 优化（台湾成功大学，本文主题）</li>
+<li><strong>2026.03</strong>：CEO 交叉熵优化框架完善</li>
+<li><strong>2026.08</strong>：与 STAR-BD-RIS 有源化方向形成互补</li>
 </ul>
   </article>
   
