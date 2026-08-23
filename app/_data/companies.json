@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-08-21",
+  "lastUpdate": "2026-08-22",
   "summary": "中国天线产业已形成完整5层供应链体系。上游运营商集采主导需求侧；主设备商整合天线+射频一体化；天线整机厂商竞争激烈；零部件层涵盖馈电网络、电调模块、电机、连接器、天线罩、滤波器/双工器、PCB等核心品类。2026年行业整体呈现需求强劲、竞争加剧、利润承压的态势。",
   "supplyChain": {
     "tier1_operators": {
@@ -2406,10 +2406,10 @@
           "isKey": false,
           "stockPrices": [
             14.84,
-            10.11
+            10.22
           ],
-          "stockCurrent": 10.11,
-          "stock52Low": 10.11,
+          "stockCurrent": 10.22,
+          "stock52Low": 10.22,
           "stock52High": 14.84,
           "rank": 4
         },
@@ -2435,11 +2435,11 @@
           "isKey": false,
           "stockPrices": [
             6.64,
-            10.15
+            10.21
           ],
-          "stockCurrent": 10.15,
+          "stockCurrent": 10.21,
           "stock52Low": 6.64,
-          "stock52High": 10.15,
+          "stock52High": 10.21,
           "rank": 3
         },
         {
@@ -6244,11 +6244,11 @@
           "isKey": true,
           "stockPrices": [
             53.16,
-            153.11
+            157.01
           ],
-          "stockCurrent": 153.11,
+          "stockCurrent": 157.01,
           "stock52Low": 53.16,
-          "stock52High": 153.11
+          "stock52High": 157.01
         },
         {
           "id": "con003",

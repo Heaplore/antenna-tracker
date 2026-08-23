@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T15:24:08+08:00",
+  "generatedAt": "2026-08-22T15:09:52+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 34 条新闻入库（2026-08-14 ~ 2026-08-21）。",
+          "summary": "过去 7 天共 29 条新闻入库（2026-08-15 ~ 2026-08-22）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×293；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×297；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国电信2026年半年度净利润195.88亿元，同比下降 14.9% | 智竞未来！中国联通全力护航第二届世界人形机器人运动会 | 一图看懂中国电信2026上半年财报",
+          "summary": "中兴通讯2026年上半年营收780亿，再创新高，算力营收占比超35% | 算力营收占比突破35%：中兴通讯切换“AI新周期” | 中国电信柯瑞文：CAPEX大转向，智改要刀刃向内，改革迫在眉睫",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×119；通信世界网×106；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×122；通信世界网×107；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
