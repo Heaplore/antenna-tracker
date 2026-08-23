@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">STAR-RIS与BD-RIS架构突破</h1>
-  <p class="lede">STAR-RIS 实现全空间（360°）透反射双模覆盖，BD-RIS 突破对角限制引入单元间耦合增强自由度，两者共同构成 6G 通感一体化与全空间覆盖的关键使能技术，全球 RIS 市场 2025 年约 4.7 亿美元、预计 2030 年突破 42.5 亿美元（CAGR 55.3%）。</p>
+  
   
 </header>
 
@@ -105,72 +105,60 @@
   
   <article class="card ">
     
-    <h2>STAR-RIS：全空间覆盖</h2>
-    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）每个超表面单元同时集成透射通道和反射通道，独立控制两路信号的幅度与相位，约束为能量守恒 $|t_n|^2 + |r_n|^2 = 1$。</p>
-<p>双路信道建模：</p>
+    <h2>主题概述</h2>
+    <p>STAR-RIS（Simultaneously Transmitting and Reflecting RIS）和BD-RIS（Block Diagonal/Beam-domain RIS）是智能超表面技术从RIS 1.0向RIS 2.0演进的核心架构突破。传统RIS仅能通过调节元单元相位反射入射电磁波，实现半空间（180°）覆盖；STAR-RIS每个元单元同时具备透射和反射两种调控能力，实现全空间（360°）无线覆盖；BD-RIS突破传统对角响应假设，引入可调阻抗网络实现单元间耦合，提供额外波束调控自由度。两者共同构成6G通感一体化与全空间覆盖的关键使能技术。</p>
+<p>全球RIS市场正处于产业化爆发前夜：2025年全球市场规模约4.7亿美元，中国占比38%（约1.79亿美元），预计2030年突破42.5亿美元，CAGR达55.3%，中国增速58.7%将占据全球近半数市场份额。第二届智能超表面技术论坛将于2026年8月16-17日举行，中兴、清华、东南大学、西安电子科技大学等机构将展示最新原型系统。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>STAR-RIS双模调控原理</h2>
+    <p>STAR-RIS的核心创新在于每个超表面单元同时集成透射通道和反射通道，独立控制两路信号的幅度与相位。其基本约束为能量守恒：</p>
+<p>$$|t_n|^2 + |r_n|^2 = 1, \quad \forall n \in {1, 2, \ldots, N}$$</p>
+<p>其中$t_n$和$r_n$分别为第$n$个单元的透射系数和反射系数。</p>
+<p><strong>双路信道建模</strong>：</p>
 <ul>
-<li>透射链路：$h_t = h_{d,t} + \mathbf{h}_{r,t}^H \boldsymbol{\Phi}_t \mathbf{G}_t$</li>
-<li>反射链路：$h_r = h_{d,r} + \mathbf{h}_{r,r}^H \boldsymbol{\Phi}_r \mathbf{G}_r$</li>
+<li>透射链路：$h_t = h_{d,t} + \mathbf{h}_{r,t}^H \mathbf{\Phi}_t \mathbf{G}_t$</li>
+<li>反射链路：$h_r = h_{d,r} + \mathbf{h}_{r,r}^H \mathbf{\Phi}_r \mathbf{G}_r$</li>
 </ul>
-<p>传统 RIS 信号功率增益 $\propto N^2$，STAR-RIS 同时调控两路信道，有效覆盖面积提升 2 倍。</p>
+<p>其中$\mathbf{\Phi}_t = \text{diag}(t_1, t_2, \ldots, t_N)$和$\mathbf{\Phi}_r = \text{diag}(r_1, r_2, \ldots, r_N)$分别为透射和反射相位矩阵。</p>
+<p><strong>联合波束成形优化</strong>：
+$$\max_{\mathbf{\Phi}_t, \mathbf{\Phi}_r} \quad R = \log_2\left(1 + \frac{P_t |h_d^H \mathbf{\Phi}_t \mathbf{G} + h_r^H|^2}{\sigma^2}\right)$$</p>
+<p><strong>性能增益</strong>：传统RIS信号功率增益$\propto N^2$，STAR-RIS同时调控两路信道，有效覆盖面积提升2倍。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>BD-RIS：耦合增强</h2>
-    <p>BD-RIS（Block Diagonal / Beam-domain RIS）突破传统 RIS 对角响应假设（单元间无耦合），引入可调阻抗网络实现单元间耦合。</p>
-<p>广义散射矩阵：
+    <h2>BD-RIS耦合增强原理</h2>
+    <p>BD-RIS突破传统RIS的对角响应假设（即单元间无耦合），引入可调阻抗网络实现单元间耦合：</p>
+<p><strong>广义散射矩阵</strong>：
 $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &amp; \mathbf{\Omega} \end{bmatrix}$$</p>
-<p>其中 $\mathbf{\Gamma}$ 和 $\mathbf{\Omega}$ 为非对角耦合矩阵。</p>
-<p>耦合系数优化：$\kappa_{nm} = \frac{Z_{nm}}{\sqrt{Z_n Z_m}}$，等效单元数扩展为 $N(1+\kappa^2)$。</p>
+<p>其中$\mathbf{\Gamma}$和$\mathbf{\Omega}$为非对角耦合矩阵，$\mathbf{T}$和$\mathbf{R}$为透射和反射矩阵。</p>
+<p><strong>耦合系数优化</strong>：
+$$\kappa_{nm} = \frac{Z_{nm}}{\sqrt{Z_n Z_m}}, \quad n \neq m$$</p>
+<p>通过调节$\kappa_{nm}$实现波束赋形的额外自由度，等效单元数扩展为$N(1+\kappa^2)$。</p>
+<p><strong>三架构类型</strong>：</p>
+<ol>
+<li><strong>纯无源BD-RIS</strong>：仅依赖LC谐振电路耦合，零功耗，成本低，但耦合强度有限</li>
+<li><strong>有源BD-RIS</strong>：集成运放提供增益，可补偿路径损耗3-6dB，但功耗高、热管理复杂</li>
+<li><strong>混合BD-RIS</strong>：部分单元有源化，平衡性能与成本</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>三架构类型对比</h2>
+    <h2>与传统RIS对比</h2>
     <table>
 <thead>
 <tr>
-<th>架构</th>
-<th>描述</th>
-<th>功放数量</th>
-<th>功耗</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>纯无源 BD-RIS</td>
-<td>零功耗、耦合强度有限</td>
-<td>0</td>
-<td>极低</td>
-<td>成本敏感场景</td>
-</tr>
-<tr>
-<td>有源 BD-RIS</td>
-<td>可补偿路径损耗 3-6dB</td>
-<td>N</td>
-<td>中-高</td>
-<td>极端覆盖场景</td>
-</tr>
-<tr>
-<td>混合 BD-RIS</td>
-<td>部分单元有源化</td>
-<td>&lt;N</td>
-<td>中</td>
-<td>平衡性能与成本</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
 <th>特性</th>
-<th>传统 RIS</th>
+<th>传统RIS</th>
 <th>STAR-RIS</th>
 <th>BD-RIS</th>
 </tr>
@@ -184,9 +172,9 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
 </tr>
 <tr>
 <td>信道自由度</td>
-<td>1 路</td>
-<td>2 路（透射 + 反射）</td>
-<td>N 路（耦合增强）</td>
+<td>1路</td>
+<td>2路（透射+反射）</td>
+<td>N路（耦合增强）</td>
 </tr>
 <tr>
 <td>硬件复杂度</td>
@@ -214,124 +202,98 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
   
   <article class="card ">
     
-    <h2>1. STAR-RIS 优化问题</h2>
-    <p>$$\max_{\boldsymbol{\Theta}<em>r, \boldsymbol{\Theta}_t} \sum</em>{k=1}^{K} \log_2\left(1 + \frac{|\mathbf{h}_k^H \boldsymbol{\Theta}_r \mathbf{G} \mathbf{w}|^2 + |\mathbf{h}_k^H \boldsymbol{\Theta}_t \mathbf{G} \mathbf{w}|^2}{\sigma^2}\right)$$</p>
-<p>受限于：</p>
-<ul>
-<li>能量守恒：$|\beta_{r,n}|^2 + |\beta_{t,n}|^2 \leq 1, \forall n$</li>
-<li>功率约束：$|\mathbf{w}|^2 \leq P_{\max}$</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. BD-RIS 耦合优化</h2>
-    <p>$$\max_{\boldsymbol{\Phi}} \sum_{k=1}^{K} R_k(\boldsymbol{\Phi})$$</p>
-<p>受限于：</p>
-<ul>
-<li>无源性约束：$\boldsymbol{\Phi}^H \boldsymbol{\Phi} \preceq \mathbf{I}$</li>
-<li>结构约束：$\boldsymbol{\Phi}$ 为块对角矩阵</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. STAR-BD-RIS 融合优化（Sheemar 等，2026）</h2>
-    <p>$$\max_{\boldsymbol{\Phi}, \boldsymbol{\Theta}<em>r, \boldsymbol{\Theta}_t} \sum</em>{k=1}^{K} R_k(\boldsymbol{\Phi}, \boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t)$$</p>
-<p>受限于：</p>
-<ul>
-<li>功放功率约束</li>
-<li>反射/透射功率分配约束</li>
-<li>BD-RIS 散射矩阵无源性约束</li>
-</ul>
-<p><strong>交替优化框架</strong>：</p>
-<ol>
-<li>固定 $\boldsymbol{\Phi}, \boldsymbol{\Theta}_t$，优化 $\boldsymbol{\Theta}_r$（WMMSE 转化）</li>
-<li>固定 $\boldsymbol{\Phi}, \boldsymbol{\Theta}_r$，优化 $\boldsymbol{\Theta}_t$（WMMSE 转化）</li>
-<li>固定 $\boldsymbol{\Theta}_r, \boldsymbol{\Theta}_t$，优化 $\boldsymbol{\Phi}$（循环坐标降级）</li>
+    <h2>STAR-RIS典型场景</h2>
+    <ol>
+<li><strong>室内覆盖增强</strong>：部署在墙壁/天花板，同时覆盖反射区和透射区，解决传统RIS只能覆盖单侧的局限</li>
+<li><strong>D2D通信中继</strong>：作为智能中继，同时服务发射侧和接收侧用户，适用于车联网路侧单元</li>
+<li><strong>6G通感一体化</strong>：同时实现通信和感知，感知回波从透射/反射两路获取，提升感知精度</li>
+<li><strong>高铁沿线覆盖</strong>：部署在轨道两侧，同时覆盖上行和下行列车</li>
 </ol>
-<p><strong>关键性质</strong>：单调下降收敛，严格证明。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>STAR-RIS 实现路径</h2>
-    <table>
-<thead>
-<tr>
-<th>路径</th>
-<th>描述</th>
-<th>代表团队</th>
-<th>成熟度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>变容二极管调谐</td>
-<td>电压控制电容改变相位</td>
-<td>东南大学崔铁军</td>
-<td>原型验证</td>
-</tr>
-<tr>
-<td>MEMS 开关</td>
-<td>机械开关切换路径</td>
-<td>清华戴凌龙</td>
-<td>实验室</td>
-</tr>
-<tr>
-<td>相变材料</td>
-<td>VO₂ 等相变材料调控</td>
-<td>KAUST Shamim</td>
-<td>早期研究</td>
-</tr>
-<tr>
-<td>半导体集成</td>
-<td>STARE 晶圆级工艺</td>
-<td>imec/台积电</td>
-<td>研发中</td>
-</tr>
-</tbody>
-</table>
+    <h2>BD-RIS典型场景</h2>
+    <ol>
+<li><strong>干扰抑制</strong>：利用耦合效应形成零点对准干扰源，提升信干比</li>
+<li><strong>多用户MIMO</strong>：单元间耦合提供额外空间自由度，支持更多并发用户</li>
+<li><strong>毫米波/太赫兹系统</strong>：补偿高频率路径损耗，有源BD-RIS可提供3-6dB增益</li>
+<li><strong>大规模天线阵列</strong>：突破传统RIS的相位连续性限制，支持更密集单元排列</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>BD-RIS 实现路径</h2>
+    <h2>产业动态</h2>
+    <p><strong>第二届智能超表面技术论坛（2026年8月16-17日）</strong>：</p>
+<ul>
+<li><strong>主办方</strong>：智能超表面技术联盟（RISTA）</li>
+<li><strong>协办方</strong>：中兴通讯、北京理工大学</li>
+<li><strong>参展机构</strong>：中兴通讯、清华大学、东南大学、西安电子科技大学、中信科移动、华中科技大学、南京大学、罗德施瓦茨等</li>
+<li><strong>重点展示</strong>：</li>
+<li>中兴通讯：RIS阵面/原型系统实物、Dynamic RIS动态波束赋形演示</li>
+<li>东南大学/钱塘信息/移动：RIS辅助通信原型系统（亚运示范应用成果）</li>
+<li>清华大学/行晟科技/联通：自主控制RIS（SC-RIS）原型</li>
+<li>罗德施瓦茨：RIS测试仪表与测量方案</li>
+</ul>
+<p><strong>全球RIS市场规模（IIM 2026报告）</strong>：</p>
+<ul>
+<li>2025年全球市场规模：约4.7亿美元</li>
+<li>中国市场占比：38%（约1.79亿美元）</li>
+<li>2030年预测：突破42.5亿美元，CAGR 55.3%</li>
+<li>中国增速：58.7%，占全球近半数市场份额</li>
+<li>需求驱动：5G-A网络密集部署、6G预研阶段智能无线环境需求激增</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>学术前沿</h2>
     <table>
 <thead>
 <tr>
-<th>路径</th>
-<th>描述</th>
-<th>代表团队</th>
-<th>成熟度</th>
+<th>团队</th>
+<th>成果</th>
+<th>时间</th>
+<th>期刊/会议</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>阻抗网络耦合</td>
-<td>LC 网络实现单元间互连</td>
+<td>清华戴凌龙+东南崔铁军</td>
+<td>SC-RIS自主控制智能超表面（Nature Electronics）</td>
+<td>2025.10</td>
+<td>Nature Electronics</td>
+</tr>
+<tr>
+<td>Basar等</td>
+<td>STAR-RIS概念首次提出</td>
+<td>2021</td>
+<td>IEEE WCSP</td>
+</tr>
+<tr>
 <td>华东师大/上海大学</td>
-<td>理论+仿真</td>
+<td>BD-RIS超对角智能反射面理论框架</td>
+<td>2023</td>
+<td>IEEE TWC</td>
 </tr>
 <tr>
-<td>有源耦合</td>
-<td>加入运放增强耦合</td>
-<td>Shen/Clerckx</td>
-<td>理论</td>
+<td>KAUST Shamim团队</td>
+<td>100GHz CMOS兼容RIS-on-Chip（VO₂相变）</td>
+<td>2025.12</td>
+<td>arXiv</td>
 </tr>
 <tr>
-<td>混合有源/无源</td>
-<td>部分单元有源化</td>
-<td>Ntougias/Krikidis</td>
-<td>理论</td>
+<td>Glasgow Hassouna团队</td>
+<td>EMI感知RIS框架（64×64 USRP实验）</td>
+<td>2026</td>
+<td>IEEE JSTEAP</td>
 </tr>
 </tbody>
 </table>
@@ -341,152 +303,25 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
   
   <article class="card ">
     
-    <h2>STAR-RIS 典型场景</h2>
-    <p><strong>室内覆盖增强</strong>：部署墙壁/天花板同时覆盖双侧</p>
-<p><strong>D2D 通信中继</strong>：智能中继同时服务发射侧和接收侧用户，适用于车联网路侧单元</p>
-<p><strong>6G 通感一体化</strong>：同时实现通信和感知，感知回波从透射/反射两路获取</p>
-<p><strong>高铁沿线覆盖</strong>：部署轨道两侧同时覆盖上下行列车</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>BD-RIS 典型场景</h2>
-    <p><strong>干扰抑制</strong>：利用耦合效应形成零点对准干扰源，提升信干比</p>
-<p><strong>多用户 MIMO</strong>：单元间耦合提供额外空间自由度，支持更多并发用户</p>
-<p><strong>毫米波/太赫兹系统</strong>：补偿高频率路径损耗，有源 BD-RIS 可提供 3-6dB 增益</p>
-<p><strong>大规模天线阵列</strong>：突破相位连续性限制，支持更密集单元排列</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>五、关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>传统 RIS</th>
-<th>STAR-RIS</th>
-<th>BD-RIS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>覆盖范围</td>
-<td>180°</td>
-<td>360°</td>
-<td>360°+</td>
-</tr>
-<tr>
-<td>信道自由度</td>
-<td>1</td>
-<td>2</td>
-<td>N</td>
-</tr>
-<tr>
-<td>信号增益</td>
-<td>N²</td>
-<td>2N²</td>
-<td>N²(1+κ²)</td>
-</tr>
-<tr>
-<td>硬件成本</td>
-<td>低</td>
-<td>中</td>
-<td>高</td>
-</tr>
-<tr>
-<td>功耗</td>
-<td>极低</td>
-<td>低</td>
-<td>中-高</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th>理论值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sum-rate 增益（STAR-BD-RIS）</td>
-<td>相比被动 BD-RIS 提升 2-5 倍</td>
-<td>取决于功放数量和功率预算</td>
-</tr>
-<tr>
-<td>收敛性</td>
-<td>单调下降</td>
-<td>严格证明</td>
-</tr>
-<tr>
-<td>复杂度</td>
-<td>O(N²) per iteration</td>
-<td>N 为 RIS 单元数</td>
-</tr>
-<tr>
-<td>功率效率</td>
-<td>每瓦比特率提升显著</td>
-<td>有源放大抵消乘性衰落</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. STAR-RIS 工程挑战</h2>
-    <p><strong>双路信道估计</strong>：需要同时估计透射和反射信道，开销是传统 RIS 的 2 倍以上</p>
-<p><strong>相位-幅度耦合</strong>：ES 模式下透射和反射相位存在耦合约束，独立控制难度大</p>
-<p><strong>硬件实现复杂度</strong>：DS 模式需要完全独立的透射/反射通道，硬件复杂度显著高于 MS/ES 模式</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. BD-RIS 工程挑战</h2>
-    <p><strong>耦合稳定性</strong>：有源 BD-RIS 需确保不产生自激振荡</p>
-<p><strong>阻抗网络设计</strong>：跨元耦合需要精密的阻抗网络设计，在毫米波频段实现难度显著增加</p>
-<p><strong>热管理</strong>：有源放大进一步增加了热管理和功耗控制的要求</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 共享挑战</h2>
-    <p><strong>标准化滞后</strong>：3GPP R19 才可能预研 STAR-RIS</p>
-<p><strong>测试测量困难</strong>：缺乏标准化方法和仪器</p>
-<p><strong>部署经验不足</strong>：仅中兴、东南大学等少数团队开展外场试验</p>
-<p><strong>成本压力</strong>：有源 BD-RIS 功耗和热管理成本高</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>七、技术演进</h2>
-    <ul>
-<li><strong>2018</strong>：RIS 概念提出（Di Renzo 团队），被动反射型</li>
-<li><strong>2021</strong>：STAR-RIS 提出，实现同时透射反射</li>
-<li><strong>2023</strong>：BD-RIS 提出，引入跨元互连</li>
-<li><strong>2024</strong>：Active RIS 出现，部分元件集成功放</li>
-<li><strong>2025</strong>：清华 SC-RIS 自控制超表面，中兴 ORIS 原型</li>
-<li><strong>2026.01</strong>：SORIS 自组织架构，消除导频链路</li>
-<li><strong>2026.03</strong>：Active BD-RIS 理论体系建立（Shen/Clerckx 等）</li>
-<li><strong>2026.03</strong>：STAR-BD-RIS 放大模型（Sheemar 等，卢森堡/帕多瓦）</li>
-<li><strong>2026.04</strong>：Active BD-RIS 收发混合模式（Fu Liu 等），全空间覆盖</li>
-<li><strong>2026.05</strong>：混合有源/无源 BD-RIS 架构族（Ntougias/Krikidis）</li>
-<li><strong>2026.08</strong>：第二届智能超表面技术论坛（RISTA 主办，中兴协办）</li>
+    <h2>产业布局</h2>
+    <p><strong>国内厂商</strong>：</p>
+<ul>
+<li><strong>中兴通讯</strong>：Dynamic RIS解决方案，MWC 2023首发，支持基站内生智慧+动态波束扫描；RISTA联盟重要推动者</li>
+<li><strong>京信通信</strong>：RIS面板量产能力，与三大运营商合作外场试验</li>
+<li><strong>通宇通讯</strong>：RIS天线产品布局，聚焦毫米波频段</li>
+<li><strong>中信科移动</strong>：全息超表面RHS白皮书（联合14家机构），6G标准预研主力</li>
+</ul>
+<p><strong>国际厂商</strong>：</p>
+<ul>
+<li><strong>华为</strong>：6G RIS研究布局，MWC 2026展示U6G 2048天线原型</li>
+<li><strong>爱立信</strong>：AI-ready radios，RIS与AI-RAN协同方案</li>
+<li><strong>Qualcomm</strong>：RIS波束训练DCI信令设计专利群（US 2026/0205164等）</li>
+<li><strong>Samsung</strong>：7GHz X-MIMO外场试验（256端口实测3Gbps）</li>
+</ul>
+<p><strong>测试仪表</strong>：</p>
+<ul>
+<li><strong>罗德施瓦茨</strong>：RIS专用测试解决方案开发中</li>
+<li><strong>Keysight</strong>：信道模拟器RIS扩展模块</li>
 </ul>
   </article>
   
@@ -494,13 +329,13 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
   
   <article class="card ">
     
-    <h2>短期（2026-2027）</h2>
+    <h2>标准化进展</h2>
     <ul>
-<li>STAR-RIS 从实验室走向外场试点</li>
-<li>中兴、华为、三大运营商将在城市密集区、高铁沿线开展试点</li>
-<li>BD-RIS 理论框架完善，有源/无源混合架构成为工程化重点</li>
-<li>3GPP R19 启动 STAR-RIS 信道建模和性能评估标准预研</li>
-<li>测试仪器突破，罗德施瓦茨、Keysight 推出 RIS 专用解决方案</li>
+<li><strong>3GPP R18</strong>：TR 38.804 RIS信道模型研究完成</li>
+<li><strong>3GPP R19</strong>：预计2026年底启动STAR-RIS标准预研</li>
+<li><strong>ITU-R</strong>：M.2579等建议书可能纳入RIS技术</li>
+<li><strong>中国CCSA</strong>：TC5-WG6完成RIS研究项目立项</li>
+<li><strong>IMT-2030推进组</strong>：RIS任务组已召开12次会议，中兴赵亚军任副组长</li>
 </ul>
   </article>
   
@@ -508,12 +343,27 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
   
   <article class="card ">
     
-    <h2>中期（2028-2030）</h2>
-    <ul>
-<li>STAR-RIS 和 BD-RIS 可能作为 6G 候选技术写入 ITU-R 建议书</li>
+    <h2>七、技术演进（必填）趋势</h2>
+    <p><strong>短期（2026-2027）</strong>：</p>
+<ul>
+<li>STAR-RIS从实验室走向外场试点，中兴、华为、三大运营商将在城市密集区、高铁沿线开展试点</li>
+<li>BD-RIS理论框架完善，有源/无源混合架构成为工程化重点</li>
+<li>3GPP R19启动STAR-RIS信道建模和性能评估标准预研</li>
+<li>测试仪器突破，罗德施瓦茨、Keysight推出RIS专用解决方案</li>
+</ul>
+<p><strong>中期（2028-2030）</strong>：</p>
+<ul>
+<li>STAR-RIS和BD-RIS可能作为6G候选技术写入ITU-R建议书</li>
 <li>规模化商用启动，城市密集区域、大型场馆、交通枢纽率先部署</li>
-<li>半导体集成工艺（STARE 路线）推动面板成本降低 50% 以上</li>
-<li>通感一体化深度融合，STAR-RIS 成为 6G JCAS 核心使能技术</li>
+<li>半导体集成工艺（STARE路线）推动面板成本降低50%以上</li>
+<li>通感一体化深度融合，STAR-RIS成为6G JCAS核心使能技术</li>
+</ul>
+<p><strong>长期（2031-）</strong>：</p>
+<ul>
+<li>全空间智能覆盖：STAR-RIS与BD-RIS结合，实现室内外无缝覆盖</li>
+<li>AI原生RIS：大模型赋能自主调控，"一次部署，终身学习"</li>
+<li>太赫兹RIS突破：100GHz以上频段STAR-RIS支撑6G太赫兹通信</li>
+<li>生态级应用：RIS成为6G网络基础设施标配，类似今天的基站</li>
 </ul>
   </article>
   
@@ -521,13 +371,96 @@ $$\mathbf{S} = \begin{bmatrix} \mathbf{\Gamma} &amp; \mathbf{T} \ \mathbf{R} &am
   
   <article class="card ">
     
-    <h2>长期（2031-）</h2>
+    <h2>产业化挑战</h2>
+    <ol>
+<li><strong>标准化滞后</strong>：STAR-RIS和BD-RIS的标准尚未启动，3GPP R19才可能预研</li>
+<li><strong>测试测量困难</strong>：缺乏标准化的RIS测试方法和仪器</li>
+<li><strong>部署经验不足</strong>：目前仅有中兴、东南大学等少数团队开展外场试验</li>
+<li><strong>成本压力</strong>：有源BD-RIS功耗和热管理成本高，需与无源方案平衡</li>
+<li><strong>算法复杂度</strong>：STAR-RIS双路优化问题非凸，需设计高效算法</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>商业前景</h2>
     <ul>
-<li>全空间智能覆盖——STAR-RIS 与 BD-RIS 结合实现室内外无缝覆盖</li>
-<li>AI 原生 RIS——大模型赋能自主调控，"一次部署，终身学习"</li>
-<li>太赫兹 RIS 突破——100GHz 以上频段 STAR-RIS 支撑 6G 太赫兹通信</li>
-<li>生态级应用——RIS 成为 6G 网络基础设施标配</li>
+<li><strong>面板市场</strong>：2025年中国RIS面板出货量约18.7万平米，2026年预计跃升至41万平米</li>
+<li><strong>控制器市场</strong>：分布式边缘控制器增速112.4%，远超集中式控制器67.8%</li>
+<li><strong>应用场景</strong>：通信基站补盲（61.2%）、车联网路侧感知（19.5%）、室内精准定位（14.3%）</li>
+<li><strong>新兴需求</strong>：电磁辐射抑制与安全防护需求增速210%，虽基数小但潜力大</li>
 </ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术储备建议</h2>
+    <ol>
+<li><strong>关注STAR-RIS双路信道估计算法</strong>：这是工程化的关键瓶颈，传统单路估计方法不再适用，需研究联合优化算法</li>
+<li><strong>跟踪BD-RIS耦合稳定性问题</strong>：有源BD-RIS需确保在所有工作条件下不产生自激振荡，涉及反馈控制系统设计</li>
+<li><strong>理解能量守恒约束优化</strong>：STAR-RIS的$|t_n|^2 + |r_n|^2 = 1$约束导致非凸优化问题，需掌握高效求解方法</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>产业跟踪建议</h2>
+    <ol>
+<li><strong>重点关注8月16-17日第二届智能超表面技术论坛</strong>：</li>
+<li>中兴Dynamic RIS最新进展</li>
+<li>清华SC-RIS自主控制原型演示</li>
+<li>东南大学亚运示范应用复盘</li>
+<li>
+<p>罗德施瓦茨测试方案发布</p>
+</li>
+<li>
+<p><strong>关注3GPP R19 RIS相关工作组动态</strong>：</p>
+</li>
+<li>STAR-RIS信道建模标准预研</li>
+<li>BD-RIS性能评估框架</li>
+<li>
+<p>测试测量方法标准化</p>
+</li>
+<li>
+<p><strong>竞品对标</strong>：</p>
+</li>
+<li>京信、通宇等国内厂商STAR-RIS产品路线图</li>
+<li>华为6G RIS研究布局（MWC 2026 U6G 2048原型）</li>
+<li>爱立信AI-RAN与RIS协同方案</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中兴方向参考</h2>
+    <ol>
+<li><strong>Dynamic RIS技术栈完整性</strong>：中兴已从MWC 2022首次发表RIS解决方案，到MWC 2023发布Dynamic RIS，再到2026年RIS任务组副组长单位，技术栈完整，建议持续跟进STAR-RIS和BD-RIS前沿</li>
+<li><strong>6G标准参与</strong>：中兴赵亚军任RIS任务组副组长，建议参与3GPP R19 STAR-RIS标准预研，抢占标准制定主动权</li>
+<li><strong>外场试验经验积累</strong>：杭州亚运会RIS示范应用是重要里程碑，建议总结运营经验，为规模化商用做准备</li>
+<li><strong>产业链协同</strong>：RISTA联盟是重要平台，建议联合上下游（面板制造商、芯片供应商、测试仪器商）共同推进产业化</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>风险提醒</h2>
+    <ol>
+<li><strong>标准化时滞风险</strong>：STAR-RIS和BD-RIS标准可能滞后于技术发展，需关注3GPP R19进度</li>
+<li><strong>成本压力</strong>：有源BD-RIS功耗和成本较高，需评估应用场景的经济性</li>
+<li><strong>技术路线竞争</strong>：STAR-RIS、BD-RIS、ORIS、SC-RIS等多种路线并存，需关注哪条路线最终胜出</li>
+</ol>
+<hr />
+<hr />
   </article>
   
 

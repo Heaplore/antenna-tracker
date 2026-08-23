@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">电磁屏蔽与EMC Shielding深度解读</h1>
-  <p class="lede">电磁屏蔽的本质是&#34;堵&#34;和&#34;吸&#34;——导体把电磁波反射回去（堵），损耗材料把电磁波变成热量（吸）；5G毫米波带来两个全新挑战：屏蔽罩变成&#34;谐振腔&#34;，组件间距极小导致屏蔽膜反射造成二次EMI污染，需要&#34;吸收主导&#34;的低反射屏蔽膜。</p>
+  
   
 </header>
 
@@ -105,101 +105,13 @@
   
   <article class="card ">
     
-    <h2>主题概述</h2>
-    <p>电磁屏蔽（Electromagnetic Shielding）是阻止电磁干扰（EMI）从一个区域传播到另一个区域的技术。其理论基础是法拉第笼效应和三种屏蔽机制：反射损耗（R）、吸收损耗（A）和多次反射修正（M）。总屏蔽效能 SE = R + A + M。5G毫米波频段（28GHz/39GHz/52GHz/60GHz/77GHz）带来了全新的屏蔽挑战——趋肤深度仅几百纳米，屏蔽罩内部形成谐振腔，组件间距极小导致屏蔽膜反射造成二次干扰。2024年Nano-Micro Letters发表的研究实现了SrM铁氧体+Cu网格多层膜，在39GHz和52GHz反射率&lt;5%，40-90GHz SE&gt;30dB，厚度仅0.58mm/0.34mm，代表了"吸收主导"屏蔽的新方向。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 法拉第笼原理</h2>
-    <p>外部电磁场在导体表面感应出电流→产生反向场→抵消外部场。理想导体SE=∞，有限导体SE=f(σ, μ, t, f)。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 三种屏蔽机制</h2>
-    <table>
-<thead>
-<tr>
-<th>机制</th>
-<th>符号</th>
-<th>物理过程</th>
-<th>频率依赖</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>反射损耗</strong></td>
-<td>R</td>
-<td>波在导体表面反射（阻抗不连续）</td>
-<td>低频率主导，σ越高R越大</td>
-</tr>
-<tr>
-<td><strong>吸收损耗</strong></td>
-<td>A</td>
-<td>波进入导体后衰减（趋肤效应）</td>
-<td>高频率主导，t/δ越大A越大</td>
-</tr>
-<tr>
-<td><strong>多次反射修正</strong></td>
-<td>M</td>
-<td>薄材料内多次反射叠加</td>
-<td>A&lt;15dB时不可忽略，M为正值（降低SE）</td>
-</tr>
-</tbody>
-</table>
-<p>公式：SE_total = R + A + M</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 反射损耗R</h2>
-    <p>平面波：R = 328 + 10×log₁₀(μr×σ / (f³×εr)) [dB]
-关键洞察：R随频率三次方衰减→低频时R很小，屏蔽主要靠吸收；高导电材料（铜/铝）→R大但A小→适合高频；高磁导率材料（mu-metal）→R小但A大→适合低频。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 吸收损耗A</h2>
-    <p>公式：A = 8.686 × t / δ = 8.686 × t × √(π×f×μ×σ) [dB]
-其中 δ = 趋肤深度 = 1/√(π×f×μ×σ)</p>
-<p>趋肤深度表：
-| 材料 | 1 MHz | 1 GHz | 28 GHz |
-|------|-------|-------|--------|
-| 铜 | 66μm | 2.1μm | 0.38μm |
-| 铝 | 83μm | 2.6μm | 0.47μm |
-| 钢(μr=100) | 6.6μm | 0.21μm | 0.038μm |</p>
-<p>毫米波频段趋肤深度仅几百纳米→极薄的镀层即可提供强吸收。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5. 多次反射修正M</h2>
-    <p>当A &lt; 15dB时：M = -20×log₁₀(1 - 10^(-A/10))
-A&gt;60dB时M≈0（可忽略）。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>屏蔽材料对比</h2>
+    <h2>2.1 金属材料</h2>
     <table>
 <thead>
 <tr>
 <th>材料</th>
 <th>σ(S/m)</th>
-<th>μr</th>
+<th>μ_r</th>
 <th>优点</th>
 <th>缺点</th>
 </tr>
@@ -209,7 +121,7 @@ A&gt;60dB时M≈0（可忽略）。</p>
 <td>铜</td>
 <td>5.8×10⁷</td>
 <td>1</td>
-<td>导电最好，R大</td>
+<td>导电最好，R 大</td>
 <td>重，贵</td>
 </tr>
 <tr>
@@ -217,13 +129,13 @@ A&gt;60dB时M≈0（可忽略）。</p>
 <td>3.5×10⁷</td>
 <td>1</td>
 <td>轻，便宜</td>
-<td>σ较低</td>
+<td>σ 较低</td>
 </tr>
 <tr>
 <td>钢</td>
 <td>1×10⁷</td>
 <td>100-1000</td>
-<td>高μr→A大</td>
+<td>高 μ_r → A 大</td>
 <td>重，易锈</td>
 </tr>
 <tr>
@@ -241,8 +153,18 @@ A&gt;60dB时M≈0（可忽略）。</p>
   
   <article class="card ">
     
-    <h2>导电衬垫（Conductive Gasket）</h2>
-    <table>
+    <h2>2.2 导电聚合物/涂层</h2>
+    <p><strong>应用场景</strong>：塑料外壳喷导电漆（镍/铜/银）→ 减轻重量，降低成本。</p>
+<p><strong>典型 SE</strong>：30-60dB（1MHz-1GHz）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 电磁屏蔽衬垫（Conductive Gasket）</h2>
+    <p><strong>作用</strong>：填补屏蔽罩接缝处的缝隙 → 防止泄漏。</p>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -253,7 +175,7 @@ A&gt;60dB时M≈0（可忽略）。</p>
 </thead>
 <tbody>
 <tr>
-<td>指形簧片</td>
+<td>指形簧片（fingerstock）</td>
 <td>金属弹簧片</td>
 <td>20-30%</td>
 <td>30-60dB</td>
@@ -271,7 +193,7 @@ A&gt;60dB时M≈0（可忽略）。</p>
 <td>40-80dB</td>
 </tr>
 <tr>
-<td>VGS真空保持衬垫</td>
+<td>真空保持衬垫（VGS）</td>
 <td>软硅胶+金属纤维</td>
 <td>15-25%</td>
 <td>80-120dB</td>
@@ -284,103 +206,220 @@ A&gt;60dB时M≈0（可忽略）。</p>
   
   <article class="card ">
     
-    <h2>蜂窝通风面板（波导截止）</h2>
-    <p>f_cutoff ≈ c / (2 × d)，d为六角形孔径</p>
-<table>
-<thead>
-<tr>
-<th>孔径</th>
-<th>f_cutoff</th>
-<th>适用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.6mm</td>
-<td>94GHz</td>
-<td>5G mmWave</td>
-</tr>
-<tr>
-<td>3.2mm</td>
-<td>47GHz</td>
-<td>WiFi 6E/7</td>
-</tr>
-<tr>
-<td>6.4mm</td>
-<td>23.5GHz</td>
-<td>Sub-6GHz 5G</td>
-</tr>
-<tr>
-<td>12.7mm</td>
-<td>11.8GHz</td>
-<td>LTE/WiFi</td>
-</tr>
-</tbody>
-</table>
-<p>设计规则：蜂窝深度≥3×孔径直径。</p>
+    <h2>2.4 蜂窝通风面板（Honeycomb Vent）</h2>
+    <p><strong>原理</strong>：波导截止——孔径 &lt; λ/2 时电磁波无法通过。</p>
+<pre><code>f_cutoff ≈ c / (2 × d)
+</code></pre>
+<p>其中 d 为六角形孔径。</p>
+<p><strong>典型规格</strong>：
+| 孔径 | f_cutoff | 适用 |
+|------|---------|------|
+| 1.6mm | 94GHz | 5G mmWave |
+| 3.2mm | 47GHz | WiFi 6E/7 |
+| 6.4mm | 23.5GHz | Sub-6GHz 5G |
+| 12.7mm | 11.8GHz | LTE/WiFi |</p>
+<p><strong>设计规则</strong>：蜂窝深度 ≥ 3×孔径直径</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5G毫米波屏蔽新挑战</h2>
-    <p><strong>腔体共振</strong>：屏蔽罩尺寸&gt;λ/2时内部形成谐振腔。28GHz毫米波λ=10.7mm→λ/2=5.35mm。解决方案：罩内贴吸波材料、缩小腔体尺寸（&lt;λ/2）、多腔分割设计。</p>
-<p><strong>吸收主导屏蔽膜（2024突破）</strong>：SrM铁氧体+Cu网格多层膜，39GHz和52GHz反射率&lt;5%（SER&lt;0.1dB），40-90GHz SE&gt;30dB（屏蔽99.9%EMI），超薄0.58mm/0.34mm。原理：M型铁氧体铁磁共振频率（FMR）可调→在目标频段吸收主导。</p>
-<p><strong>MXene屏蔽材料</strong>：二维过渡金属碳化物/氮化物（如Ti₃C₂Tₓ），SE可达90dB（10μm厚度），超薄柔性→可穿戴/折叠屏适用。</p>
+    <h2>2.5 吸波材料（Absorber）</h2>
+    <p><strong>功能</strong>：吸收腔内反射波 → 降低多径干扰 + 抑制腔体共振。</p>
+<p>** Laird 5G mmWave 吸波材料白皮书要点 **：</p>
+<ul>
+<li>屏蔽罩内贴薄层吸波材料 → 阻尼腔体共振</li>
+<li>吸波材料的 ε_r 和 μ_r 决定能量存储和耗散</li>
+<li>需通过 S11/S21 测量获得复数介电常数和磁导率</li>
+<li>消除天线附近物体的反射干扰</li>
+</ul>
+<hr />
   </article>
   
 
   
   <article class="card ">
     
-    <h2>竞品/同行动态</h2>
-    <table>
-<thead>
-<tr>
-<th>方向</th>
-<th>代表进展</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Laird</td>
-<td>5G mmWave吸波材料白皮书，提出屏蔽罩内贴薄层吸波材料抑制腔体共振</td>
-</tr>
-<tr>
-<td>Nano-Micro Letters 2024</td>
-<td>SrM铁氧体屏蔽膜：多波段超低反射&lt;5%，40-90GHz SE&gt;30dB</td>
-</tr>
-<tr>
-<td>Advanced Materials 2024</td>
-<td>结构设计的EMI屏蔽材料</td>
-</tr>
-<tr>
-<td>学术界MXene研究</td>
-<td>Ti₃C₂Tₓ二维材料，SE 90dB@10μm，柔性可穿戴适用</td>
-</tr>
-</tbody>
-</table>
+    <h2>3.1 腔体共振（Cavity Resonance）</h2>
+    <p><strong>问题</strong>：屏蔽罩尺寸 &gt; λ/2 时，内部形成谐振腔。</p>
+<p><strong>28GHz 毫米波</strong>：λ = 10.7mm → λ/2 = 5.35mm</p>
+<p><strong>后果</strong>：</p>
+<ul>
+<li>腔内能量振荡 → 电路工作异常</li>
+<li>屏蔽泄漏增加</li>
+<li>近场耦合增强</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>在罩内贴吸波材料（damping）</li>
+<li>缩小腔体尺寸（&lt; λ/2）</li>
+<li>使用多腔分割设计</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>参考资料</h2>
-    <ul>
-<li>Laird: 5G mmWave Absorber Materials White Paper</li>
-<li>Nano-Micro Letters 2024: Absorption-Dominant mmWave EMI Shielding Films with SrM</li>
-<li>Advanced Materials 2024: Structural Design for EMI Shielding</li>
-<li>PCBway: EMI Shielded Enclosure Design Guide</li>
-<li>LearnEMC: Plane-Wave Shielding Theory</li>
-<li>IEC 61000-4-21 / ASTM D4935（双天线法测试标准）</li>
+    <h2>3.2 吸收主导的低反射屏蔽膜</h2>
+    <p><strong>2024 Nano-Micro Letters 突破</strong>：</p>
+<p><strong>SrM 铁氧体 + Cu 网格多层膜</strong>：</p>
+<ul>
+<li><strong>多波段超低反射</strong>：39GHz 和 52GHz 反射率 &lt; 5%（SER &lt; 0.1dB）</li>
+<li><strong>宽带高屏蔽</strong>：40-90GHz SE &gt; 30dB（屏蔽 99.9% EMI）</li>
+<li><strong>超薄</strong>：0.58mm（39/52GHz 版）/ 0.34mm（60/77GHz 版）</li>
+<li><strong>原理</strong>：M 型铁氧体铁磁共振频率（FMR）可调 → 在目标频段吸收主导</li>
+<li><strong>传输线模型</strong>：可理论设计屏蔽膜参数</li>
+</ul>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>5G 电信：39GHz/52GHz 频段</li>
+<li>汽车雷达：60GHz/77GHz 频段</li>
+</ul>
+<p><strong>为什么重要</strong>：5G 组件间距极小 → 屏蔽膜反射会造成二次 EMI 污染 → <strong>吸收主导型屏蔽是必然趋势</strong>。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 MXene 屏蔽材料</h2>
+    <p><strong>MXene</strong>：二维过渡金属碳化物/氮化物（如 Ti₃C₂Tₓ）</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>超高导电性 → R 大</li>
+<li>层状结构 → 多次内部反射 → A 大</li>
+<li>超薄柔性 → 可穿戴/折叠屏适用</li>
+<li>SE 可达 90dB（10μm 厚度）</li>
 </ul>
   </article>
   
 
   
+  <article class="card ">
     
+    <h2>3.4 屏蔽罩（Shield Can）设计</h2>
+    <p><strong>板级屏蔽罩</strong>：</p>
+<pre><code>    ┌──────────┐
+    │  屏蔽罩   │  ← 金属盖（Ni/Cu 电镀）
+    ├──────────┤
+    │ 吸波层   │  ← 抑制腔体共振
+    ├──────────┤
+    │  PCB     │
+    │ [RFIC]   │  ← mmWave 电路
+    └──────────┘
+</code></pre>
+<p><strong>关键设计规则</strong>：</p>
+<ol>
+<li>接地过孔间距 ≤ λ_g/10（guidewave 在罩内表面的波长）</li>
+<li>多排接地孔 → 降低接地电感</li>
+<li>罩内贴吸波材料 → 阻尼共振</li>
+<li>接口处用导电衬垫 → 密封接缝</li>
+</ol>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.1 双天线法（Two-Antenna Method）</h2>
+    <p><strong>Setup</strong>：</p>
+<pre><code>[Tx Antenna] ====[SHIELD]===&gt; [Rx Antenna]
+       ↑                      ↑
+    发射天线             接收天线
+</code></pre>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>无屏蔽时测量 S21₀</li>
+<li>放入屏蔽材料后测量 S21</li>
+<li>SE = 20×log₁₀(|S21₀|/|S21|)</li>
+</ol>
+<p><strong>标准</strong>：IEC 61000-4-21 / ASTM D4935</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.2 混响室法（Reverberation Chamber）</h2>
+    <p><strong>适用</strong>：大体积屏蔽室/设备的统计 SE 测量
+<strong>优势</strong>：快速，覆盖多入射角</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.3 屏蔽室测试</h2>
+    <p><strong>法拉第室</strong>：</p>
+<ul>
+<li>用于 EMC 预兼容测试</li>
+<li>SE &gt; 100dB（10kHz-18GHz）</li>
+<li>门缝用指形簧片 + 窗用蜂窝板</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 分层接地策略</h2>
+    <pre><code>电源地 ───┐
+数字地 ───┤ 单点接地 ──→ 屏蔽壳
+模拟地 ───┘
+</code></pre>
+<p><strong>规则</strong>：</p>
+<ul>
+<li>电源/数字/模拟/RF 分区</li>
+<li>金属隔板分隔功能区</li>
+<li>接地前分层，单点汇接</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 屏蔽完整性</h2>
+    <p><strong>失效模式排名</strong>：</p>
+<ol>
+<li>接缝泄漏（占 70%+ 失败原因）</li>
+<li>通风孔/滤波器未屏蔽</li>
+<li>电缆进出未滤波</li>
+<li>显示屏窗口泄漏</li>
+<li>壳体穿孔（螺丝孔/指示孔）</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 电缆屏蔽</h2>
+    <p><strong>关键</strong>：电缆是最佳"天线" → 必须屏蔽！</p>
+<p><strong>做法</strong>：</p>
+<ul>
+<li>360° 端接（clamp 式连接器，非螺旋缠绕）</li>
+<li>输入/输出加滤波器（feedthrough capacitor）</li>
+<li>屏蔽层可靠接地</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、给非专业读者的一句话总结</h2>
+    <blockquote>
+<p><strong>电磁屏蔽的本质是"堵"和"吸"——导体把电磁波反射回去（堵），损耗材料把电磁波变成热量（吸）。5G 毫米波带来两个全新挑战：一是屏蔽罩变成了"谐振腔"，里面的信号来回反弹；二是组件靠得太近，屏蔽膜的反射会造成二次干扰——所以需要"吸收主导"的低反射屏蔽膜。2024 年的 SrM 铁氧体方案做到了在 39/52GHz 反射率不到 5%，同时屏蔽 99.9% 的干扰。电磁屏蔽告诉我们：最好的防御不是硬碰硬地反弹，而是温柔地把能量消化掉。</strong></p>
+</blockquote>
+<p><strong>金句</strong>：屏蔽的最高境界——<strong>不是把所有东西挡在外面，而是让进来的一切都安静下来</strong>。</p>
+<hr />
+  </article>
   
 
 

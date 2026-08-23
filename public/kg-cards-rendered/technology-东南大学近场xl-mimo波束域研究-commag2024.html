@@ -105,40 +105,40 @@
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
-    <p>XL-MIMO（Extremely Large-scale MIMO）是6G关键技术：天线单元数数百至数千，阵列孔径数米至数十米，工作频段毫米波太赫兹。近场效应产生条件由瑞利距离 R_Fresnel = 2D²/λ 决定，当用户距离 R &lt; R_Fresnel 时进入近场区域，波前从平面波变为球面波，不同距离用户有不同波前曲率，传统远场波束赋形失效。</p>
-<p>本研究提出波束空间理论，将近场信道从天线空间变换到波束空间，简化分析和设计，核心数学工具是分数阶傅立叶变换（FrFT）。</p>
-<p>从学术背景看，近场通信是6G天线技术的重要研究方向。传统MIMO理论基于远场假设，波前近似为平面波，波束赋形只需控制角度域。但XL-MIMO时代，天线阵列尺寸巨大，瑞利距离大幅增加，近场效应变得显著，需要同时考虑角度域和距离域。这一变化带来了新的机遇和挑战。</p>
+    <h2>1.1 XL-MIMO与近场效应</h2>
+    <p><strong>XL-MIMO（Extremely Large-scale MIMO）</strong>是6G关键技术：</p>
+<ul>
+<li>天线单元数：数百至数千</li>
+<li>阵列孔径：数米至数十米</li>
+<li>工作频段：毫米波/太赫兹</li>
+</ul>
+<p><strong>近场效应产生条件</strong>：</p>
+<pre><code>瑞利距离：R_Fresnel = 2D²/λ
+其中 D = 阵列孔径，λ = 波长
+</code></pre>
+<p>当用户距离 R &lt; R_Fresnil 时，进入近场区域：</p>
+<ul>
+<li>波前从平面波变为球面波</li>
+<li>不同距离的用户有不同的波前曲率</li>
+<li>传统远场波束赋形失效</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>二、核心技术/原理</h2>
-    <p><strong>分数阶傅立叶变换（FrFT）</strong>：传统傅立叶变换实现时域↔频域转换，分数阶傅立叶变换实现时域↔任意中间域转换。在近场MIMO中，角度信息对应传统傅立叶变换（α=1），距离信息对应分数阶变换（0&lt;α&lt;1），联合角度距离对应分数阶α≠1。</p>
-<p>FrFT的数学定义为：
-$$F_\alpha<a href="u">f</a> = \int_{-\infty}^{+\infty} K_\alpha(t, u) f(t) dt$$</p>
-<p>其中核函数 K_α(t,u) 取决于变换阶数 α。当 α=1 时，FrFT退化为传统傅立叶变换；当 α=0 时，FrFT恒等变换；当 0&lt;α&lt;1 时，FrFT提供时频混合表示。</p>
-<p>在近场XL-MIMO中，FrFT的核心作用是将球面波前分解为正交的波束空间分量，每个分量对应特定的角度和距离组合。这一分解大大简化了近场信道的分析和设计。</p>
+    <h2>1.2 波束空间理论</h2>
+    <p><strong>核心思想</strong>：将近场信道从天线空间变换到波束空间，简化分析和设计。</p>
+<p><strong>数学工具</strong>：分数阶傅立叶变换（FrFT）
+- 传统傅立叶变换：时域↔频域
+- 分数阶傅立叶变换：时域↔任意中间域
+- 在近场MIMO中：天线空间↔波束空间（含距离信息）</p>
 <p><strong>波束空间划分</strong>：</p>
-<ul>
-<li><strong>高主瓣区</strong>：波束增益高，信噪比好，近似高斯分布，便于信号处理，适合波束对准和跟踪</li>
-<li><strong>低主瓣区</strong>：波束增益低，干扰小，适合干扰抑制和波束训练，可减少训练开销</li>
-<li><strong>旁瓣区</strong>：波束增益很低，适合噪声建模和校准</li>
-</ul>
-<p>波束空间划分的意义在于：不同区域的波束具有不同的特性，可以针对不同区域采用不同的信号处理策略，实现性能与复杂度的平衡。</p>
-<p><strong>关键发现——聚焦能力增长规律</strong>：</p>
-<ul>
-<li>角度域聚焦能力随N线性增长（∝N），增加天线数可线性提升角分辨率</li>
-<li>距离域聚焦能力随N二次增长（∝N²），增加天线数可二次提升距离分辨率</li>
-</ul>
-<p>物理意义是：距离域分辨率提升更快，是因为近场波前的球面曲率提供了额外自由度。这一发现为6G超高速率提供了理论保证——通过增加天线数，可以同时提升角度和距离分辨率，实现三维空间复用。</p>
-<p>从工程角度看，这一发现意味着：</p>
 <ol>
-<li>XL-MIMO系统可以通过增加天线数同时提升角度和距离分辨率</li>
-<li>距离域分辨率提升更快，说明近场效应是有价值的资源</li>
-<li>波束空间划分可以为系统设计提供指导</li>
+<li><strong>高主瓣区</strong>：波束增益高，适合通信</li>
+<li><strong>低主瓣区</strong>：波束增益低，适合干扰抑制</li>
+<li><strong>旁瓣区</strong>：波束增益很低，适合噪声抑制</li>
 </ol>
   </article>
   
@@ -146,25 +146,172 @@ $$F_\alpha<a href="u">f</a> = \int_{-\infty}^{+\infty} K_\alpha(t, u) f(t) dt$$<
   
   <article class="card ">
     
-    <h2>三、行业应用</h2>
-    <p><strong>6G基站设计</strong>：超大规模天线阵列（1000+单元），覆盖半径100-500m，用户分布密集城区。波束空间划分指导天线布局：高主瓣区用于服务近场用户，低主瓣区用于干扰抑制。典型部署场景包括城市宏站、微站、室分系统。</p>
-<p><strong>卫星互联网终端</strong>：低轨卫星500-1200km，终端天线阵列数百单元，高速移动0-10km/s。近场波束跟踪卫星，波束空间快速切换，多波束同时服务。Starlink、OneWeb等LEO星座需要近场波束技术实现高速移动下的稳定通信。</p>
-<p><strong>车联网V2X</strong>：路侧单元RSU，车辆高速移动，密集交通环境。近场波束聚焦车辆，波束空间快速切换，干扰抑制提升可靠性。典型应用场景包括高速公路、城市十字路口、停车场。</p>
-<p><strong>工业互联网</strong>：工厂内部通信，大量传感器和设备，高可靠低延迟要求。近场波束定向服务，波束空间多用户复用，感知的知一体化支持定位。5G专网、工业物联网是重要应用场景。</p>
-<p>从应用价值看，近场XL-MIMO技术可以带来以下收益：</p>
-<ol>
-<li>提升频谱效率：三维空间复用显著提升系统容量</li>
-<li>改善覆盖质量：近场聚焦可以提供更高的增益</li>
-<li>支持高精度定位：距离域分辨率提升有利于定位应用</li>
-<li>降低部署成本：单站覆盖范围扩大，减少基站密度</li>
-</ol>
+    <h2>2.1 分数阶傅立叶变换（FrFT）</h2>
+    <p><strong>定义</strong>：</p>
+<pre><code>F_α[f(t)] = ∫ K_α(t,τ) f(τ) dτ
+其中 K_α 是 FrFT 核函数，α = θ/π 是变换阶数
+</code></pre>
+<p><strong>在近场MIMO中的应用</strong>：</p>
+<ul>
+<li>角度信息：对应传统傅立叶变换（α=1）</li>
+<li>距离信息：对应分数阶（0&lt;α&lt;1）</li>
+<li>联合角度-距离：对应分数阶（α≠1）</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>四、竞品/同行动态</h2>
+    <h2>2.2 近场波束空间划分</h2>
+    <p><strong>高主瓣区特性</strong>：</p>
+<ul>
+<li>波束增益高，信噪比好</li>
+<li>近似高斯分布，便于信号处理</li>
+<li>适合波束对准和跟踪</li>
+</ul>
+<p><strong>低主瓣区特性</strong>：</p>
+<ul>
+<li>波束增益低，干扰小</li>
+<li>适合干扰抑制和波束训练</li>
+<li>可减少训练开销</li>
+</ul>
+<p><strong>旁瓣区特性</strong>：</p>
+<ul>
+<li>波束增益很低</li>
+<li>适合噪声建模和校准</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.3 波束聚焦能力分析</h2>
+    <p><strong>关键发现</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>聚焦能力增长</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角度域</td>
+<td>线性增长（∝N）</td>
+<td>增加天线数可线性提升角分辨率</td>
+</tr>
+<tr>
+<td>距离域</td>
+<td>二次增长（∝N²）</td>
+<td>增加天线数可二次提升距离分辨率</td>
+</tr>
+</tbody>
+</table>
+<p><strong>物理意义</strong>：</p>
+<ul>
+<li>距离域分辨率提升更快，是因为近场波前的球面曲率提供了额外自由度</li>
+<li>这为6G超高速率提供了理论保证</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2.4 应用方向</h2>
+    <p><strong>波束训练</strong>：</p>
+<ul>
+<li>利用低主瓣区减少训练次数</li>
+<li>利用高主瓣区实现快速对准</li>
+</ul>
+<p><strong>波束跟踪</strong>：</p>
+<ul>
+<li>基于高主瓣区覆盖范围分析</li>
+<li>设计高效跟踪算法</li>
+</ul>
+<p><strong>感知与定位</strong>：</p>
+<ul>
+<li>综合利用高低主瓣区</li>
+<li>实现厘米级定位精度</li>
+</ul>
+<p><strong>信道估计</strong>：</p>
+<ul>
+<li>利用波束空间平移不变性</li>
+<li>开发高效估计算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.1 近场波束赋形方法</h2>
+    <table>
+<thead>
+<tr>
+<th>方法</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>波束空间方法（本研究）</strong></td>
+<td>FrFT变换到波束域</td>
+<td>计算简单，物理清晰</td>
+<td>需要精确信道信息</td>
+</tr>
+<tr>
+<td>球面波建模</td>
+<td>直接建模球面波前</td>
+<td>精确</td>
+<td>计算复杂</td>
+</tr>
+<tr>
+<td>近场码本</td>
+<td>预设近场波束码本</td>
+<td>实现简单</td>
+<td>码本设计困难</td>
+</tr>
+<tr>
+<td>AI辅助</td>
+<td>深度学习优化波束</td>
+<td>自适应强</td>
+<td>需要大量训练数据</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 东南大学贡献</h2>
+    <p><strong>理论框架</strong>：</p>
+<ol>
+<li>提出近场波束空间概念</li>
+<li>建立波束空间划分方法</li>
+<li>分析聚焦能力增长规律</li>
+<li>提出应用方向和建议</li>
+</ol>
+<p><strong>实验验证</strong>：</p>
+<ul>
+<li>基于COMSOL仿真</li>
+<li>验证波束空间划分有效性</li>
+<li>验证聚焦能力增长规律</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.3 与其他工作对比</h2>
     <table>
 <thead>
 <tr>
@@ -176,7 +323,7 @@ $$F_\alpha<a href="u">f</a> = \int_{-\infty}^{+\infty} K_\alpha(t, u) f(t) dt$$<
 </thead>
 <tbody>
 <tr>
-<td>东南大学本研究</td>
+<td><strong>东南大学（本研究）</strong></td>
 <td>2024</td>
 <td>波束空间理论框架</td>
 <td>基础理论</td>
@@ -201,23 +348,24 @@ $$F_\alpha<a href="u">f</a> = \int_{-\infty}^{+\infty} K_\alpha(t, u) f(t) dt$$<
 </tr>
 </tbody>
 </table>
-<p>从国际竞争格局看，近场XL-MIMO是6G天线技术的热门研究方向，各厂商和研究机构都在积极布局。东南大学在理论研究方面领先，华为、中兴在算法和系统层面有布局，爱立信在用户管理方面有研究。</p>
-<p>国内研究团队如清华、北邮、西电等也在近场通信领域有研究，但东南大学王承祥团队的波束空间理论具有特色，提出了系统化的理论框架。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>五、趋势判断</h2>
-    <p>近场XL-MIMO是6G天线系统设计的核心理论突破——从远场平面波近似到近场球面波建模，标志着天线理论从"二维角度域"向"三维距离-角度联合域"跃迁。分数阶傅立叶变换提供的数学工具将复杂近场信道分解为正交波束空间，大幅降低计算复杂度O(N log N)。</p>
-<p>未来3-5年内，FrFT快速算法优化、FPGA/ASIC原型验证、外场试验将成为研究热点。与RIS融合是重要方向：近场波束空间可指导RIS单元相位配置优化，实现基站-智能超表面联合波束赋形。</p>
-<p>从产业化角度看，近场XL-MIMO技术的落地需要解决以下问题：</p>
+    <h2>4.1 6G基站设计</h2>
+    <p><strong>场景</strong>：</p>
+<ul>
+<li>超大规模天线阵列（1000+单元）</li>
+<li>覆盖半径：100-500m</li>
+<li>用户分布：密集城区</li>
+</ul>
+<p><strong>应用</strong>：</p>
 <ol>
-<li>信道估计复杂度：近场信道维度更高，估计难度更大</li>
-<li>波束管理算法：需要开发适应近场特性的波束追踪算法</li>
-<li>硬件实现：需要开发支持近场波束赋形的射频前端</li>
-<li>标准制定：需要在3GPP等标准组织中推动近场MIMO标准化</li>
+<li>波束空间划分指导天线布局</li>
+<li>高主瓣区用于服务近场用户</li>
+<li>低主瓣区用于干扰抑制</li>
 </ol>
   </article>
   
@@ -225,21 +373,367 @@ $$F_\alpha<a href="u">f</a> = \int_{-\infty}^{+\infty} K_\alpha(t, u) f(t) dt$$<
   
   <article class="card ">
     
-    <h2>六、与老大的关联</h2>
-    <p>对中兴U6G项目具有重要理论价值：近场波束空间理论为中兴XL-MIMO设计提供依据，FrFT方法可应用于中兴近场信道估计算法开发。东南大学与中兴合作紧密，可积极参与3GPP Rel-20近场MIMO标准化讨论。</p>
-<p>建议关注东南大学后续实验验证工作，评估FrFT算法在中兴硬件平台的实现可行性，跟踪6G标准中近场信道建模进展。从商业角度看，近场XL-MIMO技术可以帮助中兴在6G标准制定中占据有利位置，提升技术竞争力。</p>
+    <h2>4.2 卫星互联网终端</h2>
+    <p><strong>场景</strong>：</p>
+<ul>
+<li>低轨卫星（500-1200km）</li>
+<li>终端天线阵列（数百单元）</li>
+<li>高速移动（0-10km/s）</li>
+</ul>
+<p><strong>应用</strong>：</p>
+<ol>
+<li>近场波束跟踪卫星</li>
+<li>波束空间快速切换</li>
+<li>多波束同时服务</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>参考资料</h2>
-    <ul>
-<li>Yu et al., "Spectral-Efficient End-to-End Beamforming for 6G XL-MIMO: Synergizing Near-Field and Far-Field", IEEE Communications Magazine, 2024.</li>
-<li>Southeast University News, "课题组在COMMAG发表超大规模MIMO近场通信综述论文", 2024.</li>
-<li>Wang et al., "Near-Field Wireless Communications: Challenges, Opportunities, and Future Directions", IEEE Commun. Surveys Tutorials, 2024.</li>
+    <h2>4.3 车联网V2X</h2>
+    <p><strong>场景</strong>：</p>
+<ul>
+<li>路侧单元（RSU）</li>
+<li>车辆高速移动</li>
+<li>密集交通环境</li>
 </ul>
+<p><strong>应用</strong>：</p>
+<ol>
+<li>近场波束聚焦车辆</li>
+<li>波束空间快速切换</li>
+<li>干扰抑制提升可靠性</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.4 工业互联网</h2>
+    <p><strong>场景</strong>：</p>
+<ul>
+<li>工厂内部通信</li>
+<li>大量传感器和设备</li>
+<li>高可靠低延迟要求</li>
+</ul>
+<p><strong>应用</strong>：</p>
+<ol>
+<li>近场波束定向服务</li>
+<li>波束空间多用户复用</li>
+<li>感知一体化支持定位</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.1 波束性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角度分辨率</td>
+<td>λ/(ND)</td>
+<td>N=天线数，D=单元间距</td>
+</tr>
+<tr>
+<td>距离分辨率</td>
+<td>R²/(Nλ)</td>
+<td>R=距离</td>
+</tr>
+<tr>
+<td>波束宽度（角度）</td>
+<td>~λ/(ND)</td>
+<td>3dB宽度</td>
+</tr>
+<tr>
+<td>波束宽度（距离）</td>
+<td>~R²/(N²λ)</td>
+<td>3dB宽度</td>
+</tr>
+<tr>
+<td>主瓣增益</td>
+<td>10log₁₀(N) + G_element</td>
+<td>dBi</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.2 系统性能</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频谱效率</td>
+<td>~N log₂(1+SNR)</td>
+<td>随N线性增长</td>
+</tr>
+<tr>
+<td>能量效率</td>
+<td>~log₂(1+SNR)/P_total</td>
+<td>需优化功耗</td>
+</tr>
+<tr>
+<td>定位精度</td>
+<td>~R/(N√SNR)</td>
+<td>厘米级潜力</td>
+</tr>
+<tr>
+<td>感知分辨率</td>
+<td>~λ/(2ND)</td>
+<td>毫米级潜力</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>5.3 算法复杂度</h2>
+    <table>
+<thead>
+<tr>
+<th>算法</th>
+<th>复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FrFT</td>
+<td>O(N log N)</td>
+<td>快速算法</td>
+</tr>
+<tr>
+<td>波束空间划分</td>
+<td>O(N²)</td>
+<td>矩阵运算</td>
+</tr>
+<tr>
+<td>波束训练</td>
+<td>O(N log N)</td>
+<td>分层搜索</td>
+</tr>
+<tr>
+<td>信道估计</td>
+<td>O(N²)</td>
+<td>矩阵求逆</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.1 硬件挑战</h2>
+    <p><strong>大规模阵列校准</strong>：</p>
+<ul>
+<li>问题：数百单元相位一致性难以保证</li>
+<li>解决：内嵌校准电路，定期校准</li>
+</ul>
+<p><strong>波束空间计算复杂度</strong>：</p>
+<ul>
+<li>问题：FrFT计算量大</li>
+<li>解决：GPU加速，或近似算法</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.2 算法挑战</h2>
+    <p><strong>信道状态信息（CSI）获取</strong>：</p>
+<ul>
+<li>问题：近场CSI维度高，获取困难</li>
+<li>解决：波束空间压缩感知</li>
+</ul>
+<p><strong>用户移动跟踪</strong>：</p>
+<ul>
+<li>问题：高速移动导致波束失配</li>
+<li>解决：预测性波束跟踪</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>6.3 标准化挑战</h2>
+    <p><strong>3GPP标准滞后</strong>：</p>
+<ul>
+<li>问题：Rel-18/19尚未完全覆盖近场</li>
+<li>解决：积极参与标准制定</li>
+</ul>
+<p><strong>测试方法缺失</strong>：</p>
+<ul>
+<li>问题：近场测试方法不统一</li>
+<li>解决：推动测试标准制定</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.1 历史脉络</h2>
+    <ul>
+<li><strong>2018年</strong>：XL-MIMO概念提出</li>
+<li><strong>2020年</strong>：近场效应首次系统分析</li>
+<li><strong>2022年</strong>：近场波束赋形算法研究</li>
+<li><strong>2023年</strong>：波束空间理论初步提出</li>
+<li><strong>2024年</strong>：<strong>东南大学COMMAG综述（本论文）</strong></li>
+<li><strong>2025年</strong>：实验验证和标准化启动</li>
+<li><strong>2026年</strong>：6G标准纳入近场技术</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.2 关键突破</h2>
+    <ol>
+<li><strong>2024</strong>：波束空间理论框架建立（本研究）</li>
+<li><strong>2025</strong>：FrFT快速算法优化</li>
+<li><strong>2026</strong>：实验验证和原型系统</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>7.3 与老大的关联</h2>
+    <p><strong>对中兴U6G项目的价值</strong>：</p>
+<ol>
+<li><strong>理论支撑</strong>：近场波束空间理论为中兴XL-MIMO设计提供依据</li>
+<li><strong>算法参考</strong>：FrFT方法可应用于中兴近场信道估计</li>
+<li><strong>标准参与</strong>：东南大学与中兴合作紧密，可参与标准制定</li>
+</ol>
+<p><strong>研究建议</strong>：</p>
+<ul>
+<li>关注东南大学后续实验验证工作</li>
+<li>评估FrFT算法在中兴硬件平台的实现</li>
+<li>参与3GPP近场MIMO标准化</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.1 当前阶段：理论框架 + 仿真验证</h2>
+    <p><strong>成熟度等级</strong>：学术研究阶段，向工程应用过渡</p>
+<p><strong>判断依据</strong>：</p>
+<ol>
+<li>✅ 理论框架完整</li>
+<li>✅ 仿真验证通过</li>
+<li>⚠️ 外场试验待开展</li>
+<li>⚠️ 标准化滞后</li>
+<li>⚠️ 产业化时间表不明</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>8.2 产业化时间表</h2>
+    <table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>里程碑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学术研究</td>
+<td>2024-2025</td>
+<td>理论完善，仿真验证</td>
+</tr>
+<tr>
+<td>原型验证</td>
+<td>2025-2026</td>
+<td>外场试验，原型系统</td>
+</tr>
+<tr>
+<td>标准制定</td>
+<td>2026-2027</td>
+<td>3GPP Rel-20纳入</td>
+</tr>
+<tr>
+<td>商用部署</td>
+<td>2028-2030</td>
+<td>6G首批商用</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.1 短期（1-2年）</h2>
+    <ol>
+<li><strong>算法优化</strong>：FrFT快速算法，降低复杂度</li>
+<li><strong>硬件实现</strong>：FPGA/ASIC原型验证</li>
+<li><strong>外场试验</strong>：实际场景验证</li>
+<li><strong>标准参与</strong>：3GPP Rel-20讨论</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.2 中期（3-5年）</h2>
+    <ol>
+<li><strong>6G标准</strong>：近场XL-MIMO纳入标准</li>
+<li><strong>芯片集成</strong>：波束空间处理芯片</li>
+<li><strong>多场景验证</strong>：基站、终端、卫星</li>
+<li><strong>产业生态</strong>：上下游产业链形成</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>9.3 长期（5年以上）</h2>
+    <ol>
+<li><strong>全息通信</strong>：近场波束空间支撑全息视频</li>
+<li><strong>通感一体</strong>：近场感知能力充分利用</li>
+<li><strong>人工智能融合</strong>：AI辅助波束空间优化</li>
+<li><strong>量子通信</strong>：近场量子纠缠分发</li>
+</ol>
   </article>
   
 

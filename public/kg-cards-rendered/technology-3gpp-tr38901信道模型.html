@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">3GPP TR38.901信道模型</h1>
-  
+  <p class="lede">3GPP TR 38.901 是 5G NR 信道建模的标准——定义了从 0.5-100GHz 的路径损耗、时延扩展、RMS 角度扩展、到达/离开角度分布。Rel-17 新增了&#34;近场信道模型&#34;（平面波模型），为 XL-MIMO/CAPA 做准备。</p>
   
 </header>
 
@@ -105,421 +105,137 @@
   
   <article class="card ">
     
-    <h2>一、基本定义与原理</h2>
-    <p>3GPP TR 38.901 是全球移动通信标准组织 3GPP 发布的无线信道建模技术规范，用于描述无线电波在不同场景下的传播特性。该规范基于海量实地测量数据（来自 Huawei、Ericsson、Nokia 等厂商的全球测试），通过统计拟合和物理建模相结合的方法，形成一套被 3GPP Release 15/16/17 统一采纳的信道模型体系。</p>
-<p>核心原理是将复杂的多径传播环境抽象为可计算的时空参数。电磁波从发射天线到接收天线，会经历直射、反射、绕射、散射等多种路径，每条路径都有不同的时延、角度、衰减和多普勒频移。38.901 将这些路径参数用概率分布来描述，使系统级仿真和算法设计有了统一的输入基准。</p>
-<p>规范的演进经历了三个阶段：</p>
-<ul>
-<li>Rel-15/16：远场球面波（Spherical Wave, SWP）模型，覆盖 Sub-6GHz 和毫米波</li>
-<li>Rel-17：新增近场平面波（Plane Wave, PW）模型，适配 XL-MIMO 场景</li>
-<li>Rel-18 及以后：向 6G 太赫兹频段扩展，并探索数字孪生信道（DTC）融合方向</li>
-</ul>
-<p>与 [[技术概念-6G信道建模范式转移-从统计拟合到数字孪生-20260701]] 中讨论的 DTC 范式相比，TR 38.901 仍属于传统统计拟合路线，但 Rel-17 的近场扩展已为后续数字孪生通道埋下伏笔。</p>
+    <h2>1.1 适用范围</h2>
+    <pre><code>3GPP TR 38.901 V17.0.0（2022）：
+
+频率范围：0.5 - 100 GHz
+场景：
+  - UMi（Urban Microcell，城市微蜂窝）
+  - UMa（Urban Macrocell，城市宏蜂窝）
+  - Rural（乡村）
+  - Indoor（室内）
+  - 室外到室内（O2I）
+
+天线模型：
+  - 远场（球面波 SWP）
+  - 近场（平面波 PW，Rel-17 新增）
+</code></pre>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>路径损耗模型（PL）</h2>
-    <p>总路径损耗由三部分叠加：</p>
-<pre><code>PL_total = PL_BSD + PL_IN + PL_O2I
+    <h2>1.2 路径损耗模型（PL）</h2>
+    <pre><code>总路径损耗 = PL_BSD + PL_IN + PL_O2I
 
-PL_BSD（基站到终端）：
-  LOS（视距）：
+1. BSD（Base Station to Device）路径损耗：
+
+   LOS（视距）：
     PL_BSD_LOS = max(PL_FS, PL_BSD_LOS_min) + X
+
   NLOS（非视距）：
     PL_BSD_NLOS = max(PL_FS + L_OsNLoS, PL_BSD_NLOS_min) + X
 
-其中：
-  PL_FS = 20log₁₀(4πd·f/c)  （自由空间损耗，d 单位 m，f 单位 GHz）
-  X ~ N(0, σ²)  （阴影衰落，标准差 σ 依场景取值）
-  LOS/NLOS 判定：根据 BS 高度、UE 高度、传输距离和城市地貌计算 LOS 概率
+  其中：
+    PL_FS = 20log₁₀(4πd·f/c)  （自由空间损耗）
+    d = 传输距离（m）
+    f = 频率（GHz）
+    X = 阴影衰落（高斯分布）
+
+  LOS/NLOS 判定：
+    根据 BS 和 UE 高度、距离、城市环境
+    → 计算 LOS 概率
+
+2. IN（Indoor）路径损耗：
+   - 墙壁穿透损耗：15-25dB（混凝土）
+   - 楼层损耗：10-20dB/层
+   - 室内传播损耗：30-40dB/10m
+
+典型值对比（d=100m, f=3.5GHz）：
+  ┌─────────────────────────────────┐
+  │ 场景    │ PL(dB) │ 备注         │
+  ├─────────────────────────────────┤
+  │ 自由空间 │ 80     │ 理论下限     │
+  │ UMi LOS │ 88     │ 城市视距     │
+  │ UMi NLOS│ 112    │ 城市非视距   │
+  │ UMa LOS │ 85     │ 宏站视距     │
+  │ UMa NLOS│ 118    │ 宏站非视距   │
+  └─────────────────────────────────┘
 </code></pre>
-<p>典型数值对比（d=100m，f=3.5GHz）：</p>
-<table>
-<thead>
-<tr>
-<th>场景</th>
-<th>PL (dB)</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>自由空间</td>
-<td>80</td>
-<td>理论下限</td>
-</tr>
-<tr>
-<td>UMi LOS</td>
-<td>88</td>
-<td>城市微蜂窝视距</td>
-</tr>
-<tr>
-<td>UMi NLOS</td>
-<td>112</td>
-<td>城市微蜂窝非视距</td>
-</tr>
-<tr>
-<td>UMa LOS</td>
-<td>85</td>
-<td>宏站视距</td>
-</tr>
-<tr>
-<td>UMa NLOS</td>
-<td>118</td>
-<td>宏站非视距</td>
-</tr>
-</tbody>
-</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>时空信道参数（TSCS）</h2>
-    <p>38.901 定义的完整参数集：</p>
-<p><strong>时延扩展（Delay Spread）</strong>
-- RMS 时延扩展：城市场景 0.5-15ns
-- 多径分量到达时间服从指数分布
-- 最大时延扩展决定信道相干带宽 $B_c \approx 1/(5\tau_{rms})$</p>
-<p><strong>角度扩展（Angular Spread）</strong>
-- 水平角度扩展（AAS）：通常 20°-120°
-- 垂直角度扩展（EES）：通常 5°-30°
-- AoA/AoD 分布：水平方向均匀分布叠加高斯主瓣</p>
-<p><strong>多普勒扩展（Doppler Spread）</strong>
-- 静止 UE：0 Hz
-- 步行（3 km/h）：约 100 Hz @ 3.5GHz
-- 驾车（60 km/h）：约 200 Hz @ 3.5GHz
-- 高铁（300 km/h）：约 1000 Hz @ 3.5GHz
-- 多普勒谱形状：Urasawa 谱或 Jakes 谱</p>
+    <h2>1.3 时空信道参数（TSCS）</h2>
+    <pre><code>38.901 定义的完整信道参数：
+
+1. 时延扩展（Delay Spread）：
+   RMS 时延扩展：0.5-15ns（城市）
+
+2. 角度扩展（Angular Spread）：
+   - Azimuth Angle Spread（AAS）：水平角度扩展
+   - Elevation Angle Spread（EES）：垂直角度扩展
+
+3. 到达/离开角度（AoA/AoD）：
+   - 水平 AoA/AoD：均匀分布 + 主瓣
+   - 垂直 AoA/AoD：高斯分布
+
+4. 多普勒扩展（Doppler Spread）：
+   - 静止：0Hz
+   - 步行（3km/h）：~100Hz @3.5GHz
+   - 驾车（60km/h）：~200Hz @3.5GHz
+   - 高铁（300km/h）：~1000Hz @3.5GHz
+</code></pre>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.1 场景分类</h2>
-    <table>
-<thead>
-<tr>
-<th>场景缩写</th>
-<th>全称</th>
-<th>典型高度</th>
-<th>典型距离</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UMi</td>
-<td>Urban Microcell</td>
-<td>BS 10-35m</td>
-<td>10-500m</td>
-<td>城市微蜂窝</td>
-</tr>
-<tr>
-<td>UMa</td>
-<td>Urban Macrocell</td>
-<td>BS 15-250m</td>
-<td>10-2000m</td>
-<td>城市宏蜂窝</td>
-</tr>
-<tr>
-<td>Rural</td>
-<td>Rural Cell</td>
-<td>BS 15-50m</td>
-<td>10-10000m</td>
-<td>乡村覆盖</td>
-</tr>
-<tr>
-<td>Indoor</td>
-<td>Indoor Office</td>
-<td>BS 2.5-5m</td>
-<td>1-50m</td>
-<td>室内办公</td>
-</tr>
-<tr>
-<td>O2I</td>
-<td>Outdoor to Indoor</td>
-<td>—</td>
-<td>—</td>
-<td>室外入室内</td>
-</tr>
-</tbody>
-</table>
+    <h2>2.1 为什么需要近场模型？</h2>
+    <pre><code>传统 38.901（Rel-15/16）：
+  假设球面波（Spherical Wave, SWP）
+  → 适用于远场（d &gt; 2D²/λ）
+  → D = 天线口径，λ = 波长
+
+6G XL-MIMO / CAPA：
+  天线口径极大（D = 10-100m）
+  → 近场区域延伸到 km 级！
+  → 球面波假设不准确
+
+解决方案：
+  平面波（Plane Wave, PW）分解模型
+  → 近场用多个平面波叠加
+  → 更准确地描述近场传播
+</code></pre>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.2 天线模型分类（Rel-17 新增近场模型）</h2>
-    <p><strong>远场模型（Rel-15/16，球面波 SWP）</strong>
-- 适用条件：$d &gt; 2D^2/\lambda$（Fraunhofer 距离）
-- 假设：波前为球面，角度与距离解耦
-- 单个 AoA 对应一个固定传播方向</p>
-<p><strong>近场模型（Rel-17，平面波 PW 分解）</strong>
-- 适用条件：$d \leq 2D^2/\lambda$
-- 核心变化：将球面波分解为多个平面波的叠加
-- 关键特征：角度与距离耦合，同一 AoA 在不同距离有不同的相位分布
-- 直接影响：近场波束赋形必须使用球面波赋形而非平面波</p>
-  </article>
-  
+    <h2>2.2 近场信道特征</h2>
+    <pre><code>近场 vs 远场：
 
-  
-  <article class="card ">
-    
-    <h2>系统级仿真</h2>
-    <p>38.901 是 5G NR 链路级和系统级仿真的基础输入。任何新的调度算法、MIMO 方案、波束管理策略都必须先在 38.901 信道模型下验证性能，才能进入标准制定流程。</p>
-  </article>
-  
+  远场：
+    - 波前 = 球面（近似平面）
+    - 角度与距离解耦
+    - 一个 AoA 对应一个方向
 
-  
-  <article class="card ">
-    
-    <h2>波束管理与训练</h2>
-    <p>在 Massive MIMO 系统中，基站需要通过波束扫描发现最佳波束方向。38.901 提供的 AoA/AoD 分布参数直接决定了波束训练的时间和开销。Rel-17 近场模型的引入，使波束训练需要从单维度（角度）扩展到二维（角度+距离）。</p>
-  </article>
-  
+  近场：
+    - 波前 = 明显球面
+    - 角度与距离耦合
+    - 同一个 AoA 在不同距离有不同的相位分布
+    → 需要同时估计 AoA + 距离
 
-  
-  <article class="card ">
-    
-    <h2>容量与覆盖分析</h2>
-    <p>路径损耗和阴影衰落参数用于计算小区边缘速率、覆盖率等关键 KPI。不同场景的参数差异（如 UMi NLOS 比 UMa NLOS 小 6dB）直接影响基站部署密度规划。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6G 技术预研</h2>
-    <p>38.901 Rel-17 近场模型为 [[技术概念-全息MIMO连续孔径CAPA-20260702]] 和 [[技术概念-近场波束赋形Near-Field-Beamforming-20260702]] 提供了信道基础。同时，该规范也是 6G 信道建模范式从统计拟合向数字孪生过渡的关键参照点。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>五、关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标类别</th>
-<th>参数</th>
-<th>典型值范围</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>频率覆盖</td>
-<td>工作频段</td>
-<td>0.5-100 GHz</td>
-<td>含 Sub-6GHz、毫米波、太赫兹</td>
-</tr>
-<tr>
-<td>距离范围</td>
-<td>发送端-接收端距离</td>
-<td>1-10000 m</td>
-<td>覆盖室内外全场景</td>
-</tr>
-<tr>
-<td>时延扩展</td>
-<td>RMS $\tau_{rms}$</td>
-<td>0.5-15 ns</td>
-<td>城市密集场景最大</td>
-</tr>
-<tr>
-<td>角度扩展</td>
-<td>AAS / EES</td>
-<td>20°-120° / 5°-30°</td>
-<td>取决于场景和 LOS 状态</td>
-</tr>
-<tr>
-<td>多普勒扩展</td>
-<td>$f_d$</td>
-<td>0-1000+ Hz</td>
-<td>取决于 UE 移动速度</td>
-</tr>
-<tr>
-<td>路径损耗指数</td>
-<td>$\gamma$</td>
-<td>2.0-4.5</td>
-<td>LOS 约 2.0，NLOS 可达 4.5</td>
-</tr>
-<tr>
-<td>阴影衰落标准差</td>
-<td>$\sigma_X$</td>
-<td>4-12 dB</td>
-<td>视场景复杂度而定</td>
-</tr>
-<tr>
-<td>近场边界</td>
-<td>$d_{Fresnel}$</td>
-<td>$2D^2/\lambda$</td>
-<td>XL-MIMO 场景可延伸至 km 级</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>近场模型的工程落地难点</h2>
-    <ol>
-<li>
-<p><strong>信道估计复杂度爆炸</strong>：远场下信道矩阵是 Toeplitz 结构，可用快速算法；近场下结构被破坏，需要 O(N³) 量级的估计开销。这是 Rel-17 近场模型迟迟未能完全工程化的核心原因。</p>
-</li>
-<li>
-<p><strong>AoA+距离联合估计</strong>：传统波束训练只需估计角度，近场下必须同时估计距离，搜索空间从一维变为二维，训练开销呈平方级增长。</p>
-</li>
-<li>
-<p><strong>测量数据稀缺</strong>：38.901 Rel-17 近场参数部分来自仿真而非实测。尤其在 30GHz 以上、距离 &lt; 10m 的近场区域，公开测量数据集非常有限，模型可信度存疑。</p>
-</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>传统模型的局限</h2>
-    <ol>
-<li>
-<p><strong>LOS/NLOS 切换抖动</strong>：城市微蜂窝场景下，终端移动会导致 LOS/NLOS 频繁切换，引发路径损耗模型跳变，影响调度算法稳定性。实际工程中常引入 hysteresis 门限来平滑切换。</p>
-</li>
-<li>
-<p><strong>室内到室外转换不精确</strong>：O2I（室外到室内）路径损耗模型参数离散度大，混凝土墙体穿透损耗在 15-25dB 范围波动，不同建筑类型差异显著，仿真与实测偏差可达 10dB 以上。</p>
-</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>七、技术演进（时间线）</h2>
-    <table>
-<thead>
-<tr>
-<th>时间</th>
-<th>版本</th>
-<th>关键演进</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2017</td>
-<td>TR 38.901 V15.0.0</td>
-<td>初始版本发布，定义 Sub-6GHz 和毫米波远场球面波模型</td>
-</tr>
-<tr>
-<td>2019</td>
-<td>Rel-15</td>
-<td>纳入 5G NR 标准，覆盖 0.41-7.125GHz</td>
-</tr>
-<tr>
-<td>2020</td>
-<td>Rel-16 增补</td>
-<td>扩展至 52.6GHz，新增室内和 O2I 场景参数</td>
-</tr>
-<tr>
-<td>2022</td>
-<td>TR 38.901 V17.0.0</td>
-<td><strong>重大里程碑</strong>：新增近场平面波（PW）模型，覆盖最高 100GHz</td>
-</tr>
-<tr>
-<td>2024</td>
-<td>Rel-18 预研启动</td>
-<td>开始评估太赫兹（100-300GHz）信道扩展，探索 DTC 融合方向</td>
-</tr>
-<tr>
-<td>2025-2026</td>
-<td>6G 信道研究</td>
-<td>与 [[技术概念-6G信道建模范式转移-从统计拟合到数字孪生-20260701]] 交叉，DTC 成为 next-generation 信道建模热点</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>八、技术成熟度</h2>
-    <table>
-<thead>
-<tr>
-<th>维度</th>
-<th>等级</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>远场模型（Rel-15/16）</td>
-<td>★★★★★ 成熟</td>
-<td>已被 3GPP 纳入 Release 标准，全球所有 5G 设备厂商默认支持，仿真工具链完整</td>
-</tr>
-<tr>
-<td>近场模型（Rel-17）</td>
-<td>★★★☆☆ 发展期</td>
-<td>规范已发布但工程化程度有限，XL-MIMO 阵列尚处 prototype 阶段，信道估计算法仍在攻关</td>
-</tr>
-<tr>
-<td>太赫兹扩展（Rel-18+）</td>
-<td>★★☆☆☆ 预研期</td>
-<td>100GHz 以上参数以仿真和少数实验数据为基础，缺乏大规模测量验证</td>
-</tr>
-<tr>
-<td>与 DTC 融合</td>
-<td>★☆☆☆☆ 探索期</td>
-<td>数字孪生信道是新兴方向，与 TR 38.901 的统计路线存在范式差异，处于学术研究和标准预研早期</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>短期（2026-2027）</h2>
-    <ul>
-<li>Rel-18 将正式扩展 38.901 至 100GHz 以上频段，补充太赫兹路径损耗和角度扩展参数</li>
-<li>近场信道估计算法将迎来一波专利和论文爆发，重点关注 O(1) 反馈机制和 AI 辅助 CE 方案</li>
-<li>与 [[技术概念-近场波束赋形Near-Field-Beamforming-20260702]] 的联动设计将成为 6G 早期试验的焦点</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>中期（2028-2030）</h2>
-    <ul>
-<li>3GPP Rel-20 可能引入基于测量的动态信道参数更新机制，减少对静态模型的依赖</li>
-<li>近场模型将从"平面波叠加"向更精确的球面波直接建模演进，以更好适配 CAPA 连续孔径需求</li>
-<li>与 [[技术概念-6G信道建模范式转移-从统计拟合到数字孪生-20260701]] 讨论的 DTC 路线开始 converging，可能出现 hybrid 模型</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>长期（2030+）</h2>
-    <ul>
-<li>信道建模将从"统计拟合"全面转向"数字孪生驱动"，38.901 可能作为历史参照而非唯一标准</li>
-<li>AI/ML 将在信道参数预测中扮演核心角色，实现实时、自适应、场景感知信道建模</li>
-<li>6G 太赫兹全双工、通感一体化等新技术将倒逼信道模型突破传统框架，向三维时空联合建模演进</li>
-</ul>
+影响：
+  - 近场波束赋形 = 球面波赋形（不是平面波）
+  - 信道矩阵不再是 Toeplitz 结构
+  - 容量计算需要新方法
+</code></pre>
   </article>
   
 

@@ -128,7 +128,7 @@
   
   <article class="card ">
     
-    <h2>二、核心技术与公式</h2>
+    <h2>二、核心技术参数</h2>
     <table>
 <thead>
 <tr>
@@ -180,19 +180,13 @@
 </tr>
 </tbody>
 </table>
-<p>核心公式：</p>
-<ul>
-<li>梳齿频率：$f_n = f_{ceo} + n \cdot f_{rep}$，其中 $f_{rep}$ 为重复频率（等于 FSR）</li>
-<li>太赫兹频率：$f_{THz} = |f_{DFB1} - f_{DFB2}| = f_{rep}$</li>
-<li>相位噪声抑制比：$\mathcal{L}<em>{locked} \approx \mathcal{L}</em>{comb} \ll \mathcal{L}_{free-running}$</li>
-</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>三、实现方式与分类</h2>
+    <h2>三、技术路线对比</h2>
     <table>
 <thead>
 <tr>
@@ -239,28 +233,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>光纤耦合微梳的工程意义：</strong>
-传统微梳需要精确的光学对准将光纤耦合进微谐振腔，良率低且对环境敏感。本方案采用 <strong>UV 固化高 NA 光纤直键合</strong> 工艺：</p>
-<ul>
-<li>光纤端面直接与硅氮化物微腔键合，无需对准</li>
-<li>可承受 1 W 高功率泵浦</li>
-<li>稳定性 &gt; 24 小时，满足基站回传的 MTTR 要求</li>
-<li>未来可用半导体工艺批量制造</li>
-</ul>
-<p><strong>微梳锁相对 16QAM 的关键作用：</strong>
-16QAM 对相位噪声极其敏感。自由运行的两根 DFB 激光器之间的相对相位噪声会导致星座图旋转扩散，EVM 恶化。微梳锁相后：</p>
-<ul>
-<li>两根激光的频率差 = 梳齿间隔（FSR），由微谐振腔物理尺寸决定，天然稳定</li>
-<li>相位噪声被限制在梳齿线宽内，比自由 DFB 窄 2-3 个数量级</li>
-<li>实测 16QAM EVM 达到 HD-FEC 门限（3.8×10⁻³）以下</li>
-</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>四、应用场景</h2>
+    <h2>四、行业应用</h2>
     <p><strong>主要场景：6G 基站回传（Backhaul）替代光纤。</strong></p>
 <ul>
 <li>
@@ -283,160 +262,13 @@
   
   <article class="card ">
     
-    <h2>传输性能指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>测试条件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>峰值数据速率</td>
-<td>112 Gbps</td>
-<td>16QAM, 28 GBaud</td>
-</tr>
-<tr>
-<td>频谱效率</td>
-<td>4 b/s/Hz</td>
-<td>16QAM</td>
-</tr>
-<tr>
-<td>EVM</td>
-<td>&lt; 3.8×10⁻³</td>
-<td>HD-FEC 门限以下</td>
-</tr>
-<tr>
-<td>误码率 (BER)</td>
-<td>&lt; 3.8×10⁻³</td>
-<td>硬判决 FEC 后</td>
-</tr>
-<tr>
-<td>连续运行时间</td>
-<td>&gt; 24 小时</td>
-<td>1 W 泵浦功率</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>光子源指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>微梳重复频率</td>
-<td>~560 GHz</td>
-<td>对应太赫兹载波</td>
-</tr>
-<tr>
-<td>梳齿线宽</td>
-<td>&lt; 1 kHz</td>
-<td>锁相后</td>
-</tr>
-<tr>
-<td>相位噪声</td>
-<td>&lt;-100 dBc/Hz @ 10 kHz offset</td>
-<td>比自由 DFB 改善 2-3 数量级</td>
-</tr>
-<tr>
-<td>泵浦激光线宽</td>
-<td>&lt; 100 kHz</td>
-<td>DFB 激光器</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>系统指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>功耗</td>
-<td>~50 W</td>
-<td>包含泵浦激光、微梳、调制器、UTC-PD</td>
-</tr>
-<tr>
-<td>体积</td>
-<td>桌面级</td>
-<td>尚未芯片化</td>
-</tr>
-<tr>
-<td>传输距离</td>
-<td>米级</td>
-<td>实验室演示</td>
-</tr>
-<tr>
-<td>工作频段</td>
-<td>560 GHz</td>
-<td>V band 上方</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>技术挑战</h2>
-    <ol>
-<li>
-<p><strong>传输距离短：</strong> 目前仅米级演示，560 GHz 大气衰减极大（氧分子吸收峰约 590 GHz，560 GHz 仍有显著衰减），实际部署需中继或短距离视距链路。</p>
-</li>
-<li>
-<p><strong>微梳封装稳定性：</strong> 虽然 UV 固化光纤键合提升了稳定性，但微谐振腔对环境温度、振动仍敏感，需要主动温控和隔振。</p>
-</li>
-<li>
-<p><strong>UTC-PD 效率：</strong> 高功率太赫兹生成需要高光电转换效率的 UTC-PD，目前器件效率和散热仍是瓶颈。</p>
-</li>
-<li>
-<p><strong>调制动能力：</strong> 16QAM 已演示，但要提升到 64QAM 或更高阶调制需要更低的相位噪声和更好的线性度。</p>
-</li>
-<li>
-<p><strong>成本与集成度：</strong> 目前系统体积庞大、功耗高、成本昂贵，距离商用还有很大差距。</p>
-</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>工程陷阱</h2>
-    <ul>
-<li>
-<p><strong>相位噪声陷阱：</strong> 自由运行 DFB 的相位噪声会导致 16QAM 星座图旋转扩散，必须用微梳锁相才能满足 FEC 门限。</p>
-</li>
-<li>
-<p><strong>光纤耦合陷阱：</strong> 传统对准耦合方式良率低，需采用直键合工艺。</p>
-</li>
-<li>
-<p><strong>热管理陷阱：</strong> 1 W 泵浦功率下 UTC-PD 和微梳芯片发热严重，需要有效散热设计。</p>
-</li>
+    <h2>光纤耦合微梳的工程意义</h2>
+    <p>传统微梳需要精确的光学对准将光纤耦合进微谐振腔，良率低且对环境敏感。本方案采用 <strong>UV 固化高 NA 光纤直键合</strong> 工艺：</p>
+<ul>
+<li>光纤端面直接与硅氮化物微腔键合，无需对准</li>
+<li>可承受 1 W 高功率泵浦</li>
+<li>稳定性 &gt; 24 小时，满足基站回传的 MTTR 要求</li>
+<li>未来可用半导体工艺批量制造</li>
 </ul>
   </article>
   
@@ -444,7 +276,20 @@
   
   <article class="card ">
     
-    <h2>七、技术演进（时间线）</h2>
+    <h2>微梳锁相对 16QAM 的关键作用</h2>
+    <p>16QAM 对相位噪声极其敏感。自由运行的两根 DFB 激光器之间的相对相位噪声会导致星座图旋转扩散，EVM 恶化。微梳锁相后：</p>
+<ul>
+<li>两根激光的频率差 = 梳齿间隔（FSR），由微谐振腔物理尺寸决定，天然稳定</li>
+<li>相位噪声被限制在梳齿线宽内，比自由 DFB 窄 2-3 个数量级</li>
+<li>实测 16QAM EVM 达到 HD-FEC 门限（3.8×10⁻³）以下</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六、技术演进</h2>
     <ul>
 <li><strong>2010s 早期：</strong> 电子倍频太赫兹源成熟至 300 GHz，但功率和噪声恶化</li>
 <li><strong>2018-2020：</strong> 微梳太赫兹生成概念验证，频率 &lt; 300 GHz</li>
@@ -458,11 +303,17 @@
   
   <article class="card ">
     
-    <h2>短期（1-2 年）</h2>
+    <h2>八、未来趋势</h2>
     <ul>
-<li>传输距离延长至百米级</li>
-<li>引入自适应调制（根据信道条件在 QPSK/16QAM/64QAM 间切换）</li>
-<li>探索 MIMO 扩展（多输入多输出太赫兹链路）</li>
+<li>
+<p><strong>短期（1-2 年）：</strong> 传输距离延长至百米级，引入自适应调制（根据信道条件在 QPSK/16QAM/64QAM 间切换），探索 MIMO 扩展（多输入多输出太赫兹链路）。</p>
+</li>
+<li>
+<p><strong>中期（3-5 年）：</strong> 与 300 GHz 频段结合形成多频段聚合回传，微梳芯片化降低成本，进入运营商现场试验。</p>
+</li>
+<li>
+<p><strong>长期（5 年以上）：</strong> 成为 6G 标准回传方案之一，与 RIS/全息表面结合实现智能波束 steering，支撑太赫兹接入网的回传需求。</p>
+</li>
 </ul>
   </article>
   
@@ -470,23 +321,17 @@
   
   <article class="card ">
     
-    <h2>中期（3-5 年）</h2>
+    <h2>九、与已有笔记的关系</h2>
     <ul>
-<li>与 300 GHz 频段结合形成多频段聚合回传</li>
-<li>微梳芯片化降低成本</li>
-<li>进入运营商现场试验</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>长期（5 年以上）</h2>
-    <ul>
-<li>成为 6G 标准回传方案之一</li>
-<li>与 RIS/全息表面结合实现智能波束 steering</li>
-<li>支撑太赫兹接入网的回传需求</li>
+<li>
+<p>与 <strong>D 波段 150 GHz AiP 相控阵</strong>（20260711）对比：本方案频率更高（560 vs 150 GHz），速率更高（112 vs ~10 Gbps），但采用光子方案而非纯射频方案，硬件复杂度和成本更高。</p>
+</li>
+<li>
+<p>与 <strong>300 GHz CMOS 相控阵收发器</strong>（20260707）互补：CMOS 方案走纯电子路线，成本低但频率上限受限；光子方案突破频率瓶颈但体积功耗较大。两者可能在 6G 时代共存——CMOS 用于接入侧，光子用于回传侧。</p>
+</li>
+<li>
+<p>与 <strong>6G 太赫兹天线与封装</strong>（20260713）呼应：560 GHz 传输需要高性能太赫兹天线和先进封装，本方案的 UTC-PD 和太赫兹辐射天线设计经验可直接反哺天线研发。</p>
+</li>
 </ul>
   </article>
   

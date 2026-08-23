@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">高通RIS波束训练DCI信令设计</h1>
-  <p class="lede">高通US12700912B2专利提出组通用+UE特定双阶段DCI框架，将RIS波束训练信令开销从O(N×M)降至O(N+M)，实现低开销高准确的波束对齐，是6G RIS标准化进程中最重要的信令层设计之一。</p>
+  
   
 </header>
 
@@ -105,91 +105,28 @@
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
-    <p>高通公司于2026年8月4日获得授权的美国专利US12700912B2，提出了一种用于RIS波束训练的下行控制信息（DCI）设计框架。该专利是6G RIS标准化进程中最重要的信令层设计之一，解决了RIS辅助通信系统中波束训练开销大、控制信令复杂的核心难题。</p>
-<p><strong>问题背景</strong>：
-RIS辅助通信系统与传统的MIMO系统有本质区别：</p>
-<ol>
-<li><strong>三端信道</strong>：传统MIMO是BS-UE两点链路，RIS引入BS-RIS-UE级联信道，维度爆炸</li>
-<li><strong>被动波束成形</strong>：RIS无有源器件，需通过调控反射系数矩阵实现波束赋形</li>
-<li><strong>联合优化</strong>：需同时优化主动波束成形（基站发射波束）和被动波束成形（RIS反射系数）</li>
-<li><strong>训练开销</strong>：传统逐UE配置方式导致信令开销呈线性增长，无法扩展</li>
-</ol>
-<p><strong>专利核心价值</strong>：</p>
-<ul>
-<li>将波束训练分解为两个阶段，实现信令开销的阶数降低</li>
-<li>引入干扰管理机制，解决多UE场景下的训练干扰问题</li>
-<li>兼容现有5G NR物理层架构，可直接应用于6G标准化</li>
-</ul>
+    <h2>主题概述</h2>
+    <p>高通公司于2026年8月4日获得授权的美国专利US12700912B2，提出了一种用于RIS波束训练的下行控制信息（DCI）设计框架。该专利是6G RIS标准化进程中最重要的信令层设计之一，解决了RIS辅助通信系统中波束训练开销大、控制信令复杂的核心难题。专利设计了两种DCI格式：组通用RIS训练DCI（配置RIS控制器和UE）和UE特定DCI（细化训练参数），通过联合优化实现低开销高准确的波束对齐。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>RIS波束训练架构详解</h2>
-    <p><strong>传统MIMO波束训练 vs RIS辅助波束训练</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>传统MIMO</th>
-<th>RIS辅助MIMO</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>信道类型</td>
-<td>直接链路H_BS-UE</td>
-<td>级联信道H_BS-RIS×Φ_RIS×H_RIS-UE</td>
-</tr>
-<tr>
-<td>波束成形</td>
-<td>仅主动波束成形</td>
-<td>主动+被动联合波束成形</td>
-</tr>
-<tr>
-<td>训练对象</td>
-<td>BS和UE</td>
-<td>BS、RIS、UE三方协同</td>
-</tr>
-<tr>
-<td>复杂度</td>
-<td>O(N×M)</td>
-<td>O(N×M×K)（N:BS天线，M:RIS单元，K:UE数）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>专利提出的两阶段架构</strong>：</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
-│                    第一阶段：组通用RIS训练DCI                │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
-│  │ 配置RIS控制器 │  │ 配置服务UE  │  │ 分配PUCCH资源 │          │
-│  │ (RIS ID列表) │  │ (UE ID列表) │  │ (反馈信道)   │          │
-│  └─────────────┘  └─────────────┘  └─────────────┘          │
-│                     ↓                                        │
-│            指示波束训练时隙分配                               │
-│                     ↓                                        │
-│            指示训练信号资源配置                               │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   第二阶段：UE特定DCI                       │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
-│  │ 细化训练参数 │  │ Bitmap指示  │  │ 排除低质量时隙│          │
-│  │ (单个UE)    │  │ (时隙选择)  │  │ (功耗优化)   │          │
-│  └─────────────┘  └─────────────┘  └─────────────┘          │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+    <h2>1. RIS波束训练架构</h2>
+    <p>传统MIMO波束训练仅涉及基站与UE之间的直接链路，而RIS辅助系统引入了第三维：基站-RIS-UE级联信道。波束训练需要同时优化：</p>
+<ul>
+<li><strong>主动波束成形</strong>：基站发射波束</li>
+<li><strong>被动波束成形</strong>：RIS反射系数矩阵</li>
+</ul>
+<p>专利提出的DCI框架将这一复杂过程分解为两个阶段：</p>
 <p><strong>第一阶段：组通用RIS训练DCI</strong>
 - 一次性配置多个UE和RIS控制器
 - 指示波束训练时隙分配
-- 分配上行控制信道资源（PUCCH）用于反馈
-- 降低控制信令开销</p>
+- 分配上行控制信道资源（PUCCH）用于反馈</p>
 <p><strong>第二阶段：UE特定DCI</strong>
 - 针对单个UE细化训练参数
-- 指示具体的波束训练occasion bitmap
+- 指示具体的波束训练 occasion bitmap
 - 允许UE排除某些训练时隙以减少功耗</p>
   </article>
   
@@ -197,15 +134,14 @@ RIS辅助通信系统与传统的MIMO系统有本质区别：</p>
   
   <article class="card ">
     
-    <h2>DCI字段设计详解</h2>
-    <p><strong>组通用RIS训练DCI关键字段</strong>：</p>
+    <h2>2. DCI字段设计</h2>
+    <p><strong>组通用RIS训练DCI关键字段：</strong></p>
 <table>
 <thead>
 <tr>
 <th>字段</th>
 <th>功能</th>
 <th>典型长度</th>
-<th>说明</th>
 </tr>
 </thead>
 <tbody>
@@ -213,100 +149,61 @@ RIS辅助通信系统与传统的MIMO系统有本质区别：</p>
 <td>Serving UE IDs</td>
 <td>服务UE标识列表</td>
 <td>动态</td>
-<td>本次训练涉及的服务UE</td>
 </tr>
 <tr>
 <td>Victim UE IDs</td>
 <td>干扰UE标识列表</td>
 <td>动态</td>
-<td>需要测量干扰的UE</td>
 </tr>
 <tr>
 <td>PUCCH资源指示</td>
 <td>上行反馈信道资源分配</td>
 <td>6-8 bits</td>
-<td>反馈时频资源位置</td>
 </tr>
 <tr>
 <td>波束数量指示</td>
 <td>每个UE需报告的波束数</td>
 <td>3-4 bits</td>
-<td>通常2-4个最佳波束</td>
 </tr>
 <tr>
 <td>干扰指标数量</td>
 <td>干扰UE需测量的指标数</td>
 <td>2-3 bits</td>
-<td>SINR下降值等</td>
 </tr>
 <tr>
 <td>时频资源分配</td>
 <td>训练信号资源的时频位置</td>
 <td>动态</td>
-<td>CSI-RS资源配置</td>
-</tr>
-<tr>
-<td>RIS ID列表</td>
-<td>参与训练的RIS控制器</td>
-<td>动态</td>
-<td>多RIS协同场景</td>
-</tr>
-<tr>
-<td>训练 occasion 映射</td>
-<td>时隙与RIS配置的对应关系</td>
-<td>动态</td>
-<td>时间域调度</td>
 </tr>
 </tbody>
 </table>
-<p><strong>UE特定DCI关键字段</strong>：</p>
-<ul>
-<li><strong>Bitmap指示</strong>：哪些波束训练时隙需要监测，减少UE功耗</li>
-<li><strong>Victim UE专用资源</strong>：干扰测量专用PUCCH资源</li>
-<li><strong>训练时隙排除指示</strong>：允许UE跳过低质量时隙</li>
-<li><strong>波束合并指示</strong>：是否允许UE合并多个时隙的测量结果</li>
-</ul>
+<p><strong>UE特定DCI关键字段：</strong>
+- Bitmap指示：哪些波束训练时隙需要监测
+- Victim UE专用资源：干扰测量专用PUCCH资源
+- 训练时隙排除指示：允许UE跳过低质量时隙</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>干扰管理机制详解</h2>
-    <p><strong>问题背景</strong>：
-RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集部署场景下，多个RIS节点同时训练会产生严重干扰。</p>
-<p><strong>专利的双轨干扰管理设计</strong>：</p>
-<p><strong>轨道一：服务UE轨道</strong>
+    <h2>3. 干扰管理机制</h2>
+    <p>RIS波束训练的关键挑战是训练信号对非目标UE的干扰。专利设计了双轨干扰管理：</p>
+<p><strong>服务UE轨道：</strong>
 - 接收参考信号并测量波束质量
-- 上报最佳波束索引和信道质量
-- 反馈内容：波束索引、RSRP、SINR</p>
-<p><strong>轨道二：受害者UE轨道</strong>
+- 上报最佳波束索引和信道质量</p>
+<p><strong>受害者UE轨道：</strong>
 - 测量RIS训练信号对其的干扰水平
-- 上报干扰度量指标（如SINR下降值）
-- 反馈内容：干扰功率、SINR下降量</p>
-<p><strong>基站联合优化</strong>：
-基站根据两类反馈联合优化RIS配置：</p>
-<ol>
-<li>最大化服务UE的信道质量</li>
-<li>最小化对受害者UE的干扰</li>
-<li>实现训练精度与干扰抑制的平衡</li>
-</ol>
-<p><strong>干扰管理流程</strong>：</p>
-<pre><code>1. 基站发送组通用DCI，指示服务UE和受害者UE列表
-2. RIS按照配置发射训练信号
-3. 服务UE测量波束质量，上报最佳波束
-4. 受害者UE测量干扰水平，上报干扰指标
-5. 基站联合优化，发送UE特定DCI细化配置
-6. 迭代优化直到收敛
-</code></pre>
+- 上报干扰度量指标（如SINR下降值）</p>
+<p>基站根据两类反馈联合优化RIS配置，实现训练精度与干扰抑制的平衡。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>信令开销分析</h2>
-    <p><strong>复杂度对比</strong>：</p>
+    <h2>4. 信令开销分析</h2>
+    <p>相比传统逐UE配置的波束训练方案，专利框架的开销优势：</p>
 <table>
 <thead>
 <tr>
@@ -314,7 +211,6 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
 <th>信令开销</th>
 <th>训练时隙数</th>
 <th>反馈比特数</th>
-<th>适用场景</th>
 </tr>
 </thead>
 <tbody>
@@ -323,36 +219,28 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
 <td>O(N×M)</td>
 <td>N×M</td>
 <td>N×K</td>
-<td>N,M小</td>
 </tr>
 <tr>
 <td>专利组通用方案</td>
 <td>O(N+M)</td>
 <td>max(N,M)</td>
 <td>N×K + M×J</td>
-<td>N,M大</td>
 </tr>
 </tbody>
 </table>
-<p>其中：</p>
+<p>其中N为服务UE数，M为RIS配置数，K为波束数，J为干扰指标数。组通用DCI将控制信令从线性增长降至接近常数级。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 6G RIS标准化核心支撑</h2>
+    <p>3GPP R19已启动RIS相关研究项目，但控制信令设计仍是开放问题。该专利提出的DCI框架：</p>
 <ul>
-<li>N为服务UE数</li>
-<li>M为RIS配置数</li>
-<li>K为波束数</li>
-<li>J为干扰指标数</li>
-</ul>
-<p><strong>具体数值示例</strong>：
-假设N=100个UE，M=50个RIS配置，K=8个波束，J=4个干扰指标：</p>
-<ul>
-<li>传统方案：信令开销 = 100×50 = 5000单位</li>
-<li>专利方案：信令开销 = 100+50 = 150单位</li>
-<li><strong>开销降低33倍</strong></li>
-</ul>
-<p><strong>时延优势</strong>：</p>
-<ul>
-<li>传统方案：需5000个时隙完成训练</li>
-<li>专利方案：仅需max(100,50)=100个时隙</li>
-<li><strong>时延降低50倍</strong></li>
+<li>兼容现有5G NR物理层架构</li>
+<li>可直接映射到RRC信令流程</li>
+<li>为RAN1工作组提供可落地的技术方案</li>
 </ul>
   </article>
   
@@ -360,45 +248,12 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>6G RIS标准化核心支撑</h2>
-    <p><strong>3GPP标准化进展</strong>：</p>
+    <h2>2. 密集城区RIS部署</h2>
+    <p>城市微蜂窝场景下，多个RIS节点需要协调工作：</p>
 <ul>
-<li>RAN1#121（2025年5月）：RIS相关讨论活跃</li>
-<li>RAN2：RIS控制信道架构仍在博弈</li>
-<li>中国提案倾向：基于NCR架构演进</li>
-<li>欧洲提案倾向：全新RIS控制信道设计</li>
-</ul>
-<p><strong>专利框架的标准化价值</strong>：</p>
-<ol>
-<li><strong>兼容性</strong>：兼容现有5G NR物理层架构，可直接映射到RRC信令流程</li>
-<li><strong>灵活性</strong>：支持单RIS和多RIS场景，支持密集和稀疏部署</li>
-<li><strong>可扩展性</strong>：框架设计支持未来扩展，如更多UE、更多RIS配置</li>
-<li><strong>工程可行</strong>：提供了可落地的技术方案，非纯理论</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>密集城区RIS部署</h2>
-    <p><strong>场景特点</strong>：</p>
-<ul>
-<li>多个RIS节点密集部署</li>
-<li>用户密度高，多UE同时服务</li>
-<li>训练信号干扰问题突出</li>
-</ul>
-<p><strong>专利方案优势</strong>：</p>
-<ol>
-<li>组通用DCI可同时配置多个RIS节点，减少控制信令时延</li>
-<li>干扰管理机制保护非目标UE，提升整体性能</li>
-<li>支持RIS协作波束赋形场景，实现多点协同</li>
-</ol>
-<p><strong>典型应用</strong>：</p>
-<ul>
-<li>城市微蜂窝覆盖增强</li>
-<li>热点容量补充</li>
-<li>室内外的无缝覆盖</li>
+<li>组通用DCI可同时配置多个RIS节点</li>
+<li>减少控制信令时延，提升响应速度</li>
+<li>支持RIS协作波束赋形场景</li>
 </ul>
   </article>
   
@@ -406,24 +261,12 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>车联网V2X场景</h2>
-    <p><strong>场景挑战</strong>：</p>
+    <h2>3. 车联网V2X场景</h2>
+    <p>车辆高速移动导致信道快速变化：</p>
 <ul>
-<li>车辆高速移动导致信道快速变化</li>
-<li>需要低时延的波束追踪</li>
-<li>路侧单元RSU需要保护</li>
-</ul>
-<p><strong>专利方案优势</strong>：</p>
-<ol>
-<li>低开销波束训练适应高移动性场景</li>
+<li>低开销波束训练适应高移动性</li>
 <li>干扰管理机制保护路侧单元RSU</li>
 <li>支持RIS辅助的车载波束追踪</li>
-</ol>
-<p><strong>技术指标</strong>：</p>
-<ul>
-<li>波束追踪时延：&lt;10ms</li>
-<li>训练开销降低：90%+</li>
-<li>干扰抑制：SINR提升5dB+</li>
 </ul>
   </article>
   
@@ -431,24 +274,12 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>卫星通信NTN场景</h2>
-    <p><strong>场景特点</strong>：</p>
+    <h2>4. 卫星通信NTN场景</h2>
+    <p>非地面网络中RIS辅助增强覆盖：</p>
 <ul>
-<li>非地面网络中RIS辅助增强覆盖</li>
-<li>星地链路高延迟</li>
-<li>大规模用户同时接入</li>
-</ul>
-<p><strong>专利方案优势</strong>：</p>
-<ol>
 <li>减少星地链路的控制信令开销</li>
 <li>支持大规模用户同时接入</li>
 <li>适配卫星高延迟信道特性</li>
-</ol>
-<p><strong>应用前景</strong>：</p>
-<ul>
-<li>卫星互联网覆盖增强</li>
-<li>偏远地区通信</li>
-<li>应急通信保障</li>
 </ul>
   </article>
   
@@ -456,27 +287,8 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>工业互联网场景</h2>
-    <p><strong>场景需求</strong>：</p>
-<ul>
-<li>低时延高可靠通信</li>
-<li>大规模设备连接</li>
-<li>deterministic通信</li>
-</ul>
-<p><strong>专利方案价值</strong>：</p>
-<ol>
-<li>低开销训练满足低时延需求</li>
-<li>干扰管理提升可靠性</li>
-<li>支持大规模设备接入</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>高通专利布局分析</h2>
-    <p><strong>RIS领域专利群</strong>：</p>
+    <h2>高通专利布局</h2>
+    <p>除US12700912外，高通在RIS领域已形成专利群：</p>
 <table>
 <thead>
 <tr>
@@ -484,7 +296,6 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
 <th>主题</th>
 <th>授权日期</th>
 <th>核心价值</th>
-<th>技术路线</th>
 </tr>
 </thead>
 <tbody>
@@ -493,37 +304,28 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
 <td>RIS波束训练DCI</td>
 <td>2026-08-04</td>
 <td>信令框架设计</td>
-<td>物理层控制</td>
 </tr>
 <tr>
 <td>US12689424</td>
 <td>RIS元素聚类</td>
 <td>2026-07-21</td>
 <td>硬件架构优化</td>
-<td>信号处理</td>
 </tr>
 <tr>
 <td>US12532323</td>
 <td>DCI快速波束指示</td>
 <td>2026-01-20</td>
 <td>时延优化</td>
-<td>物理层控制</td>
 </tr>
 <tr>
 <td>US20230216572</td>
 <td>RIS存在下的波束限制</td>
 <td>2023-07-06</td>
 <td>干扰管理</td>
-<td>MAC层调度</td>
 </tr>
 </tbody>
 </table>
-<p><strong>高通策略分析</strong>：</p>
-<ul>
-<li>从物理层信令到MAC层调度再到RRC层配置，形成完整专利护城河</li>
-<li>覆盖RIS控制的各个层面，构建标准必要专利（SEP）组合</li>
-<li>与中国提案形成技术竞争</li>
-</ul>
+<p>高通策略：从物理层信令到MAC层调度再到RRC层配置，形成完整专利护城河。</p>
   </article>
   
 
@@ -531,20 +333,12 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   <article class="card ">
     
     <h2>清华大学+中兴专利</h2>
-    <p><strong>US20240413879A1（申请中）</strong>：</p>
+    <p>US20240413879A1（申请中）提出近场RIS波束训练方法：</p>
 <ul>
-<li>主题：近场RIS波束训练方法</li>
-<li>核心：基于近场码本设计的波束训练</li>
-<li>适用：XL-MIMO场景</li>
-<li>特点：与中国6G标准提案呼应</li>
+<li>基于近场码本设计的波束训练</li>
+<li>适合XL-MIMO场景</li>
+<li>与中国6G标准提案呼应</li>
 </ul>
-<p><strong>技术对比</strong>：
-| 维度 | 高通方案 | 清华+中兴方案 |
-|------|---------|--------------|
-| 训练架构 | 双阶段DCI | 近场码本 |
-| 适用场景 | 通用场景 | 近场场景 |
-| 信令开销 | O(N+M) | O(logN) |
-| 复杂度 | 中等 | 较低 |</p>
   </article>
   
 
@@ -552,45 +346,11 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   <article class="card ">
     
     <h2>欧洲学者方案</h2>
-    <p><strong>Linglong Dai团队（上海交大）</strong>：</p>
+    <p>Linglong Dai团队（上海交大）提出编码波束训练框架：</p>
 <ul>
-<li>主题：编码波束训练框架</li>
-<li>核心：利用信道编码纠错能力提升低SNR训练精度</li>
-<li>特点：与高通DCI方案形成互补</li>
-<li>进展：已在arXiv发表多篇论文</li>
-</ul>
-<p><strong>技术对比</strong>：
-| 维度 | 高通方案 | 编码波束训练 |
-|------|---------|-------------|
-| 优化目标 | 信令开销 | 训练精度 |
-| 适用场景 | 高SNR | 低SNR |
-| 核心思想 | 分组训练 | 编码增益 |
-| 互补性 | 可结合使用 | 可结合使用 |</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3GPP标准化博弈</h2>
-    <p><strong>RAN1讨论焦点</strong>：</p>
-<ol>
-<li><strong>RIS控制信道架构</strong>：沿用5G NR还是全新设计</li>
-<li><strong>信令时延要求</strong>：亚毫秒级vs毫秒级</li>
-<li><strong>干扰管理策略</strong>：静默vs协调vs避让</li>
-<li><strong>标准化进度</strong>：R19还是R20纳入</li>
-</ol>
-<p><strong>中国提案倾向</strong>：</p>
-<ul>
-<li>基于NCR（Network Control Relay）架构演进</li>
-<li>与现有5G架构兼容</li>
-<li>强调工程可行性</li>
-</ul>
-<p><strong>欧洲提案倾向</strong>：</p>
-<ul>
-<li>全新RIS控制信道设计</li>
-<li>强调技术创新</li>
-<li>可能的标准分裂风险</li>
+<li>利用信道编码纠错能力提升低SNR训练精度</li>
+<li>与高通DCI方案形成互补</li>
+<li>已在arXiv发表多篇论文</li>
 </ul>
   </article>
   
@@ -598,20 +358,12 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>趋势一：DCI-based RIS控制将成为6G标准主流</h2>
-    <p><strong>理由</strong>：</p>
-<ol>
-<li>传统RRC信令时延过高（数百ms级），不适合RIS快速调控需求</li>
-<li>DCI直接在物理层传递，时延可降至符号级（&lt;1ms）</li>
-<li>高通专利框架的灵活性使其成为3GPP讨论的基础参考</li>
-<li>与现有5G NR架构兼容，降低部署成本</li>
-</ol>
-<p><strong>时间线</strong>：</p>
-<ul>
-<li>2026-2027年：3GPP R19讨论和提案</li>
-<li>2027-2028年：R19标准冻结</li>
-<li>2028-2029年：设备厂商实现</li>
-<li>2029-2030年：商用部署</li>
+    <h2>3GPP标准化进展</h2>
+    <ul>
+<li>RAN1#121（2025年5月）：RIS相关讨论活跃</li>
+<li>RAN2：RIS控制信道架构仍在博弈</li>
+<li>中国提案倾向：基于NCR架构演进</li>
+<li>欧洲提案倾向：全新RIS控制信道设计</li>
 </ul>
   </article>
   
@@ -619,24 +371,49 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>趋势二：干扰管理是RIS部署关键瓶颈</h2>
-    <p><strong>现状</strong>：</p>
+    <h2>1. DCI-based RIS控制将成为6G标准主流</h2>
+    <p>传统RRC信令时延过高（数百ms级），不适合RIS快速调控需求。DCI直接在物理层传递，时延可降至符号级（&lt;1ms）。高通专利框架的灵活性使其成为3GPP讨论的基础参考。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 干扰管理是RIS部署关键瓶颈</h2>
+    <p>多RIS协同场景下，训练信号干扰问题日益突出。专利的双轨干扰管理机制提供了实用解决方案，预计将在R19/R20标准中被采纳。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 高通专利组合构成标准必要专利（SEP）风险</h2>
+    <p>高通在RIS控制信令领域已布局多项核心专利，未来6G设备厂商可能面临专利许可压力。中兴、华为等中国厂商需加速自身专利布局。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 与中国NCR标准的竞合关系</h2>
+    <p>中国推动的NCR（网络控制中继器）标准与高通RIS DCI方案存在技术路线差异：</p>
 <ul>
-<li>多RIS协同场景下，训练信号干扰问题日益突出</li>
-<li>现有方案缺乏有效的干扰管理机制</li>
-<li>干扰管理直接影响系统容量和可靠性</li>
+<li>NCR：有源中继增强，偏向传统架构演进</li>
+<li>RIS DCI：无源/半无源调控，偏向颠覆性创新</li>
 </ul>
-<p><strong>专利方案价值</strong>：</p>
+<p>两者在物理层控制逻辑上有共通之处（SCI侧链路控制信息），未来可能融合。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 中兴6G RIS标准话语权</h2>
+    <p>老大在中兴负责天线与RIS相关技术预研。高通专利的授权意味着中国厂商在RIS控制信令领域面临标准必要专利威胁。建议：</p>
 <ul>
-<li>双轨干扰管理机制提供了实用解决方案</li>
-<li>预计将在R19/R20标准中被采纳</li>
-<li>为多RIS协同部署提供理论基础</li>
-</ul>
-<p><strong>后续发展</strong>：</p>
-<ul>
-<li>更复杂的干扰协调算法</li>
-<li>AI辅助的干扰预测和规避</li>
-<li>动态干扰管理策略</li>
+<li>密切关注RAN1后续会议提案</li>
+<li>评估自身RIS波束训练专利布局缺口</li>
+<li>考虑与高校合作补充底层算法专利</li>
 </ul>
   </article>
   
@@ -644,202 +421,30 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
   
   <article class="card ">
     
-    <h2>趋势三：高通专利组合构成标准必要专利（SEP）风险</h2>
-    <p><strong>风险等级</strong>：高</p>
-<p><strong>原因</strong>：</p>
-<ol>
-<li>高通在RIS控制信令领域已布局多项核心专利</li>
-<li>专利覆盖从物理层到MAC层到RRC层的完整链条</li>
-<li>专利框架灵活，易于覆盖标准必要技术</li>
-<li>高通有强烈的专利许可动机</li>
-</ol>
-<p><strong>应对策略</strong>：</p>
-<ol>
-<li><strong>加速自身专利布局</strong>：在RIS控制信令领域布局替代方案专利</li>
-<li><strong>参与标准化</strong>：积极参与3GPP讨论，提出中国方案</li>
-<li><strong>技术储备</strong>：研究替代技术路线，降低对高通方案的依赖</li>
-<li><strong>交叉许可谈判</strong>：提前准备专利交叉许可谈判</li>
-</ol>
+    <h2>2. GigaMIMO与RIS协同设计</h2>
+    <p>中兴GigaMIMO（笔记#33/139）强调空域资源重构，与RIS的电磁环境调控形成互补。高通DCI框架可直接扩展至GigaMIMO+RIS联合波束训练场景，实现空域+超表面的联合优化。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>趋势四：与中国NCR标准的竞合关系</h2>
-    <p><strong>技术路线差异</strong>：
-| 维度 | NCR方案 | RIS DCI方案 |
-|------|---------|------------|
-| 核心思想 | 有源中继增强 | 无源/半无源调控 |
-| 技术路线 | 传统架构演进 | 颠覆性创新 |
-| 标准化路径 | 中国主导 | 高通主导 |
-| 复杂度 | 较低 | 中等 |
-| 成本 | 较高 | 较低 |</p>
-<p><strong>共通之处</strong>：</p>
-<ul>
-<li>物理层控制逻辑上有共通之处（SCI侧链路控制信息）</li>
-<li>都需要解决信令开销和时延问题</li>
-<li>都可能成为6G标准的一部分</li>
-</ul>
-<p><strong>未来展望</strong>：</p>
-<ul>
-<li>两者可能在物理层控制逻辑上融合</li>
-<li>形成混合架构：NCR处理有源部分，RIS DCI处理无源部分</li>
-<li>中国厂商需准备多种技术路线</li>
-</ul>
+    <h2>3. 越南/东南亚市场技术壁垒</h2>
+    <p>RIS控制信令标准化将影响设备兼容性。高通专利若成为标准，可能形成技术壁垒。中兴出海方案需提前布局替代技术或获得许可。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>中兴6G RIS标准话语权</h2>
-    <p><strong>现状</strong>：</p>
+    <h2>4. 知识图谱更新建议</h2>
+    <p>本笔记应归入<code>资料库/天线技术/技术概念/</code>，与以下笔记形成技术谱系：</p>
 <ul>
-<li>老大在中兴负责天线与RIS相关技术预研</li>
-<li>高通专利的授权意味着中国厂商在RIS控制信令领域面临标准必要专利威胁</li>
-<li>中兴需在标准化过程中争取话语权</li>
+<li>[[技术概念-智能反射面RIS深度解读-20260701]]（基础理论）</li>
+<li>[[技术概念-STAR-RIS全空间覆盖与6G演进-20260811]]（技术演进）</li>
+<li>[[技术概念-6G独立双极化RIS单元设计-20260718]]（硬件实现）</li>
+<li>[[技术概念-ZTE GigaMIMO空域资源深度重构-20260705]]（协同应用）</li>
 </ul>
-<p><strong>建议行动</strong>：</p>
-<ol>
-<li><strong>密切关注RAN1后续会议提案</strong>：跟踪标准化进展</li>
-<li><strong>评估自身RIS波束训练专利布局缺口</strong>：识别风险点</li>
-<li><strong>考虑与高校合作补充底层算法专利</strong>：如清华+中兴的近场方案</li>
-<li><strong>参与3GPP讨论</strong>：提出中兴方案，争取标准必要专利</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>GigaMIMO与RIS协同设计</h2>
-    <p><strong>协同价值</strong>：</p>
-<ul>
-<li>中兴GigaMIMO强调空域资源重构</li>
-<li>RIS的电磁环境调控形成互补</li>
-<li>高通DCI框架可直接扩展至GigaMIMO+RIS联合波束训练场景</li>
-<li>实现空域+超表面的联合优化</li>
-</ul>
-<p><strong>技术路径</strong>：</p>
-<ol>
-<li>将高通DCI框架扩展至GigaMIMO场景</li>
-<li>设计联合波束训练算法</li>
-<li>实现空域和超表面的协同优化</li>
-<li>形成专利布局</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>越南/东南亚市场技术壁垒</h2>
-    <p><strong>风险分析</strong>：</p>
-<ul>
-<li>RIS控制信令标准化将影响设备兼容性</li>
-<li>高通专利若成为标准，可能形成技术壁垒</li>
-<li>中兴出海方案需提前布局替代技术或获得许可</li>
-</ul>
-<p><strong>应对策略</strong>：</p>
-<ol>
-<li><strong>技术替代</strong>：研究替代技术方案，降低对高通专利的依赖</li>
-<li><strong>专利许可</strong>：提前与高通谈判许可协议</li>
-<li><strong>本地化合作</strong>：与当地运营商合作，推动标准适配</li>
-<li><strong>成本优势</strong>：通过规模效应降低成本，抵消专利许可费用</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>知识图谱更新建议</h2>
-    <p><strong>本笔记定位</strong>：</p>
-<ul>
-<li>归入<code>资料库/天线技术/技术概念/</code></li>
-<li>与以下笔记形成技术谱系：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>关联笔记</th>
-<th>关系</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[[技术概念-智能反射面RIS深度解读-20260701]]</td>
-<td>基础理论</td>
-<td>RIS基础原理</td>
-</tr>
-<tr>
-<td>[[技术概念-STAR-RIS全空间覆盖与6G演进-20260811]]</td>
-<td>技术演进</td>
-<td>RIS技术演进</td>
-</tr>
-<tr>
-<td>[[技术概念-6G独立双极化RIS单元设计-20260718]]</td>
-<td>硬件实现</td>
-<td>RIS硬件设计</td>
-</tr>
-<tr>
-<td>[[技术概念-ZTE GigaMIMO空域资源深度重构-20260705]]</td>
-<td>协同应用</td>
-<td>GigaMIMO+RIS协同</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>传统方案</th>
-<th>高通专利方案</th>
-<th>提升幅度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>信令开销</td>
-<td>O(N×M)</td>
-<td>O(N+M)</td>
-<td>降低90%+</td>
-</tr>
-<tr>
-<td>训练时隙数</td>
-<td>N×M</td>
-<td>max(N,M)</td>
-<td>降低50%+</td>
-</tr>
-<tr>
-<td>控制时延</td>
-<td>数百ms</td>
-<td>&lt;1ms</td>
-<td>降低99%+</td>
-</tr>
-<tr>
-<td>干扰抑制</td>
-<td>无机制</td>
-<td>双轨管理</td>
-<td>显著提升</td>
-</tr>
-<tr>
-<td>场景适配</td>
-<td>单RIS</td>
-<td>多RIS协同</td>
-<td>扩展性强</td>
-</tr>
-</tbody>
-</table>
   </article>
   
 
@@ -852,7 +457,6 @@ RIS波束训练的关键挑战是训练信号对非目标UE的干扰。在密集
 <li><a href="https://www.3gpp.org/ftp/TSG_RAN/WG1_RL1/TSGR1_121/">3GPP RAN1#121 Meeting Report (2025.05)</a></li>
 <li><a href="https://www.c114.com.cn/wireless/2936/a1301638.html">C114: RIS突破质疑冲刺6G标准化 (2025.12)</a></li>
 <li><a href="https://arxiv.org/abs/2406.15802">arXiv: Coded Beam Training for RIS (2024.06)</a></li>
-<li>US20240413879A1 - 近场RIS波束训练方法（清华+中兴）</li>
 </ul>
   </article>
   

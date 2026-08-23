@@ -199,54 +199,6 @@
   
   <article class="card ">
     
-    <h2>1.4 PAS 馈线损耗分析</h2>
-    <p>馈线损耗是 PAS 架构的核心痛点。损耗计算公式：</p>
-<pre><code>L_feed(dB) = α × d
-</code></pre>
-<p>其中α是单位长度损耗系数，d是馈线长度。</p>
-<table>
-<thead>
-<tr>
-<th>频段</th>
-<th>馈线类型</th>
-<th>损耗系数</th>
-<th>100m损耗</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2.6GHz (4G)</td>
-<td>1/2"同轴</td>
-<td>0.3dB/m</td>
-<td>30dB</td>
-</tr>
-<tr>
-<td>3.5GHz (5G)</td>
-<td>1/2"同轴</td>
-<td>0.5dB/m</td>
-<td>50dB</td>
-</tr>
-<tr>
-<td>28GHz (5G毫米波)</td>
-<td>波导</td>
-<td>1.0dB/m</td>
-<td>100dB</td>
-</tr>
-<tr>
-<td>39GHz (5G毫米波)</td>
-<td>波导</td>
-<td>1.5dB/m</td>
-<td>150dB</td>
-</tr>
-</tbody>
-</table>
-<p><strong>关键结论</strong>：频段越高，馈线损耗越大。5G毫米波频段（&gt;24GHz）馈线损耗已达不可接受水平，这是 AAS 取代 PAS 的核心驱动力之一。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
     <h2>2.1 基本结构</h2>
     <pre><code>AAS 架构（5G AAU）：
   ┌─────────────────────────────┐
@@ -346,55 +298,6 @@ AAU 内部：
 </tr>
 </tbody>
 </table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2.4 AAS 功耗分析</h2>
-    <p>AAU 功耗主要由以下部分组成：</p>
-<pre><code>P_total = P_RF + P_BB + P_cooling + P_control
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>功耗来源</th>
-<th>占比</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>RF前端（T/R模块）</td>
-<td>50-60%</td>
-<td>PA、LNA、移相器</td>
-</tr>
-<tr>
-<td>基带处理</td>
-<td>20-30%</td>
-<td>DSP、FPGA、ASIC</td>
-</tr>
-<tr>
-<td>散热系统</td>
-<td>10-15%</td>
-<td>风扇、液冷</td>
-</tr>
-<tr>
-<td>控制电路</td>
-<td>5-10%</td>
-<td>控制芯片、监测</td>
-</tr>
-</tbody>
-</table>
-<p><strong>节能技术</strong>：</p>
-<ul>
-<li>符号关断：无数据时关闭部分PA</li>
-<li>通道关断：低负载时关闭部分通道</li>
-<li>深度休眠：夜间超低流量时进入休眠模式</li>
-<li>AI波束管理：精准指向用户，减少浪费</li>
-</ul>
-<p>实测数据显示，智能节能技术可降低AAU功耗30-50%。</p>
   </article>
   
 
@@ -506,28 +409,32 @@ AAU 内部：
   
   <article class="card ">
     
-    <h2>4.1 波束赋形算法</h2>
-    <p><strong>零空间波束赋形（Zero-Forcing）</strong>：</p>
-<pre><code>w_zf = H^H (H H^H)^(-1) s
+    <h2>4.1 波束赋形</h2>
+    <pre><code>PAS（无源）：
+  固定波束 → 覆盖整个扇区（120°）
+  → 所有用户共享同一波束
+  → 边缘用户信号弱
+
+AAS（有源）：
+  动态波束 → 指向特定用户
+  → 每个用户独立波束
+  → 边缘用户也能获得高增益
+
+波束数量：
+  64T64R：最多 64 个独立波束
+  128T128R：最多 128 个独立波束
+
+波束切换时间：
+  模拟波束：~1ms
+  数字波束：~0.1ms（更快）
 </code></pre>
-<p>其中H是信道矩阵，w是波束成形向量，s是目标信号。</p>
-<p><strong>MMSE波束赋形</strong>：</p>
-<pre><code>w_mmse = (H H^H + σ²I)^(-1) H s
-</code></pre>
-<p>考虑噪声干扰，更适合实际场景。</p>
-<p><strong>基于深度学习的波束赋形</strong>：</p>
-<ul>
-<li>输入：CSI（信道状态信息）</li>
-<li>输出：波束权重向量</li>
-<li>优势：实时性强，适应动态环境</li>
-</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4.2 T/R 模块详解</h2>
+    <h2>4.2 T/R 模块</h2>
     <pre><code>T/R 模块 = 发射 + 接收一体化模块
 
 发射通道：
@@ -541,237 +448,18 @@ AAU 内部：
   - 衰减器范围：0-31.5dB（6-bit）
   - PA 输出功率：20-40W（GaN）
   - LNA 噪声系数：1-2dB
-  - 线性度：IP3 &gt; 35dBm
 
 成本占比：
   T/R 模块占 AAU 硬件成本 40-50%
   是 AAU 最贵的部件！
 </code></pre>
-<p><strong>GaN PA优势</strong>：</p>
-<ul>
-<li>输出功率密度是Si GER的10倍</li>
-<li>工作温度范围宽（-55°C to +200°C）</li>
-<li>效率高（&gt;60%）</li>
-<li>适合高功率AAU应用</li>
-</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4.3 校准技术</h2>
-    <p><strong>互易性校准</strong>：
-TDD系统中，利用信道互易性进行校准：</p>
-<pre><code>H_uplink = H_downlink^T
-</code></pre>
-<p>校准目标：使T/R模块的相位/幅度响应一致。</p>
-<p><strong>闭环校准</strong>：</p>
-<ul>
-<li>使用耦合器和监测路径</li>
-<li>实时调整T/R模块参数</li>
-<li>补偿温度漂移和老化</li>
-</ul>
-<p><strong>校准精度要求</strong>：</p>
-<ul>
-<li>相位误差：&lt; 5° RMS</li>
-<li>幅度误差：&lt; 1dB RMS</li>
-<li>失配会导致波束指向偏差和旁瓣升高</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.1 宏覆盖场景</h2>
-    <p><strong>部署方式</strong>：</p>
-<ul>
-<li>宏基站塔顶安装AAU</li>
-<li>覆盖半径500m-2km</li>
-<li>典型的64T64R或128T128R配置</li>
-</ul>
-<p><strong>性能指标</strong>：
-| 指标 | 值 |
-|------|-----|
-| 峰值速率 | 3-5 Gbps |
-| 小区容量 | 1000+ 用户 |
-| 边缘速率 | 100-300 Mbps |
-| 覆盖范围 | 500m-2km |
-| 功耗 | 500-800W |</p>
-<p><strong>典型厂商方案</strong>：</p>
-<ul>
-<li>华为：64T64R AAU，3.5GHz频段，支持Massive MIMO</li>
-<li>中兴：GigaMIMO方案，256T256R实验系统</li>
-<li>爱立信：Radio Dot分布式AAU架构</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.2 微覆盖场景</h2>
-    <p><strong>部署方式</strong>：</p>
-<ul>
-<li>路灯杆、建筑外墙安装小型AAU</li>
-<li>覆盖半径50m-200m</li>
-<li>典型的16T16R或32T32R配置</li>
-</ul>
-<p><strong>应用场景</strong>：</p>
-<ul>
-<li>城市热点区域容量补充</li>
-<li>室内分布系统替代</li>
-<li>5G小小区密集部署</li>
-</ul>
-<p><strong>性能优势</strong>：</p>
-<ul>
-<li>高频谱效率（bits/s/Hz/m²）</li>
-<li>低延迟（短距离）</li>
-<li>灵活部署（无需塔顶资源）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.3 毫米波场景</h2>
-    <p><strong>部署方式</strong>：</p>
-<ul>
-<li>28GHz/39GHz频段</li>
-<li>波束窄（5°-15°）</li>
-<li>覆盖范围100m-500m</li>
-</ul>
-<p><strong>技术挑战</strong>：</p>
-<ul>
-<li>穿透损耗大（建筑玻璃损耗10-20dB）</li>
-<li>需要密集部署</li>
-<li>波束跟踪要求高</li>
-</ul>
-<p><strong>解决方案</strong>：</p>
-<ul>
-<li>RIS辅助覆盖</li>
-<li>多波束同时服务</li>
-<li>AI波束预测</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.4 室内覆盖场景</h2>
-    <p><strong>部署方式</strong>：</p>
-<ul>
-<li>天花板安装pRRU（微微RRU）</li>
-<li>覆盖范围20m-50m</li>
-<li>典型8T8R配置</li>
-</ul>
-<p><strong>应用场景</strong>：</p>
-<ul>
-<li>商场、机场、火车站</li>
-<li>办公楼、工厂车间</li>
-<li>体育场馆、会展 centers</li>
-</ul>
-<p><strong>性能目标</strong>：</p>
-<ul>
-<li>峰值速率：10+ Gbps</li>
-<li>容量密度：100+ users/m²</li>
-<li>覆盖均匀度：RSRP &gt; -95dBm 覆盖率 &gt; 95%</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5.5 专网/行业应用</h2>
-    <p><strong>工业制造</strong>：</p>
-<ul>
-<li>AGV无线调度</li>
-<li>AR远程协作</li>
-<li>机器视觉传输</li>
-</ul>
-<p><strong>医疗场景</strong>：</p>
-<ul>
-<li>远程手术指导</li>
-<li>医疗影像传输</li>
-<li>救护车高速数据传输</li>
-</ul>
-<p><strong>交通场景</strong>：</p>
-<ul>
-<li>车联网V2X</li>
-<li>自动驾驶协同</li>
-<li>智能物流</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.1 热设计挑战</h2>
-    <p>AAU功耗高达300-800W，热管理是核心挑战：</p>
-<ul>
-<li>散热片设计：增大散热面积</li>
-<li>风扇优化：低噪音高效冷却</li>
-<li>液冷方案：高密度AAU使用</li>
-<li>温度监控：实时监测关键节点</li>
-</ul>
-<p><strong>质量控制点</strong>：</p>
-<ul>
-<li>热仿真验证</li>
-<li>高温老化测试</li>
-<li>温度循环测试</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.2 一致性校准</h2>
-    <p>64通道AAU需要精确校准：</p>
-<ul>
-<li>相位一致性：&lt; 5° RMS</li>
-<li>幅度一致性：&lt; 1dB RMS</li>
-<li>校准时间：&lt; 10秒/单元</li>
-</ul>
-<p><strong>测试方法</strong>：</p>
-<ul>
-<li>暗室S参数测量</li>
-<li>波束方向图测试</li>
-<li>EVM（误差矢量幅度）测试</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.3 可靠性设计</h2>
-    <p>AAU工作在室外恶劣环境：</p>
-<ul>
-<li>温度范围：-40°C to +65°C</li>
-<li>防护等级：IP65</li>
-<li>防雷击：IEC 61643</li>
-<li>抗风载：150km/h</li>
-</ul>
-<p><strong>质量管控要点</strong>：</p>
-<ul>
-<li>盐雾测试</li>
-<li>温度冲击测试</li>
-<li>振动测试</li>
-<li>使用寿命评估（设计10年，实际5-8年更换）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>十、一句话总结</h2>
+    <h2>五、一句话总结</h2>
     <p>AAS 是 5G 的"必选项"而非"可选项"——没有波束赋形，Massive MIMO 就是空谈。PAS 到 AAS 的本质变化是"从被动辐射到主动控制"：天线不再是"一根铁疙瘩"，而是一个"智能辐射体阵列"。记住：AAS 虽然性能好，但功耗是 PAS 的 3-4 倍，节能成了 5G 运营商最大的 OPEX 痛点。QMS 要关注的核心指标是"T/R 模块一致性"——64 个通道，只要有一个相位偏差 5°，波束就歪了。</p>
   </article>
   

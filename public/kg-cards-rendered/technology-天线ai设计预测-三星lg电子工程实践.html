@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">天线AI设计预测-三星LG电子工程实践</h1>
-  <p class="lede">2026年6月达索系统韩国分公司Simulia User Day上，三星电子和LG电子分享了AI在天线设计和CAE数据库管理中的工程实践：三星用机器学习将天线开发周期缩短数十倍，LG用视觉语言模型自动提取PPT报告数据构建结构化数据库。</p>
+  
   
 </header>
 
@@ -105,18 +105,49 @@
   
   <article class="card ">
     
-    <h2>三星电子：天线性能预测AI模型</h2>
-    <p>项目背景与痛点：</p>
+    <h2>背景</h2>
+    <p>2026年6月11日，达索系统韩国分公司举办Simulia User Day大会，三星电子和LG电子工程师分享了AI在工程领域的实际应用案例。这两个案例对天线行业有直接的借鉴意义。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>项目概述</h2>
+    <p>三星电子产业合作团队的申容善（Yong-seon Shin）工程师，从事天线开发超过20年。他在大会上分享了天线性能预测技术的机器学习算法应用案例。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心痛点</h2>
+    <p>申工最初对AI在天线设计中的应用持怀疑态度，原因有三：</p>
 <ol>
-<li><strong>环境敏感性</strong>：天线性能受设备安装载体（车辆/手机等）周围结构和介质变化影响极大</li>
-<li><strong>数据稀缺</strong>：天线领域没有像计算机视觉那样海量的标注数据</li>
-<li><strong>非线性映射复杂</strong>：输入设计变量与输出结果之间呈高维非线性关系，传统数学建模难以拟合</li>
+<li><strong>天线性能受环境影响极大</strong>：不仅取决于天线自身结构，还受设备安装载体（车辆/手机等）周围结构和介质变化的影响</li>
+<li><strong>缺乏训练大数据</strong>：天线领域没有像计算机视觉那样海量的标注数据</li>
+<li><strong>非线性映射复杂</strong>：即使通过有限元方法（FEM）求解器获得仿真数据，输入设计变量与输出结果之间呈现高维非线性关系，传统数学建模难以拟合</li>
 </ol>
-<p>技术路线（2025年3月启动PoC）：</p>
-<ul>
-<li><strong>数据源</strong>：通过有限元方法（FEM）求解器（CST Studio）生成仿真训练数据</li>
-<li><strong>算法选择</strong>：对比多种ML回归模型，ANN（人工神经网络）表现最优</li>
-<li><strong>核心突破</strong>：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</li>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>突破路径</h2>
+    <p>2025年3月，申工在达索系统协助下启动PoC项目，构建了虚拟空间中的分析自动化流程，直接验证AI在天线开发中的可行性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键成果</h2>
+    <ul>
+<li><strong>效率提升</strong>：大幅减少了需要反复运行数百次的CST分析流程</li>
+<li><strong>候选设计筛选</strong>：在初始设计阶段即可筛选出高概率满足规格的设计候选方案</li>
+<li><strong>开发周期缩短</strong>：将开发lead time缩短了数十倍</li>
+<li><strong>小数据集可行性</strong>：证明了即使在有限数据集条件下，也能构建可靠的预测元模型（predictive metamodel）</li>
 </ul>
   </article>
   
@@ -124,90 +155,104 @@
   
   <article class="card ">
     
-    <h2>LG电子：SPDM CAE数据库AI Agent</h2>
-    <p>项目背景：
-LG电子自2019年底试点基于达索系统的SPDM（仿真流程与数据管理）平台，2022年4月完成总部部署。前2-3年面临的主要问题是各事业部的CAE组织分散，一线工程师不愿使用系统。</p>
-<p>核心创新：
-将传统的"数据湖"（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：</p>
+    <h2>未来规划</h2>
+    <p>申工计划将应用范围从单一天线模块扩展到LTE和Wi-Fi复杂多频天线，并构建覆盖车身结构、玻璃、支架位置等形状变量的公司级标准设计验证基础设施。</p>
+<blockquote>
+<p>"如果工程师能用清晰的设计目标和领域知识来控制AI流水线，它就能成为消除重复调谐和分析时间的战略性工程工具，加速关键设计决策。"</p>
+</blockquote>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>项目背景</h2>
+    <p>LG电子自2019年底试点基于达索系统的SPDM（仿真流程与数据管理）平台，2022年4月完成总部部署。前2-3年面临的主要问题是各事业部的CAE组织分散，一线工程师不愿使用系统。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心创新</h2>
+    <p>将传统的"数据湖"（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式：</p>
 <ul>
 <li>工程师只需上传现有的PPT报告</li>
 <li>系统自动提取图表数据并转化为结构化数据库</li>
 <li>引入视觉语言模型 <strong>Qwen3-VL</strong> 处理PPT中复杂的表格和对象数据</li>
 </ul>
-<p>四阶段数据提取流程：</p>
-<pre><code>PPT报告上传（工程师零额外操作）
-    ↓
-Qwen3-VL视觉分析提取表格和数值
-    ↓
-数据清洗与结构化
-    ↓
-存入定量数据库
-</code></pre>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>三星电子</th>
-<th>LG电子</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>开发周期</td>
-<td>缩短数十倍</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>候选设计筛选</td>
-<td>初始阶段即可筛选高概率满足规格的方案</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>CST仿真次数</td>
-<td>大幅减少反复运行数百次的流程</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>小数据集可行性</td>
-<td>证明有限数据下也可构建可靠预测模型</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>数据提取自动化</td>
-<td>N/A</td>
-<td>100%自主数据提取</td>
-</tr>
-<tr>
-<td>预测精度</td>
-<td>RMSE &lt; 5%（相对误差）</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>训练数据量</td>
-<td>约500-1000组仿真数据</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>推理速度</td>
-<td>&lt; 1秒/设计（vs 数小时仿真）</td>
-<td>N/A</td>
-</tr>
-</tbody>
-</table>
+    <h2>四阶段数据提取流程</h2>
+    <ol>
+<li>PPT报告上传（工程师零额外操作）</li>
+<li>Qwen3-VL视觉分析提取表格和数值</li>
+<li>数据清洗与结构化</li>
+<li>存入定量数据库</li>
+</ol>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>技术栈对比</h2>
+    <h2>应用场景</h2>
+    <ul>
+<li>异常值分析（outlier analysis）</li>
+<li>设计模式分析（design pattern analysis）</li>
+<li>趋势分析（trend analysis）</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>关键成就</h2>
+    <p>构建了不改变一线工程师工作方式的前提下，将非结构化报告数据自动转化为结构化资产的系统，为AI模型提供了高质量的数据管道基础。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 预测模型可以弥补小数据短板</h2>
+    <p>三星案例证明，即使在天线这种数据稀缺领域，通过仿真数据（CST/FEM）生成训练集，配合合适的ML算法，也能构建可靠的预测元模型。这对我们QMS-BI系统的来料检验数据不足场景有直接参考价值。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 仿真自动化是AI落地的第一步</h2>
+    <p>申工的PoC项目核心是先构建"分析自动化流程"，再用AI加速。这意味着我们不需要一步到位做端到端的AI系统，可以从仿真脚本自动化开始，逐步引入预测模型。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 数据管道比模型本身更重要</h2>
+    <p>LG电子的案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告（PPT/Excel）自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 工程师主导的AI pipeline是可持续的</h2>
+    <p>两个案例都强调"工程师控制AI流水线"而非"AI取代工程师"。这与我们"QMS-BI辅助决策而非替代质检员"的理念一致。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术栈总结</h2>
     <table>
 <thead>
 <tr>
@@ -242,334 +287,8 @@ Qwen3-VL视觉分析提取表格和数值
 <td>开发周期缩短数十倍</td>
 <td>100%自主数据提取</td>
 </tr>
-<tr>
-<td>部署方式</td>
-<td>本地服务器</td>
-<td>云端SPDM平台</td>
-</tr>
-<tr>
-<td>用户交互</td>
-<td>API调用</td>
-<td>Web界面上传</td>
-</tr>
 </tbody>
 </table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>技术原理</h2>
-    <p><strong>三星模式：预测元模型（Predictive Metamodel）</strong></p>
-<p>核心思路是用机器学习模型替代耗时的全波仿真。具体流程：</p>
-<ol>
-<li><strong>数据生成阶段</strong>：</li>
-<li>使用CST Studio的FEM求解器生成训练数据</li>
-<li>设计变量：几何参数（长度、宽度、间距等）、材料参数、频率点</li>
-<li>输出变量：S参数（S11, S21）、增益、方向图、阻抗匹配等</li>
-<li>
-<p>数据量：500-1000组仿真数据（远少于计算机视觉的百万级）</p>
-</li>
-<li>
-<p><strong>模型选择与训练</strong>：</p>
-</li>
-<li>对比多种ML回归模型：线性回归、SVR、Random Forest、ANN</li>
-<li><strong>ANN表现最优</strong>：2-3层隐藏层，ReLU激活函数，Adam优化器</li>
-<li>输入层维度 = 设计变量数量，输出层维度 = 性能指标数量</li>
-<li>
-<p>训练集/验证集/测试集 = 70%/15%/15%</p>
-</li>
-<li>
-<p><strong>预测阶段</strong>：</p>
-</li>
-<li>新设计输入AI模型，秒级输出性能预测</li>
-<li>只有高概率满足规格的设计才跑完整CST仿真</li>
-<li>大幅减少仿真次数（从数百次降至数十次）</li>
-</ol>
-<p><strong>数学模型</strong>：
-设设计变量为 $\mathbf{x} = [x_1, x_2, ..., x_n]^T$，性能指标为 $\mathbf{y} = [y_1, y_2, ..., y_m]^T$</p>
-<p>ANN映射关系：
-$$\mathbf{y} = f_{ANN}(\mathbf{x}; \mathbf{\theta}) = \mathbf{W}<em>L \cdot \sigma(\mathbf{W}</em>{L-1} \cdot ... \sigma(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)...) + \mathbf{b}_L$$</p>
-<p>其中 $\sigma$ 为激活函数，$\mathbf{\theta}$ 为网络参数。</p>
-<p><strong>LG模式：视觉语言模型数据提取</strong></p>
-<p>核心创新：将传统的"数据湖"（仅存放报告文件）升级为定量数值数据库，且不改变工程师的工作方式。</p>
-<p>四阶段数据提取流程：</p>
-<pre><code>PPT报告上传（工程师零额外操作）
-    ↓
-Qwen3-VL视觉分析提取表格和数值
-    ↓
-数据清洗与结构化
-    ↓
-存入定量数据库
-</code></pre>
-<p><strong>技术细节</strong>：</p>
-<ul>
-<li>使用Qwen3-VL视觉语言模型解析PPT中的图表</li>
-<li>自动识别表格、曲线、散点图等数据结构</li>
-<li>提取数值数据并转化为结构化数据库（SQL/NoSQL）</li>
-<li>支持多格式：PNG/JPG截图、PDF表格、Excel附件</li>
-<li>数据清洗：去除异常值、插值填补、单位统一</li>
-</ul>
-<p><strong>工程价值</strong>：</p>
-<ul>
-<li>工程师无需改变工作流程，只需上传PPT</li>
-<li>系统自动完成数据提取和结构化</li>
-<li>历史数据（过去2-3年积累的PPT报告）可立即复用</li>
-<li>构建可查询的定量数据库，支持设计决策</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>天线设计自动化</h2>
-    <ul>
-<li><strong>设计空间探索</strong>：AI预测模型可在初始阶段快速筛选可行设计，减少昂贵仿真次数</li>
-<li><strong>多目标优化</strong>：同时优化增益、带宽、尺寸等多个冲突指标</li>
-<li><strong>工艺容差分析</strong>：考虑制造误差对性能的影响</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>CAE数据资产化</h2>
-    <ul>
-<li><strong>历史数据复用</strong>：将过去2-3年积累的PPT报告转化为可查询的结构化数据库</li>
-<li><strong>设计模式发现</strong>：通过数据分析识别成功设计模式的共性特征</li>
-<li><strong>异常检测</strong>：自动发现偏离正常范围的仿真结果</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>具体应用案例</h2>
-    <p><strong>1. 三星电子：智能手机天线设计</strong>
-- 应用场景：手机内部空间受限，天线需适配多种载板（金属/玻璃/塑料）
-- 痛点：传统设计需数百次CST仿真，耗时数周
-- AI解决方案：训练ANN预测模型，设计空间从数万种降至百种候选
-- 效果：开发周期从4周缩短至数小时，仿真次数减少90%</p>
-<p><strong>2. LG电子：家电天线设计</strong>
-- 应用场景：洗衣机、冰箱等白色家电内置Wi-Fi/蓝牙天线
-- 痛点：历史设计数据分散在PPT中，难以复用
-- AI解决方案：SPDM+Qwen3-VL自动提取PPT数据，构建结构化数据库
-- 效果：新设计可直接查询历史数据，避免重复仿真</p>
-<p><strong>3. 汽车天线设计</strong>
-- 应用场景：车载GPS、5G、V2X多天线共存
-- 痛点：车体金属结构影响天线性能，需反复调试
-- AI解决方案：预测模型考虑车体影响，快速找到最优位置
-- 效果：设计迭代次数从10+次降至3-5次</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>跨行业适用性</h2>
-    <ul>
-<li><strong>消费电子</strong>：手机、平板、笔记本的天线设计</li>
-<li><strong>汽车电子</strong>：车载通信天线、雷达天线</li>
-<li><strong>航空航天</strong>：卫星通信天线、雷达天线</li>
-<li><strong>物联网</strong>：传感器节点天线、智能家居天线</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>经济效益分析</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>传统设计</th>
-<th>AI辅助设计</th>
-<th>改善幅度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单天线开发周期</td>
-<td>3-4周</td>
-<td>数小时-数天</td>
-<td>10-50倍</td>
-</tr>
-<tr>
-<td>CST仿真次数</td>
-<td>100-500次</td>
-<td>10-50次</td>
-<td>90%减少</td>
-</tr>
-<tr>
-<td>工程师投入</td>
-<td>2-4人月</td>
-<td>0.5-1人月</td>
-<td>70%减少</td>
-</tr>
-<tr>
-<td>试错成本</td>
-<td>高</td>
-<td>低</td>
-<td>显著降低</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>实施路径建议</h2>
-    <ol>
-<li><strong>第一阶段（1-3个月）</strong>：建立历史数据管道，清理现有PPT/报告</li>
-<li><strong>第二阶段（3-6个月）</strong>：构建预测模型，验证精度</li>
-<li><strong>第三阶段（6-12个月）</strong>：集成到设计流程，培训工程师</li>
-<li><strong>第四阶段（12个月+）</strong>：扩展到多目标优化、自动设计</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>四、竞品/同行动态</h2>
-    <table>
-<thead>
-<tr>
-<th>厂商/机构</th>
-<th>AI天线设计实践</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>三星电子</td>
-<td>ML预测元模型</td>
-<td>开发周期缩短数十倍，ANN最优</td>
-</tr>
-<tr>
-<td>LG电子</td>
-<td>SPDM+Qwen3-VL</td>
-<td>100%自主数据提取，PPT→数据库</td>
-</tr>
-<tr>
-<td>Ansys</td>
-<td>PINN物理信息神经网络</td>
-<td>结合物理约束的AI</td>
-</tr>
-<tr>
-<td>Cadence</td>
-<td>AlphaGo逆拓扑框架</td>
-<td>从天线性能反推几何结构</td>
-</tr>
-<tr>
-<td>华为/中兴</td>
-<td>内部推进AI辅助设计</td>
-<td>未公开细节</td>
-</tr>
-</tbody>
-</table>
-<p>达索系统作为平台方，同时服务三星和LG，形成生态闭环。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>技术演进方向</h2>
-    <ul>
-<li><strong>早期阶段（2020年前）</strong>：传统天线设计依赖工程师经验，反复仿真调试</li>
-<li><strong>AI辅助设计萌芽（2020-2024）</strong>：学术界探索ML在天线设计中的应用，但工程落地少</li>
-<li><strong>龙头企业实践（2025-2026）</strong>：三星电子和LG电子在达索系统协助下实现工程化落地，开发周期缩短数十倍</li>
-<li><strong>未来方向（2026+）</strong>：从单一天线模块扩展到复杂多频天线，构建公司级标准设计验证基础设施</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>行业趋势判断</h2>
-    <ol>
-<li><strong>AI+仿真融合是不可逆趋势</strong>：天线设计从"经验驱动"转向"数据+物理模型双驱动"</li>
-<li><strong>数据管道比模型更重要</strong>：LG案例表明，最大的瓶颈往往不是算法，而是数据获取</li>
-<li><strong>工程师主导的AI pipeline是可持续模式</strong>："工程师控制AI流水线"而非"AI取代工程师"</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>直接参考价值</h2>
-    <ol>
-<li><strong>设计效率提升</strong>：三星将开发周期缩短数十倍，老大团队可参考其技术路线</li>
-<li><strong>数据资产化</strong>：LG将PPT报告转化为结构化数据库，老大团队的历史数据可盘活</li>
-<li><strong>工具链选择</strong>：达索系统（CST/Simulia/SPDM）是三星LG的选择，老大需评估是否跟进</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>对老大的启示</h2>
-    <ul>
-<li>AI辅助天线设计已从学术探索走向工程落地，老大需尽快布局避免落后</li>
-<li>数据管道建设比模型训练更重要，老大团队需先解决"有数据但不会用"的问题</li>
-<li>Qwen3-VL等视觉语言模型可复用，老大无需自研算法，可借助达索生态</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>数据稀缺挑战</h2>
-    <p>天线领域没有像计算机视觉那样海量的标注数据，需要依靠仿真数据生成训练集。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>环境敏感性</h2>
-    <p>天线性能受安装载体周围结构和介质变化影响极大，模型泛化能力是关键挑战。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>非线性映射复杂</h2>
-    <p>输入设计变量与输出结果之间呈高维非线性关系，传统数学建模难以拟合。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>数据管道比模型更重要</h2>
-    <p>LG案例表明，最大的瓶颈往往不是算法，而是数据获取。将非结构化报告自动转化为结构化数据库，这一步的价值可能比最终的AI模型更大。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>未来趋势</h2>
-    <ul>
-<li><strong>短期（1-2年）</strong>：AI+仿真融合是不可逆趋势，天线设计从"经验驱动"转向"数据+物理模型双驱动"，仿真次数将大幅减少</li>
-<li><strong>中期（3-5年）</strong>：数据管道建设比模型训练更重要，历史数据资产化将成为企业核心竞争力。国内厂商（华为、中兴）正在内部推进AI辅助天线设计</li>
-<li><strong>长期（5年以上）</strong>：工程师主导的AI pipeline是可持续模式，"工程师控制AI流水线"而非"AI取代工程师"</li>
-</ul>
   </article>
   
 
@@ -578,10 +297,9 @@ Qwen3-VL视觉分析提取表格和数值
     
     <h2>参考资料</h2>
     <ul>
-<li><a href="https://dsims.solidworks.com">Simulia User Day Korea 2026 - Samsung Electronics</a></li>
-<li><a href="https://dsims.solidworks.com">Simulia User Day Korea 2026 - LG Electronics</a></li>
-<li><a href="https://www.3ds.com/products/simulia/spdm">达索系统SPDM平台</a></li>
-<li><a href="https://github.com/QwenLM/Qwen2.5-VL">Qwen3-VL视觉语言模型</a></li>
+<li><a href="https://www.digitaltoday.co.kr/en/view/64576/engineering-ai-applications-spread-from-antenna-design-to-cae-db-building">DigitalToday: Engineering AI applications spread from antenna design to CAE database building</a> (2026-06-11)</li>
+<li><a href="https://www.teksystems.com/en/insights/article/manufacturing-trends-2026">TEKsystems: Top Manufacturing Trends in 2026</a> (2026-05-08)</li>
+<li>TU Delft: Machine Learning in Pre- and Post-Manufacturing Stages of Active Array Antennas</li>
 </ul>
   </article>
   

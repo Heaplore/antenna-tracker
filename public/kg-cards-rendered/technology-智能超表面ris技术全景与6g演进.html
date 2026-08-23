@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">智能超表面RIS技术全景与6G演进</h1>
-  <p class="lede">RIS（Reconfigurable Intelligent Surface，智能超表面）通过可编程金属贴片阵列动态调控电磁波传播路径，以接近零功耗的代价弥补毫米波/太赫兹高频损耗，是 6G 通感一体化、XL-MIMO、卫星终端多频段集成三大核心场景的关键使能技术。</p>
+  
   
 </header>
 
@@ -106,65 +106,69 @@
   <article class="card ">
     
     <h2>主题概述</h2>
-    <p>智能超表面（Reconfigurable Intelligent Surface, RIS）是 6G 通信的核心使能技术之一。通过对电磁环境的可编程控制，RIS 能够重塑无线传播路径，弥补高频段（毫米波、太赫兹）传播损耗大的缺陷。本文整合 2026 年最新专利数据、产业动态和技术路线分析，提供 RIS 技术全景视图。</p>
-<p><strong>核心价值</strong>：为老大提供 RIS 技术发展的系统性认知，帮助判断技术成熟度、竞争格局和国产替代机会点。</p>
+    <p>智能超表面（Reconfigurable Intelligent Surface, RIS）是6G通信的核心使能技术之一。通过对电磁环境的可编程控制，RIS能够重塑无线传播路径，弥补高频段（毫米波、太赫兹）传播损耗大的缺陷。本文整合2026年最新专利数据、产业动态和技术路线分析，提供RIS技术全景视图。</p>
+<p><strong>核心价值</strong>：为老大提供RIS技术发展的系统性认知，帮助判断技术成熟度、竞争格局和国产替代机会点。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>1. RIS基本架构详解</h2>
-    <p>RIS节点由数百至数千个超表面单元（unit cell）组成，每个单元是一个微小的电磁结构，尺寸远小于工作波长。典型的RIS面板尺寸为1m×1m，包含10000个单元（间距λ/2）。</p>
-<p><strong>单个单元的层状结构</strong>：</p>
+    <h2>1. RIS基本架构</h2>
+    <p>RIS节点由数百至数千个超表面单元（unit cell）组成，每个单元包含：</p>
 <ul>
-<li><strong>金属贴片层</strong>：作为辐射/反射单元，通常采用铜或金，图案可以是十字形、圆形、方形等。贴片的尺寸和形状决定了单元的共振频率和相位响应</li>
-<li><strong>可调谐元件</strong>：PIN二极管、变容二极管、MEMS开关或石墨烯。这些元件改变单元的负载阻抗，从而调节反射波的相位和幅度</li>
-<li><strong>偏置层</strong>：提供直流控制电压，通常采用透明导电氧化物（TCO）或细金属线网格</li>
-<li><strong>接地层</strong>：形成谐振腔结构，通常是完整金属层</li>
-<li><strong>介质层</strong>：支撑结构，常用FR4、Rogers或柔性基底</li>
+<li><strong>金属贴片层</strong>：作为辐射/反射单元</li>
+<li><strong>可调谐元件</strong>：PIN二极管、变容二极管、MEMS开关或石墨烯</li>
+<li><strong>偏置层</strong>：提供直流控制电压</li>
+<li><strong>接地层</strong>：形成谐振腔结构</li>
 </ul>
-<p><strong>控制架构</strong>：</p>
-<ul>
-<li><strong>FPGA控制</strong>：处理波束赋形算法，生成相位配置表</li>
-<li><strong>微控制器</strong>：管理单元偏置电压，接收FPGA指令</li>
-<li><strong>通信接口</strong>：通过以太网或光纤与基站连接</li>
-</ul>
+<p>通过FPGA或微控制器动态调节各单元的相位状态，实现波束转向、聚焦或散射。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2. 四类技术创新路径深度分析</h2>
-    <p>根据 PatSnap Eureka 专利数据分析（2005-2026），RIS技术分为四大子域：</p>
-<p><strong>子域1：模块化平板超表面天线（Tiled Architecture）</strong>
-- 核心创新：将大型RIS面板分割为多个小模块，每个模块独立控制，解耦增益与带宽
-- 代表厂商：Kymeta（6件专利）
-- 优势：便于量产和维护，故障模块可单独更换
-- 挑战：模块间互耦需要精确建模</p>
-<p><strong>子域2：被动/主动RIS</strong>
-- 被动RIS：无源反射，功耗&lt;1W，增益有限（10-15dB）
-- 有源RIS：集成放大器，功耗1-10W，增益更高（20-30dB）
-- 代表厂商：Samsung、ETRI、东南大学
-- 趋势：从被动向有源演进，解决乘性衰落问题</p>
-<p><strong>子域3：无移相器波束赋形（Metasurface Planar Lens）</strong>
-- 核心创新：不用传统移相器网络，而是用超表面透镜实现波束聚焦
-- 代表机构：Incheon国立大学、Hongik大学
-- 优势：结构简单，成本低
-- 挑战：带宽受限，窄带工作</p>
-<p><strong>子域4：AI辅助设计</strong>
-- 核心创新：用神经网络自动设计单元结构和相位配置
-- 代表机构：浙江大学、韩国ADD
-- 优势：设计效率高，可优化多维度性能
-- 挑战：需要大量训练数据，泛化能力待验证</p>
+    <h2>2. 四类技术创新路径</h2>
+    <p>根据PatSnap Eureka专利数据分析（2005-2026），RIS技术分为四大子域：</p>
+<table>
+<thead>
+<tr>
+<th>子域</th>
+<th>核心创新</th>
+<th>代表厂商/机构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模块化平板超表面天线</td>
+<td>tiled architecture解耦增益与带宽</td>
+<td>Kymeta（6件专利）</td>
+</tr>
+<tr>
+<td>被动/主动RIS</td>
+<td>无线覆盖增强、有源放大</td>
+<td>Samsung、ETRI、东南大学</td>
+</tr>
+<tr>
+<td>无移相器波束赋形</td>
+<td>metasurface planar lens</td>
+<td>Incheon国立大学、Hongik大学</td>
+</tr>
+<tr>
+<td>AI辅助设计</td>
+<td>神经网络自动设计单元</td>
+<td>浙江大学、韩国ADD</td>
+</tr>
+</tbody>
+</table>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 关键技术指标对比详解</h2>
+    <h2>3. 关键技术指标对比</h2>
     <table>
 <thead>
 <tr>
@@ -178,67 +182,54 @@
 <tbody>
 <tr>
 <td>硬件复杂度</td>
-<td>高（每单元移相器+RF链）</td>
-<td>极低（无源单元+控制电路）</td>
-<td>中（单元+微型PA）</td>
-<td>低（动态介质）</td>
+<td>高（每单元移相器）</td>
+<td>极低（无源）</td>
+<td>中（有放大）</td>
+<td>低</td>
 </tr>
 <tr>
 <td>功耗</td>
-<td>100-500W</td>
+<td>高</td>
 <td>&lt;1W</td>
 <td>1-10W</td>
 <td>&lt;1W</td>
 </tr>
 <tr>
 <td>扫描速度</td>
-<td>ns-μs（电子扫描）</td>
-<td>μs-ms（相位切换）</td>
+<td>ns-μs</td>
+<td>μs-ms</td>
 <td>ns-μs</td>
 <td>ns-μs</td>
 </tr>
 <tr>
 <td>增益</td>
+<td>高</td>
 <td>30-40 dBi</td>
-<td>20-30 dBi</td>
-<td>30-40 dBi</td>
-<td>20-30 dBi</td>
+<td>40-50 dBi</td>
+<td>中</td>
 </tr>
 <tr>
 <td>成本</td>
-<td>高（每单元RF链）</td>
-<td>低（简单单元）</td>
+<td>高</td>
+<td>低</td>
 <td>中</td>
 <td>低</td>
 </tr>
-<tr>
-<td>带宽</td>
-<td>宽（&gt;10%）</td>
-<td>窄（&lt;10%）</td>
-<td>窄</td>
-<td>窄</td>
-</tr>
-<tr>
-<td>尺寸</td>
-<td>大（需要空间）</td>
-<td>薄（平面结构）</td>
-<td>薄</td>
-<td>薄</td>
-</tr>
 </tbody>
 </table>
-<p><strong>功耗对比分析</strong>：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4. 石墨烯RIS的特殊优势</h2>
+    <p>石墨烯超表面在太赫兹频段具有独特优势（详见笔记#186）：</p>
 <ul>
-<li>传统相控阵：每单元需要一个完整的RF链（PA、LNA、混频器、ADC/DAC），功耗约1-5W/单元。64单元阵列功耗约100-300W</li>
-<li>被动RIS：只有控制电路功耗，约1mW/单元。10000单元总功耗约10W，实际可做到&lt;1W</li>
-<li>有源RIS：每个单元集成微型PA，功耗约1-10mW/单元。1000单元总功耗约1-10W</li>
-</ul>
-<p><strong>扫描速度对比</strong>：</p>
-<ul>
-<li>传统相控阵：电子扫描，ns级。但需要复杂的移相器和控制电路</li>
-<li>被动RIS：相位切换，μs-ms级。取决于可调谐元件的响应速度（PIN管ns级，MEMS ms级）</li>
-<li>有源RIS：类似被动RIS，但需要额外考虑PA的开关时间</li>
-<li>DMA：介质流动，μs级</li>
+<li>响应速度：皮秒级（vs PIN二极管纳秒级）</li>
+<li>工作频段：200-300 GHz</li>
+<li>相位覆盖：&gt;350°</li>
+<li>扫描范围：±87°俯仰 + 360°方位</li>
 </ul>
   </article>
   
@@ -246,60 +237,17 @@
   
   <article class="card ">
     
-    <h2>4. 石墨烯RIS的特殊优势详解</h2>
-    <p>石墨烯超表面在太赫兹频段具有独特优势，是6G太赫兹通信的理想选择：</p>
-<p><strong>响应速度</strong>：</p>
+    <h2>1. 卫星通信（近-term战场）</h2>
+    <p><strong>Kymeta Ku/Ka双频终端</strong>（2026年3月发布）：</p>
 <ul>
-<li>石墨烯：皮秒级（10⁻¹²秒），比PIN二极管（纳秒级，10⁻⁹秒）快1000倍</li>
-<li>这意味着石墨烯RIS可以支持更高的波束扫描速度，适合移动场景</li>
-</ul>
-<p><strong>工作频段</strong>：</p>
-<ul>
-<li>石墨烯RIS：200-300 GHz（太赫兹频段）</li>
-<li>传统RIS：Sub-6GHz到毫米波（&lt;100GHz）</li>
-<li>太赫兹频段带宽大，但传播损耗高，需要高增益RIS补偿</li>
-</ul>
-<p><strong>相位覆盖</strong>：</p>
-<ul>
-<li>石墨烯RIS：&gt;350°（接近全相位覆盖）</li>
-<li>PIN二极管RIS：通常180-270°</li>
-<li>全相位覆盖意味着可以更精确地控制波束</li>
-</ul>
-<p><strong>扫描范围</strong>：</p>
-<ul>
-<li>俯仰角：±87°（接近全角度）</li>
-<li>方位角：360°（全周向）</li>
-<li>这意味着石墨烯RIS可以实现全方位覆盖</li>
-</ul>
-<p><strong>制备工艺</strong>：</p>
-<ul>
-<li>CVD法生长石墨烯薄膜</li>
-<li>光刻定义单元图案</li>
-<li>与CMOS工艺兼容，可大规模量产</li>
-</ul>
-<p><strong>挑战</strong>：</p>
-<ul>
-<li>石墨烯制备成本高</li>
-<li>单元一致性控制难</li>
-<li>太赫兹频段测试设备昂贵</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 卫星通信（近-term 战场）</h2>
-    <p><strong>Kymeta Ku/Ka 双频终端</strong>（2026 年 3 月发布）：</p>
-<ul>
-<li>全球首款 Ku+Ka 双频超表面卫星终端</li>
-<li>单孔径同时支持 LEO 和 GEO 卫星网络</li>
-<li>2026 年中交付原型机，2027 年商用</li>
+<li>全球首款Ku+Ka双频超表面卫星终端</li>
+<li>单孔径同时支持LEO和GEO卫星网络</li>
+<li>2026年中交付原型机，2027年商用</li>
 <li>与日本显示器（JDI）合作量产</li>
 </ul>
 <p><strong>应用场景</strong>：</p>
 <ul>
-<li>国防战术边缘部署（JADC2 要求）</li>
+<li>国防战术边缘部署（JADC2要求）</li>
 <li>海事卫星通信</li>
 <li>航空移动通信</li>
 </ul>
@@ -309,16 +257,16 @@
   
   <article class="card ">
     
-    <h2>2. 6G 基站覆盖增强</h2>
+    <h2>2. 6G基站覆盖增强</h2>
     <p><strong>华为专利</strong>（EP 2026）：</p>
 <ul>
-<li>3D 金属超表面超盖层（superstrate）</li>
+<li>3D金属超表面超盖层（superstrate）</li>
 <li>扩大相控阵角覆盖范围</li>
-<li>直接针对 AAU 性能提升</li>
+<li>直接针对AAU性能提升</li>
 </ul>
 <p><strong>中兴动向</strong>：</p>
 <ul>
-<li>U6GHz 试验场已验证 RIS 辅助覆盖</li>
+<li>U6GHz试验场已验证RIS辅助覆盖</li>
 <li>太赫兹方向预研中</li>
 </ul>
   </article>
@@ -330,14 +278,14 @@
     <h2>3. 动态超表面天线（DMA）</h2>
     <p><strong>东南大学方案</strong>（US 2025）：</p>
 <ul>
-<li>用作超大孔径 MIMO 接收阵列</li>
-<li>近场宽带上行 MIMO 传输</li>
+<li>用作超大孔径MIMO接收阵列</li>
+<li>近场宽带上行MIMO传输</li>
 <li>无需传统移相器网络</li>
 </ul>
 <p><strong>应用</strong>：</p>
 <ul>
-<li>6G 极端大规模 MIMO</li>
-<li>XL-MIMO 近场波束聚焦</li>
+<li>6G极端大规模MIMO</li>
+<li>XL-MIMO近场波束聚焦</li>
 </ul>
   </article>
   
@@ -346,11 +294,11 @@
   <article class="card ">
     
     <h2>4. 智能无线电环境</h2>
-    <p><strong>IEEE Spectrum 观点</strong>（2022-2025 持续追踪）：</p>
+    <p><strong>IEEE Spectrum观点</strong>（2022-2025持续追踪）：</p>
 <ul>
-<li>RIS 作为"下一代中继器"</li>
+<li>RIS作为"下一代中继器"</li>
 <li>电子调控而非机械转向</li>
-<li>可与太阳能板 + 电池实现自供电</li>
+<li>可与太阳能板+电池实现自供电</li>
 </ul>
   </article>
   
@@ -386,16 +334,16 @@
 <tr>
 <td>欧洲（EP）</td>
 <td>标准制定参与</td>
-<td>华为（2026 首次 EP 申请）</td>
+<td>华为（2026首次EP申请）</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Top Assignees</strong>：</p>
 <ol>
-<li>Kymeta Corporation（6 件，IL/JP）</li>
-<li>韩国高校集群（15+ 件）</li>
-<li>华为（2 件，CN/WO/EP）</li>
-<li>东南大学（2 件，US）</li>
+<li>Kymeta Corporation（6件，IL/JP）</li>
+<li>韩国高校集群（15+件）</li>
+<li>华为（2件，CN/WO/EP）</li>
+<li>东南大学（2件，US）</li>
 </ol>
   </article>
   
@@ -414,27 +362,27 @@
 <tbody>
 <tr>
 <td>2018</td>
-<td>NTT Docomo 首次公共演示</td>
+<td>NTT Docomo首次公共演示</td>
 </tr>
 <tr>
 <td>2020</td>
-<td>Visorsurf 项目结束（欧盟资助）</td>
+<td>Visorsurf项目结束（欧盟资助）</td>
 </tr>
 <tr>
 <td>2022</td>
-<td>Kymeta u8 GEO 终端商用</td>
+<td>Kymeta u8 GEO终端商用</td>
 </tr>
 <tr>
 <td>2024</td>
-<td>格拉摩根大学 60GHz DMA 原型</td>
+<td>格拉摩根大学60GHz DMA原型</td>
 </tr>
 <tr>
 <td>2025</td>
-<td>Kymeta Ku/Ka 突破验证</td>
+<td>Kymeta Ku/Ka突破验证</td>
 </tr>
 <tr>
 <td>2026</td>
-<td>Kymeta 与 JDI 合作量产，华为 EP 申请</td>
+<td>Kymeta与JDI合作量产，华为EP申请</td>
 </tr>
 </tbody>
 </table>
@@ -483,9 +431,9 @@
     
     <h2>4. 标准组织进展</h2>
     <ul>
-<li><strong>3GPP</strong>：Rel-18 开始 6G 研究，RIS 标准化启动</li>
-<li><strong>IEEE</strong>：成立 RIS 工作组，制定标准</li>
-<li><strong>ITU-R</strong>：IMT-2030 框架纳入 RIS 频谱规划</li>
+<li><strong>3GPP</strong>：Rel-18开始6G研究，RIS标准化启动</li>
+<li><strong>IEEE</strong>：成立RIS工作组，制定标准</li>
+<li><strong>ITU-R</strong>：IMT-2030框架纳入RIS频谱规划</li>
 </ul>
   </article>
   
@@ -493,20 +441,20 @@
   
   <article class="card ">
     
-    <h2>短期（1-2 年）</h2>
+    <h2>短期（1-2年）</h2>
     <ol>
 <li><strong>卫星终端率先商用</strong></li>
-<li>Kymeta Ku/Ka 终端 2026 年中原型交付</li>
+<li>Kymeta Ku/Ka终端2026年中原型交付</li>
 <li>国防和海事市场优先落地</li>
 <li>
-<p>价格仍高，SWaP-C 优化中</p>
+<p>价格仍高，SWaP-C优化中</p>
 </li>
 <li>
 <p><strong>国内专利布局加速</strong></p>
 </li>
-<li>华为、中兴加大 RIS 专利储备</li>
-<li>高校成果转化（东南大学 DMA）</li>
-<li>国产替代机会：石墨烯制备、TFT 制造</li>
+<li>华为、中兴加大RIS专利储备</li>
+<li>高校成果转化（东南大学DMA）</li>
+<li>国产替代机会：石墨烯制备、TFT制造</li>
 </ol>
   </article>
   
@@ -514,22 +462,22 @@
   
   <article class="card ">
     
-    <h2>中期（3-5 年）</h2>
+    <h2>中期（3-5年）</h2>
     <ol>
-<li><strong>6G 标准纳入 RIS</strong></li>
-<li>3GPP Rel-20/21 可能定义 RIS 辅助小区</li>
+<li><strong>6G标准纳入RIS</strong></li>
+<li>3GPP Rel-20/21可能定义RIS辅助小区</li>
 <li>
-<p>与 massive MIMO 协同设计</p>
+<p>与massive MIMO协同设计</p>
 </li>
 <li>
-<p><strong>多频段 RIS 成熟</strong></p>
+<p><strong>多频段RIS成熟</strong></p>
 </li>
-<li>sub-6GHz + mmWave 双频终端</li>
+<li>sub-6GHz + mmWave双频终端</li>
 <li>
-<p>太赫兹 RIS 进入原型验证</p>
+<p>太赫兹RIS进入原型验证</p>
 </li>
 <li>
-<p><strong>AI-native RIS 控制</strong></p>
+<p><strong>AI-native RIS控制</strong></p>
 </li>
 <li>神经网络优化单元设计</li>
 <li>数字孪生实时更新偏置矩阵</li>
@@ -540,25 +488,25 @@
   
   <article class="card ">
     
-    <h2>长期（5-10 年）</h2>
+    <h2>长期（5-10年）</h2>
     <ol>
 <li><strong>全息 Massive MIMO</strong></li>
-<li>RIS 作为 XL-MIMO 的自然延伸</li>
+<li>RIS作为XL-MIMO的自然延伸</li>
 <li>
-<p>Entire surface 作为天线孔径</p>
+<p>Entire surface作为天线孔径</p>
 </li>
 <li>
 <p><strong>通感一体化</strong></p>
 </li>
-<li>RIS 同时支持通信和环境感知</li>
+<li>RIS同时支持通信和环境感知</li>
 <li>
-<p>6G 感知网络基础设施</p>
+<p>6G感知网络基础设施</p>
 </li>
 <li>
 <p><strong>无线能量传输</strong></p>
 </li>
 <li>超表面聚焦实现远距离供电</li>
-<li>IoT 设备自供能</li>
+<li>IoT设备自供能</li>
 </ol>
   </article>
   
@@ -569,33 +517,33 @@
     <h2>对工作的直接参考价值</h2>
     <ol>
 <li><strong>技术路线选择</strong></li>
-<li>老大的 RIS 研究方向（逆拓扑、半导体集成）与石墨烯路线互补</li>
+<li>老大的RIS研究方向（逆拓扑、半导体集成）与石墨烯路线互补</li>
 <li>STAR-RIS（全空间）vs 半球形透射阵（高增益宽扫描）形成技术矩阵</li>
 <li>
-<p>DMA 可作为 XL-MIMO 的候选方案</p>
+<p>DMA可作为XL-MIMO的候选方案</p>
 </li>
 <li>
 <p><strong>产业链机会</strong></p>
 </li>
 <li>石墨烯制备：中科院苏州纳米所、清华等国内团队布局</li>
-<li>TFT 制造：JDI 模式可借鉴，国产显示厂商（京东方、华星）切入</li>
+<li>TFT制造：JDI模式可借鉴，国产显示厂商（京东方、华星）切入</li>
 <li>
 <p>测试设备：太赫兹矢量网络分析仪国产替代</p>
 </li>
 <li>
 <p><strong>竞争格局判断</strong></p>
 </li>
-<li>Kymeta 在卫星终端领域领先，但中国厂商（华为、中兴）追赶快</li>
-<li>韩国学术成果多但商业化不足，存在 License 机会</li>
+<li>Kymeta在卫星终端领域领先，但中国厂商（华为、中兴）追赶快</li>
+<li>韩国学术成果多但商业化不足，存在License机会</li>
 <li>
-<p>东南大学 DMA 方案是国内亮点，可跟踪后续产业化</p>
+<p>东南大学DMA方案是国内亮点，可跟踪后续产业化</p>
 </li>
 <li>
 <p><strong>标准参与建议</strong></p>
 </li>
-<li>关注 3GPP RIS 标准化进展</li>
-<li>IEEE RIS 工作组参与</li>
-<li>ITU-R 太赫兹频谱规划</li>
+<li>关注3GPP RIS标准化进展</li>
+<li>IEEE RIS工作组参与</li>
+<li>ITU-R太赫兹频谱规划</li>
 </ol>
   </article>
   
@@ -606,15 +554,15 @@
     <h2>建议后续跟踪</h2>
     <ol>
 <li><strong>技术层面</strong></li>
-<li>石墨烯太赫兹 RIS 实验验证论文（预期 2026 年底）</li>
-<li>Kymeta Ku/Ka 终端实测性能数据</li>
+<li>石墨烯太赫兹RIS实验验证论文（预期2026年底）</li>
+<li>Kymeta Ku/Ka终端实测性能数据</li>
 <li>
-<p>华为 EP 专利具体技术方案</p>
+<p>华为EP专利具体技术方案</p>
 </li>
 <li>
 <p><strong>产业层面</strong></p>
 </li>
-<li>国内 RIS 试点城市部署进展</li>
+<li>国内RIS试点城市部署进展</li>
 <li>运营商招标情况</li>
 <li>
 <p>石墨烯-硅异质集成工艺突破</p>
@@ -622,8 +570,8 @@
 <li>
 <p><strong>标准层面</strong></p>
 </li>
-<li>3GPP Rel-19/20 RIS 相关提案</li>
-<li>IEEE 802.15 太赫兹标准进展</li>
+<li>3GPP Rel-19/20 RIS相关提案</li>
+<li>IEEE 802.15太赫兹标准进展</li>
 </ol>
   </article>
   
@@ -634,12 +582,13 @@
     <h2>参考资料</h2>
     <ul>
 <li>PatSnap Eureka, "Metasurface Antenna Technology 2026 Patent Landscape" (2026.04)</li>
-<li>IEEE Spectrum, "Metamaterials Could Solve One of 6G's Big Problems" (2022, 持续更新)</li>
+<li>IEEE Spectrum, "Metamaterials Could Solve One of 6G's Big Problems" (2022,持续更新)</li>
 <li>Kymeta Corporation, "KuKa 8 Series Multi-Band Terminal" (2026.03)</li>
 <li>J. Phys. D: Appl. Phys. 59(13), "The 2026 roadmap on wireless and microwave metasurfaces" (2026.03)</li>
 <li>arXiv:2405.03356, "An Overview of Intelligent Meta-surfaces for 6G and Beyond" (2024)</li>
 <li>IEEE Trans. Commun., "Dynamic Metasurface Antennas for Uplink Massive MIMO Systems" (2019)</li>
 </ul>
+<hr />
   </article>
   
 

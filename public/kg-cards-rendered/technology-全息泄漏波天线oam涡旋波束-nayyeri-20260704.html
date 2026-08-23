@@ -105,182 +105,68 @@
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
-    <p>全息泄漏波天线OAM涡旋波束是6G通信技术的重要研究方向。OAM（轨道角动量）作为新的复用维度，与现有MIMO技术形成互补，理论上可提供无限多的正交自由度用于空间复用。</p>
-<p>2026年7月，Nayyeri &amp; Amini在Scientific Reports发表各向异性超表面全息泄漏波天线研究，实现了多路反向旋转涡旋波束的独立控制，代表了当前最先进的原型水平。</p>
-<p><strong>OAM复用的理论价值</strong>：
-传统MIMO利用空间维度（多个天线）实现空间复用，而OAM利用模式维度（不同拓扑荷数l）实现额外复用。理论上，OAM可提供无限多个正交模式，与MIMO结合可大幅提升信道容量。</p>
-<p><strong>技术挑战</strong>：</p>
-<ol>
-<li>OAM波束发散角随|l|增大而增大，限制通信距离</li>
-<li>对准要求严格，微小角度偏移导致严重模式串扰</li>
-<li>带宽限制，传统全息超表面天线带宽&lt;10%</li>
-<li>加工精度要求高，亚波长量级单元尺寸</li>
-</ol>
+    <h2>1.1 轨道角动量（OAM）基础</h2>
+    <p>电磁波除了携带自旋角动量（SAM，对应偏振态）外，还可以携带轨道角动量（OAM）。OAM波的电场相位具有 exp(ilφ) 的螺旋结构，其中 l 是拓扑荷数（整数），φ 是方位角。每个 l 值对应一个正交的OAM模式，理论上 l 可取无穷大，因此OAM提供了无限多的正交自由度用于空间复用。</p>
+<p>OAM波束在传播方向上呈环形（甜甜圈形状），中心存在相位奇点（场强为零），这是区别于传统波束的核心特征。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>轨道角动量（OAM）基础理论</h2>
-    <p><strong>物理概念</strong>：
-电磁波除了携带自旋角动量（SAM，对应偏振态）外，还可以携带轨道角动量（OAM）。OAM波的电场相位具有 exp(ilφ) 的螺旋结构，其中 l 是拓扑荷数（整数），φ 是方位角。</p>
-<p><strong>数学描述</strong>：
-OAM波的电场分布可表示为：
-$$E(r, \phi, z) = A(r, z) \cdot e^{il\phi} \cdot e^{-jkz}$$
-其中：</p>
-<ul>
-<li>A(r,z)为振幅分布（通常为拉盖尔-高斯分布）</li>
-<li>l为拓扑荷数（整数，可正可负）</li>
-<li>φ为方位角</li>
-<li>k为波数</li>
-<li>z为传播方向</li>
-</ul>
-<p><strong>核心特征</strong>：</p>
-<ol>
-<li><strong>螺旋相位波前</strong>：波前呈螺旋状，如同螺丝螺纹</li>
-<li><strong>环形强度分布</strong>：传播方向上呈环形（甜甜圈形状）</li>
-<li><strong>中心相位奇点</strong>：中心区域场强为零（暗核）</li>
-<li><strong>模式正交性</strong>：不同l值对应正交模式，互不干扰</li>
-</ol>
-<p><strong>OAM模式示例</strong>：
-| l值 | 拓扑荷数 | 旋转方向 | 应用 |
-|-----|---------|---------|------|
-| l=0 | 0 | 无旋转 | 传统波束 |
-| l=+1 | +1 | 逆时针 | OAM复用通道1 |
-| l=-1 | -1 | 顺时针 | OAM复用通道2 |
-| l=+2 | +2 | 逆时针 | OAM复用通道3 |
-| l=-2 | -2 | 顺时针 | OAM复用通道4 |</p>
+    <h2>1.2 全息天线原理</h2>
+    <p>微波全息术基于干涉原理：将参考波（通常是表面波）与目标波（期望辐射方向图）的干涉图样编码到天线表面阻抗分布中。当表面波照射被调制的阻抗表面时，辐射出的远场波前即为目标波。</p>
+<p>核心公式：</p>
+<p>$$\Delta \beta = \vec{\beta}<em>{target} - \vec{\beta}</em>{reference}$$</p>
+<p>其中 Δβ 是表面阻抗调制的空间频率，由目标波和参考波的波矢量差决定。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>全息天线原理</h2>
-    <p><strong>微波全息术基础</strong>：
-微波全息术基于干涉原理：将参考波（通常是表面波）与目标波（期望辐射方向图）的干涉图样编码到天线表面阻抗分布中。当表面波照射被调制的阻抗表面时，辐射出的远场波前即为目标波。</p>
-<p><strong>核心公式推导</strong>：
-设参考波为表面波，波矢量为 $\vec{\beta}<em>s$；目标波为期望辐射波，波矢量为 $\vec{\beta}_t$。则表面阻抗调制的空间频率为：
-$$\Delta \beta = \vec{\beta}</em>{target} - \vec{\beta}_{reference}$$</p>
-<p><strong>全息图生成过程</strong>：</p>
-<ol>
-<li>计算参考波（表面波）的复振幅分布 $U_s(x,y)$</li>
-<li>计算目标波（期望辐射）的复振幅分布 $U_t(x,y)$</li>
-<li>计算干涉图样：$I(x,y) = |U_s + U_t|^2$</li>
-<li>将干涉图样编码到表面阻抗分布中</li>
-</ol>
-<p><strong>阻抗调制方式</strong>：</p>
-<ul>
-<li>各向同性调制：只改变阻抗幅值</li>
-<li>各向异性调制：同时改变阻抗幅值和相位，实现极化控制</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>全息泄漏波天线 + OAM</h2>
-    <p><strong>技术结合</strong>：
-全息泄漏波天线将经典泄漏波理论与微波全息术结合：</p>
+    <h2>1.3 全息泄漏波天线 + OAM</h2>
+    <p>全息泄漏波天线将经典泄漏波理论与微波全息术结合：</p>
 <ul>
 <li><strong>参考波</strong>：沿表面传播的TM模表面波（由单极子馈源激发，波函数可用第二类汉克尔函数近似）</li>
 <li><strong>目标波</strong>：携带特定OAM模式的涡旋波束</li>
 <li><strong>调制方式</strong>：通过改变表面人工阻抗单元的有效阻抗（如改变六边形金属贴片尺寸）实现各向同性或各向异性阻抗调制</li>
 </ul>
-<p><strong>表面波模型</strong>：
-TM模表面波的波函数可用第二类汉克尔函数近似：
-$$H_0^{(2)}(\beta_s r) \approx \sqrt{\frac{2}{\pi \beta_s r}} \cdot e^{-j(\beta_s r - \pi/4)}$$
-其中 $\beta_s$ 为表面波传播常数，r为距离。</p>
-<p><strong>OAM目标波模型</strong>：
-期望的OAM涡旋波束可表示为：
-$$U_t(r, \phi) = A(r) \cdot e^{il\phi} \cdot e^{-jkz}$$</p>
-<p><strong>全息图计算</strong>：
-干涉图样为：
-$$I(r, \phi) = |H_0^{(2)}(\beta_s r) + A(r) \cdot e^{il\phi} \cdot e^{-jkz}|^2$$
-展开后得到阻抗调制分布。</p>
+<p>当表面波穿过被OAM相位图案调制的阻抗表面时，辐射出的电磁波即携带OAM信息。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>2026年最新进展详解</h2>
-    <p><strong>各向异性超表面全息</strong>（Nayyeri &amp; Amini，Scientific Reports 2026.07）：</p>
+    <h2>2.1 各向异性超表面全息（2026.07 Nayyeri &amp; Amini，Scientific Reports）</h2>
+    <p><strong>最新进展</strong>（2026年7月4日发表）：</p>
 <ul>
-<li><strong>核心创新</strong>：提出基于调制各向异性超表面的全息泄漏波天线，用于综合多路反向旋转涡旋波束</li>
-<li><strong>技术特点</strong>：</li>
-<li>采用广义孔径场估计方法</li>
-<li>实现对波束方向、OAM模式、功率分布和极化的独立控制</li>
-<li>支持多路波束同时生成，每路独立控制</li>
-<li><strong>实验验证</strong>：</li>
-<li>双极化、双波束原型</li>
-<li>第一路波束指向 $(\theta_1=30°, \phi_1=0°)$</li>
-<li>右旋圆极化</li>
-<li>OAM内容为 $l=-3$ 和 $l=+3$ 的叠加</li>
-<li>形成六瓣反向旋转涡旋波束</li>
-<li><strong>性能指标</strong>：</li>
-<li>增益：15-18 dBi</li>
-<li>波束指向精度：±2°</li>
-<li>模式纯度：&gt;20dB（OAM模式隔离度）</li>
-<li>带宽：约8%</li>
+<li>提出基于<strong>调制各向异性超表面</strong>的全息泄漏波天线，用于综合<strong>多路反向旋转涡旋波束</strong></li>
+<li>采用面向各向异性阻抗表面的广义孔径场估计方法，实现对波束方向、OAM模式、功率分布和极化的独立控制</li>
+<li>通过调整调制指数，可精确控制沿天线泄漏的功率速率，从而精准调节天线增益</li>
+<li>各向异性阻抗表面使每路波束可独立控制极化</li>
+<li>实验验证：双极化、双波束原型，第一路波束指向 (θ₁=30°, φ₁=0°)，右旋圆极化，OAM内容为 l=-3 和 l=+3 的叠加，形成六瓣反向旋转涡旋波束</li>
 </ul>
-<p><strong>毫米波全息超表面OAM合成</strong>（Queen's University Belfast，IEEE IWT 2026）：</p>
-<ul>
-<li><strong>频段</strong>：28GHz（6G候选频段）</li>
-<li><strong>成果</strong>：成功生成 l=+2 OAM模式</li>
-<li><strong>性能</strong>：最大增益达到 19.85 dBi</li>
-<li><strong>意义</strong>：验证了毫米波频段OAM全息天线的可行性</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>OAM正交性与信道容量分析</h2>
-    <p><strong>OAM正交性条件</strong>：
-不同OAM模式的正交性条件为：
-$$\int_0^{2\pi} e^{j(l_1 - l_2)\phi} d\phi = 2\pi \delta(l_1, l_2)$$
-其中δ为Kronecker delta函数。当$l_1 \neq l_2$时，积分结果为0，表示模式正交。</p>
-<p><strong>理想信道容量</strong>：
-假设有2L+1个OAM模式（l从-L到+L），每个模式带宽为B，信号功率为$P_l$，噪声功率谱密度为$N_0$，则总容量为：
-$$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
-<p><strong>实际容量限制</strong>：</p>
+<p><strong>关键技术突破</strong>：</p>
 <ol>
-<li><strong>模式串扰</strong>：实际系统中模式间存在串扰，降低正交性</li>
-<li><strong>波束发散</strong>：高阶OAM模式发散角大，限制通信距离</li>
-<li><strong>对准误差</strong>：接收端需要对准发射波束中心，误差导致容量下降</li>
-<li><strong>带宽限制</strong>：全息超表面天线带宽窄，限制系统容量</li>
+<li>广义孔径场估计方法适配各向异性阻抗表面</li>
+<li>多波束独立控制（方向/OAM/功率/极化四自由度解耦）</li>
+<li>调制指数精确控制功率泄漏率 → 增益可调</li>
 </ol>
-<p><strong>容量提升估算</strong>：
-理论上，OAM复用可将容量提升L倍（L为最大拓扑荷数）。实际系统中，考虑串扰和发散，容量提升约为0.5-0.8L倍。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.1 6G通信用OAM复用</h2>
-    <p><strong>技术定位</strong>：</p>
-<ul>
-<li>OAM作为新的复用维度，与现有MIMO技术形成互补</li>
-<li>MIMO解决空间维度，OAM解决模式维度</li>
-<li>理论上可将信道容量提升数个数量级</li>
-</ul>
-<p><strong>应用场景</strong>：</p>
-<ol>
-<li><strong>多用户MIMO场景</strong>：不同用户分配不同OAM模式，实现频域和角域的联合复用</li>
-<li><strong>点对点高速链路</strong>：利用高阶OAM模式提升单链路容量</li>
-<li><strong>微波中继</strong>：利用OAM模式隔离减少干扰</li>
-</ol>
-<p><strong>与现有技术的协同</strong>：</p>
-<ul>
-<li><strong>MIMO+OAM混合复用</strong>：空间维度+模式维度双重复用</li>
-<li><strong>RIS+OAM协同</strong>：RIS调控OAM波束方向</li>
-<li><strong>FDMA/TDMA+OAM</strong>：频分/时分+OAM复用</li>
+    <h2>2.2 毫米波全息超表面OAM合成（Queen&#39;s University Belfast，IEEE IWT 2026）</h2>
+    <ul>
+<li>在28GHz频段成功生成 l=+2 OAM模式</li>
+<li>最大增益达到 19.85 dBi</li>
+<li>采用渐进相位分布增强方案，结合阻抗和相位调制精确控制电磁波前</li>
+<li>亚波长标量单元实现可控OAM波调制</li>
+<li>设计可扩展至更高阶模式（l&gt;2）</li>
 </ul>
   </article>
   
@@ -288,133 +174,59 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>3.2 波分复用增强</h2>
-    <p><strong>复用维度组合</strong>：
-| 复用维度 | 技术 | OAM角色 |
-|---------|------|--------|
-| 频率 | FDMA | 独立频段分配不同OAM模式 |
-| 时间 | TDMA | 不同时段使用不同OAM模式 |
-| 码字 | CDMA | 不同OAM模式对应不同码字 |
-| 极化 | Polarization | 不同OAM模式使用不同极化 |
-| 空间 | MIMO | 不同OAM模式在不同空间位置 |
-| 模式 | OAM | 新增维度，提供额外复用自由度 |</p>
-<p><strong>容量提升潜力</strong>：
-理论上，六维复用可将容量提升数十倍至数百倍。实际系统中，受限于串扰和工程实现，提升倍数约为10-50倍。</p>
+    <h2>2.3 OAM正交性与信道容量</h2>
+    <p>OAM模式的正交性意味着不同 l 值的波束可以在同一频率上同时传输独立数据流而不互相干扰：</p>
+<p>$$C_{OAM} = \sum_{l=-L}^{+L} B \log_2(1 + \frac{P_l}{N_0})$$</p>
+<p>其中 L 是可区分的OAM模式数量。理论上 L 可无限扩展，实际受限于波束发散角、接收孔径和模式串扰。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3.3 高精度雷达成像</h2>
-    <p><strong>OAM波束优势</strong>：</p>
-<ul>
-<li>高角度敏感性：OAM波束对角度变化敏感，适合高精度角度测量</li>
-<li>环形波前：中心暗核特性适合特定成像算法</li>
-<li>多模式复用：可同时生成多个OAM模式，实现多视角成像</li>
-</ul>
-<p><strong>应用场景</strong>：</p>
-<ol>
-<li><strong>超分辨率目标检测</strong>：利用OAM波束的高角度敏感性实现超分辨率成像</li>
-<li><strong>运动目标成像</strong>：OAM波束对运动目标敏感，适合动目标检测</li>
-<li><strong>三维成像</strong>：多OAM模式组合实现三维重建</li>
-</ol>
-<p><strong>与6G通感一体化结合</strong>：</p>
-<ul>
-<li>通信波束和感知波束共享硬件</li>
-<li>OAM模式既用于通信复用，也用于感知成像</li>
-<li>实现通感一体化的高效资源利用</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3.4 量子通信应用</h2>
-    <p><strong>OAM光子态价值</strong>：</p>
-<ul>
-<li>OAM光子态在量子密钥分发（QKD）中有独特价值</li>
-<li>高维度量子态（dubit）提升密钥 rates</li>
-<li>OAM模式正交性保证量子态不可克隆</li>
-</ul>
-<p><strong>应用场景</strong>：</p>
-<ol>
-<li><strong>量子密钥分发</strong>：利用OAM模式编码量子信息</li>
-<li><strong>量子态操控</strong>：OAM波束精确控制量子态</li>
-<li><strong>量子隐形传态</strong>：OAM模式作为量子信道</li>
-</ol>
-<p><strong>与经典通信协同</strong>：</p>
-<ul>
-<li>经典OAM通信和量子OAM通信可共享硬件</li>
-<li>频率复用：经典通信用高频段，量子通信用低频段</li>
-<li>时间复用：不同时隙分别用于经典和量子通信</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>四、竞品/同行动态</h2>
+    <h2>3.1 按超表面类型</h2>
     <table>
 <thead>
 <tr>
-<th>研究团队</th>
-<th>成果</th>
-<th>频段</th>
-<th>OAM模式</th>
-<th>增益</th>
+<th>类型</th>
 <th>特点</th>
+<th>代表工作</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Nayyeri &amp; Amini</td>
-<td>Scientific Reports 2026</td>
-<td>微波</td>
-<td>l=±3叠加</td>
-<td>15-18 dBi</td>
-<td>各向异性超表面、多波束独立控制</td>
+<td>各向同性阻抗表面</td>
+<td>简单结构，单极化</td>
+<td>Oraizi 2020 (18GHz)</td>
 </tr>
 <tr>
-<td>Queen's Belfast</td>
-<td>IEEE IWT 2026</td>
-<td>28GHz</td>
-<td>l=+2</td>
-<td>19.85 dBi</td>
-<td>毫米波频段验证</td>
+<td>各向异性阻抗表面</td>
+<td>独立极化控制，多自由度</td>
+<td>Nayyeri 2026 (Scientific Reports)</td>
 </tr>
 <tr>
-<td>Oraizi</td>
-<td>Scientific Reports 2020</td>
-<td>18GHz</td>
-<td>l=±1,±2</td>
-<td>12-15 dBi</td>
-<td>早期全息泄漏波OAM</td>
-</tr>
-<tr>
-<td>Zohrevand</td>
-<td>ICEE 2022</td>
-<td>18GHz</td>
-<td>l=+1</td>
-<td>14 dBi</td>
 <td>SSPP泄漏波超表面</td>
+<td>利用伪表面等离子体增强约束</td>
+<td>Zohrevand 2022 (18GHz)</td>
+</tr>
+<tr>
+<td>多层反射式超表面</td>
+<td>宽带OAM生成</td>
+<td>Zhu 2023 (太赫兹)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>技术路线对比</strong>：
-| 路线 | 代表团队 | 核心特点 | 优势 | 劣势 |
-|------|---------|---------|------|------|
-| 全息泄漏波 | Nayyeri, Oraizi | 微波全息术+泄漏波 | 低剖面、易集成 | 带宽窄 |
-| SSPP泄漏波 | Zohrevand | 表面等离子体共振 | 高增益 | 结构复杂 |
-| 金属纹波波导 | 传统方案 | 机械结构 | 宽带 | 体积大 |
-| 超表面反射阵 | 学术界主流 | 反射式超表面 | 灵活设计 | 插入损耗 |</p>
-<p><strong>产业化进展</strong>：</p>
-<ul>
-<li>学术界：研究活跃，论文众多</li>
-<li>产业界：华为、高通等布局专利，但商用产品尚未出现</li>
-<li>标准化：OAM尚未纳入3GPP标准，属于前沿探索</li>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3.2 按频段</h2>
+    <ul>
+<li><strong>微波段（&lt;10GHz）</strong>：实验室验证为主，结构较大</li>
+<li><strong>毫米波（24-100GHz）</strong>：6G候选频段，Queen's Belfast 28GHz工作在此范围</li>
+<li><strong>太赫兹（&gt;100GHz）</strong>：未来6G高频段，需更精细加工</li>
 </ul>
   </article>
   
@@ -422,88 +234,11 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>短期趋势（1-2年）</h2>
-    <ol>
-<li><strong>OAM与RIS/超表面技术深度融合</strong></li>
-<li>RIS可动态调控OAM波束方向和模式</li>
-<li>出现可重构OAM-RIS复合器件</li>
-<li>
-<p>学术研究热点</p>
-</li>
-<li>
-<p><strong>毫米波频段（28/39GHz）OAM天线原型向小规模商用推进</strong></p>
-</li>
-<li>Queen's Belfast等团队验证毫米波可行性</li>
-<li>6G候选频段适配</li>
-<li>原型机演示</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>中期趋势（3-5年）</h2>
-    <ol>
-<li><strong>OAM复用纳入6G标准候选方案</strong></li>
-<li>3GPP可能启动OAM相关研究项目</li>
-<li>与MIMO、RIS等技术协同标准化</li>
-<li>
-<p>中国团队可能主导标准提案</p>
-</li>
-<li>
-<p><strong>AI辅助全息超表面设计成为主流</strong></p>
-</li>
-<li>深度学习优化全息图生成</li>
-<li>逆向设计提升性能</li>
-<li>
-<p>自动化设计流程</p>
-</li>
-<li>
-<p><strong>多输入多输出OAM-MIMO混合架构出现</strong></p>
-</li>
-<li>空间维度+模式维度联合优化</li>
-<li>混合复用提升容量</li>
-<li>算法和硬件协同设计</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>长期趋势（5年以上）</h2>
-    <ol>
-<li><strong>OAM可能成为6G空口技术的补充维度之一</strong></li>
-<li>与MIMO、RIS等技术形成完整技术栈</li>
-<li>在特定场景（高速点对点）率先商用</li>
-<li>
-<p>作为传统MIMO的补充而非替代</p>
-</li>
-<li>
-<p><strong>太赫兹频段OAM全息天线在短距高速链路中率先商用</strong></p>
-</li>
-<li>太赫兹频段带宽优势</li>
-<li>短距通信场景适配</li>
-<li>数据中心互联等应用</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6.1 OAM复用技术储备</h2>
-    <p><strong>技术价值</strong>：</p>
-<ul>
-<li>OAM作为新的复用维度，与现有MIMO技术形成互补</li>
-<li>是6G频谱效率提升的候选方案之一</li>
-<li>需要提前技术储备，抓住标准化机遇</li>
-</ul>
-<p><strong>关联项目</strong>：</p>
-<ul>
-<li>中兴U6G项目：可探索OAM与GigaMIMO的协同</li>
-<li>6G预研项目：OAM作为候选技术方向</li>
+    <h2>3.3 按OAM模式数量</h2>
+    <ul>
+<li><strong>单模式</strong>：单一 l 值涡旋波束</li>
+<li><strong>多模式</strong>：同时生成多个不同 l 值</li>
+<li><strong>反向旋转混合</strong>：同时包含 +l 和 -l 模式叠加（如 Nayyeri 2026 中的 l=-3 和 l=+3 叠加产生六瓣图样）</li>
 </ul>
   </article>
   
@@ -511,18 +246,10 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>6.2 超表面制造质量</h2>
-    <p><strong>加工精度要求</strong>：</p>
-<ul>
-<li>亚波长量级的加工精度（毫米波频段约几毫米，太赫兹频段约几百微米）</li>
-<li>对PCB加工和光刻工艺提出新挑战</li>
-<li>需要高精度制造能力</li>
-</ul>
-<p><strong>工程挑战</strong>：</p>
-<ul>
-<li>大批量制造的成本控制</li>
-<li>良率和一致性保障</li>
-<li>测试和校准方法</li>
+    <h2>4.1 6G通信用OAM复用</h2>
+    <ul>
+<li>多用户MIMO场景下，不同用户分配不同OAM模式，实现频域和角域的联合复用</li>
+<li>与现有MIMO/RIS技术形成互补：MIMO解决空间维度，OAM解决模式维度</li>
 </ul>
   </article>
   
@@ -530,18 +257,10 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>6.3 毫米波6G应用前景</h2>
-    <p><strong>频段适配</strong>：</p>
-<ul>
-<li>Queen's Belfast团队在28GHz实现19.85dBi OAM全息超表面天线</li>
-<li>28GHz是6G候选频段（FR2）</li>
-<li>与老大的毫米波天线工作直接相关</li>
-</ul>
-<p><strong>技术协同</strong>：</p>
-<ul>
-<li>OAM技术与毫米波天线技术协同</li>
-<li>可应用于中兴毫米波产品开发</li>
-<li>形成技术差异化优势</li>
+    <h2>4.2 波分复用增强</h2>
+    <ul>
+<li>OAM模式作为新的复用维度，与FDMA/TDMA/CDMA/Polarization复用组合使用</li>
+<li>理论上可将信道容量提升数个数量级</li>
 </ul>
   </article>
   
@@ -549,20 +268,10 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>6.4 工程化瓶颈识别</h2>
-    <p><strong>主要瓶颈</strong>：</p>
-<ol>
-<li><strong>波束发散</strong>：高阶OAM模式发散角大，限制通信距离</li>
-<li><strong>对准敏感性</strong>：接收端需要对准发射波束中心，微小偏移导致严重串扰</li>
-<li><strong>带宽限制</strong>：传统全息超表面天线带宽窄（&lt;10%）</li>
-<li><strong>加工精度</strong>：亚波长量级单元尺寸，制造难度大</li>
-</ol>
-<p><strong>应对策略</strong>：</p>
-<ul>
-<li>中低阶OAM模式（|l|≤3）优先商用</li>
-<li>自适应对准算法降低对准要求</li>
-<li>宽带全息超表面设计突破带宽限制</li>
-<li>高精度制造工艺保障</li>
+    <h2>4.3 高精度雷达成像</h2>
+    <ul>
+<li>OAM波束的高角度敏感性使其在超分辨率目标检测中具有优势</li>
+<li>可用于6G通感一体化系统中的高分辨率成像</li>
 </ul>
   </article>
   
@@ -570,7 +279,17 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   
   <article class="card ">
     
-    <h2>关键技术指标</h2>
+    <h2>4.4 量子通信</h2>
+    <ul>
+<li>OAM光子态在量子密钥分发和量子态操控中有独特价值</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>五、关键技术指标</h2>
     <table>
 <thead>
 <tr>
@@ -610,16 +329,6 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
 <td>&lt;-20dB</td>
 <td>理想正交下的实际偏差</td>
 </tr>
-<tr>
-<td>带宽</td>
-<td>5-10%</td>
-<td>传统全息超表面限制</td>
-</tr>
-<tr>
-<td>波束发散角</td>
-<td>$\theta \propto \frac{</td>
-<td>l</td>
-</tr>
 </tbody>
 </table>
   </article>
@@ -629,22 +338,9 @@ $$C_{OAM} = \sum_{l=-L}^{+L} B \log_2\left(1 + \frac{P_l}{N_0}\right)$$</p>
   <article class="card ">
     
     <h2>6.1 OAM波束发散角</h2>
-    <p><strong>理论分析</strong>：
-OAM波束的发散角随|l|增大而增大：
-$$\theta \propto \frac{|l|\lambda}{D}$$
-其中D为天线孔径，λ为波长。</p>
-<p><strong>实际影响</strong>：</p>
-<ul>
-<li>l=1时，发散角约5°（适合通信）</li>
-<li>l=3时，发散角约15°（限制通信距离）</li>
-<li>l=5时，发散角约25°（仅适合短距）</li>
-</ul>
-<p><strong>应对策略</strong>：</p>
-<ul>
-<li>优先使用中低阶OAM模式（|l|≤3）</li>
-<li>增大天线孔径D减小发散角</li>
-<li>自适应波束成形补偿发散</li>
-</ul>
+    <p>OAM波束的发散角随 |l| 增大而增大：</p>
+<p>$$\theta \propto \frac{|l|\lambda}{D}$$</p>
+<p>高阶OAM模式在远距离传播时会严重发散，限制了实际通信距离。需要结合波束赋形或相控阵技术补偿。</p>
   </article>
   
 
@@ -652,24 +348,7 @@ $$\theta \propto \frac{|l|\lambda}{D}$$
   <article class="card ">
     
     <h2>6.2 对准要求严格</h2>
-    <p><strong>对准精度要求</strong>：</p>
-<ul>
-<li>角度对准精度：&lt;1°（高阶OAM模式）</li>
-<li>横向对准精度：&lt;λ/2</li>
-<li>纵向对准精度：&lt;λ/4</li>
-</ul>
-<p><strong>对准误差影响</strong>：</p>
-<ul>
-<li>角度偏移1°：模式串扰增加10dB</li>
-<li>横向偏移λ/2：模式串扰增加20dB</li>
-<li>严重影响通信质量</li>
-</ul>
-<p><strong>应对策略</strong>：</p>
-<ul>
-<li>自适应对准算法</li>
-<li>多模式冗余编码</li>
-<li>宽波束低阶模式优先</li>
-</ul>
+    <p>OAM复用在接收端需要对发射波束的中心奇点精确定位，微小的角度偏移就会导致严重的模式串扰。这对移动场景下的天线对准提出了极高要求。</p>
   </article>
   
 
@@ -677,23 +356,7 @@ $$\theta \propto \frac{|l|\lambda}{D}$$
   <article class="card ">
     
     <h2>6.3 加工精度</h2>
-    <p><strong>精度要求</strong>：</p>
-<ul>
-<li>毫米波频段（28GHz）：单元尺寸约5mm，公差±0.1mm</li>
-<li>太赫兹频段（0.3THz）：单元尺寸约0.5mm，公差±0.01mm</li>
-</ul>
-<p><strong>制造工艺</strong>：</p>
-<ul>
-<li>PCB加工：适合毫米波频段</li>
-<li>光刻工艺：适合太赫兹频段</li>
-<li>3D打印：原型验证</li>
-</ul>
-<p><strong>成本挑战</strong>：</p>
-<ul>
-<li>高精度制造成本高</li>
-<li>大批量生产良率挑战</li>
-<li>测试校准成本</li>
-</ul>
+    <p>超表面单元的尺寸通常在亚波长量级（毫米波频段约几毫米，太赫兹频段约几百微米），需要高精度PCB加工或光刻工艺。</p>
   </article>
   
 
@@ -701,35 +364,24 @@ $$\theta \propto \frac{|l|\lambda}{D}$$
   <article class="card ">
     
     <h2>6.4 带宽限制</h2>
-    <p><strong>带宽瓶颈</strong>：</p>
-<ul>
-<li>传统全息超表面天线带宽&lt;10%</li>
-<li>OAM模式对频率敏感，频移导致模式失真</li>
-<li>宽带OAM生成难度大</li>
-</ul>
-<p><strong>应对策略</strong>：</p>
-<ul>
-<li>宽带超表面单元设计</li>
-<li>多频段OAM复用</li>
-<li>自适应均衡补偿</li>
-</ul>
+    <p>传统全息超表面天线的带宽较窄（通常&lt;10%），因为阻抗调制图案是针对特定频率优化的。宽带OAM天线仍是研究热点。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>技术演进（详细版）</h2>
+    <h2>七、技术演进</h2>
     <ul>
 <li><strong>1992年</strong>：Allen等首次提出光波携带OAM的概念（物理光学领域）</li>
-<li><strong>2000s中期</strong>：OAM概念引入射频/微波领域，开始探索射频OAM生成</li>
-<li><strong>2010年</strong>：Fong等提出标量和张量全息人工阻抗表面理论，为全息超表面奠定基础</li>
-<li><strong>2015年</strong>：首篇射频OAM通信实验论文发表，验证OAM复用可行性</li>
-<li><strong>2020年</strong>：Oraizi提出基于全息泄漏波超表面的OAM生成方法（Scientific Reports，18GHz），实现15dBi增益</li>
-<li><strong>2022年</strong>：Zohrevand提出SSPP泄漏波全息超表面OAM生成（ICEE会议），探索新型超表面结构</li>
-<li><strong>2024年</strong>：各向异性超表面OAM生成研究增多，实现极化控制</li>
-<li><strong>2026年7月</strong>：Nayyeri &amp; Amini提出各向异性超表面全息泄漏波天线（Scientific Reports），实现多路反向旋转波束独立控制</li>
-<li><strong>2026年</strong>：Queen's Belfast团队在28GHz实现19.85dBi OAM全息超表面天线（IEEE IWT 2026），验证毫米波可行性</li>
+<li><strong>2000s中期</strong>：OAM概念引入射频/微波领域</li>
+<li><strong>2010年</strong>：Fong等提出标量和张量全息人工阻抗表面理论</li>
+<li><strong>2020年</strong>：Oraizi提出基于全息泄漏波超表面的OAM生成方法（Scientific Reports，18GHz）</li>
+<li><strong>2022年</strong>：Zohrevand提出SSPP泄漏波全息超表面OAM生成（ICEE会议）</li>
+<li><strong>2023年</strong>：Omrani等提出深度学习框架优化OAM泄漏波全息天线设计（arXiv）</li>
+<li><strong>2025年</strong>：Bansal等提出光学透明超表面OAM生成（EuCAP 2025）</li>
+<li><strong>2026年7月</strong>：Nayyeri &amp; Amini提出各向异性超表面全息泄漏波天线，实现多路反向旋转涡旋波束独立控制（Scientific Reports）</li>
+<li><strong>2026年</strong>：Queen's Belfast团队在28GHz实现19.85dBi OAM全息超表面天线（IEEE IWT 2026）</li>
 </ul>
   </article>
   
@@ -737,45 +389,11 @@ $$\theta \propto \frac{|l|\lambda}{D}$$
   
   <article class="card ">
     
-    <h2>未来趋势（详细版）</h2>
+    <h2>九、未来趋势</h2>
     <ul>
-<li><strong>短期（1-2年）</strong>：</li>
-<li>OAM与RIS/超表面技术深度融合，出现可重构OAM-RIS复合器件</li>
-<li>毫米波频段（28/39GHz）OAM天线原型向小规模商用推进</li>
-<li>
-<p>AI辅助全息超表面设计工具出现</p>
-</li>
-<li>
-<p><strong>中期（3-5年）</strong>：</p>
-</li>
-<li>OAM复用纳入6G标准候选方案</li>
-<li>AI辅助全息超表面设计成为主流</li>
-<li>多输入多输出OAM-MIMO混合架构出现</li>
-<li>
-<p>通感一体化OAM应用示范</p>
-</li>
-<li>
-<p><strong>长期（5年以上）</strong>：</p>
-</li>
-<li>OAM可能成为6G空口技术的补充维度之一</li>
-<li>太赫兹频段OAM全息天线在短距高速链路中率先商用</li>
-<li>量子通信OAM应用规模化</li>
-<li>形成完整的OAM技术生态</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>参考资料</h2>
-    <ul>
-<li>Nayyeri &amp; Amini, Scientific Reports (2026.07) - 各向异性超表面全息泄漏波天线</li>
-<li>Queen's University Belfast, IEEE IWT 2026 - 毫米波全息超表面OAM合成</li>
-<li>Oraizi, Scientific Reports (2020) - 早期全息泄漏波OAM研究</li>
-<li>Zohrevand, ICEE 2022 - SSPP泄漏波超表面OAM生成</li>
-<li>Allen et al., Physical Review A (1992) - OAM概念提出</li>
-<li>3GPP TR 38.901 v19 - 6G信道模型（OAM相关讨论）</li>
+<li><strong>短期（1-2年）</strong>：OAM与RIS/超表面技术深度融合，出现可重构OAM-RIS复合器件；毫米波频段（28/39GHz）OAM天线原型向小规模商用推进</li>
+<li><strong>中期（3-5年）</strong>：OAM复用纳入6G标准候选方案；AI辅助全息超表面设计成为主流，大幅降低设计复杂度；多输入多输出OAM-MIMO混合架构出现</li>
+<li><strong>长期（5年以上）</strong>：OAM可能成为6G空口技术的补充维度之一（不太可能完全取代传统MIMO）；太赫兹频段OAM全息天线在短距高速链路中率先商用</li>
 </ul>
   </article>
   

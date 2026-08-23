@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">抛物面反射器天线深度解读</h1>
-  <p class="lede">抛物面天线是最古老也最优雅的天线形式之一，不依赖复杂电子控制，纯粹靠几何形状实现信号聚焦——这是物理学的胜利，也是工程学的朴素之美。</p>
+  
   
 </header>
 
@@ -105,152 +105,57 @@
   
   <article class="card ">
     
-    <h2>抛物面的几何性质</h2>
-    <p>抛物面天线由旋转抛物面反射器和馈源组成。抛物线有一个独一无二的几何性质：从焦点发出的任何射线，打到抛物面上反射后，都会变成平行于轴线的反射波。这一性质使得抛物面天线能够实现：</p>
+    <h2>馈源的类型</h2>
+    <p><strong>1. 偶极子馈源（Dipole Feed）</strong></p>
+<p>最简单的馈源，就是一根小金属棒。成本低、带宽窄，常用于低频段的简单应用（如 WiFi 路由器自带的"小天线"）。</p>
+<p><strong>2. 喇叭馈源（Horn Feed）</strong></p>
+<p>最经典的馈源，形状像一个逐渐扩大的喇叭口。从波导管（矩形或圆形）逐渐过渡到自由空间，阻抗匹配好，带宽宽。</p>
 <ul>
-<li><strong>高增益</strong>：将所有辐射能量集中在一个窄波束内</li>
-<li><strong>高方向性</strong>：波束宽度可达0.1-5°，取决于口径尺寸</li>
-<li><strong>双向性</strong>：发射时聚焦能量，接收时汇聚信号</li>
+<li><strong>矩形波导喇叭</strong>：成本低，广泛用于 C 波段和 Ku 波段</li>
+<li><strong>圆形波导喇叭</strong>：对称性好，交叉极化低，用于卫星通信</li>
+<li><strong>锥角喇叭（Conical Horn）</strong>：增益更高，波束更集中</li>
 </ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>核心参数：F/D比</h2>
-    <p>抛物面天线的核心设计参数是F/D比（焦距/直径比），它决定了天线的"深浅"：</p>
-<table>
-<thead>
-<tr>
-<th>F/D比范围</th>
-<th>类型</th>
-<th>特点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>F/D &gt; 0.5</td>
-<td>浅碗型</td>
-<td>波束更窄，增益更高，但馈源遮挡更大</td>
-<td>远距离卫星通信、深空通信</td>
-</tr>
-<tr>
-<td>0.3 &lt; F/D &lt; 0.5</td>
-<td>标准型</td>
-<td>平衡设计，口径效率高</td>
-<td>通用卫星通信、微波回传</td>
-</tr>
-<tr>
-<td>F/D &lt; 0.3</td>
-<td>深碗型</td>
-<td>馈源更容易安装，波束较宽</td>
-<td>近地轨道卫星通信、低增益应用</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>口径效率</h2>
-    <p>口径效率η是衡量抛物面天线性能的关键指标，定义为：</p>
-<pre><code>η = P_radiated / P_aperture = G_actual / G_theoretical
-</code></pre>
-<p>典型值范围：55-75%，取决于馈电架构和制造精度。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>增益与波束宽度公式</h2>
-    <p><strong>理论增益公式：</strong></p>
-<pre><code>G(dBi) = 10×log₁₀(η) + 20×log₁₀(D) + 20×log₁₀(f) + 20
-</code></pre>
-<p>其中：</p>
+<p><strong>3. 喇叭馈源的边缘衰减（Edge Taper）</strong></p>
+<p>馈源不是均匀地向四周辐射的——它有一个方向图，中心最强，边缘逐渐减弱。<strong>边缘衰减</strong>是指馈源在抛物面边缘处的辐射强度相对于中心强度的比值，典型值为 <strong>-10dB 到 -12dB</strong>。</p>
 <ul>
-<li>D：抛物面直径（米）</li>
-<li>f：工作频率（GHz）</li>
-<li>η：口径效率（0.55-0.75）</li>
+<li>衰减太小（馈源太"胖"）：能量洒到抛物面外面（spill-over），浪费</li>
+<li>衰减太大（馈源太"瘦"）：抛物面边缘没有被充分利用，口径效率低</li>
+<li><strong>-11dB 左右</strong>通常是最佳折中，口径效率最高</li>
 </ul>
-<p><strong>半功率波束宽度（HPBW）：</strong></p>
-<pre><code>HPBW(°) ≈ 70×λ/D = 70/(D×f)
+<p><strong>类比</strong>：你用手电筒照一面墙。光束太宽，光洒到墙外面去了；光束太窄，只照亮墙中间一小块。找到一个刚好覆盖整面墙的亮度——这就是边缘衰减优化的意义。</p>
+<p><strong>4. 褶皱喇叭（Corrugated Horn）</strong></p>
+<p>高端卫星通信的标准配置。喇叭内壁有褶皱状结构，能产生更对称的波束、更低的交叉极化。配合 OMT（正交模变换器），可以同时处理 +45° 和 -45° 两种极化，实现频率复用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>馈源遮挡（Feed Blockage）</h2>
+    <p>馈源和它的支撑臂位于抛物面前方，会挡住一部分入射/反射波，造成"遮挡损失"。这是前馈（front-fed）抛物面天线的固有缺陷：</p>
+<ul>
+<li>馈源遮挡：损失约 1-2dB 增益</li>
+<li>支撑臂遮挡：损失约 0.5-1dB 增益</li>
+<li>总遮挡损失：约占口径效率的 5-10%</li>
+</ul>
+<p><strong>解决方案</strong>：卡塞格林式和格里高利式双反射面结构，把馈源移到主面后面。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 前馈式（Front-Fed / Axial Feed）</h2>
+    <p>馈源直接放在焦点处，通过支撑臂固定在抛物面前方。最简单、成本最低，但存在馈源遮挡问题。</p>
+<pre><code>        ╱‾‾‾╲
+       │  锅 │
+        ╲___╱
+         │
+        📢  ← 馈源（有遮挡）
 </code></pre>
-<p>其中λ为波长（米），D为口径直径（米），f为频率（GHz）。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>典型算例计算</h2>
-    <table>
-<thead>
-<tr>
-<th>天线口径</th>
-<th>工作频率</th>
-<th>理论增益</th>
-<th>HPBW</th>
-<th>应用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.6m</td>
-<td>12GHz (Ku波段)</td>
-<td>38 dBi</td>
-<td>1.0°</td>
-<td>家用卫星电视、VSAT</td>
-</tr>
-<tr>
-<td>1.2m</td>
-<td>14GHz (Ku波段)</td>
-<td>43 dBi</td>
-<td>0.5°</td>
-<td>卫星通信地面站</td>
-</tr>
-<tr>
-<td>3.0m</td>
-<td>14GHz (Ku波段)</td>
-<td>49 dBi</td>
-<td>0.17°</td>
-<td>卫星地球站、深空通信</td>
-</tr>
-<tr>
-<td>0.3m</td>
-<td>80GHz (E-band)</td>
-<td>40 dBi</td>
-<td>0.8°</td>
-<td>微波点对点回传</td>
-</tr>
-<tr>
-<td>500m</td>
-<td>1.4GHz (L波段)</td>
-<td>74 dBi</td>
-<td>0.17°</td>
-<td>FAST射电望远镜</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 前馈式（Front-Fed）</h2>
-    <ul>
-<li><strong>原理</strong>：馈源直接放置在焦点处，电磁波经抛物面反射后形成平行波束</li>
-<li><strong>优点</strong>：结构简单，成本低，易于制造</li>
-<li><strong>缺点</strong>：馈源及支撑结构遮挡部分反射面，导致口径效率降低</li>
-<li><strong>口径效率</strong>：55-60%</li>
-<li><strong>典型应用</strong>：家用卫星电视（DISH）、WiFi CPE、小型卫星通信终端</li>
-<li><strong>增益范围</strong>：30-40 dBi（0.3-1.2m口径）</li>
-</ul>
+<p><strong>典型应用</strong>：家用卫星电视接收器（小锅）、WiFi 室外 CPE、低成本微波回传。</p>
+<p><strong>口径效率</strong>：55-60%（受遮挡限制）。</p>
   </article>
   
 
@@ -258,14 +163,24 @@
   <article class="card ">
     
     <h2>2. 卡塞格林式（Cassegrain）</h2>
-    <ul>
-<li><strong>原理</strong>：使用双曲面副面将焦点"折叠"到主面后方，馈源位于主面焦点后方</li>
-<li><strong>优点</strong>：馈源不遮挡主面，口径效率高；便于安装和维护</li>
-<li><strong>缺点</strong>：结构复杂，成本较高；副面引入额外相位误差</li>
-<li><strong>口径效率</strong>：65-70%</li>
-<li><strong>典型应用</strong>：卫星地球站、深空通信（NASA DSN）、高端VSAT</li>
-<li><strong>增益范围</strong>：40-50 dBi（1-3m口径）</li>
+    <p>在主焦点处放一个<strong>双曲面副反射面（凸面）</strong>，馈源放在主反射面后方，通过副面反射到主面。</p>
+<pre><code>         📢  ← 馈源（在主面后面，无遮挡）
+          │
+         ◉   ← 双曲面副反射面（凸面）
+        ╱‾‾‾╲
+       │  锅 │  ← 抛物面主反射面（凹面）
+        ╲___╱
+</code></pre>
+<p><strong>原理</strong>：从馈源发出的信号打到双曲面上，被反射到抛物面主面，再反射成平行波射出。</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>馈源在主面后面，消除了遮挡损失</li>
+<li>等效焦距变长，波束更窄</li>
+<li>交叉极化更低</li>
+<li>馈线损耗小（馈源靠近电子设备）</li>
 </ul>
+<p><strong>口径效率</strong>：65-70%。</p>
+<p><strong>典型应用</strong>：卫星通信地球站、深空通信（NASA 的 DSN）、高端微波回传。</p>
   </article>
   
 
@@ -273,14 +188,22 @@
   <article class="card ">
     
     <h2>3. 格里高利式（Gregorian）</h2>
-    <ul>
-<li><strong>原理</strong>：使用椭圆柱面副面，馈源位于主面和副面之间</li>
-<li><strong>优点</strong>：交叉极化更低，波束纯度更高；口径效率最高</li>
-<li><strong>缺点</strong>：结构最复杂，成本最高；调整难度大</li>
-<li><strong>口径效率</strong>：70-75%</li>
-<li><strong>典型应用</strong>：射电天文、高端卫星通信、军用雷达</li>
-<li><strong>增益范围</strong>：40-50 dBi（1-3m口径）</li>
+    <p>与卡塞格林类似，但副反射面是<strong>椭圆柱面（凹面）</strong>而非双曲面（凸面）。</p>
+<pre><code>         📢  ← 馈源
+          │
+         ◉   ← 椭圆柱面副反射面（凹面）
+        ╱‾‾‾╲
+       │  锅 │  ← 抛物面主反射面
+        ╲___╱
+</code></pre>
+<p><strong>与卡塞格林的区别</strong>：</p>
+<ul>
+<li>卡塞格林副面是凸双曲面，格里高利副面是凹椭球面</li>
+<li>格里高利的副面离主面更远，需要更长的支撑结构</li>
+<li>格里高利的交叉极化更低，但系统更复杂</li>
 </ul>
+<p><strong>口径效率</strong>：70%+（最优可达 75%）。</p>
+<p><strong>典型应用</strong>：射电天文（如 FAST 的部分配置）、对交叉极化要求极高的卫星通信。</p>
   </article>
   
 
@@ -288,13 +211,47 @@
   <article class="card ">
     
     <h2>4. 偏馈式（Offset Feed）</h2>
-    <ul>
-<li><strong>原理</strong>：从完整抛物面截取一部分，馈源位于侧面，零遮挡设计</li>
-<li><strong>优点</strong>：零馈源遮挡，口径效率60-65%；抗雨衰能力强</li>
-<li><strong>缺点</strong>：非对称设计，机械结构复杂；成本较高</li>
-<li><strong>口径效率</strong>：60-65%</li>
-<li><strong>典型应用</strong>：DISH Network卫星电视、星链终端、低噪放应用</li>
-<li><strong>增益范围</strong>：35-45 dBi（0.6-2.4m口径）</li>
+    <p>馈源不在抛物面的轴线上，而是在侧面照射抛物面的一部分。</p>
+<pre><code>      ╱‾‾‾╲    ← 只用了抛物面的一部分（偏心）
+     │     │
+    │  📢  │  ← 馈源在侧面，无任何遮挡
+     │     │
+      ╲___╱
+</code></pre>
+<p><strong>优势</strong>：</p>
+<ul>
+<li><strong>零遮挡</strong>：馈源和支撑臂完全不在波束路径上</li>
+<li><strong>不积水</strong>：锅是斜的，下雨不会积水（北方冻融循环是天线杀手）</li>
+<li>地面噪声低（副面不"看到"暖地面）</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>制造复杂，不对称的抛物面需要定制模具</li>
+<li>极化纯度略差（因为照射不对称）</li>
+</ul>
+<p><strong>典型应用</strong>：DISH Network 卫星电视（偏馈 LNB）、星链用户终端、低轨卫星通信地面站。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>增益公式</h2>
+    <p>抛物面天线的增益由口径效率和工作频率决定：</p>
+<pre><code>G = η × (π × D / λ)²
+G(dBi) = 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20 × log₁₀(π/c)
+</code></pre>
+<p>简化版（D 单位 m，f 单位 GHz）：</p>
+<pre><code>G(dBi) ≈ 10 × log₁₀(η) + 20 × log₁₀(D) + 20 × log₁₀(f) + 20
+</code></pre>
+<p><strong>典型值</strong>：</p>
+<ul>
+<li>0.6m 天线 @ 12GHz，η=0.55 → <strong>38 dBi</strong></li>
+<li>1.2m 天线 @ 12GHz，η=0.60 → <strong>43 dBi</strong></li>
+<li>3.0m 天线 @ 14GHz，η=0.65 → <strong>49 dBi</strong></li>
+<li>5.0m 天线 @ 14GHz，η=0.70 → <strong>52 dBi</strong></li>
+<li>FAST 500m @ 1.4GHz，η=0.33 → <strong>74 dBi</strong></li>
 </ul>
   </article>
   
@@ -302,239 +259,76 @@
   
   <article class="card ">
     
-    <h2>口径效率损耗机制详解</h2>
-    <table>
-<thead>
-<tr>
-<th>损耗机制</th>
-<th>损耗量(dB)</th>
-<th>原因分析</th>
-<th>缓解措施</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>照射溢出</td>
-<td>1-3dB</td>
-<td>部分能量未照射到反射面，散射到周围</td>
-<td>优化馈源illumination taper</td>
-</tr>
-<tr>
-<td>遮挡损失</td>
-<td>0.5-1.5dB</td>
-<td>馈源及支撑结构遮挡主反射面</td>
-<td>采用卡塞格林/偏馈架构</td>
-</tr>
-<tr>
-<td>相位误差</td>
-<td>0.5-2dB</td>
-<td>表面精度不足导致相位偏差</td>
-<td>提高制造精度，RMS&lt;λ/16</td>
-</tr>
-<tr>
-<td>表面粗糙度</td>
-<td>0.2-1dB</td>
-<td>制造公差导致表面不平整</td>
-<td>精密加工，表面处理</td>
-</tr>
-<tr>
-<td>馈源不匹配</td>
-<td>0.5-1dB</td>
-<td>阻抗失配导致反射损耗</td>
-<td>优化馈源设计，使用匹配网络</td>
-</tr>
-<tr>
-<td>交叉极化</td>
-<td>0.2-0.5dB</td>
-<td>副面交叉极化转换</td>
-<td>优化副面形状，使用双极化馈源</td>
-</tr>
-<tr>
-<td>馈线损耗</td>
-<td>0.1-0.5dB</td>
-<td>传输线损耗</td>
-<td>使用低损耗电缆，缩短馈线</td>
-</tr>
-<tr>
-<td><strong>总计</strong></td>
-<td><strong>3-9dB</strong></td>
-<td>—</td>
-<td>口径效率约50-70%</td>
-</tr>
-</tbody>
-</table>
+    <h2>波束宽度</h2>
+    <p>波束宽度（Half-Power Beam Width, HPBW）与口径成反比：</p>
+<pre><code>HPBW(°) ≈ 70 × λ / D = 70 / (D × f)
+(D 单位 m, f 单位 GHz)
+</code></pre>
+<p><strong>直观感受</strong>：</p>
+<ul>
+<li>0.6m @ 12GHz → HPBW ≈ 1°（相当于一根针的尖端）</li>
+<li>3.0m @ 14GHz → HPBW ≈ 0.17°（比一根头发丝的视角还窄）</li>
+<li>500m @ 1.4GHz → HPBW ≈ 0.17°（FAST 的波束也很窄）</li>
+</ul>
+<p><strong>安装精度要求</strong>：波束越窄，对准越难。一副 3 米天线在 12GHz 的波束宽度不到 0.5°，安装误差超过 0.25° 就会损失 3dB 增益——相当于信号强度减半。</p>
+<p><strong>类比</strong>：用激光笔照 1 公里外的硬币。激光笔的波束越窄（增益越高），你手抖一下，光斑就跳到硬币外面去了。</p>
+<hr />
   </article>
   
 
   
   <article class="card ">
     
-    <h2>表面精度要求</h2>
-    <p>抛物面天线的表面精度直接影响口径效率。根据Ruze公式：</p>
-<pre><code>η_surface = exp[-(4π×ε_rms/λ)²]
-</code></pre>
-<p>其中ε_rms是表面均方根误差。</p>
+    <h2>五、口径效率：为什么不是 100%？</h2>
+    <p>理想抛物面天线的口径效率应该是 100%——所有照射到天线上的能量都被有效利用。但现实中有多种损耗机制：</p>
 <table>
 <thead>
 <tr>
-<th>工作频段</th>
-<th>波长λ</th>
-<th>要求ε_rms</th>
-<th>制造难度</th>
+<th>损耗机制</th>
+<th>原因</th>
+<th>典型损失</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>L波段 (1-2GHz)</td>
-<td>15-30cm</td>
-<td>&lt;2cm</td>
-<td>低</td>
+<td><strong>照射溢出（Spill-over）</strong></td>
+<td>馈源能量洒到抛物面外面</td>
+<td>1-3dB</td>
 </tr>
 <tr>
-<td>C波段 (4-8GHz)</td>
-<td>3.75-7.5cm</td>
-<td>&lt;1cm</td>
-<td>中</td>
+<td><strong>遮挡损失（Blockage）</strong></td>
+<td>馈源和支撑臂挡住波束</td>
+<td>0.5-1.5dB</td>
 </tr>
 <tr>
-<td>X波段 (8-12GHz)</td>
-<td>2.5-3.75cm</td>
-<td>&lt;0.5cm</td>
-<td>中高</td>
+<td><strong>相位误差（Phase Error）</strong></td>
+<td>反射面加工精度不足</td>
+<td>0.5-2dB</td>
 </tr>
 <tr>
-<td>Ku波段 (12-18GHz)</td>
-<td>1.6-2.5cm</td>
-<td>&lt;0.3cm</td>
-<td>高</td>
+<td><strong>表面粗糙度</strong></td>
+<td>反射面不平整导致散射</td>
+<td>0.2-1dB</td>
 </tr>
 <tr>
-<td>Ka波段 (26-40GHz)</td>
-<td>0.75-1.1cm</td>
-<td>&lt;0.1cm</td>
-<td>很高</td>
+<td><strong>馈源不匹配</strong></td>
+<td>馈源方向图与抛物面不匹配</td>
+<td>0.5-1dB</td>
 </tr>
 <tr>
-<td>E-band (60-90GHz)</td>
-<td>0.33-0.5cm</td>
-<td>&lt;0.05cm</td>
-<td>极高</td>
+<td><strong>交叉极化</strong></td>
+<td>馈源产生非期望极化</td>
+<td>0.2-0.5dB</td>
+</tr>
+<tr>
+<td><strong>馈线损耗</strong></td>
+<td>从收发机到馈源的电缆/波导损耗</td>
+<td>0.1-0.5dB</td>
 </tr>
 </tbody>
 </table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 偶极子馈源</h2>
-    <ul>
-<li><strong>结构</strong>：简单金属振子，通常配合反射板使用</li>
-<li><strong>带宽</strong>：较宽（相对带宽30-50%）</li>
-<li><strong>增益</strong>：低（约2-6 dBi）</li>
-<li><strong>优点</strong>：成本低，易于制造</li>
-<li><strong>缺点</strong>：方向图不理想，旁瓣高</li>
-<li><strong>适用</strong>：低频应用（&lt;3GHz），如GPS天线</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 喇叭馈源</h2>
-    <ul>
-<li><strong>结构</strong>：锥形或方形波导喇叭</li>
-<li><strong>带宽</strong>：适中（相对带宽10-20%）</li>
-<li><strong>增益</strong>：中（约8-15 dBi）</li>
-<li><strong>优点</strong>：方向图好，阻抗匹配佳</li>
-<li><strong>缺点</strong>：体积较大，成本高</li>
-<li><strong>适用</strong>：通用卫星通信（C/Ku波段）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 褶皱喇叭（Corrugated Horn）</h2>
-    <ul>
-<li><strong>结构</strong>：喇叭内部带有褶皱结构，抑制高阶模</li>
-<li><strong>带宽</strong>：宽（相对带宽20-40%）</li>
-<li><strong>增益</strong>：高（约12-20 dBi）</li>
-<li><strong>优点</strong>：低旁瓣（&lt;-30dB），高波束纯度</li>
-<li><strong>缺点</strong>：制造复杂，成本高</li>
-<li><strong>适用</strong>：射电天文、高端卫星通信</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 边缘衰减优化</h2>
-    <ul>
-<li><strong>原理</strong>：通过特殊设计使馈源边缘场强衰减，抑制旁瓣</li>
-<li><strong>最佳衰减</strong>：约-11dB（兼顾主瓣宽度和旁瓣电平）</li>
-<li><strong>效果</strong>：旁瓣电平可降低10-15dB</li>
-<li><strong>应用</strong>：需要低旁瓣的场景，如卫星通信避免干扰其他卫星</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>制造方式对比</h2>
-    <table>
-<thead>
-<tr>
-<th>实现方式</th>
-<th>优点</th>
-<th>缺点</th>
-<th>成本</th>
-<th>典型应用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>传统机械加工</strong></td>
-<td>精度高、表面质量好</td>
-<td>成本高、周期长</td>
-<td>高（1000-10000元/m²）</td>
-<td>高端卫星通信、射电天文</td>
-</tr>
-<tr>
-<td><strong>3D打印（FDM金属涂层）</strong></td>
-<td>成本低（降至1/10）、快速原型</td>
-<td>表面粗糙度影响效率</td>
-<td>中（100-1000元/m²）</td>
-<td>中低端卫星终端、WiFi CPE</td>
-</tr>
-<tr>
-<td><strong>超表面折叠反射面</strong></td>
-<td>更薄结构、更强聚焦</td>
-<td>新技术、尚未量产</td>
-<td>高（研发阶段）</td>
-<td>6G概念验证、卫星互联网终端</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3D打印抛物面技术突破</h2>
-    <p>Georgia Tech MFRA（Multi-Frequency Reflectarray Antenna）研究团队在2025年取得突破：</p>
-<ul>
-<li><strong>技术</strong>：FDM 3D打印+金属涂层+400°相位补偿</li>
-<li><strong>成本</strong>：传统加工的1/10</li>
-<li><strong>性能</strong>：口径效率达到55-60%，接近传统加工水平</li>
-<li><strong>应用</strong>：适用于大规模低成本卫星互联网终端制造</li>
-</ul>
+<p><strong>综合口径效率</strong>：前馈式 55-60%，卡塞格林 65-70%，格里高利 70-75%，偏馈 60-65%。</p>
+<hr />
   </article>
   
 
@@ -542,42 +336,14 @@
   <article class="card ">
     
     <h2>1. 卫星通信地面站</h2>
-    <table>
-<thead>
-<tr>
-<th>参数</th>
-<th>典型值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>口径范围</td>
-<td>0.6-3.0m</td>
-<td>VSAT小型站到大型地球站</td>
-</tr>
-<tr>
-<td>工作频段</td>
-<td>C/Ku/Ka波段</td>
-<td>4-40GHz</td>
-</tr>
-<tr>
-<td>增益范围</td>
-<td>35-50 dBi</td>
-<td>取决于口径和频段</td>
-</tr>
-<tr>
-<td>指向精度</td>
-<td>±0.05°</td>
-<td>高增益天线需要精确对准</td>
-</tr>
-<tr>
-<td>典型应用</td>
-<td>卫星电视、VSAT数据、卫星互联网</td>
-<td>DISH Network、Starlink终端</td>
-</tr>
-</tbody>
-</table>
+    <p><strong>最经典的应用</strong>。地球同步轨道卫星在 3.6 万公里高空，信号传到地面已经弱到 -160dBm 以下（比热噪声还低）。没有高增益的抛物面天线，根本捡不到。</p>
+<ul>
+<li><strong>VSAT</strong>：小型抛物面（0.6-1.2m），用于企业专线和偏远地区上网</li>
+<li><strong>卫星电视</strong>：偏馈式 LNB（0.45-0.6m），DVB-S2 标准</li>
+<li><strong>卫星互联网</strong>：Starlink 早期使用偏馈相控阵，新一代 V2 Mini 仍是抛物面+相控阵混合</li>
+<li><strong>深空通信</strong>：NASA DSN 的 70m 天线（Goldstone、Madrid、Canberra 各一副），接收来自火星探测器的信号</li>
+</ul>
+<p><strong>案例</strong>：NASA 的 Deep Space Network（DSN）拥有 3 座 70m 抛物面天线（分别在加州 Goldstone、西班牙 Madrid、澳大利亚 Canberra），负责与所有深空探测器通信。旅行者 1 号距离地球 240 亿公里，发射功率仅 23W，信号到达地球时功率约 10⁻²⁵W——比热噪声还低 10 倍。DSN 的天线增益（约 74dBi @ 8.4GHz）和超低噪声接收机（2.7K）是能把信号从噪声中捞出来的唯一原因。</p>
   </article>
   
 
@@ -585,42 +351,14 @@
   <article class="card ">
     
     <h2>2. 微波点对点回传</h2>
-    <table>
-<thead>
-<tr>
-<th>参数</th>
-<th>典型值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>工作频段</td>
-<td>E-band (60-90GHz)</td>
-<td>高频段提供大带宽</td>
-</tr>
-<tr>
-<td>口径范围</td>
-<td>0.3-1.2m</td>
-<td>视距10-50km</td>
-</tr>
-<tr>
-<td>容量</td>
-<td>单跳10Gbps+</td>
-<td>5G基站回传主力方案</td>
-</tr>
-<tr>
-<td>雨衰影响</td>
-<td>暴雨时衰减可达10dB/km</td>
-<td>需预留Fade Margin</td>
-</tr>
-<tr>
-<td>典型应用</td>
-<td>5G基站回传、企业专线</td>
-<td>光纤难以覆盖区域</td>
-</tr>
-</tbody>
-</table>
+    <p>5G 基站密度大了，光纤铺不到所有地方。微波回传就是在两个站点之间架一根"看不见的线"——两边各挂一副小抛物面天线（0.3-1.2m），对准了互相对射。</p>
+<ul>
+<li><strong>频段</strong>：E-band（70/80GHz）、11-18GHz、18-80GHz</li>
+<li><strong>速率</strong>：E-band 单跳可达 10Gbps+</li>
+<li><strong>距离</strong>：视距 10-50km</li>
+<li><strong>挑战</strong>：雨衰严重（E-band 在暴雨时衰减可达 10dB/km）、波束极窄（需要自动对准）、视距要求严格</li>
+</ul>
+<p><strong>类比</strong>：两个手电筒对着照，但光束窄到只有一根头发丝那么细，稍微歪一点点就照不到了。</p>
   </article>
   
 
@@ -628,47 +366,8 @@
   <article class="card ">
     
     <h2>3. 射电天文</h2>
-    <table>
-<thead>
-<tr>
-<th>项目</th>
-<th>口径</th>
-<th>工作频率</th>
-<th>增益</th>
-<th>灵敏度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>FAST（中国）</td>
-<td>500m</td>
-<td>1.4GHz (L波段)</td>
-<td>74 dBi</td>
-<td>世界领先</td>
-</tr>
-<tr>
-<td>ALMA（智利）</td>
-<td>66副×12m</td>
-<td>多频段</td>
-<td>45-60 dBi</td>
-<td>毫米波干涉</td>
-</tr>
-<tr>
-<td>Arecibo（已坍塌）</td>
-<td>305m</td>
-<td>多频段</td>
-<td>68 dBi</td>
-<td>历史标志性设备</td>
-</tr>
-<tr>
-<td>Parkes（澳大利亚）</td>
-<td>64m</td>
-<td>多频段</td>
-<td>52 dBi</td>
-<td>脉冲星搜索</td>
-</tr>
-</tbody>
-</table>
+    <p><strong>FAST（中国天眼）</strong>：500 米口径，世界最大单口径射电望远镜。接收频率 70MHz-3GHz，能探测到 130 亿光年外的脉冲星。它的抛物面不是固定的——30 米口径的馈源舱通过 6 根钢索悬挂在抛物面上方，可以移动到不同焦点位置，配合主动反射面技术（2000 多个促动器实时调整面板形状），实现宽波段观测。</p>
+<p><strong>ALMA（阿塔卡马大型毫米波阵列）</strong>：66 副 12m 抛物面天线组成的干涉仪，工作在毫米波/亚毫米波频段，分辨率相当于一个地球直径大小的望远镜。</p>
   </article>
   
 
@@ -676,13 +375,7 @@
   <article class="card ">
     
     <h2>4. GPS/北斗导航</h2>
-    <ul>
-<li><strong>工作频段</strong>：L1 (1575.42MHz), L2 (1227.60MHz)</li>
-<li><strong>信号强度</strong>：约-160dBm（极微弱）</li>
-<li><strong>天线类型</strong>：小型抛物面或patch阵列</li>
-<li><strong>增益要求</strong>：约20-30 dBi</li>
-<li><strong>应用</strong>：高精度定位、大地测量、测绘</li>
-</ul>
+    <p>接收机天线通常是小型抛物面或微带贴片天线。GPS 信号到达地面时功率约 -160dBm，比热噪声低约 20dB。高增益天线 + 相关处理是把信号从噪声中"抠"出来的关键。</p>
   </article>
   
 
@@ -690,283 +383,159 @@
   <article class="card ">
     
     <h2>5. 雷达系统</h2>
-    <table>
+    <p>军用和气象雷达广泛使用抛物面天线。相控阵雷达兴起后，传统机械扫描抛物面雷达在成本敏感场景中仍有市场。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 1：风载荷</h2>
+    <p>抛物面越大，迎风面积越大。一副 3 米天线在 8 级风下的受力相当于一堵墙在推你。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>加固支架和底座</li>
+<li>设计顺风旋转结构（风来时自动转向侧面减小受力）</li>
+<li>选用多孔结构（网格抛物面），风可以从网孔穿过</li>
+<li>安装风速传感器，超强风时自动进入"安全模式"</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 2：指向精度</h2>
+    <p>3 米天线在 12GHz 的波束宽度不到 0.5°。安装误差超过 0.25° 就损失 3dB 增益。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>高精度 azimuth/elevation 转台（精度 0.01°）</li>
+<li>自动对准算法：微调角度，最大化接收信号强度</li>
+<li>温度补偿：金属热胀冷缩会改变指向，需要实时校正</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 3：降雨衰减</h2>
+    <p>雨水会吸收和散射电磁波，尤其在高频率段（10GHz 以上）更严重。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>链路预算中预留"降雨余量"（rain margin），通常 3-10dB</li>
+<li>自适应功率控制：雨大时自动增加发射功率</li>
+<li>前向纠错（FEC）：接收端自动纠正部分误码</li>
+</ul>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>挑战 4：制造精度</h2>
+    <p>反射面的形状精度必须达到 λ/20 以下（即表面起伏不超过波长的 1/20）。对于 12GHz（λ=25mm），意味着表面精度要达到 1.25mm。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>CNC 精密加工金属反射面</li>
+<li>拉伸成型（stretch forming）：用液压机把金属膜拉伸到模具上</li>
+<li>碳纤维复合材料：轻、强度高、热膨胀系数低</li>
+<li><strong>3D 打印</strong>：新兴方案，见下文</li>
+</ul>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>FDM 3D 打印 + 金属涂层</h2>
+    <p>最经济的方案：用 PLA 或 ABS 打印抛物面骨架，然后在表面喷涂导电漆或贴铜箔。</p>
+<p><strong>案例</strong>：20GHz K 波段雷达应用，3D 打印抛物面 + 金属涂层，实现 18.3dBi 增益，带宽 2.2GHz。成本仅为传统方案的 1/10。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>全 3D 打印超表面折叠反射面天线（MFRA）</h2>
+    <p>2026 年最新进展：Georgia Tech 的 Tentzeris 团队开发了全 3D 打印的 metasurface folded reflectarray antenna（MFRA），工作在 28GHz 毫米波频段：</p>
+<ul>
+<li><strong>峰值增益</strong>：31.1dBi</li>
+<li><strong>带宽</strong>：20.7%（26-32GHz）</li>
+<li><strong>旁瓣电平</strong>：&lt; -20dB</li>
+<li><strong>交叉极化</strong>：&lt; -30dB</li>
+<li><strong>高度/直径比</strong>：0.20（极其紧凑）</li>
+<li><strong>成本</strong>：低于 100 美元（FDM 打印）</li>
+</ul>
+<p><strong>创新点</strong>：利用 3D 打印的体素调控能力，实现了超过 400° 的相位补偿——远超传统 PCB 反射面天线的 360° 限制。这意味着可以在更薄的结构中实现更强的波束聚焦。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>选择性激光熔化（SLM）金属 3D 打印</h2>
+    <p>直接打印金属抛物面，表面精度可达 μm 级，适合毫米波和太赫兹频段。成本较高，但性能最优。</p>
+<hr />
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>九、抛物面天线 vs 相控阵天线：终极对比</h2>
+    <p>在 5G 和卫星互联网时代，抛物面天线面临着相控阵天线的竞争。两者的核心区别：</p>
+<table>
 <thead>
 <tr>
-<th>类型</th>
-<th>工作频段</th>
-<th>典型口径</th>
-<th>增益</th>
-<th>应用</th>
+<th>维度</th>
+<th>抛物面天线</th>
+<th>相控阵天线</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>军用雷达</td>
-<td>S/C/X波段</td>
-<td>1-5m</td>
-<td>40-55 dBi</td>
-<td>火控、预警、侦察</td>
+<td><strong>波束转向</strong></td>
+<td>机械转动（慢，度/秒级）</td>
+<td>电子相控（快，μs 级）</td>
 </tr>
 <tr>
-<td>气象雷达</td>
-<td>S/C波段</td>
-<td>5-15m</td>
-<td>45-55 dBi</td>
-<td>天气预报、灾害监测</td>
+<td><strong>增益</strong></td>
+<td>高（口径效率高）</td>
+<td>中高（单元间距限制）</td>
 </tr>
 <tr>
-<td>航空雷达</td>
-<td>X/Ka波段</td>
-<td>0.5-2m</td>
-<td>35-45 dBi</td>
-<td>机载预警、地形测绘</td>
+<td><strong>成本</strong></td>
+<td>低（无源器件为主）</td>
+<td>高（每通道都有功放/移相器）</td>
+</tr>
+<tr>
+<td><strong>可靠性</strong></td>
+<td>高（机械部件少）</td>
+<td>中（大量有源器件）</td>
+</tr>
+<tr>
+<td><strong>多波束</strong></td>
+<td>不支持（单波束）</td>
+<td>支持（多波束同时服务）</td>
+</tr>
+<tr>
+<td><strong>尺寸</strong></td>
+<td>大口���才高增益，体积大</td>
+<td>可扁平化，适合集成</td>
+</tr>
+<tr>
+<td><strong>典型场景</strong></td>
+<td>卫星地球站、固定微波回传</td>
+<td>5G 基站、Starlink 用户终端</td>
 </tr>
 </tbody>
 </table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6. NASA深空通信</h2>
-    <ul>
-<li><strong>DSN（Deep Space Network）</strong>：70m天线阵列</li>
-<li><strong>工作频段</strong>：X波段 (8-12GHz), Ka波段 (32 GHz)</li>
-<li><strong>增益</strong>：约70 dBi</li>
-<li><strong>应用</strong>：火星探测器、 Voyager、Pioneer等深空探测器通信</li>
-<li><strong>挑战</strong>：信号传输时延可达数小时，功率预算极其紧张</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>五、关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>典型值</th>
-<th>说明</th>
-<th>测试方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>增益</td>
-<td>30-74 dBi</td>
-<td>取决于口径和频率</td>
-<td>比较法、两天线法</td>
-</tr>
-<tr>
-<td>波束宽度</td>
-<td>0.1-5°</td>
-<td>高增益天线波束极窄</td>
-<td>方位/俯仰扫描</td>
-</tr>
-<tr>
-<td>口径效率</td>
-<td>55-75%</td>
-<td>取决于馈电架构</td>
-<td>增益测量计算</td>
-</tr>
-<tr>
-<td>旁瓣电平</td>
-<td>&lt;-20dB</td>
-<td>减少干扰</td>
-<td>全空间扫描</td>
-</tr>
-<tr>
-<td>F/D比</td>
-<td>0.3-0.6</td>
-<td>决定天线深浅</td>
-<td>几何测量</td>
-</tr>
-<tr>
-<td>交叉极化隔离度</td>
-<td>&gt;25dB</td>
-<td>高端应用要求</td>
-<td>双极化测试</td>
-</tr>
-<tr>
-<td>VSWR</td>
-<td>&lt;1.5:1</td>
-<td>阻抗匹配良好</td>
-<td>网络分析仪</td>
-</tr>
-<tr>
-<td>波束指向精度</td>
-<td>±0.05°</td>
-<td>高增益天线要求</td>
-<td>卫星跟踪测试</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>1. 风载稳定性</h2>
-    <ul>
-<li><strong>问题</strong>：大型抛物面在强风下产生振动，导致波束指向偏移</li>
-<li><strong>影响</strong>：增益下降3-6dB，通信质量恶化</li>
-<li><strong>解决方案</strong>：</li>
-<li>结构强度设计：风载系数1.5-2.0</li>
-<li>主动跟踪系统：实时调整指向</li>
-<li>阻尼设计：减少共振振幅</li>
-<li><strong>案例</strong>：3m天线在15m/s风速下波束偏移可达0.1°</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 雨衰影响</h2>
-    <ul>
-<li><strong>问题</strong>：高频段（尤其是E-band）在暴雨时衰减严重</li>
-<li><strong>衰减系数</strong>：暴雨时可达10dB/km</li>
-<li><strong>解决方案</strong>：</li>
-<li>预留Fade Margin（6-10dB）</li>
-<li>自适应功率控制：根据雨强动态调整发射功率</li>
-<li>多频率分集：使用多个频段同时传输</li>
-<li><strong>设计建议</strong>：E-band链路需考虑99.999%可用性设计</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>3. 指向精度要求</h2>
-    <ul>
-<li><strong>问题</strong>：高增益天线波束极窄，需要精确对准</li>
-<li><strong>实例</strong>：</li>
-<li>38dBi天线（0.6m/12GHz）：HPBW仅1°</li>
-<li>49dBi天线（3m/14GHz）：HPBW仅0.17°</li>
-<li><strong>解决方案</strong>：</li>
-<li>高精度云台：指向精度±0.05°</li>
-<li>自动跟踪系统：基于GPS和星历计算</li>
-<li>峰值搜索算法：自动找到信号最强位置</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>4. 制造精度要求</h2>
-    <ul>
-<li><strong>问题</strong>：相位误差和表面粗糙度影响口径效率</li>
-<li><strong>Ruze公式要求</strong>：ε_rms &lt; λ/16</li>
-<li><strong>实例</strong>：</li>
-<li>Ku波段（12GHz, λ=2.5cm）：ε_rms &lt; 1.5mm</li>
-<li>E-band（60GHz, λ=0.5cm）：ε_rms &lt; 0.3mm</li>
-<li><strong>解决方案</strong>：</li>
-<li>精密加工工艺：CNC加工、电化学抛光</li>
-<li>质量检测：激光扫描测量表面精度</li>
-<li>温度补偿：热膨胀系数匹配材料</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5. 热变形问题</h2>
-    <ul>
-<li><strong>问题</strong>：温度变化导致抛物面变形，影响聚焦性能</li>
-<li><strong>影响</strong>：温度变化10°C可导致口径效率下降1-2dB</li>
-<li><strong>解决方案</strong>：</li>
-<li>低膨胀材料：殷钢、碳纤维复合材料</li>
-<li>温度补偿算法：根据温度调整馈源位置</li>
-<li>遮阳设计：减少太阳辐射加热</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6. 馈源校准</h2>
-    <ul>
-<li><strong>问题</strong>：卡塞格林/格里高利架构需精确调整副面位置</li>
-<li><strong>要求</strong>：副面位置精度±0.1mm</li>
-<li><strong>解决方案</strong>：</li>
-<li>精密调整机构：微米级调节螺丝</li>
-<li>测试优化：基于实测增益调整</li>
-<li>锁定设计：调整后永久固定</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>七、技术演进</h2>
-    <ul>
-<li><strong>经典抛物面（1940s-）</strong>：二战雷达起源，至今不可替代，技术成熟</li>
-<li><strong>卡塞格林/格里高利（1950s-）</strong>：深空通信标准架构，提升口径效率至65-75%</li>
-<li><strong>偏馈式（1980s-）</strong>：零遮挡设计，DISH Network广泛应用，降低雨衰影响</li>
-<li><strong>3D打印抛物面（2025-）</strong>：FDM金属涂层成本降至1/10，Georgia Tech MFRA突破400°相位补偿</li>
-<li><strong>超表面折叠反射面（2026-）</strong>：更薄结构实现更强聚焦，概念验证阶段，面向6G太赫兹应用</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>短期（1-2年）</h2>
-    <ul>
-<li>3D打印制造成本继续下降，预计降至传统加工的1/20</li>
-<li>超表面折叠结构量产，实现更薄更轻的天线形态</li>
-<li>抛物面+相控阵馈源混合架构兴起，兼顾高增益和电子扫描能力</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>中期（3-5年）</h2>
-    <ul>
-<li>混合架构成熟——抛物面提供高增益，相控阵馈源实现电子扫描</li>
-<li>太赫兹适配：SLM金属3D打印使抛物面天线适配太赫兹频段</li>
-<li>应用延伸至6G backhaul（60-140GHz频段）</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>长期（5年以上）</h2>
-    <ul>
-<li>智能抛物面：集成传感器和AI算法，实现自适应波束控制和环境感知</li>
-<li>可展开抛物面：用于太空应用，发射时折叠，在轨展开成大型天线</li>
-<li>超材料抛物面：利用超材料实现负折射、完美透镜等新物理效应</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>参考资料</h2>
-    <ul>
-<li>NASA Deep Space Communications Handbook（DSN设计标准）</li>
-<li>IEEE Transactions on Antennas and Propagation: Parabolic Reflector Design（经典论文）</li>
-<li>Georgia Tech MFRA Research: 400° Phase Compensation（3D打印突破）</li>
-<li>3GPP TR 38.805: Millimeter Wave Channel Model（E-band应用）</li>
-<li>Ansys HFSS: Parabolic Reflector Simulation Guide（仿真指南）</li>
-<li>Skoltech太赫兹超表面反射器研究（2025-2026）</li>
-</ul>
+<p><strong>关键判断</strong>：抛物面天线在"固定对准、高增益、低成本"的场景中依然不可替代。相控阵的优势在于"快速电子扫描和多波束"，但代价是成本高、口径效率低。两者不是取代关系，而是互补。</p>
+<p><strong>趋势</strong>：2026 年出现了"混合方案"——抛物面 + 相控阵馈源（phased array feed），用相控阵做多波束生成，抛物面做高增益汇聚。既保留了抛物面的高效率，又获得了相控阵的灵活性。</p>
+<hr />
   </article>
   
 

@@ -90,7 +90,7 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">imec-300mm-RF硅中介层III-V-chiplet集成</h1>
-  <p class="lede">imec 将其 300mm RF 硅中介层平台升级为系统级异构集成平台，通过高密度 MIM 电容 + 可缩放无源建模 + 激光辅助键合三大使能技术，实现 InP/GaAs/GaN III-V chiplet 与 Si-CMOS 的低损耗集成，支撑 mmWave 至 sub-THz（~300GHz）无线系统和高速数据中心应用。</p>
+  <p class="lede">imec 将其 300mm RF硅中介层平台升级为系统级异构集成平台，通过高密度 MIM 电容 + 可缩放无源建模 + 激光辅助键合三大使能技术，实现 InP/GaAs/GaN III-V chiplet 与 Si-CMOS 的低损耗集成，支撑 mmWave 至 sub-THz（~300GHz）无线系统和高速数据中心应用。</p>
   
 </header>
 
@@ -106,17 +106,27 @@
   <article class="card analogy">
     <div class="kicker">ANALOGY</div>
     <h2>类比入口</h2>
-    <p>想象你要造一台超级跑车：发动机（III-V chiplet，如 InP PA）提供最强动力，但体积大、成本高；底盘和电子控制系统（Si-CMOS）便宜、scalable。传统做法是把发动机和底盘焊在一起，但高频信号在连接处会严重衰减。imec 的做法是发明了一种"超导桥梁"（RF 硅中介层），让发动机的动力几乎无损地传到底盘，同时把原本塞在发动机里的电容、电感等"配件"挪到桥上来，让发动机本体变得更小更便宜。</p>
+    <p>想象你要造一台超级跑车：发动机（III-V chiplet，如 InP PA）提供最强动力，但体积大、成本高；底盘和电子控制系统（Si-CMOS）便宜、scalable。传统做法是把发动机和底盘焊在一起，但高频信号在连接处会严重衰减。imec 的做法是发明了一种"超导桥梁"（RF硅中介层），让发动机的动力几乎无损地传到底盘，同时把原本塞在发动机里的电容、电感等"配件"挪到桥上来，让发动机本体变得更小更便宜。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
-    <p><strong>300mm RF 硅中介层（RF Silicon Interposer）</strong>是一种介于晶圆和封装之间的中间层，使用硅材料制造高密度布线，用于在芯片之间提供低损耗互连。RF 硅中介层专门针对高频应用优化，具有极低插入损耗和优异的高频电学性能。</p>
-<p><strong>为什么需要 III-V + Si-CMOS 异构集成？</strong></p>
-<table>
+    <h2>1.1 什么是 300mm RF硅中介层（RF Silicon Interposer）</h2>
+    <p>硅中介层是一种介于晶圆和封装之间的中间层，使用硅材料制造高密度布线，用于在芯片之间提供低损耗互连。RF 硅中介层专门针对高频应用优化，具有极低插入损耗和优异的高频电学性能。</p>
+<p><strong>核心优势：</strong>
+- 300mm 晶圆级制造 → 规模经济，成本远低于 200mm
+- 硅中介层布线损耗远低于有机基板（FR4/ABF）
+- 可集成无源元件（电容、电感、传输线）</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.2 为什么需要 III-V + Si-CMOS 异构集成</h2>
+    <table>
 <thead>
 <tr>
 <th>维度</th>
@@ -152,12 +162,18 @@
 </tr>
 </tbody>
 </table>
-<p><strong>结论</strong>：最佳方案是让 III-V 只做它最擅长的部分（高性能有源器件如 PA、LNA），其余全部 offload 到 Si-CMOS 中介层上。</p>
-<p><strong>imec 平台的演进路线</strong>：</p>
-<ul>
+<p><strong>结论：</strong> 最佳方案是让 III-V 只做它最擅长的部分（高性能有源器件如 PA、LNA），其余全部 offload 到 Si-CMOS 中介层上。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1.3 imec 平台的演进路线</h2>
+    <ul>
 <li><strong>2024 年</strong>：首次在 300mm RF 硅中介层上无缝集成 InP chiplet，140GHz 插入损耗可忽略</li>
 <li><strong>2025 年</strong>：将平台最低插入损耗记录延伸至 325GHz</li>
-<li><strong>2026 年 6 月</strong>：新增三大使能技术，系统级平台成型</li>
+<li><strong>2026 年 6 月</strong>：新增三大使能技术 → 系统级平台成型</li>
 </ul>
   </article>
   
@@ -166,16 +182,14 @@
   <article class="card ">
     
     <h2>2.1 高密度嵌入式 MIM 电容（MIMCAP）</h2>
-    <p><strong>解决的问题</strong>：III-V chiplet 内部的去耦电容占用大量面积，是缩小 chiplet 尺寸的主要瓶颈。</p>
-<p><strong>imec 方案</strong>：将去耦电容从 III-V chiplet 上 offload 到 RF 硅中介层上，配合新架构的 MIM 电容。</p>
-<p><strong>关键参数</strong>：</p>
-<ul>
-<li>电容密度提升：比典型 III-V 片上电容高 <strong>10-100 倍</strong></li>
-<li>介电材料：高-k 铝-铪氧化物（Al-Hf-O）</li>
-<li>结构：BEOL 中的 3D 氧化物柱（oxide-stud）结构</li>
-<li>效果：显著减小 III-V chiplet 面积，降低成本，改善电源完整性</li>
-</ul>
-<p><strong>意义</strong>：这是整个平台中最具商业价值的单项技术。电容密度提升 10-100 倍意味着同样功能的 PA 模块可以缩小一个数量级。</p>
+    <p><strong>解决的问题：</strong> III-V chiplet 内部的去耦电容占用大量面积，是缩小 chiplet 尺寸的主要瓶颈。</p>
+<p><strong>imec 方案：</strong> 将去耦电容从 III-V chiplet 上 offload 到 RF 硅中介层上，配合新架构的 MIM 电容。</p>
+<p><strong>关键参数：</strong>
+- 电容密度提升：比典型 III-V 片上电容高 <strong>10-100 倍</strong>
+- 介电材料：高-k 铝-铪氧化物（Al-Hf-O）
+- 结构：BEOL 中的 3D 氧化物柱（oxide-stud）结构
+- 效果：显著减小 III-V chiplet 面积，降低成本，改善电源完整性</p>
+<p><strong>意义：</strong> 这是整个平台中最具商业价值的单项技术。电容密度提升 10-100 倍意味着同样功能的 PA 模块可以缩小一个数量级。</p>
   </article>
   
 
@@ -183,15 +197,13 @@
   <article class="card ">
     
     <h2>2.2 可缩放无源组件建模框架</h2>
-    <p><strong>解决的问题</strong>：设计高频电路时，每次改变几何尺寸都需要重新仿真或测量，开发周期极长。</p>
-<p><strong>imec 方案</strong>：建立 RF 中介层无源组件的标准化建模框架，支持在 sub-THz 频段（~300GHz）内准确预测电路性能。</p>
-<p><strong>关键能力</strong>：</p>
-<ul>
-<li>几何参数变化 → 性能预测无需重新仿真</li>
-<li>当前覆盖：传输线性能</li>
-<li>未来扩展：电感、MIM 电容纳入统一设计库</li>
-<li>效果：大幅缩短开发周期</li>
-</ul>
+    <p><strong>解决的问题：</strong> 设计高频电路时，每次改变几何尺寸都需要重新仿真或测量，开发周期极长。</p>
+<p><strong>imec 方案：</strong> 建立 RF 中介层无源组件的标准化建模框架，支持在 sub-THz 频段（~300GHz）内准确预测电路性能。</p>
+<p><strong>关键能力：</strong>
+- 几何参数变化 → 性能预测无需重新仿真
+- 当前覆盖：传输线性能
+- 未来扩展：电感、MIM 电容纳入统一设计库
+- 效果：大幅缩短开发周期</p>
   </article>
   
 
@@ -199,15 +211,13 @@
   <article class="card ">
     
     <h2>2.3 激光辅助键合（Laser-Assisted Bonding）</h2>
-    <p><strong>解决的问题</strong>：将 III-V chiplet 组装到富含无源元件的复杂中介层堆栈上时，传统热压键合温度过高，可能损坏温度敏感层。</p>
-<p><strong>imec 方案</strong>：使用激光局部加热进行精准键合，热预算极低。</p>
-<p><strong>关键参数</strong>：</p>
-<ul>
-<li>对准精度：<strong>&lt; 600nm</strong></li>
-<li>旋转偏差：<strong>&lt; 0.05°</strong>（43 个器件统计）</li>
-<li>组装后 RF 性能：110-170GHz 范围回波损耗 <strong>&lt; -15dB</strong></li>
-<li>特点：不损伤温度敏感的中介层层，适合复杂无源富集堆栈</li>
-</ul>
+    <p><strong>解决的问题：</strong> 将 III-V chiplet 组装到富含无源元件的复杂中介层堆栈上时，传统热压键合温度过高，可能损坏温度敏感层。</p>
+<p><strong>imec 方案：</strong> 使用激光局部加热进行精准键合，热预算极低。</p>
+<p><strong>关键参数：</strong>
+- 对准精度：&lt; 600nm
+- 旋转偏差：&lt; 0.05°（43 个器件统计）
+- 组装后 RF 性能：110-170GHz 范围回波损耗 &lt; -15dB
+- 特点：不损伤温度敏感的中介层层，适合复杂无源富集堆栈</p>
   </article>
   
 
@@ -278,7 +288,7 @@
   <article class="card ">
     
     <h2>4.3 imec 的生态位</h2>
-    <p>imec 不做产品，做的是<strong>平台</strong>，为无线设备商（爱立信、诺基亚、中兴等）和芯片厂提供工艺和设计工具。这意味着中兴如果跟进 sub-THz 研究，imec 的平台是一个现成的参考架构。</p>
+    <p>imec 不做产品，做的是<strong>平台</strong>——为无线设备商（爱立信、诺基亚、中兴等）和芯片厂提供工艺和设计工具。这意味着中兴如果跟进 sub-THz 研究，imec 的平台是一个现成的参考架构。</p>
   </article>
   
 
@@ -286,7 +296,7 @@
   <article class="card ">
     
     <h2>5.1 封装级异构集成将成为 6G 射频前端的主流范式</h2>
-    <p>传统做法是每个功能块单独封装再组装。未来趋势是<strong>系统级中介层</strong>：把所有东西（有源 III-V + 无源 + Si-CMOS 控制）集成在一块中介层上，形成"封装即系统"。这与 AiP（封装天线）趋势一脉相承，但更进一步，不只是天线在封装里，整个射频前端都在中介层上。</p>
+    <p>传统做法是每个功能块单独封装再组装。未来趋势是<strong>系统级中介层</strong>：把所有东西（有源 III-V + 无源 + Si-CMOS 控制）集成在一块中介层上，形成"封装即系统"。这与 AiP（封装天线）趋势一脉相承，但更进一步——不只是天线在封装里，整个射频前端都在中介层上。</p>
   </article>
   
 
@@ -324,9 +334,9 @@
     
     <h2>6.2 与现有笔记的知识关联</h2>
     <ul>
-<li><strong>封装天线 AiP</strong>：imec 平台是 AiP 的"升级版"，不只是天线在封装里，整个射频系统在中介层上</li>
+<li><strong>封装天线 AiP</strong>：imec 平台是 AiP 的"升级版"——不只是天线在封装里，整个射频系统在中介层上</li>
 <li><strong>300GHz CMOS 相控阵</strong>（东京科学大学）：纯 CMOS 方案 vs imec 的 III-V+Si 混合方案，各有优劣。纯 CMOS 成本低但性能有限；III-V+Si 混合性能好但成本高。实际产品可能需要折中</li>
-<li><strong>银河航天 128 波束 ASIC 化</strong>：星载相控阵的 ASIC 化与 imec 的 chiplet 化思路一致，都是追求高频系统的小型化和低成本</li>
+<li><strong>银河航天 128 波束 ASIC 化</strong>：星载相控阵的 ASIC 化与 imec 的 chiplet 化思路一致——都是追求高频系统的小型化和低成本</li>
 </ul>
   </article>
   
@@ -346,26 +356,18 @@
   
   <article class="card ">
     
-    <h2>未来趋势（必填）</h2>
+    <h2>七、信息来源</h2>
     <ul>
-<li><strong>短期（1-2年）</strong>：imec 平台与无线设备商合作，开展 sub-THz 射频前端模块的联合开发；激光键合工艺优化，对准精度进一步提升</li>
-<li><strong>中期（3-5年）</strong>：封装级异构集成成为 6G 射频前端主流范式；MIMCAP 密度提升带来 chiplet 小型化突破；中兴等厂商可能基于 imec 平台开展 sub-THz 预研</li>
-<li><strong>长期（5年以上）</strong>：sub-THz 频段（200-400GHz）6G 系统商用；"封装即系统"理念普及；射频前端全面芯片化</li>
+<li><a href="https://www.imec-int.com/en/press/imec-unlocks-system-level-iii-v-chiplet-integration-si-cmos-advancing-its-300mm-rf-silicon">imec 官方新闻稿</a>（2026.06.11）</li>
+<li><a href="https://www.eenewseurope.com/en/imec-advances-iii-v-chiplet-integration-with-rf-silicon-interposer/">eeNews Europe 报道</a>（2026.06.12）</li>
+<li><a href="https://www.semiconductor-today.com/news_items/2026/jun/imec-110626.shtml">Semiconductor Today</a>（2026.06.11）</li>
+<li><a href="https://doi.org/10.1109/ectc51846.2026.00034">ECTC 2026 论文</a>（Laser Assisted Bonding of InP PA Chiplets）</li>
 </ul>
   </article>
   
 
   
-  <article class="card ">
     
-    <h2>参考资料</h2>
-    <ul>
-<li>imec 官方新闻稿：2026.06.11，https://www.imec-int.com/en/press/imec-unlocks-system-level-iii-v-chiplet-integration-si-cmos-advancing-its-300mm-rf-silicon</li>
-<li>eeNews Europe 报道：2026.06.12，https://www.eenewseurope.com/en/imec-advances-iii-v-chiplet-integration-with-rf-silicon-interposer/</li>
-<li>Semiconductor Today：2026.06.11，https://www.semiconductor-today.com/news_items/2026/jun/imec-110626.shtml</li>
-<li>ECTC 2026 论文：https://doi.org/10.1109/ectc51846.2026.00034（Laser Assisted Bonding of InP PA Chiplets）</li>
-</ul>
-  </article>
   
 
 

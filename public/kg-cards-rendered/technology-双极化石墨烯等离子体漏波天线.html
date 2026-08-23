@@ -90,7 +90,11 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">双极化石墨烯等离子体漏波天线</h1>
-  <p class="lede">2026年8月Scientific Reports发表的突破性研究，首次在太赫兹频段实现双极化石墨烯等离子体漏波天线，TM和TE模式独立调控，增益达21.5 dBi，为6G太赫兹双极化通信提供芯片级解决方案。</p>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">石墨烯</span><span class="chip brand">太赫兹</span><span class="chip brand">双极化</span><span class="chip brand">漏波天线</span>
+  </div>
   
 </header>
 
@@ -105,7 +109,7 @@
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
+    <h2>主题概述</h2>
     <p>双极化石墨烯等离子体漏波天线（Dual-Polarized Plasmonic Leaky-Wave Antenna based on Anisotropic Graphene-Modulated Metasurface）是2026年8月发表在Scientific Reports的最新研究，由伊朗比尔詹德大学Hadi Soleimani和Mohammadreza Khorshidi团队完成。该研究首次实现了在太赫兹频段工作的双极化等离子体漏波天线，通过各向异性石墨烯超表面（MTS）单元同时支持TM-SPP和TE-SPP模式传播，突破了传统石墨烯超表面仅支持单一偏振模式的限制。</p>
 <p>这项研究对6G太赫兹通信、双极化天线设计、石墨烯基太赫兹器件具有重要参考价值，与老大关注的石墨烯天线、THz通信、双极化技术方向高度契合。</p>
   </article>
@@ -114,199 +118,73 @@
   
   <article class="card ">
     
-    <h2>1. 传统石墨烯超表面的偏振限制</h2>
-    <p>传统石墨烯超表面（Graphene Modulated Metasurface, GMS）通常由周期性排列的石墨烯贴片或纳米条组成，其表面等离子体极化（Surface Plasmon Polariton, SPP）模式仅支持单一偏振。这是因为：</p>
-<ul>
-<li><strong>各向同性设计</strong>：传统单元几何结构在xy平面内对称，TM和TE模式耦合强度相同</li>
-<li><strong>模式简并</strong>：TM-SPP和TE-SPP在简并点附近重叠，无法独立调控</li>
-<li><strong>偏振选择性</strong>：只有特定偏振的入射波能激发表面等离子体</li>
-</ul>
-<p>从电磁理论角度分析，石墨烯的surface conductivity可以用Drude模型描述：</p>
-<p>$$\sigma(\omega) = \frac{je^2 E_F}{\pi \hbar^2 (\omega + j/\tau)}$$</p>
-<p>其中$E_F$是费米能级，$\tau$是载流子散射时间（典型值0.1-1 ps）。这个标量电导率导致石墨烯支持的模式是各向同性的，无法区分TM和TE偏振。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>2. 各向异性石墨烯超表面（AGP单元）设计</h2>
-    <p>本研究提出的创新在于<strong>各向异性石墨烯贴片（Anisotropic Graphene Patch, AGP）单元</strong>：</p>
-<p><strong>几何结构：</strong>
-- 单元形状：各向异性矩形石墨烯贴片，尺寸a ≠ b（长宽比约2:1）
-- 周期排列：沿x方向和y方向的不同周期Px ≠ Py
-- 支撑基底：SiO₂/Si衬底，厚度200nm SiO₂</p>
-<p><strong>电磁特性：</strong>
-- TM-SPP模式：电场垂直于传播方向，沿短轴（b方向）共振
-- TE-SPP模式：磁场垂直于传播方向，沿长轴（a方向）共振
-- 通过几何各向异性，两个模式的共振频率可独立设计</p>
+    <h2>1. 各向异性石墨烯超表面（AGP单元）</h2>
+    <p>传统各向同性石墨烯超表面只能支持TM或TE单一模式的表面等离子体极化（SPP）波传播。本研究提出的各向异性石墨烯贴片（AGP）单元通过几何各向异性设计，实现了TM-SPP和TE-SPP模式的同步传播。</p>
 <p><strong>关键设计参数：</strong>
 - 单元几何结构：各向异性矩形石墨烯贴片
-- 尺寸：a = 15μm, b = 7.5μm（举例）
-- 周期：Px = 20μm, Py = 10μm
 - 支持模式：TM-SPP + TE-SPP同时传播
-- 工作频段：太赫兹（THz）频段，中心频率约3 THz
+- 工作频段：太赫兹（THz）频段
 - 匹配条件：通过等效电路模型确定最佳传播特性</p>
-<p>等效电路模型采用串联LC谐振电路，其中电感L对应石墨烯贴片的自感，电容C对应贴片间的耦合电容：</p>
-<p>$$\omega_0 = \frac{1}{\sqrt{LC}}$$</p>
-<p>对于TM模式，有效电感$L_{TM} \propto a$（长轴），有效电容$C_{TM} \propto 1/b$（短轴）；对于TE模式，有效电感$L_{TE} \propto b$，有效电容$C_{TE} \propto 1/a$。因此TM和TE模式的谐振频率可以独立设计：</p>
-<p>$$f_{TM} = \frac{1}{2\pi\sqrt{L_{TM}C_{TM}}} \neq f_{TE} = \frac{1}{2\pi\sqrt{L_{TE}C_{TE}}}$$</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>3. 双极化实现机制详解</h2>
+    <h2>2. 双极化实现机制</h2>
     <p><strong>TM模式控制：</strong>
-- 石墨烯费米能级$E_F$调控TM模式表面阻抗$Z_{TM}$
-- 通过门电压$V_g$改变$E_F$：$E_F = \hbar v_F \sqrt{\pi n_s}$，其中$n_s = C_g V_g / e$
-- 实现Broadside辐射（垂直于表面辐射）
-- TM模式的波矢$k_{TM} = k_0 \sqrt{\epsilon_{eff,TM}}$</p>
+- 通过石墨烯费米能级调节实现TM模式相位匹配
+- 实现Broadside辐射（垂直于表面辐射）</p>
 <p><strong>TE模式控制：</strong>
-- 独立调节TE模式表面阻抗$Z_{TE}$
-- 通过不同的栅极结构实现独立控制
-- 与TM模式同步优化，实现双极化共口径辐射
-- TE模式的波矢$k_{TE} = k_0 \sqrt{\epsilon_{eff,TE}}$</p>
-<p><strong>偏振分离机制：</strong>
-- 几何各向异性导致TM和TE模式的等效介电常数不同：$\epsilon_{eff,TM} \neq \epsilon_{eff,TE}$
-- 因此两个模式的传播常数不同，实现模式分离
-- 偏振相关调制误差仅0.002 dB/μm，实现了高度独立的TM/TE模式控制</p>
-<p><strong>偏振隔离度</strong>（Polarization Isolation）是衡量双极化性能的关键指标，定义为：</p>
-<p>$$PI = 10 \log_{10}\left(\frac{P_{co}}{P_{cross}}\right)$$</p>
-<p>其中$P_{co}$是同极化功率，$P_{cross}$是交叉极化功率。本研究实现了PI &gt; 20 dB，远高于传统单极化设计的0 dB隔离。</p>
+- 独立调节TE模式表面阻抗
+- 与TM模式同步优化，实现双极化共口径辐射</p>
+<p><strong>偏振分离误差：</strong>
+- 偏振相关调制误差仅0.002 dB/μm
+- 实现了高度独立的TM/TE模式控制</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>4. 漏波天线工作原理</h2>
-    <p>漏波天线（Leaky-Wave Antenna, LWA）是一种通过周期性结构让导波"泄漏"到自由空间的天线：</p>
-<p><strong>基本方程：</strong>
-$$k_z = \beta - \frac{2\pi}{p}m$$
-其中$k_z$是泄漏波的纵向波矢，$\beta$是表面等离子体的传播常数，$p$是周期，$m$是谐波阶数。</p>
-<p><strong>扫描特性：</strong>
-- 频率扫描：改变工作频率f，传播常数β(f)变化，辐射角度θ变化
-- $\sin\theta_m = \frac{k_z}{k_0} = \frac{\beta}{k_0} - \frac{m\lambda}{p}$
-- 石墨烯的$E_F$调控可进一步调谐β，实现电调谐波束扫描</p>
-<p><strong>辐射效率分析：</strong>
-- 辐射效率$\eta = P_{rad} / (P_{rad} + P_{loss})$
-- 主要损耗：欧姆损耗（石墨烯电阻）、介质损耗（衬底）、匹配损耗
-- 当前效率约26%，主要受限于石墨烯的有限迁移率</p>
-<p>石墨烯的欧姆损耗可以用表面电阻$R_s$表示：</p>
-<p>$$R_s = \frac{1}{\sigma \cdot t} = \frac{\pi \hbar^2 (\omega + j/\tau)}{je^2 E_F \cdot t}$$</p>
-<p>其中t是石墨烯厚度（约0.34 nm）。在太赫兹频段，$\omega \tau \gg 1$，因此$R_s \approx \hbar \omega / (\pi e^2 E_F \cdot t)$。当$E_F$较低时，$R_s$增大，欧姆损耗增加，效率下降。</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>5. 性能参数详解</h2>
+    <h2>3. 性能参数</h2>
     <table>
 <thead>
 <tr>
 <th>参数</th>
 <th>数值</th>
-<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>方向图增益</td>
 <td>≈21.5 dBi</td>
-<td>双极化共口径辐射总增益</td>
-</tr>
-<tr>
-<td>TM模式增益</td>
-<td>≈10.5 dBi</td>
-<td>单独TM模式辐射增益</td>
-</tr>
-<tr>
-<td>TE模式增益</td>
-<td>≈10.5 dBi</td>
-<td>单独TE模式辐射增益</td>
 </tr>
 <tr>
 <td>辐射效率</td>
 <td>≈26%</td>
-<td>总辐射效率，含欧姆损耗和介质损耗</td>
-</tr>
-<tr>
-<td>TM模式辐射效率</td>
-<td>≈28%</td>
-<td>单独TM模式效率</td>
-</tr>
-<tr>
-<td>TE模式辐射效率</td>
-<td>≈24%</td>
-<td>单独TE模式效率</td>
 </tr>
 <tr>
 <td>旁瓣电平（SLL）</td>
 <td>&lt;-15 dB（双极化）</td>
-<td>双极化总旁瓣电平</td>
-</tr>
-<tr>
-<td>TM模式SLL</td>
-<td>&lt;-18 dB</td>
-<td>单独TM模式旁瓣</td>
-</tr>
-<tr>
-<td>TE模式SLL</td>
-<td>&lt;-12 dB</td>
-<td>单独TE模式旁瓣</td>
 </tr>
 <tr>
 <td>工作频段</td>
-<td>THz频段（约3 THz）</td>
-<td>中心频率</td>
-</tr>
-<tr>
-<td>带宽</td>
-<td>约10%相对带宽</td>
-<td>-10dB阻抗带宽</td>
+<td>THz频段</td>
 </tr>
 <tr>
 <td>尺寸</td>
 <td>微米级（芯片级集成）</td>
-<td>约1mm × 1mm量级</td>
-</tr>
-<tr>
-<td>偏振隔离度</td>
-<td>&gt;20 dB</td>
-<td>TM/TE模式间隔离</td>
-</tr>
-<tr>
-<td>波束扫描范围</td>
-<td>±45°</td>
-<td>电调谐范围内</td>
-</tr>
-<tr>
-<td>CMOS兼容性</td>
-<td>是</td>
-<td>可直接在硅衬底上制备</td>
-</tr>
-<tr>
-<td>调谐带宽</td>
-<td>&gt;30%相对带宽</td>
-<td>通过E_F调节实现</td>
 </tr>
 </tbody>
 </table>
-<p><strong>损耗来源分析：</strong>
-- 石墨烯欧姆损耗：约占40%（主要来源于载流子散射）
-- 硅衬底损耗：约占30%（硅的介电损耗角正切tanδ≈0.0001-0.01）
-- 金属接触损耗：约占20%（电极与石墨烯的接触电阻）
-- 其他辐射损耗：约占10%</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6. 关键技术突破</h2>
+    <h2>4. 关键技术突破</h2>
     <p><strong>首次实现双极化等离子体漏波天线：</strong>
 - 突破了传统石墨烯超表面仅支持单一偏振的限制
 - 实现了TM和TE模式的独立调控与协同优化
@@ -315,15 +193,6 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
 - 通过几何各向异性而非材料各向异性实现模式分离
 - 保持了石墨烯的电可调谐优势
 - 兼容CMOS制造工艺</p>
-<p><strong>设计方法论贡献：</strong>
-- 提出了系统化的AGP单元设计流程
-- 建立了TM/TE双模式传播的解析模型
-- 验证了偏振隔离的可行性</p>
-<p><strong>效率提升路径：</strong>
-- 当前26% → 目标&gt;50%（通过优化石墨烯迁移率）
-- 降低欧姆损耗：使用高迁移率石墨烯（&gt;10,000 cm²/Vs）
-- 降低介质损耗：使用低损耗衬底（如高阻硅，电阻率&gt;10,000 Ω·cm）
-- 改善阻抗匹配：优化单元设计和馈电结构</p>
   </article>
   
 
@@ -332,17 +201,11 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
     
     <h2>1. 6G太赫兹通信系统</h2>
     <p>双极化石墨烯漏波天线可直接应用于6G太赫兹通信系统：</p>
-<p><strong>容量提升</strong>：利用双极化实现极化复用（Polarization Division Multiplexing, PDM），理论容量翻倍。对于2×2 MIMO系统，双极化可以将容量提升近一倍（在独立散射条件下），公式为：</p>
-<p>$$C = \log_2 \det\left(I + \frac{\rho}{N_t} \mathbf{H}\mathbf{H}^H\right)$$</p>
-<p>其中H是信道矩阵，ρ是信噪比。当H的对角元（同极化信道）和非对角元（交叉极化信道）统计独立时，双极化可以提供额外的空间自由度。</p>
-<p><strong>空间分集</strong>：双极化提供分集增益，提升链路可靠性。在衰落信道中，TM和TE模式的衰落是统计独立的，因此双极化可以提供2倍的分集增益，降低误码率。</p>
-<p><strong>波束扫描</strong>：频率扫描特性适合快速波束追踪。太赫兹频段的波束较窄（半波束宽度约5-10°），需要快速追踪以补偿终端移动。</p>
-<p>太赫兹频段高频特性适合大容量短距离通信（&gt;100 Gbps），芯片级集成适合终端设备部署。</p>
-<p><strong>典型应用场景：</strong>
-- 室内THz热点覆盖（100 Gbps+）：在办公室、会议室等场景部署太赫兹接入点，提供无线万兆互联
-- 数据中心短距互联：服务器机架间的太赫兹无线链路，替代光纤连接
-- AR/VR无线传输：高清视频流的低延迟传输，要求带宽&gt;50 Gbps、延迟&lt;1 ms
-- 6G固定无线接入（FWA）：替代最后一百米光纤，提供高速宽带接入</p>
+<ul>
+<li>利用双极化实现空间分集，提升链路可靠性</li>
+<li>太赫兹频段高频特性适合大容量短距离通信</li>
+<li>芯片级集成适合终端设备部署</li>
+</ul>
   </article>
   
 
@@ -352,19 +215,9 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
     <h2>2. 卫星通信与星间链路</h2>
     <ul>
 <li>Starlink V2 Mini等卫星已采用相控阵天线，石墨烯漏波天线可作为补充技术路线</li>
-<li>双极化特性适合卫星通信的极化复用，提升频谱效率</li>
+<li>双极化特性适合卫星通信的极化复用</li>
 <li>太赫兹频段适合激光通信之外的射频备份链路</li>
-<li>芯片级尺寸适合卫星轻量化的需求</li>
 </ul>
-<p><strong>卫星应用优势：</strong>
-- 重量轻：石墨烯器件比传统金属天线轻90%以上，对于卫星发射成本敏感的应用至关重要
-- 功耗低：电调谐无需机械扫描，功耗&lt;100 mW
-- 可靠性高：无活动部件，寿命&gt;10年
-- 双极化容量翻倍：在有限的频谱资源下提升链路容量</p>
-<p><strong>星间链路应用场景：</strong>
-- 卫星星座内部的激光通信备用链路
-- 卫星与地面站之间的高带宽数据回传
-- 卫星与无人机/高空平台之间的中继通信</p>
   </article>
   
 
@@ -374,19 +227,9 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
     <h2>3. 通感一体化（ISAC）</h2>
     <ul>
 <li>双极化天线可同时支持通信和感知功能</li>
-<li>太赫兹频段提供高分辨率感知能力（空间分辨率达毫米级）</li>
+<li>太赫兹频段提供高分辨率感知能力</li>
 <li>与RIS、HISAC等技术形成协同</li>
-<li>感知功能：目标检测、成像、速测</li>
 </ul>
-<p><strong>感知分辨率分析：</strong>
-- 距离分辨率：$\delta R = c/(2B)$，其中B是信号带宽。太赫兹频段带宽可达数十GHz，因此距离分辨率可达厘米级甚至毫米级
-- 角度分辨率：$\delta \theta = \lambda/(Nd\cos\theta)$，其中N是阵列元素数，d是元素间距。双极化提供额外的维度，提升角度分辨率
-- 速度分辨率：$\delta v = \lambda/(2T_{int})$，其中$T_{int}$是相干积分时间</p>
-<p><strong>ISAC应用场景：</strong>
-- 自动驾驶车辆感知：同时实现 vehicle-to-vehicle 通信和周围障碍物感知
-- 无人机避障：太赫兹感知可以检测微小障碍物（如电线、树枝）
-- 室内定位与成像：厘米级定位精度，支持人员追踪和手势识别
-- 安全安检：太赫兹波可以穿透衣物但不伤害人体，双极化提供更高的识别准确率</p>
   </article>
   
 
@@ -398,64 +241,21 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
 <li>微米级尺寸适合片上集成</li>
 <li>CMOS兼容工艺降低制造成本</li>
 <li>可用于太赫兹光子集成电路（PIC）</li>
-<li>与硅基太赫兹器件（混频器、检波器）单片集成</li>
 </ul>
-<p><strong>集成路径：</strong>
-1. 石墨烯CVD生长 → 转移至SiO₂/Si衬底
-2. 光刻定义AGP单元图案
-3. 栅极结构制作（顶栅或侧栅）
-4. 金属互连与封装</p>
-<p><strong>太赫兹光子集成电路（PIC）应用：</strong>
-- 太赫兹发射芯片：漏波天线与 Gunn diode 或 QCL（量子级联激光器）耦合，实现片上太赫兹发射源
-- 太赫兹接收芯片：漏波天线与 bolometer 或 Schottky 二极管耦合，实现高灵敏度接收
-- 太赫兹波分复用系统：通过改变费米能级来切换不同波长的信号通道，实现波长路由功能</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>5. 生物医学应用</h2>
-    <ul>
-<li>太赫兹波段对生物组织有独特穿透性</li>
-<li>可用于生物组织成像和检测</li>
-<li>双极化提供更多信息维度</li>
-<li>植入式生物传感器（需解决生物相容性问题）</li>
-</ul>
-<p><strong>生物组织特性：</strong>
-- 水在太赫兹频段有强吸收峰，因此太赫兹波主要用于表面成像（皮肤癌检测、牙齿检测）
-- 干燥生物组织（如头发、指甲）在太赫兹频段有特征吸收谱，可用于成分分析
-- 双极化可以提供更多的组织信息，提升诊断准确率</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>6. 其他应用场景</h2>
-    <p><strong>安全检测：</strong>
-- 太赫兹漏波天线可用于无损检测（NDT）和爆炸物识别
-- 双极化特性可以提升检测的准确性，区分不同材料的极化响应</p>
-<p><strong>工业检测：</strong>
-- 复合材料层压板的缺陷检测
-- 油漆厚度测量
-- 电子元器件的缺陷检测</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>石墨烯太赫兹天线研究格局</h2>
+    <h2>1. 石墨烯太赫兹天线研究格局</h2>
     <p><strong>学术机构：</strong>
-- 伊朗国家科学基金会（INSF）资助基础研究（项目No. 40401661）
+- 伊朗国家科学基金会（INSF）资助基础研究
 - 欧洲多所大学开展石墨烯太赫兹器件研究
-- 中国高校（电子科大、中科院）在太赫兹天线领域活跃
-- 美国MIT、斯坦福在石墨烯电子学方面领先</p>
+- 中国高校（电子科大、中科院）在太赫兹天线领域活跃</p>
 <p><strong>产业布局：</strong>
 - 华为、中兴在太赫兹通信系统层面布局
 - 三星、高通在太赫兹芯片层面研究
-- TeraBeam、Terabeam在太赫兹通信设备方面
 - 目前尚无产业化产品，处于实验室阶段</p>
   </article>
   
@@ -463,7 +263,7 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>双极化天线技术路线对比</h2>
+    <h2>2. 双极化天线技术路线对比</h2>
     <table>
 <thead>
 <tr>
@@ -471,44 +271,32 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
 <th>优势</th>
 <th>劣势</th>
 <th>成熟度</th>
-<th>代表机构</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>传统金属微带双极化天线</td>
-<td>工艺成熟、效率高（&gt;70%）</td>
-<td>尺寸大、频率受限（&lt;100GHz）</td>
+<td>工艺成熟、效率高</td>
+<td>尺寸大、频率受限</td>
 <td>高</td>
-<td>广泛商用</td>
 </tr>
 <tr>
 <td>石墨烯等离子体漏波天线</td>
 <td>尺寸小、电可调、双极化</td>
 <td>效率较低（26%）</td>
 <td>低（实验室）</td>
-<td>本研究</td>
 </tr>
 <tr>
 <td>硅基太赫兹相控阵</td>
 <td>工艺成熟、可集成</td>
-<td>调谐范围有限、功耗高</td>
+<td>调谐范围有限</td>
 <td>中</td>
-<td>Intel、IBM</td>
 </tr>
 <tr>
 <td>RIS辅助双极化天线</td>
-<td>灵活可控、低成本</td>
+<td>灵活可控</td>
 <td>需要额外控制单元</td>
 <td>低</td>
-<td>多所高校</td>
-</tr>
-<tr>
-<td>介质透镜天线</td>
-<td>高增益、宽带</td>
-<td>体积大、不可调</td>
-<td>中</td>
-<td>多所高校</td>
 </tr>
 </tbody>
 </table>
@@ -518,11 +306,11 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>漏波天线技术演进</h2>
+    <h2>3. 漏波天线技术演进</h2>
     <ul>
-<li><strong>传统漏波天线</strong>：微波频段，金属波导结构，固定频率</li>
-<li><strong>太赫兹漏波天线</strong>：硅基、石墨烯等新材料，电调谐</li>
-<li><strong>等离子体漏波天线</strong>：石墨烯SPP模式，尺寸更小（本研究）</li>
+<li><strong>传统漏波天线</strong>：微波频段，金属波导结构</li>
+<li><strong>太赫兹漏波天线</strong>：硅基、石墨烯等新材料</li>
+<li><strong>等离子体漏波天线</strong>：石墨烯SPP模式，尺寸更小</li>
 <li><strong>双极化漏波天线</strong>：本研究突破，支持TM+TE双模式</li>
 </ul>
   </article>
@@ -531,86 +319,37 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>与已有笔记的关联</h2>
-    <ul>
-<li>[[技术概念-石墨烯圆极化RIS-CP-GRIS-20260805]]：圆极化 vs 双极化，不同偏振控制策略</li>
-<li>[[技术概念-石墨烯基半球形透射阵天线-20260817]]：透射阵 vs 漏波，不同辐射机制</li>
-<li>[[技术概念-拓扑THz漏波天线-On-Chip-Topological-LWA-20260725]]：拓扑保护 vs 几何各向异性，不同抗干扰策略</li>
-<li>[[技术概念-漏波天线Leaky-Wave-Antenna-20260702]]：基础漏波天线理论，本文是其石墨烯双极化扩展</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>技术成熟度评估</h2>
+    <h2>1. 石墨烯太赫兹天线技术成熟度评估</h2>
     <p><strong>当前阶段：实验室研究阶段（TRL 3-4）</strong>
 - 理论基础完整，仿真验证充分
 - 实验演示初见成果，但效率有待提升
-- 制造工艺需要进一步优化
-- 距离商业化还有3-5年</p>
+- 制造工艺需要进一步优化</p>
+<p><strong>未来3-5年趋势：</strong>
+- 效率提升是主要攻关方向（当前26% → 目标&gt;50%）
+- 与CMOS工艺集成是产业化关键
+- 双极化/多极化将是重要发展方向</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>效率提升是核心攻关方向</h2>
-    <p>当前26%的效率是工程化主要障碍，未来3-5年主要攻关方向是效率提升到50%以上。具体路径包括：</p>
-<ol>
-<li><strong>石墨烯迁移率提升</strong>：使用化学气相沉积（CVD）生长的高质量石墨烯，迁移率&gt;10,000 cm²/Vs</li>
-<li><strong>衬底损耗降低</strong>：使用高阻硅（电阻率&gt;10,000 Ω·cm）或石英衬底</li>
-<li><strong>接触电阻优化</strong>：使用边缘接触而非顶接触，降低接触电阻</li>
-<li><strong>阻抗匹配优化</strong>：优化单元设计和馈电结构，提升匹配效率</li>
-</ol>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>与CMOS工艺集成是产业化关键</h2>
-    <ul>
-<li>石墨烯转移工艺需要兼容CMOS温度预算（&lt;400°C）</li>
-<li>栅极结构需要与现有CMOS工艺兼容</li>
-<li>批量制造需要解决石墨烯转移的良率和一致性问题</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>双极化/多极化将是重要发展方向</h2>
-    <ul>
-<li>双极化是当前突破，未来可能扩展到圆极化、多极化</li>
-<li>多极化可以进一步提升容量和可靠性</li>
-</ul>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>对6G太赫兹通信的影响</h2>
+    <h2>2. 对6G太赫兹通信的影响</h2>
     <p><strong>正面影响：</strong>
 - 提供芯片级双极化天线解决方案
 - 降低太赫兹终端天线成本和尺寸
-- 支持极化复用提升容量（理论翻倍）
-- 电调谐波束扫描适合快速追踪</p>
+- 支持极化复用提升容量</p>
 <p><strong>挑战：</strong>
 - 效率问题需要工程化解决
 - 与现有硅基太赫兹技术的竞争
-- 标准化和产业化路径不清晰
-- 批量制造的良率和一致性</p>
+- 标准化和产业化路径不清晰</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>对老大的参考价值</h2>
+    <h2>3. 与老大关注方向的关联</h2>
     <p><strong>直接相关：</strong>
 - 石墨烯天线技术（已有#125、#146、#186篇笔记）
 - 太赫兹通信（6G核心频段）
@@ -626,7 +365,7 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>技术储备价值</h2>
+    <h2>1. 技术储备价值</h2>
     <p>本研究填补了双极化石墨烯太赫兹漏波天线领域的空白，与老大已有的石墨烯天线、太赫兹天线、漏波天线知识体系形成完整闭环。</p>
   </article>
   
@@ -634,12 +373,11 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>工程参考意义</h2>
+    <h2>2. 工程参考意义</h2>
     <ul>
 <li><strong>效率问题</strong>：当前26%的效率是工程化主要障碍，需关注后续研究突破</li>
 <li><strong>工艺兼容</strong>：CMOS兼容性是产业化关键，可与中兴现有工艺路线对照</li>
 <li><strong>双极化优势</strong>：适合卫星通信、终端设备的极化分集应用</li>
-<li><strong>中国研究力量</strong>：电子科大、中科院在太赫兹领域有积累，可关注合作机会</li>
 </ul>
   </article>
   
@@ -647,15 +385,15 @@ $$k_z = \beta - \frac{2\pi}{p}m$$
   
   <article class="card ">
     
-    <h2>研究跟踪建议</h2>
+    <h2>3. 研究跟踪建议</h2>
     <p>建议持续关注以下方向：</p>
 <ol>
 <li>石墨烯太赫兹天线效率提升进展</li>
 <li>CMOS工艺集成路线图</li>
 <li>双极化在卫星通信中的实际应用案例</li>
 <li>与RIS、HISAC等技术的协同方案</li>
-<li>大规模阵列集成的挑战与突破</li>
 </ol>
+<hr />
   </article>
   
 

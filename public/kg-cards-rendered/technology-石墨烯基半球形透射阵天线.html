@@ -90,7 +90,11 @@
 <header class="page-head">
   <div class="crumbs">TECHNOLOGY · KG 卡片</div>
   <h1 class="title">石墨烯基半球形透射阵天线</h1>
-  <p class="lede">UCSD团队2026年7月提出石墨烯基半球形透射阵天线，在200-300 GHz太赫兹频段实现±87°俯仰角+360°方位角全三维电子扫描，重配置速度达纳秒至微秒级，为6G太赫兹通信和超快移动目标跟踪提供新路径。</p>
+  
+  
+  <div class="meta-row">
+    <span class="chip brand">天线技术</span><span class="chip brand">技术概念</span><span class="chip brand">透射阵天线</span><span class="chip brand">石墨烯</span><span class="chip brand">太赫兹</span><span class="chip brand">波束赋形</span><span class="chip brand">RIS</span>
+  </div>
   
 </header>
 
@@ -105,20 +109,18 @@
   
   <article class="card ">
     
-    <h2>一、主题概述</h2>
-    <p><strong>石墨烯基半球形透射阵天线</strong>（Graphene-based Hemispherical Transmitarray Antenna）是一种面向6G太赫兹频段（200-300 GHz）的新型波束赋形天线架构。该设计由美国加州大学圣地亚哥分校（UCSD）Somayeh Komeylian和Christopher Paolini团队于2026年7月提出（arXiv: 2607.26437v1）。</p>
-<p><strong>核心价值</strong>：该技术为6G太赫兹通信提供了突破传统相控阵硬件复杂度瓶颈的新路径，尤其适合高速移动目标的实时跟踪场景。半球形设计天然匹配中心馈源的球面波前，无需额外相位补偿层，扫描范围达±87°俯仰+360°方位，孔径效率保持68%-80%。</p>
-<p>传统相控阵天线依赖大量T/R模块实现波束指向控制，每个模块包含移相器、衰减器和功放，硬件复杂度高、功耗大、成本高昂。透射阵天线通过在辐射孔径前方放置超表面层，对入射球面波进行相位调控，转换为平面波辐射，显著降低了硬件复杂度。本设计进一步采用半球形构型，中心馈源位于球心，球面波前天然匹配半球面相位分布，消除了传统平板透射阵需要额外相位补偿层的问题。</p>
-<p>石墨烯作为可调阻抗材料，其表面电导率可通过外加偏置电压动态调节，实现纳秒至微秒级的快速波束重配置。这种"超表面+石墨烯"的组合为6G太赫兹通信提供了低成本、低功耗、快扫描的解决方案。</p>
+    <h2>主题概述</h2>
+    <p><strong>石墨烯基半球形透射阵天线</strong>（Graphene-based Hemispherical Transmitarray Antenna）是一种面向6G太赫兹频段（200-300 GHz）的新型波束赋形天线架构。该设计由美国加州大学圣地亚哥分校（UCSD）Somayeh Komeylian和Christopher Paolini团队于2026年7月提出（arXiv: 2607.26437v1），利用石墨烯的电可调表面电导率特性，实现了±87°俯仰角 + 360°方位角的<strong>全三维电子扫描</strong>，同时达到纳秒至微秒级的超快重配置速度。</p>
+<p><strong>核心价值</strong>：该技术为6G太赫兹通信提供了突破传统相控阵硬件复杂度瓶颈的新路径，尤其适合高速移动目标的实时跟踪场景。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>半球形透射阵架构</h2>
-    <p>透射阵天线通过在辐射孔径前方放置超表面层，对入射球面波进行相位调控，转换为平面波辐射。与传统金属透镜相比，透射阵具有低剖面、易于集成的优势。</p>
-<p><strong>半球形设计 vs 传统平板透射阵</strong>：</p>
+    <h2>1. 半球形透射阵架构</h2>
+    <p>透射阵天线（Transmitarray Antenna）通过在辐射孔径前方放置超表面层，对入射球面波进行相位调控，转换为平面波辐射。与传统金属透镜相比，透射阵具有低剖面、易于集成的优势。</p>
+<p><strong>半球形设计的创新点</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -150,210 +152,94 @@
 </tr>
 </tbody>
 </table>
-<p>半球形设计的核心优势在于其几何特性：中心馈源位于球心，发出的球面波前天然与半球形超表面匹配，无需额外的相位补偿。这消除了传统平板透射阵在广角扫描时的相位失配问题，使得扫描范围可扩展至±87°俯仰和360°方位。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>石墨烯电压控制机制</h2>
+    <h2>2. 石墨烯电压控制机制</h2>
     <p><strong>核心原理</strong>：石墨烯的表面电导率可通过外加偏置电压动态调节（电化学掺杂或场效应），从而改变超表面单元的等效阻抗和透射相位。</p>
 <p><strong>单元结构</strong>：</p>
 <ul>
 <li><strong>黄金辐射贴片</strong>：作为谐振单元，决定透射相位</li>
 <li><strong>石墨烯扇区</strong>：作为可调阻抗层，独立施加偏置电压</li>
-<li><strong>hBN介电层</strong>：六方氮化硼（hBN）作为绝缘spacer，保护石墨烯并控制电容耦合</li>
-<li><strong>中心位置角horn馈源</strong></li>
+<li><strong>hBN介电层</strong>：六方氮化硼（hBN）作为绝缘 spacer，保护石墨烯并控制电容耦合</li>
+<li>** centrally positioned horn feed**：中心位置角 horn 馈源</li>
 </ul>
 <p><strong>控制矩阵</strong>：</p>
 <ul>
-<li>121个石墨烯单元排列为11×11电压控制矩阵</li>
+<li>121个石墨烯单元排列为 11×11 电压控制矩阵</li>
 <li>FPGA（AMD Xilinx Zynq UltraScale+ RFSoC）计算所需电压映射表</li>
 <li>通过高速多通道DAC（SPI或LVDS接口）并行输出</li>
 <li><strong>行并行控制架构</strong>使全孔径重配置仅需10-20 μs（对应50,000-100,000次波束更新/秒）</li>
 </ul>
-<p>石墨烯单元的控制机制是本设计的关键创新。每个单元由黄金辐射贴片和石墨烯扇区组成，石墨烯作为可调阻抗层，其表面电导率σ_s可通过偏置电压调节。11×11的控制矩阵意味着需要121个独立电压通道，采用行并行控制架构可将重配置时间压缩至10-20μs，支持超快波束切换。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>表面电导率建模</h2>
+    <h2>3. 表面电导率建模与传输系数分析</h2>
     <p><strong>石墨烯表面电导率公式</strong>（Drude模型）：</p>
 <p>$$\sigma_s(\omega, \mu_c, \tau) = \frac{2q^2 k_B T}{\pi \hbar^2 (\omega + j/\tau)} \left[ \frac{\mu_c}{k_B T} + 2 \ln\left(1 + e^{-\mu_c/k_B T}\right) \right]$$</p>
 <p>其中：</p>
 <ul>
-<li>$\mu_c$：费米能级（通过偏置电压调节，典型范围0-0.5 eV）</li>
+<li>$\mu_c$：费米能级（通过偏置电压调节，典型范围 0-0.5 eV）</li>
 <li>$\tau$：载流子散射时间（影响损耗）</li>
-<li>$\omega$：工作角频率（250 THz对应250 GHz）</li>
+<li>$\omega$：工作角频率（250 THz 对应 250 GHz）</li>
 </ul>
-<p><strong>ABCD矩阵与广义sheets transition conditions (GSTC)</strong>：</p>
+<p><strong>ABCD矩阵与广义 sheets transition conditions (GSTC)</strong>：</p>
 <ul>
-<li>多层石墨烯-介电结构通过ABCD传输矩阵级联分析</li>
-<li>GSTC条件确保电磁场在界面处的边界匹配</li>
+<li>多层石墨烯-介电结构通过 ABCD 传输矩阵级联分析</li>
+<li>GSTC 条件确保电磁场在界面处的边界匹配</li>
 <li>透射系数 $T = \frac{2Z_0}{2Z_0 + Z_s}$，其中 $Z_s = 1/\sigma_s$</li>
 </ul>
-<p><strong>Conformal array factor分析</strong>：
-半球形曲面的conformal array factor需考虑局部法向变化：</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>4.  conformal array factor 分析</h2>
+    <p>半球形曲面的 conformal array factor 需考虑局部法向变化：</p>
 <p>$$AF(\theta, \phi) = \sum_{m=1}^{M}\sum_{n=1}^{N} a_{mn} \cdot e^{j(k \cdot r_{mn} + \beta_{mn})}$$</p>
-<p>其中 $\beta_{mn}$ 为第(m,n)单元的附加相位（由石墨烯偏置决定），$r_{mn}$ 为单元在半球面上的位置矢量。这种conformal分析使得广角扫描时的相位误差建模更准确。</p>
+<p>其中 $\beta_{mn}$ 为第 (m,n) 单元的附加相位（由石墨烯偏置决定），$r_{mn}$ 为单元在半球面上的位置矢量。这种 conformal 分析使得广角扫描时的相位误差建模更准确。</p>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>与传统相控阵的效率-复杂度权衡</h2>
-    <table>
-<thead>
-<tr>
-<th>维度</th>
-<th>传统相控阵</th>
-<th>石墨烯透射阵</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>T/R模块数量</td>
-<td>N（每阵元一个）</td>
-<td>0（无源超表面）</td>
-</tr>
-<tr>
-<td>功耗</td>
-<td>高（每通道需功放）</td>
-<td>低（仅偏置电压）</td>
-</tr>
-<tr>
-<td>扫描速度</td>
-<td>μs-ms级</td>
-<td>ns-μs级</td>
-</tr>
-<tr>
-<td>成本</td>
-<td>高</td>
-<td>低</td>
-</tr>
-<tr>
-<td>孔径效率</td>
-<td>高（80-90%）</td>
-<td>中（68-80%）</td>
-</tr>
-<tr>
-<td>控制复杂度</td>
-<td>高（每通道独立控制）</td>
-<td>中（矩阵控制）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>核心原理</strong>：石墨烯透射阵天线通过电压控制超表面单元的等效阻抗，实现对入射球面波的相位调控，将球面波转换为定向平面波辐射。与传统相控阵相比，透射阵无需大量T/R模块，仅需单层超表面即可实现波束赋形，显著降低硬件复杂度和功耗。半球形设计天然匹配中心馈源的球面波前，消除了相位补偿需求，支持±87°俯仰+360°方位的全三维电子扫描。石墨烯的纳秒级响应速度使波束重配置可达50,000-100,000次/秒，远超传统机械扫描和电子扫描雷达。</p>
+    <h2>1. 6G太赫兹通信</h2>
+    <ul>
+<li><strong>应用场景</strong>：基站到基站的回传链路、室内高速热点覆盖、卫星互联网地面站</li>
+<li><strong>优势</strong>：250 GHz 频段提供 100+ Gbps 的潜在数据速率</li>
+<li><strong>挑战</strong>：大气吸收损耗（氧气共振峰 ~60 GHz，水蒸气 ~22 GHz，250 GHz 相对透明）、雨衰</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>6G太赫兹通信详解</h2>
-    <p><strong>应用场景1：基站到基站的回传链路</strong>
-- 传统方案：微波链路（E-band 70-80GHz），容量受限
-- 太赫兹方案：250GHz频段，潜在数据速率100+ Gbps
-- 优势：频谱资源充足，带宽可达10GHz+
-- 挑战：大气吸收损耗，需要视距传播</p>
-<p><strong>应用场景2：室内高速热点覆盖</strong>
-- 场景：大型会议中心、体育馆、机场候机楼
-- 需求：单用户峰值速率&gt;10Gbps
-- 方案：太赫兹小基站+石墨烯透射阵天线
-- 优势：超宽带、低功耗、快速波束切换</p>
-<p><strong>应用场景3：卫星互联网地面站</strong>
-- 场景：LEO卫星与地面站的高速数据回传
-- 需求：高增益、宽扫描、低功耗
-- 方案：半球形透射阵天线作为地面站天线
-- 优势：无需机械转动，毫秒级波束切换</p>
-<p><strong>大气传输窗口</strong>：
-| 频段 | 大气损耗 | 适用场景 |
-|------|---------|---------|
-| 250-300 GHz | 低（~2 dB/km） | 理想工作窗口 |
-| 60 GHz | 高（氧气共振） | 短距室内 |
-| 22 GHz | 低（水蒸气共振） | 不适用 |</p>
+    <h2>2. 超快移动目标跟踪雷达</h2>
+    <ul>
+<li><strong>应用场景</strong>：航空/航天器实时跟踪、导弹防御、无人机蜂群监测</li>
+<li><strong>性能</strong>：50,000-100,000 波束更新/秒，可实时补偿目标角位移</li>
+<li><strong>对比</strong>：传统机械扫描雷达（ms-s级）无法跟踪高超音速目标</li>
+</ul>
   </article>
   
 
   
   <article class="card ">
     
-    <h2>超快移动目标跟踪雷达详解</h2>
-    <p><strong>应用场景1：航空/航天器实时跟踪</strong>
-- 需求：高超音速目标（Ma&gt;5）的实时跟踪
-- 传统方案：机械扫描雷达，扫描周期10-100ms，无法跟踪
-- 石墨烯透射阵方案：50,000-100,000波束更新/秒，实时跟踪
-- 性能：可跟踪Ma=10目标，反应时延&lt;10μs</p>
-<p><strong>应用场景2：导弹防御</strong>
-- 需求：弹道导弹末段防御，目标速度Ma&gt;20
-- 挑战：传统相控阵扫描速度不够，漏检风险高
-- 石墨烯透射阵优势：超快波束切换，多目标并行跟踪</p>
-<p><strong>应用场景3：无人机蜂群监测</strong>
-- 需求：同时跟踪数百个小型无人机
-- 挑战：传统雷达扫描速度慢，无法覆盖所有目标
-- 石墨烯透射阵优势：电子扫描，无运动部件，可靠性高</p>
-<p><strong>性能对比</strong>：
-| 雷达类型 | 扫描速度 | 目标跟踪数 | 适用场景 |
-|---------|---------|-----------|---------|
-| 机械扫描雷达 | 1-10 Hz | 1-10 | 低速目标 |
-| 传统相控阵 | 100-1000 Hz | 10-100 | 中速目标 |
-| 石墨烯透射阵 | 50,000-100,000 Hz | 100+ | 高速目标 |</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>RIS与透射阵融合架构详解</h2>
-    <p><strong>半球形透射阵作为有源RIS的一种形式</strong>：</p>
-<ul>
-<li>传统无源RIS：仅反射，无增益，乘性路径损耗严重</li>
-<li>半球形透射阵：有源（石墨烯放大），双向覆盖，增益补偿损耗</li>
-<li>优势：相比无源RIS，增益提升10-15dB</li>
-</ul>
-<p><strong>与STAR-RIS的互补关系</strong>：</p>
-<ul>
-<li>半球形透射阵：提供3D电子扫描，适合点对点通信</li>
-<li>STAR-RIS：提供360°静态覆盖，适合广播场景</li>
-<li>融合方案：半球形透射阵+STAR-RIS，实现动态+静态覆盖</li>
-</ul>
-<p><strong>应用案例：6G基站天线</strong>
-- 传统方案：大量T/R模块的相控阵，成本高、功耗大
-- 新方案：中心馈源+半球形石墨烯透射阵，成本低、功耗低
-- 性能：增益20-30 dBi，扫描范围±87°俯仰+360°方位</p>
-  </article>
-  
-
-  
-  <article class="card ">
-    
-    <h2>产业链机会分析</h2>
-    <p><strong>上游材料</strong>：</p>
-<ul>
-<li>石墨烯制备：CVD生长法，国内厂商如宁波墨西科技、烟台鑫泰石墨烯</li>
-<li>hBN介电层：六方氮化硼薄膜，国内厂商如北方华创</li>
-<li>太赫兹源：量子级联激光器（QCL），国内厂商如中科院苏州纳米所</li>
-</ul>
-<p><strong>中游器件</strong>：</p>
-<ul>
-<li>石墨烯超表面单元：需要高精度光刻，国内厂商如中芯国际</li>
-<li>多通道DAC：高速并行控制，国内厂商如思瑞浦</li>
-<li>FPGA控制板：AMD Xilinx Zynq UltraScale+ RFSoC，国内替代如安路科技</li>
-</ul>
-<p><strong>下游应用</strong>：</p>
-<ul>
-<li>6G基站天线：华为、中兴、爱立信、诺基亚</li>
-<li>卫星互联网地面站：银河航天、格科微电子</li>
-<li>雷达系统：国睿科技、四创电子</li>
-</ul>
-<p><strong>测试设备</strong>：</p>
-<ul>
-<li>太赫兹矢量网络分析仪：Keysight、R&amp;S，国内替代如普源精电</li>
-<li>探针台：共惠电子、长川科技</li>
+    <h2>3. RIS与透射阵融合架构</h2>
+    <ul>
+<li>半球形透射阵可视为<strong>有源RIS</strong>的一种形式</li>
+<li>与传统无源RIS（仅反射）相比，透射阵提供双向覆盖（透过孔径）</li>
+<li>与STAR-RIS（全空间覆盖）形成互补：半球形提供3D电子扫描，STAR-RIS提供360°静态覆盖</li>
 </ul>
   </article>
   
@@ -388,7 +274,7 @@
 <td>±30°-±60°</td>
 <td>ns-μs</td>
 <td>-</td>
-<td>文献[3,5,8,10]</td>
+<td>[3,5,8,10]</td>
 </tr>
 <tr>
 <td>机械馈源位移</td>
@@ -396,7 +282,7 @@
 <td>±25°</td>
 <td>ms-s</td>
 <td>-</td>
-<td>文献[13]</td>
+<td>[13]</td>
 </tr>
 <tr>
 <td>被动频率依赖透镜</td>
@@ -404,7 +290,7 @@
 <td>16°-32° FoV</td>
 <td>fast</td>
 <td>-</td>
-<td>文献[11]</td>
+<td>[11]</td>
 </tr>
 <tr>
 <td>1-bit二元超表面</td>
@@ -412,7 +298,7 @@
 <td>±30°-±60°</td>
 <td>static</td>
 <td>-</td>
-<td>文献[6,9]</td>
+<td>[6,9]</td>
 </tr>
 <tr>
 <td>多焦点馈源切换</td>
@@ -420,7 +306,7 @@
 <td>±48°</td>
 <td>ms-s</td>
 <td>-</td>
-<td>文献[12]</td>
+<td>[12]</td>
 </tr>
 </tbody>
 </table>
@@ -431,32 +317,12 @@
   <article class="card ">
     
     <h2>产业界布局</h2>
-    <table>
-<thead>
-<tr>
-<th>公司</th>
-<th>动态</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>华为</td>
-<td>6G太赫兹通感一体化预研，关注全息超表面与相控阵融合</td>
-</tr>
-<tr>
-<td>中兴</td>
-<td>U6G试验场探索XL-MIMO近场波束聚焦，透射阵架构可作为AAU集成方案</td>
-</tr>
-<tr>
-<td>爱立信</td>
-<td>AI-ready radios中探索RIS辅助覆盖增强，石墨烯太赫兹器件属供应链上游研究</td>
-</tr>
-<tr>
-<td>诺基亚</td>
-<td>6G太赫兹无线接入网研究，关注高频段波束管理算法</td>
-</tr>
-</tbody>
-</table>
+    <ul>
+<li><strong>华为</strong>：6G太赫兹通感一体化预研，关注全息超表面与相控阵融合</li>
+<li><strong>中兴</strong>：U6G试验场探索XL-MIMO近场波束聚焦，透射阵架构可作为AAU集成方案</li>
+<li><strong>爱立信</strong>：AI-ready radios中探索RIS辅助覆盖增强，石墨烯太赫兹器件属供应链上游研究</li>
+<li><strong>诺基亚</strong>：6G太赫兹无线接入网研究，关注高频段波束管理算法</li>
+</ul>
   </article>
   
 
@@ -500,7 +366,7 @@
     
     <h2>风险与挑战</h2>
     <ol>
-<li><strong>石墨烯迁移率</strong>：室温下高品质石墨烯迁移率约10,000 cm²/V·s，仍需提升以降低欧姆损耗</li>
+<li><strong>石墨烯迁移率</strong>：室温下高品质石墨烯迁移率 ~10,000 cm²/V·s，仍需提升以降低欧姆损耗</li>
 <li><strong>偏置网络复杂度</strong>：121个独立电极的布线密度在半球曲面上是制造挑战</li>
 <li><strong>温度稳定性</strong>：石墨烯电导率对温度敏感，需闭环温度补偿算法</li>
 </ol>
@@ -513,7 +379,7 @@
     <h2>对老大工作的参考价值</h2>
     <ol>
 <li>
-<p><strong>RIS技术路线补充</strong>：老大关注的<strong>逆拓扑设计</strong>和<strong>半导体集成RIS</strong>方向，与本论文的石墨烯电压控制路线形成互补。透射阵更适用于需要<strong>高增益、宽扫描</strong>的场景（如基站侧），而无源RIS更适合<strong>低成本、大规模部署</strong>（如室内覆盖增强）。</p>
+<p><strong>RIS技术路线补充</strong>：老大关注的<strong>逆拓扑设计</strong>和<strong>半导体集成RIS</strong>方向，与本论文的石墨烯电压控制路线形成互补。半透射阵更适用于需要<strong>高增益、宽扫描</strong>的场景（如基站侧），而无源RIS更适合<strong>低成本、大规模部署</strong>（如室内覆盖增强）。</p>
 </li>
 <li>
 <p><strong>太赫兹天线储备</strong>：老大持续追踪6G太赫兹技术，本文提供了<strong>250 GHz频段的详细电磁设计方法</strong>（石墨烯表面电导率建模、ABCD矩阵、conformal array factor），可直接引用为技术参考。</p>
@@ -543,60 +409,13 @@
   
   <article class="card ">
     
-    <h2>关键技术指标</h2>
-    <table>
-<thead>
-<tr>
-<th>指标</th>
-<th>数值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>工作频段</td>
-<td>200-300 GHz</td>
-<td>太赫兹频段</td>
-</tr>
-<tr>
-<td>扫描范围</td>
-<td>±87°俯仰 + 360°方位</td>
-<td>全三维电子扫描</td>
-</tr>
-<tr>
-<td>重配置速度</td>
-<td>10-20 μs</td>
-<td>50,000-100,000次/秒</td>
-</tr>
-<tr>
-<td>孔径效率</td>
-<td>68%-80%</td>
-<td>广角扫描时仅10%退化</td>
-</tr>
-<tr>
-<td>单元数量</td>
-<td>121</td>
-<td>11×11电压控制矩阵</td>
-</tr>
-<tr>
-<td>控制方式</td>
-<td>FPGA + 多通道DAC</td>
-<td>行并行架构</td>
-</tr>
-</tbody>
-</table>
-  </article>
-  
-
-  
-  <article class="card ">
-    
     <h2>参考资料</h2>
     <ul>
 <li>arXiv: 2607.26437v1 — "Graphene-based Hemispherical Transmitarray Antenna for Wide-Angle Beam Steering and Ultrafast Moving Target Tracking" (Komeylian &amp; Paolini, 2026.07)</li>
-<li>IEEE Trans. Antennas Propag. 相关透射阵综述文献（引用[10], [28]）</li>
+<li>IEEE Trans. Antennas Propag. 相关透射阵综述文献（引用 [10], [28]）</li>
 <li>石墨烯太赫兹器件综述：Nature Nanotechnology, "Graphene terahertz technologies" (2024)</li>
 </ul>
+<hr />
   </article>
   
 
