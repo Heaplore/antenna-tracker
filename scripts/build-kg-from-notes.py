@@ -71,13 +71,26 @@ TYPE_PREFIX_MAP = [
     ("报告-",    "report"),
 ]
 
-# 索引分组规则：同组内可互相索引，跨组禁止
+# 索引分组规则：定义哪些类型可以互相索引
+# 允许跨组的组合：
+# - 零部件 ↔ 材料（A组内可跨）
+# - 技术概念 ↔ 报告（B组内可跨）
+# 其他所有跨组链接都禁止
+
 INDEX_GROUPS = {
     "technology": "B",  # B组：技术概念
     "report": "B",      # B组：报告
     "metric": "A",      # A组：指标术语
     "component": "A",   # A组：零部件
     "material": "C",    # C组：材料
+}
+
+# 允许的跨组索引对
+CROSS_GROUP_LINKS = {
+    ("component", "material"),
+    ("material", "component"),
+    ("technology", "report"),
+    ("report", "technology"),
 }
 
 SKIP_FILES = {"README.md"}
@@ -389,11 +402,19 @@ def main():
             if not tgt_id or tgt_id == src_id:
                 continue
 
-            # 检查跨组索引
+            # 检查跨组索引（只允许特定的跨组组合）
             tgt_type = next((n["type"] for n in nodes if n["id"] == tgt_id), None)
-            if tgt_type and INDEX_GROUPS.get(type_id) != INDEX_GROUPS.get(tgt_type):
-                print(f"  ⛔ 过滤跨组链接: {type_id} -> {tgt_type}")
-                continue
+            if tgt_type:
+                src_type = type_id
+                # 同组：允许
+                if INDEX_GROUPS.get(src_type) == INDEX_GROUPS.get(tgt_type):
+                    pass  # 允许
+                # 跨组：只允许特定组合
+                elif (src_type, tgt_type) in CROSS_GROUP_LINKS:
+                    pass  # 允许
+                else:
+                    print(f"  ⛔ 过滤跨组链接: {src_type} -> {tgt_type}")
+                    continue
 
             edge = (src_id, tgt_id)
             if edge not in link_set:
