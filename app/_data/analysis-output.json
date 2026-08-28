@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T01:51:56+08:00",
+  "generatedAt": "2026-08-29T02:54:55+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 29 条新闻入库（2026-08-21 ~ 2026-08-28）。",
+          "summary": "过去 7 天共 29 条新闻入库（2026-08-22 ~ 2026-08-29）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×316；射频/微波×67；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×322；射频/微波×67；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动副总经理张冬：可信AI筑基，数据智能赋能 ——共建国际合作新生态 | 中国移动卫星通信护航 守牢吉隆口岸应急通信防线 | 肖江浩任中国电信天津分公司党委书记、总经理",
+          "summary": "中国电信柯瑞文：释放数据价值 开启智惠新局 | 中国联通开通北斗短信服务保障吉隆应急通信 | 以词元为基，以算力为翼，激活全域数据价值 ——中国联通创新成果亮相2026数博会",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "C114通信网×126；通信世界网×122；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
+          "summary": "C114通信网×128；通信世界网×126；与非网RF社区×27；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
