@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-08-01",
+  "lastUpdate": "2026-09-01",
   "categories": [
     {
       "name": "3GPP国际标准",
@@ -68,7 +68,7 @@
           "status": "进行中",
           "publishDate": "2025年6月启动（Stage 1 冻结），2027年3月 Stage 3 冻结（5G-A 部分）",
           "organization": "3GPP",
-          "scope": "双轨制 Release：5G-Advanced 规范工作 + 6G Study Item。5G-A 部分：Stage 1 已于 2025-06（TSGs#108）冻结，Stage 2 已于 2026-06（TSGs#112）达成 80% 里程碑、目标 2026-09（TSGs#113）完成，Stage 3 功能冻结 2027-03（TSGs#115），ASN.1/OpenAPI 冻结 2027-06。6G Study：SA1 服务需求研究（TR22.870）已完成，TR 38.914（6G 场景与需求）截至 2026-06 接近完成，RAN1 从 2025 Q3 开始研究持续 21 个月。包含 AI/ML for NR Phase 2、NR MIMO Phase 6、NR Coverage Phase 3、Ambient IoT Phase 2、NR NTN terrestrial bands 探索、ISAC UAV 感知等。Rel-20 是 5G 到 6G 的过渡桥梁。",
+          "scope": "双轨制 Release：5G-Advanced 规范工作 + 6G Study Item。5G-A 部分：Stage 1 已于 2025-06（TSGs#108）冻结，Stage 2 已于 2026-06（TSGs#112 Singapore）达成 80% 里程碑、目标 2026-09（TSGs#113）完成，Stage 3 功能冻结 2027-03（TSGs#115），ASN.1/OpenAPI 冻结 2027-06。6G Study：SA1 服务需求研究（TR22.870）已完成，TR 38.914（6G 场景与需求）截至 2026-06 接近完成，RAN1 从 2025 Q3 开始研究持续 21 个月。包含 AI/ML for NR Phase 2、NR MIMO Phase 6、NR Coverage Phase 3、Ambient IoT Phase 2、NR NTN terrestrial bands 探索、ISAC UAV 感知等。Rel-20 是 5G 到 6G 的过渡桥梁。",
           "description": "5G-Advanced 与 6G 研究的双轨制 Release。5G-A 部分 Stage 2 已达 80% 里程碑，将于 2027 年 3 月冻结，6G Study 为 Rel-21 规范工作奠定基础。",
           "url": "https://www.3gpp.org/release-20"
         },
@@ -398,22 +398,22 @@
           "name": "ITU-R M.[IMT-2030.EVAL]",
           "title": "Evaluation criteria and methodology for IMT-2030",
           "category": "ITU标准",
-          "status": "现行",
-          "publishDate": "",
+          "status": "进行中",
+          "publishDate": "预计2027年完成（WP 5D持续工作）",
           "organization": "ITU-R WP 5D",
           "scope": "IMT-2030评估标准和方法论，用于评估6G无线电接口技术提案（RIT/SRIT）",
-          "description": "IMT-2030评估标准和方法论，用于评估6G无线电接口技术提案（RIT/SRIT）",
+          "description": "IMT-2030评估标准和方法论，用于评估6G无线电接口技术提案（RIT/SRIT）。配合M.[IMT-2030.TPR]技术性能要求，共同构成6G候选技术评估框架。评估方法论随技术性能要求同步制定，预计2027年完成。",
           "url": "https://www.itu.int/en/ITU-R/study-groups/rsg5/rwp5d/imt-2030/Pages/submission-eval.aspx"
         },
         {
           "name": "ITU-R M.[IMT-2030.TPR]",
           "title": "Minimum requirements related to technical performance for IMT-2030 radio interface(s)",
           "category": "ITU标准",
-          "status": "现行",
-          "publishDate": "",
+          "status": "已批准",
+          "publishDate": "2026年12月（正式批准，SG5全会）",
           "organization": "ITU-R WP 5D",
           "scope": "IMT-2030最低技术性能要求，定义了20项技术性能要求（包括7项新增6G特有指标），涵盖峰值速率、频谱效率、时延、可靠性、连接密度、能效等",
-          "description": "IMT-2030最低技术性能要求，定义了20项技术性能要求（包括7项新增6G特有指标），涵盖峰值速率、频谱效率、时延、可靠性、连接密度、能效等",
+          "description": "IMT-2030最低技术性能要求，定义了20项技术性能要求（包括7项新增6G特有指标），涵盖峰值速率、频谱效率、时延、可靠性、连接密度、能效等。草案于2026年2月由WP 5D完成，正式批准于2026年12月SG5全会。基于六大应用场景：IC（沉浸式通信）、HRLLC（超可靠低时延）、MC（大规模通信）、UC（泛在连接）、AIAC（AI与通信）、ISAC（通感融合）。为ITU-R Circular Letter 5/LCCE/115发布的6G无线电接口技术提案（RIT）评估依据。",
           "url": "https://www.itu.int/hub/2026/03/imt-2030-technical-requirements-for-the-6g-future/"
         },
         {
