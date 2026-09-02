@@ -659,10 +659,11 @@ def main():
             print(f"   ⚠️  vault 中找不到 {full}，跳过")
             skipped.append(bn)
             continue
-        # 判定 type
+        # 判定 type（full 可能是 "报告/报告-xxx.md" 或 "报告-xxx.md"）
         type_id = "technology"
+        check_name = full.split("/")[-1] if "/" in full else full
         for pfx, tid in TYPE_PREFIX_MAP:
-            if full.startswith(pfx):
+            if check_name.startswith(pfx):
                 type_id = tid
                 break
         node = build_node(full, type_id)
