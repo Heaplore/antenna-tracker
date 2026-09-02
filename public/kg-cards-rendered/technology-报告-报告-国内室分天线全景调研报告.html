@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报告/报告-国内室分天线全景调研报告 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">报告/报告-国内室分天线全景调研报告</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>执行摘要</h2>
+    <p>5G 时代 70%-85% 的移动数据流量发生在室内，室内覆盖已成为运营商网络建设的"最后一公里"。本报告聚焦国内室分天线细分赛道，覆盖 8 家核心集采厂商、5 大产品技术分类、3 大运营商建设格局及 5G-A/6G 技术演进趋势。</p>
+<p>核心结论：</p>
+<ol>
+<li>量增价跌已成定局 — 151.5 亿平方米覆盖面积以近 20% 速度增长，但基准型号最低报价仅 3.47 元/副（最高限价 6.67 元的一半），标准化品类利润空间极薄</li>
+<li>市场规模持续扩大 — 2024 年室内覆盖系统市场规模达 324.04 亿元，CAGR 18.79%</li>
+<li>集采格局：8 家分食 1588 万面 — 中信科移动位列第一，东洲罗顿、盛路通信、亨鑫科技紧随其后</li>
+<li>数字化室分渗透率超 76% — 无源天线增量空间逐步收窄，有源化转型意味着天线厂商须切入设备供应链</li>
+<li>竞争范式转变 — "降本 30%+安装 34 秒 + 故障率降 50%"代表从"拼价格"转向"拼效率"</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>室分天线五大品类</h2>
+    <table>
+<thead>
+<tr>
+<th>品类</th>
+<th>典型形态</th>
+<th>频率范围</th>
+<th>增益</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全向吸顶天线</td>
+<td>吸顶安装</td>
+<td>698-3700MHz</td>
+<td>2-5dBi</td>
+<td>商场、写字楼、酒店大堂</td>
+</tr>
+<tr>
+<td>定向壁挂天线</td>
+<td>壁挂安装</td>
+<td>698-3700MHz</td>
+<td>5-8dBi</td>
+<td>走廊、电梯厅、地下车库</td>
+</tr>
+<tr>
+<td>定向窄波束天线</td>
+<td>壁挂/吸顶</td>
+<td>698-3700MHz</td>
+<td>8-12dBi</td>
+<td>体育馆、展厅</td>
+</tr>
+<tr>
+<td>透明天线</td>
+<td>玻璃贴膜式</td>
+<td>700-2700MHz</td>
+<td>3-6dBi</td>
+<td>高端商场、博物馆</td>
+</tr>
+<tr>
+<td>漏缆天线</td>
+<td>泄漏同轴电缆</td>
+<td>698-2700MHz</td>
+<td>匀场覆盖</td>
+<td>隧道、地铁、管廊</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术架构演进：无源 → 有源 → 数字化 → AI</h2>
+    <p>第一代（无源 DAS）： BBU→RRU→合路器→功分器→馈线→无源天线。结构简单、成本低，但无法监控、扩容困难。</p>
+<p>第二代（有源数字室分）： BBU→rHub→pRRU→内置天线。可视化管理、精准定位、小区分裂扩容。代表：华为 LampSite（2018）、中兴 Qcell（2013 全球首发）。</p>
+<p>第三代（混合组网）： 高流量区域用有源、低成本区域用传统 DAS 补盲——当前主流方案。</p>
+<p>第四代（AI+通感一体）： 内嵌 AI 算法，数字孪生构建虚拟网络模型，从"事后响应"转向"事前预测"。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中国移动 2025-2026 室分天线集采（1588.82 万面）</h2>
+    <table>
+<thead>
+<tr>
+<th>排名</th>
+<th>厂商</th>
+<th>核心优势</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>中信科移动</td>
+<td>多频合一、极简方案，A-DAS 多运营商融合</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>2</td>
+<td>东洲罗顿</td>
+<td>大型项目经验丰富（上海中心/海口美兰机场）</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>3</td>
+<td>盛路通信</td>
+<td>天线设计能力突出，76 项专利，2000+ 品种</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>4</td>
+<td>亨鑫科技</td>
+<td>成本降 30%、安装 34 秒、故障率降 50%</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>5</td>
+<td>三维通信</td>
+<td>通信技术服务+无线设备制造</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>6</td>
+<td>国人通信</td>
+<td>自有技术体系，多类型产品线</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>7</td>
+<td>中邮科通信</td>
+<td>2024 年营收 12.60 亿元</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>8</td>
+<td>中兴通讯</td>
+<td>全球设备巨头，多频段融合+智能波束赋形</td>
+<td>★★★★</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>核心企业财务数据横比</h2>
+    <table>
+<thead>
+<tr>
+<th>企业</th>
+<th>2024 年营收</th>
+<th>同比</th>
+<th>净利润</th>
+<th>核心业务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中信科移动</td>
+<td>64.91 亿</td>
+<td>-17.29%</td>
+<td>-2.79 亿（亏损收窄）</td>
+<td>系统设备+天馈+室分</td>
+</tr>
+<tr>
+<td>亨鑫科技</td>
+<td>25.2 亿</td>
+<td>+11.7%</td>
+<td>0.42 亿（-39.5%）</td>
+<td>射频电缆+室分天线</td>
+</tr>
+<tr>
+<td>三维通信</td>
+<td>109.49 亿</td>
+<td>-12.33%</td>
+<td>-2.71 亿（-590%）</td>
+<td>通信设备制造+互联网</td>
+</tr>
+<tr>
+<td>盛路通信</td>
+<td>10.82 亿</td>
+<td>-8.88%</td>
+<td>-7.49 亿（商誉减值）</td>
+<td>通信天线+军工电子</td>
+</tr>
+<tr>
+<td>京信通信</td>
+<td>45.3 亿港元</td>
+<td>-24.2%</td>
+<td>-5.64 亿港元</td>
+<td>基站天线+小基站+室分</td>
+</tr>
+<tr>
+<td>中邮科通信</td>
+<td>12.60 亿</td>
+<td>—</td>
+<td>—</td>
+<td>通信工程+室分天线</td>
+</tr>
+</tbody>
+</table>
+<p>财务拆解要点：
+中信科移动营收下滑但亏损收窄，主因集采压价 + 建设节奏放缓
+亨鑫科技收入增长但利润大幅下滑，受收购浙江中光新能源增量业务影响
+三维通信净利暴跌 590% 主因对江西巨网科技确认约 2.4 亿元商誉减值 + 互联网业务收入下滑
+盛路通信净利 -7.49 亿是商誉"财务大洗澡"，2025 年已扭亏为盈
+唯一逆势改善的是京信通信——2025H1 毛利率提升 2.9 个百分点至 29.5%，成功扭亏为盈</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>数字化室分设备竞争格局</h2>
+    <table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>产品</th>
+<th>技术特点</th>
+<th>市场地位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华为</td>
+<td>5G LampSite</td>
+<td>BBU+RHUB+pRRU 三级架构</td>
+<td>国内数字室分领先</td>
+</tr>
+<tr>
+<td>中兴通讯</td>
+<td>Qcell 系列</td>
+<td>2013 全球首发以太网有源基站</td>
+<td>国内数字室分第二</td>
+</tr>
+<tr>
+<td>爱立信</td>
+<td>Radio Dot</td>
+<td>超薄壁挂设计，欧美主流</td>
+<td>全球重要参与者</td>
+</tr>
+<tr>
+<td>京信通信</td>
+<td>5G 小基站 + 广义室分</td>
+<td>多频多模一体化</td>
+<td>小基站 + 天线一体化</td>
+</tr>
+<tr>
+<td>中信科移动</td>
+<td>A-DAS 系统</td>
+<td>大带宽、高功率、低时延</td>
+<td>集采综合份额第一</td>
+</tr>
+<tr>
+<td>三维通信</td>
+<td>5G 小基站</td>
+<td>5G/LTE 多频多模</td>
+<td>专业通信服务商</td>
+</tr>
+</tbody>
+</table>
+<p>关键判断： 数字化室分设备呈"设备巨头主导 + 专业厂商补充"格局。对于无源室分天线厂商，最大挑战是——有源渗透率超 76%，无源增量空间收窄——如何切入有源设备供应链，是每家天线厂商必须思考的战略命题。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>中国铁塔：室分覆盖的&#34;超级采购商&#34;</h2>
+    <table>
+<thead>
+<tr>
+<th>指标</th>
+<th>2023 年</th>
+<th>2024 年</th>
+<th>2025 年</th>
+<th>增长率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>室分业务收入</td>
+<td>~71.4 亿</td>
+<td>84.30 亿</td>
+<td>92.27 亿</td>
+<td>+9.5%</td>
+</tr>
+<tr>
+<td>楼宇室分覆盖面积（累计）</td>
+<td>~101.5 亿㎡</td>
+<td>126.8 亿㎡</td>
+<td>151.5 亿㎡</td>
+<td>+19.5%</td>
+</tr>
+<tr>
+<td>高铁隧道 + 地铁里程（累计）</td>
+<td>~24.1 千公里</td>
+<td>29.3 千公里</td>
+<td>33.7 千公里</td>
+<td>+14.8%</td>
+</tr>
+</tbody>
+</table>
+<p>中国铁塔 2026 年室分天线集采规模 621 万副，覆盖 7 类产品。基准型号"室内全向单极化吸顶天线（800~3700MHz）"占采购总量的 53%，最高限价 6.67 元/副，三维通信报价最低 3.47 元。</p>
+<p>注意： 3.47 元/副仅对应基准型号（最大宗标准化品类），其他 6 类产品按价格关联系数折算，实际均价高于此值，不宜简单代表行业"成本底线"。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>技术发展趋势</h2>
+    <table>
+<thead>
+<tr>
+<th>方向</th>
+<th>核心技术</th>
+<th>价值</th>
+<th>成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多频段融合</td>
+<td>一张天线支持 698-3700MHz 全频段</td>
+<td>减少天线数量、降低物业协调难度</td>
+<td>★★★★ 已商用</td>
+</tr>
+<tr>
+<td>有源一体化</td>
+<td>天线 +pRRU 集成，内置波束赋形</td>
+<td>可视化运维、精准定位、小区分裂</td>
+<td>★★★★ 已商用</td>
+</tr>
+<tr>
+<td>透明天线</td>
+<td>薄膜/玻璃贴膜式天线</td>
+<td>解决视觉干扰，高端场景刚需</td>
+<td>★★★ 试商用</td>
+</tr>
+<tr>
+<td>极简部署</td>
+<td>一体化注塑、快装结构</td>
+<td>安装 34 秒，故障率降 50%</td>
+<td>★★★★ 已商用</td>
+</tr>
+<tr>
+<td>AI 智能运维</td>
+<td>数字孪生 + 预测性优化</td>
+<td>从事后响应到事前预测</td>
+<td>★★★ 试商用</td>
+</tr>
+<tr>
+<td>通感一体</td>
+<td>通信 + 感知融合</td>
+<td>一网多用，拓展商业价值</td>
+<td>★★ 前沿研究</td>
+</tr>
+</tbody>
+</table>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>六大核心判断</h2>
+    <ol>
+<li>室分天线"量增价跌"已成定局 — 量的增长无法完全弥补标准品价格的下跌，但高附加值品类（透明天线、窄波束天线）仍有利润空间</li>
+<li>无源天线天花板已现，有源化是唯一出路 — 数字化室分新建项目占比超 76%，每新建 10 个室分项目只有不到 3 个还在用传统无源天线</li>
+<li>竞争维度从"谁更便宜"转向"谁更高效" — 安装效率、运维成本、全生命周期 TCO 成为运营商采购新评价维度</li>
+<li>中国铁塔是需求"压舱石" — 92.27 亿元室分收入 +151.5 亿㎡覆盖面积，构成基本盘</li>
+<li>5G-A 催生新一轮升级周期 — 宏站高峰已过，但 5G-A 室内升级 +23.1%，新建站点超 30 万个。"宏站退潮、室分补涨"逻辑成立</li>
+<li>行业洗牌加速，3-5 年或减至 5 家以下 — 集采厂商已从十余家缩减至 8 家</li>
+</ol>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>

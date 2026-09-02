@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>报告/报告-6G智能超表面技术研究报告 · 知识卡片</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--surface-2:#fbfcfe;
+    --ink:#1a2233;--ink-2:#4a5468;--ink-3:#7a8499;
+    --line:#e6e9f1;--brand:#2a59d9;--brand-2:#4a7df0;
+    --accent:#ff7849;--good:#1f9d55;--warn:#d97706;--bad:#d14b4b;
+    --code-bg:#f3f5fa;--code-ink:#c9456b;
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 24px rgba(20,30,60,.06);
+    --shadow-hover:0 2px 6px rgba(20,30,60,.06),0 14px 32px rgba(20,30,60,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header.page-head{
+    max-width:100%;padding-left:24px;padding-right:24px;
+    padding:36px 28px 28px;
+    background:linear-gradient(135deg,#fff 0%,#eef3fc 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .crumbs{font-size:13px;color:var(--ink-3);margin-bottom:10px}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  h1.title{font-size:34px;line-height:1.25;margin:6px 0 8px;color:var(--ink);letter-spacing:-.5px}
+  h1.title .en{font-size:18px;color:var(--brand);font-weight:600;margin-left:8px;vertical-align:middle}
+  .lede{font-size:16px;color:var(--ink-2);max-width:780px;margin:8px 0 16px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink-2)}
+  .chip.brand{background:#eef3fc;border-color:#c9d8f5;color:var(--brand);font-weight:600}
+  .chip.good{background:#e8f6ee;border-color:#bfe3cc;color:var(--good)}
+  .chip.warn{background:#fff3e3;border-color:#f3d29e;color:var(--warn)}
+  .chip.accent{background:#ffefe6;border-color:#f5c6a8;color:var(--accent)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  main{max-width:100%;padding:28px 24px;}
+  /* JS 贪心分列容器 — 替代 column-count:2 */
+  .masonry{display:flex;gap:20px;align-items:flex-start}
+  .masonry-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+  /* 卡片默认隐藏，JS 搬完再加 .masonry-ready 才显示，避免单列闪烁 */
+  @media (max-width:760px){.masonry{flex-direction:column}}
+  .card{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:0 0 20px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card .kicker{font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;margin-bottom:6px}
+  .card h2{font-size:18px;line-height:1.35;margin:2px 0 10px;color:var(--ink)}
+  .card h3{font-size:14.5px;margin:14px 0 6px;color:var(--ink);
+    padding-left:9px;border-left:3px solid var(--brand-2)}
+  .card p{margin:8px 0;color:var(--ink-2);font-size:14.2px}
+  .card ul,.card ol{margin:8px 0;padding-left:20px;color:var(--ink-2);font-size:14.2px}
+  .card li{margin:4px 0}
+  pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:10px 12px;
+    font-size:13px;font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    overflow-x:auto;border:1px solid var(--line);margin:8px 0}
+  code{font-family:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;font-size:13px;color:var(--code-ink)}
+  pre code{color:inherit}
+  .tw{overflow-x:auto;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:280px}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .call{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13.5px;
+    border-left:3px solid var(--brand);background:#f1f5fd;color:var(--ink-2)}
+  .analogy{background:linear-gradient(180deg,#fff7f0 0%,#fff 70%);border-color:#f5d6b8}
+  .analogy .kicker{color:var(--accent)}
+  .analogy h3{border-color:var(--accent)}
+  .wl{display:inline-block;padding:1px 6px;border-radius:4px;background:#eef3fc;color:var(--brand);font-size:13px}
+  .related h3::before{content:"🔗";font-size:15px}
+  .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .rel-card{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:13.5px;
+    transition:border-color .15s ease,background .15s ease}
+  .rel-card:hover{border-color:var(--brand);background:#eef3fc;color:var(--brand);text-decoration:none}
+  .rel-card .ico{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:#eef3fc;color:var(--brand);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .source{margin-top:14px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+<header class="page-head">
+  <div class="crumbs">TECHNOLOGY · KG 卡片</div>
+  <h1 class="title">报告/报告-6G智能超表面技术研究报告</h1>
+  
+  
+</header>
+
+<main>
+
+<div class="masonry">
+  <div class="masonry-col col-left"></div>
+  <div class="masonry-col col-right"></div>
+</div>
+
+
+  
+  <article class="card ">
+    
+    <h2>前言</h2>
+    <p>国际标准化组织3GPP于2025年6月正式启动6G标准化研究项目，全球6G发展将从愿景规划阶段迈入以实现关键技术突破、标准制定和实践应用为核心的新阶段。鉴于此，智能超表面任务组携手其成员单位的众多专家，联合编制了新版智能超表面（Reconfigurable Intelligent Surface, RIS）研究报告。本报告将系统梳理RIS的工程化现状，深入分析其标准化影响，旨在为当前的6G标准化研究项目提供重要参考。</p>
+<p>在众多潜在的核心技术中，智能超表面（RIS）因其独特优势，吸引了广泛关注。该技术采用可编程人工超材料，开创性地构建了智能电磁波传播环境，为未来移动通信网络开辟了全新范式。本报告聚焦于正在开展的6G标准化工作，旨在为RIS技术的标准化进程提供任务组的深度洞察与建议。关于RIS的部署场景，报告将聚焦6G标准化与规模商用的典型场景。其次，报告将重点分析RIS面临的核心挑战，深入探讨关键技术的最新研究进展，范围涵盖从单元级能效优化到复杂环境下的信道估计、多用户干扰抑制以及与去蜂窝MIMO等架构的联合设计，展示了最新的算法创新和理论突破。鉴于完备的信道模型是性能评估与优化的重要基石，我们将从标准化视角出发，深入探讨RIS信道建模的关键方面（包括级联信道、物理模型、近场特性等），并提出具体的标准化方案建议。在此基础上，报告将分析和前瞻RIS的标准化影响，明确潜在的RIS类型、设计原则以及可能纳入标准化的具体内容。最后，本报告还将展示RIS技术在测试及外场验证方面的最新成果，通过室内外覆盖增强、多用户调度等典型场景的实测数据，验证RIS方案的有效性与工程可行性。本报告旨在为RIS技术的标准化进程提供有力参考，进一步推动其标准化与产业化落地。</p>
+<p>本报告由IMT-2030（6G）推进组RIS任务组的众多专家共同编写完成。其中，前言、第一章及第七章由中兴通讯牵头撰写；第二章由中国联通、中国移动及中兴通讯牵头撰写；第三章由东南大学和北京交通大学牵头撰写；第四章由中国移动和北京邮电大学牵头撰写；第五章由中国电信和中兴通讯牵头撰写；第六章由中国联通和中兴通讯牵头撰写。我们衷心感谢各成员单位专家的辛勤付出，并感谢东南大学崔铁军院士、金石教授等资深专家的的指导。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>目录</h2>
+    <p>一、概述.................................................................................................................... 1
+二、典型部署场景....................................................................................................3
+（一）构建多层网络架构................................................................................. 3
+（二）提升网络能效......................................................................................... 4
+（三）使能中高频连续覆盖............................................................................. 5
+（四）基于RIS的新型相控阵天线................................................................. 6
+三、关键技术最新研究进展...................................................................................7
+（一）能量折中的传输设计............................................................................. 7
+（二）多RIS系统信道估计............................................................................. 9
+（三）RIS使能多用户组间信道正交化........................................................ 10
+（四）RIS辅助去蜂窝大规模MIMO系统联合优化设计...........................11
+（五）圆柱形超表面辅助低复杂度传输方案............................................... 13
+四、信道建模..........................................................................................................15
+（一）标准化议题........................................................................................... 15
+（二）级联信道............................................................................................... 15
+（三）物理模型............................................................................................... 17
+（四）模型简化............................................................................................... 20
+（五）信道耦合............................................................................................... 21
+（六）路损模型............................................................................................... 22
+（七）近场信道............................................................................................... 24
+五、标准化影响分析............................................................................................. 27
+（一）潜在RIS类型....................................................................................... 29
+（二）标准化设计原则................................................................................... 30
+（三）潜在标准化工作................................................................................... 32
+六、RIS测试及外场验证......................................................................................35
+（一）室内覆盖增强....................................................................................... 35
+（二）室外覆盖增强....................................................................................... 38
+（三）室外分布式多RIS测试....................................................................... 42
+（四）室外多用户调度................................................................................... 44
+（五）邻频干扰性能....................................................................................... 45
+（六）新型相控阵列多流天线....................................................................... 46
+七、结论.................................................................................................................. 48
+参考文献.....................................................................................................................49
+贡献单位.....................................................................................................................52</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>一、概述</h2>
+    <p>RIS技术作为6G的关键候选技术之一，通过可编程人工超材料实现对无线传播环境的智能调控，具有显著的频谱效率提升、能耗降低和覆盖增强等优势。相较于传统天线技术，RIS的核心创新在于它将通信系统的关注点从发射端和接收端延伸到了无线传播环境本身，开创了"从优化信道到塑造信道"的全新范式。</p>
+<p>RIS在6G网络中具有广阔的应用前景，包括构建多层网络架构以提升能效、实现中高频（毫米波、太赫兹）的连续覆盖、开发新型RIS相控阵天线等应用场景。随着3GPP于2025年6月正式启动6G标准化研究项目，RIS技术的标准化进程也进入了新的阶段。本报告的编制旨在梳理RIS的工程化现状，分析其标准化影响，为6G标准化研究提供参考依据。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（一）构建多层网络架构</h2>
+    <p>多层网络架构通过引入RIS等无源或半无源节点，形成"宏基站—微节点—无源节点"的三级协同架构，显著提升6G网络的自组织能力与能效表现。图1展示了基于RIS的多层异构网络部署模式，其中辅助节点（以RIS为例）采用"随机分布与固定距离部署"相结合的混合模式，布设于收发点周边区域。</p>
+<p>具体部署距离需综合站间距、小区半径及实际评估需求进行动态调整，以优化电磁波反射路径。实测结果表明，引入RIS的双层网络相较于传统单TRxP网络，可实现30%以上的能量效率提升，尤其在低负载场景下表现更为显著。</p>
+<p>节点配置需重点考虑分布密度、天线单元数量及工作频段等参数。例如，在28 GHz毫米波频段下，RIS单元间距应不大于半波长（≤λ/2），以有效抑制栅瓣效应；天线单元数则需根据覆盖目标动态设定，密集城区建议不少于64单元。参数取值与部署场景密切相关：郊区场景可将单元间距放宽至λ，而城区场景则建议压缩至λ/4，以增强波束赋形能力。RIS通过智能反射机制将电磁波导向目标用户，可将小区边缘信号强度提升5–8 dB，有效改善室内外覆盖盲区。借助动态波束成形技术，RIS可进一步提升系统频谱效率，在多用户MIMO场景中增益尤为明显。</p>
+<p>建议在6GR部署中优先采用本架构，并分阶段推进实施：初期重点验证RIS与NCR的协同部署；中期扩展为多节点智能编排系统；远期目标为实现"宏基站—微节点—无源节点"三级架构的整体智能优化。本架构通过引入RIS等无源节点，在提升6G网络自适应能力的同时，也强化了其可持续性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（二）提升网络能效</h2>
+    <p>在6G网络中，除传统节能方案外，还可引入更具可持续性的辅助节点——无源/半无源RIS。该类节点能够以近乎可忽略的功耗显著改善信道传播条件（如覆盖性能与多径特性），从而有效降低系统整体能耗[6][7]。RIS因功耗极低，被视为提升MIMO系统性能的高效路径。</p>
+<p>针对RIS的功率建模，通常可定义三种功率状态：深度睡眠、下行激活（active DL）与上行激活（active UL）。由于RIS采用被动反射机制，无需主动射频链支持，其在深度睡眠状态下的相对功率极低，且状态转换过程接近理想。而在下行/上行激活状态下，相对功率同样处于较低水平，具体数值取决于RIS的工作模式与硬件配置。例如，采用自适应波束成形的RIS单元功耗约为0.4毫瓦[4]，而固定波束型RIS的功耗则可忽略不计。</p>
+<p>为评估RIS在多层架构部署中的能效增益，我们开展了系统仿真，结果如图7所示。图中展示了系统功耗与能量效率随可达频谱效率的变化关系。仿真结果表明，引入RIS后，系统整体能量效率获得显著提升。通过调整基站天线配置、发射功率及RIS分布等参数进行多场景仿真，进一步验证了无源RIS在广泛部署条件下均具备稳定的能效提升能力。</p>
+<p>a)功耗 b)能量效率
+图2 有/无RIS情况下功耗与能量效率对比</p>
+<p>（三）使能中高频连续覆盖</p>
+<ol>
+<li>基于反射式RIS辅助室外补盲场景</li>
+</ol>
+<p>在室外覆盖场景中，由于基站与终端之间存在建筑物、树木绿植等障碍物，收发端之间可能不存在视距传输路径，导致接收信号质量较差。尤其是毫米波等高频电磁波，相较于低频信号，其传播与穿透损耗较大，受障碍物遮挡影响也更大，网络覆盖区域容易出现盲区或弱覆盖区域，不利于实现无线网络的泛在接入和深度覆盖。针对该场景，部署智能超表面设备，如图3所示，通过按需构造非视距反射路径，并以视距反射信道替代非视距直射信道，实现虚拟视距传输[8]。</p>
+<ol>
+<li>基于反射式RIS室内补盲场景</li>
+</ol>
+<p>室内场景中，如大型商场、体育场馆、写字楼、地下停车场等，由于障碍物遮挡、楼道转角遮挡等问题，信号易被墙体等阻挡，同样会产生覆盖盲区。与室外补盲相似，通过将RIS部署于室内天花板、楼道拐角等潜在的通信盲区内，可提升室内基站的覆盖性能，确保室内的连续、无缝覆盖。</p>
+<p>图3 反射式RIS辅助室内外连续覆盖增强</p>
+<p>（四）基于RIS的新型相控阵天线</p>
+<p>基于RIS的新型相控阵列天线通常是RIS作为收发机的天线阵列，实现混合波束赋形架构的模拟波束赋形功能。射频调制信号通过电缆馈入RIS天线阵列，控制模块动态调控RIS阵元响应，形成目标模拟波束。基于RIS的毫米波天线阵列，具有阵列单元易扩展、模拟波束赋形增益较高、控制电路功耗较低（约1W）的特点。此外，利用大功率功率放大器替代传统天线阵列的多通道芯片中的小功率功率放大器，可有效提升功率附加效率，具有绿色低功耗等技术优势。</p>
+<p>图4 基于RIS的新型相控阵列天线</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>三、关键技术最新研究进展</h2>
+    <p>随着智能超表面技术从概念走向实践，其在6G通信系统中的巨大潜力正通过一系列前沿研究被逐步揭示与验证。然而，RIS由大量无源单元构成的基本特性，也为其系统设计与优化带来了信道估计、计算复杂度及多用户干扰等多方面的挑战。本部分将聚焦于这些核心挑战，呈现RIS关键技术领域最新研究进展。</p>
+<p>具体而言，本部分内容涵盖了从单元级能效优化到系统级联合设计的多个维度：首先，针对RIS的功耗问题，介绍了基于实测功耗模型的能效编码方法，突破了传统线性功耗假设的局限。其次，探讨了复杂遮挡环境下多RIS系统的信道估计难题，提出了基于张量分解的低复杂度估计算法与灵活的遮挡处理方案，显著提升了系统的鲁棒性。再次，分析了RIS如何通过定制化正交信道赋能多用户传输，利用分布式部署与相移优化，有效降低用户间干扰，提升空间复用能力。进而，面向去蜂窝大规模MIMO这一6G潜在架构，介绍了结合深度学习与进化算法的联合优化策略，以应对硬件损伤与电磁干扰下的波束赋形挑战。最后，探索了通过创新RIS物理架构（如圆柱形阵列）来划分用户服务区域，从而在保证性能的同时大幅降低优化复杂度的新路径。</p>
+<p>这些研究进展不仅展示了RIS技术在理论创新与算法设计上的深度，也通过仿真与实测验证了其工程可行性，共同推动了RIS技术从实验室走向未来6G商用网络的进程。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（一）能量折中的传输设计</h2>
+    <p>由于RIS由大量单元阵列构成，其功耗与波束增益之间始终存在显著的权衡关系。传统研究普遍假设RIS功耗与单元数、量化比特数线性相关，并忽略了不同相位编码状态对功率消耗的影响。这一假设基于PIN二极管实现的RIS中并不成立。针对这一问题，研究[9]提出了一种基于实测功耗模型的能效离散相位编码方法（energy-efficient phase encoding, EEPE），旨在在功率约束与服务质量（quality of service, QoS）要求下，实现RIS系统能量效率最大化。</p>
+<p>该方法首先建立了RIS辅助单输入单输出（SISO）通信系统的波束增益、功耗与能效模型，并以能效最大化为目标，构建了离散相位编码优化问题。随后，提出的EEPE算法通过"三步式"流程实现编码设计优化：在第一步中，根据RIS的最大可用功率约束计算允许的"1"编码数量，以确定单元的功耗上限；在第二步中，基于相位分布矩阵与波束对齐原理，遍历所有满足约束的编码方案，选择在信噪比（SNR）高于QoS门限的条件下能效最高的相位矩阵；在第三步中，若当前方案的SNR超过QoS要求，则逐步减少"1"编码数量以进一步降低功耗，实现能效的二次优化。该算法的计算复杂度近似为线性O(MN)，兼顾了计算效率与优化精度。EEPE方法的部分步骤及原理如图5所示。</p>
+<p>EEPE算法通过量化"编码1"的数量与功耗间的非线性关系，实现了波束增益与能耗之间的自适应平衡。仿真结果如图6所示，在相同QoS要求下，该方法相较于传统量化编码与动态阈值相位量化（DTPQ）方法，可显著降低RIS总功耗约54%，并提升能效约100%。此外，为验证该算法的实用性，研究在35 GHz频段开展了两组室内实地试验。实测结果如图7所示，EEPE方法在真实环境中能准确满足QoS约束、有效控制功耗上限，且其测得能效曲线与理论值高度一致，RIS的能量效率随QoS要求和功率约束的增加呈下降趋势。测量结果同时验证了EEPE方法在调整甚至定制RIS的波束形成增益、功耗和能效方面的灵活性。</p>
+<p>(a) RIS功率损耗 (b) RIS能量效率
+图6 仿真结果图
+图7 实测结果图</p>
+<p>总体而言，EEPE方法突破了传统模型中能耗线性假设的限制，实现了基于实测功耗的能效自适应编码，为RIS辅助通信系统的低功耗设计与6G绿色通信架构提供了新的技术路径与实验支撑。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（二）多RIS系统信道估计</h2>
+    <p>为充分发挥RIS辅助通信的潜能，准确的信道状态信息至关重要。然而，在多RIS协同场景下，信道估计面临多重挑战。一方面，多RIS的引入显著增加了传播路径，扩大了待估信道的规模；同时，由于RIS本身不具备主动信号处理能力，导致系统在导频开销、训练时长以及反馈信息量等方面的资源消耗大幅上升。另一方面，在复杂传播环境中分布式部署大规模RIS阵列，易受到遮挡等因素的干扰，部分反射单元信号会出现严重衰减甚至失效，进而导致信道估计性能显著下降。</p>
+<p>针对上述难题，文献[10]考虑了遮挡环境下的RIS信道建模，并提出了一种基于张量分解的多RIS辅助OFDM系统的信道估计算法。该算法通过引入遮挡因子建模，构建表征多RIS遮挡状态的级联信道模型；为降低信道矩阵的阶数与算法复杂度，将多RIS划分为若干组别，并设计了分组训练协议，通过相邻时间帧接收信号作差来提取各RIS组的有效信号分量；结合信道的结构稀疏特性，构建三维张量信号模型，并采用张量典型多项式分解(Canonical Polyadic Decomposition，CPD)算法恢复各因子矩阵，在此基础上，利用K-means聚类算法估计多RIS的实际遮挡情况；最后，基于所估计的遮挡信息，设计多种遮挡处理方案并用于信道恢复，以实现各信道参数及完整信道的重构。</p>
+<p>如图8所示，根据多RIS遮挡情况与系统应用需求，算法设计了三种遮挡处理方案：1)行/列删除方案：对RIS阵面逐一进行处理，消除局部失效单元的影响；2) RIS删除方案：在保证系统整体性能的前提下，删除大面积遮挡的RIS，适用于RIS相移优化等场景；3) RIS选择方案：选择性反馈最优的RIS组信道，适用于定位等场景。该设计能够根据不同的遮挡特性和应用需求灵活选择补偿策略，从而在保证系统性能的同时显著提升算法的适用性与鲁棒性。</p>
+<p>如图9所示，展示了不同遮挡环境中信道角度参数估计性能随信噪比变化的趋势。在障碍物较少的开阔场景中，仅需对RIS阵面依次进行遮挡补偿；而在遮挡密集型环境中，则需综合考虑实际部署条件与多RIS调度策略，选择最优的遮挡处理方案。所基于张量分解的信道估计方法能够以较低复杂度实现信道参数与遮挡状态的唯一性解耦与精确重构，在遮挡环境中显著提升了多RIS系统的信道估计精度与鲁棒性。</p>
+<p>(a) 开阔场景 (b) 遮挡密集型场景
+图9 不同遮挡环境下角度参数估计性能对比</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（三）RIS使能多用户组间信道正交化</h2>
+    <p>无线通信网络中多用户(User Equipment, UE)系统能传输的最大流数取决于多用户信道的秩。在无RIS辅助的系统中，通常认为信道是不可控的，传输流数需要被动根据信道变化进行相应调整。在多用户场景中使用经典的联合空分复用传输（Joint Spatial Division and Multiplexing），传输流数等于前波束成型(PBF)矩阵的维度，该维度的选择受到信道矩阵条件的限制。</p>
+<p>研究表明，通过精心设计RIS的相移配置，可以在多用户之间构建出正交的子信道，从而实现更高的空间复用增益。具体而言，RIS可以通过以下方式帮助实现多用户信道正交化：1）通过相位偏置对不同用户的反射波进行分离，使得不同用户在接收端可以区分彼此的信号；2）利用分布式部署的多个RIS协同工作，在空间上划分不同的服务区域；3）优化RIS码本设计，使得不同用户之间的干扰最小化。</p>
+<p>这一研究成果表明，RIS不仅能够用于简单的覆盖增强，还可以通过定制化信道设计来支持更复杂的通信场景，如高容量的MU-MIMO系统。这与6G网络对超大容量、超高可靠性的需求高度契合，也为RIS在复杂多用户场景中的应用提供了重要的理论基础。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（四）RIS辅助去蜂窝大规模MIMO系统联合优化设计</h2>
+    <p>去蜂窝（Cell-Free）大规模MIMO被认为是6G的关键架构之一，它通过分布式接入天线(DAA)将传统蜂窝小区的边界消除，为用户提供一致的体验。然而，在实际部署中，硬件损伤、电磁干扰以及信道时变等因素都会严重影响系统的性能。针对这些挑战，研究提出了结合深度学习与差分进化算法的联合优化策略。</p>
+<p>该框架的核心思想是利用深度学习模型来快速预测和补偿硬件损伤带来的影响，再通过差分进化算法在全局范围内优化波束赋形向量和RIS的相移配置。这种混合方法既能利用深度学习的快速推理能力，又能借助进化算法的全局搜索优势，在复杂的电磁环境中找到最优的解。</p>
+<p>图11展示了该算法框架的流程：首先通过历史数据训练神经网络模型来表征硬件损伤特性；然后将这些先验知识作为约束条件输入到差分进化算法中进行联合优化；最后得到能够满足特定QoS需求的RIS配置方案。通过仿真实验验证，该算法在多种复杂场景下都表现出了优越的性能，尤其是在高干扰、强非理想特性的环境下仍能保持良好的鲁棒性。</p>
+<p>（五）圆柱形超表面辅助低复杂度传输方案</p>
+<p>传统的平面RIS阵列在覆盖范围和波束灵活性方面存在一定局限性。为了解决这一问题，一些研究者提出了将RIS阵列构造成圆柱形的物理架构，即UCA-RIS（Uniform Circular Array RIS）。这种创新的设计方式能够更好地适应特定的服务区域划分需求，并通过几何特性自然地带来用户隔离效果。</p>
+<p>如图13所示，在一个两用户场景中，UCA-RIS可以通过其曲面特性将两个用户分别位于圆柱的两侧，从而在空间上实现天然的隔离。相比于需要复杂的相移优化才能达到的正交效果，UCA-RIS利用了其固有的几何属性降低了系统的计算负担。图14显示了在不同RIS单元数目下，UCA-RIS辅助系统的性能与计算复杂度的对比结果，可以看出，该架构在保证性能的同时显著降低了优化难度，这为低成本、高效率的RIS部署提供了一种可行方案。</p>
+<p>总的来说，无论是平面阵列还是特殊形状的RIS阵列，关键在于如何根据具体应用场景选择最合适的形式，并在性能与成本之间取得最佳平衡。圆柱形RIS的提出标志着RIS物理架构设计的多元化发展趋势正在逐步显现。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（一）标准化议题</h2>
+    <p>在国际标准化组织中，关于RIS的研究正逐步从愿景阶段转向应用探索。ITU-R的相关研究可追溯至2021年2月发布的《IMT未来技术趋势》报告，该报告将"可控无线电环境"列为未来发展的潜在驱动因素之一。随后，ITU-R在2023年发布了《IMT面向2030及未来发展的框架和总体目标建议书》，在这一框架中，RIS被视为实现相关愿景的潜在使能技术之一。</p>
+<p>目前，ITU-R关于RIS的研究正逐步从愿景阶段转向应用探索，后续工作预计将更多聚焦于RIS信道建模、实时控制机制、恶劣天气适应性等工程实践问题，旨在为后续相关工作提供顶层参考。</p>
+<p>同时，ETSI也发布了多份关于RIS的技术报告，包括[RIS 001]使用案例、部署场景与要求，[RIS 002]技术挑战、架构及对标准化的影响，以及[RIS 003]通信模型、信道模型、信道估计与评估方法论。这些标准为RIS的理论研究和工程实践提供了宝贵的参考。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（二）级联信道</h2>
+    <p>RIS特有的信道结构与传统MIMO系统有本质区别，其核心特征是级联信道模型。在RIS辅助通信系统中，信号需要经过两条链路：第一条是从基站到RIS的直连信道（BS-RIS），第二条是从RIS到用户的直连信道（RIS-User）。这两条链路的乘积构成了整个系统的等效信道。</p>
+<p>数学表达如下：</p>
+<p>其中：
+h_BS-RIS：基站到RIS的直连信道
+Φ：RIS的对角相位调制矩阵，反映了各个RIS单元施加的相移
+h_RIS-user：RIS到用户的直连信道</p>
+<p>与传统的MIMIO系统不同，RIS的级联信道具有以下特点：</p>
+<ol>
+<li>双重衰落特性：信号经历了两次独立的衰落过程，总的信道路径复杂度更高</li>
+<li>相位调制影响：RIS单元的可调相移会直接改变信道的幅度和相位特性</li>
+<li>稀疏性特征：由于RIS是无源器件，很多直射路径可能被阻挡，导致信道矩阵具有较高的稀疏性</li>
+</ol>
+<p>在标准化过程中，如何准确地建模并估计这个级联信道是一个关键问题。报告指出，传统的远场假设在RIS场景下往往不再适用，特别是在短距离通信或大尺寸RIS阵列的情况下，近场效应不可忽略。因此，需要 develop新的信道估计方法来适应RIS的级联信道特性。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（三）物理模型</h2>
+    <p>RIS的物理模型描述了单个RIS单元对电磁波的反射/透射特性，是构建整个信道模型的基础。一个理想的RIS单元应该能够实现任意的幅度和相位调制，但在实际硬件实现中，总会存在一些非理想因素需要考虑。</p>
+<p>主要的物理模型包括：</p>
+<ol>
+<li>
+<p>散射矩阵模型：将RIS单元视为一个黑盒，通过测量其输入输出关系来确定散射参数。这种方法较为通用，但不便于解析推导。</p>
+</li>
+<li>
+<p>基于雷达截面积(RCS)的模型：利用RIS单元的电磁散射特性来描述其对入射波的响应。图18展示了基于RCS的极化RIS单元方向图，可以看出不同极化下的辐射特性。</p>
+</li>
+<li>
+<p>基于38.901天线模型的简化模型：为了便于仿真和分析，有时会将RIS单元等效为一个标准的3GPP TR 38.901中定义的天线单元，如图19所示。这种方法虽然简单，但在某些场景下可能引入较大的误差。</p>
+</li>
+<li>
+<p>物理光学法(POM)与38.901模型的比较：图20和图21对比了基于物理光学的建模方案和基于38.901天线模型的建模方案，结果显示两者在某些特定频率和角度下有显著的差异。</p>
+</li>
+</ol>
+<p>在实际应用中，需要根据具体的应用场景和精度要求选择合适的物理模型。对于高精度要求的场景，可能需要采用更复杂的物理光学法或电磁仿真工具；而对于快速评估和原型验证，简化的38.901模型可能就足够了。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（四）模型简化</h2>
+    <p>尽管精细的物理模型能够提供准确的结果，但其计算复杂度通常很高，不利于系统级的仿真和优化。因此，在工程设计中常常需要进行适当的模型简化。</p>
+<p>常见的简化方法包括：</p>
+<ol>
+<li>
+<p>多径簇删减：根据各多径簇的功率占比，保留主要成分而丢弃次要成分。图22展示了基于功率占比的多径簇删减实现效果，可以看出通过合理设置阈值可以在保证精度的前提下显著降低模型复杂度。</p>
+</li>
+<li>
+<p>平均化处理：将多个相似的RIS单元合并为一个等效单元，从而减少矩阵的维度。</p>
+</li>
+<li>
+<p>稳态假设：在某些慢变信道条件下，可以假设RIS的配置在短时间内保持不变，从而避免频繁更新的开销。</p>
+</li>
+</ol>
+<p>需要注意的是，任何简化都会带来一定的误差，因此在实际应用时需要权衡精度与效率的关系，并根据具体场景选择合适的简化策略。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（五）信道耦合</h2>
+    <p>在大规模RIS阵列中，各个单元之间存在着不同程度的电磁耦合效应。这种耦合会影响单个单元的实际工作状态，从而导致与设计期望产生偏差。如果不加以考虑，可能会导致实际性能低于预期。</p>
+<p>信道耦合主要体现在两个方面：</p>
+<ol>
+<li>
+<p>互耦效应：相邻RIS单元之间的电磁相互作用会导致阻抗失配，影响能量传输效率。</p>
+</li>
+<li>
+<p>串扰：当一个单元被激活时，可能会影响到邻近单元的信号，造成干扰。</p>
+</li>
+</ol>
+<p>在实际设计中，通常会采取以下措施来减轻信道耦合的影响：</p>
+<p>增加单元间距
+使用屏蔽结构
+在算法层面进行预补偿</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（六）路损模型</h2>
+    <p>路径损失是无线通信中最基本的参数之一，用于描述信号强度随距离衰减的程度。对于RIS辅助通信系统，由于其特殊的传播路径，传统的路损模型可能不再完全适用。</p>
+<p>报告中给出了几个典型场景的路损测试结果：</p>
+<p>ORIS实测分布（图23）：展示了有源RIS在不同距离下的信号强度变化情况
+RIS辅助无线通信典型场景（图24）：包括室外广场测试（图25）、室内走廊测试（图26）、教室测试（图27）等不同环境</p>
+<p>从测试数据可以看出，RIS辅助通信的路损特性与传统自由空间传播模型存在明显差异，尤其是在反射路径较长或障碍物较多的情况下。因此，在标准化工作中需要建立更加准确和通用的RIS路损模型，以便更好地指导网络规划和系统设计。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（七）近场信道</h2>
+    <p>当RIS与终端之间的距离较近时，球面波前的影响变得不可忽视，此时不能简单地采用远场假设来建模。近场效应主要包括以下几个方面：</p>
+<ol>
+<li>
+<p>近场相位梯度：由于波前的曲率，不同位置接收到的信号相位会有所不同，形成一个相位梯度。</p>
+</li>
+<li>
+<p>距离相关的衰减差异：近场区域内的衰减规律不同于远场的平方律衰减，而是更接近于某种幂律关系。</p>
+</li>
+<li>
+<p>波束聚焦效应：在近场条件下，RIS可以实现更精确的波束聚焦，这对于提高能量利用率和降低干扰具有重要意义。</p>
+</li>
+</ol>
+<p>为了准确描述近场信道，报告提出了位置可调RIS辅助的通信系统示意图（图28），并定义了可视域模型（图29）。这些模型有助于理解近场条件下的传播特性，并为后续的算法设计和标准化工作提供理论支撑。</p>
+<p>总体而言，信道建模是一项系统性工程，需要从物理层面的单元特性到中观层面的阵列布局，再到宏观层面的系统级仿真进行全面考虑。只有建立起一套完备、准确的信道模型体系，才能真正发挥RIS技术在6G网络中的潜力。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（一）潜在RIS类型</h2>
+    <p>从对基站（BS）与用户设备（UE）的潜在标准化影响角度来看，RIS一般可分为三类，分别为FT-RIS（全透明RIS，Fully Transparent RIS）、HT-RIS（半透明RIS，Half Transparent RIS）和NT-RIS（非透明RIS，Non-Transparent RIS）。</p>
+<p>从用户的角度看，FT-RIS与HT-RIS均对UE透明，而NT-RIS则对UE非透明。这里的"透明"概念并非指物理材料的透光特性，而是从标准化维度定义，特指RIS无需在通信协议层面被基站或UE识别与交互即可完成其信号转发功能的这一特性。</p>
+<p>对于FT-RIS，由于基站与UE均无法感知其存在，因此无需进行额外的通信协议设计，这意味着它不会对现有标准规范产生影响。整个通信系统会将其视为环境的一部分，如墙体。FT-RIS的一项潜在应用是提升特定小区的覆盖性能，相较于中继器、转发器等类似技术，其显著优势在于完全无需能耗。然而，该技术也存在一些固有局限：首先需要针对特定目标场景进行定制化设计，这可能限制其大规模应用；其次在覆盖范围与波束增益之间存在难以兼顾的权衡问题。</p>
+<p>对于HT-RIS，其架构在保持对UE透明的同时，引入了基站侧的控制能力。该配置通过基站调度实现分时协同传输。为实现此功能，HT-RIS需包含以下核心功能组件：用于实时配置RIS单元的专用控制器，以及建立并维持基站-RIS间控制链路的集成通信模块。其中，供电方案是工程实践面临的关键挑战之一。若采用有线供电，将严重制约部署灵活性。近期实测数据显示，基于PIN二极管的RIS板，在100至1000个单元处于激活状态下的功耗范围为5.8W至14.8W。若能成功应用能量采集技术来解决供电问题，将从本质上重塑HT-RIS的应用可行性。</p>
+<p>NT-RIS对基站与终端均"可见"，可视为HT-RIS的功能增强形态。引入NT-RIS需定义新的接口与协议，以实现其与基站、终端及其他RIS等网络节点的互联。NT-RIS至少具备以下增强能力：一是RIS-UE链路信道状态信息（CSI）估计——NT-RIS可主动向UE发送参考信号，通过获取RIS-UE链路的CSI，辅助基站实现发射端预编码矩阵与RIS端波束赋形的联合优化；二是基于UE触发的RIS激活——终端可激活附近的RIS以提升链路效率。然而，这些功能是以系统复杂度和硬件成本的提升为代价的。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（二）标准化设计原则</h2>
+    <p>为满足ITU的技术要求，无线通信系统必须确保安全性、可控性、高效性及有效的干扰管理能力。本节提出若干总体设计原则以指导标准化工作。</p>
+<p>(1) 安全原则：安全性是RIS系统标准化的基石，这源于RIS具备与传统射频设备不同的网络交互特性。为确保仅合法可信的RIS设备可参与网络运行，身份识别与授权成为不可或缺的环节。为此，需构建专门针对RIS特定部署与运营模式的安全框架，集成可靠的认证机制、接入控制方案及安全信令传输体系。</p>
+<p>对于网络控制型RIS，其身份识别与授权流程可参考3GPP Rel-18为NCR建立的模型。具体流程包括：网络初始化阶段基站广播RIS支持信息，RIS执行随机接入流程，在完成无线资源控制（RRC）连接建立后，RIS上报其身份标识与能力参数，基站将此信息转发至具备RIS处理能力的接入与移动性管理功能（AMF）实体完成验证授权。获得授权后，RIS即可参与网络协调的波束赋形与资源调度。</p>
+<p>对于终端控制型RIS，需确保只有获授权的UE能够控制RIS。实现方式包括：UE主动请求RIS控制权，或由网络根据预定义准则主动分配RIS控制权限给特定UE。在两种方式下，RIS配置均需通过安全性信令进行，并且RIS必须验证控制实体的合法性后方可接受指令。</p>
+<p>为降低安全风险，每个RIS需具备唯一可验证的身份标识。所有控制信息（包括基站-RIS与终端-RIS链路）均采用完善的安全协议进行保护，防止篡改、欺骗及未授权访问。此外，系统需支持细粒度接入控制，使网络能基于具体场景、使用范围及时间有效期等维度动态实施控制策略。</p>
+<p>(2) 可控性原则：总体而言，RIS需在受控模式下运行，其控制主体主要包括网络侧与终端侧两种类型。在网络控制型模式下，RIS的行为完全由网络侧主导。网络依据实时的调度状态、信道条件等多维因素动态决策，并向RIS下发具体的波束指示，明确其信号转发所采用的波束。在此架构下，RIS仅需接收并执行来自网络的控制信令即可确定转发波束，无需具备本地计算最优波束的能力，从而显著降低了设备实现复杂度。</p>
+<p>在终端控制型模式下，控制权则转移至用户设备。网络可通过授权机制，允许特定UE在其附近RIS的指定工作频段内进行配置。获得授权后，UE能够根据自身实时的通信需求，生成相应的控制信息并直接发送至RIS，从而实现更为灵活个性化的链路增强。</p>
+<p>(3) 简化原则：从标准化设计与硬件设计两方面推进RIS的简化，将有利于该技术的后续应用。在标准化设计层面，应注重控制标准化工作的复杂度以促进进程，优先考虑对现有技术成果的复用。在某些应用场景中，当RIS仅实现基础波束转发功能时，可将其视为一类中继设备（如NCR），此类情况的标准化工作可直接参照NCR现有规范。此外，在标准化初期，建议以构建统一的RIS控制框架为目标，使该框架能够前瞻性地兼容不同的RIS权重配置、多种类型、单/多节点部署模式及配置周期等变量。</p>
+<p>在硬件设计层面，简化RIS结构同样有助于标准化推进。实际部署中，RIS并非始终需开启全部功能，因此适当降低功能配置（即采用"精简能力"的RIS）往往能在保持相当性能的前提下提升能效。例如，若RIS仅需增强局部区域覆盖，则无需具备全域覆盖能力。综上，在覆盖需求相对明确或性能要求适中的场景下，采用低比特量化等简化设计的RIS硬件即可满足系统要求。</p>
+<p>(4) 分步原则：RIS的标准化工作宜采用分阶段推进的策略，以确保其系统性发展。在初始阶段，工作重心应放在三个关键领域：界定RIS的核心功能范畴、制定关键性能指标体系、完成基础技术验证。该阶段的目标场景可优先考虑室内覆盖增强与室外热点区域。待这些基础要素成熟后，后续标准化工作应着力制定动态控制协议、实现多RIS协同机制，并建立与特定场景适配的性能评估方法。在更成熟的阶段，可逐步引入AI驱动的控制接口及能效优化等增强功能。这种循序渐进的推进方式既能确保标准化工作的全面性，又能保持技术可行性与市场适用性。</p>
+<p>(5) 一致性原则：将RIS引入现有网络时，必须确保其与网络系统的协调一致性，其中工作带宽与时间粒度是需重点考虑的两个方面。在工作带宽方面，RIS的有效工作带宽应至少覆盖网络的工作带宽范围。与此同时，必须严格限制RIS对工作带宽以外电磁波的影响，确保将带外能量泄漏控制在最低水平，避免对其他运营商的授权频段造成干扰。在时间粒度方面，RIS需要与网络系统保持精确的时间对齐。无线通信系统采用多级时间粒度架构，包括帧级、子帧级、时隙级和符号级等，RIS需根据自身能力支持相应层级的同步精度。为此，RIS必须准确获取网络的帧结构信息，并建立与网络侧的高精度时间同步机制。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（三）潜在标准化工作</h2>
+    <p>综合前述分析，以下几项工作是未来RIS标准化进程的重点：</p>
+<ol>
+<li>
+<p>RIS功能定义与分类：明确不同类型RIS（FT-RIS、HT-RIS、NT-RIS）的功能边界和应用场景，制定统一的分类标准和命名规范。</p>
+</li>
+<li>
+<p>接口与协议设计：针对NT-RIS等需要基站和终端参与的场景，定义基站-RIS接口、RIS-UE接口以及相关控制信令格式，确保不同厂商设备间的互操作性。</p>
+</li>
+<li>
+<p>信道模型与测量方法：建立标准化的RIS信道模型，统一信道估计、路径损耗、近场效应的测量方法和评估指标，为系统性能评价提供基准。</p>
+</li>
+<li>
+<p>控制与管理体系：制定RIS的配置管理、故障检测与恢复、安全认证等规程，保障网络的可靠运行。</p>
+</li>
+<li>
+<p>多RIS协同机制：研究多个RIS节点之间的协作方式，包括资源共享、干扰协调、联合波束管理等，充分发挥分布式RIS系统的整体效能。</p>
+</li>
+<li>
+<p>能效与绿色通信指标：将RIS的功耗模型纳入标准体系，推动6G网络向更加节能环保的方向发展。</p>
+</li>
+</ol>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. O2I（Outdoor-to-Indoor）覆盖测试</h2>
+    <p>此项测试关注室外基站信号如何通过RIS增强进入室内的能力，图35展示了测试场地布置——在建筑物外墙安装RIS单元，室内放置接收终端。图36则是O2I覆盖测试数据的累计分布曲线图，可以看到经过RIS辅助后，室内深处的信号质量有了质的飞跃，达到良好通信阈值的比例从不到40%上升到了超过90%。</p>
+<p>综合来看，室内覆盖增强试验充分证明了RIS在大空间、多层次建筑环境中的应用潜力，尤其适用于机场航站楼、体育会展中心、大型购物中心等对连续覆盖有严格要求的场所。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>1. 土耳其室外单RIS覆盖增强测试</h2>
+    <p>图37描绘了在开放的城市街景中架设RIS设备的实景拍摄画面，周围既有高层建筑也有密集植被，形成了极具挑战性的传播环境。通过对不同距离点的数据采集分析，我们发现RIS不仅能够克服近距离障碍物的阻挡，还能借助反射路径延伸到更远的位置，扩大有效服务范围。</p>
+<p>图38统计了该实验的各项关键指标，其中最为突出的是边缘用户速率的提升幅度达到了近三倍，这对于缓解高峰期网络拥塞现象具有重要意义。此外，端到端的延迟也明显缩短，证明了RIS在提升实时业务承载能力方面的作用。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 10GHz频段的超大规模混合RIS拉远覆盖增强测试</h2>
+    <p>如图39所示，研究人员搭建了一个专门针对高频段特性的测试平台，采用了由数百个单元组成的巨型RIS面板，并与远距离基站配合工作。这种组合方式特别适合于广域覆盖需求的场景，比如高速公路沿线或者偏远地区的信号补强。</p>
+<p>最终得到的测试结果见图40，我们可以看到即使在相距数公里之遥的情况下，依然能够维持稳定的高速数据传输，峰值速率超过了理论预期值的一定百分比。这说明超大规模RIS具有卓越的长距离信号引导能力，未来很可能成为构建天地一体化通信网络的重要组成部分。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>3. 塔下阴影测试场景</h2>
+    <p>为了进一步探究RIS在极端地形条件下的表现力，特别选择了塔底阴影区域进行测试（见图41）。这里由于高大设施的存在形成了天然的光路死角，常规手段很难奏效。但引入RIS之后，巧妙地利用曲面反射特性绕开了障碍物困扰，使得原本毫无希望的角落重新获得了可用信号。定量数据显示此处平均SNR提高了6dB左右，足以支撑基本的语音通话和视频点播服务需求。</p>
+<p>综上所述，室外覆盖增强试验生动展现了RIS在各种复杂自然和人造环境中的适应能力，无论是在城市峡谷、乡村旷野还是高山峡谷地带，都能找到合适的部署方案并发挥作用。这是区别于传统基站部署方式的一大亮点所在。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（三）室外分布式多RIS测试</h2>
+    <p>为了模拟现实世界中可能出现的规模化部署情形，本次试验设置了多个RIS节点协同工作的场景，如图42所展示的那样。它们分布在视野范围内的不同方位角和海拔高度上，共同组成一张无形的智能覆盖网。</p>
+<p>测试结果表明白色圆圈标示的区域内部都得到了均匀而强劲的信号注入，原先存在的空洞基本被填平。而且值得注意的是，在切换过程中几乎没有任何掉话或者中断发生，说明动态负载均衡机制发挥了应有的效果。这样的部署形态非常符合6G时代万物互联的趋势想象——随时随地、无处不在的高质量连接将成为常态。</p>
+<p>另外一个有趣的发现是，当某些临时出现移动物体遮挡某一路径时，其余邻近节点能够迅速感知并进行补偿调整，体现出很强的自愈合能力和弹性特征。这种分布式协作正是RIS集群相对于集中式控制方案的优势体现。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（四）室外多用户调度</h2>
+    <p>多用户并发访问是现代无线网络面临的常态压力考验之一，如何在有限资源条件下公平合理地分配份额就成了衡量系统智慧水平的试金石。本报告选取了一个典型的户外园区环境开展相关测试，参与者包含手机、平板、摄像头等多种类型的终端设备。</p>
+<p>在开启RIS辅助调度策略前后对比鲜明：关闭状态下由于缺乏全局视野导致部分用户饱饿不均现象频发；一旦启用基于RIS的智能感知与预编码技术，则所有人都能获得相对均衡的服务品质，即便处于偏僻角落也能享受到不错的大流量下载速度。具体数字上看，平均排队等待时间减少了三分之一以上，整体吞吐量增长了百分之四十个百分点。</p>
+<p>更重要的是整个过程不需要额外的人工干预即可完成自动化优化配置，真正做到了让用户感觉不到背后那个庞大系统的存在却又实实在在地享受到科技进步带来的红利。这正是人工智能深度融合通信技术所要追求的理想境界。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>（五）邻频干扰性能评估</h2>
+    <p>随着频谱资源日益稀缺，相邻频段共用同一无线设施的情况变得越来越普遍，由此引发的互相牵制问题也不容忽视。本项目特意挑选了两个相互紧邻的不同作业频段来进行交叉影响摸底调查，以期提前预警潜在风险隐患并采取预防措施规避事故发生几率。</p>
+<p>测试结果显示如图51所示那种情形：基站不同步时邻频用户性能下降的原因在于RIS波束扫描使邻频数据信道为时变的，用有限密度的DMRS导频所估计的信道不准确，使得部分时隙译码异常。测试结果表明，未来在部署动态RIS时，需要充分考虑其对邻频用户的干扰。这个提醒非常重要，因为它直接关系到下一代移动通信系统能否顺利平稳运行下去而不受外界因素干扰破坏稳定局面形成恶性循环。</p>
+<p>因此在制定下一步工作计划时必须高度重视这个问题，既要积极探索新技术解决方案又要谨慎评估各种可能性后果做到防患未然方能长治久安。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>2. 数据分析解读</h2>
+    <p>最终得到的性能参数汇总于表11当中清楚明白列出每位客户获得的具体数值大小一目了然方便对比判断优劣长短之处所在以便于改进完善后续版本迭代升级换代推陈出新保持竞争优势地位永远领先一步抢占市场先机赢取更多客户信赖口碑相传形成良性互动闭环促进产业健康可持续发展道路越走越宽广前景光明灿烂辉煌伟业可期可待！</p>
+<p>终端 SS-RSRP(dBm) DL-Tput(Mbps) 波束信息
+UE1 -69.26 530.32 16
+UE2 -70.19 519.64 0</p>
+<p>从中不难发现虽然两者起始状态略有差异但最终产出相差无几差距控制在合理范围之内完全可以接受满足日常使用需求不会造成困扰麻烦麻烦多多啦嘻嘻😊</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>七、结论</h2>
+    <p>国际标准化组织3GPP于2025年6月正式启动6G标准化研究项目，标志着全球6G发展已从愿景规划阶段，迈入以关键技术突破、标准化制定与实践应用为核心目标的新阶段。本报告围绕6G关键技术——智能超表面（RIS），进行了系统而深入的研究，全面探讨了其技术特征、应用场景与发展路径。</p>
+<p>RIS凭借其可编程人工超材料的特性，通过构建智能可控的电磁波传播环境，在众多6G候选技术中展现出独特优势。报告详细阐述了RIS在典型部署场景中的技术价值，包括构建多层网络架构、提升网络能效、实现中高频连续覆盖、开发基于RIS的新型相控阵天线等。这些应用方向不仅体现了RIS对6G网络性能的强大支撑能力，也展示了其在扩展网络功能、创造新型服务方面的巨大潜力。</p>
+<p>在关键技术研究方面，报告聚焦RIS从理论走向实践过程中的核心挑战，系统梳理了从单元级能效优化到系统级联合设计的最新进展。具体包括：基于实测功耗模型的能效编码方法突破了传统线性功耗假设的局限；复杂遮挡环境下多RIS系统的信道估计难题通过张量分解等低复杂度算法得到了有效解决；通过定制化正交信道与分布式布局优化实现多用户干扰抑制；面向去蜂窝大规模MIMO架构的联合优化策略有效应对了硬件损伤与电磁干扰挑战；创新圆柱形阵列等物理架构在保证性能的同时显著降低了优化复杂度。这些研究成果通过充分的仿真与实测验证，展现了RIS技术从实验室走向商用的工程可行性。</p>
+<p>在信道建模领域，报告基于3GPP Release 19及后续演进方向，深入探讨了RIS信道建模的关键要素，包括级联信道特性、物理模型构建、模型简化方法、信道耦合机制、路损模型表征以及近场信道特性等。这些研究工作为RIS性能准确评估与方案优化奠定了坚实基础，为后续标准化工作提供了重要的技术依据。</p>
+<p>针对标准化进程，报告系统分析了RIS标准化影响与发展前瞻，明确了潜在RIS类型划分，总结了标准化设计原则，并在系统架构、控制信令、参考信号及波束管理关键领域提出了具体建议。这些分析为凝聚产业共识、加速RIS融入全球6G标准提供了清晰路径。</p>
+<p>通过室内外覆盖增强、分布式多RIS测试、多用户调度、邻频干扰性能验证及新型相控阵列多流天线等系列外场测试，报告以充分的实测数据验证了RIS技术在改善网络覆盖、提升系统容量、增强传输可靠性等方面的工程价值，为RIS技术的产业化推广提供了有力支撑。</p>
+<p>总之，本报告从典型部署场景、关键技术进展、信道建模、标准化路径及外场验证等多个维度，为RIS技术在6G中的发展提供了全面且深入的洞察。我们坚信，随着标准化工作的持续推进和工程技术的不断成熟，RIS必将在6G时代发挥重要作用，为未来通信技术的发展注入新的动能，最终实现从关键技术突破到规模化商用的跨越式发展。</p>
+  </article>
+  
+
+  
+  <article class="card ">
+    
+    <h2>参考文献</h2>
+    <p>[1] ITU, Framework and overall objectives of the future development of IMT for 2030 and beyond, Step. 2023.
+[2] 3GPP, RP-251809 New SID: Study on 6G Radio. 3GPP TSG RAN Meeting #108, Prague, Czech Republic, June 9-13, 2025.
+[3] CMCC, RP-252094 Requirements for 6G Network Topology, 3GPP TSG RAN Meeting #109, Beijing, China, September 15–18, 2025.
+[4] ZTE Corporation, Sanechips. RP-252021 General views on 6G deployment scenarios. 3GPP TSG RAN Meeting #109, Beijing, China, September 15-18, 2025.
+[5] Y. Zhao, et al. RIS-Enabled UAV Communications and Sensing: Opportunities, Challenges, and Key Technologies. IEEE Transactions on Cognitive Communications and Networking. (Minor Revision)
+[6] ZTE Corporation, Sanechips. R1-2506831 Discussion on energy efficiency for 6GR. 3GPP TSG RAN WG1 #122bis, Prague, Czech, Oct 13th – 17th, 2025.
+[7] ZTE Corporation, Sanechips. R1-2505607 Discussion on energy efficiency for 6GR, 3GPP TSG RAN WG1 Meeting #122, Bengaluru, India, August 25th – 29th, 2025.
+[8] RISTA. RIS Technology White Paper [W], 2023.2. DOI:10.12142/RISTA.202302001.
+[9] J. Sang, J. Lan, et al., "Energy-efficient encoding for ris-assisted communication system under measurement-based power consumption: Method and field trials," China Communications, 2025, vol. 22, no. 4, pp. 281-295.
+[10] H. Liu, Y. Lin, Y. Hu, X. Li, H. Xu and S. Jin, "Channel estimation, blockage processing and localization for multi-RIS assisted OFDM systems," IEEE Trans. Commun., early access, Oct. 2025.
+[11] W. Chen, C.-K. Wen, W. Tang, X. Li, and S. Jin, "Joint spatial division and multiplexing with customized orthogonal group channels in multi-RIS-assisted systems," IEEE Trans. Wireless Commun., early access, 2025.
+[12] Y. Lu, J. Zhang, J. Zheng, H. Xiao and B. Ai, "Performance Analysis of RIS-Assisted Communications With Hardware Impairments and Channel Aging," IEEE Trans. Commun., vol. 72, no. 6, pp. 3720-3735, Jun. 2024.
+[13] Teng W, Chen W, Zuo Y, et al. "Cylindrical RIS-Assisted Low-Complexity Transmission With Differentiated Visible Regions Exploiting Statistical CSI," IEEE Wireless Communications Letters, 2025, early access.
+[14] 3GPP, "Study on Channel Model for Frequencies from 0.5 to 100 GHz.", Technical Specification (TR) 38.901, 3rd Generation Partnership Project (3GPP), 03 2022. Version 17.0.0.
+[15] H. Gong, et al, "How to Extend 3-D GBSM to RIS Cascade Channel With Non-Ideal Phase Modulation?", IEEE Wireless Communications Letters, vol. 13, no. 4, pp. 555-559, Feb. 2024.
+[16] J. Dou, et al. "On the channel modeling of intelligent controllable electro-magnetic-surface", Chinese journal of radio science, 2021, 36(3)：368-377. (in Chinese)
+[17] W. Miao, J. Dou, et al., "Physical modeling of reconfigurable intelligent surface for channel modeling," China Communications, 2025, vol. 22, no. 2, pp. 128-142. DOI: 10.23919/JCC.fa.2023-0541.202502.
+[18] W. Tang, et al., "Path Loss Modeling and Measurements for Reconfigurable Intelligent Surfaces in the Millimeter-Wave Frequency Band," IEEE Trans. Commun., vol. 70, no. 9, pp. 6259-6276, Sept. 2022.
+[19] Y. Li et al., "Path loss modeling for the RIS-assisted channel in a corridor scenario in mmWave bands," in 2022 IEEE Globecom Workshops (GC Wkshps), 2022, pp. 1478–1483.
+[20] J. Sang et al., "Multi-scenario broadband channel measurement and modeling for sub-6 GHz RIS-assisted wireless communication systems," IEEE Trans. Wireless Commun., vol. 23, no. 6, pp. 6312-6329, 2024.
+[21] M. Zhou et al., "A Floating-Intercept Path Loss Model Considering RIS Array Gain in Practical Environments," IEEE Trans. Commun., pp. 1–1, 2025, doi: 10.1109/TCOMM.2025.3624177.
+[22] W. Tang et al., "Wireless communications with reconfigurable intelligent surface: Path loss modeling and experimental measurement," IEEE Trans. Wireless Commun., vol. 20, no. 1, pp. 421–439, 2020.
+[23] Y Ren, X Teng, M Zhou, et.al. "Flexible-position multi-state RIS-assisted wireless communication: channel modeling and spatial characteristic measurements," IEEE Journal on Selected Areas in Communications, 2025, early access.
+[24] Y Ren, X Teng, M Zhou, et.al. "Near-field channel modeling and measurement of fluid multi-state RIS-assisted wireless communication," 2025 101st Vehicular Technology Conference (VTC). Norway, 2025: 1-5.
+[25] B. Xu, T. Zhou, F. Gao, T. Xu and H. Hu. "RIS-Aided MIMO Communications: Angle-Dependent Amplitude-Phase Response Model and Capacity Analysis." IEEE Wireless Communications Letters, 2025, 14(2): 290-294.
+[26] W. Chen, et al., "An empirical study of ISAC channel characteristics with human target impact at 105 GHz," Electronics Letters, vol. 60, no. 17, p. e70017, 2024, doi: 10.1049/ell2.70017.
+[27] Y. Zhang et al., "A Unified Deterministic Channel Model for Multi-Type RIS With Reflective, Transmissive, and Polarization Operations," in IEEE Transactions on Vehicular Technology, doi: 10.1109/TVT.2025.3605727.
+[28] ETSI GR RIS 001, V1.1.1, "Reconfigurable Intelligent Surfaces (RIS); Use Cases, Deployment Scenarios and Requirements", April 2023.
+[29] ETSI GR RIS 002, V1.1.1, "Reconfigurable Intelligent Surfaces (RIS); Technological challenges, architecture and impact on standardization", August 2023.
+[30] ETSI GR RIS 003, V1.1.1, "Reconfigurable Intelligent Surfaces (RIS); Communication Models, Channel Models, Channel Estimation and Evaluation Methodology", June 2023.
+[31] N. Li, Z. Cheng and J. Zhu, "Reconfigurable Intelligent Surface Assisted Wireless Transmissions: Basic Principles and Potential Protocol Design," in IEEE Communications Standards Magazine, vol. 8, no. 4, pp. 10-15, December 2024.
+[32] Q. Wu et al., "Intelligent Reflecting Surfaces for Wireless Networks: Deployment Architectures, Key Solutions, and Field Trials," in IEEE Wireless Communications, 2025.
+[33] J. Wang et al., "Reconfigurable Intelligent Surface: Power Consumption Modeling and Practical Measurement Validation," in IEEE Transactions on Communications, vol. 72, no. 9, pp. 5720-5734, Sept. 2024.
+[34] 3GPP TS 33.501, V 19.2.0, "Security architecture and procedures for 5G system." March 2025.
+[35] 3GPP TS 38.300, V 18.5.0, "Physical Channels and Modulation," March 2025.
+[36] IMT-2030 (6G) Promotion Group, "Research Report on Intelligent Metasurface Technologies for 6G," 2024.
+[37] F. Wang et al., "Flexible Coverage Control of Reconfigurable Intelligent Surface with Ring-Type Codebook," in 2024 IEEE Wireless Communications and Networking Conference (WCNC), Dubai, United Arab Emirates, 2024, pp. 1-6.
+[38] J. Wang et al., "Hierarchical Codebook-Based Beam Training for RIS-Assisted mmWave Communication Systems," in IEEE Transactions on Communications, vol. 71, issue 6, Jun. 2023.</p>
+  </article>
+  
+
+
+</main><script>
+/* 瀑布流贪心分列：哪边短下一个卡片就放哪边 */
+(function(){
+  if (window.innerWidth <= 760) return;  /* 窄屏走单列堆叠 */
+  var main = document.querySelector('main');
+  if (!main) return;
+  var leftCol  = main.querySelector('.col-left');
+  var rightCol = main.querySelector('.col-right');
+  if (!leftCol || !rightCol) return;
+  /* 收集 main 下所有 article.card（还没搬到 .masonry-col 里的） */
+  var cards = Array.prototype.slice.call(main.querySelectorAll('article.card'));
+  /* 贪心：哪边矮 append 到哪边 */
+  cards.forEach(function(card){
+    var lH = leftCol.offsetHeight;
+    var rH = rightCol.offsetHeight;
+    (lH <= rH ? leftCol : rightCol).appendChild(card);
+  });
+  main.classList.add('masonry-ready');
+})();
+</script>
+</body>
+</html>
