@@ -294,21 +294,41 @@ def render_one(node: dict) -> Path:
 # ===================== 业务函数 =====================
 def find_pending(readme_text: str):
     """返回 [(basename, section_prefix, full_filename)]，仅 待上传 行。
-    兼容两种写法：「⏳ 待上传」（带符号）和「待上传」（无符号，2026-08-09 README 修正后格式）。"""
+    兼容两种写法：「⏳ 待上传」（带符号）和「待上传」（无符号，2026-08-09 README 修正后格式）。
+    文件位于子目录：报告/、技术概念/、指标术语/、零部件/、材料/
+    """
     lines = readme_text.split("\n")
     current_prefix = None
+    current_section = None
     pending = []
     for line in lines:
         hm = re.match(r"^###\s+(技术概念|指标术语|零部件|材料|报告)", line)
         if hm:
-            current_prefix = hm.group(1) + "-"
+            current_section = hm.group(1)
+            current_prefix = current_section + "/"
             continue
         # 表格行: | idx | name | date | status | flag |
         m = re.match(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*[^|]*\|\s*[^|]*\|\s*((?:⏳\s*)?待上传|✅\s*已上传)\s*\|", line)
         if m and "待上传" in m.group(3) and "已上传" not in m.group(3):
             basename = m.group(2).strip()
-            full = f"{current_prefix}{basename}.md"
-            pending.append((basename, current_prefix, full))
+            # README 里的条目格式可能是 "报告-标题-日期" 或 "标题-日期"
+            # 文件实际位置：子目录/报告-标题-日期.md
+            # 尝试多种可能的文件名
+            possible_names = [
+                f"{current_section}-{basename}.md",  # 报告-标题-日期.md
+                f"{basename}.md",  # 标题-日期.md
+            ]
+            found = False
+            for pname in possible_names:
+                candidate = Path(VAULT) / current_prefix / pname
+                if candidate.exists():
+                    full = f"{current_prefix}{pname}"
+                    pending.append((basename, current_prefix, full))
+                    found = True
+                    break
+            if not found:
+                # 记录但不跳过，后续会报错
+                pending.append((basename, current_prefix, f"{current_prefix}{possible_names[0]}"))
     return pending
 
 
