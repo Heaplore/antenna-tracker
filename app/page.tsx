@@ -319,7 +319,12 @@ export default function HomePage() {
             <li className="sub"><a href="#sec-4-3"><span className="nav-text">4.3 6G前沿</span></a></li>
             <li><a href="#sec-5"><span className="nav-chap">05</span><span className="nav-text">产业链分析</span></a></li>
             <li><a href="#sec-6"><span className="nav-chap">06</span><span className="nav-text">技术发展路线图</span></a></li>
+            <li><a href="#sec-3-5"><span className="nav-chap">03.5</span><span className="nav-text">应用细分市场</span></a></li>
+            <li><a href="#sec-5-4"><span className="nav-chap">05.4</span><span className="nav-text">重要并购事件</span></a></li>
+            <li><a href="#sec-6-1"><span className="nav-chap">06.1</span><span className="nav-text">技术成熟度矩阵</span></a></li>
             <li><a href="#sec-7"><span className="nav-chap">07</span><span className="nav-text">挑战与风险</span></a></li>
+            <li><a href="#sec-7-1"><span className="nav-chap">07.1</span><span className="nav-text">行业挑战详情</span></a></li>
+            <li><a href="#sec-7-3"><span className="nav-chap">07.3</span><span className="nav-text">未来关键判断</span></a></li>
             <li><a href="#sec-8"><span className="nav-chap">08</span><span className="nav-text">未来展望</span></a></li>
             <li><a href="#sec-9"><span className="nav-chap">09</span><span className="nav-text">结论</span></a></li>
           </ul>
@@ -330,7 +335,31 @@ export default function HomePage() {
           <div className="content">
 
             {/* KPI Strip */}
-            <div className="kpi-strip" ref={kpiRef}>
+            <div 
+            <div className="callout info" style={{ marginBottom: '2rem' }}>
+              <span className="callout-icon">&#9432;</span>
+              <strong>数据口径说明</strong>
+              <p>本报告采用狭义天线口径（不含射频前端），2025年全球市场规模约1234亿元（约182亿美元）。广义口径（含射频前端）约2082亿元，RF口径（含射频器件）约2563亿元<sup><a href="#cite-1">[1]</a></sup>。预测数据为机构估算值，标注⚠️。货币换算汇率 1 USD = 6.78 CNY。</p>
+            </div>
+
+            <div className="callout info" style={{ marginBottom: '2rem' }}>
+              <strong>关键数据速览</strong>
+              <div className="table-wrap" style={{ marginTop: '0.8rem' }}>
+                <table>
+                  <thead><tr><th>指标</th><th>数值</th><th>说明</th></tr></thead>
+                  <tbody>
+                    <tr><td>全球天线市场(狭义)</td><td>1234亿元 (2025E)</td><td>CAGR ~10.5%，2030年达2272亿元</td></tr>
+                    <tr><td>5G基站总数</td><td>677.4万站（全球）</td><td>中国483.8万，占全球67%</td></tr>
+                    <tr><td>卫星通信天线CAGR</td><td>17.7%（最高增速）</td><td>LEO相控阵CAGR高达45.5%</td></tr>
+                    <tr><td>中国基站天线出货占比</td><td>>50%</td><td>华为、中兴、京信、通宇合计</td></tr>
+                    <tr><td>Massive MIMO占比</td><td>72%（5G基站天线）</td><td>64T64R主流，128T128R开始部署</td></tr>
+                    <tr><td>RIS成熟度</td><td>试商用阶段</td><td>2027年物理层标准完成，2030+6G标配</td></tr>
+                    <tr><td>6G商用预期</td><td>2030年</td><td>3GPP Rel-21启动规范化工作</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+className="kpi-strip" ref={kpiRef}>
               <div className="kpi-card">
                 <span className="kpi-icon">&#9670;</span>
                 <div className="kpi-number blue" data-target="1930" data-suffix="亿" data-decimal="0">0</div>
@@ -677,7 +706,144 @@ export default function HomePage() {
             </section>
 
             {/* Section 7: 挑战与风险 */}
-            <section id="sec-7">
+            
+            {/* Section 3.5: 应用细分市场详情 */}
+            <section id="sec-3-5">
+              <div className="section-num">CHAPTER 03.5</div>
+              <h2>应用细分市场结构</h2>
+
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>细分领域</th><th>规模(2025E)</th><th>占比</th><th>CAGR</th><th>核心驱动</th></tr></thead>
+                  <tbody>
+                    <tr><td>消费电子与终端天线</td><td>1258亿元</td><td>42.1%</td><td>~7.5%</td><td>5G手机、WiFi 7、卫星直连</td></tr>
+                    <tr><td>基站/电信天线</td><td>759亿元</td><td>25.4%</td><td>12.6%</td><td>5G-A、Massive MIMO、AAU</td></tr>
+                    <tr><td>卫星通信天线</td><td>471.9亿元</td><td>15.8%</td><td>17.7%</td><td>LEO星座、相控阵终端</td></tr>
+                    <tr><td>汽车天线</td><td>253.6亿元</td><td>8.5%</td><td>12.3%</td><td>智能网联、4D雷达、V2X</td></tr>
+                    <tr><td>国防/雷达天线</td><td>368.2亿元</td><td>6.1%</td><td>6.1%</td><td>AESA、数字阵列、GaN</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>3.5.1 各细分领域要点</h3>
+              <div className="grid-2">
+                <div className="card">
+                  <h4>&#128241; 消费电子与终端天线</h4>
+                  <ul>
+                    <li>5G手机Sub-6GHz为主流，毫米波采用AiP封装</li>
+                    <li>WiFi 7三频段8x8 MIMO推动天线数量翻倍</li>
+                    <li>LCP基板替代传统PI基板，CAGR 17.98%</li>
+                    <li>卫星直连手机成为新标配（华为/苹果）</li>
+                  </ul>
+                </div>
+                <div className="card">
+                  <h4>&#128225; 汽车天线</h4>
+                  <ul>
+                    <li>鲨鱼鳍7合1集成天线成主流（GNSS+4G/5G+V2X+WiFi+BT+SDARS+RKE）</li>
+                    <li>4D成像雷达8T8R前装量产，角分辨率达1°</li>
+                    <li>V2X天线CAGR约20%，C-V2X成中国/全球主流</li>
+                    <li>代表厂商：Harada、Laird、Amphenol、博世、大陆</li>
+                  </ul>
+                </div>
+                <div className="card">
+                  <h4>&#128640; 卫星通信天线</h4>
+                  <ul>
+                    <li>Starlink已发射10,200+颗卫星，用户超500万</li>
+                    <li>LEO相控阵终端CAGR高达45.5%</li>
+                    <li>终端成本从20342元降至3390元，目标678元</li>
+                    <li>电子扫描天线占比已达52.5%</li>
+                  </ul>
+                </div>
+                <div className="card">
+                  <h4>&#128738; 国防/雷达天线</h4>
+                  <ul>
+                    <li>AESA全面替代机械扫描雷达</li>
+                    <li>GaN T/R组件成为标配（效率提升3倍）</li>
+                    <li>数字阵列雷达从288亿→471亿</li>
+                    <li>代表厂商：RTX、Lockheed Martin、中电科14所</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 5.4: 并购事件 */}
+            <section id="sec-5-4">
+              <div className="section-num">CHAPTER 05.4</div>
+              <h2>重要并购事件（2024–2026）</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>时间</th><th>收购方</th><th>标的</th><th>金额</th><th>战略意义</th></tr></thead>
+                  <tbody>
+                    <tr><td>2024年</td><td>安费诺</td><td>Carlisle CIT（互联技术）</td><td>~136亿元</td><td>补强航空/国防互联与天线</td></tr>
+                    <tr><td>2025年2月</td><td>安费诺</td><td>康普 OWN/DAS</td><td>142亿元</td><td>获得Andrew基站天线品牌和DAS业务</td></tr>
+                    <tr><td>2025年</td><td>安费诺</td><td>Trexon</td><td>~68亿元</td><td>补强数据中心/高速互联</td></tr>
+                    <tr><td>2026年1月</td><td>安费诺</td><td>康普 CCS</td><td>712亿元</td><td>史上最大并购，成连接+天线龙头</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="callout warn" style={{ marginTop: '1rem' }}>
+                <span className="callout-icon">&#9888;</span>
+                <strong>并购趋势解读</strong>
+                <p>安费诺2024–2026年通过累计超1017亿元（约150亿美元）的系列并购，成为全球最大的天线与连接解决方案商。行业集中度持续提升，中小厂商面临被整合或边缘化压力。</p>
+              </div>
+            </section>
+
+            {/* Section 6.1: 技术成熟度矩阵 */}
+            <section id="sec-6-1">
+              <div className="section-num">CHAPTER 06.1</div>
+              <h2>技术成熟度矩阵</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>技术方向</th><th>成熟度</th><th>代表厂商</th><th>标准化状态</th><th>核心趋势</th></tr></thead>
+                  <tbody>
+                    <tr><td>5G-A/6G</td><td>5G-A商用 / 6G预研</td><td>华为、爱立信、诺基亚</td><td>3GPP Rel-18/19</td><td>5G-A规模商用，6G 2030商用</td></tr>
+                    <tr><td>Massive MIMO</td><td>★★★★☆ 高</td><td>华为、中兴、京信</td><td>Rel-15/16/17</td><td>64T64R→128T128R，FDD MM新增长</td></tr>
+                    <tr><td>毫米波/AiP</td><td>★★★☆☆ 中</td><td>苹果、三星、Qualcomm</td><td>Rel-15/16</td><td>AiP封装商用，D波段预研</td></tr>
+                    <tr><td>相控阵/波束赋形</td><td>★★★★☆ 高</td><td>Starlink、Kymeta、RTX</td><td>行业标准</td><td>混合波束赋形，GaN+ASIC成本年降15-20%</td></tr>
+                    <tr><td>RIS智能超表面</td><td>★★☆☆☆ 低</td><td>华为、中兴、意法半导体</td><td>Rel-18 NCR</td><td>试商用，2027年物理层标准完成</td></tr>
+                    <tr><td>LEO卫星终端</td><td>★★★☆☆ 中</td><td>Starlink、Kymeta</td><td>ITU标准</td><td>110°视场角，成本3390→678元</td></tr>
+                    <tr><td>汽车V2X/雷达</td><td>★★★★☆ 高</td><td>博世、大陆、Harada</td><td>C-V2X</td><td>4D成像雷达8T8R，鲨鱼鳍7合1</td></tr>
+                    <tr><td>AI辅助设计</td><td>★★★☆☆ 中</td><td>MathWorks、ANSYS、CST</td><td>无统一标准</td><td>仿真加速10-100倍</td></tr>
+                    <tr><td>O-RAN</td><td>★★★☆☆ 中</td><td>爱立信、诺基亚、Rakuten</td><td>7.2x</td><td>开放前传成熟，成本降15-25%</td></tr>
+                    <tr><td>材料封装</td><td>★★★★☆ 高</td><td>村田、信维、立讯</td><td>行业标准</td><td>LCP替代PI，玻璃基AiG验证</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Section 7.1: 行业挑战 */}
+            <section id="sec-7-1">
+              <div className="section-num">CHAPTER 07.1</div>
+              <h2>行业挑战</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead><tr><th>挑战</th><th>具体表现</th><th>影响程度</th></tr></thead>
+                  <tbody>
+                    <tr><td>运营商CapEx放缓</td><td>全球运营商5G投资进入中后期，同比下降5-10%</td><td style={{color:'var(--danger)'}}>高</td></tr>
+                    <tr><td>集采价格战</td><td>国内基站天线单价降幅超50%，毛利率承压</td><td style={{color:'var(--danger)'}}>高</td></tr>
+                    <tr><td>地缘政治</td><td>美国实体清单、欧盟5G安全审查、供应链重构</td><td style={{color:'var(--accent)'}}>中高</td></tr>
+                    <tr><td>AAU边缘化无源厂商</td><td>传统无源天线厂商面临被整合风险</td><td style={{color:'var(--accent)'}}>中高</td></tr>
+                    <tr><td>毫米波覆盖瓶颈</td><td>传播损耗大，部署成本高，进展低于预期</td><td style={{color:'var(--info)'}}>中</td></tr>
+                    <tr><td>高端射频芯片依赖</td><td>GaN/PA/滤波器仍依赖进口，国产替代需3-5年</td><td style={{color:'var(--accent)'}}>中高</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Section 7.3: 未来判断 */}
+            <section id="sec-7-3">
+              <div className="section-num">CHAPTER 07.3</div>
+              <h2>未来3–5年关键判断</h2>
+              <div className="callout info">
+                <p><strong>判断一：</strong>卫星通信天线将是未来3–5年增速最快的细分市场，CAGR维持15%+，LEO相控阵终端成本降至1356元以内时爆发。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>判断二：</strong>行业集中度持续提升，安费诺成龙头，华为/爱立信/诺基亚/中兴主导基站系统端，中小厂商向卫星/汽车/国防转型。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>判断三：</strong>中国厂商出货量保持全球领先，但GaN PA、滤波器等高端芯片国产替代是核心瓶颈。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>判断四：</strong>5G-A商用延缓CapEx下滑，128T128R演进带来单站价值提升，基站天线CAGR维持10%+。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>判断五：</strong>AI辅助设计和O-RAN开放化重塑竞争格局，设计能力和开放生态成为新维度。</p>
+              </div>
+            </section>
+
+<section id="sec-7">
               <div className="section-num">CHAPTER 07</div>
               <h2>挑战与风险</h2>
 
@@ -784,7 +950,17 @@ export default function HomePage() {
               <li id="cite-16"><span className="src-title">[官方] 工信部: 2025年11月中国5G基站483万站，5G用户11.9亿</span><span className="src-url">中国工信部</span></li>
               <li id="cite-17"><span className="src-title">[行业报道] 通信产业报: 2026年三大运营商天线集采规模预计超1000万面</span><span className="src-url">通信产业报</span></li>
               <li id="cite-18"><span className="src-title">[行业报道] 华为MWC2026: U6GHz 256T AAU，1500+天线阵子</span><span className="src-url">华为官方</span></li>
-              <li id="cite-19"><span className="src-title">[行业报道] 中兴MWC2026: GigaMIMO 2048阵子6G原型机</span><span className="src-url">中兴官方</span></li>
+              <li id="cite-19"><span className="src-title">[行业报道] 中兴MWC2026: GigaMIMO 2048阵子6G原型机</span><span className="src-url">中兴官方</span></li>              <li id="cite-20"><span className="src-title">[豆包报告] 全球天线行业市场格局及技术发展现状趋势研究报告（2026年9月版，人民币口径）</span><span className="src-url">豆包AI生成报告</span></li>
+              <li id="cite-21"><span className="src-title">[厂商年报] 华为MWC2026：U6GHz 256T AAU发布</span><span className="src-url">华为官方</span></li>
+              <li id="cite-22"><span className="src-title">[厂商年报] 中兴MWC2026：GigaMIMO 2048阵子6G原型机</span><span className="src-url">中兴官方</span></li>
+              <li id="cite-23"><span className="src-title">[行业报道] 安费诺收购康普CCS 712亿元合并案（2026年1月）</span><span className="src-url">Amphenol公告</span></li>
+              <li id="cite-24"><span className="src-title">[行业报道] Starlink卫星用户超500万，终端成本降至3390元</span><span className="src-url">SpaceX/行业媒体</span></li>
+              <li id="cite-25"><span className="src-title">[厂商年报] 京信通信2024年营收54.2亿元</span><span className="src-url">京信通信年报</span></li>
+              <li id="cite-26"><span className="src-title">[厂商年报] 通宇通讯2024年营收33.9亿元</span><span className="src-url">通宇通讯年报</span></li>
+              <li id="cite-27"><span className="src-title">[行业标准] 3GPP TR 22.836: RIS for IMT-2020 and beyond, Rel-18/19</span><span className="src-url">3GPP标准</span></li>
+              <li id="cite-28"><span className="src-title">[行业报道] 通信产业报: 2025年5G-A规模化部署，三大运营商投资超1000亿</span><span className="src-url">通信产业报</span></li>
+              <li id="cite-29"><span className="src-title">[行业标准] O-RAN Alliance 7.2x前传接口规范</span><span className="src-url">O-RAN Alliance</span></li>
+              <li id="cite-30"><span className="src-title">[行业数据] IoT Analytics: 全球IoT连接设备211亿台（2025）</span><span className="src-url">IoT Analytics</span></li>
             </ol>
           </div>
         </footer>
