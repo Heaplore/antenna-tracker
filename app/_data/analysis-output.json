@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T19:37:05+08:00",
+  "generatedAt": "2026-09-03T19:32:51+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 22 条新闻入库（2026-08-26 ~ 2026-09-02）。",
+          "summary": "过去 7 天共 25 条新闻入库（2026-08-27 ~ 2026-09-03）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×328；射频/微波×68；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×332；射频/微波×69；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "政策东风启幕，产业多方共探工业5G独立专网落地路径 | 雁门关外，数智“种地”是什么体验？中国移动数智兴农给出答案 | 工业5G独立专网政策红利之下，如何跑通生产价值？",
+          "summary": "中国电信研究院荣获第二十六届中国专利奖银奖 | 中国广电集中采购一体化电视终端 | 【9.3】社区精彩推荐+每日知识点打卡",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×131；C114通信网×128；与非网RF社区×28；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×133；C114通信网×129；与非网RF社区×29；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
