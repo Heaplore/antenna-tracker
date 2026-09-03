@@ -296,7 +296,7 @@ export default function HomePage() {
         <PageHeader
           title="全球天线行业市场格局及技术发展现状趋势"
           subtitle="2025-2026更新版：5G-A商用落地、6G标准启动、RIS商业化加速——从规模建设到价值升级的系统性分析"
-          updateInfo="2026年8月 · 2025-2026数据更新版"
+          updateInfo="2026年9月 · 2025-2026数据更新版"
         />
       </div>
 
