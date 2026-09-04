@@ -350,7 +350,7 @@ export default function HomePage() {
                     <tr><td>全球天线市场(狭义)</td><td>1234亿元 (2025E)</td><td>CAGR ~10.5%，2030年达2272亿元</td></tr>
                     <tr><td>5G基站总数</td><td>677.4万站（全球）</td><td>中国483.8万，占全球67%</td></tr>
                     <tr><td>卫星通信天线CAGR</td><td>17.7%（最高增速）</td><td>LEO相控阵CAGR高达45.5%</td></tr>
-                    <tr><td>中国基站天线出货占比</td><td>>50%</td><td>华为、中兴、京信、通宇合计</td></tr>
+                    <tr><td>中国基站天线出货占比</td><td>&gt;50%</td><td>华为、中兴、京信、通宇合计</td></tr>
                     <tr><td>Massive MIMO占比</td><td>72%（5G基站天线）</td><td>64T64R主流，128T128R开始部署</td></tr>
                     <tr><td>RIS成熟度</td><td>试商用阶段</td><td>2027年物理层标准完成，2030+6G标配</td></tr>
                     <tr><td>6G商用预期</td><td>2030年</td><td>3GPP Rel-21启动规范化工作</td></tr>
