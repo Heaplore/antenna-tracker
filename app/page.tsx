@@ -1404,6 +1404,18 @@ tr:hover td {
   line-height: 1.7;
 }
 
+.callout ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.callout li {
+  margin-bottom: 0.25rem;
+}
+
 /* ===== CHARTS ===== */
 .chart-box {
   background: linear-gradient(135deg, #ffffff, #f8fafc);
