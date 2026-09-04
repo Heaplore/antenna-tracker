@@ -432,6 +432,12 @@ className="kpi-strip" ref={kpiRef}>
                 <span className="callout-icon">&#9888;</span>
                 <strong>&#9888; 关键洞察</strong>
                 <p>全球5G天线市场整体趋于饱和（CAGR -1.3%），但<strong>Massive MIMO AAU升级</strong>和<strong>相控阵天线</strong>呈现高速增长，市场结构性分化明显。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>结构性风向：</strong></p>
+                <ul style={{marginTop:'0.3rem', paddingLeft:'1.2rem'}}>
+                  <li><strong>中国5G-A与6G预研：</strong>2025-2027年中国5G-A规模商用三年，设备升级带动天线单站价值30-50%提升</li>
+                  <li><strong>低轨卫星地面终端：</strong>消费级相控阵终端2024-2026突破价格门槛，2027年市场规模有望突破30亿美元</li>
+                  <li><strong>智能汽车出海：</strong>中国新能源车出海带动配套天线厂商海外份额上行，京信/通宇/信维已布局墨西哥/东南亚产能</li>
+                </ul>
               </div>
 
               <div id="sec-2-2"></div>
