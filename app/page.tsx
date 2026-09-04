@@ -1364,7 +1364,6 @@ tr:hover td {
   font-size: 0.84rem;
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
 }
 
 .callout.info {
