@@ -335,7 +335,6 @@ export default function HomePage() {
           <div className="content">
 
             {/* KPI Strip */}
-            <div 
             <div className="callout info" style={{ marginBottom: '2rem' }}>
               <span className="callout-icon">&#9432;</span>
               <strong>数据口径说明</strong>
@@ -359,7 +358,8 @@ export default function HomePage() {
                 </table>
               </div>
             </div>
-className="kpi-strip" ref={kpiRef}>
+
+            <div className="kpi-strip" ref={kpiRef}>
               <div className="kpi-card">
                 <span className="kpi-icon">&#9670;</span>
                 <div className="kpi-number blue" data-target="1930" data-suffix="亿" data-decimal="0">0</div>
