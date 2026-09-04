@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-09-03 11:32",
+  "lastUpdate": "2026-09-04 11:34",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,12 +15,12 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 109640,
-          "change": "+1.3%",
+          "currentPrice": 108260,
+          "change": "+3.1%",
           "trend": "上涨",
-          "date": "2026-09-03",
+          "date": "2026-09-02",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
-          "dataSource": "长江有色 109640元/吨 2026-09-03",
+          "dataSource": "Mysteel 2026-08-11 上海市场 102720-103160元/吨，综合近期走势约105200",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -65,19 +65,19 @@
             },
             {
               "month": "2026-09",
-              "price": 109640
+              "price": 108260
             }
           ]
         },
         {
           "name": "铝锭",
           "unit": "元/吨",
-          "currentPrice": 24340,
-          "change": "+1.8%",
+          "currentPrice": 23900,
+          "change": "+1.7%",
           "trend": "上涨",
-          "date": "2026-09-03",
+          "date": "2026-09-02",
           "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
-          "dataSource": "长江有色 24340元/吨 2026-09-03",
+          "dataSource": "Mysteel 2026-08-14 华东23800元/吨，中铝8月10日调价后约23500",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -122,7 +122,7 @@
             },
             {
               "month": "2026-09",
-              "price": 24340
+              "price": 23900
             }
           ]
         },
@@ -292,12 +292,12 @@
         {
           "name": "螺纹钢",
           "unit": "元/吨",
-          "currentPrice": 3140,
-          "change": "+3.3%",
+          "currentPrice": 3040,
+          "change": "-5.0%",
           "trend": "下跌",
-          "date": "2026-09-03",
+          "date": "2026-09-02",
           "impact": "天线铁塔、抱杆、底座等大型结构件用钢，成本占比较小",
-          "dataSource": "MySpic指数 3140元/吨 2026-09-03",
+          "dataSource": "期货主力约3200元/吨",
           "dataUrl": "https://jiage.cngold.org/c/2026-05-11/c10493002.html",
           "historical": [
             {
@@ -342,19 +342,19 @@
             },
             {
               "month": "2026-09",
-              "price": 3140
+              "price": 3040
             }
           ]
         },
         {
           "name": "锌",
           "unit": "元/吨",
-          "currentPrice": 26780,
-          "change": "+6.3%",
+          "currentPrice": 25200,
+          "change": "+0.4%",
           "trend": "上涨",
-          "date": "2026-09-03",
+          "date": "2026-09-02",
           "impact": "射频连接器壳体、屏蔽罩材料，影响天线结构件成本",
-          "dataSource": "长江有色 26780元/吨 2026-09-03",
+          "dataSource": "LME锌价平稳，国内锌锭价格约25100元/吨",
           "dataUrl": "",
           "historical": [
             {
@@ -415,7 +415,7 @@
             },
             {
               "month": "2026-09",
-              "price": 26780
+              "price": 25200
             }
           ]
         },
@@ -568,12 +568,12 @@
         {
           "name": "铅",
           "unit": "元/吨",
-          "currentPrice": 16000,
-          "change": "+1.4%",
+          "currentPrice": 15775,
+          "change": "-1.7%",
           "trend": "下跌",
-          "date": "2026-09-03",
+          "date": "2026-09-02",
           "impact": "传统焊料成分（无铅化趋势中），影响焊接工艺成本",
-          "dataSource": "长江有色 16000元/吨 2026-09-03",
+          "dataSource": "SMM铅价约16050元/吨",
           "dataUrl": "",
           "historical": [
             {
@@ -634,7 +634,7 @@
             },
             {
               "month": "2026-09",
-              "price": 16000
+              "price": 15775
             }
           ]
         }
