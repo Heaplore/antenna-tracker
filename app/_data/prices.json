@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-09-03 11:32",
+  "lastUpdate": "2026-09-04 11:34",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,12 +15,6 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 110160,
-          "change": "+0.5%",
-          "trend": "上涨",
-          "date": "2026-09-04",
-          "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
-          "dataSource": "长江有色 110160元/吨 2026-09-04",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -65,19 +59,12 @@
             },
             {
               "month": "2026-09",
-              "price": 110160
             }
           ]
         },
         {
           "name": "铝锭",
           "unit": "元/吨",
-          "currentPrice": 24350,
-          "change": "0.0%",
-          "trend": "持平",
-          "date": "2026-09-04",
-          "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
-          "dataSource": "长江有色 24350元/吨 2026-09-04",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -122,7 +109,6 @@
             },
             {
               "month": "2026-09",
-              "price": 24350
             }
           ]
         },
@@ -292,12 +278,6 @@
         {
           "name": "螺纹钢",
           "unit": "元/吨",
-          "currentPrice": 3133,
-          "change": "+0.1%",
-          "trend": "上涨",
-          "date": "2026-09-04",
-          "impact": "天线铁塔、抱杆、底座等大型结构件用钢，成本占比较小",
-          "dataSource": "MySpic指数 3133元/吨 2026-09-04",
           "dataUrl": "https://jiage.cngold.org/c/2026-05-11/c10493002.html",
           "historical": [
             {
@@ -342,19 +322,12 @@
             },
             {
               "month": "2026-09",
-              "price": 3133
             }
           ]
         },
         {
           "name": "锌",
           "unit": "元/吨",
-          "currentPrice": 26610,
-          "change": "-0.6%",
-          "trend": "下跌",
-          "date": "2026-09-04",
-          "impact": "射频连接器壳体、屏蔽罩材料，影响天线结构件成本",
-          "dataSource": "长江有色 26610元/吨 2026-09-04",
           "dataUrl": "",
           "historical": [
             {
@@ -415,7 +388,6 @@
             },
             {
               "month": "2026-09",
-              "price": 26610
             }
           ]
         },
@@ -568,12 +540,6 @@
         {
           "name": "铅",
           "unit": "元/吨",
-          "currentPrice": 16150,
-          "change": "0.0%",
-          "trend": "持平",
-          "date": "2026-09-04",
-          "impact": "传统焊料成分（无铅化趋势中），影响焊接工艺成本",
-          "dataSource": "长江有色 16150元/吨 2026-09-04",
           "dataUrl": "",
           "historical": [
             {
@@ -634,7 +600,6 @@
             },
             {
               "month": "2026-09",
-              "price": 16150
             }
           ]
         }

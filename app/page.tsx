@@ -335,7 +335,6 @@ export default function HomePage() {
           <div className="content">
 
             {/* KPI Strip */}
-            <div 
             <div className="callout info" style={{ marginBottom: '2rem' }}>
               <span className="callout-icon">&#9432;</span>
               <strong>数据口径说明</strong>
@@ -351,7 +350,7 @@ export default function HomePage() {
                     <tr><td>全球天线市场(狭义)</td><td>1234亿元 (2025E)</td><td>CAGR ~10.5%，2030年达2272亿元</td></tr>
                     <tr><td>5G基站总数</td><td>677.4万站（全球）</td><td>中国483.8万，占全球67%</td></tr>
                     <tr><td>卫星通信天线CAGR</td><td>17.7%（最高增速）</td><td>LEO相控阵CAGR高达45.5%</td></tr>
-                    <tr><td>中国基站天线出货占比</td><td>>50%</td><td>华为、中兴、京信、通宇合计</td></tr>
+                    <tr><td>中国基站天线出货占比</td><td>&gt;50%</td><td>华为、中兴、京信、通宇合计</td></tr>
                     <tr><td>Massive MIMO占比</td><td>72%（5G基站天线）</td><td>64T64R主流，128T128R开始部署</td></tr>
                     <tr><td>RIS成熟度</td><td>试商用阶段</td><td>2027年物理层标准完成，2030+6G标配</td></tr>
                     <tr><td>6G商用预期</td><td>2030年</td><td>3GPP Rel-21启动规范化工作</td></tr>
@@ -359,7 +358,8 @@ export default function HomePage() {
                 </table>
               </div>
             </div>
-className="kpi-strip" ref={kpiRef}>
+
+            <div className="kpi-strip" ref={kpiRef}>
               <div className="kpi-card">
                 <span className="kpi-icon">&#9670;</span>
                 <div className="kpi-number blue" data-target="1930" data-suffix="亿" data-decimal="0">0</div>
@@ -432,6 +432,12 @@ className="kpi-strip" ref={kpiRef}>
                 <span className="callout-icon">&#9888;</span>
                 <strong>&#9888; 关键洞察</strong>
                 <p>全球5G天线市场整体趋于饱和（CAGR -1.3%），但<strong>Massive MIMO AAU升级</strong>和<strong>相控阵天线</strong>呈现高速增长，市场结构性分化明显。</p>
+                <p style={{marginTop:'0.5rem'}}><strong>结构性风向：</strong></p>
+                <ul style={{marginTop:'0.3rem', paddingLeft:'1.2rem'}}>
+                  <li><strong>中国5G-A与6G预研：</strong>2025-2027年中国5G-A规模商用三年，设备升级带动天线单站价值30-50%提升</li>
+                  <li><strong>低轨卫星地面终端：</strong>消费级相控阵终端2024-2026突破价格门槛，2027年市场规模有望突破30亿美元</li>
+                  <li><strong>智能汽车出海：</strong>中国新能源车出海带动配套天线厂商海外份额上行，京信/通宇/信维已布局墨西哥/东南亚产能</li>
+                </ul>
               </div>
 
               <div id="sec-2-2"></div>
@@ -1358,7 +1364,6 @@ tr:hover td {
   font-size: 0.84rem;
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
 }
 
 .callout.info {
@@ -1396,6 +1401,18 @@ tr:hover td {
   color: var(--ink);
   margin: 0;
   line-height: 1.7;
+}
+
+.callout ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.callout li {
+  margin-bottom: 0.25rem;
 }
 
 /* ===== CHARTS ===== */
