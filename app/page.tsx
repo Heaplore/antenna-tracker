@@ -1387,11 +1387,7 @@ tr:hover td {
   opacity: 0.15;
 }
 
-.callout strong {
-  display: block;
-  font-size: 0.82rem;
-  margin-bottom: 0.2rem;
-}
+.callout > strong {\n  display: block;\n  font-size: 0.82rem;\n  margin-bottom: 0.2rem;\n}\n.callout p strong,\n.callout li strong {\n  display: inline;\n}
 .callout.info strong { color: var(--accent); }
 .callout.success strong { color: var(--accent2); }
 .callout.warn strong { color: var(--warn); }
