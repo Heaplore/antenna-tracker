@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T19:35:17+08:00",
+  "generatedAt": "2026-09-09T19:41:41+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 24 条新闻入库（2026-09-01 ~ 2026-09-08）。",
+          "summary": "过去 7 天共 29 条新闻入库（2026-09-02 ~ 2026-09-09）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×346；射频/微波×70；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×351；射频/微波×70；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "多项重磅新品亮相9月7日华为全场景新品发布会 | 中信科移动中标中国铁塔2026年无源室分监控产品集采项目 | 新调整！中国移动市场经营部和网络事业部总经理调整",
+          "summary": "中国移动研究院成功攻克高维量子技术难题 | 告别无源哑设备！数智化天线何以成为新一代通信网络底座？ | 向智同行，连接算力新生态| 2026中国联通合作伙伴大会集中展示 AI创新成果",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×140；C114通信网×135；与非网RF社区×30；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×143；C114通信网×137；与非网RF社区×30；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
