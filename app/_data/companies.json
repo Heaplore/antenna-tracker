@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-09-13",
+  "lastUpdate": "2026-09-14",
   "summary": "中国天线产业已形成完整5层供应链体系。上游运营商集采主导需求侧；主设备商整合天线+射频一体化；天线整机厂商竞争激烈；零部件层涵盖馈电网络、电调模块、电机、连接器、天线罩、滤波器/双工器、PCB等核心品类。2026年行业整体呈现需求强劲、竞争加剧、利润承压的态势。",
   "supplyChain": {
     "tier1_operators": {
@@ -27,7 +27,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            98.97,
             96.42,
             95.99,
             96.45,
@@ -56,9 +55,10 @@
             97.7,
             97.11,
             97.17,
-            97.72
+            97.72,
+            98.16
           ],
-          "stockCurrent": 97.72,
+          "stockCurrent": 98.16,
           "stock52Low": 95.5,
           "stock52High": 100.8,
           "rank": 1
@@ -83,7 +83,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            6.309,
             6.129,
             6.069,
             6.139,
@@ -112,9 +111,10 @@
             6.149,
             6.119,
             6.19,
-            6.29
+            6.29,
+            6.26
           ],
-          "stockCurrent": 6.29,
+          "stockCurrent": 6.26,
           "stock52Low": 6.019,
           "stock52High": 6.489,
           "rank": 2
@@ -139,7 +139,6 @@
           "location": "北京",
           "isKey": true,
           "stockPrices": [
-            4.51,
             4.47,
             4.39,
             4.38,
@@ -168,11 +167,12 @@
             4.24,
             4.21,
             4.2,
-            4.21
+            4.21,
+            4.22
           ],
-          "stockCurrent": 4.21,
+          "stockCurrent": 4.22,
           "stock52Low": 4.17,
-          "stock52High": 4.51,
+          "stock52High": 4.47,
           "rank": 3
         },
         {
@@ -2348,7 +2348,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            34.02,
             34.37,
             34.74,
             34.7,
@@ -2377,10 +2376,11 @@
             33.21,
             33.09,
             32.45,
-            32.17
+            32.17,
+            31.95
           ],
-          "stockCurrent": 32.17,
-          "stock52Low": 32.17,
+          "stockCurrent": 31.95,
+          "stock52Low": 31.95,
           "stock52High": 36.02,
           "rank": 2
         },
@@ -5594,7 +5594,6 @@
           "location": "武汉",
           "isKey": true,
           "stockPrices": [
-            262.005,
             283.705,
             312.105,
             327.955,
@@ -5623,10 +5622,11 @@
             416.85,
             442.03,
             435.74,
-            473.99
+            473.99,
+            459.66
           ],
-          "stockCurrent": 473.99,
-          "stock52Low": 262.005,
+          "stockCurrent": 459.66,
+          "stock52Low": 283.705,
           "stock52High": 473.99
         },
         {
@@ -5654,7 +5654,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            56.5,
             59.55,
             63.95,
             65.38,
@@ -5683,9 +5682,10 @@
             57.54,
             57.05,
             56.96,
-            56.83
+            56.83,
+            56.92
           ],
-          "stockCurrent": 56.83,
+          "stockCurrent": 56.92,
           "stock52Low": 56.18,
           "stock52High": 70.4
         },
@@ -5714,7 +5714,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            80.91,
             89.0,
             91.13,
             93.85,
@@ -5743,10 +5742,11 @@
             89.46,
             92.45,
             91.85,
-            92.65
+            92.65,
+            88.24
           ],
-          "stockCurrent": 92.65,
-          "stock52Low": 80.91,
+          "stockCurrent": 88.24,
+          "stock52Low": 83.29,
           "stock52High": 101.41
         },
         {
@@ -5773,7 +5773,6 @@
           "location": "东莞",
           "isKey": true,
           "stockPrices": [
-            53.71,
             55.48,
             55.87,
             55.9,
@@ -5802,10 +5801,11 @@
             55.06,
             55.86,
             54.45,
-            55.39
+            55.39,
+            52.78
           ],
-          "stockCurrent": 55.39,
-          "stock52Low": 53.34,
+          "stockCurrent": 52.78,
+          "stock52Low": 52.78,
           "stock52High": 58.84
         },
         {
@@ -5832,7 +5832,6 @@
           "location": "苏州",
           "isKey": true,
           "stockPrices": [
-            162.81,
             179.09,
             188.83,
             187.68,
@@ -5861,10 +5860,11 @@
             186.42,
             196.06,
             193.74,
-            194.42
+            194.42,
+            185.11
           ],
-          "stockCurrent": 194.42,
-          "stock52Low": 162.81,
+          "stockCurrent": 185.11,
+          "stock52Low": 178.67,
           "stock52High": 217.66
         },
         {
@@ -5891,7 +5891,6 @@
           "location": "合肥",
           "isKey": true,
           "stockPrices": [
-            8.04,
             8.28,
             8.32,
             9.59,
@@ -5920,9 +5919,10 @@
             8.71,
             8.58,
             8.5,
-            8.58
+            8.58,
+            8.43
           ],
-          "stockCurrent": 8.58,
+          "stockCurrent": 8.43,
           "stock52Low": 7.79,
           "stock52High": 9.59
         },
@@ -5950,7 +5950,6 @@
           "location": "武汉",
           "isKey": true,
           "stockPrices": [
-            8.93,
             9.12,
             9.17,
             10.09,
@@ -5979,10 +5978,11 @@
             11.08,
             10.83,
             10.86,
-            11.46
+            11.46,
+            11.07
           ],
-          "stockCurrent": 11.46,
-          "stock52Low": 8.93,
+          "stockCurrent": 11.07,
+          "stock52Low": 9.12,
           "stock52High": 11.46
         },
         {
@@ -6009,7 +6009,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            79.99,
             79.9,
             81.17,
             80.25,
@@ -6038,9 +6037,10 @@
             71.43,
             70.4,
             69.12,
-            67.68
+            67.68,
+            67.83
           ],
-          "stockCurrent": 67.68,
+          "stockCurrent": 67.83,
           "stock52Low": 66.16,
           "stock52High": 81.98
         },
@@ -6184,7 +6184,6 @@
           "location": "洛阳",
           "isKey": true,
           "stockPrices": [
-            34.07,
             34.41,
             34.75,
             34.67,
@@ -6213,9 +6212,10 @@
             34.01,
             34.6,
             34.83,
-            35.22
+            35.22,
+            34.18
           ],
-          "stockCurrent": 35.22,
+          "stockCurrent": 34.18,
           "stock52Low": 33.01,
           "stock52High": 36.08
         },
@@ -6272,7 +6272,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            19.46,
             20.76,
             21.82,
             22.37,
@@ -6301,10 +6300,11 @@
             24.4,
             24.78,
             26.93,
-            28.63
+            28.63,
+            28.4
           ],
-          "stockCurrent": 28.63,
-          "stock52Low": 19.46,
+          "stockCurrent": 28.4,
+          "stock52Low": 20.76,
           "stock52High": 28.63
         },
         {
@@ -6328,7 +6328,6 @@
           "location": "温州",
           "isKey": false,
           "stockPrices": [
-            49.76,
             52.44,
             55.6,
             56.75,
@@ -6357,11 +6356,12 @@
             64.3,
             62.92,
             63.33,
-            64.9
+            64.9,
+            71.39
           ],
-          "stockCurrent": 64.9,
-          "stock52Low": 49.76,
-          "stock52High": 64.9
+          "stockCurrent": 71.39,
+          "stock52Low": 52.44,
+          "stock52High": 71.39
         },
         {
           "id": "con005",
@@ -6384,7 +6384,6 @@
           "location": "苏州",
           "isKey": false,
           "stockPrices": [
-            4.21,
             4.28,
             4.29,
             4.32,
@@ -6413,11 +6412,12 @@
             4.38,
             4.39,
             4.37,
-            4.59
+            4.59,
+            4.66
           ],
-          "stockCurrent": 4.59,
+          "stockCurrent": 4.66,
           "stock52Low": 4.07,
-          "stock52High": 4.59
+          "stock52High": 4.66
         },
         {
           "id": "con006",
@@ -6496,7 +6496,6 @@
           "location": "温州",
           "isKey": false,
           "stockPrices": [
-            17.05,
             17.31,
             17.82,
             17.61,
@@ -6525,10 +6524,11 @@
             20.15,
             20.09,
             19.9,
-            19.31
+            19.31,
+            19.5
           ],
-          "stockCurrent": 19.31,
-          "stock52Low": 17.05,
+          "stockCurrent": 19.5,
+          "stock52Low": 17.31,
           "stock52High": 21.52
         },
         {
@@ -6578,7 +6578,6 @@
           "location": "厦门",
           "isKey": true,
           "stockPrices": [
-            35.75,
             36.31,
             36.3,
             35.55,
@@ -6607,9 +6606,10 @@
             34.66,
             35.43,
             34.84,
-            34.59
+            34.59,
+            34.65
           ],
-          "stockCurrent": 34.59,
+          "stockCurrent": 34.65,
           "stock52Low": 32.98,
           "stock52High": 36.35
         },
@@ -6680,7 +6680,6 @@
           "location": "镇江",
           "isKey": false,
           "stockPrices": [
-            47.0,
             49.8,
             53.18,
             58.48,
@@ -6709,10 +6708,11 @@
             66.3,
             67.68,
             69.3,
-            66.83
+            66.83,
+            66.11
           ],
-          "stockCurrent": 66.83,
-          "stock52Low": 47.0,
+          "stockCurrent": 66.11,
+          "stock52Low": 49.8,
           "stock52High": 69.3
         },
         {
@@ -6887,7 +6887,6 @@
           "location": "南京",
           "isKey": true,
           "stockPrices": [
-            40.34,
             44.37,
             48.81,
             51.52,
@@ -6916,10 +6915,11 @@
             49.87,
             50.53,
             50.85,
-            51.52
+            51.52,
+            52.79
           ],
-          "stockCurrent": 51.52,
-          "stock52Low": 40.34,
+          "stockCurrent": 52.79,
+          "stock52Low": 44.37,
           "stock52High": 62.0
         },
         {
@@ -6944,7 +6944,6 @@
           "location": "上海",
           "isKey": false,
           "stockPrices": [
-            27.26,
             29.27,
             30.38,
             31.03,
@@ -6973,10 +6972,11 @@
             41.34,
             41.1,
             40.07,
-            39.22
+            39.22,
+            39.79
           ],
-          "stockCurrent": 39.22,
-          "stock52Low": 27.26,
+          "stockCurrent": 39.79,
+          "stock52Low": 29.27,
           "stock52High": 41.55
         },
         {
@@ -7026,7 +7026,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            30.99,
             34.37,
             36.29,
             36.57,
@@ -7055,10 +7054,11 @@
             39.74,
             39.7,
             38.37,
-            36.77
+            36.77,
+            37.56
           ],
-          "stockCurrent": 36.77,
-          "stock52Low": 30.99,
+          "stockCurrent": 37.56,
+          "stock52Low": 34.37,
           "stock52High": 46.2
         },
         {
@@ -7085,7 +7085,6 @@
           "location": "武汉",
           "isKey": true,
           "stockPrices": [
-            8.93,
             9.12,
             9.17,
             10.09,
@@ -7114,10 +7113,11 @@
             11.08,
             10.83,
             10.86,
-            11.46
+            11.46,
+            11.07
           ],
-          "stockCurrent": 11.46,
-          "stock52Low": 8.93,
+          "stockCurrent": 11.07,
+          "stock52Low": 9.12,
           "stock52High": 11.46
         },
         {
@@ -7144,7 +7144,6 @@
           "location": "合肥",
           "isKey": true,
           "stockPrices": [
-            8.04,
             8.28,
             8.32,
             9.59,
@@ -7173,9 +7172,10 @@
             8.71,
             8.58,
             8.5,
-            8.58
+            8.58,
+            8.43
           ],
-          "stockCurrent": 8.58,
+          "stockCurrent": 8.43,
           "stock52Low": 7.79,
           "stock52High": 9.59
         },
@@ -7198,7 +7198,6 @@
           "location": "苏州",
           "isKey": false,
           "stockPrices": [
-            2.57,
             2.51,
             2.54,
             2.48,
@@ -7227,10 +7226,11 @@
             2.7,
             2.6,
             2.69,
-            2.6
+            2.6,
+            2.44
           ],
-          "stockCurrent": 2.6,
-          "stock52Low": 2.48,
+          "stockCurrent": 2.44,
+          "stock52Low": 2.44,
           "stock52High": 2.76
         },
         {
@@ -7333,7 +7333,6 @@
           "location": "扬州",
           "isKey": false,
           "stockPrices": [
-            49.54,
             50.75,
             52.19,
             51.4,
@@ -7362,9 +7361,10 @@
             47.8,
             47.84,
             47.67,
-            50.2
+            50.2,
+            50.38
           ],
-          "stockCurrent": 50.2,
+          "stockCurrent": 50.38,
           "stock52Low": 46.8,
           "stock52High": 53.04
         },
@@ -7390,7 +7390,6 @@
           "location": "苏州",
           "isKey": false,
           "stockPrices": [
-            24.37,
             26.81,
             27.84,
             29.18,
@@ -7419,10 +7418,11 @@
             29.6,
             29.05,
             28.82,
-            28.18
+            28.18,
+            28.04
           ],
-          "stockCurrent": 28.18,
-          "stock52Low": 24.37,
+          "stockCurrent": 28.04,
+          "stock52Low": 26.81,
           "stock52High": 32.37
         },
         {
@@ -7563,7 +7563,6 @@
           "location": "深圳",
           "isKey": true,
           "stockPrices": [
-            80.91,
             89.0,
             91.13,
             93.85,
@@ -7592,10 +7591,11 @@
             89.46,
             92.45,
             91.85,
-            92.65
+            92.65,
+            88.24
           ],
-          "stockCurrent": 92.65,
-          "stock52Low": 80.91,
+          "stockCurrent": 88.24,
+          "stock52Low": 83.29,
           "stock52High": 101.41
         },
         {
@@ -7622,7 +7622,6 @@
           "location": "苏州",
           "isKey": true,
           "stockPrices": [
-            162.81,
             179.09,
             188.83,
             187.68,
@@ -7651,10 +7650,11 @@
             186.42,
             196.06,
             193.74,
-            194.42
+            194.42,
+            185.11
           ],
-          "stockCurrent": 194.42,
-          "stock52Low": 162.81,
+          "stockCurrent": 185.11,
+          "stock52Low": 178.67,
           "stock52High": 217.66
         }
       ]
