@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T19:45:46+08:00",
+  "generatedAt": "2026-09-21T07:48:12+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 31 条新闻入库（2026-09-13 ~ 2026-09-20）。",
+          "summary": "过去 7 天共 33 条新闻入库（2026-09-14 ~ 2026-09-21）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×392；射频/微波×76；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×394；射频/微波×76；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×165；C114通信网×150；与非网RF社区×36；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×165；C114通信网×152；与非网RF社区×36；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
