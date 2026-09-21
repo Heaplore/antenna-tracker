@@ -648,12 +648,12 @@
         {
           "name": "LCP树脂",
           "unit": "元/吨",
-          "currentPrice": 200000,
-          "change": "0.0%",
-          "trend": "持平",
+          "currentPrice": 60000,
+          "change": "-70.0%",
+          "trend": "大跌",
           "date": "2026-09-22",
           "impact": "5G天线振子、LDS天线主要材料，LCP薄膜用于高端覆铜板",
-          "dataSource": "南京清研LCP纯树脂约20万元/吨 2026-09",
+          "dataSource": "⚠️ 南京清研LCP纯树脂6万/吨 vs 膜级树脂20万/吨，历史数据疑似单位混淆，待核实",
           "dataUrl": "https://www.mysteel.com/oilchem/a/26051111/D983A41A93864288.html",
           "historical": [
             {
@@ -710,7 +710,7 @@
             },
             {
               "month": "2026-09",
-              "price": 200000
+              "price": 60000
             }
           ]
         },
@@ -921,11 +921,11 @@
           "name": "PA66工程塑料",
           "unit": "元/吨",
           "currentPrice": 19100,
-          "change": "-33.3%",
+          "change": "-33.2%",
           "trend": "下跌",
           "date": "2026-09-22",
           "impact": "天线外罩、连接器外壳、射频连接器结构件",
-          "dataSource": "⚠️ PA66神马EPR27约19100元/吨，杜邦101L约27500元/吨，取市场均价",
+          "dataSource": "⚠️ PA66神马EPR27约19100元/吨 vs 历史28618，国产替代降价，待核实",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1293,12 +1293,12 @@
         {
           "name": "电子布7628",
           "unit": "元/米",
-          "currentPrice": 12,
-          "change": "-18.9%",
+          "currentPrice": 13,
+          "change": "-10.3%",
           "trend": "下跌",
           "date": "2026-09-22",
           "impact": "覆铜板增强基材，AI服务器需求拉动价格持续上涨",
-          "dataSource": "厂家出厂价11-12元/米，卓创资讯主流均价13.25元/米取12元/米",
+          "dataSource": "卓创资讯主流均价13.25元/米，厂家出厂价11-12元/米，取中位13元/米",
           "dataUrl": "",
           "historical": [
             {
@@ -1359,7 +1359,7 @@
             },
             {
               "month": "2026-09",
-              "price": 12
+              "price": 13
             }
           ]
         }
