@@ -1,16 +1,82 @@
 {
-  "generatedAt": "2026-09-21T21:08:48+08:00",
+  "generatedAt": "2026-09-22T19:56:56+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
     "cost": {
       "cards": [
         {
+          "type": "成本上行信号",
+          "severity": "high",
+          "title": "本月涨幅 TOP 5",
+          "summary": "PBT工程塑料 +22.0%；PTFE树脂 +10.1%；螺纹钢 +4.6%；锌 +4.4%；环氧树脂 +3.4%",
+          "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "成本下行信号",
+          "severity": "high",
+          "title": "本月跌幅 TOP 5",
+          "summary": "LCP树脂 -70.0%；PA66工程塑料 -33.3%；电子布7628 -12.2%；锡 -4.5%；镍 -4.3%",
+          "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
           "type": "BOM 全景",
           "severity": "low",
           "title": "成本方向分布",
-          "summary": "27种主要原材料中，0种上涨、0种下跌、27种持平。",
+          "summary": "27种主要原材料中，9种上涨、9种下跌、9种持平。",
           "recommendation": "整体 BOM 成本方向：横盘。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "关键波动",
+          "severity": "high",
+          "title": "大幅波动信号 (≥10%)",
+          "summary": "LCP树脂 -70.0%；PTFE树脂 +10.1%；PA66工程塑料 -33.3%；PBT工程塑料 +22.0%；电子布7628 -12.2%",
+          "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 9
+        },
+        {
+          "type": "分类聚合",
+          "severity": "medium",
+          "title": "工程塑料分类（6种）平均变化",
+          "summary": "本分类材料均价 -11.9%",
+          "recommendation": "工程塑料板块整体呈现下行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 5
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "PCB/覆铜板分类（5种）平均变化",
+          "summary": "本分类材料均价 -2.4%",
+          "recommendation": "PCB/覆铜板板块整体呈现下行趋势。",
+          "data_sources": [
+            "prices.json"
+          ],
+          "priorityScore": 2
+        },
+        {
+          "type": "分类聚合",
+          "severity": "low",
+          "title": "化工类原材料分类（6种）平均变化",
+          "summary": "本分类材料均价 +0.6%",
+          "recommendation": "化工类原材料板块整体呈现上行趋势。",
           "data_sources": [
             "prices.json"
           ],
@@ -25,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 37 条新闻入库（2026-09-14 ~ 2026-09-21）。",
+          "summary": "过去 7 天共 40 条新闻入库（2026-09-15 ~ 2026-09-22）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×398；射频/微波×76；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×406；射频/微波×76；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "全球首个！6G两大重磅进展落地，从原型测试迈向产业应用 | 中国电信2026年引入光缆第二批次集采：“四巨头”皆入围 | 中国电信张成良：新型光纤与光模块筑牢AI算力互联底座",
+          "summary": "迈向全面智能化！华为亮相2026中国国际信息通信展 | 国云强基 智惠启新 ——中国电信精彩亮相2026年中国国际信息通信展 | 杭州移动联合华为“面向5G-A通感一体的低空经济通信监测基础设施批量交付体系”荣",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×166；C114通信网×155；与非网RF社区×36；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×168；C114通信网×161；与非网RF社区×36；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
@@ -282,5 +348,5 @@
       "source": "derived-from-market"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点信号：交付：本周行业动态；技术：行业技术概览；技术：技术详情覆盖 14 项；市场：行业核心驱动；成本：成本方向分布。"
+  "crossDimensionSummary": "⚠️ 重点信号：成本：本月涨幅 TOP 5；成本：本月跌幅 TOP 5；成本：大幅波动信号 (≥10%)；成本：工程塑料分类（6种）平均变化；交付：本周行业动态。"
 }
