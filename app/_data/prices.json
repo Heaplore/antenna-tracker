@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-09-23 09:00",
+  "lastUpdate": "2026-09-24 09:00",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -18,7 +18,7 @@
           "currentPrice": 110700,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
           "dataSource": "沪铜主力110700元/吨 2026-09-23",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -79,7 +79,7 @@
           "currentPrice": 24260,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
           "dataSource": "长江A00铝锭24260元/吨 2026-09-23",
           "dataUrl": "https://www.cnmn.com.cn/",
@@ -140,7 +140,7 @@
           "currentPrice": 13530,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "滤波器腔体、天线外壳材料，不锈钢涨价小幅推高制造成本",
           "dataSource": "无锡304/2B冷轧13530元/吨 2026-09-23",
           "dataUrl": "https://hq.smm.cn/h5/sus-304sus-price",
@@ -193,7 +193,7 @@
           "currentPrice": 931,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
           "dataSource": "上海金交所金条931元/克 2026-09-23",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
@@ -254,7 +254,7 @@
           "currentPrice": 15.7,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
           "dataSource": "国际银价66美元/盎司，国内约15.7元/克 2026-09-23",
           "dataUrl": "https://www.163.com/dy/article/KTRL83HL055655OW.html",
@@ -315,7 +315,7 @@
           "currentPrice": 3118,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "天线铁塔、抱杆、底座等大型结构件用钢，成本占比较小",
           "dataSource": "上海螺纹钢3118元/吨 2026-09-23",
           "dataUrl": "https://jiage.cngold.org/c/2026-05-11/c10493002.html",
@@ -376,7 +376,7 @@
           "currentPrice": 26685,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "射频连接器壳体、屏蔽罩材料，影响天线结构件成本",
           "dataSource": "沪锌主力26685元/吨 2026-09-23",
           "dataUrl": "",
@@ -453,7 +453,7 @@
           "currentPrice": 124390,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "不锈钢合金成分、镀层材料，影响射频连接器耐腐蚀性能",
           "dataSource": "沪镍主力124390元/吨 2026-09-23",
           "dataUrl": "",
@@ -527,12 +527,12 @@
         {
           "name": "锡",
           "unit": "元/吨",
-          "currentPrice": 411710,
-          "change": "+0.0%",
-          "trend": "持平",
-          "date": "2026-09-23",
+          "currentPrice": 412720,
+          "change": "+3.2%",
+          "trend": "上涨",
+          "date": "2026-09-24",
           "impact": "焊料核心材料，影响天线PCB焊接可靠性",
-          "dataSource": "沪锡主力411710元/吨 2026-09-23",
+          "dataSource": "沪锡主力412720元/吨 2026-09-23",
           "dataUrl": "",
           "historical": [
             {
@@ -597,19 +597,19 @@
             },
             {
               "month": "2026-09",
-              "price": 411710
+              "price": 412720
             }
           ]
         },
         {
           "name": "铅",
           "unit": "元/吨",
-          "currentPrice": 16300,
-          "change": "+0.0%",
-          "trend": "持平",
-          "date": "2026-09-23",
+          "currentPrice": 16350,
+          "change": "-0.5%",
+          "trend": "下跌",
+          "date": "2026-09-24",
           "impact": "传统焊料成分（无铅化趋势中），影响焊接工艺成本",
-          "dataSource": "沪铅主力16300元/吨 2026-09-23",
+          "dataSource": "沪铅期货16350元/吨 2026-09-23",
           "dataUrl": "",
           "historical": [
             {
@@ -674,7 +674,7 @@
             },
             {
               "month": "2026-09",
-              "price": 16300
+              "price": 16350
             }
           ]
         }
@@ -688,12 +688,12 @@
         {
           "name": "LCP树脂",
           "unit": "元/吨",
-          "currentPrice": 60000,
+          "currentPrice": 61200,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "5G天线振子、LDS天线主要材料，LCP薄膜用于高端覆铜板",
-          "dataSource": "南京清研LCP纯树脂6万/吨 2026-09-23",
+          "dataSource": "日本住友LCP E4008 61200元/吨 2026-09-17",
           "dataUrl": "https://www.mysteel.com/oilchem/a/26051111/D983A41A93864288.html",
           "historical": [
             {
@@ -750,19 +750,19 @@
             },
             {
               "month": "2026-09",
-              "price": 60000
+              "price": 61200
             }
           ]
         },
         {
           "name": "PTFE树脂",
           "unit": "元/吨",
-          "currentPrice": 35000,
+          "currentPrice": 31800,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "高频覆铜板填充材料，PTFE国产化是5G材料降本关键",
-          "dataSource": "通用悬浮树脂35000元/吨 2026-09-23",
+          "dataSource": "化工百科PTFE 31800元/吨 2026-09-16",
           "dataUrl": "https://www.mysteel.com/oilchem/a/26052817/B349D291475BE603.html",
           "historical": [
             {
@@ -823,19 +823,19 @@
             },
             {
               "month": "2026-09",
-              "price": 35000
+              "price": 31800
             }
           ]
         },
         {
           "name": "PPS树脂",
           "unit": "元/吨",
-          "currentPrice": 56000,
+          "currentPrice": 5900,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "滤波器腔体支架、耐高温连接器外壳材料",
-          "dataSource": "索尔维PPS 56000元/吨 2026-09-23",
+          "dataSource": "阿里巴巴PPS树脂59.07元/kg 2026-08-19",
           "dataUrl": "https://www.mysteel.com/hot/1649371.html",
           "historical": [
             {
@@ -896,19 +896,19 @@
             },
             {
               "month": "2026-09",
-              "price": 56000
+              "price": 5900
             }
           ]
         },
         {
           "name": "环氧树脂",
           "unit": "元/吨",
-          "currentPrice": 15000,
-          "change": "+0.0%",
-          "trend": "持平",
-          "date": "2026-09-23",
+          "currentPrice": 15752,
+          "change": "-0.6%",
+          "trend": "下跌",
+          "date": "2026-09-24",
           "impact": "PCB板材粘接、三防漆、复合材料灌注，环氧树脂价格下降有助PCB成本",
-          "dataSource": "华东液体环氧树脂15000元/吨 2026-09-23",
+          "dataSource": "百川盈孚环氧树脂15752元/吨 2026-09-22",
           "dataUrl": "https://www.mysteel.com/oilchem/a/26052911/05D8F380447036E4.html",
           "historical": [
             {
@@ -953,7 +953,7 @@
             },
             {
               "month": "2026-09",
-              "price": 15000
+              "price": 15752
             }
           ]
         },
@@ -1089,12 +1089,12 @@
         {
           "name": "FR4覆铜板",
           "unit": "元/平方米",
-          "currentPrice": 310,
+          "currentPrice": 240,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "基站天线PCB底层基材，FR4是最基础的覆铜板材料，占天线PCB成本约30%",
-          "dataSource": "建滔FR4稳定310元/㎡ 2026-09-23",
+          "dataSource": "覆铜板涨价潮，FR4约230-240元/张 2026-09",
           "dataUrl": "https://www.ccla.com.cn/",
           "historical": [
             {
@@ -1155,19 +1155,19 @@
             },
             {
               "month": "2026-09",
-              "price": 310
+              "price": 240
             }
           ]
         },
         {
           "name": "LCP薄膜",
           "unit": "元/平方米",
-          "currentPrice": 180000,
+          "currentPrice": 180,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "5G毫米波天线LDS工艺基材，LCP薄膜是最高端天线基材，目前被日美厂商垄断",
-          "dataSource": "LCP膜级树脂约18万/吨 2026-09-23",
+          "dataSource": "LCP薄膜约180美元/公斤 2026",
           "dataUrl": "https://www.sigmaintell.com/",
           "historical": [
             {
@@ -1212,19 +1212,19 @@
             },
             {
               "month": "2026-09",
-              "price": 180000
+              "price": 180
             }
           ]
         },
         {
           "name": "碳氢树脂覆铜板",
           "unit": "元/平方米",
-          "currentPrice": 450,
+          "currentPrice": 260,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "5G基站天线AAU射频PCB主材，国产替代加速但高端仍依赖进口",
-          "dataSource": "高频覆铜板碳氢450元/㎡ 2026-09-23",
+          "dataSource": "高频覆铜板约260元/平方米 2026",
           "dataUrl": "https://www.mysteel.com/",
           "historical": [
             {
@@ -1269,19 +1269,19 @@
             },
             {
               "month": "2026-09",
-              "price": 450
+              "price": 260
             }
           ]
         },
         {
           "name": "PTFE高频覆铜板",
           "unit": "元/平方米",
-          "currentPrice": 520,
+          "currentPrice": 280,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "毫米波天线核心材料，生益科技为主供应商，国产化率持续提升",
-          "dataSource": "PTFE高频覆铜板约520元/㎡ 2026-09-23",
+          "dataSource": "PTFE高频覆铜板250-280元/米 2026",
           "dataUrl": "https://www.mysteel.com/",
           "historical": [
             {
@@ -1326,19 +1326,19 @@
             },
             {
               "month": "2026-09",
-              "price": 520
+              "price": 280
             }
           ]
         },
         {
           "name": "电子布7628",
           "unit": "元/米",
-          "currentPrice": 13,
-          "change": "+0.0%",
-          "trend": "持平",
-          "date": "2026-09-23",
+          "currentPrice": 11.5,
+          "change": "-2.5%",
+          "trend": "下跌",
+          "date": "2026-09-24",
           "impact": "覆铜板增强基材，AI服务器需求拉动价格持续上涨",
-          "dataSource": "卓创资讯主流均价13.25元/米，取中位13元/米 2026-09-23",
+          "dataSource": "电子布7628约11-12元/米 2026-09",
           "dataUrl": "",
           "historical": [
             {
@@ -1399,7 +1399,7 @@
             },
             {
               "month": "2026-09",
-              "price": 13
+              "price": 11.5
             }
           ]
         }
@@ -1413,12 +1413,12 @@
         {
           "name": "导电银浆",
           "unit": "元/公斤",
-          "currentPrice": 4800,
+          "currentPrice": 4500,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "天线振子金属化镀膜（LDS工艺）主材料，银价上涨直接推高LDS振子成本",
-          "dataSource": "导电银浆工业级3000-5000元/kg，取中位4800 2026-09-23",
+          "dataSource": "导电银浆工业级约4500元/kg 2026",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -1463,19 +1463,19 @@
             },
             {
               "month": "2026-09",
-              "price": 4800
+              "price": 4500
             }
           ]
         },
         {
           "name": "PVDF氟膜",
           "unit": "元/吨",
-          "currentPrice": 52000,
-          "change": "-0.4%",
+          "currentPrice": 63000,
+          "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "天线外罩表面防护膜材，PVDF膜耐候性极佳，是5G天线外罩主流表面处理材料",
-          "dataSource": "PVDF涂料级5.0-5.5万/吨，取中位52000 2026-09-23",
+          "dataSource": "PVDF膜级63000-75000元/吨 2026",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1528,19 +1528,19 @@
             },
             {
               "month": "2026-09",
-              "price": 52000
+              "price": 63000
             }
           ]
         },
         {
           "name": "导热硅脂",
           "unit": "元/公斤",
-          "currentPrice": 680,
+          "currentPrice": 35,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "AAU功放模块与散热器界面导热材料，5G基站散热需求增加带动用量",
-          "dataSource": "导热硅脂680元/kg 2026-09-23",
+          "dataSource": "导热硅脂工业级约35元/kg 2026",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1585,19 +1585,19 @@
             },
             {
               "month": "2026-09",
-              "price": 680
+              "price": 35
             }
           ]
         },
         {
           "name": "硅烷偶联剂",
           "unit": "元/吨",
-          "currentPrice": 35000,
-          "change": "+0.0%",
-          "trend": "持平",
-          "date": "2026-09-23",
+          "currentPrice": 18000,
+          "change": "+20.0%",
+          "trend": "上涨",
+          "date": "2026-09-24",
           "impact": "玻璃纤维表面处理剂，提升玻璃布与树脂界面结合力，直接影响覆铜板剥离强度",
-          "dataSource": "硅烷偶联剂约3.5万/吨 2026-09-23",
+          "dataSource": "硅烷偶联剂18000元/吨 2026-05（价格持续攀升）",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1642,19 +1642,19 @@
             },
             {
               "month": "2026-09",
-              "price": 35000
+              "price": 18000
             }
           ]
         },
         {
           "name": "三防漆",
           "unit": "元/公斤",
-          "currentPrice": 85,
+          "currentPrice": 4800,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "基站天线PCB防护涂层，防止湿热盐雾环境下PCB分层失效",
-          "dataSource": "三防漆折算约85元/kg 2026-09-23",
+          "dataSource": "三防漆工业级约4800元/吨 2026",
           "dataUrl": "https://www.sigmaintell.com/",
           "historical": [
             {
@@ -1699,19 +1699,19 @@
             },
             {
               "month": "2026-09",
-              "price": 85
+              "price": 4800
             }
           ]
         },
         {
           "name": "电子级环氧树脂",
           "unit": "元/吨",
-          "currentPrice": 15000,
+          "currentPrice": 17800,
           "change": "+0.0%",
           "trend": "持平",
-          "date": "2026-09-23",
+          "date": "2026-09-24",
           "impact": "覆铜板及PCB板粘接核心材料，5G高频材料升级带动对低介电环氧树脂需求",
-          "dataSource": "电子级环氧树脂15000元/吨 2026-09-23",
+          "dataSource": "电子级环氧树脂17800元/吨 2026",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1756,7 +1756,7 @@
             },
             {
               "month": "2026-09",
-              "price": 15000
+              "price": 17800
             }
           ]
         }
