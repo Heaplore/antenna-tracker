@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T19:42:19+08:00",
+  "generatedAt": "2026-09-27T20:17:53+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 40 条新闻入库（2026-09-19 ~ 2026-09-26）。",
+          "summary": "过去 7 天共 40 条新闻入库（2026-09-20 ~ 2026-09-27）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
