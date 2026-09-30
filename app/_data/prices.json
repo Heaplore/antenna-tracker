@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-09-28 14:20",
+  "lastUpdate": "2026-09-30 09:00",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,12 +15,12 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 111360,
-          "change": "+1.7%",
+          "currentPrice": 78730,
+          "change": "+1.2%",
           "trend": "上涨",
-          "date": "2026-09-28",
+          "date": "2026-09-30",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
-          "dataSource": "上海有色网SMM 111360元/吨 2026-09-28",
+          "dataSource": "上期所SHFE铜78730元/吨 2026-09-30",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -65,19 +65,19 @@
             },
             {
               "month": "2026-09",
-              "price": 111360
+              "price": 78730
             }
           ]
         },
         {
           "name": "铝锭",
           "unit": "元/吨",
-          "currentPrice": 24220,
-          "change": "-0.7%",
+          "currentPrice": 19800,
+          "change": "-0.8%",
           "trend": "下跌",
-          "date": "2026-09-28",
+          "date": "2026-09-30",
           "impact": "天线支架、外壳、紧固件材料，铝价上涨压缩结构件利润",
-          "dataSource": "上海华通A00铝锭24220元/吨 2026-09-28",
+          "dataSource": "上期所SHFE铝19800元/吨 2026-09-30",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -122,7 +122,7 @@
             },
             {
               "month": "2026-09",
-              "price": 24220
+              "price": 19800
             }
           ]
         },
@@ -349,12 +349,12 @@
         {
           "name": "锌",
           "unit": "元/吨",
-          "currentPrice": 26470,
-          "change": "+0.7%",
+          "currentPrice": 26437,
+          "change": "+0.3%",
           "trend": "上涨",
-          "date": "2026-09-28",
+          "date": "2026-09-30",
           "impact": "射频连接器壳体、屏蔽罩材料，影响天线结构件成本",
-          "dataSource": "上期所沪锌主力26470元/吨 2026-09-28（华通）",
+          "dataSource": "LME锌3940USD/T→26447元/吨 2026-09-30",
           "dataUrl": "",
           "historical": [
             {
@@ -415,19 +415,19 @@
             },
             {
               "month": "2026-09",
-              "price": 26470
+              "price": 26437
             }
           ]
         },
         {
           "name": "镍",
           "unit": "元/吨",
-          "currentPrice": 125750,
-          "change": "-1.5%",
+          "currentPrice": 112413,
+          "change": "-0.5%",
           "trend": "下跌",
-          "date": "2026-09-28",
+          "date": "2026-09-30",
           "impact": "不锈钢合金成分、镀层材料，影响射频连接器耐腐蚀性能",
-          "dataSource": "上海华通1#镍125750元/吨 2026-09-28",
+          "dataSource": "LME镍16753USD/T→112446元/吨 2026-09-30",
           "dataUrl": "",
           "historical": [
             {
@@ -488,19 +488,19 @@
             },
             {
               "month": "2026-09",
-              "price": 125750
+              "price": 112413
             }
           ]
         },
         {
           "name": "锡",
           "unit": "元/吨",
-          "currentPrice": 409500,
-          "change": "-1.1%",
-          "trend": "下跌",
-          "date": "2026-09-28",
+          "currentPrice": 368728,
+          "change": "+1.3%",
+          "trend": "上涨",
+          "date": "2026-09-30",
           "impact": "焊料核心材料，影响天线PCB焊接可靠性",
-          "dataSource": "上海华通1#锡409500元/吨 2026-09-28",
+          "dataSource": "LME锡54952USD/T→368733元/吨 2026-09-30",
           "dataUrl": "",
           "historical": [
             {
@@ -561,19 +561,19 @@
             },
             {
               "month": "2026-09",
-              "price": 409500
+              "price": 368728
             }
           ]
         },
         {
           "name": "铅",
           "unit": "元/吨",
-          "currentPrice": 16200,
-          "change": "-0.5%",
-          "trend": "持平",
-          "date": "2026-09-28",
+          "currentPrice": 12850,
+          "change": "+0.4%",
+          "trend": "上涨",
+          "date": "2026-09-30",
           "impact": "传统焊料成分（无铅化趋势中），影响焊接工艺成本",
-          "dataSource": "上海华通1#铅16200元/吨 2026-09-28",
+          "dataSource": "LME铅1915USD/T→12847元/吨 2026-09-30",
           "dataUrl": "",
           "historical": [
             {
@@ -634,7 +634,7 @@
             },
             {
               "month": "2026-09",
-              "price": 16200
+              "price": 12850
             }
           ]
         }
@@ -863,12 +863,12 @@
         {
           "name": "环氧树脂",
           "unit": "元/吨",
-          "currentPrice": 15650,
-          "change": "+4.3%",
-          "trend": "上涨",
-          "date": "2026-09-28",
+          "currentPrice": 14150,
+          "change": "-9.5%",
+          "trend": "下跌",
+          "date": "2026-09-30",
           "impact": "PCB板材粘接、三防漆、复合材料灌注，环氧树脂价格下降有助PCB成本",
-          "dataSource": "生意社环氧树脂15650元/吨 2026-09-24",
+          "dataSource": "SunSirs环氧树脂14150元/吨 2026-09-04",
           "dataUrl": "https://www.mysteel.com/oilchem/a/26052911/05D8F380447036E4.html",
           "historical": [
             {
@@ -913,7 +913,7 @@
             },
             {
               "month": "2026-09",
-              "price": 15650
+              "price": 14150
             }
           ]
         },
@@ -1658,12 +1658,12 @@
         {
           "name": "电子级环氧树脂",
           "unit": "元/吨",
-          "currentPrice": 15650,
-          "change": "+4.3%",
-          "trend": "上涨",
-          "date": "2026-09-28",
+          "currentPrice": 14150,
+          "change": "-9.5%",
+          "trend": "下跌",
+          "date": "2026-09-30",
           "impact": "覆铜板及PCB板粘接核心材料，5G高频材料升级带动对低介电环氧树脂需求",
-          "dataSource": "生意社电子级环氧树脂15650元/吨 2026-09-24",
+          "dataSource": "SunSirs环氧树脂14150元/吨 2026-09-04",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
@@ -1708,7 +1708,7 @@
             },
             {
               "month": "2026-09",
-              "price": 15650
+              "price": 14150
             }
           ]
         }
