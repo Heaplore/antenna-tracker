@@ -183,7 +183,7 @@
           "trend": "下跌",
           "date": "2026-09-30",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
-          "dataSource": "金投网中国投资金898元/克 2026-09-30（国际金价4143美元）",
+          "dataSource": "上海金交所AU9999约898元/克 2026-09-30（国际金价4143美元）",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
           "historical": [
             {
@@ -235,12 +235,12 @@
         {
           "name": "银",
           "unit": "元/克",
-          "currentPrice": 14.2,
-          "change": "-5.0%",
-          "trend": "下跌",
+          "currentPrice": 14.93,
+          "change": "-0.1%",
+          "trend": "持平",
           "date": "2026-09-30",
           "impact": "银浆用于天线PCB线路板导电镀层，用量较小影响有限",
-          "dataSource": "上海华通白银结算价约14200元/千克=14.2元/克 2026-09-30",
+          "dataSource": "上海白银14930元/千克=14.93元/克 2026-09-30（期货主力跌1.63%）",
           "dataUrl": "https://www.163.com/dy/article/KTRL83HL055655OW.html",
           "historical": [
             {
@@ -285,7 +285,7 @@
             },
             {
               "month": "2026-09",
-              "price": 14.2
+              "price": 14.93
             }
           ]
         },
