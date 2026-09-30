@@ -2406,10 +2406,10 @@
           "isKey": false,
           "stockPrices": [
             14.84,
-            9.32
+            9.15
           ],
-          "stockCurrent": 9.32,
-          "stock52Low": 9.32,
+          "stockCurrent": 9.15,
+          "stock52Low": 9.15,
           "stock52High": 14.84,
           "rank": 4
         },
@@ -2435,11 +2435,11 @@
           "isKey": false,
           "stockPrices": [
             6.64,
-            10.36
+            10.14
           ],
-          "stockCurrent": 10.36,
+          "stockCurrent": 10.14,
           "stock52Low": 6.64,
-          "stock52High": 10.36,
+          "stock52High": 10.14,
           "rank": 3
         },
         {
@@ -6244,11 +6244,11 @@
           "isKey": true,
           "stockPrices": [
             53.16,
-            84.34
+            84.3
           ],
-          "stockCurrent": 84.34,
+          "stockCurrent": 84.3,
           "stock52Low": 53.16,
-          "stock52High": 84.34
+          "stock52High": 84.3
         },
         {
           "id": "con003",
