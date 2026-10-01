@@ -1,97 +1,20 @@
 {
-  "generatedAt": "2026-10-01T07:46:47+08:00",
+  "generatedAt": "2026-10-01T21:43:31+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
     "cost": {
       "cards": [
         {
-          "type": "成本上行信号",
-          "severity": "high",
-          "title": "本月涨幅 TOP 5",
-          "summary": "三防漆 +229.4%；PBT工程塑料 +22.0%；PTFE树脂 +10.1%；环氧树脂 +7.9%；电子级环氧树脂 +7.9%",
-          "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
-          "type": "成本下行信号",
-          "severity": "high",
-          "title": "本月跌幅 TOP 5",
-          "summary": "LCP树脂 -70.0%；硅烷偶联剂 -48.6%；PA66工程塑料 -33.3%；电子布7628 -31.1%；银 -6.2%",
-          "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
           "type": "BOM 全景",
           "severity": "low",
           "title": "成本方向分布",
-          "summary": "27种主要原材料中，10种上涨、10种下跌、7种持平。",
+          "summary": "27种主要原材料中，0种上涨、0种下跌、27种持平。",
           "recommendation": "整体 BOM 成本方向：横盘。",
           "data_sources": [
             "prices.json"
           ],
           "priorityScore": 2
-        },
-        {
-          "type": "关键波动",
-          "severity": "high",
-          "title": "大幅波动信号 (≥10%)",
-          "summary": "LCP树脂 -70.0%；PTFE树脂 +10.1%；PA66工程塑料 -33.3%；PBT工程塑料 +22.0%；电子布7628 -31.1%；硅烷偶联剂 -48.6%；三防漆 +229.4%",
-          "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 9
-        },
-        {
-          "type": "分类聚合",
-          "severity": "low",
-          "title": "金属原材料分类（10种）平均变化",
-          "summary": "本分类材料均价 -0.5%",
-          "recommendation": "金属原材料板块整体呈现下行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 2
-        },
-        {
-          "type": "分类聚合",
-          "severity": "medium",
-          "title": "工程塑料分类（6种）平均变化",
-          "summary": "本分类材料均价 -11.1%",
-          "recommendation": "工程塑料板块整体呈现下行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 5
-        },
-        {
-          "type": "分类聚合",
-          "severity": "medium",
-          "title": "PCB/覆铜板分类（5种）平均变化",
-          "summary": "本分类材料均价 -6.2%",
-          "recommendation": "PCB/覆铜板板块整体呈现下行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 5
-        },
-        {
-          "type": "分类聚合",
-          "severity": "medium",
-          "title": "化工类原材料分类（6种）平均变化",
-          "summary": "本分类材料均价 +31.5%",
-          "recommendation": "化工类原材料板块整体呈现上行趋势。",
-          "data_sources": [
-            "prices.json"
-          ],
-          "priorityScore": 5
         }
       ],
       "source": "derived-from-prices"
@@ -359,5 +282,5 @@
       "source": "derived-from-market"
     }
   },
-  "crossDimensionSummary": "⚠️ 重点信号：成本：本月涨幅 TOP 5；成本：本月跌幅 TOP 5；成本：大幅波动信号 (≥10%)；成本：工程塑料分类（6种）平均变化；成本：PCB/覆铜板分类（5种）平均变化。"
+  "crossDimensionSummary": "⚠️ 重点信号：交付：本周行业动态；技术：行业技术概览；技术：技术详情覆盖 14 项；市场：行业核心驱动；成本：成本方向分布。"
 }
