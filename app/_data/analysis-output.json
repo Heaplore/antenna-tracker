@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T19:54:42+08:00",
+  "generatedAt": "2026-10-16T19:45:11+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 22 条新闻入库（2026-10-08 ~ 2026-10-15）。",
+          "summary": "过去 7 天共 26 条新闻入库（2026-10-09 ~ 2026-10-16）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×461；射频/微波×82；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×465；射频/微波×83；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动智算存储集采：规模为640套，最高限价23.35亿元 | 2026年5G工厂名录遴选工作启动 | 中国移动分布式存储集采：规模为641套，最高限价近11亿元",
+          "summary": "中国电信副总经理李云庄：AI重塑运营商转型新范式 | 爱立信与Verizon宣布完成全球首次室外6G外场通话 | 提升一站式测试能力，大唐联仪推出Wi-Fi 8射频测试方案",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×192；C114通信网×186；与非网RF社区×42；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×193；C114通信网×188；与非网RF社区×43；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
