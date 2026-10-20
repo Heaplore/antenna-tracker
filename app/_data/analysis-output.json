@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T21:49:19+08:00",
+  "generatedAt": "2026-10-20T19:57:32+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 25 条新闻入库（2026-10-12 ~ 2026-10-19）。",
+          "summary": "过去 7 天共 23 条新闻入库（2026-10-13 ~ 2026-10-20）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×470；射频/微波×83；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×473；射频/微波×84；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "全球首次室外6G通话完成! | 5G网络覆盖率超80%！渤海海域通信感知网正式开通运行 | 一部手机里的温暖守护—中国移动助老服务让幸福“在线”",
+          "summary": "【10.20】社区精彩推荐+每日知识点打卡 | 对标Starlink：欧洲四大电信运营商探索联合竞标卫星频谱 | AI驱动5G流量价值运营，中信科移动助力打造智慧经营新模式",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×198；C114通信网×188；与非网RF社区×43；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×198；C114通信网×190；与非网RF社区×44；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
