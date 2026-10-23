@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T20:14:27+08:00",
+  "generatedAt": "2026-10-23T19:55:29+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -102,7 +102,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 20 条新闻入库（2026-10-15 ~ 2026-10-22）。",
+          "summary": "过去 7 天共 28 条新闻入库（2026-10-16 ~ 2026-10-23）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×480；射频/微波×85；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×489；射频/微波×86；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动三季度财报观察：迎来盘整与接棒的中场时刻 | 中国移动Q3实现营收2423亿：扣非净利润287亿 | 信息通信业“三季报”：智算规模增长146%，工业5G专网超2.6万",
+          "summary": "西藏巴青县震区中国移动网络全部抢通 | 以“人工智能+”激活招标采购新动能——中国移动打造招标采购全流程智能化实践样板 | 华为董事会更新，何刚新晋公司董事",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -135,7 +135,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×202；C114通信网×192；与非网RF社区×45；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×209；C114通信网×193；与非网RF社区×46；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
