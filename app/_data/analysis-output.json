@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T21:41:53+08:00",
+  "generatedAt": "2026-11-03T00:27:49+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 35 条新闻入库（2026-10-25 ~ 2026-11-01）。",
+          "summary": "过去 7 天共 36 条新闻入库（2026-10-27 ~ 2026-11-03）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×526；射频/微波×92；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×534；射频/微波×93；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "华为制药军团总裁樊杰明确“华为不做药” | 中国电信应该为“心系天下”手机加持更多能力 | 承压蓄力，向新而行 | 中国联通算力业务跑出结构性增长曲线",
+          "summary": "中国移动通信集团有限公司董事、党组副书记，副总经理、党组成员任职 | 中国电信、长飞、中兴完成全球首个千公里空芯光纤实时传输验证 | DeepSeek融资1055亿,中国移动、中国电信出资",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×229；C114通信网×204；与非网RF社区×52；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×236；C114通信网×204；与非网RF社区×53；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
