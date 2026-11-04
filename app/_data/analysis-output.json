@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T22:32:01+08:00",
+  "generatedAt": "2026-11-04T22:47:16+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -25,7 +25,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 42 条新闻入库（2026-10-27 ~ 2026-11-03）。",
+          "summary": "过去 7 天共 42 条新闻入库（2026-10-28 ~ 2026-11-04）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -36,7 +36,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×540；射频/微波×93；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×546；射频/微波×94；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -47,7 +47,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国联通亮相2026世界互联网大会乌镇峰会 织就数智服务新图景 | 中国移动网络安全弹性防御关键技术获世界互联网大会领先科技奖 | 歌声赴约 智联护航 中国联通大连市分公司圆满完成刘若英“飞行日”演唱会5G-A高",
+          "summary": "中兴通讯回应不实消息 | 量子通信产业化走到哪一步？一文看懂全球格局与中国电信实践 | 专访华为赵东：锚定新一代通信网，破解运营商增长困局",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -58,7 +58,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×238；C114通信网×208；与非网RF社区×53；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×242；C114通信网×209；与非网RF社区×54；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
