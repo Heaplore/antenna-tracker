@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-11-05 12:44",
+  "lastUpdate": "2026-11-05",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -325,7 +325,7 @@
             },
             {
               "month": "2026-11",
-              "price": 12.44
+              "price": 12.435
             }
           ]
         },
@@ -1735,13 +1735,13 @@
         },
         {
           "name": "硅烷偶联剂",
-          "unit": "元/吨",
+          "unit": "元/公斤",
           "currentPrice": 15,
           "change": "+0.0%",
           "trend": "持平",
           "date": "2026-11-05",
           "impact": "玻璃纤维表面处理剂，提升玻璃布与树脂界面结合力，直接影响覆铜板剥离强度",
-          "dataSource": "百川盈孚 硅烷偶联剂 15元/千克 2026-11 ⚠️原数据单位错误已修正",
+          "dataSource": "百川盈孚 硅烷偶联剂 15元/千克 2026-11 ⚠️原单位错误已修正",
           "dataUrl": "https://www.sci99.com/",
           "historical": [
             {
