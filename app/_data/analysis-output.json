@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T22:51:51+08:00",
+  "generatedAt": "2026-11-06T22:30:11+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -9,7 +9,7 @@
           "type": "成本上行信号",
           "severity": "high",
           "title": "本月涨幅 TOP 5",
-          "summary": "电子布7628 +69.8%；环氧树脂 +3.7%；锌 +0.8%；电解铜 +0.6%；金 +0.5%",
+          "summary": "电子布7628 +69.8%；环氧树脂 +3.7%；金 +2.4%；锌 +1.6%；电解铜 +1.0%",
           "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
           "data_sources": [
             "prices.json"
@@ -20,7 +20,7 @@
           "type": "成本下行信号",
           "severity": "high",
           "title": "本月跌幅 TOP 5",
-          "summary": "硅烷偶联剂 -16.7%；导电银浆 -10.2%；银 -10.1%；锡 -6.2%；螺纹钢 -4.2%",
+          "summary": "硅烷偶联剂 -16.7%；导电银浆 -8.5%；银 -8.5%；锡 -5.7%；镍 -5.5%",
           "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
           "data_sources": [
             "prices.json"
@@ -42,7 +42,7 @@
           "type": "关键波动",
           "severity": "high",
           "title": "大幅波动信号 (≥10%)",
-          "summary": "银 -10.1%；电子布7628 +69.8%；导电银浆 -10.2%；硅烷偶联剂 -16.7%",
+          "summary": "电子布7628 +69.8%；硅烷偶联剂 -16.7%",
           "recommendation": "需重点关注此类材料的采购策略、供应商沟通与下游报价节奏。",
           "data_sources": [
             "prices.json"
@@ -53,7 +53,7 @@
           "type": "分类聚合",
           "severity": "low",
           "title": "金属原材料分类（10种）平均变化",
-          "summary": "本分类材料均价 -2.9%",
+          "summary": "本分类材料均价 -2.0%",
           "recommendation": "金属原材料板块整体呈现下行趋势。",
           "data_sources": [
             "prices.json"
@@ -75,7 +75,7 @@
           "type": "分类聚合",
           "severity": "low",
           "title": "化工类原材料分类（6种）平均变化",
-          "summary": "本分类材料均价 -4.5%",
+          "summary": "本分类材料均价 -4.2%",
           "recommendation": "化工类原材料板块整体呈现下行趋势。",
           "data_sources": [
             "prices.json"
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 41 条新闻入库（2026-10-29 ~ 2026-11-05）。",
+          "summary": "过去 7 天共 47 条新闻入库（2026-10-30 ~ 2026-11-06）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -102,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×552；射频/微波×95；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×565；射频/微波×96；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "华为鸿蒙终端用户数预计11月下旬突破1亿大关 | 高通与SpaceX达成5G合作 计划部署数万个基站 | 官宣！2026中国5G+工业互联网大会将于11月18日至20日在武汉举办",
+          "summary": "2026移动网络大会高通荣获“优秀贡献奖”：产业共探AI与6G发展新机遇 | 中国移动焕新全栈行业能力服务体系 | 中国移动正式发布6G智能应用共创行动",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×245；C114通信网×211；与非网RF社区×55；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×251；C114通信网×217；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
