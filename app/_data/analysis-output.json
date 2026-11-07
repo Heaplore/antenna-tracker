@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T22:30:11+08:00",
+  "generatedAt": "2026-11-07T21:24:57+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 47 条新闻入库（2026-10-30 ~ 2026-11-06）。",
+          "summary": "过去 7 天共 42 条新闻入库（2026-10-31 ~ 2026-11-07）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -102,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×565；射频/微波×96；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×568；射频/微波×96；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "2026移动网络大会高通荣获“优秀贡献奖”：产业共探AI与6G发展新机遇 | 中国移动焕新全栈行业能力服务体系 | 中国移动正式发布6G智能应用共创行动",
+          "summary": "中国移动发布中资出海“通算智”一体化服务升级 | 中国移动发布算网数智全栈创新成果 | 华为云码道接入盘古旗舰模型，MaaS开始卖生产力了",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×251；C114通信网×217；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×254；C114通信网×217；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
