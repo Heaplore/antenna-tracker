@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-11-07",
+  "lastUpdate": "2026-11-08 07:48",
   "sources": {
     "metals": "长江有色金属网 ccmn.cn / 上海有色网 SMM",
     "precious": "金投网 gold.cngold.org",
@@ -15,12 +15,12 @@
         {
           "name": "电解铜",
           "unit": "元/吨",
-          "currentPrice": 109840,
-          "change": "+0.4%",
-          "trend": "上涨",
-          "date": "2026-11-06",
+          "currentPrice": 109560,
+          "change": "-0.3%",
+          "trend": "持平",
+          "date": "2026-11-08",
           "impact": "天线导体主要成本，铜价每上涨10%约影响天线毛利率2-3个百分点",
-          "dataSource": "上海有色网 1#铜 109840元/吨 2026-11-02",
+          "dataSource": "百川盈孚 电解铜 109560元/吨 2026-11-06",
           "dataUrl": "https://www.cnmn.com.cn/",
           "historical": [
             {
@@ -73,7 +73,7 @@
             },
             {
               "month": "2026-11",
-              "price": 109840
+              "price": 109560
             }
           ]
         },
@@ -202,12 +202,12 @@
         {
           "name": "金",
           "unit": "元/克",
-          "currentPrice": 883.99,
-          "change": "+1.9%",
-          "trend": "上涨",
-          "date": "2026-11-06",
+          "currentPrice": 874.0,
+          "change": "-1.1%",
+          "trend": "下跌",
+          "date": "2026-11-08",
           "impact": "高频连接器镀金层材料，金价上涨增加连接器原材料成本",
-          "dataSource": "上海黄金交易所 Au99.99 883.99元/克 2026-11-06",
+          "dataSource": "上海黄金交易所 Au99.99 874.0元/克 2026-11-07",
           "dataUrl": "https://gold.cngold.org/hjbj/c10523071.html",
           "historical": [
             {
@@ -260,7 +260,7 @@
             },
             {
               "month": "2026-11",
-              "price": 883.99
+              "price": 874.0
             }
           ]
         },
@@ -478,12 +478,12 @@
         {
           "name": "镍",
           "unit": "元/吨",
-          "currentPrice": 119100,
-          "change": "-2.3%",
-          "trend": "下跌",
-          "date": "2026-11-06",
+          "currentPrice": 124300,
+          "change": "+4.4%",
+          "trend": "上涨",
+          "date": "2026-11-08",
           "impact": "不锈钢合金成分、镀层材料，影响射频连接器耐腐蚀性能",
-          "dataSource": "长江有色 1#镍 119100元/吨 2026-11-02",
+          "dataSource": "长江有色 1#镍 124300元/吨 2026-11-06",
           "dataUrl": "",
           "historical": [
             {
@@ -552,7 +552,7 @@
             },
             {
               "month": "2026-11",
-              "price": 119100
+              "price": 124300
             }
           ]
         },
