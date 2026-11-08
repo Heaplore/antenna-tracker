@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T21:24:57+08:00",
+  "generatedAt": "2026-11-08T21:45:16+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -9,7 +9,7 @@
           "type": "成本上行信号",
           "severity": "high",
           "title": "本月涨幅 TOP 5",
-          "summary": "电子布7628 +69.8%；环氧树脂 +3.7%；金 +2.4%；锌 +1.6%；电解铜 +1.0%",
+          "summary": "电子布7628 +69.8%；环氧树脂 +3.7%；锌 +1.6%；金 +1.3%；电解铜 +0.7%",
           "recommendation": "关注涨价对本月 BOM 成本的边际影响，识别传导效应最显著的子项。",
           "data_sources": [
             "prices.json"
@@ -20,7 +20,7 @@
           "type": "成本下行信号",
           "severity": "high",
           "title": "本月跌幅 TOP 5",
-          "summary": "硅烷偶联剂 -16.7%；导电银浆 -8.5%；银 -8.5%；锡 -5.7%；镍 -5.5%",
+          "summary": "硅烷偶联剂 -16.7%；导电银浆 -8.5%；银 -8.5%；锡 -5.7%；螺纹钢 -3.0%",
           "recommendation": "下跌材料可考虑提前锁价或小幅备库，捕捉短期成本红利。",
           "data_sources": [
             "prices.json"
@@ -53,7 +53,7 @@
           "type": "分类聚合",
           "severity": "low",
           "title": "金属原材料分类（10种）平均变化",
-          "summary": "本分类材料均价 -2.0%",
+          "summary": "本分类材料均价 -1.7%",
           "recommendation": "金属原材料板块整体呈现下行趋势。",
           "data_sources": [
             "prices.json"
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 42 条新闻入库（2026-10-31 ~ 2026-11-07）。",
+          "summary": "过去 7 天共 44 条新闻入库（2026-11-01 ~ 2026-11-08）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -102,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×568；射频/微波×96；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×570；射频/微波×96；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动发布中资出海“通算智”一体化服务升级 | 中国移动发布算网数智全栈创新成果 | 华为云码道接入盘古旗舰模型，MaaS开始卖生产力了",
+          "summary": "高通孟樸：6G标准趋向统一，验证节奏前移 | 将AI转化为实际产能：中国移动累计服务政企客户超3400万家 | 中国移动发布中资出海“通算智”一体化服务升级",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×254；C114通信网×217；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×255；C114通信网×218；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
