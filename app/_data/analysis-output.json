@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T22:38:44+08:00",
+  "generatedAt": "2026-11-12T23:30:37+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 42 条新闻入库（2026-11-04 ~ 2026-11-11）。",
+          "summary": "过去 7 天共 42 条新闻入库（2026-11-05 ~ 2026-11-12）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -102,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×582；射频/微波×96；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×588；射频/微波×96；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动夯实网络底座，拓展智能共创发展空间 | 中国移动完成业界首个基于230GBaud的单波1.6Tb/s长距传输试验 | 中国移动发布量子通信品牌“移动天玑”",
+          "summary": "徐世光任中国电信青海分公司党委书记、总经理 | 中国联通427.6万台智能家庭网关集采公示：五家企业入围 | 广电前三季度数据披露：5G用户超过4400万户",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×262；C114通信网×223；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×267；C114通信网×224；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
