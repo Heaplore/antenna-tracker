@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T22:51:31+08:00",
+  "generatedAt": "2026-11-14T13:36:49+08:00",
   "configVersion": "insights-v1.0",
   "mode": "derived-only",
   "dimensions": {
@@ -91,7 +91,7 @@
           "type": "新闻热度",
           "severity": "medium",
           "title": "本周行业动态",
-          "summary": "过去 7 天共 37 条新闻入库（2026-11-06 ~ 2026-11-13）。",
+          "summary": "过去 7 天共 27 条新闻入库（2026-11-07 ~ 2026-11-14）。",
           "recommendation": "持续跟踪交付相关动态，关注供应链、客户、订单类信号。",
           "data_sources": [
             "news.json"
@@ -102,7 +102,7 @@
           "type": "话题雷达",
           "severity": "low",
           "title": "行业话题热度 TOP 5",
-          "summary": "行业动态×589；射频/微波×96；5G/6G×4；电子/硬件×1",
+          "summary": "行业动态×592；射频/微波×96；5G/6G×4；电子/硬件×1",
           "recommendation": "行业关注焦点，反映产业链上下游热点议题。",
           "data_sources": [
             "news.json"
@@ -113,7 +113,7 @@
           "type": "快讯",
           "severity": "low",
           "title": "最新 3 条动态",
-          "summary": "中国移动联合业界成立面向6G的智能承载协议多源工作组并发布研究报告 | 徐世光任中国电信青海分公司党委书记、总经理 | 中国联通427.6万台智能家庭网关集采公示：五家企业入围",
+          "summary": "中国联通携手华为打造行业首个双万兆智慧火电专网 | 中国联通手机直连卫星试验星项目，公示中标候选人 | 中国移动网络综合机柜产品集采，太平通讯等四家中标",
           "recommendation": "优先查阅最新头条，跟踪行业短期节奏。",
           "data_sources": [
             "news.json"
@@ -124,7 +124,7 @@
           "type": "信源管理",
           "severity": "low",
           "title": "信息来源分布",
-          "summary": "通信世界网×268；C114通信网×224；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
+          "summary": "通信世界网×268；C114通信网×227；与非网RF社区×56；微波射频网×20；RFASK射频问问×20",
           "recommendation": "覆盖度评估：监控站点均衡度反映信息源信任度。",
           "data_sources": [
             "news.json"
